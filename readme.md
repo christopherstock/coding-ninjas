@@ -1,1 +1,1 @@
-![Coding Ninjas](https://github.com/christopherstock/coding-ninjas/promo_1500x1000.jpg)
+![Coding Ninjas](https://github.com/christopherstock/coding-ninjas/raw/master/promo_1500x1000.jpg)
