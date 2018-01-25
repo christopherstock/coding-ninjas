@@ -1,0 +1,11 @@
+{
+    "name": "coding-ninjas",
+    "version": "0.0.1",
+    "description": "web design evolved",
+    "author": "Christopher Stock <email@christopherstock.de>",
+    "license": "MIT",
+    "main": "dist/index.html",
+    "homepage": "http://ninjas.christopherstock.de",
+    "repository": "https://github.com/christopherstock/coding-ninjas.git",
+    "bugs": "https://github.com/christopherstock/coding-ninjas/issues"
+}
