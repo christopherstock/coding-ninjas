@@ -9,14 +9,28 @@
     "repository": "https://github.com/christopherstock/coding-ninjas.git",
     "bugs": "https://github.com/christopherstock/coding-ninjas/issues",
     "devDependencies": {
+        "@types/cucumber": "^3.2.1",
+        "@types/jest": "^22.1.0",
         "@types/matter-js": "^0.9.33",
+        "@types/moment": "^2.13.0",
+        "@types/react": "^16.0.35",
+        "@types/react-dom": "^16.0.3",
         "@types/webpack": "^3.8.3",
         "awesome-typescript-loader": "^3.4.1",
+        "css-loader": "^0.28.9",
+        "cucumber": "^4.0.0",
+        "jest": "^22.1.4",
+        "source-map-loader": "^0.2.3",
+        "style-loader": "^0.19.1",
         "typedoc": "^0.9.0",
         "typescript": "^2.6.2",
         "webpack": "^3.10.0"
     },
     "dependencies": {
-        "matter-js": "^0.14.1"
+        "antd": "^3.1.4",
+        "matter-js": "^0.14.1",
+        "moment": "^2.20.1",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0"
     }
 }
