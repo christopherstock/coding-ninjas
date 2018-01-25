@@ -1,0 +1,68 @@
+
+    html
+    {
+        height:                         100%;
+    }
+
+    body.welcome
+    {
+        background:                     #f5f5f5;
+
+        margin:                         0;
+        overflow:                       auto;
+        text-align:                     center;
+
+        font-family:                    arial, sans-serif;
+        font-size:                      24px;
+        font-style:                     normal;
+        font-weight:                    500;
+        text-decoration:                none;
+    }
+
+    div.container-table
+    {
+        display:                        table;
+        width:                          100%;
+        height:                         auto;
+        margin:                         100px 0 100px 0;
+    }
+
+    div.container-cell
+    {
+        display:                        table-cell;
+        width:                          100%;
+        height:                         auto;
+
+        -webkit-perspective:            800px;
+        perspective:                    800px;
+        -webkit-perspective-origin:     top center;
+        perspective-origin:             top center;
+        vertical-align:                 middle;
+    }
+
+    div.container-main
+    {
+        display:                        inline-block;
+        overflow:                       hidden;
+        padding:                        0;
+        margin:                         0;
+        vertical-align:                 top;
+
+        -webkit-transform-style:        preserve-3d;
+        transform-style:                preserve-3d;
+        will-change:                    transform;
+
+        border:                         0;
+        outline:                        1px solid transparent;
+    }
+
+    div.promo
+    {
+        width:                          1182px;
+        height:                         665px;
+        float:                          none;
+        overflow:                       hidden;
+        vertical-align:                 top;
+        margin:                         0;
+        background-image:               url( ../../res/image/promo.jpg );
+    }
