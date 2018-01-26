@@ -20,7 +20,13 @@
         protected createGameObjects()
         {
             // init player
-            this.player = new ninjas.Player( 750, 880, ninjas.CharacterLookingDirection.LEFT );
+            this.player = new ninjas.Player
+            (
+                750,
+                880.0,
+                ninjas.CharacterLookingDirection.RIGHT,
+                ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 )
+            );
 
             // setup all game objects
             this.gameObjects =

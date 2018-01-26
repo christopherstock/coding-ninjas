@@ -11144,14 +11144,10 @@ var Setting = /** @class */ (function () {
     Setting.MUTE = true;
     /** The delta between render ticks in ms. */
     Setting.RENDER_DELTA = 16.66;
-    /** The desired canvas3D width. */
+    /** The desired canvas2D width. */
     Setting.CANVAS_WIDTH = 800;
-    /** The desired canvas3D height. */
-    Setting.CANVAS_HEIGHT = 600;
-    /** The player's width. */
-    Setting.PLAYER_WIDTH = 80.0;
-    /** The player's y dimension (height). */
-    Setting.PLAYER_HEIGHT = 120.0;
+    /** The desired canvas2D height. */
+    Setting.CANVAS_HEIGHT = 400;
     /** The player's speed in world coordinate per tick. */
     Setting.PLAYER_SPEED_MOVE = 7.5;
     /** The default vertical gravity for all levels. */
@@ -12359,11 +12355,10 @@ var Player = /** @class */ (function (_super) {
     *   @param x                Startup position X.
     *   @param y                Startup position Y.
     *   @param lookingDirection The initial looking direction.
+    *   @param image            The initial image for the player.
     ***************************************************************************************************************/
-    function Player(x, y, lookingDirection) {
-        return _super.call(this, new ninjas.ShapeRectangle(ninjas.Setting.PLAYER_WIDTH, ninjas.Setting.PLAYER_HEIGHT, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_PLAYER_STAND), 
-        // ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
-        lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Character.JUMP_POWER_DEFAULT) || this;
+    function Player(x, y, lookingDirection, image) {
+        return _super.call(this, new ninjas.ShapeRectangle(image.width, image.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, image, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Character.JUMP_POWER_DEFAULT) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -12923,6 +12918,10 @@ var Game = /** @class */ (function () {
             showCollisions: true,
             showAngleIndicator: true,
             showVelocity: true,
+            // enable texture cache?
+            textures: ninjas.Image.FILE_NAMES,
+            width: ninjas.Setting.CANVAS_WIDTH,
+            height: ninjas.Setting.CANVAS_HEIGHT,
         };
         this.renderer = Matter.Render.create({
             element: document.body,
@@ -13131,7 +13130,7 @@ var LevelAllElements = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelAllElements.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(50, 500.0, ninjas.CharacterLookingDirection.RIGHT);
+        this.player = new ninjas.Player(50, 500.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1));
         // setup all game objects
         this.gameObjects =
             [
@@ -13241,7 +13240,7 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelEnchantedWoods.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(750, 880, ninjas.CharacterLookingDirection.LEFT);
+        this.player = new ninjas.Player(750, 880.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1));
         // setup all game objects
         this.gameObjects =
             [
@@ -13315,7 +13314,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(100, 500.0, ninjas.CharacterLookingDirection.RIGHT);
+        this.player = new ninjas.Player(100, 500.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1));
         // setup all game objects
         this.gameObjects =
             [

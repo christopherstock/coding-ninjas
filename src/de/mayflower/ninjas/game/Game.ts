@@ -1,6 +1,7 @@
 
     import * as Matter from 'matter-js';
     import * as ninjas from '../ninjas';
+    import {IRenderDefinition} from "matter-js";
 
     /*******************************************************************************************************************
     *   Specifies the game logic and all primal components of the game.
@@ -95,6 +96,13 @@
                 showCollisions:     true,
                 showAngleIndicator: true,
                 showVelocity:       true,
+
+                // enable texture cache?
+                textures:           ninjas.Image.FILE_NAMES,
+
+
+                width:      ninjas.Setting.CANVAS_WIDTH,
+                height:     ninjas.Setting.CANVAS_HEIGHT,
             };
 
             this.renderer = Matter.Render.create(
@@ -102,6 +110,13 @@
                     element: document.body,
                     engine:  this.engine,
                     options: options,
+
+
+                    // TODO solve!
+                    // bounds: Matter.Bounds.create(  )
+
+
+
                 }
             );
 

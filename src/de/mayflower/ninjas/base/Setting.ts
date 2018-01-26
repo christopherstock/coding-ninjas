@@ -21,15 +21,11 @@
         /** The delta between render ticks in ms. */
         public      static  readonly    RENDER_DELTA                                :number                     = 16.66;
 
-        /** The desired canvas3D width. */
+        /** The desired canvas2D width. */
         public      static  readonly    CANVAS_WIDTH                                :number                     = 800;
-        /** The desired canvas3D height. */
-        public      static  readonly    CANVAS_HEIGHT                               :number                     = 600;
+        /** The desired canvas2D height. */
+        public      static  readonly    CANVAS_HEIGHT                               :number                     = 400;
 
-        /** The player's width. */
-        public      static  readonly    PLAYER_WIDTH                                :number                     = 80.0;
-        /** The player's y dimension (height). */
-        public      static  readonly    PLAYER_HEIGHT                               :number                     = 120.0;
         /** The player's speed in world coordinate per tick. */
         public      static  readonly    PLAYER_SPEED_MOVE                           :number                     = 7.5;
 
