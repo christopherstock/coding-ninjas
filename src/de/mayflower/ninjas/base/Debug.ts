@@ -13,6 +13,8 @@
         public      static  bugfix          :Debug              = new Debug( ninjas.Setting.DEBUG_MODE          );
         /** Debugs the image system. */
         public      static  image           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
+        /** Debugs the sound system. */
+        public      static  sound           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
         /** Debugs the init system. */
         public      static  init            :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
         /** Debugs the key system. */

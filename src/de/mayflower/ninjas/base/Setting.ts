@@ -15,6 +15,8 @@
 
         /** The application's internal name. */
         public      static  readonly    TITLE                                       :string                     = "Coding Ninjas, (c) 2018 Mayflower GmbH" + ", " + ninjas.Version.CURRENT_VERSION.getVersionDescriptor();
+        /** Disables all sounds. */
+        public      static  readonly    MUTE                                        :boolean                    = false;
 
         /** The delta between render ticks in ms. */
         public      static  readonly    RENDER_DELTA                                :number                     = 16.66;

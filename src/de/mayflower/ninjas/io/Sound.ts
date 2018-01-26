@@ -9,10 +9,10 @@
     *****************************************************************************/
     export class Sound
     {
-        /** The soundSystem 'Pachelbels Canon in D major. */
+        /** The bg sound 'chinese' from Graeme Norgate taken from 'Time Splitters'. */
         public      static      BG                              :string                 = ninjas.Setting.PATH_SOUND + "bg.mp3";
 
-        /** This array contains all filenames of all sounds that shall be loaded. */
+        /** An array holding all filenames of all sounds to load. */
         public      static      FILE_NAMES                      :Array<string>          =
         [
             Sound.BG,

@@ -21,6 +21,9 @@
 
         /***************************************************************************************************************
         *   Preloads all images into memory.
+        *
+        *   @param fileNames      The names of all image files to load.
+        *   @param onLoadComplete The method to invoke when all image files are loaded.
         ***************************************************************************************************************/
         public constructor( fileNames:Array<string>, onLoadComplete:Function )
         {

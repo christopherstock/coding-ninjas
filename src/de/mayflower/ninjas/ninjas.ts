@@ -28,10 +28,10 @@
     export * from './game/level/LevelWebsite';
     export * from './hid/Key';
     export * from './hid/KeySystem';
-    export * from './hid/Sound';
-    export * from './hid/SoundSystem';
+    export * from './io/Sound';
+    export * from './io/SoundSystem';
     export * from './ui/Camera';
-    export * from './ui/Image';
-    export * from './ui/ImageSystem';
+    export * from './io/Image';
+    export * from './io/ImageSystem';
     export * from './util/MathUtil';
     export * from './util/String';

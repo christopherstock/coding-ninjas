@@ -21,7 +21,8 @@
         /** Image resource 'box'. */
         public      static      IMAGE_BOX                               :string         = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
 
-        public      static      FILENAMES                               :Array<string>  =
+        /** An array holding all filenames of all images to load. */
+        public      static      FILE_NAMES                              :Array<string>  =
         [
             Image.IMAGE_PLAYER_STAND,
             Image.IMAGE_PLAYER_FALL,

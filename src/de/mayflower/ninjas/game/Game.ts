@@ -40,21 +40,28 @@
         }
 
         /***************************************************************************************************************
-        *   Inits the game from scratch.
+        *   Being invoked when all images are loaded.
         ***************************************************************************************************************/
         private onImagesLoaded=() : void =>
         {
-            // this.initSoundSystem();
-/*
+            this.initSoundSystem();
+        };
 
-                    ninjas.Debug.init.log( "Playing bg sounds" );
-                    // this.test.playSound( ninjas.ninjasSound.PACHELBELS_CANON );
+        /***************************************************************************************************************
+        *   Being invoked when all sounds are loaded.
+        ***************************************************************************************************************/
+        private onSoundsLoaded=() : void =>
+        {
+            // play bg sound
+            ninjas.Debug.init.log( "Starting bg tune" );
+            this.soundSystem.playSound( ninjas.Sound.BG );
 
-                    ninjas.Debug.init.log( "Launching initial level" );
-                    this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
-                }
-            );
-*/
+            // init level
+            ninjas.Debug.init.log( "Launching initial level" );
+            this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
+
+            // start game loop
+            this.start();
         };
 
         /***************************************************************************************************************
@@ -127,7 +134,7 @@
         {
             ninjas.Debug.init.log( "Initing image system" );
 
-            this.imageSystem = new ninjas.ImageSystem( ninjas.Image.FILENAMES, this.onImagesLoaded );
+            this.imageSystem = new ninjas.ImageSystem( ninjas.Image.FILE_NAMES, this.onImagesLoaded );
             this.imageSystem.loadImages();
         }
 
@@ -138,7 +145,8 @@
         {
             ninjas.Debug.init.log( "Initing sound system" );
 
-            this.soundSystem = new ninjas.SoundSystem( ninjas.Sound.FILE_NAMES );
+            this.soundSystem = new ninjas.SoundSystem( ninjas.Sound.FILE_NAMES, this.onSoundsLoaded );
+            this.soundSystem.loadSounds();
         }
 
         /***************************************************************************************************************

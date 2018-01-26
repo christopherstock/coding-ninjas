@@ -102,11 +102,11 @@ __export(__webpack_require__(34));
 __export(__webpack_require__(35));
 __export(__webpack_require__(36));
 __export(__webpack_require__(37));
-__export(__webpack_require__(38));
-__export(__webpack_require__(39));
+__export(__webpack_require__(45));
+__export(__webpack_require__(46));
 __export(__webpack_require__(40));
-__export(__webpack_require__(41));
-__export(__webpack_require__(42));
+__export(__webpack_require__(47));
+__export(__webpack_require__(48));
 __export(__webpack_require__(43));
 __export(__webpack_require__(44));
 
@@ -11140,6 +11140,8 @@ var Setting = /** @class */ (function () {
     Setting.DEBUG_MODE = true;
     /** The application's internal name. */
     Setting.TITLE = "Coding Ninjas, (c) 2018 Mayflower GmbH" + ", " + ninjas.Version.CURRENT_VERSION.getVersionDescriptor();
+    /** Disables all sounds. */
+    Setting.MUTE = false;
     /** The delta between render ticks in ms. */
     Setting.RENDER_DELTA = 16.66;
     /** The desired canvas3D width. */
@@ -11265,6 +11267,8 @@ var Debug = /** @class */ (function () {
     Debug.bugfix = new Debug(ninjas.Setting.DEBUG_MODE);
     /** Debugs the image system. */
     Debug.image = new Debug(ninjas.Setting.DEBUG_MODE && true);
+    /** Debugs the sound system. */
+    Debug.sound = new Debug(ninjas.Setting.DEBUG_MODE && true);
     /** Debugs the init system. */
     Debug.init = new Debug(ninjas.Setting.DEBUG_MODE && true);
     /** Debugs the key system. */
@@ -11289,8 +11293,10 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO create image system.
+*   TODO revise sound system.
+*   TODO solve repeated sounds.
 *   TODO create sprite system.
+*   TODO create wow popup on entering a room!
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -12850,20 +12856,23 @@ var Game = /** @class */ (function () {
         /** The soundSystem system. */
         this.soundSystem = null;
         /***************************************************************************************************************
-        *   Inits the game from scratch.
+        *   Being invoked when all images are loaded.
         ***************************************************************************************************************/
         this.onImagesLoaded = function () {
-            // this.initSoundSystem();
-            /*
-            
-                                ninjas.Debug.init.log( "Playing bg sounds" );
-                                // this.test.playSound( ninjas.ninjasSound.PACHELBELS_CANON );
-            
-                                ninjas.Debug.init.log( "Launching initial level" );
-                                this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
-                            }
-                        );
-            */
+            _this.initSoundSystem();
+        };
+        /***************************************************************************************************************
+        *   Being invoked when all sounds are loaded.
+        ***************************************************************************************************************/
+        this.onSoundsLoaded = function () {
+            // play bg sound
+            ninjas.Debug.init.log("Starting bg tune");
+            _this.soundSystem.playSound(ninjas.Sound.BG);
+            // init level
+            ninjas.Debug.init.log("Launching initial level");
+            _this.resetAndLaunchLevel(new ninjas.LevelWebsite());
+            // start game loop
+            _this.start();
         };
         /***************************************************************************************************************
         *   Being invoked each tick of the game loop in order to render the game.
@@ -12932,7 +12941,7 @@ var Game = /** @class */ (function () {
     ***************************************************************************************************************/
     Game.prototype.initImageSystem = function () {
         ninjas.Debug.init.log("Initing image system");
-        this.imageSystem = new ninjas.ImageSystem(ninjas.Image.FILENAMES, this.onImagesLoaded);
+        this.imageSystem = new ninjas.ImageSystem(ninjas.Image.FILE_NAMES, this.onImagesLoaded);
         this.imageSystem.loadImages();
     };
     /***************************************************************************************************************
@@ -12940,7 +12949,8 @@ var Game = /** @class */ (function () {
     ***************************************************************************************************************/
     Game.prototype.initSoundSystem = function () {
         ninjas.Debug.init.log("Initing sound system");
-        this.soundSystem = new ninjas.SoundSystem(ninjas.Sound.FILE_NAMES);
+        this.soundSystem = new ninjas.SoundSystem(ninjas.Sound.FILE_NAMES, this.onSoundsLoaded);
+        this.soundSystem.loadSounds();
     };
     /***************************************************************************************************************
     *   Inits the level.
@@ -13510,75 +13520,8 @@ exports.KeySystem = KeySystem;
 
 
 /***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*****************************************************************************
-*   Specifies all different soundSystem effects being used in the game.
-*
-*   @author  Christopher Stock
-*   @version 1.0
-*****************************************************************************/
-var Sound = /** @class */ (function () {
-    function Sound() {
-    }
-    /** The soundSystem 'Pachelbels Canon in D major. */
-    Sound.BG = ninjas.Setting.PATH_SOUND + "bg.mp3";
-    /** This array contains all filenames of all sounds that shall be loaded. */
-    Sound.FILE_NAMES = [
-        Sound.BG,
-    ];
-    return Sound;
-}());
-exports.Sound = Sound;
-
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/*****************************************************************************
-*   Loads and manages all desired sounds.
-*
-*   @author  Christopher Stock
-*   @version 1.0
-*****************************************************************************/
-var SoundSystem = /** @class */ (function () {
-    /*****************************************************************************
-    *   Loads all audio elements.
-    *
-    *   @param fileNames An array containing all filenames of the sounds to load.
-    *****************************************************************************/
-    function SoundSystem(fileNames) {
-        /** This array contains all loaded sounds. */
-        this.allSounds = [];
-        //load all sounds
-        for (var i = 0; i < fileNames.length; ++i) {
-            this.allSounds[fileNames[i]] = new Audio(fileNames[i]);
-        }
-    }
-    /*****************************************************************************
-    *   Creates and plays a COPY of the specified audio object.
-    *
-    *   @param id The ID of the audio object to play.
-    *****************************************************************************/
-    SoundSystem.prototype.playSound = function (id) {
-        var clipClone = this.allSounds[id].cloneNode(true);
-        clipClone.play();
-    };
-    return SoundSystem;
-}());
-exports.SoundSystem = SoundSystem;
-
-
-/***/ }),
+/* 38 */,
+/* 39 */,
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13755,109 +13698,8 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   All images the game makes use of.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Image = /** @class */ (function () {
-    function Image() {
-    }
-    /** Image resource 'player standing'. */
-    Image.IMAGE_PLAYER_STAND = ninjas.Setting.PATH_IMAGE_PLAYER + "stand.png";
-    /** Image resource 'player falling'. */
-    Image.IMAGE_PLAYER_FALL = ninjas.Setting.PATH_IMAGE_PLAYER + "fall.png";
-    /** Image resource 'item'. */
-    Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
-    /** Image resource 'tree'. */
-    Image.IMAGE_TREE = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
-    /** Image resource 'box'. */
-    Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
-    Image.FILENAMES = [
-        Image.IMAGE_PLAYER_STAND,
-        Image.IMAGE_PLAYER_FALL,
-        Image.IMAGE_ITEM,
-        Image.IMAGE_TREE,
-        Image.IMAGE_BOX,
-    ];
-    return Image;
-}());
-exports.Image = Image;
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   All images the game makes use of.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var ImageSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Preloads all images into memory.
-    ***************************************************************************************************************/
-    function ImageSystem(fileNames, onLoadComplete) {
-        var _this = this;
-        /** All image file names to load. */
-        this.fileNames = null;
-        /** The method to invoke when all images are loaded. */
-        this.onLoadComplete = null;
-        /** The number of currently loaded images. */
-        this.loadedImageCount = 0;
-        /** All loaded image objects. */
-        this.images = [];
-        /***************************************************************************************************************
-        *   Being invoked when one image was loaded completely.
-        ***************************************************************************************************************/
-        this.onLoadImage = function () {
-            if (++_this.loadedImageCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
-                _this.onLoadComplete();
-            }
-        };
-        this.fileNames = fileNames;
-        this.onLoadComplete = onLoadComplete;
-    }
-    /***************************************************************************************************************
-    *   Returns the image with the specified id.
-    *
-    *   @param id The id of the image to receive.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.getImage = function (id) {
-        return this.images[id];
-    };
-    /***************************************************************************************************************
-    *   Loads all specified image files into system memory.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.loadImages = function () {
-        ninjas.Debug.image.log("Preloading [" + this.fileNames.length + "] images");
-        for (var i = 0; i < this.fileNames.length; i++) {
-            this.images[this.fileNames[i]] = new Image();
-            this.images[this.fileNames[i]].src = this.fileNames[i];
-            this.images[this.fileNames[i]].onload = this.onLoadImage;
-        }
-    };
-    return ImageSystem;
-}());
-exports.ImageSystem = ImageSystem;
-
-
-/***/ }),
+/* 41 */,
+/* 42 */,
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13949,6 +13791,211 @@ var String = /** @class */ (function () {
     return String;
 }());
 exports.String = String;
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*****************************************************************************
+*   Specifies all different soundSystem effects being used in the game.
+*
+*   @author  Christopher Stock
+*   @version 1.0
+*****************************************************************************/
+var Sound = /** @class */ (function () {
+    function Sound() {
+    }
+    /** The bg sound 'chinese' from Graeme Norgate taken from 'Time Splitters'. */
+    Sound.BG = ninjas.Setting.PATH_SOUND + "bg.mp3";
+    /** An array holding all filenames of all sounds to load. */
+    Sound.FILE_NAMES = [
+        Sound.BG,
+    ];
+    return Sound;
+}());
+exports.Sound = Sound;
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*****************************************************************************
+*   Loads and manages all desired sounds.
+*
+*   @author  Christopher Stock
+*   @version 1.0
+*****************************************************************************/
+var SoundSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Preloads all images into memory.
+    *
+    *   @param fileNames      The names of all image files to load.
+    *   @param onLoadComplete The method to invoke when all image files are loaded.
+    ***************************************************************************************************************/
+    function SoundSystem(fileNames, onLoadComplete) {
+        var _this = this;
+        /** All sound file names to load. */
+        this.fileNames = null;
+        /** The method to invoke when all sounds are loaded. */
+        this.onLoadComplete = null;
+        /** The number of currently loaded sounds. */
+        this.loadedSoundCount = 0;
+        /** All loaded sound objects. */
+        this.sounds = [];
+        /***************************************************************************************************************
+        *   Being invoked when one image was loaded completely.
+        ***************************************************************************************************************/
+        this.onLoadSound = function () {
+            if (++_this.loadedSoundCount == _this.fileNames.length) {
+                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] sounds loaded");
+                _this.onLoadComplete();
+            }
+        };
+        this.fileNames = fileNames;
+        this.onLoadComplete = onLoadComplete;
+    }
+    /*****************************************************************************
+    *   Creates and plays a COPY of the specified audio object.
+    *
+    *   @param id The ID of the audio object to play.
+    *****************************************************************************/
+    SoundSystem.prototype.playSound = function (id) {
+        if (!ninjas.Setting.MUTE) {
+            var clipClone = this.sounds[id].cloneNode(true);
+            clipClone.play();
+        }
+    };
+    /***************************************************************************************************************
+    *   Loads all specified sound files into system memory.
+    ***************************************************************************************************************/
+    SoundSystem.prototype.loadSounds = function () {
+        ninjas.Debug.sound.log("Preloading [" + this.fileNames.length + "] sounds");
+        for (var i = 0; i < this.fileNames.length; i++) {
+            this.sounds[this.fileNames[i]] = new Audio();
+            this.sounds[this.fileNames[i]].src = this.fileNames[i];
+            this.sounds[this.fileNames[i]].onloadeddata = this.onLoadSound;
+        }
+    };
+    return SoundSystem;
+}());
+exports.SoundSystem = SoundSystem;
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   All images the game makes use of.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Image = /** @class */ (function () {
+    function Image() {
+    }
+    /** Image resource 'player standing'. */
+    Image.IMAGE_PLAYER_STAND = ninjas.Setting.PATH_IMAGE_PLAYER + "stand.png";
+    /** Image resource 'player falling'. */
+    Image.IMAGE_PLAYER_FALL = ninjas.Setting.PATH_IMAGE_PLAYER + "fall.png";
+    /** Image resource 'item'. */
+    Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
+    /** Image resource 'tree'. */
+    Image.IMAGE_TREE = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
+    /** Image resource 'box'. */
+    Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
+    /** An array holding all filenames of all images to load. */
+    Image.FILE_NAMES = [
+        Image.IMAGE_PLAYER_STAND,
+        Image.IMAGE_PLAYER_FALL,
+        Image.IMAGE_ITEM,
+        Image.IMAGE_TREE,
+        Image.IMAGE_BOX,
+    ];
+    return Image;
+}());
+exports.Image = Image;
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   All images the game makes use of.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var ImageSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Preloads all images into memory.
+    *
+    *   @param fileNames      The names of all image files to load.
+    *   @param onLoadComplete The method to invoke when all image files are loaded.
+    ***************************************************************************************************************/
+    function ImageSystem(fileNames, onLoadComplete) {
+        var _this = this;
+        /** All image file names to load. */
+        this.fileNames = null;
+        /** The method to invoke when all images are loaded. */
+        this.onLoadComplete = null;
+        /** The number of currently loaded images. */
+        this.loadedImageCount = 0;
+        /** All loaded image objects. */
+        this.images = [];
+        /***************************************************************************************************************
+        *   Being invoked when one image was loaded completely.
+        ***************************************************************************************************************/
+        this.onLoadImage = function () {
+            if (++_this.loadedImageCount == _this.fileNames.length) {
+                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
+                _this.onLoadComplete();
+            }
+        };
+        this.fileNames = fileNames;
+        this.onLoadComplete = onLoadComplete;
+    }
+    /***************************************************************************************************************
+    *   Returns the image with the specified id.
+    *
+    *   @param id The id of the image to receive.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.getImage = function (id) {
+        return this.images[id];
+    };
+    /***************************************************************************************************************
+    *   Loads all specified image files into system memory.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.loadImages = function () {
+        ninjas.Debug.image.log("Preloading [" + this.fileNames.length + "] images");
+        for (var i = 0; i < this.fileNames.length; i++) {
+            this.images[this.fileNames[i]] = new Image();
+            this.images[this.fileNames[i]].src = this.fileNames[i];
+            this.images[this.fileNames[i]].onload = this.onLoadImage;
+        }
+    };
+    return ImageSystem;
+}());
+exports.ImageSystem = ImageSystem;
 
 
 /***/ })
