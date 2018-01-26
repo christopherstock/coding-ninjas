@@ -109,6 +109,8 @@ __export(__webpack_require__(41));
 __export(__webpack_require__(42));
 __export(__webpack_require__(43));
 __export(__webpack_require__(44));
+__export(__webpack_require__(45));
+__export(__webpack_require__(46));
 
 
 /***/ }),
@@ -13573,6 +13575,137 @@ exports.KeySystem = KeySystem;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   All images the game makes use of.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Image = /** @class */ (function () {
+    function Image() {
+    }
+    /** Image resource 'ninja girl standing right frame 1'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/01.png";
+    /** Image resource 'ninja girl standing right frame 2'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/02.png";
+    /** Image resource 'ninja girl standing right frame 3'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/03.png";
+    /** Image resource 'ninja girl standing right frame 4'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/04.png";
+    /** Image resource 'ninja girl standing right frame 5'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/05.png";
+    /** Image resource 'ninja girl standing right frame 6'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/06.png";
+    /** Image resource 'ninja girl standing right frame 7'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/07.png";
+    /** Image resource 'ninja girl standing right frame 8'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/08.png";
+    /** Image resource 'ninja girl standing right frame 9'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/09.png";
+    /** Image resource 'ninja girl standing right frame 10'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/10.png";
+    /** Image resource 'item'. */
+    Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
+    /** Image resource 'tree'. */
+    Image.IMAGE_TREE = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
+    /** Image resource 'box'. */
+    Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
+    /** An array holding all filenames of all images to load. */
+    Image.FILE_NAMES = [
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
+        Image.IMAGE_ITEM,
+        Image.IMAGE_TREE,
+        Image.IMAGE_BOX,
+    ];
+    return Image;
+}());
+exports.Image = Image;
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   All images the game makes use of.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var ImageSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Preloads all images into memory.
+    *
+    *   @param fileNames      The names of all image files to load.
+    *   @param onLoadComplete The method to invoke when all image files are loaded.
+    ***************************************************************************************************************/
+    function ImageSystem(fileNames, onLoadComplete) {
+        var _this = this;
+        /** All image file names to load. */
+        this.fileNames = null;
+        /** The method to invoke when all images are loaded. */
+        this.onLoadComplete = null;
+        /** The number of currently loaded images. */
+        this.loadedImageCount = 0;
+        /** All loaded image objects. */
+        this.images = [];
+        /***************************************************************************************************************
+        *   Being invoked when one image was loaded completely.
+        ***************************************************************************************************************/
+        this.onLoadImage = function () {
+            if (++_this.loadedImageCount == _this.fileNames.length) {
+                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
+                _this.onLoadComplete();
+            }
+        };
+        this.fileNames = fileNames;
+        this.onLoadComplete = onLoadComplete;
+    }
+    /***************************************************************************************************************
+    *   Returns the image with the specified id.
+    *
+    *   @param id The id of the image to receive.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.getImage = function (id) {
+        return this.images[id];
+    };
+    /***************************************************************************************************************
+    *   Loads all specified image files into system memory.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.loadImages = function () {
+        ninjas.Debug.image.log("Preloading [" + this.fileNames.length + "] images");
+        for (var i = 0; i < this.fileNames.length; i++) {
+            this.images[this.fileNames[i]] = new Image();
+            this.images[this.fileNames[i]].src = this.fileNames[i];
+            this.images[this.fileNames[i]].onload = this.onLoadImage;
+        }
+    };
+    return ImageSystem;
+}());
+exports.ImageSystem = ImageSystem;
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
 /*****************************************************************************
 *   Specifies all different soundSystem effects being used in the game.
 *
@@ -13597,7 +13730,7 @@ exports.Sound = Sound;
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13684,7 +13817,82 @@ exports.SoundSystem = SoundSystem;
 
 
 /***/ }),
-/* 40 */
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   All sprites the game makes use of.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Sprite = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Creates a new sprite.
+    *
+    *   @param imageIds All image ids this sprite consists of.
+    ***************************************************************************************************************/
+    function Sprite(imageIds) {
+        /** All image ids this sprite consists of. */
+        this.imageIds = null;
+        /** The id of the current frame for this sprite. */
+        this.currentFrame = 0;
+        this.imageIds = imageIds;
+    }
+    /** Sprite 'ninja girl standing right'. */
+    Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT = [
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
+    ];
+    return Sprite;
+}());
+exports.Sprite = Sprite;
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   Created and manages sprite instances.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SpriteSystem = /** @class */ (function () {
+    function SpriteSystem() {
+    }
+    /***************************************************************************************************************
+    *   Creates a new sprite instance.
+    *
+    *   @param imageSources All image ids this sprite consists of.
+    ***************************************************************************************************************/
+    SpriteSystem.createSpriteInstance = function (imageSources) {
+        return new ninjas.Sprite(imageSources);
+    };
+    return SpriteSystem;
+}());
+exports.SpriteSystem = SpriteSystem;
+
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13793,6 +14001,7 @@ var Camera = /** @class */ (function () {
         if (this.targetY > this.offsetY) {
             this.offsetY = this.targetY;
             /*
+                            // buffer camera on descending
                             cameraMoveY = ( this.targetY - this.offsetY ) * this.movingSpeed;
                             if ( cameraMoveY < this.minimumCameraMove ) cameraMoveY = this.minimumCameraMove;
                             this.offsetY += cameraMoveY;
@@ -13860,138 +14069,7 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 41 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   All images the game makes use of.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Image = /** @class */ (function () {
-    function Image() {
-    }
-    /** Image resource 'ninja girl standing right frame 1'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/01.png";
-    /** Image resource 'ninja girl standing right frame 2'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/02.png";
-    /** Image resource 'ninja girl standing right frame 3'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/03.png";
-    /** Image resource 'ninja girl standing right frame 4'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/04.png";
-    /** Image resource 'ninja girl standing right frame 5'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/05.png";
-    /** Image resource 'ninja girl standing right frame 6'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/06.png";
-    /** Image resource 'ninja girl standing right frame 7'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/07.png";
-    /** Image resource 'ninja girl standing right frame 8'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/08.png";
-    /** Image resource 'ninja girl standing right frame 9'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/09.png";
-    /** Image resource 'ninja girl standing right frame 10'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/10.png";
-    /** Image resource 'item'. */
-    Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
-    /** Image resource 'tree'. */
-    Image.IMAGE_TREE = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
-    /** Image resource 'box'. */
-    Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
-    /** An array holding all filenames of all images to load. */
-    Image.FILE_NAMES = [
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2,
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3,
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4,
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5,
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6,
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7,
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
-        Image.IMAGE_ITEM,
-        Image.IMAGE_TREE,
-        Image.IMAGE_BOX,
-    ];
-    return Image;
-}());
-exports.Image = Image;
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   All images the game makes use of.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var ImageSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Preloads all images into memory.
-    *
-    *   @param fileNames      The names of all image files to load.
-    *   @param onLoadComplete The method to invoke when all image files are loaded.
-    ***************************************************************************************************************/
-    function ImageSystem(fileNames, onLoadComplete) {
-        var _this = this;
-        /** All image file names to load. */
-        this.fileNames = null;
-        /** The method to invoke when all images are loaded. */
-        this.onLoadComplete = null;
-        /** The number of currently loaded images. */
-        this.loadedImageCount = 0;
-        /** All loaded image objects. */
-        this.images = [];
-        /***************************************************************************************************************
-        *   Being invoked when one image was loaded completely.
-        ***************************************************************************************************************/
-        this.onLoadImage = function () {
-            if (++_this.loadedImageCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
-                _this.onLoadComplete();
-            }
-        };
-        this.fileNames = fileNames;
-        this.onLoadComplete = onLoadComplete;
-    }
-    /***************************************************************************************************************
-    *   Returns the image with the specified id.
-    *
-    *   @param id The id of the image to receive.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.getImage = function (id) {
-        return this.images[id];
-    };
-    /***************************************************************************************************************
-    *   Loads all specified image files into system memory.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.loadImages = function () {
-        ninjas.Debug.image.log("Preloading [" + this.fileNames.length + "] images");
-        for (var i = 0; i < this.fileNames.length; i++) {
-            this.images[this.fileNames[i]] = new Image();
-            this.images[this.fileNames[i]].src = this.fileNames[i];
-            this.images[this.fileNames[i]].onload = this.onLoadImage;
-        }
-    };
-    return ImageSystem;
-}());
-exports.ImageSystem = ImageSystem;
-
-
-/***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14021,7 +14099,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

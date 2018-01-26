@@ -142,6 +142,7 @@
             {
                 this.offsetY = this.targetY;
 /*
+                // buffer camera on descending
                 cameraMoveY = ( this.targetY - this.offsetY ) * this.movingSpeed;
                 if ( cameraMoveY < this.minimumCameraMove ) cameraMoveY = this.minimumCameraMove;
                 this.offsetY += cameraMoveY;

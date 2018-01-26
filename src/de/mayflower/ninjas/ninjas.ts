@@ -3,6 +3,7 @@
     export * from './base/Setting';
     export * from './base/Debug';
     export * from './base/Main';
+
     export * from './game/object/CharacterLookingDirection';
     export * from './game/object/shape/Shape';
     export * from './game/object/shape/ShapeRectangle';
@@ -21,17 +22,25 @@
     export * from './game/object/Obstacle';
     export * from './game/object/SigSaw';
     export * from './game/object/Bounce';
+
     export * from './game/Game';
+
     export * from './game/level/Level';
     export * from './game/level/LevelAllElements';
     export * from './game/level/LevelEnchantedWoods';
     export * from './game/level/LevelWebsite';
+
     export * from './hid/Key';
     export * from './hid/KeySystem';
-    export * from './io/Sound';
-    export * from './io/SoundSystem';
-    export * from './ui/Camera';
+
     export * from './io/Image';
     export * from './io/ImageSystem';
+    export * from './io/Sound';
+    export * from './io/SoundSystem';
+    export * from './io/Sprite';
+    export * from './io/SpriteSystem';
+
+    export * from './ui/Camera';
+
     export * from './util/MathUtil';
     export * from './util/String';
