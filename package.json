@@ -8,6 +8,12 @@
     "homepage": "http://ninjas.christopherstock.de",
     "repository": "https://github.com/christopherstock/coding-ninjas.git",
     "bugs": "https://github.com/christopherstock/coding-ninjas/issues",
+    "scripts": {
+        "start": "npm run build:dev",
+        "build:dev": "webpack --watch",
+        "build:production": "webpack --optimize-minimize --watch",
+        "typedoc": "typedoc --out doc\\ --name \"Coding Ninjas, (c) 2018 Mayflower GmbH\" src"
+    },
     "devDependencies": {
         "@types/cucumber": "^3.2.1",
         "@types/jest": "^22.1.0",
