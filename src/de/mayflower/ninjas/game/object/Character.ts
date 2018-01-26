@@ -13,8 +13,6 @@
         /** The default jump power ( player ). */
         public      static  readonly    JUMP_POWER_DEFAULT                  :number                             = -4.0;
 
-        protected   static  readonly    MAX_TICKS_WITHOUT_BOTTOM_COLLISION  :number                             = 15;
-
         /** The looking direction for this character. */
         public                          lookingDirection                    :ninjas.CharacterLookingDirection   = null;
 
@@ -43,13 +41,13 @@
         ***************************************************************************************************************/
         public constructor
         (
-            shape:ninjas.Shape,
-            x:number,
-            y:number,
-            image:string,
-            lookingDirection:ninjas.CharacterLookingDirection,
-            speedMove:number,
-            jumpPower:number
+            shape            :ninjas.Shape,
+            x                :number,
+            y                :number,
+            image            :HTMLImageElement,
+            lookingDirection :ninjas.CharacterLookingDirection,
+            speedMove        :number,
+            jumpPower        :number
         )
         {
             super

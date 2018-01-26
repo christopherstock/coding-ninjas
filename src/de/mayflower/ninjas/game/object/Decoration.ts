@@ -17,7 +17,7 @@
         *   @param y      Startup position Y.
         *   @param image  The image source to use.
         ***************************************************************************************************************/
-        public constructor(shape:ninjas.Shape, x:number, y:number, image:string )
+        public constructor(shape:ninjas.Shape, x:number, y:number, image:HTMLImageElement )
         {
             super
             (

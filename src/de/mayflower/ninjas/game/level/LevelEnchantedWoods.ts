@@ -35,9 +35,9 @@
                 ninjas.GameObjectFactory.createDecoration( 140, 870, 350, 130, null ),
 
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration( 350,  870, 120, 90, ninjas.Image.IMAGE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 850,  870, 120, 90, ninjas.Image.IMAGE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 1350, 850, 120, 90, ninjas.Image.IMAGE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 350,  870, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 850,  870, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 1350, 850, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
 
                 // moveable boxes
 
@@ -55,9 +55,9 @@
                 this.player,
 
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration( 600,  870, 120, 90, ninjas.Image.IMAGE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 1100, 870, 120, 90, ninjas.Image.IMAGE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 1600, 817, 120, 90, ninjas.Image.IMAGE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 600,  870, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 1100, 870, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 1600, 817, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
             ];
         }
     }

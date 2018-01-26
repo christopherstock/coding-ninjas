@@ -35,8 +35,8 @@
                 ninjas.GameObjectFactory.createBlock( 4080, 730, 500, 15, 0.0,  false ),
 
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration( 30,   450, 76, 170, ninjas.Image.IMAGE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170, ninjas.Image.IMAGE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 30,   450, 76, 170, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170,  ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
 
                 // moveable boxes
                 ninjas.GameObjectFactory.createBox(    300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
@@ -107,8 +107,8 @@
                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
 
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
             ];
         }
     }

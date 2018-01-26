@@ -38,7 +38,7 @@
                 ),
                 x,
                 y,
-                ninjas.Image.IMAGE_BOX
+                ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_BOX )
             );
         }
 
@@ -240,7 +240,7 @@
         *
         *   @return       The created decoration.
         ***************************************************************************************************************/
-        public static createDecoration( x:number, y:number, width:number, height:number, image:string ):ninjas.Decoration
+        public static createDecoration( x:number, y:number, width:number, height:number, image:HTMLImageElement ):ninjas.Decoration
         {
             return new ninjas.Decoration
             (
@@ -271,7 +271,7 @@
         *
         *   @return       The created decoration.
         ***************************************************************************************************************/
-        public static createSigsaw( x:number, y:number, width:number, height:number, image:string ):ninjas.SigSaw
+        public static createSigsaw( x:number, y:number, width:number, height:number, image:HTMLImageElement ):ninjas.SigSaw
         {
             return new ninjas.SigSaw
             (
@@ -302,7 +302,15 @@
         *
         *   @return       The created decoration.
         ***************************************************************************************************************/
-        public static createPlatform( width:number, height:number, image:string, speed:number, waypoints:Array<Matter.Vector> ):ninjas.Platform
+        public static createPlatform
+        (
+            width:number,
+            height:number,
+            image:HTMLImageElement,
+            speed:number,
+            waypoints:Array<Matter.Vector>
+        )
+        :ninjas.Platform
         {
             return new ninjas.Platform
             (
@@ -333,7 +341,7 @@
          *
          *   @return       The created decoration.
          ***************************************************************************************************************/
-        public static createBounce( x:number, y:number, width:number, height:number, image:string ):ninjas.Bounce
+        public static createBounce( x:number, y:number, width:number, height:number, image:HTMLImageElement ):ninjas.Bounce
         {
             return new ninjas.Bounce
             (

@@ -24,8 +24,11 @@
         /** Default density. */
         public  static  DENSITY_DEFAULT         :number                         = 0.001;
 
-        /** The game object's shape. */
+        /** Game object shape. */
         public          shape                   :ninjas.Shape                   = null;
+
+        /** Game object image. */
+        public          image                   :HTMLImageElement               = null;
 
         /***************************************************************************************************************
         *   Creates a new game object.
@@ -40,14 +43,13 @@
             shape :ninjas.Shape,
             x     :number,
             y     :number,
-            image :string
+            image :HTMLImageElement
         )
         {
             this.shape = shape;
+            this.setImage( image );
 
             Matter.Body.translate( this.shape.body, Matter.Vector.create( x, y ) );
-
-            this.setImage( image );
         }
 
         /***************************************************************************************************************
@@ -60,11 +62,12 @@
         *
         *   @param image The image source to set.
         ***************************************************************************************************************/
-        protected setImage( image:string ) : void
+        protected setImage( image:HTMLImageElement ) : void
         {
             if ( image != null )
             {
-                this.shape.body.render.sprite.texture = image;
+                this.image = image;
+                this.shape.body.render.sprite.texture = image.src;
             }
         }
 

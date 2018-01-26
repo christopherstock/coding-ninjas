@@ -21,7 +21,7 @@
         *   @param y      Startup position Y.
         *   @param image  The image for this game object.
         ***************************************************************************************************************/
-        public constructor(shape:ninjas.Shape, x:number, y:number, image:string )
+        public constructor(shape:ninjas.Shape, x:number, y:number, image:HTMLImageElement )
         {
             super
             (

@@ -34,7 +34,7 @@
                 x,
                 y,
 
-                ninjas.Image.IMAGE_PLAYER_STAND,
+                ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_PLAYER_STAND ),
                 // ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
 
                 lookingDirection,

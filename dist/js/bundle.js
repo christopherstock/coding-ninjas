@@ -11296,6 +11296,7 @@ var ninjas = __webpack_require__(0);
 *
 *   TODO Adjust physics object according to image dimensions!
 *   TODO create sprite system.
+*   TODO Matter import to lower case!
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Create parallax bg images.
@@ -11722,11 +11723,13 @@ var GameObject = /** @class */ (function () {
     *   @param image      The image for this game object.
     ***************************************************************************************************************/
     function GameObject(shape, x, y, image) {
-        /** The game object's shape. */
+        /** Game object shape. */
         this.shape = null;
+        /** Game object image. */
+        this.image = null;
         this.shape = shape;
-        Matter.Body.translate(this.shape.body, Matter.Vector.create(x, y));
         this.setImage(image);
+        Matter.Body.translate(this.shape.body, Matter.Vector.create(x, y));
     }
     /***************************************************************************************************************
     *   Sets a new image for this game object.
@@ -11735,7 +11738,8 @@ var GameObject = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObject.prototype.setImage = function (image) {
         if (image != null) {
-            this.shape.body.render.sprite.texture = image;
+            this.image = image;
+            this.shape.body.render.sprite.texture = image.src;
         }
     };
     /***************************************************************************************************************
@@ -11810,7 +11814,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return       The created box.
     ***************************************************************************************************************/
     GameObjectFactory.createBox = function (x, y, width, height, friction, density) {
-        return new ninjas.Box(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, ninjas.Image.IMAGE_BOX);
+        return new ninjas.Box(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_BOX));
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -12129,7 +12133,6 @@ var Character = /** @class */ (function (_super) {
     };
     /** The default jump power ( player ). */
     Character.JUMP_POWER_DEFAULT = -4.0;
-    Character.MAX_TICKS_WITHOUT_BOTTOM_COLLISION = 15;
     return Character;
 }(ninjas.GameObject));
 exports.Character = Character;
@@ -12358,7 +12361,7 @@ var Player = /** @class */ (function (_super) {
     *   @param lookingDirection The initial looking direction.
     ***************************************************************************************************************/
     function Player(x, y, lookingDirection) {
-        return _super.call(this, new ninjas.ShapeRectangle(ninjas.Setting.PLAYER_WIDTH, ninjas.Setting.PLAYER_HEIGHT, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, ninjas.Image.IMAGE_PLAYER_STAND, 
+        return _super.call(this, new ninjas.ShapeRectangle(ninjas.Setting.PLAYER_WIDTH, ninjas.Setting.PLAYER_HEIGHT, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_PLAYER_STAND), 
         // ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
         lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Character.JUMP_POWER_DEFAULT) || this;
     }
@@ -12465,7 +12468,7 @@ var Box = /** @class */ (function (_super) {
     *   @param shape    The shape for this object.
     *   @param x        Startup position X.
     *   @param y        Startup position Y.
-    *   @param image    The image URL to use for this object.
+    *   @param image    The image for this box.
     ***************************************************************************************************************/
     function Box(shape, x, y, image) {
         return _super.call(this, shape, x, y, image) || this;
@@ -12516,7 +12519,7 @@ var Item = /** @class */ (function (_super) {
     *   @param y      Startup position Y.
     ***************************************************************************************************************/
     function Item(shape, x, y) {
-        var _this = _super.call(this, shape, x, y, ninjas.Image.IMAGE_ITEM) || this;
+        var _this = _super.call(this, shape, x, y, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_ITEM)) || this;
         /** Indicates if this item has been picked. */
         _this.picked = null;
         _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
@@ -13140,8 +13143,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createBlock(3230, 830, 500, 15, 0.0, false),
                 ninjas.GameObjectFactory.createBlock(4080, 730, 500, 15, 0.0, false),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, ninjas.Image.IMAGE_TREE),
-                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, ninjas.Image.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
                 // moveable boxes
                 ninjas.GameObjectFactory.createBox(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
@@ -13190,8 +13193,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 // enemies (fg)
                 ninjas.GameObjectFactory.createEnemy(1200, 0),
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, ninjas.Image.IMAGE_TREE),
-                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, ninjas.Image.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
             ];
     };
     return LevelAllElements;
@@ -13249,9 +13252,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // hut
                 ninjas.GameObjectFactory.createDecoration(140, 870, 350, 130, null),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, ninjas.Image.IMAGE_TREE),
-                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, ninjas.Image.IMAGE_TREE),
-                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, ninjas.Image.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
                 // moveable boxes
                 // sigsaws
                 // items
@@ -13263,9 +13266,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // player
                 this.player,
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, ninjas.Image.IMAGE_TREE),
-                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, ninjas.Image.IMAGE_TREE),
-                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, ninjas.Image.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
             ];
     };
     return LevelEnchantedWoods;

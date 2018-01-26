@@ -20,14 +20,14 @@
         *   @param x      Startup position X.
         *   @param y      Startup position Y.
         ***************************************************************************************************************/
-        public constructor(shape:ninjas.Shape, x:number, y:number )
+        public constructor( shape:ninjas.Shape, x:number, y:number )
         {
             super
             (
                 shape,
                 x,
                 y,
-                ninjas.Image.IMAGE_ITEM
+                ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_ITEM )
             );
 
             this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;

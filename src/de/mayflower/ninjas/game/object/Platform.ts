@@ -40,10 +40,10 @@
         ***************************************************************************************************************/
         public constructor
         (
-            shape:ninjas.Shape,
-            speed:number,
-            waypoints:Array<Matter.Vector>,
-            image:string
+            shape     :ninjas.Shape,
+            speed     :number,
+            waypoints :Array<Matter.Vector>,
+            image     :HTMLImageElement
         )
         {
             super

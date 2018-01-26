@@ -6,6 +6,7 @@
     *
     *   TODO Adjust physics object according to image dimensions!
     *   TODO create sprite system.
+    *   TODO Matter import to lower case!
     *   TODO create wow popup on entering a room!
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Create parallax bg images.
