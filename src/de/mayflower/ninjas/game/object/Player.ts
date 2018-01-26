@@ -33,7 +33,10 @@
                 ),
                 x,
                 y,
+
                 ninjas.Image.IMAGE_PLAYER_STAND,
+                // ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
+
                 lookingDirection,
                 ninjas.Setting.PLAYER_SPEED_MOVE,
                 ninjas.Character.JUMP_POWER_DEFAULT

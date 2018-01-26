@@ -13,7 +13,7 @@
         /** The width of this level. */
         public      width                   :number                     = 10000.0;
         /** The height of this level. */
-        public      height                  :number                     = 1000.0;
+        public      height                  :number                     = 10000.0;
 
         /***************************************************************************************************************
         *   Inits a new level.
@@ -21,13 +21,14 @@
         protected createGameObjects()
         {
             // init player
-            this.player = new ninjas.Player( 50, 500.0, ninjas.CharacterLookingDirection.RIGHT );
+            this.player = new ninjas.Player( 100, 500.0, ninjas.CharacterLookingDirection.RIGHT );
 
             // setup all game objects
             this.gameObjects =
             [
-                // grounds and ramps
-                ninjas.GameObjectFactory.createBlock( 0,    620, 500, 15, 0.0,  false ),
+                // grounds and walls
+                ninjas.GameObjectFactory.createBlock( 0,    250,  750, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createBlock( 0,    1000, 750, 15, 0.0,  false ),
 /*
                 ninjas.GameObjectFactory.createBlock( 490,  765, 500, 15, 15.0, false ),
                 ninjas.GameObjectFactory.createBlock( 980,  830, 500, 15, 0.0,  false ),

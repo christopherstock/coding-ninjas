@@ -4,6 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Adjust physics object according to image dimensions!
     *   TODO create sprite system.
     *   TODO create wow popup on entering a room!
     *   TODO Try sound error handling! (Safari etc.)

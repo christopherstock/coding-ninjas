@@ -11293,6 +11293,7 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO Adjust physics object according to image dimensions!
 *   TODO create sprite system.
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
@@ -12353,7 +12354,9 @@ var Player = /** @class */ (function (_super) {
     *   @param lookingDirection The initial looking direction.
     ***************************************************************************************************************/
     function Player(x, y, lookingDirection) {
-        return _super.call(this, new ninjas.ShapeRectangle(ninjas.Setting.PLAYER_WIDTH, ninjas.Setting.PLAYER_HEIGHT, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, ninjas.Image.IMAGE_PLAYER_STAND, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Character.JUMP_POWER_DEFAULT) || this;
+        return _super.call(this, new ninjas.ShapeRectangle(ninjas.Setting.PLAYER_WIDTH, ninjas.Setting.PLAYER_HEIGHT, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, ninjas.Image.IMAGE_PLAYER_STAND, 
+        // ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
+        lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Character.JUMP_POWER_DEFAULT) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -13298,7 +13301,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         /** The width of this level. */
         _this.width = 10000.0;
         /** The height of this level. */
-        _this.height = 1000.0;
+        _this.height = 10000.0;
         return _this;
     }
     /***************************************************************************************************************
@@ -13306,12 +13309,13 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(50, 500.0, ninjas.CharacterLookingDirection.RIGHT);
+        this.player = new ninjas.Player(100, 500.0, ninjas.CharacterLookingDirection.RIGHT);
         // setup all game objects
         this.gameObjects =
             [
-                // grounds and ramps
-                ninjas.GameObjectFactory.createBlock(0, 620, 500, 15, 0.0, false),
+                // grounds and walls
+                ninjas.GameObjectFactory.createBlock(0, 250, 750, 15, 0.0, false),
+                ninjas.GameObjectFactory.createBlock(0, 1000, 750, 15, 0.0, false),
                 /*
                                 ninjas.GameObjectFactory.createBlock( 490,  765, 500, 15, 15.0, false ),
                                 ninjas.GameObjectFactory.createBlock( 980,  830, 500, 15, 0.0,  false ),
@@ -13923,6 +13927,8 @@ var ninjas = __webpack_require__(0);
 var Image = /** @class */ (function () {
     function Image() {
     }
+    /** Image resource 'ninja girl standing right frame 1'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/01.png";
     /** Image resource 'player standing'. */
     Image.IMAGE_PLAYER_STAND = ninjas.Setting.PATH_IMAGE_PLAYER + "stand.png";
     /** Image resource 'player falling'. */
@@ -13935,6 +13941,7 @@ var Image = /** @class */ (function () {
     Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
     /** An array holding all filenames of all images to load. */
     Image.FILE_NAMES = [
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
         Image.IMAGE_PLAYER_STAND,
         Image.IMAGE_PLAYER_FALL,
         Image.IMAGE_ITEM,
