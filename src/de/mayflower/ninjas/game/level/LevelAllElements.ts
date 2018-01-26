@@ -33,12 +33,12 @@
             this.gameObjects =
             [
                 // grounds and ramps
-                ninjas.GameObjectFactory.createBlock( 0,    620, 500, 15, 0.0,  false ),
-                ninjas.GameObjectFactory.createBlock( 490,  765, 500, 15, 15.0, false ),
-                ninjas.GameObjectFactory.createBlock( 980,  830, 500, 15, 0.0,  false ),
-                ninjas.GameObjectFactory.createBlock( 2310, 830, 500, 15, 0.0,  false ),
-                ninjas.GameObjectFactory.createBlock( 3230, 830, 500, 15, 0.0,  false ),
-                ninjas.GameObjectFactory.createBlock( 4080, 730, 500, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 0,    620, 500, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 490,  765, 500, 15, 15.0, false ),
+                ninjas.GameObjectFactory.createObstacle( 980,  830, 500, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 2310, 830, 500, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 3230, 830, 500, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 4080, 730, 500, 15, 0.0,  false ),
 
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration( 30,   450, 76, 170, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),

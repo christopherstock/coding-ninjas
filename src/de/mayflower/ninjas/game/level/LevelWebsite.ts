@@ -33,20 +33,20 @@
             this.gameObjects =
             [
                 // grounds and walls
-                ninjas.GameObjectFactory.createBlock( 0,    250,  750, 15, 0.0,  false ),
-                ninjas.GameObjectFactory.createBlock( 0,    1000, 750, 15, 0.0,  false ),
-/*
-                ninjas.GameObjectFactory.createBlock( 490,  765, 500, 15, 15.0, false ),
-                ninjas.GameObjectFactory.createBlock( 980,  830, 500, 15, 0.0,  false ),
-                ninjas.GameObjectFactory.createBlock( 2310, 830, 500, 15, 0.0,  false ),
-                ninjas.GameObjectFactory.createBlock( 3230, 830, 500, 15, 0.0,  false ),
-                ninjas.GameObjectFactory.createBlock( 4080, 730, 500, 15, 0.0,  false ),
-*/
+                ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 0,    1000, 5000, 15, 0.0,  false ),
+
+                // ninjas.GameObjectFactory.createObstacle( 490,  765, 500, 15, 15.0, false ),
+                // ninjas.GameObjectFactory.createObstacle( 980,  830, 500, 15, 0.0,  false ),
+                // ninjas.GameObjectFactory.createObstacle( 2310, 830, 500, 15, 0.0,  false ),
+                // ninjas.GameObjectFactory.createObstacle( 3230, 830, 500, 15, 0.0,  false ),
+                // ninjas.GameObjectFactory.createObstacle( 4080, 730, 500, 15, 0.0,  false ),
+
 /*
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration( 30,   450, 76, 170, ninjas.Image.IMAGE_TREE ),
                 ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170, ninjas.Image.IMAGE_TREE ),
-
+*/
                 // moveable boxes
                 ninjas.GameObjectFactory.createBox(    300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 350,  240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
@@ -57,7 +57,7 @@
                 ninjas.GameObjectFactory.createBox(    600,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 650,  80,  80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createBox(    700,  0,   80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-
+/*
                 ninjas.GameObjectFactory.createBox(    1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 1350, -3240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createBox(    1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),

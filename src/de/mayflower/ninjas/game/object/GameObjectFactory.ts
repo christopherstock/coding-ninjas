@@ -111,7 +111,7 @@
         *
         *   @return                The created obstacle.
         ***************************************************************************************************************/
-        public static createBlock( x:number, y:number, width:number, height:number, angle:number, jumpPassThrough:boolean ):ninjas.Obstacle
+        public static createObstacle( x:number, y:number, width:number, height:number, angle:number, jumpPassThrough:boolean ):ninjas.Obstacle
         {
             return new ninjas.Obstacle
             (

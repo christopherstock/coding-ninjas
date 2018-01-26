@@ -102,11 +102,11 @@ __export(__webpack_require__(34));
 __export(__webpack_require__(35));
 __export(__webpack_require__(36));
 __export(__webpack_require__(37));
-__export(__webpack_require__(45));
-__export(__webpack_require__(46));
+__export(__webpack_require__(38));
+__export(__webpack_require__(39));
 __export(__webpack_require__(40));
-__export(__webpack_require__(47));
-__export(__webpack_require__(48));
+__export(__webpack_require__(41));
+__export(__webpack_require__(42));
 __export(__webpack_require__(43));
 __export(__webpack_require__(44));
 
@@ -10516,7 +10516,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\r\n    body\r\n    {\r\n        background:         #ffffff;\r\n        margin:             50px auto 0 auto;\r\n        text-align:         center;\r\n        padding:            0;\r\n    }\r\n", ""]);
+exports.push([module.i, "\r\n    body\r\n    {\r\n        background:         #ffffff;\r\n        margin:             0;\r\n        padding:            0;\r\n        text-align:         center;\r\n        overflow-x:         hidden;\r\n        overflow-y:         hidden;\r\n    }\r\n", ""]);
 
 // exports
 
@@ -11144,10 +11144,10 @@ var Setting = /** @class */ (function () {
     Setting.MUTE = true;
     /** The delta between render ticks in ms. */
     Setting.RENDER_DELTA = 16.66;
-    /** The desired canvas2D width. */
-    Setting.CANVAS_WIDTH = 800;
-    /** The desired canvas2D height. */
-    Setting.CANVAS_HEIGHT = 400;
+    /** The minimum canvas2D width. */
+    Setting.MIN_CANVAS_WIDTH = 800;
+    /** The minimum canvas2D height. */
+    Setting.MIN_CANVAS_HEIGHT = 600;
     /** The player's speed in world coordinate per tick. */
     Setting.PLAYER_SPEED_MOVE = 7.5;
     /** The default vertical gravity for all levels. */
@@ -11290,9 +11290,12 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO make the game fullscreen.
+*   TODO add resize mechanism.
 *   TODO Adjust physics object according to image dimensions!
 *   TODO create sprite system.
 *   TODO Matter import to lower case!
+*   TODO Add FPS counter via npm package.
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Create parallax bg images.
@@ -11849,7 +11852,7 @@ var GameObjectFactory = /** @class */ (function () {
     *
     *   @return                The created obstacle.
     ***************************************************************************************************************/
-    GameObjectFactory.createBlock = function (x, y, width, height, angle, jumpPassThrough) {
+    GameObjectFactory.createObstacle = function (x, y, width, height, angle, jumpPassThrough) {
         return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, jumpPassThrough);
     };
     /***************************************************************************************************************
@@ -12128,7 +12131,7 @@ var Character = /** @class */ (function (_super) {
         this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
     };
     /** The default jump power ( player ). */
-    Character.JUMP_POWER_DEFAULT = -4.0;
+    Character.JUMP_POWER_DEFAULT = -10.0;
     return Character;
 }(ninjas.GameObject));
 exports.Character = Character;
@@ -12845,6 +12848,10 @@ var ninjas = __webpack_require__(0);
 var Game = /** @class */ (function () {
     function Game() {
         var _this = this;
+        /** The current width of the canvas. */
+        this.CANVAS_WIDTH = 0;
+        /** The current height of the canvas. */
+        this.CANVAS_HEIGHT = 0;
         /** The MatterJS engine. */
         this.engine = null;
         /** The MatterJS renderer. */
@@ -12892,7 +12899,9 @@ var Game = /** @class */ (function () {
     *   Inits all components of the game.
     ***************************************************************************************************************/
     Game.prototype.init = function () {
+        this.updateWindowDimensions();
         this.initEngine2D();
+        this.initWindowResizeHandler();
         this.initKeySystem();
         this.initImageSystem();
     };
@@ -12907,33 +12916,59 @@ var Game = /** @class */ (function () {
         window.setInterval(this.tick, ninjas.Setting.RENDER_DELTA);
     };
     /***************************************************************************************************************
+    *   Updates the dimensions of the browser window.
+    ***************************************************************************************************************/
+    Game.prototype.updateWindowDimensions = function () {
+        this.CANVAS_WIDTH = window.innerWidth;
+        this.CANVAS_HEIGHT = window.innerHeight;
+        // clip to minimum canvas bounds
+        if (this.CANVAS_WIDTH < ninjas.Setting.MIN_CANVAS_WIDTH)
+            this.CANVAS_WIDTH = ninjas.Setting.MIN_CANVAS_WIDTH;
+        if (this.CANVAS_HEIGHT < ninjas.Setting.MIN_CANVAS_HEIGHT)
+            this.CANVAS_HEIGHT = ninjas.Setting.MIN_CANVAS_HEIGHT;
+        ninjas.Debug.init.log("Updated window dimensions to [" + this.CANVAS_WIDTH + "x" + this.CANVAS_HEIGHT + "] ");
+    };
+    /***************************************************************************************************************
     *   Inits the 2D engine.
     ***************************************************************************************************************/
     Game.prototype.initEngine2D = function () {
         ninjas.Debug.init.log("Initing 2D physics engine");
         this.engine = Matter.Engine.create();
-        var options = {
+        var rendererOptions = {
             hasBounds: true,
             wireframes: false,
             showCollisions: true,
             showAngleIndicator: true,
             showVelocity: true,
-            // enable texture cache?
-            textures: ninjas.Image.FILE_NAMES,
-            width: ninjas.Setting.CANVAS_WIDTH,
-            height: ninjas.Setting.CANVAS_HEIGHT,
+            width: this.CANVAS_WIDTH,
+            height: this.CANVAS_HEIGHT,
         };
         this.renderer = Matter.Render.create({
             element: document.body,
             engine: this.engine,
-            options: options,
+            options: rendererOptions,
         });
-        this.renderer.canvas.width = ninjas.Setting.CANVAS_WIDTH;
-        this.renderer.canvas.height = ninjas.Setting.CANVAS_HEIGHT;
+        this.renderer.canvas.width = this.CANVAS_WIDTH;
+        this.renderer.canvas.height = this.CANVAS_HEIGHT;
         this.engine.world.gravity = {
             x: 0.0,
             y: ninjas.Setting.DEFAULT_GRAVITY_Y,
             scale: 0.001
+        };
+    };
+    /***************************************************************************************************************
+    *   Inits the window resize handler.
+    ***************************************************************************************************************/
+    Game.prototype.initWindowResizeHandler = function () {
+        var _this = this;
+        window.onresize = function (event) {
+            ninjas.Debug.init.log("Image resize event being detected.");
+            _this.updateWindowDimensions();
+            _this.renderer.canvas.width = _this.CANVAS_WIDTH;
+            _this.renderer.canvas.height = _this.CANVAS_HEIGHT;
+            _this.renderer.options.width = _this.CANVAS_WIDTH;
+            _this.renderer.options.height = _this.CANVAS_HEIGHT;
+            _this.resetCamera();
         };
     };
     /***************************************************************************************************************
@@ -12969,7 +13004,13 @@ var Game = /** @class */ (function () {
         this.level = levelToLaunch;
         this.level.init();
         // reset camera
-        this.camera = new ninjas.Camera(this.renderer, ninjas.Setting.CAMERA_RATIO_X, ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, this.level.width, this.level.height, ninjas.Setting.CANVAS_WIDTH, ninjas.Setting.CANVAS_HEIGHT);
+        this.resetCamera();
+    };
+    /***************************************************************************************************************
+    *   Resets the camera.
+    ***************************************************************************************************************/
+    Game.prototype.resetCamera = function () {
+        this.camera = new ninjas.Camera(this.renderer, ninjas.Setting.CAMERA_RATIO_X, ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, this.level.width, this.level.height, this.CANVAS_WIDTH, this.CANVAS_HEIGHT);
         this.camera.reset();
     };
     /***************************************************************************************************************
@@ -13135,12 +13176,12 @@ var LevelAllElements = /** @class */ (function (_super) {
         this.gameObjects =
             [
                 // grounds and ramps
-                ninjas.GameObjectFactory.createBlock(0, 620, 500, 15, 0.0, false),
-                ninjas.GameObjectFactory.createBlock(490, 765, 500, 15, 15.0, false),
-                ninjas.GameObjectFactory.createBlock(980, 830, 500, 15, 0.0, false),
-                ninjas.GameObjectFactory.createBlock(2310, 830, 500, 15, 0.0, false),
-                ninjas.GameObjectFactory.createBlock(3230, 830, 500, 15, 0.0, false),
-                ninjas.GameObjectFactory.createBlock(4080, 730, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(0, 620, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(490, 765, 500, 15, 15.0, false),
+                ninjas.GameObjectFactory.createObstacle(980, 830, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(2310, 830, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(3230, 830, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(4080, 730, 500, 15, 0.0, false),
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
@@ -13245,9 +13286,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
         this.gameObjects =
             [
                 // floor
-                ninjas.GameObjectFactory.createBlock(0, 1000, 1250, 500, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(0, 1000, 1250, 500, 0.0, false),
                 ninjas.GameObjectFactory.createElevatedRamp(1250, 1000, 750, 500, -100.0),
-                ninjas.GameObjectFactory.createBlock(2000, 900, 1250, 500, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(2000, 900, 1250, 500, 0.0, false),
                 // hut
                 ninjas.GameObjectFactory.createDecoration(140, 870, 350, 130, null),
                 // bg decoration
@@ -13319,31 +13360,29 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.gameObjects =
             [
                 // grounds and walls
-                ninjas.GameObjectFactory.createBlock(0, 250, 750, 15, 0.0, false),
-                ninjas.GameObjectFactory.createBlock(0, 1000, 750, 15, 0.0, false),
-                /*
-                                ninjas.GameObjectFactory.createBlock( 490,  765, 500, 15, 15.0, false ),
-                                ninjas.GameObjectFactory.createBlock( 980,  830, 500, 15, 0.0,  false ),
-                                ninjas.GameObjectFactory.createBlock( 2310, 830, 500, 15, 0.0,  false ),
-                                ninjas.GameObjectFactory.createBlock( 3230, 830, 500, 15, 0.0,  false ),
-                                ninjas.GameObjectFactory.createBlock( 4080, 730, 500, 15, 0.0,  false ),
-                */
+                ninjas.GameObjectFactory.createObstacle(0, 250, 5000, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(0, 1000, 5000, 15, 0.0, false),
+                // ninjas.GameObjectFactory.createObstacle( 490,  765, 500, 15, 15.0, false ),
+                // ninjas.GameObjectFactory.createObstacle( 980,  830, 500, 15, 0.0,  false ),
+                // ninjas.GameObjectFactory.createObstacle( 2310, 830, 500, 15, 0.0,  false ),
+                // ninjas.GameObjectFactory.createObstacle( 3230, 830, 500, 15, 0.0,  false ),
+                // ninjas.GameObjectFactory.createObstacle( 4080, 730, 500, 15, 0.0,  false ),
                 /*
                                 // bg decoration
                                 ninjas.GameObjectFactory.createDecoration( 30,   450, 76, 170, ninjas.Image.IMAGE_TREE ),
                                 ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170, ninjas.Image.IMAGE_TREE ),
-                
-                                // moveable boxes
-                                ninjas.GameObjectFactory.createBox(    300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createSphere( 350,  240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createBox(    400,  320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createBox(    450,  400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createSphere( 500,  320, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createBox(    550,  240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createBox(    600,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createSphere( 650,  80,  80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createBox(    700,  0,   80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                
+                */
+                // moveable boxes
+                ninjas.GameObjectFactory.createBox(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(500, 320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(650, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                /*
                                 ninjas.GameObjectFactory.createBox(    1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                                 ninjas.GameObjectFactory.createSphere( 1350, -3240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                                 ninjas.GameObjectFactory.createBox(    1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
@@ -13528,8 +13567,121 @@ exports.KeySystem = KeySystem;
 
 
 /***/ }),
-/* 38 */,
-/* 39 */,
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*****************************************************************************
+*   Specifies all different soundSystem effects being used in the game.
+*
+*   @author  Christopher Stock
+*   @version 1.0
+*****************************************************************************/
+var Sound = /** @class */ (function () {
+    function Sound() {
+    }
+    /** The bg sound 'chinese' from Graeme Norgate taken from 'Time Splitters'. */
+    Sound.BG = ninjas.Setting.PATH_SOUND + "bg.mp3";
+    /** An array holding all filenames of all sounds to load. */
+    Sound.FILE_NAMES = [
+        Sound.BG,
+    ];
+    return Sound;
+}());
+exports.Sound = Sound;
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*****************************************************************************
+*   Loads and manages all desired sounds.
+*
+*   @author  Christopher Stock
+*   @version 1.0
+*****************************************************************************/
+var SoundSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Preloads all images into memory.
+    *
+    *   @param fileNames      The names of all image files to load.
+    *   @param onLoadComplete The method to invoke when all image files are loaded.
+    ***************************************************************************************************************/
+    function SoundSystem(fileNames, onLoadComplete) {
+        var _this = this;
+        /** All sound file names to load. */
+        this.fileNames = null;
+        /** The method to invoke when all sounds are loaded. */
+        this.onLoadComplete = null;
+        /** The number of currently loaded sounds. */
+        this.loadedSoundCount = 0;
+        /** All loaded sound objects. */
+        this.sounds = [];
+        /***************************************************************************************************************
+        *   Being invoked when one image was loaded completely.
+        ***************************************************************************************************************/
+        this.onLoadSound = function () {
+            if (++_this.loadedSoundCount == _this.fileNames.length) {
+                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] sounds loaded");
+                _this.onLoadComplete();
+            }
+        };
+        this.fileNames = fileNames;
+        this.onLoadComplete = onLoadComplete;
+    }
+    /*****************************************************************************
+    *   Creates and plays a COPY of the specified audio object.
+    *
+    *   @param id             The ID of the audio object to play.
+    *   @param repeatInfinite Specifies if playback for this sound should be repeated infinitely.
+    *****************************************************************************/
+    SoundSystem.prototype.playSound = function (id, repeatInfinite) {
+        if (repeatInfinite === void 0) { repeatInfinite = false; }
+        if (!ninjas.Setting.MUTE) {
+            if (this.sounds[id] != null) {
+                var clipClone_1 = this.sounds[id].cloneNode(true);
+                if (repeatInfinite) {
+                    clipClone_1.addEventListener("ended", function () {
+                        ninjas.Debug.sound.log("Clip ended - now repeating ..");
+                        // clipClone.
+                        clipClone_1.play();
+                    });
+                }
+                clipClone_1.play();
+            }
+        }
+    };
+    /***************************************************************************************************************
+    *   Loads all specified sound files into system memory.
+    ***************************************************************************************************************/
+    SoundSystem.prototype.loadSounds = function () {
+        ninjas.Debug.sound.log("Preloading [" + this.fileNames.length + "] sounds");
+        for (var i = 0; i < this.fileNames.length; i++) {
+            try {
+                this.sounds[this.fileNames[i]] = new Audio();
+                this.sounds[this.fileNames[i]].src = this.fileNames[i];
+                this.sounds[this.fileNames[i]].onloadeddata = this.onLoadSound;
+            }
+            catch (e) {
+                ninjas.Debug.sound.log("Error on creating Audio element: " + e.message);
+                this.onLoadSound();
+            }
+        }
+    };
+    return SoundSystem;
+}());
+exports.SoundSystem = SoundSystem;
+
+
+/***/ }),
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13706,8 +13858,116 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 41 */,
-/* 42 */,
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   All images the game makes use of.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Image = /** @class */ (function () {
+    function Image() {
+    }
+    /** Image resource 'ninja girl standing right frame 1'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/01.png";
+    /** Image resource 'player standing'. */
+    Image.IMAGE_PLAYER_STAND = ninjas.Setting.PATH_IMAGE_PLAYER + "stand.png";
+    /** Image resource 'player falling'. */
+    Image.IMAGE_PLAYER_FALL = ninjas.Setting.PATH_IMAGE_PLAYER + "fall.png";
+    /** Image resource 'item'. */
+    Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
+    /** Image resource 'tree'. */
+    Image.IMAGE_TREE = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
+    /** Image resource 'box'. */
+    Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
+    /** An array holding all filenames of all images to load. */
+    Image.FILE_NAMES = [
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
+        Image.IMAGE_PLAYER_STAND,
+        Image.IMAGE_PLAYER_FALL,
+        Image.IMAGE_ITEM,
+        Image.IMAGE_TREE,
+        Image.IMAGE_BOX,
+    ];
+    return Image;
+}());
+exports.Image = Image;
+
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   All images the game makes use of.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var ImageSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Preloads all images into memory.
+    *
+    *   @param fileNames      The names of all image files to load.
+    *   @param onLoadComplete The method to invoke when all image files are loaded.
+    ***************************************************************************************************************/
+    function ImageSystem(fileNames, onLoadComplete) {
+        var _this = this;
+        /** All image file names to load. */
+        this.fileNames = null;
+        /** The method to invoke when all images are loaded. */
+        this.onLoadComplete = null;
+        /** The number of currently loaded images. */
+        this.loadedImageCount = 0;
+        /** All loaded image objects. */
+        this.images = [];
+        /***************************************************************************************************************
+        *   Being invoked when one image was loaded completely.
+        ***************************************************************************************************************/
+        this.onLoadImage = function () {
+            if (++_this.loadedImageCount == _this.fileNames.length) {
+                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
+                _this.onLoadComplete();
+            }
+        };
+        this.fileNames = fileNames;
+        this.onLoadComplete = onLoadComplete;
+    }
+    /***************************************************************************************************************
+    *   Returns the image with the specified id.
+    *
+    *   @param id The id of the image to receive.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.getImage = function (id) {
+        return this.images[id];
+    };
+    /***************************************************************************************************************
+    *   Loads all specified image files into system memory.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.loadImages = function () {
+        ninjas.Debug.image.log("Preloading [" + this.fileNames.length + "] images");
+        for (var i = 0; i < this.fileNames.length; i++) {
+            this.images[this.fileNames[i]] = new Image();
+            this.images[this.fileNames[i]].src = this.fileNames[i];
+            this.images[this.fileNames[i]].onload = this.onLoadImage;
+        }
+    };
+    return ImageSystem;
+}());
+exports.ImageSystem = ImageSystem;
+
+
+/***/ }),
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13799,231 +14059,6 @@ var String = /** @class */ (function () {
     return String;
 }());
 exports.String = String;
-
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*****************************************************************************
-*   Specifies all different soundSystem effects being used in the game.
-*
-*   @author  Christopher Stock
-*   @version 1.0
-*****************************************************************************/
-var Sound = /** @class */ (function () {
-    function Sound() {
-    }
-    /** The bg sound 'chinese' from Graeme Norgate taken from 'Time Splitters'. */
-    Sound.BG = ninjas.Setting.PATH_SOUND + "bg.mp3";
-    /** An array holding all filenames of all sounds to load. */
-    Sound.FILE_NAMES = [
-        Sound.BG,
-    ];
-    return Sound;
-}());
-exports.Sound = Sound;
-
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*****************************************************************************
-*   Loads and manages all desired sounds.
-*
-*   @author  Christopher Stock
-*   @version 1.0
-*****************************************************************************/
-var SoundSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Preloads all images into memory.
-    *
-    *   @param fileNames      The names of all image files to load.
-    *   @param onLoadComplete The method to invoke when all image files are loaded.
-    ***************************************************************************************************************/
-    function SoundSystem(fileNames, onLoadComplete) {
-        var _this = this;
-        /** All sound file names to load. */
-        this.fileNames = null;
-        /** The method to invoke when all sounds are loaded. */
-        this.onLoadComplete = null;
-        /** The number of currently loaded sounds. */
-        this.loadedSoundCount = 0;
-        /** All loaded sound objects. */
-        this.sounds = [];
-        /***************************************************************************************************************
-        *   Being invoked when one image was loaded completely.
-        ***************************************************************************************************************/
-        this.onLoadSound = function () {
-            if (++_this.loadedSoundCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] sounds loaded");
-                _this.onLoadComplete();
-            }
-        };
-        this.fileNames = fileNames;
-        this.onLoadComplete = onLoadComplete;
-    }
-    /*****************************************************************************
-    *   Creates and plays a COPY of the specified audio object.
-    *
-    *   @param id             The ID of the audio object to play.
-    *   @param repeatInfinite Specifies if playback for this sound should be repeated infinitely.
-    *****************************************************************************/
-    SoundSystem.prototype.playSound = function (id, repeatInfinite) {
-        if (repeatInfinite === void 0) { repeatInfinite = false; }
-        if (!ninjas.Setting.MUTE) {
-            if (this.sounds[id] != null) {
-                var clipClone_1 = this.sounds[id].cloneNode(true);
-                if (repeatInfinite) {
-                    clipClone_1.addEventListener("ended", function () {
-                        ninjas.Debug.sound.log("Clip ended - now repeating ..");
-                        // clipClone.
-                        clipClone_1.play();
-                    });
-                }
-                clipClone_1.play();
-            }
-        }
-    };
-    /***************************************************************************************************************
-    *   Loads all specified sound files into system memory.
-    ***************************************************************************************************************/
-    SoundSystem.prototype.loadSounds = function () {
-        ninjas.Debug.sound.log("Preloading [" + this.fileNames.length + "] sounds");
-        for (var i = 0; i < this.fileNames.length; i++) {
-            try {
-                this.sounds[this.fileNames[i]] = new Audio();
-                this.sounds[this.fileNames[i]].src = this.fileNames[i];
-                this.sounds[this.fileNames[i]].onloadeddata = this.onLoadSound;
-            }
-            catch (e) {
-                ninjas.Debug.sound.log("Error on creating Audio element: " + e.message);
-                this.onLoadSound();
-            }
-        }
-    };
-    return SoundSystem;
-}());
-exports.SoundSystem = SoundSystem;
-
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   All images the game makes use of.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Image = /** @class */ (function () {
-    function Image() {
-    }
-    /** Image resource 'ninja girl standing right frame 1'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/01.png";
-    /** Image resource 'player standing'. */
-    Image.IMAGE_PLAYER_STAND = ninjas.Setting.PATH_IMAGE_PLAYER + "stand.png";
-    /** Image resource 'player falling'. */
-    Image.IMAGE_PLAYER_FALL = ninjas.Setting.PATH_IMAGE_PLAYER + "fall.png";
-    /** Image resource 'item'. */
-    Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
-    /** Image resource 'tree'. */
-    Image.IMAGE_TREE = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
-    /** Image resource 'box'. */
-    Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
-    /** An array holding all filenames of all images to load. */
-    Image.FILE_NAMES = [
-        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
-        Image.IMAGE_PLAYER_STAND,
-        Image.IMAGE_PLAYER_FALL,
-        Image.IMAGE_ITEM,
-        Image.IMAGE_TREE,
-        Image.IMAGE_BOX,
-    ];
-    return Image;
-}());
-exports.Image = Image;
-
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   All images the game makes use of.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var ImageSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Preloads all images into memory.
-    *
-    *   @param fileNames      The names of all image files to load.
-    *   @param onLoadComplete The method to invoke when all image files are loaded.
-    ***************************************************************************************************************/
-    function ImageSystem(fileNames, onLoadComplete) {
-        var _this = this;
-        /** All image file names to load. */
-        this.fileNames = null;
-        /** The method to invoke when all images are loaded. */
-        this.onLoadComplete = null;
-        /** The number of currently loaded images. */
-        this.loadedImageCount = 0;
-        /** All loaded image objects. */
-        this.images = [];
-        /***************************************************************************************************************
-        *   Being invoked when one image was loaded completely.
-        ***************************************************************************************************************/
-        this.onLoadImage = function () {
-            if (++_this.loadedImageCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
-                _this.onLoadComplete();
-            }
-        };
-        this.fileNames = fileNames;
-        this.onLoadComplete = onLoadComplete;
-    }
-    /***************************************************************************************************************
-    *   Returns the image with the specified id.
-    *
-    *   @param id The id of the image to receive.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.getImage = function (id) {
-        return this.images[id];
-    };
-    /***************************************************************************************************************
-    *   Loads all specified image files into system memory.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.loadImages = function () {
-        ninjas.Debug.image.log("Preloading [" + this.fileNames.length + "] images");
-        for (var i = 0; i < this.fileNames.length; i++) {
-            this.images[this.fileNames[i]] = new Image();
-            this.images[this.fileNames[i]].src = this.fileNames[i];
-            this.images[this.fileNames[i]].onload = this.onLoadImage;
-        }
-    };
-    return ImageSystem;
-}());
-exports.ImageSystem = ImageSystem;
 
 
 /***/ })

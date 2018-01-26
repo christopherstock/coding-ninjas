@@ -1,7 +1,6 @@
 
     import * as Matter from 'matter-js';
     import * as ninjas from '../ninjas';
-    import {IRenderDefinition} from "matter-js";
 
     /*******************************************************************************************************************
     *   Specifies the game logic and all primal components of the game.
@@ -11,6 +10,11 @@
     *******************************************************************************************************************/
     export class Game
     {
+        /** The current width of the canvas. */
+        public      CANVAS_WIDTH            :number                 = 0;
+        /** The current height of the canvas. */
+        public      CANVAS_HEIGHT           :number                 = 0;
+
         /** The MatterJS engine. */
         public      engine                  :Matter.Engine          = null;
         /** The MatterJS renderer. */
@@ -33,7 +37,9 @@
         ***************************************************************************************************************/
         public init()
         {
+            this.updateWindowDimensions();
             this.initEngine2D();
+            this.initWindowResizeHandler();
             this.initKeySystem();
             this.initImageSystem();
         }
@@ -81,6 +87,21 @@
         }
 
         /***************************************************************************************************************
+        *   Updates the dimensions of the browser window.
+        ***************************************************************************************************************/
+        private updateWindowDimensions()
+        {
+            this.CANVAS_WIDTH  = window.innerWidth;
+            this.CANVAS_HEIGHT = window.innerHeight;
+
+            // clip to minimum canvas bounds
+            if ( this.CANVAS_WIDTH  < ninjas.Setting.MIN_CANVAS_WIDTH  ) this.CANVAS_WIDTH  = ninjas.Setting.MIN_CANVAS_WIDTH;
+            if ( this.CANVAS_HEIGHT < ninjas.Setting.MIN_CANVAS_HEIGHT ) this.CANVAS_HEIGHT = ninjas.Setting.MIN_CANVAS_HEIGHT;
+
+            ninjas.Debug.init.log( "Updated window dimensions to [" + this.CANVAS_WIDTH + "x" + this.CANVAS_HEIGHT + "] " );
+        }
+
+        /***************************************************************************************************************
         *   Inits the 2D engine.
         ***************************************************************************************************************/
         private initEngine2D()
@@ -89,7 +110,7 @@
 
             this.engine = Matter.Engine.create();
 
-            let options:any =
+            let rendererOptions:any =
             {
                 hasBounds:          true,
                 wireframes:         false,
@@ -97,36 +118,50 @@
                 showAngleIndicator: true,
                 showVelocity:       true,
 
-                // enable texture cache?
-                textures:           ninjas.Image.FILE_NAMES,
+                width:              this.CANVAS_WIDTH,
+                height:             this.CANVAS_HEIGHT,
 
-
-                width:      ninjas.Setting.CANVAS_WIDTH,
-                height:     ninjas.Setting.CANVAS_HEIGHT,
+                // TODO enable texture cache?
+                // textures:           ninjas.Image.FILE_NAMES,
             };
 
             this.renderer = Matter.Render.create(
                 {
                     element: document.body,
+
                     engine:  this.engine,
-                    options: options,
-
-
-                    // TODO solve!
-                    // bounds: Matter.Bounds.create(  )
-
-
-
+                    options: rendererOptions,
                 }
             );
 
-            this.renderer.canvas.width  = ninjas.Setting.CANVAS_WIDTH;
-            this.renderer.canvas.height = ninjas.Setting.CANVAS_HEIGHT;
+            this.renderer.canvas.width  = this.CANVAS_WIDTH;
+            this.renderer.canvas.height = this.CANVAS_HEIGHT;
 
             this.engine.world.gravity = {
                 x: 0.0,
                 y: ninjas.Setting.DEFAULT_GRAVITY_Y,
                 scale: 0.001
+            };
+        }
+
+        /***************************************************************************************************************
+        *   Inits the window resize handler.
+        ***************************************************************************************************************/
+        private initWindowResizeHandler()
+        {
+            window.onresize = ( event:Event ) => {
+
+                ninjas.Debug.init.log( "Image resize event being detected." );
+
+                this.updateWindowDimensions();
+
+                this.renderer.canvas.width  = this.CANVAS_WIDTH;
+                this.renderer.canvas.height = this.CANVAS_HEIGHT;
+
+                this.renderer.options.width  = this.CANVAS_WIDTH;
+                this.renderer.options.height = this.CANVAS_HEIGHT;
+
+                this.resetCamera();
             };
         }
 
@@ -175,6 +210,14 @@
             this.level.init();
 
             // reset camera
+            this.resetCamera();
+        }
+
+        /***************************************************************************************************************
+        *   Resets the camera.
+        ***************************************************************************************************************/
+        private resetCamera()
+        {
             this.camera = new ninjas.Camera(
                 this.renderer,
                 ninjas.Setting.CAMERA_RATIO_X,
@@ -183,8 +226,8 @@
                 ninjas.Setting.CAMERA_MOVING_MINIMUM,
                 this.level.width,
                 this.level.height,
-                ninjas.Setting.CANVAS_WIDTH,
-                ninjas.Setting.CANVAS_HEIGHT
+                this.CANVAS_WIDTH,
+                this.CANVAS_HEIGHT
             );
             this.camera.reset();
         }

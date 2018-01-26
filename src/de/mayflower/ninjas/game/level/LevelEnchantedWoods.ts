@@ -32,9 +32,9 @@
             this.gameObjects =
             [
                 // floor
-                ninjas.GameObjectFactory.createBlock( 0, 1000, 1250, 500, 0.0, false ),
+                ninjas.GameObjectFactory.createObstacle( 0, 1000, 1250, 500, 0.0, false ),
                 ninjas.GameObjectFactory.createElevatedRamp( 1250, 1000, 750, 500, -100.0 ),
-                ninjas.GameObjectFactory.createBlock( 2000, 900, 1250, 500, 0.0, false ),
+                ninjas.GameObjectFactory.createObstacle( 2000, 900, 1250, 500, 0.0, false ),
 
 
                 // hut
