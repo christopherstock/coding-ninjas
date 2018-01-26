@@ -54,7 +54,7 @@
         {
             // play bg sound
             ninjas.Debug.init.log( "Starting bg tune" );
-            this.soundSystem.playSound( ninjas.Sound.BG );
+            this.soundSystem.playSound( ninjas.Sound.BG, true );
 
             // init level
             ninjas.Debug.init.log( "Launching initial level" );

@@ -34,14 +34,33 @@
         /*****************************************************************************
         *   Creates and plays a COPY of the specified audio object.
         *
-        *   @param id The ID of the audio object to play.
+        *   @param id             The ID of the audio object to play.
+        *   @param repeatInfinite Specifies if playback for this sound should be repeated infinitely.
         *****************************************************************************/
-        public playSound( id:string )
+        public playSound( id:string, repeatInfinite:boolean )
         {
             if ( !ninjas.Setting.MUTE )
             {
-                let clipClone:HTMLAudioElement = this.sounds[ id ].cloneNode( true );
-                clipClone.play();
+                if ( this.sounds[ id ] != null )
+                {
+                    let clipClone:HTMLAudioElement = this.sounds[ id ].cloneNode( true );
+
+                    if ( repeatInfinite )
+                    {
+                        clipClone.addEventListener(
+                            "ended",
+                            () => {
+
+                                ninjas.Debug.sound.log( "Clip ended - now repeating .." );
+
+                                // clipClone.
+                                clipClone.play();
+                            }
+                        );
+                    }
+
+                    clipClone.play();
+                }
             }
         }
 
@@ -54,9 +73,17 @@
 
             for ( let i = 0; i < this.fileNames.length; i++ )
             {
-                this.sounds[ this.fileNames[ i ] ]              = new Audio();
-                this.sounds[ this.fileNames[ i ] ].src          = this.fileNames[ i ];
-                this.sounds[ this.fileNames[ i ] ].onloadeddata = this.onLoadSound;
+                try
+                {
+                    this.sounds[ this.fileNames[ i ] ]              = new Audio();
+                    this.sounds[ this.fileNames[ i ] ].src          = this.fileNames[ i ];
+                    this.sounds[ this.fileNames[ i ] ].onloadeddata = this.onLoadSound;
+                }
+                catch ( e )
+                {
+                    ninjas.Debug.sound.log( "Error on creating Audio element: " + e.message );
+                    this.onLoadSound();
+                }
             }
         }
 

@@ -4,10 +4,9 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO revise sound system.
-    *   TODO solve repeated sounds.
     *   TODO create sprite system.
     *   TODO create wow popup on entering a room!
+    *   TODO Try sound error handling! (Safari etc.)
     *
     *   @author     Christopher Stock
     *   @version    0.0.1

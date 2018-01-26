@@ -11293,10 +11293,9 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO revise sound system.
-*   TODO solve repeated sounds.
 *   TODO create sprite system.
 *   TODO create wow popup on entering a room!
+*   TODO Try sound error handling! (Safari etc.)
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -12867,7 +12866,7 @@ var Game = /** @class */ (function () {
         this.onSoundsLoaded = function () {
             // play bg sound
             ninjas.Debug.init.log("Starting bg tune");
-            _this.soundSystem.playSound(ninjas.Sound.BG);
+            _this.soundSystem.playSound(ninjas.Sound.BG, true);
             // init level
             ninjas.Debug.init.log("Launching initial level");
             _this.resetAndLaunchLevel(new ninjas.LevelWebsite());
@@ -13867,12 +13866,22 @@ var SoundSystem = /** @class */ (function () {
     /*****************************************************************************
     *   Creates and plays a COPY of the specified audio object.
     *
-    *   @param id The ID of the audio object to play.
+    *   @param id             The ID of the audio object to play.
+    *   @param repeatInfinite Specifies if playback for this sound should be repeated infinitely.
     *****************************************************************************/
-    SoundSystem.prototype.playSound = function (id) {
+    SoundSystem.prototype.playSound = function (id, repeatInfinite) {
         if (!ninjas.Setting.MUTE) {
-            var clipClone = this.sounds[id].cloneNode(true);
-            clipClone.play();
+            if (this.sounds[id] != null) {
+                var clipClone_1 = this.sounds[id].cloneNode(true);
+                if (repeatInfinite) {
+                    clipClone_1.addEventListener("ended", function () {
+                        ninjas.Debug.sound.log("Clip ended - now repeating ..");
+                        // clipClone.
+                        clipClone_1.play();
+                    });
+                }
+                clipClone_1.play();
+            }
         }
     };
     /***************************************************************************************************************
@@ -13881,9 +13890,15 @@ var SoundSystem = /** @class */ (function () {
     SoundSystem.prototype.loadSounds = function () {
         ninjas.Debug.sound.log("Preloading [" + this.fileNames.length + "] sounds");
         for (var i = 0; i < this.fileNames.length; i++) {
-            this.sounds[this.fileNames[i]] = new Audio();
-            this.sounds[this.fileNames[i]].src = this.fileNames[i];
-            this.sounds[this.fileNames[i]].onloadeddata = this.onLoadSound;
+            try {
+                this.sounds[this.fileNames[i]] = new Audio();
+                this.sounds[this.fileNames[i]].src = this.fileNames[i];
+                this.sounds[this.fileNames[i]].onloadeddata = this.onLoadSound;
+            }
+            catch (e) {
+                ninjas.Debug.sound.log("Error on creating Audio element: " + e.message);
+                this.onLoadSound();
+            }
         }
     };
     return SoundSystem;
