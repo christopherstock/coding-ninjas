@@ -58,7 +58,7 @@
         private onSoundsLoaded=() : void =>
         {
             // play bg sound
-            this.soundSystem.playSound( ninjas.Sound.BG, true );
+            this.soundSystem.playSound( ninjas.Sound.BG_CHINESE, true );
 
             // launch initial level
             this.resetAndLaunchLevel( new ninjas.LevelWebsite() );

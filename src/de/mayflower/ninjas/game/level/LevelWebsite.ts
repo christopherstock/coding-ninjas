@@ -33,7 +33,7 @@
             this.gameObjects =
             [
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),
+                // ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createObstacle( 0,    1000, 5000, 15, 0.0,  false ),
 
                 // ninjas.GameObjectFactory.createObstacle( 490,  765, 500, 15, 15.0, false ),

@@ -12877,7 +12877,7 @@ var Game = /** @class */ (function () {
         ***************************************************************************************************************/
         this.onSoundsLoaded = function () {
             // play bg sound
-            _this.soundSystem.playSound(ninjas.Sound.BG, true);
+            _this.soundSystem.playSound(ninjas.Sound.BG_CHINESE, true);
             // launch initial level
             _this.resetAndLaunchLevel(new ninjas.LevelWebsite());
             // start game loop
@@ -13360,7 +13360,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.gameObjects =
             [
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle(0, 250, 5000, 15, 0.0, false),
+                // ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createObstacle(0, 1000, 5000, 15, 0.0, false),
                 // ninjas.GameObjectFactory.createObstacle( 490,  765, 500, 15, 15.0, false ),
                 // ninjas.GameObjectFactory.createObstacle( 980,  830, 500, 15, 0.0,  false ),
@@ -13583,11 +13583,13 @@ var ninjas = __webpack_require__(0);
 var Sound = /** @class */ (function () {
     function Sound() {
     }
-    /** The bg sound 'chinese' from Graeme Norgate taken from 'Time Splitters'. */
-    Sound.BG = ninjas.Setting.PATH_SOUND + "bg.mp3";
+    /** 'chinese' from 'Graeme Norgate' taken from 'Time Splitters' - Although everybody knows that ninjas actually come from Japan .. */
+    Sound.BG_CHINESE = ninjas.Setting.PATH_SOUND + "bgChinese.mp3";
+    /** 'play hard' from 'Graeme Norgate' taken from 'Killer Instict Gold' */
+    Sound.BG_PLAY_HARD = ninjas.Setting.PATH_SOUND + "bgPlayHard.mp3";
     /** An array holding all filenames of all sounds to load. */
     Sound.FILE_NAMES = [
-        Sound.BG,
+        Sound.BG_CHINESE,
     ];
     return Sound;
 }());
@@ -13876,10 +13878,6 @@ var Image = /** @class */ (function () {
     }
     /** Image resource 'ninja girl standing right frame 1'. */
     Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/01.png";
-    /** Image resource 'player standing'. */
-    Image.IMAGE_PLAYER_STAND = ninjas.Setting.PATH_IMAGE_PLAYER + "stand.png";
-    /** Image resource 'player falling'. */
-    Image.IMAGE_PLAYER_FALL = ninjas.Setting.PATH_IMAGE_PLAYER + "fall.png";
     /** Image resource 'item'. */
     Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
     /** Image resource 'tree'. */
@@ -13889,8 +13887,6 @@ var Image = /** @class */ (function () {
     /** An array holding all filenames of all images to load. */
     Image.FILE_NAMES = [
         Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
-        Image.IMAGE_PLAYER_STAND,
-        Image.IMAGE_PLAYER_FALL,
         Image.IMAGE_ITEM,
         Image.IMAGE_TREE,
         Image.IMAGE_BOX,
