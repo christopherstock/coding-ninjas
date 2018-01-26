@@ -4,8 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO extract class Key!
-    *   TODO create new level.
     *   TODO create image system.
     *   TODO create sprite system.
     *
@@ -29,6 +27,5 @@
             //init and start the game engine
             this.game = new ninjas.Game();
             this.game.init();
-            this.game.start();
         }
     }

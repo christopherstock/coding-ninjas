@@ -3,7 +3,7 @@
     import * as ninjas from '../ninjas';
 
     /*******************************************************************************************************************
-    *   Specifies the game logic and specifies all primal parts of the game.
+    *   Specifies the game logic and all primal components of the game.
     *
     *   @author     Christopher Stock
     *   @version    0.0.1
@@ -22,11 +22,13 @@
         /** The custom level. */
         public      level                   :ninjas.Level           = null;
 
+        /** The image system. */
+        public      imageSystem             :ninjas.ImageSystem     = null;
         /** The soundSystem system. */
-        public      test                    :ninjas.SoundSystem     = null;
+        public      soundSystem             :ninjas.SoundSystem     = null;
 
         /***************************************************************************************************************
-        *   Inits the game from scratch.
+        *   Inits all components of the game.
         ***************************************************************************************************************/
         public init()
         {
@@ -34,19 +36,31 @@
 
             this.initEngine2D();
             this.initKeySystem();
-            this.initSoundSystem();
-
-            ninjas.Debug.init.log( "Playing bg sounds" );
-            // this.test.playSound( ninjas.ninjasSound.PACHELBELS_CANON );
-
-            ninjas.Debug.init.log( "Launching initial level" );
-            this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
+            this.initImageSystem();
         }
+
+        /***************************************************************************************************************
+        *   Inits the game from scratch.
+        ***************************************************************************************************************/
+        private onImagesLoaded=() : void =>
+        {
+            // this.initSoundSystem();
+/*
+
+                    ninjas.Debug.init.log( "Playing bg sounds" );
+                    // this.test.playSound( ninjas.ninjasSound.PACHELBELS_CANON );
+
+                    ninjas.Debug.init.log( "Launching initial level" );
+                    this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
+                }
+            );
+*/
+        };
 
         /***************************************************************************************************************
         *   Starts the game loop.
         ***************************************************************************************************************/
-        public start()
+        private start()
         {
             // render 1st engine tick
             this.tick();
@@ -65,6 +79,8 @@
         ***************************************************************************************************************/
         private initEngine2D()
         {
+            ninjas.Debug.init.log( "Initing 2D physics engine" );
+
             this.engine = Matter.Engine.create();
 
             let options:any =
@@ -99,15 +115,30 @@
         ***************************************************************************************************************/
         private initKeySystem()
         {
+            ninjas.Debug.init.log( "Initing key system" );
+
             this.keySystem = new ninjas.KeySystem();
         }
 
         /***************************************************************************************************************
-        *   Inits the soundSystem system.
+        *   Inits the image system.
+        ***************************************************************************************************************/
+        private initImageSystem()
+        {
+            ninjas.Debug.init.log( "Initing image system" );
+
+            this.imageSystem = new ninjas.ImageSystem( ninjas.Image.FILENAMES, this.onImagesLoaded );
+            this.imageSystem.loadImages();
+        }
+
+        /***************************************************************************************************************
+        *   Inits the sound system.
         ***************************************************************************************************************/
         private initSoundSystem()
         {
-            this.test = new ninjas.SoundSystem( ninjas.Sound.FILE_NAMES );
+            ninjas.Debug.init.log( "Initing sound system" );
+
+            this.soundSystem = new ninjas.SoundSystem( ninjas.Sound.FILE_NAMES );
         }
 
         /***************************************************************************************************************
@@ -174,25 +205,25 @@
         ***************************************************************************************************************/
         private handleMenuKey()
         {
-            if ( ninjas.Main.game.keySystem.isPressed( ninjas.KeySystem.KEY_1 ) )
+            if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_1 ) )
             {
-                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.KeySystem.KEY_1 );
+                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.Key.KEY_1 );
 
                 ninjas.Debug.init.log( "Switching to level 1" );
                 this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
             }
 
-            if ( ninjas.Main.game.keySystem.isPressed( ninjas.KeySystem.KEY_2 ) )
+            if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_2 ) )
             {
-                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.KeySystem.KEY_2 );
+                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.Key.KEY_2 );
 
                 ninjas.Debug.init.log( "Switching to level 2" );
                 this.resetAndLaunchLevel( new ninjas.LevelAllElements() );
             }
 
-            if ( ninjas.Main.game.keySystem.isPressed( ninjas.KeySystem.KEY_3 ) )
+            if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_3 ) )
             {
-                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.KeySystem.KEY_3 );
+                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.Key.KEY_3 );
 
                 ninjas.Debug.init.log( "Switching to level 3" );
                 this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );

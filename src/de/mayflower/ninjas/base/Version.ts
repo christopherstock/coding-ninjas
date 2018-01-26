@@ -8,7 +8,7 @@
     export class Version
     {
         /** The project's version v.0.0.1. */
-        private     static  readonly    V_0_0_1                 :Version            = new Version( "0.0.1", "GAMBAZ", "07.08.2017, 10:18:34 GMT+1" );
+        private     static  readonly    V_0_0_1                 :Version            = new Version( "0.0.1", "GAME BASE", "26.01.2018, 16:00:00 GMT+1" );
 
         /** The project's current version. */
         public      static  readonly    CURRENT_VERSION         :Version            = Version.V_0_0_1;

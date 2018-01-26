@@ -20,4 +20,13 @@
         public      static      IMAGE_TREE                              :string         = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
         /** Image resource 'box'. */
         public      static      IMAGE_BOX                               :string         = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
+
+        public      static      FILENAMES                               :Array<string>  =
+        [
+            Image.IMAGE_PLAYER_STAND,
+            Image.IMAGE_PLAYER_FALL,
+            Image.IMAGE_ITEM,
+            Image.IMAGE_TREE,
+            Image.IMAGE_BOX,
+        ];
     }

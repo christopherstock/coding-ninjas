@@ -26,10 +26,12 @@
     export * from './game/level/LevelAllElements';
     export * from './game/level/LevelEnchantedWoods';
     export * from './game/level/LevelWebsite';
+    export * from './hid/Key';
     export * from './hid/KeySystem';
     export * from './hid/Sound';
     export * from './hid/SoundSystem';
     export * from './ui/Camera';
     export * from './ui/Image';
+    export * from './ui/ImageSystem';
     export * from './util/MathUtil';
     export * from './util/String';
