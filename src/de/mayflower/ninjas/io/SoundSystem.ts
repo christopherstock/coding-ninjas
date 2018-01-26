@@ -37,7 +37,7 @@
         *   @param id             The ID of the audio object to play.
         *   @param repeatInfinite Specifies if playback for this sound should be repeated infinitely.
         *****************************************************************************/
-        public playSound( id:string, repeatInfinite:boolean )
+        public playSound( id:string, repeatInfinite:boolean = false )
         {
             if ( !ninjas.Setting.MUTE )
             {

@@ -11108,10 +11108,10 @@ var Version = /** @class */ (function () {
     *   @return A representation of the current project's version with it's timestamp.
     ***************************************************************************************************************/
     Version.prototype.getVersionDescriptor = function () {
-        return ("v. " + this.version + ", " + this.date + ", [" + this.codename + "]");
+        return ("v. " + this.version + " [" + this.codename + "]");
     };
     /** The project's version v.0.0.1. */
-    Version.V_0_0_1 = new Version("0.0.1", "GAME BASE", "26.01.2018, 16:00:00 GMT+1");
+    Version.V_0_0_1 = new Version("0.0.1", "PRIMAL", "26.01.2018, 16:00:00 GMT+1");
     /** The project's current version. */
     Version.CURRENT_VERSION = Version.V_0_0_1;
     return Version;
@@ -11141,7 +11141,7 @@ var Setting = /** @class */ (function () {
     /** The application's internal name. */
     Setting.TITLE = "Coding Ninjas, (c) 2018 Mayflower GmbH" + ", " + ninjas.Version.CURRENT_VERSION.getVersionDescriptor();
     /** Disables all sounds. */
-    Setting.MUTE = false;
+    Setting.MUTE = true;
     /** The delta between render ticks in ms. */
     Setting.RENDER_DELTA = 16.66;
     /** The desired canvas3D width. */
@@ -11259,18 +11259,19 @@ var Debug = /** @class */ (function () {
     *   @param msg The message to log to the default console.
     ***************************************************************************************************************/
     Debug.prototype.log = function (msg) {
+        if (msg === void 0) { msg = ""; }
         if (this.debugEnabled) {
             console.log('[' + ninjas.String.getDateTimeString() + '] ' + msg);
         }
     };
     /** A global debug group. */
     Debug.bugfix = new Debug(ninjas.Setting.DEBUG_MODE);
-    /** Debugs the image system. */
-    Debug.image = new Debug(ninjas.Setting.DEBUG_MODE && true);
-    /** Debugs the sound system. */
-    Debug.sound = new Debug(ninjas.Setting.DEBUG_MODE && true);
     /** Debugs the init system. */
     Debug.init = new Debug(ninjas.Setting.DEBUG_MODE && true);
+    /** Debugs the image system. */
+    Debug.image = new Debug(ninjas.Setting.DEBUG_MODE && false);
+    /** Debugs the sound system. */
+    Debug.sound = new Debug(ninjas.Setting.DEBUG_MODE && false);
     /** Debugs the key system. */
     Debug.key = new Debug(ninjas.Setting.DEBUG_MODE && false);
     /** Debugs the pickable game items. */
@@ -11297,6 +11298,7 @@ var ninjas = __webpack_require__(0);
 *   TODO create sprite system.
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
+*   TODO Create parallax bg images.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -11308,9 +11310,11 @@ var Main = /** @class */ (function () {
     *   This method is invoked when the application starts.
     *****************************************************************************/
     Main.main = function () {
-        // acclaim debug console and set title
-        ninjas.Debug.init.log(ninjas.Setting.TITLE);
+        // set webpage title
         document.title = ninjas.Setting.TITLE;
+        // acclaim debug console
+        ninjas.Debug.init.log(ninjas.Setting.TITLE);
+        ninjas.Debug.init.log();
         //init and start the game engine
         this.game = new ninjas.Game();
         this.game.init();
@@ -12868,12 +12872,12 @@ var Game = /** @class */ (function () {
         ***************************************************************************************************************/
         this.onSoundsLoaded = function () {
             // play bg sound
-            ninjas.Debug.init.log("Starting bg tune");
             _this.soundSystem.playSound(ninjas.Sound.BG, true);
-            // init level
-            ninjas.Debug.init.log("Launching initial level");
+            // launch initial level
             _this.resetAndLaunchLevel(new ninjas.LevelWebsite());
             // start game loop
+            ninjas.Debug.init.log("Initing game engine completed");
+            ninjas.Debug.init.log();
             _this.start();
         };
         /***************************************************************************************************************
@@ -12890,7 +12894,6 @@ var Game = /** @class */ (function () {
     *   Inits all components of the game.
     ***************************************************************************************************************/
     Game.prototype.init = function () {
-        ninjas.Debug.init.log("Initing game engine");
         this.initEngine2D();
         this.initKeySystem();
         this.initImageSystem();
@@ -13874,6 +13877,7 @@ var SoundSystem = /** @class */ (function () {
     *   @param repeatInfinite Specifies if playback for this sound should be repeated infinitely.
     *****************************************************************************/
     SoundSystem.prototype.playSound = function (id, repeatInfinite) {
+        if (repeatInfinite === void 0) { repeatInfinite = false; }
         if (!ninjas.Setting.MUTE) {
             if (this.sounds[id] != null) {
                 var clipClone_1 = this.sounds[id].cloneNode(true);

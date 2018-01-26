@@ -8,6 +8,7 @@
     *   TODO create sprite system.
     *   TODO create wow popup on entering a room!
     *   TODO Try sound error handling! (Safari etc.)
+    *   TODO Create parallax bg images.
     *
     *   @author     Christopher Stock
     *   @version    0.0.1
@@ -22,9 +23,12 @@
         *****************************************************************************/
         public static main():void
         {
-            // acclaim debug console and set title
-            ninjas.Debug.init.log( ninjas.Setting.TITLE );
+            // set webpage title
             document.title = ninjas.Setting.TITLE;
+
+            // acclaim debug console
+            ninjas.Debug.init.log( ninjas.Setting.TITLE );
+            ninjas.Debug.init.log();
 
             //init and start the game engine
             this.game = new ninjas.Game();

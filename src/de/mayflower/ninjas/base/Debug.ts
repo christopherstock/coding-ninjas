@@ -11,12 +11,12 @@
     {
         /** A global debug group. */
         public      static  bugfix          :Debug              = new Debug( ninjas.Setting.DEBUG_MODE          );
-        /** Debugs the image system. */
-        public      static  image           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
-        /** Debugs the sound system. */
-        public      static  sound           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
         /** Debugs the init system. */
         public      static  init            :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
+        /** Debugs the image system. */
+        public      static  image           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && false );
+        /** Debugs the sound system. */
+        public      static  sound           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && false );
         /** Debugs the key system. */
         public      static  key             :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && false );
         /** Debugs the pickable game items. */
@@ -43,7 +43,7 @@
         *
         *   @param msg The message to log to the default console.
         ***************************************************************************************************************/
-        public log( msg:string ):void
+        public log( msg:string = "" ):void
         {
             if ( this.debugEnabled )
             {

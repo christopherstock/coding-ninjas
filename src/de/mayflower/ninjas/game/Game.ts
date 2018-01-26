@@ -32,8 +32,6 @@
         ***************************************************************************************************************/
         public init()
         {
-            ninjas.Debug.init.log( "Initing game engine" );
-
             this.initEngine2D();
             this.initKeySystem();
             this.initImageSystem();
@@ -53,14 +51,14 @@
         private onSoundsLoaded=() : void =>
         {
             // play bg sound
-            ninjas.Debug.init.log( "Starting bg tune" );
             this.soundSystem.playSound( ninjas.Sound.BG, true );
 
-            // init level
-            ninjas.Debug.init.log( "Launching initial level" );
+            // launch initial level
             this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
 
             // start game loop
+            ninjas.Debug.init.log( "Initing game engine completed" );
+            ninjas.Debug.init.log();
             this.start();
         };
 
