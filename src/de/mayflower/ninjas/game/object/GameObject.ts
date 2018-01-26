@@ -37,26 +37,36 @@
         ***************************************************************************************************************/
         protected constructor
         (
-            shape:ninjas.Shape,
-            x:number,
-            y:number,
-            image:string
+            shape :ninjas.Shape,
+            x     :number,
+            y     :number,
+            image :string
         )
         {
             this.shape = shape;
 
             Matter.Body.translate( this.shape.body, Matter.Vector.create( x, y ) );
 
-            if ( image != null )
-            {
-                this.shape.body.render.sprite.texture = image;
-            }
+            this.setImage( image );
         }
 
         /***************************************************************************************************************
         *   Renders the current game object.
         ***************************************************************************************************************/
         public abstract render();
+
+        /***************************************************************************************************************
+        *   Sets a new image for this game object.
+        *
+        *   @param image The image source to set.
+        ***************************************************************************************************************/
+        protected setImage( image:string ) : void
+        {
+            if ( image != null )
+            {
+                this.shape.body.render.sprite.texture = image;
+            }
+        }
 
         /***************************************************************************************************************
         *   Avoids this game object from rotating.

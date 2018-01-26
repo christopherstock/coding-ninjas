@@ -48,7 +48,7 @@
         public render()
         {
             super.render();
-
+/*
             if ( this.collidesBottom || this.ticksWithoutBottomCollision++ < ninjas.Character.MAX_TICKS_WITHOUT_BOTTOM_COLLISION )
             {
                 this.shape.body.render.sprite.texture = ninjas.Image.IMAGE_PLAYER_STAND;
@@ -57,7 +57,7 @@
             {
                 this.shape.body.render.sprite.texture = ninjas.Image.IMAGE_PLAYER_FALL;
             }
-
+*/
             if ( !this.dead )
             {
                 this.handleKeys();

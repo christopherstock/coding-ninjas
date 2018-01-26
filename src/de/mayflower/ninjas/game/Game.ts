@@ -20,7 +20,7 @@
         /** The custom camera. */
         public      camera                  :ninjas.Camera          = null;
         /** The custom level. */
-        public      level                   :ninjas.Level              = null;
+        public      level                   :ninjas.Level           = null;
 
         /** The soundSystem system. */
         public      test                    :ninjas.SoundSystem     = null;
@@ -40,7 +40,7 @@
             // this.test.playSound( ninjas.ninjasSound.PACHELBELS_CANON );
 
             ninjas.Debug.init.log( "Launching initial level" );
-            this.resetAndLaunchLevel( new ninjas.LevelDev() );
+            this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
         }
 
         /***************************************************************************************************************
@@ -179,7 +179,7 @@
                 ninjas.Main.game.keySystem.setNeedsRelease( ninjas.KeySystem.KEY_1 );
 
                 ninjas.Debug.init.log( "Switching to level 1" );
-                this.resetAndLaunchLevel( new ninjas.LevelDev() );
+                this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
             }
 
             if ( ninjas.Main.game.keySystem.isPressed( ninjas.KeySystem.KEY_2 ) )
@@ -187,6 +187,14 @@
                 ninjas.Main.game.keySystem.setNeedsRelease( ninjas.KeySystem.KEY_2 );
 
                 ninjas.Debug.init.log( "Switching to level 2" );
+                this.resetAndLaunchLevel( new ninjas.LevelAllElements() );
+            }
+
+            if ( ninjas.Main.game.keySystem.isPressed( ninjas.KeySystem.KEY_3 ) )
+            {
+                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.KeySystem.KEY_3 );
+
+                ninjas.Debug.init.log( "Switching to level 3" );
                 this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );
             }
         }

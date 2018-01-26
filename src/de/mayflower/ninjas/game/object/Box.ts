@@ -15,15 +15,16 @@
         *   @param shape    The shape for this object.
         *   @param x        Startup position X.
         *   @param y        Startup position Y.
+        *   @param image    The image URL to use for this object.
         ***************************************************************************************************************/
-        public constructor(shape:ninjas.Shape, x:number, y:number )
+        public constructor(shape:ninjas.Shape, x:number, y:number, image:string )
         {
             super
             (
                 shape,
                 x,
                 y,
-                ninjas.Image.IMAGE_BOX
+                image
             );
         }
 

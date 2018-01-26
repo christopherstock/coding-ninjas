@@ -23,8 +23,9 @@
     export * from './game/object/Bounce';
     export * from './game/Game';
     export * from './game/level/Level';
-    export * from './game/level/LevelDev';
+    export * from './game/level/LevelAllElements';
     export * from './game/level/LevelEnchantedWoods';
+    export * from './game/level/LevelWebsite';
     export * from './hid/KeySystem';
     export * from './hid/Sound';
     export * from './hid/SoundSystem';

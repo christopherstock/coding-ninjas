@@ -37,7 +37,8 @@
                     density
                 ),
                 x,
-                y
+                y,
+                ninjas.Image.IMAGE_BOX
             );
         }
 
@@ -66,7 +67,8 @@
                     density
                 ),
                 x,
-                y
+                y,
+                null
             );
         }
 

@@ -8,7 +8,7 @@
     *   @author     Christopher Stock
     *   @version    0.0.1
     *******************************************************************************************************************/
-    export class LevelDev extends ninjas.Level
+    export class LevelWebsite extends ninjas.Level
     {
         /** The width of this level. */
         public      width                   :number                     = 10000.0;
@@ -28,12 +28,14 @@
             [
                 // grounds and ramps
                 ninjas.GameObjectFactory.createBlock( 0,    620, 500, 15, 0.0,  false ),
+/*
                 ninjas.GameObjectFactory.createBlock( 490,  765, 500, 15, 15.0, false ),
                 ninjas.GameObjectFactory.createBlock( 980,  830, 500, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createBlock( 2310, 830, 500, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createBlock( 3230, 830, 500, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createBlock( 4080, 730, 500, 15, 0.0,  false ),
-
+*/
+/*
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration( 30,   450, 76, 170, ninjas.Image.IMAGE_TREE ),
                 ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170, ninjas.Image.IMAGE_TREE ),
@@ -99,16 +101,17 @@
 
                 // ascending ramp
                 ninjas.GameObjectFactory.createElevatedRamp( 4600.0, 730.0, 1000.0, 15.0, -200.0 ),
-
+*/
                 // player
                 this.player,
-
+/*
                 // enemies (fg)
                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
 
                 // fg decoration
                 ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
                 ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),
+*/
             ];
         }
     }
