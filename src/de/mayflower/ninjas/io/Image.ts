@@ -11,6 +11,24 @@
     {
         /** Image resource 'ninja girl standing right frame 1'. */
         public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1     :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/01.png";
+        /** Image resource 'ninja girl standing right frame 2'. */
+        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2     :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/02.png";
+        /** Image resource 'ninja girl standing right frame 3'. */
+        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3     :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/03.png";
+        /** Image resource 'ninja girl standing right frame 4'. */
+        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4     :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/04.png";
+        /** Image resource 'ninja girl standing right frame 5'. */
+        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5     :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/05.png";
+        /** Image resource 'ninja girl standing right frame 6'. */
+        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6     :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/06.png";
+        /** Image resource 'ninja girl standing right frame 7'. */
+        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7     :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/07.png";
+        /** Image resource 'ninja girl standing right frame 8'. */
+        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8     :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/08.png";
+        /** Image resource 'ninja girl standing right frame 9'. */
+        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9     :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/09.png";
+        /** Image resource 'ninja girl standing right frame 10'. */
+        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10    :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/10.png";
 
         /** Image resource 'item'. */
         public      static      IMAGE_ITEM                                  :string         = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
@@ -23,6 +41,16 @@
         public      static      FILE_NAMES                                  :Array<string>  =
         [
             Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
+            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2,
+            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3,
+            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4,
+            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5,
+            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6,
+            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7,
+            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
+            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
+            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
+
             Image.IMAGE_ITEM,
             Image.IMAGE_TREE,
             Image.IMAGE_BOX,

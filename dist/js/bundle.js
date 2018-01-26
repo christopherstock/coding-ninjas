@@ -13878,6 +13878,24 @@ var Image = /** @class */ (function () {
     }
     /** Image resource 'ninja girl standing right frame 1'. */
     Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/01.png";
+    /** Image resource 'ninja girl standing right frame 2'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/02.png";
+    /** Image resource 'ninja girl standing right frame 3'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/03.png";
+    /** Image resource 'ninja girl standing right frame 4'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/04.png";
+    /** Image resource 'ninja girl standing right frame 5'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/05.png";
+    /** Image resource 'ninja girl standing right frame 6'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/06.png";
+    /** Image resource 'ninja girl standing right frame 7'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/07.png";
+    /** Image resource 'ninja girl standing right frame 8'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/08.png";
+    /** Image resource 'ninja girl standing right frame 9'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/09.png";
+    /** Image resource 'ninja girl standing right frame 10'. */
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/10.png";
     /** Image resource 'item'. */
     Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
     /** Image resource 'tree'. */
@@ -13887,6 +13905,15 @@ var Image = /** @class */ (function () {
     /** An array holding all filenames of all images to load. */
     Image.FILE_NAMES = [
         Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
+        Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
         Image.IMAGE_ITEM,
         Image.IMAGE_TREE,
         Image.IMAGE_BOX,
