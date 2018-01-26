@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -14,7 +14,7 @@
         public  static      SPEED_NORMAL            :number                         = 1.0;
 
         /** The waypoints for this platform to move. */
-        private             waypoints               :Array<Matter.Vector>           = null;
+        private             waypoints               :Array<matter.Vector>           = null;
         /** The number of ticks till the next waypoint is reached. */
         private             speed                   :number                         = 0.0;
         /** The current waypoint to move to. */
@@ -42,7 +42,7 @@
         (
             shape     :ninjas.Shape,
             speed     :number,
-            waypoints :Array<Matter.Vector>,
+            waypoints :Array<matter.Vector>,
             image     :HTMLImageElement
         )
         {
@@ -78,7 +78,7 @@
 
             // assign current wp
             if ( this.currentWaypointIndex >= this.waypoints.length ) this.currentWaypointIndex = 0;
-            let currentWaypoint:Matter.Vector = Matter.Vector.create
+            let currentWaypoint:matter.Vector = matter.Vector.create
             (
                 this.waypoints[ this.currentWaypointIndex ].x + ( this.shape.getWidth()  / 2 ),
                 this.waypoints[ this.currentWaypointIndex ].y + ( this.shape.getHeight() / 2 )
@@ -87,14 +87,14 @@
             // assign next wp
             let nextWaypointIndex = this.currentWaypointIndex + 1;
             if ( nextWaypointIndex >= this.waypoints.length ) nextWaypointIndex = 0;
-            let nextWaypoint:Matter.Vector = Matter.Vector.create
+            let nextWaypoint:matter.Vector = matter.Vector.create
             (
                 this.waypoints[ nextWaypointIndex ].x + ( this.shape.getWidth()  / 2 ),
                 this.waypoints[ nextWaypointIndex ].y + ( this.shape.getHeight() / 2 )
             );
 
             // set platform to starting wp
-            Matter.Body.setPosition( this.shape.body, currentWaypoint );
+            matter.Body.setPosition( this.shape.body, currentWaypoint );
 
             // get deltas
             let deltaX:number      = Math.abs( nextWaypoint.x - currentWaypoint.x );
@@ -122,7 +122,7 @@
             }
 
             // move platform
-            Matter.Body.setVelocity( this.shape.body, Matter.Vector.create( this.stepSizeX, this.stepSizeY ) );
-            Matter.Body.translate(   this.shape.body, Matter.Vector.create( this.stepSizeX, this.stepSizeY ) );
+            matter.Body.setVelocity( this.shape.body, matter.Vector.create( this.stepSizeX, this.stepSizeY ) );
+            matter.Body.translate(   this.shape.body, matter.Vector.create( this.stepSizeX, this.stepSizeY ) );
         }
     }

@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../../ninjas';
 
     /*******************************************************************************************************************
@@ -11,10 +11,10 @@
     export abstract class Shape
     {
         /** The body rendering options for this shape. */
-        public                  options                 :Matter.IBodyDefinition         = null;
+        public                  options                 :matter.IBodyDefinition         = null;
 
         /** The shape's body. */
-        public                  body                    :Matter.Body                    = null;
+        public                  body                    :matter.Body                    = null;
 
         /***************************************************************************************************************
         *   Creates a new game object shape.
@@ -71,5 +71,5 @@
         *
         *   @return The body for this shape.
         ***************************************************************************************************************/
-        protected abstract createBody() : Matter.Body;
+        protected abstract createBody() : matter.Body;
     }

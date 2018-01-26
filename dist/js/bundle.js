@@ -11294,7 +11294,6 @@ var ninjas = __webpack_require__(0);
 *   TODO add resize mechanism.
 *   TODO Adjust physics object according to image dimensions!
 *   TODO create sprite system.
-*   TODO Matter import to lower case!
 *   TODO Add FPS counter via npm package.
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
@@ -11413,7 +11412,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents the shape of a game object.
@@ -11451,7 +11450,7 @@ var ShapeRectangle = /** @class */ (function (_super) {
     *   @return The body for this shape.
     ***************************************************************************************************************/
     ShapeRectangle.prototype.createBody = function () {
-        return Matter.Bodies.rectangle((this.width / 2), (this.height / 2), this.width, this.height, this.options);
+        return matter.Bodies.rectangle((this.width / 2), (this.height / 2), this.width, this.height, this.options);
     };
     /***************************************************************************************************************
     *   Returns the width of this shape's boundaries.
@@ -11518,7 +11517,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents the shape of a game object.
@@ -11552,7 +11551,7 @@ var ShapeCircle = /** @class */ (function (_super) {
     *   @return The body for this shape.
     ***************************************************************************************************************/
     ShapeCircle.prototype.createBody = function () {
-        return Matter.Bodies.circle((this.diameter / 2), (this.diameter / 2), (this.diameter / 2), this.options);
+        return matter.Bodies.circle((this.diameter / 2), (this.diameter / 2), (this.diameter / 2), this.options);
     };
     /***************************************************************************************************************
     *   Returns the width of this shape's boundaries.
@@ -11602,7 +11601,7 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   A free form shape for a game object.
@@ -11641,7 +11640,7 @@ var ShapeFreeForm = /** @class */ (function (_super) {
     *   @return The body for this shape.
     ***************************************************************************************************************/
     ShapeFreeForm.prototype.createBody = function () {
-        return Matter.Bodies.fromVertices((this.boundWidth / 2), (this.boundHeight / 2), [this.vertices], this.options);
+        return matter.Bodies.fromVertices((this.boundWidth / 2), (this.boundHeight / 2), [this.vertices], this.options);
     };
     /***************************************************************************************************************
     *   Returns the width of this shape's boundaries.
@@ -11704,7 +11703,7 @@ exports.ShapeFreeForm = ShapeFreeForm;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The abstract class of all game objects.
@@ -11728,7 +11727,7 @@ var GameObject = /** @class */ (function () {
         this.image = null;
         this.shape = shape;
         this.setImage(image);
-        Matter.Body.translate(this.shape.body, Matter.Vector.create(x, y));
+        matter.Body.translate(this.shape.body, matter.Vector.create(x, y));
     }
     /***************************************************************************************************************
     *   Sets a new image for this game object.
@@ -11745,21 +11744,21 @@ var GameObject = /** @class */ (function () {
     *   Avoids this game object from rotating.
     ***************************************************************************************************************/
     GameObject.prototype.resetRotation = function () {
-        Matter.Body.setAngularVelocity(this.shape.body, 0.0);
-        Matter.Body.setAngle(this.shape.body, 0.0);
+        matter.Body.setAngularVelocity(this.shape.body, 0.0);
+        matter.Body.setAngle(this.shape.body, 0.0);
     };
     /***************************************************************************************************************
     *   Clips this body to the horizontal level bounds.
     ***************************************************************************************************************/
     GameObject.prototype.clipToHorizontalLevelBounds = function () {
         if (this.shape.body.position.x < this.shape.getWidth() / 2) {
-            Matter.Body.setPosition(this.shape.body, {
+            matter.Body.setPosition(this.shape.body, {
                 x: this.shape.getWidth() / 2,
                 y: this.shape.body.position.y
             });
         }
         if (this.shape.body.position.x > ninjas.Main.game.level.width - this.shape.getWidth() / 2) {
-            Matter.Body.setPosition(this.shape.body, {
+            matter.Body.setPosition(this.shape.body, {
                 x: ninjas.Main.game.level.width - this.shape.getWidth() / 2,
                 y: this.shape.body.position.y
             });
@@ -11789,7 +11788,7 @@ exports.GameObject = GameObject;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Creates customized instances of game objects.
@@ -11881,10 +11880,10 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY) {
         var vertices = [];
-        vertices.push(Matter.Vector.create(0.0, 0.0));
-        vertices.push(Matter.Vector.create(width, deltaY));
-        vertices.push(Matter.Vector.create(width, height + deltaY));
-        vertices.push(Matter.Vector.create(0.0, height));
+        vertices.push(matter.Vector.create(0.0, 0.0));
+        vertices.push(matter.Vector.create(width, deltaY));
+        vertices.push(matter.Vector.create(width, height + deltaY));
+        vertices.push(matter.Vector.create(0.0, height));
         if (deltaY <= 0.0) {
             y += deltaY;
         }
@@ -12010,7 +12009,7 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a character.
@@ -12066,7 +12065,7 @@ var Character = /** @class */ (function (_super) {
         if (this.shape.body.position.y - this.shape.getHeight() / 2 > ninjas.Main.game.level.height) {
             ninjas.Debug.bugfix.log("Character has fallen to dead");
             // remove character body
-            Matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
+            matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
             this.kill();
         }
     };
@@ -12105,7 +12104,7 @@ var Character = /** @class */ (function (_super) {
             finally { if (e_1) throw e_1.error; }
         }
         // check colliding bodies
-        this.collidesBottom = Matter.Query.ray(bodiesToCheck, Matter.Vector.create(this.shape.body.position.x - (this.shape.getWidth() / 2), this.shape.body.position.y + (this.shape.getHeight() / 2)), Matter.Vector.create(this.shape.body.position.x + (this.shape.getWidth() / 2), this.shape.body.position.y + (this.shape.getHeight() / 2))).length > 0;
+        this.collidesBottom = matter.Query.ray(bodiesToCheck, matter.Vector.create(this.shape.body.position.x - (this.shape.getWidth() / 2), this.shape.body.position.y + (this.shape.getHeight() / 2)), matter.Vector.create(this.shape.body.position.x + (this.shape.getWidth() / 2), this.shape.body.position.y + (this.shape.getHeight() / 2))).length > 0;
         var e_1, _c;
     };
     /***************************************************************************************************************
@@ -12113,21 +12112,21 @@ var Character = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     Character.prototype.jump = function () {
         if (this.collidesBottom) {
-            Matter.Body.applyForce(this.shape.body, this.shape.body.position, Matter.Vector.create(0.0, this.jumpPower));
+            matter.Body.applyForce(this.shape.body, this.shape.body.position, matter.Vector.create(0.0, this.jumpPower));
         }
     };
     /***************************************************************************************************************
     *   Moves this character left.
     ***************************************************************************************************************/
     Character.prototype.moveLeft = function () {
-        Matter.Body.translate(this.shape.body, Matter.Vector.create(-this.speedMove, 0));
+        matter.Body.translate(this.shape.body, matter.Vector.create(-this.speedMove, 0));
         this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
     };
     /***************************************************************************************************************
     *   Moves this character left.
     ***************************************************************************************************************/
     Character.prototype.moveRight = function () {
-        Matter.Body.translate(this.shape.body, Matter.Vector.create(this.speedMove, 0));
+        matter.Body.translate(this.shape.body, matter.Vector.create(this.speedMove, 0));
         this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
     };
     /** The default jump power ( player ). */
@@ -12154,7 +12153,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents an enemy being controlled by the system.
@@ -12192,12 +12191,12 @@ var Enemy = /** @class */ (function (_super) {
         switch (this.lookingDirection) {
             case ninjas.CharacterLookingDirection.LEFT:
                 {
-                    Matter.Body.applyForce(this.shape.body, this.shape.body.position, Matter.Vector.create(-0.5, -1.0));
+                    matter.Body.applyForce(this.shape.body, this.shape.body.position, matter.Vector.create(-0.5, -1.0));
                     break;
                 }
             case ninjas.CharacterLookingDirection.RIGHT:
                 {
-                    Matter.Body.applyForce(this.shape.body, this.shape.body.position, Matter.Vector.create(0.5, -1.0));
+                    matter.Body.applyForce(this.shape.body, this.shape.body.position, matter.Vector.create(0.5, -1.0));
                     break;
                 }
         }
@@ -12224,7 +12223,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a platform that moves.
@@ -12277,14 +12276,14 @@ var Platform = /** @class */ (function (_super) {
         // assign current wp
         if (this.currentWaypointIndex >= this.waypoints.length)
             this.currentWaypointIndex = 0;
-        var currentWaypoint = Matter.Vector.create(this.waypoints[this.currentWaypointIndex].x + (this.shape.getWidth() / 2), this.waypoints[this.currentWaypointIndex].y + (this.shape.getHeight() / 2));
+        var currentWaypoint = matter.Vector.create(this.waypoints[this.currentWaypointIndex].x + (this.shape.getWidth() / 2), this.waypoints[this.currentWaypointIndex].y + (this.shape.getHeight() / 2));
         // assign next wp
         var nextWaypointIndex = this.currentWaypointIndex + 1;
         if (nextWaypointIndex >= this.waypoints.length)
             nextWaypointIndex = 0;
-        var nextWaypoint = Matter.Vector.create(this.waypoints[nextWaypointIndex].x + (this.shape.getWidth() / 2), this.waypoints[nextWaypointIndex].y + (this.shape.getHeight() / 2));
+        var nextWaypoint = matter.Vector.create(this.waypoints[nextWaypointIndex].x + (this.shape.getWidth() / 2), this.waypoints[nextWaypointIndex].y + (this.shape.getHeight() / 2));
         // set platform to starting wp
-        Matter.Body.setPosition(this.shape.body, currentWaypoint);
+        matter.Body.setPosition(this.shape.body, currentWaypoint);
         // get deltas
         var deltaX = Math.abs(nextWaypoint.x - currentWaypoint.x);
         var deltaY = Math.abs(nextWaypoint.y - currentWaypoint.y);
@@ -12305,8 +12304,8 @@ var Platform = /** @class */ (function (_super) {
             this.assignNextWaypoint();
         }
         // move platform
-        Matter.Body.setVelocity(this.shape.body, Matter.Vector.create(this.stepSizeX, this.stepSizeY));
-        Matter.Body.translate(this.shape.body, Matter.Vector.create(this.stepSizeX, this.stepSizeY));
+        matter.Body.setVelocity(this.shape.body, matter.Vector.create(this.stepSizeX, this.stepSizeY));
+        matter.Body.translate(this.shape.body, matter.Vector.create(this.stepSizeX, this.stepSizeY));
     };
     /** Medium moving speed. */
     Platform.SPEED_NORMAL = 1.0;
@@ -12342,7 +12341,7 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents the player being controlled by the user.
@@ -12401,7 +12400,7 @@ var Player = /** @class */ (function (_super) {
                     if (gameObject instanceof ninjas.Enemy) {
                         var enemy = gameObject;
                         // check intersection of the player and the enemy
-                        if (Matter.Bounds.overlaps(this.shape.body.bounds, enemy.shape.body.bounds)) {
+                        if (matter.Bounds.overlaps(this.shape.body.bounds, enemy.shape.body.bounds)) {
                             ninjas.Debug.enemy.log("Enemy touched by player");
                             var playerBottom = Math.floor(this.shape.body.position.y + this.shape.getHeight() / 2);
                             var enemyTop = Math.floor(enemy.shape.body.position.y - enemy.shape.getHeight() / 2);
@@ -12499,7 +12498,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a pickable item.
@@ -12528,7 +12527,7 @@ var Item = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     Item.prototype.render = function () {
         if (!this.picked) {
-            if (Matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds)) {
+            if (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds)) {
                 ninjas.Debug.item.log("Player picked item");
                 this.pick();
             }
@@ -12541,7 +12540,7 @@ var Item = /** @class */ (function (_super) {
         // flag as picked
         this.picked = true;
         // remove item body
-        Matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
+        matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
     };
     return Item;
 }(ninjas.GameObject));
@@ -12684,7 +12683,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a sigsaw.
@@ -12706,7 +12705,7 @@ var SigSaw = /** @class */ (function (_super) {
         var _this = _super.call(this, shape, x, y, image) || this;
         /** The constraint that builds the turning point for the sigsaw. */
         _this.constraint = null;
-        _this.constraint = Matter.Constraint.create({
+        _this.constraint = matter.Constraint.create({
             bodyB: _this.shape.body,
             pointA: { x: _this.shape.body.position.x, y: _this.shape.body.position.y },
             pointB: { x: 0, y: 0 },
@@ -12719,9 +12718,9 @@ var SigSaw = /** @class */ (function (_super) {
             }
         });
         /*
-                    Matter.Body.setMass( this.body, 25.0 );
+                    matter.Body.setMass( this.body, 25.0 );
         */
-        Matter.Composite.add(ninjas.Main.game.engine.world, _this.constraint);
+        matter.Composite.add(ninjas.Main.game.engine.world, _this.constraint);
         return _this;
     }
     /***************************************************************************************************************
@@ -12739,12 +12738,12 @@ var SigSaw = /** @class */ (function (_super) {
         var minAngle = ninjas.MathUtil.angleToRad(-clipAngle);
         var maxAngle = ninjas.MathUtil.angleToRad(clipAngle);
         if (this.shape.body.angle < minAngle) {
-            Matter.Body.setAngle(this.shape.body, minAngle);
-            Matter.Body.setAngularVelocity(this.shape.body, 0.0);
+            matter.Body.setAngle(this.shape.body, minAngle);
+            matter.Body.setAngularVelocity(this.shape.body, 0.0);
         }
         else if (this.shape.body.angle > maxAngle) {
-            Matter.Body.setAngle(this.shape.body, maxAngle);
-            Matter.Body.setAngularVelocity(this.shape.body, 0.0);
+            matter.Body.setAngle(this.shape.body, maxAngle);
+            matter.Body.setAngularVelocity(this.shape.body, 0.0);
         }
     };
     /***************************************************************************************************************
@@ -12753,10 +12752,10 @@ var SigSaw = /** @class */ (function (_super) {
     SigSaw.prototype.clipRotationSpeed = function () {
         var maxRotationSpeed = 0.005;
         if (this.shape.body.angularVelocity < -maxRotationSpeed) {
-            Matter.Body.setAngularVelocity(this.shape.body, -maxRotationSpeed);
+            matter.Body.setAngularVelocity(this.shape.body, -maxRotationSpeed);
         }
         else if (this.shape.body.angularVelocity > maxRotationSpeed) {
-            Matter.Body.setAngularVelocity(this.shape.body, maxRotationSpeed);
+            matter.Body.setAngularVelocity(this.shape.body, maxRotationSpeed);
         }
     };
     return SigSaw;
@@ -12781,7 +12780,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a bounce.
@@ -12803,7 +12802,7 @@ var Bounce = /** @class */ (function (_super) {
         var _this = _super.call(this, shape, x, y, image) || this;
         /** The constraint that builds the turning point for the bounce. */
         _this.constraint = null;
-        _this.constraint = Matter.Constraint.create({
+        _this.constraint = matter.Constraint.create({
             bodyB: _this.shape.body,
             pointA: { x: _this.shape.body.position.x, y: _this.shape.body.position.y },
             pointB: { x: 0, y: 0 },
@@ -12815,15 +12814,15 @@ var Bounce = /** @class */ (function (_super) {
                 visible: true,
             }
         });
-        Matter.Composite.add(ninjas.Main.game.engine.world, _this.constraint);
+        matter.Composite.add(ninjas.Main.game.engine.world, _this.constraint);
         return _this;
     }
     /***************************************************************************************************************
     *   Renders this sigsaw.
     ***************************************************************************************************************/
     Bounce.prototype.render = function () {
-        Matter.Body.setAngle(this.shape.body, 0.0);
-        Matter.Body.setAngularVelocity(this.shape.body, 0.0);
+        matter.Body.setAngle(this.shape.body, 0.0);
+        matter.Body.setAngularVelocity(this.shape.body, 0.0);
     };
     return Bounce;
 }(ninjas.GameObject));
@@ -12837,7 +12836,7 @@ exports.Bounce = Bounce;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
@@ -12892,7 +12891,7 @@ var Game = /** @class */ (function () {
             // render the engine
             _this.render();
             // update MatterJS 2d engine
-            Matter.Engine.update(_this.engine, ninjas.Setting.RENDER_DELTA);
+            matter.Engine.update(_this.engine, ninjas.Setting.RENDER_DELTA);
         };
     }
     /***************************************************************************************************************
@@ -12912,7 +12911,7 @@ var Game = /** @class */ (function () {
         // render 1st engine tick
         this.tick();
         // start the renderer
-        Matter.Render.run(this.renderer);
+        matter.Render.run(this.renderer);
         window.setInterval(this.tick, ninjas.Setting.RENDER_DELTA);
     };
     /***************************************************************************************************************
@@ -12933,7 +12932,7 @@ var Game = /** @class */ (function () {
     ***************************************************************************************************************/
     Game.prototype.initEngine2D = function () {
         ninjas.Debug.init.log("Initing 2D physics engine");
-        this.engine = Matter.Engine.create();
+        this.engine = matter.Engine.create();
         var rendererOptions = {
             hasBounds: true,
             wireframes: false,
@@ -12943,7 +12942,7 @@ var Game = /** @class */ (function () {
             width: this.CANVAS_WIDTH,
             height: this.CANVAS_HEIGHT,
         };
-        this.renderer = Matter.Render.create({
+        this.renderer = matter.Render.create({
             element: document.body,
             engine: this.engine,
             options: rendererOptions,
@@ -12999,7 +12998,7 @@ var Game = /** @class */ (function () {
     ***************************************************************************************************************/
     Game.prototype.resetAndLaunchLevel = function (levelToLaunch) {
         // clear world
-        Matter.World.clear(this.engine.world, false);
+        matter.World.clear(this.engine.world, false);
         // assign and init level
         this.level = levelToLaunch;
         this.level.init();
@@ -13066,7 +13065,7 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents the current level.
@@ -13094,7 +13093,7 @@ var Level = /** @class */ (function () {
             // add all bodies of all game objects to the world
             for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
                 var gameObject = _b.value;
-                Matter.World.addBody(ninjas.Main.game.engine.world, gameObject.shape.body);
+                matter.World.addBody(ninjas.Main.game.engine.world, gameObject.shape.body);
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -13148,7 +13147,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The level set for the dev level.
@@ -13209,8 +13208,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createBounce(1900, 830, 400, 25, null),
                 // animated platforms
                 ninjas.GameObjectFactory.createPlatform(200.0, 15.0, null, ninjas.Platform.SPEED_NORMAL, [
-                    Matter.Vector.create(2820.0, 830.0),
-                    Matter.Vector.create(3020.0, 830.0),
+                    matter.Vector.create(2820.0, 830.0),
+                    matter.Vector.create(3020.0, 830.0),
                 ]),
                 // items
                 ninjas.GameObjectFactory.createItem(900, 620),
@@ -13221,10 +13220,10 @@ var LevelAllElements = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createItem(2600, 740),
                 // free form
                 ninjas.GameObjectFactory.createFreeForm(3730.0, 730.0, [
-                    Matter.Vector.create(0.0, 0.0),
-                    Matter.Vector.create(350.0, -100.0),
-                    Matter.Vector.create(350.0, -85.0),
-                    Matter.Vector.create(0.0, 15.0),
+                    matter.Vector.create(0.0, 0.0),
+                    matter.Vector.create(350.0, -100.0),
+                    matter.Vector.create(350.0, -85.0),
+                    matter.Vector.create(0.0, 15.0),
                 ], 0.0),
                 // ascending ramp
                 ninjas.GameObjectFactory.createElevatedRamp(4600.0, 730.0, 1000.0, 15.0, -200.0),
@@ -13405,8 +13404,8 @@ var LevelWebsite = /** @class */ (function (_super) {
                                     null,
                                     ninjas.Platform.SPEED_NORMAL,
                                     [
-                                        Matter.Vector.create( 2820.0, 830.0 ),
-                                        Matter.Vector.create( 3020.0, 830.0 ),
+                                        matter.Vector.create( 2820.0, 830.0 ),
+                                        matter.Vector.create( 3020.0, 830.0 ),
                                     ]
                                 ),
                 
@@ -13423,10 +13422,10 @@ var LevelWebsite = /** @class */ (function (_super) {
                                     3730.0,
                                     730.0,
                                     [
-                                        Matter.Vector.create( 0.0,   0.0    ),
-                                        Matter.Vector.create( 350.0, -100.0 ),
-                                        Matter.Vector.create( 350.0, -85.0  ),
-                                        Matter.Vector.create( 0.0,   15.0   ),
+                                        matter.Vector.create( 0.0,   0.0    ),
+                                        matter.Vector.create( 350.0, -100.0 ),
+                                        matter.Vector.create( 350.0, -85.0  ),
+                                        matter.Vector.create( 0.0,   15.0   ),
                                     ],
                                     0.0
                                 ),
@@ -13590,6 +13589,7 @@ var Sound = /** @class */ (function () {
     /** An array holding all filenames of all sounds to load. */
     Sound.FILE_NAMES = [
         Sound.BG_CHINESE,
+        Sound.BG_PLAY_HARD,
     ];
     return Sound;
 }());
@@ -13690,7 +13690,7 @@ exports.SoundSystem = SoundSystem;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Matter = __webpack_require__(1);
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Manages the camera that calculates the scrolling amounts.
@@ -13800,7 +13800,7 @@ var Camera = /** @class */ (function () {
             */
         }
         // assign current camera offset to renderer
-        this.renderer.bounds = Matter.Bounds.create([
+        this.renderer.bounds = matter.Bounds.create([
             {
                 x: this.offsetX,
                 y: this.offsetY

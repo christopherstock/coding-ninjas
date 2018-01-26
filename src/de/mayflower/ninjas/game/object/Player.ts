@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -101,7 +101,7 @@
                         let enemy:ninjas.Enemy = gameObject;
 
                         // check intersection of the player and the enemy
-                        if ( Matter.Bounds.overlaps( this.shape.body.bounds, enemy.shape.body.bounds ) )
+                        if ( matter.Bounds.overlaps( this.shape.body.bounds, enemy.shape.body.bounds ) )
                         {
                             ninjas.Debug.enemy.log( "Enemy touched by player" );
 

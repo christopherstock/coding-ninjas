@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -80,8 +80,8 @@
                     null,
                     ninjas.Platform.SPEED_NORMAL,
                     [
-                        Matter.Vector.create( 2820.0, 830.0 ),
-                        Matter.Vector.create( 3020.0, 830.0 ),
+                        matter.Vector.create( 2820.0, 830.0 ),
+                        matter.Vector.create( 3020.0, 830.0 ),
                     ]
                 ),
 
@@ -98,10 +98,10 @@
                     3730.0,
                     730.0,
                     [
-                        Matter.Vector.create( 0.0,   0.0    ),
-                        Matter.Vector.create( 350.0, -100.0 ),
-                        Matter.Vector.create( 350.0, -85.0  ),
-                        Matter.Vector.create( 0.0,   15.0   ),
+                        matter.Vector.create( 0.0,   0.0    ),
+                        matter.Vector.create( 350.0, -100.0 ),
+                        matter.Vector.create( 350.0, -85.0  ),
+                        matter.Vector.create( 0.0,   15.0   ),
                     ],
                     0.0
                 ),

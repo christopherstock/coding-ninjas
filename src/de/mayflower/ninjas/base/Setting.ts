@@ -1,6 +1,6 @@
 
     import * as ninjas from '../ninjas';
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
 
     /*******************************************************************************************************************
     *   All adjustments and balancings for the application.
@@ -78,7 +78,7 @@
         public      static  readonly    PATH_SOUND                                  :string                     = "res/sound/";
 
         /** The default collision group for all game objects. */
-        public      static  readonly    COLLISION_GROUP_COLLIDING                   :Matter.ICollisionFilter    =
+        public      static  readonly    COLLISION_GROUP_COLLIDING                   :matter.ICollisionFilter    =
         {
                 category: 0x0001,
                 mask:     0x0002,
@@ -86,7 +86,7 @@
         };
 
         /** The collision group for all non-colliding items. */
-        public      static  readonly    COLLISION_GROUP_NON_COLLIDING_ITEM          :Matter.ICollisionFilter    =
+        public      static  readonly    COLLISION_GROUP_NON_COLLIDING_ITEM          :matter.ICollisionFilter    =
         {
                 category: 0x0004,
                 mask:     0x0005,
@@ -94,7 +94,7 @@
         };
 
         /** The collision group for all non-colliding decos. */
-        public      static  readonly    COLLISION_GROUP_NON_COLLIDING_DECO          :Matter.ICollisionFilter    =
+        public      static  readonly    COLLISION_GROUP_NON_COLLIDING_DECO          :matter.ICollisionFilter    =
         {
                 category: 0x0007,
                 mask:     0x0008,
@@ -102,7 +102,7 @@
         };
 
         /** The collision group for all non-colliding dead enemies. */
-        public      static  readonly    COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY    :Matter.ICollisionFilter    =
+        public      static  readonly    COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY    :matter.ICollisionFilter    =
         {
                 category: 0x0010,
                 mask:     0x0011,

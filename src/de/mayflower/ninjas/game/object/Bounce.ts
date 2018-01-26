@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -11,7 +11,7 @@
     export class Bounce extends ninjas.GameObject
     {
         /** The constraint that builds the turning point for the bounce. */
-        private                     constraint                      :Matter.Constraint                  = null;
+        private                     constraint                      :matter.Constraint                  = null;
 
         /***************************************************************************************************************
         *   Creates a new bounce.
@@ -31,7 +31,7 @@
                 image
             );
 
-            this.constraint = Matter.Constraint.create(
+            this.constraint = matter.Constraint.create(
                 {
                     bodyB: this.shape.body,
                     pointA: { x: this.shape.body.position.x, y: this.shape.body.position.y },
@@ -46,7 +46,7 @@
                 }
             );
 
-            Matter.Composite.add(
+            matter.Composite.add(
                 ninjas.Main.game.engine.world,
                 this.constraint
             );
@@ -57,7 +57,7 @@
         ***************************************************************************************************************/
         public render()
         {
-            Matter.Body.setAngle(           this.shape.body, 0.0 );
-            Matter.Body.setAngularVelocity( this.shape.body, 0.0 );
+            matter.Body.setAngle(           this.shape.body, 0.0 );
+            matter.Body.setAngularVelocity( this.shape.body, 0.0 );
         }
     }

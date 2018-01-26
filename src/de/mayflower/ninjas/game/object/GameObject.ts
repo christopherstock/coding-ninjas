@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -49,7 +49,7 @@
             this.shape = shape;
             this.setImage( image );
 
-            Matter.Body.translate( this.shape.body, Matter.Vector.create( x, y ) );
+            matter.Body.translate( this.shape.body, matter.Vector.create( x, y ) );
         }
 
         /***************************************************************************************************************
@@ -76,8 +76,8 @@
         ***************************************************************************************************************/
         protected resetRotation()
         {
-            Matter.Body.setAngularVelocity( this.shape.body, 0.0 );
-            Matter.Body.setAngle(           this.shape.body, 0.0 );
+            matter.Body.setAngularVelocity( this.shape.body, 0.0 );
+            matter.Body.setAngle(           this.shape.body, 0.0 );
         }
 
         /***************************************************************************************************************
@@ -87,7 +87,7 @@
         {
             if ( this.shape.body.position.x < this.shape.getWidth() / 2 )
             {
-                Matter.Body.setPosition(
+                matter.Body.setPosition(
                     this.shape.body,
                     {
                         x: this.shape.getWidth() / 2,
@@ -98,7 +98,7 @@
 
             if ( this.shape.body.position.x > ninjas.Main.game.level.width - this.shape.getWidth() / 2 )
             {
-                Matter.Body.setPosition(
+                matter.Body.setPosition(
                     this.shape.body,
                     {
                         x: ninjas.Main.game.level.width - this.shape.getWidth() / 2,

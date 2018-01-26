@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../ninjas';
 
     /*******************************************************************************************************************
@@ -11,7 +11,7 @@
     export class Camera
     {
         /** The renderer for the MatterJS engine. */
-        private     renderer                    :Matter.Render          = null;
+        private     renderer                    :matter.Render          = null;
 
         /** Camera centering ratio X. */
         private     ratioX                      :number                 = 0.0;
@@ -58,7 +58,7 @@
         ***************************************************************************************************************/
         public constructor
         (
-            renderer:Matter.Render,
+            renderer:matter.Render,
             ratioX:number,
             ratioY:number,
             movingSpeed:number,
@@ -150,7 +150,7 @@
             }
 
             // assign current camera offset to renderer
-            this.renderer.bounds = Matter.Bounds.create(
+            this.renderer.bounds = matter.Bounds.create(
                 [
                     {
                         x: this.offsetX,

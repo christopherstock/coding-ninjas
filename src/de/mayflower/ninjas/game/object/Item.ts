@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -40,7 +40,7 @@
         {
             if ( !this.picked )
             {
-                if ( Matter.Bounds.overlaps( this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds ) )
+                if ( matter.Bounds.overlaps( this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds ) )
                 {
                     ninjas.Debug.item.log("Player picked item");
 
@@ -58,6 +58,6 @@
             this.picked = true;
 
             // remove item body
-            Matter.World.remove( ninjas.Main.game.engine.world, this.shape.body );
+            matter.World.remove( ninjas.Main.game.engine.world, this.shape.body );
         }
     }

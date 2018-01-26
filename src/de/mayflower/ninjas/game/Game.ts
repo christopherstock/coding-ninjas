@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../ninjas';
 
     /*******************************************************************************************************************
@@ -16,9 +16,9 @@
         public      CANVAS_HEIGHT           :number                 = 0;
 
         /** The MatterJS engine. */
-        public      engine                  :Matter.Engine          = null;
+        public      engine                  :matter.Engine          = null;
         /** The MatterJS renderer. */
-        private     renderer                :Matter.Render          = null;
+        private     renderer                :matter.Render          = null;
 
         /** The custom key system. */
         public      keySystem               :ninjas.KeySystem       = null;
@@ -78,7 +78,7 @@
             this.tick();
 
             // start the renderer
-            Matter.Render.run( this.renderer );
+            matter.Render.run( this.renderer );
 
             window.setInterval(
                 this.tick,
@@ -108,7 +108,7 @@
         {
             ninjas.Debug.init.log( "Initing 2D physics engine" );
 
-            this.engine = Matter.Engine.create();
+            this.engine = matter.Engine.create();
 
             let rendererOptions:any =
             {
@@ -125,7 +125,7 @@
                 // textures:           ninjas.Image.FILE_NAMES,
             };
 
-            this.renderer = Matter.Render.create(
+            this.renderer = matter.Render.create(
                 {
                     element: document.body,
 
@@ -203,7 +203,7 @@
         private resetAndLaunchLevel( levelToLaunch:ninjas.Level )
         {
             // clear world
-            Matter.World.clear( this.engine.world, false );
+            matter.World.clear( this.engine.world, false );
 
             // assign and init level
             this.level = levelToLaunch;
@@ -241,7 +241,7 @@
             this.render();
 
             // update MatterJS 2d engine
-            Matter.Engine.update( this.engine, ninjas.Setting.RENDER_DELTA );
+            matter.Engine.update( this.engine, ninjas.Setting.RENDER_DELTA );
         };
 
         /***************************************************************************************************************

@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -89,7 +89,7 @@
                 ninjas.Debug.bugfix.log( "Character has fallen to dead" );
 
                 // remove character body
-                Matter.World.remove( ninjas.Main.game.engine.world, this.shape.body );
+                matter.World.remove( ninjas.Main.game.engine.world, this.shape.body );
 
                 this.kill();
             }
@@ -111,7 +111,7 @@
         private checkBottomCollision()
         {
             // browse all game objects
-            let bodiesToCheck:Array<Matter.Body> = [];
+            let bodiesToCheck:Array<matter.Body> = [];
             for ( let gameObject of ninjas.Main.game.level.gameObjects )
             {
                 // skip own body and non-colliding game objects
@@ -130,11 +130,11 @@
             }
 
             // check colliding bodies
-            this.collidesBottom = Matter.Query.ray
+            this.collidesBottom = matter.Query.ray
             (
                 bodiesToCheck,
-                Matter.Vector.create( this.shape.body.position.x - ( this.shape.getWidth() / 2 ), this.shape.body.position.y + ( this.shape.getHeight() / 2 ) ),
-                Matter.Vector.create( this.shape.body.position.x + ( this.shape.getWidth() / 2 ), this.shape.body.position.y + ( this.shape.getHeight() / 2 ) )
+                matter.Vector.create( this.shape.body.position.x - ( this.shape.getWidth() / 2 ), this.shape.body.position.y + ( this.shape.getHeight() / 2 ) ),
+                matter.Vector.create( this.shape.body.position.x + ( this.shape.getWidth() / 2 ), this.shape.body.position.y + ( this.shape.getHeight() / 2 ) )
             ).length > 0;
         }
 
@@ -145,11 +145,11 @@
         {
             if ( this.collidesBottom )
             {
-                Matter.Body.applyForce
+                matter.Body.applyForce
                 (
                     this.shape.body,
                     this.shape.body.position,
-                    Matter.Vector.create( 0.0, this.jumpPower )
+                    matter.Vector.create( 0.0, this.jumpPower )
                 );
             }
         }
@@ -159,7 +159,7 @@
         ***************************************************************************************************************/
         protected moveLeft()
         {
-            Matter.Body.translate( this.shape.body, Matter.Vector.create( -this.speedMove, 0 ) );
+            matter.Body.translate( this.shape.body, matter.Vector.create( -this.speedMove, 0 ) );
 
             this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
         }
@@ -169,7 +169,7 @@
         ***************************************************************************************************************/
         protected moveRight()
         {
-            Matter.Body.translate( this.shape.body, Matter.Vector.create( this.speedMove, 0 ) );
+            matter.Body.translate( this.shape.body, matter.Vector.create( this.speedMove, 0 ) );
 
             this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
         }

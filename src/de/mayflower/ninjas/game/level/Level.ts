@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -34,7 +34,7 @@
 
             // add all bodies of all game objects to the world
             for ( let gameObject of this.gameObjects ) {
-                Matter.World.addBody( ninjas.Main.game.engine.world, gameObject.shape.body );
+                matter.World.addBody( ninjas.Main.game.engine.world, gameObject.shape.body );
             }
         }
 

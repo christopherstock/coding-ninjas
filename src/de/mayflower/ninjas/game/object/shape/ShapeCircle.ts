@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../../ninjas';
 
     /*******************************************************************************************************************
@@ -43,9 +43,9 @@
         *
         *   @return The body for this shape.
         ***************************************************************************************************************/
-        protected createBody() : Matter.Body
+        protected createBody() : matter.Body
         {
-            return Matter.Bodies.circle(
+            return matter.Bodies.circle(
                 ( this.diameter / 2 ),
                 ( this.diameter / 2 ),
                 ( this.diameter / 2 ),

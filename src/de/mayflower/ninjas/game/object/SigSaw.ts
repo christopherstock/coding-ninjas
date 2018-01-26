@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -11,7 +11,7 @@
     export class SigSaw extends ninjas.GameObject
     {
         /** The constraint that builds the turning point for the sigsaw. */
-        private                     constraint                      :Matter.Constraint                  = null;
+        private                     constraint                      :matter.Constraint                  = null;
 
         /***************************************************************************************************************
         *   Creates a new sigsaw.
@@ -31,7 +31,7 @@
                 image
             );
 
-            this.constraint = Matter.Constraint.create(
+            this.constraint = matter.Constraint.create(
                 {
                     bodyB: this.shape.body,
                     pointA: { x: this.shape.body.position.x, y: this.shape.body.position.y },
@@ -46,9 +46,9 @@
                 }
             );
 /*
-            Matter.Body.setMass( this.body, 25.0 );
+            matter.Body.setMass( this.body, 25.0 );
 */
-            Matter.Composite.add(
+            matter.Composite.add(
                 ninjas.Main.game.engine.world,
                 this.constraint
             );
@@ -75,13 +75,13 @@
 
             if ( this.shape.body.angle < minAngle )
             {
-                Matter.Body.setAngle(           this.shape.body, minAngle );
-                Matter.Body.setAngularVelocity( this.shape.body, 0.0       );
+                matter.Body.setAngle(           this.shape.body, minAngle );
+                matter.Body.setAngularVelocity( this.shape.body, 0.0       );
             }
             else if ( this.shape.body.angle > maxAngle )
             {
-                Matter.Body.setAngle(           this.shape.body, maxAngle );
-                Matter.Body.setAngularVelocity( this.shape.body, 0.0       );
+                matter.Body.setAngle(           this.shape.body, maxAngle );
+                matter.Body.setAngularVelocity( this.shape.body, 0.0       );
             }
         }
 
@@ -94,11 +94,11 @@
 
             if ( this.shape.body.angularVelocity < -maxRotationSpeed )
             {
-                Matter.Body.setAngularVelocity( this.shape.body, -maxRotationSpeed );
+                matter.Body.setAngularVelocity( this.shape.body, -maxRotationSpeed );
             }
             else if ( this.shape.body.angularVelocity > maxRotationSpeed )
             {
-                Matter.Body.setAngularVelocity( this.shape.body, maxRotationSpeed );
+                matter.Body.setAngularVelocity( this.shape.body, maxRotationSpeed );
             }
         }
     }

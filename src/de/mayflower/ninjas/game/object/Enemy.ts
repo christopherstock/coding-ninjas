@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -57,22 +57,22 @@
             {
                 case ninjas.CharacterLookingDirection.LEFT:
                 {
-                    Matter.Body.applyForce
+                    matter.Body.applyForce
                     (
                         this.shape.body,
                         this.shape.body.position,
-                        Matter.Vector.create( -0.5, -1.0 )
+                        matter.Vector.create( -0.5, -1.0 )
                     );
                     break;
                 }
 
                 case ninjas.CharacterLookingDirection.RIGHT:
                 {
-                    Matter.Body.applyForce
+                    matter.Body.applyForce
                     (
                         this.shape.body,
                         this.shape.body.position,
-                        Matter.Vector.create( 0.5, -1.0 )
+                        matter.Vector.create( 0.5, -1.0 )
                     );
                     break;
                 }

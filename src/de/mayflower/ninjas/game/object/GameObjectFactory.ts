@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -141,7 +141,7 @@
         *
         *   @return         The created obstacle.
         ***************************************************************************************************************/
-        public static createFreeForm( x:number, y:number, vertices:Array<Matter.Vector>, angle:number ):ninjas.Obstacle
+        public static createFreeForm(x:number, y:number, vertices:Array<matter.Vector>, angle:number ):ninjas.Obstacle
         {
             return new ninjas.Obstacle
             (
@@ -173,12 +173,12 @@
         ***************************************************************************************************************/
         public static createElevatedRamp( x:number, y:number, width:number, height:number, deltaY:number ):ninjas.Obstacle
         {
-            let vertices:Array<Matter.Vector> = [];
+            let vertices:Array<matter.Vector> = [];
 
-            vertices.push( Matter.Vector.create( 0.0,   0.0             ) );
-            vertices.push( Matter.Vector.create( width, deltaY          ) );
-            vertices.push( Matter.Vector.create( width, height + deltaY ) );
-            vertices.push( Matter.Vector.create( 0.0,   height          ) );
+            vertices.push( matter.Vector.create( 0.0,   0.0             ) );
+            vertices.push( matter.Vector.create( width, deltaY          ) );
+            vertices.push( matter.Vector.create( width, height + deltaY ) );
+            vertices.push( matter.Vector.create( 0.0,   height          ) );
 
             if ( deltaY <= 0.0 )
             {
@@ -308,7 +308,7 @@
             height:number,
             image:HTMLImageElement,
             speed:number,
-            waypoints:Array<Matter.Vector>
+            waypoints:Array<matter.Vector>
         )
         :ninjas.Platform
         {

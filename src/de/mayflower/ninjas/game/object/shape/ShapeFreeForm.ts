@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../../ninjas';
 
     /*******************************************************************************************************************
@@ -11,7 +11,7 @@
     export class ShapeFreeForm extends ninjas.Shape
     {
         /** All vertices that build the free form. */
-        public              vertices            :Array<Matter.Vector>           = null;
+        public              vertices            :Array<matter.Vector>           = null;
 
         /** The boundary width. */
         public              boundWidth          :number                 = 0.0;
@@ -30,7 +30,7 @@
         ***************************************************************************************************************/
         public constructor
         (
-            vertices:Array<Matter.Vector>,
+            vertices:Array<matter.Vector>,
             debugColor:string,
             isStatic:boolean,
             angle:number,
@@ -52,9 +52,9 @@
         *
         *   @return The body for this shape.
         ***************************************************************************************************************/
-        public createBody() : Matter.Body
+        public createBody() : matter.Body
         {
-            return Matter.Bodies.fromVertices(
+            return matter.Bodies.fromVertices(
                 ( this.boundWidth  / 2 ),
                 ( this.boundHeight / 2 ),
                 [ this.vertices ],

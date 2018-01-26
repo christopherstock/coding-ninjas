@@ -1,5 +1,5 @@
 
-    import * as Matter from 'matter-js';
+    import * as matter from 'matter-js';
     import * as ninjas from '../../../ninjas';
 
     /*******************************************************************************************************************
@@ -50,9 +50,9 @@
         *
         *   @return The body for this shape.
         ***************************************************************************************************************/
-        public createBody() : Matter.Body
+        public createBody() : matter.Body
         {
-            return Matter.Bodies.rectangle(
+            return matter.Bodies.rectangle(
                 ( this.width  / 2 ),
                 ( this.height / 2 ),
                 this.width,
