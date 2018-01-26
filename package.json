@@ -12,7 +12,7 @@
         "start": "npm run build:dev",
         "build:dev": "webpack --watch",
         "build:production": "webpack --optimize-minimize --watch",
-        "typedoc": "typedoc --out doc\\ --name \"Coding Ninjas, (c) 2018 Mayflower GmbH\" src"
+        "generate:typedoc": "typedoc --out doc\\ --name \"Coding Ninjas, (c) 2018 Mayflower GmbH\" src"
     },
     "devDependencies": {
         "@types/cucumber": "^3.2.1",

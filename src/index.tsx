@@ -1,5 +1,7 @@
 
-    // import * as mfg from './de/mayflower/mfg/mfg';
+    require( './css/index.css' );
+
+    import * as mfg from './de/mayflower/mfg/mfg';
 
     /*******************************************************************************************************************
     *   Being invoked when the page is loaded completely.
@@ -7,9 +9,7 @@
     window.onload = function()
     {
         // invoke main method
-        // mfg.Mfg.main();
-
-        alert( "Hello from index.ts" );
+        mfg.Mfg.main();
     };
 
     /*******************************************************************************************************************
