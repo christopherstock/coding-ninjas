@@ -30,9 +30,6 @@
         /** The jump power to apply for this character. */
         private                         jumpPower                           :number                             = 0.0;
 
-        /** Current ticks being passed without character bottom collision. */
-        protected                       ticksWithoutBottomCollision         :number                             = 0;
-
         /***************************************************************************************************************
         *   Creates a new character.
         *
@@ -74,7 +71,6 @@
         public render()
         {
             this.checkBottomCollision();
-            if ( this.collidesBottom ) this.ticksWithoutBottomCollision = 0;
 
             this.resetRotation();
             this.clipToHorizontalLevelBounds();

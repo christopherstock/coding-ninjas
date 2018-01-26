@@ -11735,7 +11735,7 @@ var GameObject = /** @class */ (function () {
         Matter.Body.setAngle(this.shape.body, 0.0);
     };
     /***************************************************************************************************************
-    *   Clips this body to level bounds.
+    *   Clips this body to the horizontal level bounds.
     ***************************************************************************************************************/
     GameObject.prototype.clipToHorizontalLevelBounds = function () {
         if (this.shape.body.position.x < this.shape.getWidth() / 2) {
@@ -12029,8 +12029,6 @@ var Character = /** @class */ (function (_super) {
         _this.speedMove = 0.0;
         /** The jump power to apply for this character. */
         _this.jumpPower = 0.0;
-        /** Current ticks being passed without character bottom collision. */
-        _this.ticksWithoutBottomCollision = 0;
         _this.lookingDirection = lookingDirection;
         _this.speedMove = speedMove;
         _this.jumpPower = jumpPower;
@@ -12041,8 +12039,6 @@ var Character = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     Character.prototype.render = function () {
         this.checkBottomCollision();
-        if (this.collidesBottom)
-            this.ticksWithoutBottomCollision = 0;
         this.resetRotation();
         this.clipToHorizontalLevelBounds();
         if (!this.dead) {
@@ -12173,6 +12169,7 @@ var Enemy = /** @class */ (function (_super) {
         if (!this.dead) {
             // switch movement pattern
             this.moveLeft();
+            this.clipToHorizontalLevelBounds();
         }
     };
     /***************************************************************************************************************
@@ -12350,29 +12347,17 @@ var Player = /** @class */ (function (_super) {
     *   @param lookingDirection The initial looking direction.
     ***************************************************************************************************************/
     function Player(x, y, lookingDirection) {
-        var _this = this;
-        var img = ninjas.Image.IMAGE_PLAYER_STAND;
-        _this = _super.call(this, new ninjas.ShapeRectangle(ninjas.Setting.PLAYER_WIDTH, ninjas.Setting.PLAYER_HEIGHT, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, img, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Character.JUMP_POWER_DEFAULT) || this;
-        return _this;
+        return _super.call(this, new ninjas.ShapeRectangle(ninjas.Setting.PLAYER_WIDTH, ninjas.Setting.PLAYER_HEIGHT, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, ninjas.Image.IMAGE_PLAYER_STAND, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Character.JUMP_POWER_DEFAULT) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
     ***************************************************************************************************************/
     Player.prototype.render = function () {
         _super.prototype.render.call(this);
-        /*
-                    if ( this.collidesBottom || this.ticksWithoutBottomCollision++ < ninjas.Character.MAX_TICKS_WITHOUT_BOTTOM_COLLISION )
-                    {
-                        this.shape.body.render.sprite.texture = ninjas.Image.IMAGE_PLAYER_STAND;
-                    }
-                    else
-                    {
-                        this.shape.body.render.sprite.texture = ninjas.Image.IMAGE_PLAYER_FALL;
-                    }
-        */
         if (!this.dead) {
             this.handleKeys();
             this.checkEnemyKill();
+            this.clipToHorizontalLevelBounds();
         }
     };
     /***************************************************************************************************************

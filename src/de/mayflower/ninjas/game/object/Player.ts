@@ -19,8 +19,6 @@
         ***************************************************************************************************************/
         public constructor( x:number, y:number, lookingDirection:ninjas.CharacterLookingDirection )
         {
-            let img:string = ninjas.Image.IMAGE_PLAYER_STAND;
-
             super
             (
                 new ninjas.ShapeRectangle
@@ -35,7 +33,7 @@
                 ),
                 x,
                 y,
-                img,
+                ninjas.Image.IMAGE_PLAYER_STAND,
                 lookingDirection,
                 ninjas.Setting.PLAYER_SPEED_MOVE,
                 ninjas.Character.JUMP_POWER_DEFAULT
@@ -48,20 +46,13 @@
         public render()
         {
             super.render();
-/*
-            if ( this.collidesBottom || this.ticksWithoutBottomCollision++ < ninjas.Character.MAX_TICKS_WITHOUT_BOTTOM_COLLISION )
-            {
-                this.shape.body.render.sprite.texture = ninjas.Image.IMAGE_PLAYER_STAND;
-            }
-            else
-            {
-                this.shape.body.render.sprite.texture = ninjas.Image.IMAGE_PLAYER_FALL;
-            }
-*/
+
             if ( !this.dead )
             {
                 this.handleKeys();
                 this.checkEnemyKill();
+
+                this.clipToHorizontalLevelBounds();
             }
         }
 

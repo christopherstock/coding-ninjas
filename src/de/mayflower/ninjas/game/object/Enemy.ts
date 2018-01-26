@@ -43,6 +43,8 @@
                 // switch movement pattern
 
                 this.moveLeft();
+
+                this.clipToHorizontalLevelBounds();
             }
         }
 
