@@ -106,7 +106,6 @@ __export(__webpack_require__(38));
 __export(__webpack_require__(39));
 __export(__webpack_require__(40));
 __export(__webpack_require__(41));
-__export(__webpack_require__(42));
 
 
 /***/ }),
@@ -10459,13 +10458,13 @@ var Vector = _dereq_('../geometry/Vector');
 
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(3);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Being invoked when the page is loaded completely.
 *******************************************************************************************************************/
 window.onload = function () {
     // invoke main method
-    mfg.Mfg.main();
+    ninjas.Main.main();
 };
 /*******************************************************************************************************************
 *   Being invoked when the page is left.
@@ -11081,7 +11080,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgVersion = /** @class */ (function () {
+var Version = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a project version.
     *
@@ -11089,7 +11088,7 @@ var MfgVersion = /** @class */ (function () {
     *   @param codename     The internal codename.
     *   @param date         The completion date.
     ***************************************************************************************************************/
-    function MfgVersion(version, codename, date) {
+    function Version(version, codename, date) {
         /** This version's specifier. */
         this.version = null;
         /** This version's internal codename. */
@@ -11105,16 +11104,16 @@ var MfgVersion = /** @class */ (function () {
     *
     *   @return A representation of the current project's version with it's timestamp.
     ***************************************************************************************************************/
-    MfgVersion.prototype.getVersionDescriptor = function () {
+    Version.prototype.getVersionDescriptor = function () {
         return ("v. " + this.version + ", " + this.date + ", [" + this.codename + "]");
     };
     /** The project's version v.0.0.1. */
-    MfgVersion.V_0_0_1 = new MfgVersion("0.0.1", "GAMBAZ", "07.08.2017, 10:18:34 GMT+1");
+    Version.V_0_0_1 = new Version("0.0.1", "GAMBAZ", "07.08.2017, 10:18:34 GMT+1");
     /** The project's current version. */
-    MfgVersion.CURRENT_VERSION = MfgVersion.V_0_0_1;
-    return MfgVersion;
+    Version.CURRENT_VERSION = Version.V_0_0_1;
+    return Version;
 }());
-exports.MfgVersion = MfgVersion;
+exports.Version = Version;
 
 
 /***/ }),
@@ -11124,103 +11123,103 @@ exports.MfgVersion = MfgVersion;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   All adjustments and balancings for the application.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgSettings = /** @class */ (function () {
-    function MfgSettings() {
+var Setting = /** @class */ (function () {
+    function Setting() {
     }
     /** The global debug switch. */
-    MfgSettings.DEBUG_MODE = true;
+    Setting.DEBUG_MODE = true;
     /** The application's internal name. */
-    MfgSettings.TITLE = "Coding Ninjas, (c) 2018 Mayflower GmbH" + ", " + mfg.MfgVersion.CURRENT_VERSION.getVersionDescriptor();
+    Setting.TITLE = "Coding Ninjas, (c) 2018 Mayflower GmbH" + ", " + ninjas.Version.CURRENT_VERSION.getVersionDescriptor();
     /** The delta between render ticks in ms. */
-    MfgSettings.RENDER_DELTA = 16.66;
+    Setting.RENDER_DELTA = 16.66;
     /** The desired canvas3D width. */
-    MfgSettings.CANVAS_WIDTH = 800;
+    Setting.CANVAS_WIDTH = 800;
     /** The desired canvas3D height. */
-    MfgSettings.CANVAS_HEIGHT = 600;
+    Setting.CANVAS_HEIGHT = 600;
     /** The player's width. */
-    MfgSettings.PLAYER_WIDTH = 80.0;
+    Setting.PLAYER_WIDTH = 80.0;
     /** The player's y dimension (height). */
-    MfgSettings.PLAYER_HEIGHT = 120.0;
+    Setting.PLAYER_HEIGHT = 120.0;
     /** The player's speed in world coordinate per tick. */
-    MfgSettings.PLAYER_SPEED_MOVE = 7.5;
+    Setting.PLAYER_SPEED_MOVE = 7.5;
     /** The default vertical gravity for all levels. */
-    MfgSettings.DEFAULT_GRAVITY_Y = 1.0;
+    Setting.DEFAULT_GRAVITY_Y = 1.0;
     /** The camera ration for the horizontal axis. */
-    MfgSettings.CAMERA_RATIO_X = 0.25;
+    Setting.CAMERA_RATIO_X = 0.25;
     /** The camera ration for the vertical axis. */
-    MfgSettings.CAMERA_RATIO_Y = 0.5;
+    Setting.CAMERA_RATIO_Y = 0.5;
     /** The camera moving speed from 0.0 to 1.0. */
-    MfgSettings.CAMERA_MOVING_SPEED = 0.075;
+    Setting.CAMERA_MOVING_SPEED = 0.075;
     /** The minimum camera moving speed in px per move. */
-    MfgSettings.CAMERA_MOVING_MINIMUM = 2.0;
+    Setting.CAMERA_MOVING_MINIMUM = 2.0;
     /** The opacity for the debug colors. */
-    MfgSettings.COLOR_DEBUG_OPACITY = 1.0;
+    Setting.COLOR_DEBUG_OPACITY = 1.0;
     /** The debug color for the player block. */
-    MfgSettings.COLOR_DEBUG_BORDER = "#ffffff";
+    Setting.COLOR_DEBUG_BORDER = "#ffffff";
     /** The debug color for the player block. */
-    MfgSettings.COLOR_DEBUG_PLAYER = "#7cd1ee";
+    Setting.COLOR_DEBUG_PLAYER = "#7cd1ee";
     /** The debug color for the enemy block. */
-    MfgSettings.COLOR_DEBUG_ENEMY = "#ff7e68";
+    Setting.COLOR_DEBUG_ENEMY = "#ff7e68";
     /** The debug color for a box. */
-    MfgSettings.COLOR_DEBUG_BOX = "#ffbf54";
+    Setting.COLOR_DEBUG_BOX = "#ffbf54";
     /** The debug color for an obstacle. */
-    MfgSettings.COLOR_DEBUG_OBSTACLE = "#a6a6a6";
+    Setting.COLOR_DEBUG_OBSTACLE = "#a6a6a6";
     /** The debug color for a sigsaw. */
-    MfgSettings.COLOR_DEBUG_SIGSAW = "#c46c9c";
+    Setting.COLOR_DEBUG_SIGSAW = "#c46c9c";
     /** The debug color for a sigsaw joint. */
-    MfgSettings.COLOR_DEBUG_SIGSAW_JOINT = "#ba3380";
+    Setting.COLOR_DEBUG_SIGSAW_JOINT = "#ba3380";
     /** The debug color for a bounce. */
-    MfgSettings.COLOR_DEBUG_BOUNCE = "#d815a9";
+    Setting.COLOR_DEBUG_BOUNCE = "#d815a9";
     /** The debug color for a bounce joint. */
-    MfgSettings.COLOR_DEBUG_BOUNCE_JOINT = "#e629a2";
+    Setting.COLOR_DEBUG_BOUNCE_JOINT = "#e629a2";
     /** The debug color for the item. */
-    MfgSettings.COLOR_DEBUG_ITEM = "#fdff72";
+    Setting.COLOR_DEBUG_ITEM = "#fdff72";
     /** The debug color for a decoration. */
-    MfgSettings.COLOR_DEBUG_DECORATION = "#b2ffbb";
+    Setting.COLOR_DEBUG_DECORATION = "#b2ffbb";
     /** The debug color for a platform. */
-    MfgSettings.COLOR_DEBUG_PLATFORM = "#d2d2d2";
+    Setting.COLOR_DEBUG_PLATFORM = "#d2d2d2";
     /** The relative path from index.html where all background images reside. */
-    MfgSettings.PATH_IMAGE_BG = "res/image/bg/";
+    Setting.PATH_IMAGE_BG = "res/image/bg/";
     /** The relative path from index.html where all player images reside. */
-    MfgSettings.PATH_IMAGE_PLAYER = "res/image/player/";
+    Setting.PATH_IMAGE_PLAYER = "res/image/player/";
     /** The relative path from index.html where all level images reside. */
-    MfgSettings.PATH_IMAGE_LEVEL = "res/image/level/";
+    Setting.PATH_IMAGE_LEVEL = "res/image/level/";
     /** The relative path from index.html where all sounds reside. */
-    MfgSettings.PATH_SOUND = "res/sound/";
+    Setting.PATH_SOUND = "res/sound/";
     /** The default collision group for all game objects. */
-    MfgSettings.COLLISION_GROUP_COLLIDING = {
+    Setting.COLLISION_GROUP_COLLIDING = {
         category: 0x0001,
         mask: 0x0002,
         group: 0x0003,
     };
     /** The collision group for all non-colliding items. */
-    MfgSettings.COLLISION_GROUP_NON_COLLIDING_ITEM = {
+    Setting.COLLISION_GROUP_NON_COLLIDING_ITEM = {
         category: 0x0004,
         mask: 0x0005,
         group: 0x0006,
     };
     /** The collision group for all non-colliding decos. */
-    MfgSettings.COLLISION_GROUP_NON_COLLIDING_DECO = {
+    Setting.COLLISION_GROUP_NON_COLLIDING_DECO = {
         category: 0x0007,
         mask: 0x0008,
         group: 0x0009,
     };
     /** The collision group for all non-colliding dead enemies. */
-    MfgSettings.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY = {
+    Setting.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY = {
         category: 0x0010,
         mask: 0x0011,
         group: 0x0012,
     };
-    return MfgSettings;
+    return Setting;
 }());
-exports.MfgSettings = MfgSettings;
+exports.Setting = Setting;
 
 
 /***/ }),
@@ -11230,20 +11229,20 @@ exports.MfgSettings = MfgSettings;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a debug group whose logging can be enabled or disabled.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgDebug = /** @class */ (function () {
+var Debug = /** @class */ (function () {
     /***************************************************************************************************************
     *   Constructs a new debug group.
     *
     *   @param  debugEnabled    Flags if this debug group should log messages.
     ***************************************************************************************************************/
-    function MfgDebug(debugEnabled) {
+    function Debug(debugEnabled) {
         /** The flag that enables or disables logging for this debug group. */
         this.debugEnabled = false;
         this.debugEnabled = debugEnabled;
@@ -11254,24 +11253,24 @@ var MfgDebug = /** @class */ (function () {
     *
     *   @param msg The message to log to the default console.
     ***************************************************************************************************************/
-    MfgDebug.prototype.log = function (msg) {
+    Debug.prototype.log = function (msg) {
         if (this.debugEnabled) {
-            console.log('[' + mfg.MfgString.getDateTimeString() + '] ' + msg);
+            console.log('[' + ninjas.String.getDateTimeString() + '] ' + msg);
         }
     };
     /** A global debug group. */
-    MfgDebug.bugfix = new MfgDebug(mfg.MfgSettings.DEBUG_MODE);
+    Debug.bugfix = new Debug(ninjas.Setting.DEBUG_MODE);
     /** Debugs the init system. */
-    MfgDebug.init = new MfgDebug(mfg.MfgSettings.DEBUG_MODE && true);
+    Debug.init = new Debug(ninjas.Setting.DEBUG_MODE && true);
     /** Debugs the key system. */
-    MfgDebug.key = new MfgDebug(mfg.MfgSettings.DEBUG_MODE && false);
+    Debug.key = new Debug(ninjas.Setting.DEBUG_MODE && false);
     /** Debugs the pickable game items. */
-    MfgDebug.item = new MfgDebug(mfg.MfgSettings.DEBUG_MODE && true);
+    Debug.item = new Debug(ninjas.Setting.DEBUG_MODE && true);
     /** Debugs enemy events. */
-    MfgDebug.enemy = new MfgDebug(mfg.MfgSettings.DEBUG_MODE && true);
-    return MfgDebug;
+    Debug.enemy = new Debug(ninjas.Setting.DEBUG_MODE && true);
+    return Debug;
 }());
-exports.MfgDebug = MfgDebug;
+exports.Debug = Debug;
 
 
 /***/ }),
@@ -11281,36 +11280,38 @@ exports.MfgDebug = MfgDebug;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO extract lib
-*   TODO rename to 'ninjas'. Remove Mfg prefixes.
+*   TODO extract class Key!
+*   TODO create new level.
+*   TODO create image system.
+*   TODO create sprite system.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var Mfg = /** @class */ (function () {
-    function Mfg() {
+var Main = /** @class */ (function () {
+    function Main() {
     }
     /*****************************************************************************
     *   This method is invoked when the application starts.
     *****************************************************************************/
-    Mfg.main = function () {
+    Main.main = function () {
         // acclaim debug console and set title
-        mfg.MfgDebug.init.log(mfg.MfgSettings.TITLE);
-        document.title = mfg.MfgSettings.TITLE;
+        ninjas.Debug.init.log(ninjas.Setting.TITLE);
+        document.title = ninjas.Setting.TITLE;
         //init and start the game engine
-        this.game = new mfg.MfgGame();
+        this.game = new ninjas.Game();
         this.game.init();
         this.game.start();
     };
     /** The singleton instance of the game engine. */
-    Mfg.game = null;
-    return Mfg;
+    Main.game = null;
+    return Main;
 }());
-exports.Mfg = Mfg;
+exports.Main = Main;
 
 
 /***/ }),
@@ -11326,13 +11327,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgCharacterLookingDirection;
-(function (MfgCharacterLookingDirection) {
+var CharacterLookingDirection;
+(function (CharacterLookingDirection) {
     /** Looking left. */
-    MfgCharacterLookingDirection[MfgCharacterLookingDirection["LEFT"] = 0] = "LEFT";
+    CharacterLookingDirection[CharacterLookingDirection["LEFT"] = 0] = "LEFT";
     /** Looking right. */
-    MfgCharacterLookingDirection[MfgCharacterLookingDirection["RIGHT"] = 1] = "RIGHT";
-})(MfgCharacterLookingDirection = exports.MfgCharacterLookingDirection || (exports.MfgCharacterLookingDirection = {}));
+    CharacterLookingDirection[CharacterLookingDirection["RIGHT"] = 1] = "RIGHT";
+})(CharacterLookingDirection = exports.CharacterLookingDirection || (exports.CharacterLookingDirection = {}));
 
 
 /***/ }),
@@ -11342,14 +11343,14 @@ var MfgCharacterLookingDirection;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents the shape of a game object.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgShape = /** @class */ (function () {
+var Shape = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a new game object shape.
     *
@@ -11359,7 +11360,7 @@ var MfgShape = /** @class */ (function () {
     *   @param friction   The object's body friction.
     *   @param density    The object's body density.
     ***************************************************************************************************************/
-    function MfgShape(debugColor, isStatic, angle, friction, density) {
+    function Shape(debugColor, isStatic, angle, friction, density) {
         /** The body rendering options for this shape. */
         this.options = null;
         /** The shape's body. */
@@ -11367,20 +11368,20 @@ var MfgShape = /** @class */ (function () {
         this.options = {
             render: {
                 fillStyle: debugColor,
-                strokeStyle: mfg.MfgSettings.COLOR_DEBUG_BORDER,
-                opacity: mfg.MfgSettings.COLOR_DEBUG_OPACITY,
+                strokeStyle: ninjas.Setting.COLOR_DEBUG_BORDER,
+                opacity: ninjas.Setting.COLOR_DEBUG_OPACITY,
                 lineWidth: 1.0,
             },
             isStatic: isStatic,
-            collisionFilter: mfg.MfgSettings.COLLISION_GROUP_COLLIDING,
+            collisionFilter: ninjas.Setting.COLLISION_GROUP_COLLIDING,
             friction: friction,
-            angle: mfg.MfgMath.angleToRad(angle),
+            angle: ninjas.MathUtil.angleToRad(angle),
             density: density,
         };
     }
-    return MfgShape;
+    return Shape;
 }());
-exports.MfgShape = MfgShape;
+exports.Shape = Shape;
 
 
 /***/ }),
@@ -11401,15 +11402,15 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents the shape of a game object.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgShapeRectangle = /** @class */ (function (_super) {
-    __extends(MfgShapeRectangle, _super);
+var ShapeRectangle = /** @class */ (function (_super) {
+    __extends(ShapeRectangle, _super);
     /***************************************************************************************************************
     *   Creates a new rectangle shape.
     *
@@ -11421,7 +11422,7 @@ var MfgShapeRectangle = /** @class */ (function (_super) {
     *   @param friction   The object's body friction.
     *   @param density    The object's body density.
     ***************************************************************************************************************/
-    function MfgShapeRectangle(width, height, debugColor, isStatic, angle, friction, density) {
+    function ShapeRectangle(width, height, debugColor, isStatic, angle, friction, density) {
         var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
         /** The rectangle's width. */
         _this.width = 0.0;
@@ -11437,7 +11438,7 @@ var MfgShapeRectangle = /** @class */ (function (_super) {
     *
     *   @return The body for this shape.
     ***************************************************************************************************************/
-    MfgShapeRectangle.prototype.createBody = function () {
+    ShapeRectangle.prototype.createBody = function () {
         return Matter.Bodies.rectangle((this.width / 2), (this.height / 2), this.width, this.height, this.options);
     };
     /***************************************************************************************************************
@@ -11445,7 +11446,7 @@ var MfgShapeRectangle = /** @class */ (function (_super) {
     *
     *   @return The shape's boundaries width.
     ***************************************************************************************************************/
-    MfgShapeRectangle.prototype.getWidth = function () {
+    ShapeRectangle.prototype.getWidth = function () {
         return this.width;
     };
     /***************************************************************************************************************
@@ -11453,12 +11454,12 @@ var MfgShapeRectangle = /** @class */ (function (_super) {
     *
     *   @return The shape's boundaries height.
     ***************************************************************************************************************/
-    MfgShapeRectangle.prototype.getHeight = function () {
+    ShapeRectangle.prototype.getHeight = function () {
         return this.height;
     };
-    return MfgShapeRectangle;
-}(mfg.MfgShape));
-exports.MfgShapeRectangle = MfgShapeRectangle;
+    return ShapeRectangle;
+}(ninjas.Shape));
+exports.ShapeRectangle = ShapeRectangle;
 
 
 /***/ }),
@@ -11506,15 +11507,15 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents the shape of a game object.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgShapeCircle = /** @class */ (function (_super) {
-    __extends(MfgShapeCircle, _super);
+var ShapeCircle = /** @class */ (function (_super) {
+    __extends(ShapeCircle, _super);
     /***************************************************************************************************************
     *   Creates a new circle shape.
     *
@@ -11525,7 +11526,7 @@ var MfgShapeCircle = /** @class */ (function (_super) {
     *   @param friction   The object's body friction.
     *   @param density    The object's body density.
     ***************************************************************************************************************/
-    function MfgShapeCircle(diameter, debugColor, isStatic, angle, friction, density) {
+    function ShapeCircle(diameter, debugColor, isStatic, angle, friction, density) {
         var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
         /** The circle's diameter. */
         _this.diameter = 0.0;
@@ -11538,7 +11539,7 @@ var MfgShapeCircle = /** @class */ (function (_super) {
     *
     *   @return The body for this shape.
     ***************************************************************************************************************/
-    MfgShapeCircle.prototype.createBody = function () {
+    ShapeCircle.prototype.createBody = function () {
         return Matter.Bodies.circle((this.diameter / 2), (this.diameter / 2), (this.diameter / 2), this.options);
     };
     /***************************************************************************************************************
@@ -11546,7 +11547,7 @@ var MfgShapeCircle = /** @class */ (function (_super) {
     *
     *   @return The shape's boundaries width.
     ***************************************************************************************************************/
-    MfgShapeCircle.prototype.getWidth = function () {
+    ShapeCircle.prototype.getWidth = function () {
         return this.diameter;
     };
     /***************************************************************************************************************
@@ -11554,12 +11555,12 @@ var MfgShapeCircle = /** @class */ (function (_super) {
     *
     *   @return The shape's boundaries height.
     ***************************************************************************************************************/
-    MfgShapeCircle.prototype.getHeight = function () {
+    ShapeCircle.prototype.getHeight = function () {
         return this.diameter;
     };
-    return MfgShapeCircle;
-}(mfg.MfgShape));
-exports.MfgShapeCircle = MfgShapeCircle;
+    return ShapeCircle;
+}(ninjas.Shape));
+exports.ShapeCircle = ShapeCircle;
 
 
 /***/ }),
@@ -11590,15 +11591,15 @@ var __values = (this && this.__values) || function (o) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   A free form shape for a game object.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgShapeFreeForm = /** @class */ (function (_super) {
-    __extends(MfgShapeFreeForm, _super);
+var ShapeFreeForm = /** @class */ (function (_super) {
+    __extends(ShapeFreeForm, _super);
     /***************************************************************************************************************
     *   Creates a new free formed shape.
     *
@@ -11609,7 +11610,7 @@ var MfgShapeFreeForm = /** @class */ (function (_super) {
     *   @param friction   The object's body friction.
     *   @param density    The object's body density.
     ***************************************************************************************************************/
-    function MfgShapeFreeForm(vertices, debugColor, isStatic, angle, friction, density) {
+    function ShapeFreeForm(vertices, debugColor, isStatic, angle, friction, density) {
         var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
         /** All vertices that build the free form. */
         _this.vertices = null;
@@ -11627,7 +11628,7 @@ var MfgShapeFreeForm = /** @class */ (function (_super) {
     *
     *   @return The body for this shape.
     ***************************************************************************************************************/
-    MfgShapeFreeForm.prototype.createBody = function () {
+    ShapeFreeForm.prototype.createBody = function () {
         return Matter.Bodies.fromVertices((this.boundWidth / 2), (this.boundHeight / 2), [this.vertices], this.options);
     };
     /***************************************************************************************************************
@@ -11635,7 +11636,7 @@ var MfgShapeFreeForm = /** @class */ (function (_super) {
     *
     *   @return The shape's boundaries width.
     ***************************************************************************************************************/
-    MfgShapeFreeForm.prototype.getWidth = function () {
+    ShapeFreeForm.prototype.getWidth = function () {
         return this.boundWidth;
     };
     /***************************************************************************************************************
@@ -11643,13 +11644,13 @@ var MfgShapeFreeForm = /** @class */ (function (_super) {
     *
     *   @return The shape's boundaries height.
     ***************************************************************************************************************/
-    MfgShapeFreeForm.prototype.getHeight = function () {
+    ShapeFreeForm.prototype.getHeight = function () {
         return this.boundHeight;
     };
     /***************************************************************************************************************
     *   Calculates the width and height of this shapes bounds.
     ***************************************************************************************************************/
-    MfgShapeFreeForm.prototype.determineBoundDimensions = function () {
+    ShapeFreeForm.prototype.determineBoundDimensions = function () {
         var minimumX = Infinity;
         var minimumY = Infinity;
         var maximumX = -Infinity;
@@ -11679,9 +11680,9 @@ var MfgShapeFreeForm = /** @class */ (function (_super) {
         console.log("bounds: " + this.boundWidth + "   " + this.boundHeight);
         var e_1, _c;
     };
-    return MfgShapeFreeForm;
-}(mfg.MfgShape));
-exports.MfgShapeFreeForm = MfgShapeFreeForm;
+    return ShapeFreeForm;
+}(ninjas.Shape));
+exports.ShapeFreeForm = ShapeFreeForm;
 
 
 /***/ }),
@@ -11692,14 +11693,14 @@ exports.MfgShapeFreeForm = MfgShapeFreeForm;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The abstract class of all game objects.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgGameObject = /** @class */ (function () {
+var GameObject = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a new game object.
     *
@@ -11708,7 +11709,7 @@ var MfgGameObject = /** @class */ (function () {
     *   @param y          Startup position Y.
     *   @param image      The image for this game object.
     ***************************************************************************************************************/
-    function MfgGameObject(shape, x, y, image) {
+    function GameObject(shape, x, y, image) {
         /** The game object's shape. */
         this.shape = null;
         this.shape = shape;
@@ -11720,42 +11721,42 @@ var MfgGameObject = /** @class */ (function () {
     /***************************************************************************************************************
     *   Avoids this game object from rotating.
     ***************************************************************************************************************/
-    MfgGameObject.prototype.resetRotation = function () {
+    GameObject.prototype.resetRotation = function () {
         Matter.Body.setAngularVelocity(this.shape.body, 0.0);
         Matter.Body.setAngle(this.shape.body, 0.0);
     };
     /***************************************************************************************************************
     *   Clips this body to level bounds.
     ***************************************************************************************************************/
-    MfgGameObject.prototype.clipToHorizontalLevelBounds = function () {
+    GameObject.prototype.clipToHorizontalLevelBounds = function () {
         if (this.shape.body.position.x < this.shape.getWidth() / 2) {
             Matter.Body.setPosition(this.shape.body, {
                 x: this.shape.getWidth() / 2,
                 y: this.shape.body.position.y
             });
         }
-        if (this.shape.body.position.x > mfg.Mfg.game.level.width - this.shape.getWidth() / 2) {
+        if (this.shape.body.position.x > ninjas.Main.game.level.width - this.shape.getWidth() / 2) {
             Matter.Body.setPosition(this.shape.body, {
-                x: mfg.Mfg.game.level.width - this.shape.getWidth() / 2,
+                x: ninjas.Main.game.level.width - this.shape.getWidth() / 2,
                 y: this.shape.body.position.y
             });
         }
     };
     /** Highest surface friction. */
-    MfgGameObject.FRICTION_CONCRETE = 1.0;
+    GameObject.FRICTION_CONCRETE = 1.0;
     /** Default surface friction. */
-    MfgGameObject.FRICTION_DEFAULT = 0.1;
+    GameObject.FRICTION_DEFAULT = 0.1;
     /** Low surface friction. */
-    MfgGameObject.FRICTION_GLASS = 0.01;
+    GameObject.FRICTION_GLASS = 0.01;
     /** Lowest surface friction. */
-    MfgGameObject.FRICTION_ICE = 0.0;
+    GameObject.FRICTION_ICE = 0.0;
     /** Character density. */
-    MfgGameObject.DENSITY_HUMAN = 0.01;
+    GameObject.DENSITY_HUMAN = 0.01;
     /** Default density. */
-    MfgGameObject.DENSITY_DEFAULT = 0.001;
-    return MfgGameObject;
+    GameObject.DENSITY_DEFAULT = 0.001;
+    return GameObject;
 }());
-exports.MfgGameObject = MfgGameObject;
+exports.GameObject = GameObject;
 
 
 /***/ }),
@@ -11766,15 +11767,15 @@ exports.MfgGameObject = MfgGameObject;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Creates customized instances of game objects.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgGameObjectFactory = /** @class */ (function () {
-    function MfgGameObjectFactory() {
+var GameObjectFactory = /** @class */ (function () {
+    function GameObjectFactory() {
     }
     /***************************************************************************************************************
     *   Creates a box.
@@ -11788,8 +11789,8 @@ var MfgGameObjectFactory = /** @class */ (function () {
     *
     *   @return       The created box.
     ***************************************************************************************************************/
-    MfgGameObjectFactory.createBox = function (x, y, width, height, friction, density) {
-        return new mfg.MfgBox(new mfg.MfgShapeRectangle(width, height, mfg.MfgSettings.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y);
+    GameObjectFactory.createBox = function (x, y, width, height, friction, density) {
+        return new ninjas.Box(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y);
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -11802,8 +11803,8 @@ var MfgGameObjectFactory = /** @class */ (function () {
     *
     *   @return         The created sphere.
     ***************************************************************************************************************/
-    MfgGameObjectFactory.createSphere = function (x, y, diameter, friction, density) {
-        return new mfg.MfgBox(new mfg.MfgShapeCircle(diameter, mfg.MfgSettings.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y);
+    GameObjectFactory.createSphere = function (x, y, diameter, friction, density) {
+        return new ninjas.Box(new ninjas.ShapeCircle(diameter, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y);
     };
     /***************************************************************************************************************
     *   Creates an item.
@@ -11813,8 +11814,8 @@ var MfgGameObjectFactory = /** @class */ (function () {
     *
     *   @return  The created item.
     ***************************************************************************************************************/
-    MfgGameObjectFactory.createItem = function (x, y) {
-        return new mfg.MfgItem(new mfg.MfgShapeRectangle(30.0, 52.0, mfg.MfgSettings.COLOR_DEBUG_ITEM, true, 0.0, mfg.MfgGameObject.FRICTION_DEFAULT, Infinity), x, y);
+    GameObjectFactory.createItem = function (x, y) {
+        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.Setting.COLOR_DEBUG_ITEM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y);
     };
     /***************************************************************************************************************
     *   Creates an rectangular obstacle.
@@ -11828,8 +11829,8 @@ var MfgGameObjectFactory = /** @class */ (function () {
     *
     *   @return                The created obstacle.
     ***************************************************************************************************************/
-    MfgGameObjectFactory.createBlock = function (x, y, width, height, angle, jumpPassThrough) {
-        return new mfg.MfgObstacle(new mfg.MfgShapeRectangle(width, height, mfg.MfgSettings.COLOR_DEBUG_OBSTACLE, true, angle, mfg.MfgGameObject.FRICTION_DEFAULT, Infinity), x, y, jumpPassThrough);
+    GameObjectFactory.createBlock = function (x, y, width, height, angle, jumpPassThrough) {
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates a free form.
@@ -11841,8 +11842,8 @@ var MfgGameObjectFactory = /** @class */ (function () {
     *
     *   @return         The created obstacle.
     ***************************************************************************************************************/
-    MfgGameObjectFactory.createFreeForm = function (x, y, vertices, angle) {
-        return new mfg.MfgObstacle(new mfg.MfgShapeFreeForm(vertices, mfg.MfgSettings.COLOR_DEBUG_OBSTACLE, true, angle, mfg.MfgGameObject.FRICTION_DEFAULT, Infinity), x, y, false);
+    GameObjectFactory.createFreeForm = function (x, y, vertices, angle) {
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, false);
     };
     /***************************************************************************************************************
     *   Creates an elevated ramp obstacle.
@@ -11855,7 +11856,7 @@ var MfgGameObjectFactory = /** @class */ (function () {
     *
     *   @return         The created obstacle ramp.
     ***************************************************************************************************************/
-    MfgGameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY) {
+    GameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY) {
         var vertices = [];
         vertices.push(Matter.Vector.create(0.0, 0.0));
         vertices.push(Matter.Vector.create(width, deltaY));
@@ -11864,7 +11865,7 @@ var MfgGameObjectFactory = /** @class */ (function () {
         if (deltaY <= 0.0) {
             y += deltaY;
         }
-        return new mfg.MfgObstacle(new mfg.MfgShapeFreeForm(vertices, mfg.MfgSettings.COLOR_DEBUG_OBSTACLE, true, 0.0, mfg.MfgGameObject.FRICTION_DEFAULT, Infinity), x, y, false);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, false);
     };
     /***************************************************************************************************************
     *   Creates an enemy.
@@ -11874,8 +11875,8 @@ var MfgGameObjectFactory = /** @class */ (function () {
     *
     *   @return  The created enemy.
     ***************************************************************************************************************/
-    MfgGameObjectFactory.createEnemy = function (x, y) {
-        return new mfg.MfgEnemy(new mfg.MfgShapeRectangle(50.0, 50.0, mfg.MfgSettings.COLOR_DEBUG_ENEMY, false, 0.0, mfg.MfgGameObject.FRICTION_DEFAULT, mfg.MfgGameObject.DENSITY_HUMAN), x, y);
+    GameObjectFactory.createEnemy = function (x, y) {
+        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.Setting.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y);
     };
     /***************************************************************************************************************
     *   Creates a decoration.
@@ -11888,8 +11889,8 @@ var MfgGameObjectFactory = /** @class */ (function () {
     *
     *   @return       The created decoration.
     ***************************************************************************************************************/
-    MfgGameObjectFactory.createDecoration = function (x, y, width, height, image) {
-        return new mfg.MfgDecoration(new mfg.MfgShapeRectangle(width, height, mfg.MfgSettings.COLOR_DEBUG_DECORATION, true, 0.0, mfg.MfgGameObject.FRICTION_DEFAULT, Infinity), x, y, image);
+    GameObjectFactory.createDecoration = function (x, y, width, height, image) {
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, image);
     };
     /***************************************************************************************************************
     *   Creates a sigsaw.
@@ -11902,8 +11903,8 @@ var MfgGameObjectFactory = /** @class */ (function () {
     *
     *   @return       The created decoration.
     ***************************************************************************************************************/
-    MfgGameObjectFactory.createSigsaw = function (x, y, width, height, image) {
-        return new mfg.MfgSigSaw(new mfg.MfgShapeRectangle(width, height, mfg.MfgSettings.COLOR_DEBUG_SIGSAW, false, 0.0, mfg.MfgGameObject.FRICTION_DEFAULT, mfg.MfgGameObject.DENSITY_DEFAULT), x, y, image);
+    GameObjectFactory.createSigsaw = function (x, y, width, height, image) {
+        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, image);
     };
     /***************************************************************************************************************
     *   Creates a platform.
@@ -11916,8 +11917,8 @@ var MfgGameObjectFactory = /** @class */ (function () {
     *
     *   @return       The created decoration.
     ***************************************************************************************************************/
-    MfgGameObjectFactory.createPlatform = function (width, height, image, speed, waypoints) {
-        return new mfg.MfgPlatform(new mfg.MfgShapeRectangle(width, height, mfg.MfgSettings.COLOR_DEBUG_PLATFORM, true, 0.0, mfg.MfgGameObject.FRICTION_DEFAULT, Infinity), speed, waypoints, image);
+    GameObjectFactory.createPlatform = function (width, height, image, speed, waypoints) {
+        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), speed, waypoints, image);
     };
     /***************************************************************************************************************
      *   Creates a bounce.
@@ -11930,12 +11931,12 @@ var MfgGameObjectFactory = /** @class */ (function () {
      *
      *   @return       The created decoration.
      ***************************************************************************************************************/
-    MfgGameObjectFactory.createBounce = function (x, y, width, height, image) {
-        return new mfg.MfgBounce(new mfg.MfgShapeRectangle(width, height, mfg.MfgSettings.COLOR_DEBUG_BOUNCE, false, 0.0, mfg.MfgGameObject.FRICTION_DEFAULT, mfg.MfgGameObject.DENSITY_DEFAULT), x, y, image);
+    GameObjectFactory.createBounce = function (x, y, width, height, image) {
+        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, image);
     };
-    return MfgGameObjectFactory;
+    return GameObjectFactory;
 }());
-exports.MfgGameObjectFactory = MfgGameObjectFactory;
+exports.GameObjectFactory = GameObjectFactory;
 
 
 /***/ }),
@@ -11951,12 +11952,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgGameObjectBundleFactory = /** @class */ (function () {
-    function MfgGameObjectBundleFactory() {
+var GameObjectBundleFactory = /** @class */ (function () {
+    function GameObjectBundleFactory() {
     }
-    return MfgGameObjectBundleFactory;
+    return GameObjectBundleFactory;
 }());
-exports.MfgGameObjectBundleFactory = MfgGameObjectBundleFactory;
+exports.GameObjectBundleFactory = GameObjectBundleFactory;
 
 
 /***/ }),
@@ -11987,15 +11988,15 @@ var __values = (this && this.__values) || function (o) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a character.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgCharacter = /** @class */ (function (_super) {
-    __extends(MfgCharacter, _super);
+var Character = /** @class */ (function (_super) {
+    __extends(Character, _super);
     /***************************************************************************************************************
     *   Creates a new character.
     *
@@ -12007,13 +12008,13 @@ var MfgCharacter = /** @class */ (function (_super) {
     *   @param speedMove        The speed for horizontal movement.
     *   @param jumpPower        The vertical force to apply on jumping.
     ***************************************************************************************************************/
-    function MfgCharacter(shape, x, y, image, lookingDirection, speedMove, jumpPower) {
+    function Character(shape, x, y, image, lookingDirection, speedMove, jumpPower) {
         var _this = _super.call(this, shape, x, y, image) || this;
         /** The looking direction for this character. */
         _this.lookingDirection = null;
         /** Flags if this character is dead. */
         _this.dead = false;
-        /** flags if the character collides with the bottom sensor. */
+        /** Flags if the character currently collides with the bottom sensor. */
         _this.collidesBottom = false;
         /** The speed for horizontal movements. */
         _this.speedMove = 0.0;
@@ -12029,7 +12030,7 @@ var MfgCharacter = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Renders the current character tick.
     ***************************************************************************************************************/
-    MfgCharacter.prototype.render = function () {
+    Character.prototype.render = function () {
         this.checkBottomCollision();
         if (this.collidesBottom)
             this.ticksWithoutBottomCollision = 0;
@@ -12042,20 +12043,18 @@ var MfgCharacter = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Check if the player falls to death by falling out of the level.
     ***************************************************************************************************************/
-    MfgCharacter.prototype.checkFallingDead = function () {
-        if (this.shape.body.position.y - this.shape.getHeight() / 2 > mfg.Mfg.game.level.height) {
-            mfg.MfgDebug.bugfix.log("Character has fallen to dead");
+    Character.prototype.checkFallingDead = function () {
+        if (this.shape.body.position.y - this.shape.getHeight() / 2 > ninjas.Main.game.level.height) {
+            ninjas.Debug.bugfix.log("Character has fallen to dead");
             // remove character body
-            Matter.World.remove(mfg.Mfg.game.engine.world, this.shape.body);
+            Matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
             this.kill();
         }
     };
     /***************************************************************************************************************
     *   Kills this character.
-    *
-    *   TODO abstract!
     ***************************************************************************************************************/
-    MfgCharacter.prototype.kill = function () {
+    Character.prototype.kill = function () {
         this.dead = true;
     };
     /***************************************************************************************************************
@@ -12063,17 +12062,17 @@ var MfgCharacter = /** @class */ (function (_super) {
     *
     *   @return <code>true</code> if a bottom collision is currently active.
     ***************************************************************************************************************/
-    MfgCharacter.prototype.checkBottomCollision = function () {
+    Character.prototype.checkBottomCollision = function () {
         // browse all game objects
         var bodiesToCheck = [];
         try {
-            for (var _a = __values(mfg.Mfg.game.level.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
+            for (var _a = __values(ninjas.Main.game.level.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
                 var gameObject = _b.value;
                 // skip own body and non-colliding game objects
                 if (gameObject.shape.body == this.shape.body
-                    || gameObject.shape.body.collisionFilter == mfg.MfgSettings.COLLISION_GROUP_NON_COLLIDING_ITEM
-                    || gameObject.shape.body.collisionFilter == mfg.MfgSettings.COLLISION_GROUP_NON_COLLIDING_DECO
-                    || gameObject.shape.body.collisionFilter == mfg.MfgSettings.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY) {
+                    || gameObject.shape.body.collisionFilter == ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM
+                    || gameObject.shape.body.collisionFilter == ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO
+                    || gameObject.shape.body.collisionFilter == ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY) {
                     continue;
                 }
                 bodiesToCheck.push(gameObject.shape.body);
@@ -12093,7 +12092,7 @@ var MfgCharacter = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Lets this character jump.
     ***************************************************************************************************************/
-    MfgCharacter.prototype.jump = function () {
+    Character.prototype.jump = function () {
         if (this.collidesBottom) {
             Matter.Body.applyForce(this.shape.body, this.shape.body.position, Matter.Vector.create(0.0, this.jumpPower));
         }
@@ -12101,23 +12100,23 @@ var MfgCharacter = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Moves this character left.
     ***************************************************************************************************************/
-    MfgCharacter.prototype.moveLeft = function () {
+    Character.prototype.moveLeft = function () {
         Matter.Body.translate(this.shape.body, Matter.Vector.create(-this.speedMove, 0));
-        this.lookingDirection = mfg.MfgCharacterLookingDirection.LEFT;
+        this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
     };
     /***************************************************************************************************************
     *   Moves this character left.
     ***************************************************************************************************************/
-    MfgCharacter.prototype.moveRight = function () {
+    Character.prototype.moveRight = function () {
         Matter.Body.translate(this.shape.body, Matter.Vector.create(this.speedMove, 0));
-        this.lookingDirection = mfg.MfgCharacterLookingDirection.RIGHT;
+        this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
     };
     /** The default jump power ( player ). */
-    MfgCharacter.JUMP_POWER_DEFAULT = -4.0;
-    MfgCharacter.MAX_TICKS_WITHOUT_BOTTOM_COLLISION = 15;
-    return MfgCharacter;
-}(mfg.MfgGameObject));
-exports.MfgCharacter = MfgCharacter;
+    Character.JUMP_POWER_DEFAULT = -4.0;
+    Character.MAX_TICKS_WITHOUT_BOTTOM_COLLISION = 15;
+    return Character;
+}(ninjas.GameObject));
+exports.Character = Character;
 
 
 /***/ }),
@@ -12138,15 +12137,15 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents an enemy being controlled by the system.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgEnemy = /** @class */ (function (_super) {
-    __extends(MfgEnemy, _super);
+var Enemy = /** @class */ (function (_super) {
+    __extends(Enemy, _super);
     /***************************************************************************************************************
     *   Creates a new enemy.
     *
@@ -12154,13 +12153,13 @@ var MfgEnemy = /** @class */ (function (_super) {
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
     ***************************************************************************************************************/
-    function MfgEnemy(shape, x, y) {
-        return _super.call(this, shape, x, y, null, mfg.MfgCharacterLookingDirection.LEFT, 4.0, mfg.MfgCharacter.JUMP_POWER_DEFAULT) || this;
+    function Enemy(shape, x, y) {
+        return _super.call(this, shape, x, y, null, ninjas.CharacterLookingDirection.LEFT, 4.0, ninjas.Character.JUMP_POWER_DEFAULT) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
     ***************************************************************************************************************/
-    MfgEnemy.prototype.render = function () {
+    Enemy.prototype.render = function () {
         _super.prototype.render.call(this);
         if (!this.dead) {
             // switch movement pattern
@@ -12170,23 +12169,23 @@ var MfgEnemy = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Lets this enemy punch out of the screen.
     ***************************************************************************************************************/
-    MfgEnemy.prototype.punchOut = function () {
+    Enemy.prototype.punchOut = function () {
         switch (this.lookingDirection) {
-            case mfg.MfgCharacterLookingDirection.LEFT:
+            case ninjas.CharacterLookingDirection.LEFT:
                 {
                     Matter.Body.applyForce(this.shape.body, this.shape.body.position, Matter.Vector.create(-0.5, -1.0));
                     break;
                 }
-            case mfg.MfgCharacterLookingDirection.RIGHT:
+            case ninjas.CharacterLookingDirection.RIGHT:
                 {
                     Matter.Body.applyForce(this.shape.body, this.shape.body.position, Matter.Vector.create(0.5, -1.0));
                     break;
                 }
         }
     };
-    return MfgEnemy;
-}(mfg.MfgCharacter));
-exports.MfgEnemy = MfgEnemy;
+    return Enemy;
+}(ninjas.Character));
+exports.Enemy = Enemy;
 
 
 /***/ }),
@@ -12207,15 +12206,15 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a platform that moves.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgPlatform = /** @class */ (function (_super) {
-    __extends(MfgPlatform, _super);
+var Platform = /** @class */ (function (_super) {
+    __extends(Platform, _super);
     /***************************************************************************************************************
     *   Creates a new platform. Initial position is the first waypoint.
     *
@@ -12224,7 +12223,7 @@ var MfgPlatform = /** @class */ (function (_super) {
     *   @param waypoints The waypoints for this platform to move to.
     *   @param image     The image for this platform.
     ***************************************************************************************************************/
-    function MfgPlatform(shape, speed, waypoints, image) {
+    function Platform(shape, speed, waypoints, image) {
         var _this = _super.call(this, shape, 0.0, 0.0, image) || this;
         /** The waypoints for this platform to move. */
         _this.waypoints = null;
@@ -12253,7 +12252,7 @@ var MfgPlatform = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Assigns the next waypoint to aim to.
     ***************************************************************************************************************/
-    MfgPlatform.prototype.assignNextWaypoint = function () {
+    Platform.prototype.assignNextWaypoint = function () {
         // increase index for current wp
         ++this.currentWaypointIndex;
         // assign current wp
@@ -12281,7 +12280,7 @@ var MfgPlatform = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Renders this obstacle.
     ***************************************************************************************************************/
-    MfgPlatform.prototype.render = function () {
+    Platform.prototype.render = function () {
         ++this.currentStep;
         if (this.currentStep > this.stepsTillNextWaypoint) {
             this.assignNextWaypoint();
@@ -12291,10 +12290,10 @@ var MfgPlatform = /** @class */ (function (_super) {
         Matter.Body.translate(this.shape.body, Matter.Vector.create(this.stepSizeX, this.stepSizeY));
     };
     /** Medium moving speed. */
-    MfgPlatform.SPEED_NORMAL = 1.0;
-    return MfgPlatform;
-}(mfg.MfgGameObject));
-exports.MfgPlatform = MfgPlatform;
+    Platform.SPEED_NORMAL = 1.0;
+    return Platform;
+}(ninjas.GameObject));
+exports.Platform = Platform;
 
 
 /***/ }),
@@ -12325,15 +12324,15 @@ var __values = (this && this.__values) || function (o) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents the player being controlled by the user.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgPlayer = /** @class */ (function (_super) {
-    __extends(MfgPlayer, _super);
+var Player = /** @class */ (function (_super) {
+    __extends(Player, _super);
     /***************************************************************************************************************
     *   Creates a new player instance.
     *
@@ -12341,22 +12340,22 @@ var MfgPlayer = /** @class */ (function (_super) {
     *   @param y                Startup position Y.
     *   @param lookingDirection The initial looking direction.
     ***************************************************************************************************************/
-    function MfgPlayer(x, y, lookingDirection) {
+    function Player(x, y, lookingDirection) {
         var _this = this;
-        var img = mfg.MfgImage.IMAGE_PLAYER_STAND;
-        _this = _super.call(this, new mfg.MfgShapeRectangle(mfg.MfgSettings.PLAYER_WIDTH, mfg.MfgSettings.PLAYER_HEIGHT, mfg.MfgSettings.COLOR_DEBUG_PLAYER, false, 0.0, mfg.MfgGameObject.FRICTION_DEFAULT, mfg.MfgGameObject.DENSITY_HUMAN), x, y, img, lookingDirection, mfg.MfgSettings.PLAYER_SPEED_MOVE, mfg.MfgCharacter.JUMP_POWER_DEFAULT) || this;
+        var img = ninjas.Image.IMAGE_PLAYER_STAND;
+        _this = _super.call(this, new ninjas.ShapeRectangle(ninjas.Setting.PLAYER_WIDTH, ninjas.Setting.PLAYER_HEIGHT, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, img, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Character.JUMP_POWER_DEFAULT) || this;
         return _this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
     ***************************************************************************************************************/
-    MfgPlayer.prototype.render = function () {
+    Player.prototype.render = function () {
         _super.prototype.render.call(this);
-        if (this.collidesBottom || this.ticksWithoutBottomCollision++ < mfg.MfgCharacter.MAX_TICKS_WITHOUT_BOTTOM_COLLISION) {
-            this.shape.body.render.sprite.texture = mfg.MfgImage.IMAGE_PLAYER_STAND;
+        if (this.collidesBottom || this.ticksWithoutBottomCollision++ < ninjas.Character.MAX_TICKS_WITHOUT_BOTTOM_COLLISION) {
+            this.shape.body.render.sprite.texture = ninjas.Image.IMAGE_PLAYER_STAND;
         }
         else {
-            this.shape.body.render.sprite.texture = mfg.MfgImage.IMAGE_PLAYER_FALL;
+            this.shape.body.render.sprite.texture = ninjas.Image.IMAGE_PLAYER_FALL;
         }
         if (!this.dead) {
             this.handleKeys();
@@ -12366,43 +12365,43 @@ var MfgPlayer = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Checks all pressed player keys and performs according actions.
     ***************************************************************************************************************/
-    MfgPlayer.prototype.handleKeys = function () {
-        if (mfg.Mfg.game.keySystem.isPressed(mfg.MfgKeySystem.KEY_LEFT)) {
+    Player.prototype.handleKeys = function () {
+        if (ninjas.Main.game.keySystem.isPressed(ninjas.KeySystem.KEY_LEFT)) {
             this.moveLeft();
         }
-        if (mfg.Mfg.game.keySystem.isPressed(mfg.MfgKeySystem.KEY_RIGHT)) {
+        if (ninjas.Main.game.keySystem.isPressed(ninjas.KeySystem.KEY_RIGHT)) {
             this.moveRight();
         }
-        if (mfg.Mfg.game.keySystem.isPressed(mfg.MfgKeySystem.KEY_UP)) {
-            mfg.Mfg.game.keySystem.setNeedsRelease(mfg.MfgKeySystem.KEY_UP);
+        if (ninjas.Main.game.keySystem.isPressed(ninjas.KeySystem.KEY_UP)) {
+            ninjas.Main.game.keySystem.setNeedsRelease(ninjas.KeySystem.KEY_UP);
             this.jump();
         }
     };
     /***************************************************************************************************************
     *   Checks if an enemy is currently killed by jumping on his head.
     ***************************************************************************************************************/
-    MfgPlayer.prototype.checkEnemyKill = function () {
+    Player.prototype.checkEnemyKill = function () {
         // check character landing on enemies
         if (this.collidesBottom) {
             try {
-                for (var _a = __values(mfg.Mfg.game.level.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
+                for (var _a = __values(ninjas.Main.game.level.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
                     var gameObject = _b.value;
-                    if (gameObject instanceof mfg.MfgEnemy) {
+                    if (gameObject instanceof ninjas.Enemy) {
                         var enemy = gameObject;
                         // check intersection of the player and the enemy
                         if (Matter.Bounds.overlaps(this.shape.body.bounds, enemy.shape.body.bounds)) {
-                            mfg.MfgDebug.enemy.log("Enemy touched by player");
+                            ninjas.Debug.enemy.log("Enemy touched by player");
                             var playerBottom = Math.floor(this.shape.body.position.y + this.shape.getHeight() / 2);
                             var enemyTop = Math.floor(enemy.shape.body.position.y - enemy.shape.getHeight() / 2);
-                            mfg.MfgDebug.enemy.log(" playerBottom [" + playerBottom + "] enemyTop [" + enemyTop + "]");
+                            ninjas.Debug.enemy.log(" playerBottom [" + playerBottom + "] enemyTop [" + enemyTop + "]");
                             if (playerBottom == enemyTop) {
-                                mfg.MfgDebug.enemy.log(" Enemy killed");
+                                ninjas.Debug.enemy.log(" Enemy killed");
                                 // flag enemy as dead
                                 enemy.kill();
                                 // let enemy fall out of the screen
                                 enemy.punchOut();
                                 // disable enemy collisions
-                                enemy.shape.body.collisionFilter = mfg.MfgSettings.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
+                                enemy.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
                             }
                         }
                     }
@@ -12418,9 +12417,9 @@ var MfgPlayer = /** @class */ (function (_super) {
         }
         var e_1, _c;
     };
-    return MfgPlayer;
-}(mfg.MfgCharacter));
-exports.MfgPlayer = MfgPlayer;
+    return Player;
+}(ninjas.Character));
+exports.Player = Player;
 
 
 /***/ }),
@@ -12440,15 +12439,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a movable box.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgBox = /** @class */ (function (_super) {
-    __extends(MfgBox, _super);
+var Box = /** @class */ (function (_super) {
+    __extends(Box, _super);
     /***************************************************************************************************************
     *   Creates a new box.
     *
@@ -12456,18 +12455,18 @@ var MfgBox = /** @class */ (function (_super) {
     *   @param x        Startup position X.
     *   @param y        Startup position Y.
     ***************************************************************************************************************/
-    function MfgBox(shape, x, y) {
-        return _super.call(this, shape, x, y, mfg.MfgImage.IMAGE_BOX) || this;
+    function Box(shape, x, y) {
+        return _super.call(this, shape, x, y, ninjas.Image.IMAGE_BOX) || this;
     }
     /***************************************************************************************************************
     *   Renders this box.
     ***************************************************************************************************************/
-    MfgBox.prototype.render = function () {
+    Box.prototype.render = function () {
         this.clipToHorizontalLevelBounds();
     };
-    return MfgBox;
-}(mfg.MfgGameObject));
-exports.MfgBox = MfgBox;
+    return Box;
+}(ninjas.GameObject));
+exports.Box = Box;
 
 
 /***/ }),
@@ -12488,15 +12487,15 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a pickable item.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgItem = /** @class */ (function (_super) {
-    __extends(MfgItem, _super);
+var Item = /** @class */ (function (_super) {
+    __extends(Item, _super);
     /***************************************************************************************************************
     *   Creates a new item.
     *
@@ -12504,20 +12503,20 @@ var MfgItem = /** @class */ (function (_super) {
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
     ***************************************************************************************************************/
-    function MfgItem(shape, x, y) {
-        var _this = _super.call(this, shape, x, y, mfg.MfgImage.IMAGE_ITEM) || this;
+    function Item(shape, x, y) {
+        var _this = _super.call(this, shape, x, y, ninjas.Image.IMAGE_ITEM) || this;
         /** Indicates if this item has been picked. */
         _this.picked = null;
-        _this.shape.body.collisionFilter = mfg.MfgSettings.COLLISION_GROUP_NON_COLLIDING_ITEM;
+        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
         return _this;
     }
     /***************************************************************************************************************
     *   Renders this item.
     ***************************************************************************************************************/
-    MfgItem.prototype.render = function () {
+    Item.prototype.render = function () {
         if (!this.picked) {
-            if (Matter.Bounds.overlaps(this.shape.body.bounds, mfg.Mfg.game.level.player.shape.body.bounds)) {
-                mfg.MfgDebug.item.log("Player picked item");
+            if (Matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds)) {
+                ninjas.Debug.item.log("Player picked item");
                 this.pick();
             }
         }
@@ -12525,15 +12524,15 @@ var MfgItem = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Picks up this item.
     ***************************************************************************************************************/
-    MfgItem.prototype.pick = function () {
+    Item.prototype.pick = function () {
         // flag as picked
         this.picked = true;
         // remove item body
-        Matter.World.remove(mfg.Mfg.game.engine.world, this.shape.body);
+        Matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
     };
-    return MfgItem;
-}(mfg.MfgGameObject));
-exports.MfgItem = MfgItem;
+    return Item;
+}(ninjas.GameObject));
+exports.Item = Item;
 
 
 /***/ }),
@@ -12553,15 +12552,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a non-colliding decoration.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgDecoration = /** @class */ (function (_super) {
-    __extends(MfgDecoration, _super);
+var Decoration = /** @class */ (function (_super) {
+    __extends(Decoration, _super);
     /***************************************************************************************************************
     *   Creates a new decoration.
     *
@@ -12570,19 +12569,19 @@ var MfgDecoration = /** @class */ (function (_super) {
     *   @param y      Startup position Y.
     *   @param image  The image source to use.
     ***************************************************************************************************************/
-    function MfgDecoration(shape, x, y, image) {
+    function Decoration(shape, x, y, image) {
         var _this = _super.call(this, shape, x, y, image) || this;
-        _this.shape.body.collisionFilter = mfg.MfgSettings.COLLISION_GROUP_NON_COLLIDING_DECO;
+        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO;
         return _this;
     }
     /***************************************************************************************************************
     *   Renders this obstacle.
     ***************************************************************************************************************/
-    MfgDecoration.prototype.render = function () {
+    Decoration.prototype.render = function () {
     };
-    return MfgDecoration;
-}(mfg.MfgGameObject));
-exports.MfgDecoration = MfgDecoration;
+    return Decoration;
+}(ninjas.GameObject));
+exports.Decoration = Decoration;
 
 
 /***/ }),
@@ -12602,15 +12601,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a collidable and solid obstacle.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgObstacle = /** @class */ (function (_super) {
-    __extends(MfgObstacle, _super);
+var Obstacle = /** @class */ (function (_super) {
+    __extends(Obstacle, _super);
     /***************************************************************************************************************
     *   Creates a new obstacle.
     *
@@ -12619,7 +12618,7 @@ var MfgObstacle = /** @class */ (function (_super) {
     *   @param y               Startup position Y.
     *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
     ***************************************************************************************************************/
-    function MfgObstacle(shape, x, y, jumpPassThrough) {
+    function Obstacle(shape, x, y, jumpPassThrough) {
         var _this = _super.call(this, shape, x, y, null) || this;
         /** Specifies if the player shall be allowed to jump through this obstacle. */
         _this.jumpPassThrough = false;
@@ -12629,30 +12628,30 @@ var MfgObstacle = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Renders this obstacle.
     ***************************************************************************************************************/
-    MfgObstacle.prototype.render = function () {
+    Obstacle.prototype.render = function () {
         if (this.jumpPassThrough) {
             /*
                             if
                             (
-                                mfg.Mfg.game.level.player.body.velocity.y >= 0.0
+                                ninjas.ninjas.game.level.player.body.velocity.y >= 0.0
             
-            //                    mfg.Mfg.game.level.player.body.position.y + mfg.Mfg.game.level.player.height / 2
+            //                    ninjas.ninjas.game.level.player.body.position.y + ninjas.ninjas.game.level.player.height / 2
             //                    <=  this.body.position.y
             
                             )
                             {
-                                this.body.collisionFilter = mfg.MfgSettings.COLLISION_GROUP_COLLIDING;
+                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_COLLIDING;
                             }
                             else
                             {
-                                this.body.collisionFilter = mfg.MfgSettings.COLLISION_GROUP_NON_COLLIDING;
+                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_NON_COLLIDING;
                             }
             */
         }
     };
-    return MfgObstacle;
-}(mfg.MfgGameObject));
-exports.MfgObstacle = MfgObstacle;
+    return Obstacle;
+}(ninjas.GameObject));
+exports.Obstacle = Obstacle;
 
 
 /***/ }),
@@ -12673,15 +12672,15 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a sigsaw.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgSigSaw = /** @class */ (function (_super) {
-    __extends(MfgSigSaw, _super);
+var SigSaw = /** @class */ (function (_super) {
+    __extends(SigSaw, _super);
     /***************************************************************************************************************
     *   Creates a new sigsaw.
     *
@@ -12690,7 +12689,7 @@ var MfgSigSaw = /** @class */ (function (_super) {
     *   @param y      Startup position Y.
     *   @param image  The image for this game object.
     ***************************************************************************************************************/
-    function MfgSigSaw(shape, x, y, image) {
+    function SigSaw(shape, x, y, image) {
         var _this = _super.call(this, shape, x, y, image) || this;
         /** The constraint that builds the turning point for the sigsaw. */
         _this.constraint = null;
@@ -12701,7 +12700,7 @@ var MfgSigSaw = /** @class */ (function (_super) {
             stiffness: 1.0,
             length: 0,
             render: {
-                strokeStyle: mfg.MfgSettings.COLOR_DEBUG_SIGSAW_JOINT,
+                strokeStyle: ninjas.Setting.COLOR_DEBUG_SIGSAW_JOINT,
                 lineWidth: 1.0,
                 visible: true,
             }
@@ -12709,23 +12708,23 @@ var MfgSigSaw = /** @class */ (function (_super) {
         /*
                     Matter.Body.setMass( this.body, 25.0 );
         */
-        Matter.Composite.add(mfg.Mfg.game.engine.world, _this.constraint);
+        Matter.Composite.add(ninjas.Main.game.engine.world, _this.constraint);
         return _this;
     }
     /***************************************************************************************************************
     *   Renders this sigsaw.
     ***************************************************************************************************************/
-    MfgSigSaw.prototype.render = function () {
+    SigSaw.prototype.render = function () {
         this.clipRotation();
         this.clipRotationSpeed();
     };
     /***************************************************************************************************************
     *   Clips the rotation of the sigsaw.
     ***************************************************************************************************************/
-    MfgSigSaw.prototype.clipRotation = function () {
+    SigSaw.prototype.clipRotation = function () {
         var clipAngle = 15.0;
-        var minAngle = mfg.MfgMath.angleToRad(-clipAngle);
-        var maxAngle = mfg.MfgMath.angleToRad(clipAngle);
+        var minAngle = ninjas.MathUtil.angleToRad(-clipAngle);
+        var maxAngle = ninjas.MathUtil.angleToRad(clipAngle);
         if (this.shape.body.angle < minAngle) {
             Matter.Body.setAngle(this.shape.body, minAngle);
             Matter.Body.setAngularVelocity(this.shape.body, 0.0);
@@ -12738,7 +12737,7 @@ var MfgSigSaw = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Clips the rotation speed of the sigsaw.
     ***************************************************************************************************************/
-    MfgSigSaw.prototype.clipRotationSpeed = function () {
+    SigSaw.prototype.clipRotationSpeed = function () {
         var maxRotationSpeed = 0.005;
         if (this.shape.body.angularVelocity < -maxRotationSpeed) {
             Matter.Body.setAngularVelocity(this.shape.body, -maxRotationSpeed);
@@ -12747,9 +12746,9 @@ var MfgSigSaw = /** @class */ (function (_super) {
             Matter.Body.setAngularVelocity(this.shape.body, maxRotationSpeed);
         }
     };
-    return MfgSigSaw;
-}(mfg.MfgGameObject));
-exports.MfgSigSaw = MfgSigSaw;
+    return SigSaw;
+}(ninjas.GameObject));
+exports.SigSaw = SigSaw;
 
 
 /***/ }),
@@ -12770,15 +12769,15 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents a bounce.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgBounce = /** @class */ (function (_super) {
-    __extends(MfgBounce, _super);
+var Bounce = /** @class */ (function (_super) {
+    __extends(Bounce, _super);
     /***************************************************************************************************************
     *   Creates a new bounce.
     *
@@ -12787,7 +12786,7 @@ var MfgBounce = /** @class */ (function (_super) {
     *   @param y      Startup position Y.
     *   @param image  The image for this game object.
     ***************************************************************************************************************/
-    function MfgBounce(shape, x, y, image) {
+    function Bounce(shape, x, y, image) {
         var _this = _super.call(this, shape, x, y, image) || this;
         /** The constraint that builds the turning point for the bounce. */
         _this.constraint = null;
@@ -12798,24 +12797,24 @@ var MfgBounce = /** @class */ (function (_super) {
             stiffness: 0.01,
             length: 0,
             render: {
-                strokeStyle: mfg.MfgSettings.COLOR_DEBUG_BOUNCE_JOINT,
+                strokeStyle: ninjas.Setting.COLOR_DEBUG_BOUNCE_JOINT,
                 lineWidth: 1.0,
                 visible: true,
             }
         });
-        Matter.Composite.add(mfg.Mfg.game.engine.world, _this.constraint);
+        Matter.Composite.add(ninjas.Main.game.engine.world, _this.constraint);
         return _this;
     }
     /***************************************************************************************************************
     *   Renders this sigsaw.
     ***************************************************************************************************************/
-    MfgBounce.prototype.render = function () {
+    Bounce.prototype.render = function () {
         Matter.Body.setAngle(this.shape.body, 0.0);
         Matter.Body.setAngularVelocity(this.shape.body, 0.0);
     };
-    return MfgBounce;
-}(mfg.MfgGameObject));
-exports.MfgBounce = MfgBounce;
+    return Bounce;
+}(ninjas.GameObject));
+exports.Bounce = Bounce;
 
 
 /***/ }),
@@ -12826,15 +12825,15 @@ exports.MfgBounce = MfgBounce;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Specifies the game logic and specifies all primal parts of the game.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgGame = /** @class */ (function () {
-    function MfgGame() {
+var Game = /** @class */ (function () {
+    function Game() {
         var _this = this;
         /** The MatterJS engine. */
         this.engine = null;
@@ -12855,36 +12854,36 @@ var MfgGame = /** @class */ (function () {
             // render the engine
             _this.render();
             // update MatterJS 2d engine
-            Matter.Engine.update(_this.engine, mfg.MfgSettings.RENDER_DELTA);
+            Matter.Engine.update(_this.engine, ninjas.Setting.RENDER_DELTA);
         };
     }
     /***************************************************************************************************************
     *   Inits the game from scratch.
     ***************************************************************************************************************/
-    MfgGame.prototype.init = function () {
-        mfg.MfgDebug.init.log("Initing game engine");
+    Game.prototype.init = function () {
+        ninjas.Debug.init.log("Initing game engine");
         this.initEngine2D();
         this.initKeySystem();
         this.initSoundSystem();
-        mfg.MfgDebug.init.log("Playing bg sounds");
-        // this.test.playSound( mfg.MfgSound.PACHELBELS_CANON );
-        mfg.MfgDebug.init.log("Launching initial level");
-        this.resetAndLaunchLevel(new mfg.MfgLevelDev());
+        ninjas.Debug.init.log("Playing bg sounds");
+        // this.test.playSound( ninjas.ninjasSound.PACHELBELS_CANON );
+        ninjas.Debug.init.log("Launching initial level");
+        this.resetAndLaunchLevel(new ninjas.LevelDev());
     };
     /***************************************************************************************************************
     *   Starts the game loop.
     ***************************************************************************************************************/
-    MfgGame.prototype.start = function () {
+    Game.prototype.start = function () {
         // render 1st engine tick
         this.tick();
         // start the renderer
         Matter.Render.run(this.renderer);
-        window.setInterval(this.tick, mfg.MfgSettings.RENDER_DELTA);
+        window.setInterval(this.tick, ninjas.Setting.RENDER_DELTA);
     };
     /***************************************************************************************************************
     *   Inits the 2D engine.
     ***************************************************************************************************************/
-    MfgGame.prototype.initEngine2D = function () {
+    Game.prototype.initEngine2D = function () {
         this.engine = Matter.Engine.create();
         var options = {
             hasBounds: true,
@@ -12898,43 +12897,43 @@ var MfgGame = /** @class */ (function () {
             engine: this.engine,
             options: options,
         });
-        this.renderer.canvas.width = mfg.MfgSettings.CANVAS_WIDTH;
-        this.renderer.canvas.height = mfg.MfgSettings.CANVAS_HEIGHT;
+        this.renderer.canvas.width = ninjas.Setting.CANVAS_WIDTH;
+        this.renderer.canvas.height = ninjas.Setting.CANVAS_HEIGHT;
         this.engine.world.gravity = {
             x: 0.0,
-            y: mfg.MfgSettings.DEFAULT_GRAVITY_Y,
+            y: ninjas.Setting.DEFAULT_GRAVITY_Y,
             scale: 0.001
         };
     };
     /***************************************************************************************************************
     *   Inits the key system.
     ***************************************************************************************************************/
-    MfgGame.prototype.initKeySystem = function () {
-        this.keySystem = new mfg.MfgKeySystem();
+    Game.prototype.initKeySystem = function () {
+        this.keySystem = new ninjas.KeySystem();
     };
     /***************************************************************************************************************
     *   Inits the soundSystem system.
     ***************************************************************************************************************/
-    MfgGame.prototype.initSoundSystem = function () {
-        this.test = new mfg.MfgSoundSystem(mfg.MfgSound.FILE_NAMES);
+    Game.prototype.initSoundSystem = function () {
+        this.test = new ninjas.SoundSystem(ninjas.Sound.FILE_NAMES);
     };
     /***************************************************************************************************************
     *   Inits the level.
     ***************************************************************************************************************/
-    MfgGame.prototype.resetAndLaunchLevel = function (levelToLaunch) {
+    Game.prototype.resetAndLaunchLevel = function (levelToLaunch) {
         // clear world
         Matter.World.clear(this.engine.world, false);
         // assign and init level
         this.level = levelToLaunch;
         this.level.init();
         // reset camera
-        this.camera = new mfg.MfgCamera(this.renderer, mfg.MfgSettings.CAMERA_RATIO_X, mfg.MfgSettings.CAMERA_RATIO_Y, mfg.MfgSettings.CAMERA_MOVING_SPEED, mfg.MfgSettings.CAMERA_MOVING_MINIMUM, this.level.width, this.level.height, mfg.MfgSettings.CANVAS_WIDTH, mfg.MfgSettings.CANVAS_HEIGHT);
+        this.camera = new ninjas.Camera(this.renderer, ninjas.Setting.CAMERA_RATIO_X, ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, this.level.width, this.level.height, ninjas.Setting.CANVAS_WIDTH, ninjas.Setting.CANVAS_HEIGHT);
         this.camera.reset();
     };
     /***************************************************************************************************************
     *   Renders all game components.
     ***************************************************************************************************************/
-    MfgGame.prototype.render = function () {
+    Game.prototype.render = function () {
         // handle menu key
         this.handleMenuKey();
         // render level
@@ -12945,21 +12944,21 @@ var MfgGame = /** @class */ (function () {
     /***************************************************************************************************************
     *   Handles pressed menu keys.
     ***************************************************************************************************************/
-    MfgGame.prototype.handleMenuKey = function () {
-        if (mfg.Mfg.game.keySystem.isPressed(mfg.MfgKeySystem.KEY_1)) {
-            mfg.Mfg.game.keySystem.setNeedsRelease(mfg.MfgKeySystem.KEY_1);
-            mfg.MfgDebug.init.log("Switching to level 1");
-            this.resetAndLaunchLevel(new mfg.MfgLevelDev());
+    Game.prototype.handleMenuKey = function () {
+        if (ninjas.Main.game.keySystem.isPressed(ninjas.KeySystem.KEY_1)) {
+            ninjas.Main.game.keySystem.setNeedsRelease(ninjas.KeySystem.KEY_1);
+            ninjas.Debug.init.log("Switching to level 1");
+            this.resetAndLaunchLevel(new ninjas.LevelDev());
         }
-        if (mfg.Mfg.game.keySystem.isPressed(mfg.MfgKeySystem.KEY_2)) {
-            mfg.Mfg.game.keySystem.setNeedsRelease(mfg.MfgKeySystem.KEY_2);
-            mfg.MfgDebug.init.log("Switching to level 2");
-            this.resetAndLaunchLevel(new mfg.MfgLevelEnchantedWoods());
+        if (ninjas.Main.game.keySystem.isPressed(ninjas.KeySystem.KEY_2)) {
+            ninjas.Main.game.keySystem.setNeedsRelease(ninjas.KeySystem.KEY_2);
+            ninjas.Debug.init.log("Switching to level 2");
+            this.resetAndLaunchLevel(new ninjas.LevelEnchantedWoods());
         }
     };
-    return MfgGame;
+    return Game;
 }());
-exports.MfgGame = MfgGame;
+exports.Game = Game;
 
 
 /***/ }),
@@ -12980,15 +12979,15 @@ var __values = (this && this.__values) || function (o) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Represents the current level.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgLevel = /** @class */ (function () {
-    function MfgLevel() {
+var Level = /** @class */ (function () {
+    function Level() {
         /** The width of this level. */
         this.width = 0.0;
         /** The height of this level. */
@@ -13001,13 +13000,13 @@ var MfgLevel = /** @class */ (function () {
     /***************************************************************************************************************
     *   Inits a new level.
     ***************************************************************************************************************/
-    MfgLevel.prototype.init = function () {
+    Level.prototype.init = function () {
         this.createGameObjects();
         try {
             // add all bodies of all game objects to the world
             for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
                 var gameObject = _b.value;
-                Matter.World.addBody(mfg.Mfg.game.engine.world, gameObject.shape.body);
+                Matter.World.addBody(ninjas.Main.game.engine.world, gameObject.shape.body);
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -13022,7 +13021,7 @@ var MfgLevel = /** @class */ (function () {
     /***************************************************************************************************************
     *   Renders all level components.
     ***************************************************************************************************************/
-    MfgLevel.prototype.render = function () {
+    Level.prototype.render = function () {
         try {
             // render game objects
             for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
@@ -13039,9 +13038,9 @@ var MfgLevel = /** @class */ (function () {
         }
         var e_2, _c;
     };
-    return MfgLevel;
+    return Level;
 }());
-exports.MfgLevel = MfgLevel;
+exports.Level = Level;
 
 
 /***/ }),
@@ -13062,16 +13061,16 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The level set for the dev level.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgLevelDev = /** @class */ (function (_super) {
-    __extends(MfgLevelDev, _super);
-    function MfgLevelDev() {
+var LevelDev = /** @class */ (function (_super) {
+    __extends(LevelDev, _super);
+    function LevelDev() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         /** The width of this level. */
         _this.width = 10000.0;
@@ -13082,77 +13081,77 @@ var MfgLevelDev = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Inits a new level.
     ***************************************************************************************************************/
-    MfgLevelDev.prototype.createGameObjects = function () {
+    LevelDev.prototype.createGameObjects = function () {
         // init player
-        this.player = new mfg.MfgPlayer(50, 500.0, mfg.MfgCharacterLookingDirection.RIGHT);
+        this.player = new ninjas.Player(50, 500.0, ninjas.CharacterLookingDirection.RIGHT);
         // setup all game objects
         this.gameObjects =
             [
                 // grounds and ramps
-                mfg.MfgGameObjectFactory.createBlock(0, 620, 500, 15, 0.0, false),
-                mfg.MfgGameObjectFactory.createBlock(490, 765, 500, 15, 15.0, false),
-                mfg.MfgGameObjectFactory.createBlock(980, 830, 500, 15, 0.0, false),
-                mfg.MfgGameObjectFactory.createBlock(2310, 830, 500, 15, 0.0, false),
-                mfg.MfgGameObjectFactory.createBlock(3230, 830, 500, 15, 0.0, false),
-                mfg.MfgGameObjectFactory.createBlock(4080, 730, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createBlock(0, 620, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createBlock(490, 765, 500, 15, 15.0, false),
+                ninjas.GameObjectFactory.createBlock(980, 830, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createBlock(2310, 830, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createBlock(3230, 830, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createBlock(4080, 730, 500, 15, 0.0, false),
                 // bg decoration
-                mfg.MfgGameObjectFactory.createDecoration(30, 450, 76, 170, mfg.MfgImage.IMAGE_TREE),
-                mfg.MfgGameObjectFactory.createDecoration(370, 450, 76, 170, mfg.MfgImage.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, ninjas.Image.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, ninjas.Image.IMAGE_TREE),
                 // moveable boxes
-                mfg.MfgGameObjectFactory.createBox(300, 160, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createSphere(350, 240, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(400, 320, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(450, 400, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createSphere(500, 320, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(550, 240, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(600, 160, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createSphere(650, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(700, 0, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(1300, -3160, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createSphere(1350, -3240, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(1400, -3320, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(1450, -3400, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createSphere(1500, -3320, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(1550, -3240, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(1600, -3160, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createSphere(1650, -3180, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
-                mfg.MfgGameObjectFactory.createBox(1700, -3000, 80, 80, mfg.MfgGameObject.FRICTION_ICE, mfg.MfgGameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(500, 320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(650, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(1350, -3240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(1450, -3400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(1500, -3320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(1550, -3240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(1600, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(1650, -3180, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createBox(1700, -3000, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 // sigsaws and bounces
-                mfg.MfgGameObjectFactory.createSigsaw(1490, 830, 400, 25, null),
-                mfg.MfgGameObjectFactory.createBounce(1900, 830, 400, 25, null),
+                ninjas.GameObjectFactory.createSigsaw(1490, 830, 400, 25, null),
+                ninjas.GameObjectFactory.createBounce(1900, 830, 400, 25, null),
                 // animated platforms
-                mfg.MfgGameObjectFactory.createPlatform(200.0, 15.0, null, mfg.MfgPlatform.SPEED_NORMAL, [
+                ninjas.GameObjectFactory.createPlatform(200.0, 15.0, null, ninjas.Platform.SPEED_NORMAL, [
                     Matter.Vector.create(2820.0, 830.0),
                     Matter.Vector.create(3020.0, 830.0),
                 ]),
                 // items
-                mfg.MfgGameObjectFactory.createItem(900, 620),
-                mfg.MfgGameObjectFactory.createItem(950, 620),
-                mfg.MfgGameObjectFactory.createItem(1000, 620),
-                mfg.MfgGameObjectFactory.createItem(2500, 740),
-                mfg.MfgGameObjectFactory.createItem(2550, 740),
-                mfg.MfgGameObjectFactory.createItem(2600, 740),
+                ninjas.GameObjectFactory.createItem(900, 620),
+                ninjas.GameObjectFactory.createItem(950, 620),
+                ninjas.GameObjectFactory.createItem(1000, 620),
+                ninjas.GameObjectFactory.createItem(2500, 740),
+                ninjas.GameObjectFactory.createItem(2550, 740),
+                ninjas.GameObjectFactory.createItem(2600, 740),
                 // free form
-                mfg.MfgGameObjectFactory.createFreeForm(3730.0, 730.0, [
+                ninjas.GameObjectFactory.createFreeForm(3730.0, 730.0, [
                     Matter.Vector.create(0.0, 0.0),
                     Matter.Vector.create(350.0, -100.0),
                     Matter.Vector.create(350.0, -85.0),
                     Matter.Vector.create(0.0, 15.0),
                 ], 0.0),
                 // ascending ramp
-                mfg.MfgGameObjectFactory.createElevatedRamp(4600.0, 730.0, 1000.0, 15.0, -200.0),
+                ninjas.GameObjectFactory.createElevatedRamp(4600.0, 730.0, 1000.0, 15.0, -200.0),
                 // player
                 this.player,
                 // enemies (fg)
-                mfg.MfgGameObjectFactory.createEnemy(1200, 0),
+                ninjas.GameObjectFactory.createEnemy(1200, 0),
                 // fg decoration
-                mfg.MfgGameObjectFactory.createDecoration(200, 450, 76, 170, mfg.MfgImage.IMAGE_TREE),
-                mfg.MfgGameObjectFactory.createDecoration(3230, 660, 76, 170, mfg.MfgImage.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, ninjas.Image.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, ninjas.Image.IMAGE_TREE),
             ];
     };
-    return MfgLevelDev;
-}(mfg.MfgLevel));
-exports.MfgLevelDev = MfgLevelDev;
+    return LevelDev;
+}(ninjas.Level));
+exports.LevelDev = LevelDev;
 
 
 /***/ }),
@@ -13172,16 +13171,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The level set for the level 'enchanted woods'.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgLevelEnchantedWoods = /** @class */ (function (_super) {
-    __extends(MfgLevelEnchantedWoods, _super);
-    function MfgLevelEnchantedWoods() {
+var LevelEnchantedWoods = /** @class */ (function (_super) {
+    __extends(LevelEnchantedWoods, _super);
+    function LevelEnchantedWoods() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         /** The width of this level. */
         _this.width = 3000.0;
@@ -13192,41 +13191,41 @@ var MfgLevelEnchantedWoods = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Inits a new level.
     ***************************************************************************************************************/
-    MfgLevelEnchantedWoods.prototype.createGameObjects = function () {
+    LevelEnchantedWoods.prototype.createGameObjects = function () {
         // init player
-        this.player = new mfg.MfgPlayer(750, 880, mfg.MfgCharacterLookingDirection.LEFT);
+        this.player = new ninjas.Player(750, 880, ninjas.CharacterLookingDirection.LEFT);
         // setup all game objects
         this.gameObjects =
             [
                 // floor
-                mfg.MfgGameObjectFactory.createBlock(0, 1000, 1250, 500, 0.0, false),
-                mfg.MfgGameObjectFactory.createElevatedRamp(1250, 1000, 750, 500, -100.0),
-                mfg.MfgGameObjectFactory.createBlock(2000, 900, 1250, 500, 0.0, false),
+                ninjas.GameObjectFactory.createBlock(0, 1000, 1250, 500, 0.0, false),
+                ninjas.GameObjectFactory.createElevatedRamp(1250, 1000, 750, 500, -100.0),
+                ninjas.GameObjectFactory.createBlock(2000, 900, 1250, 500, 0.0, false),
                 // hut
-                mfg.MfgGameObjectFactory.createDecoration(140, 870, 350, 130, null),
+                ninjas.GameObjectFactory.createDecoration(140, 870, 350, 130, null),
                 // bg decoration
-                mfg.MfgGameObjectFactory.createDecoration(350, 870, 120, 90, mfg.MfgImage.IMAGE_TREE),
-                mfg.MfgGameObjectFactory.createDecoration(850, 870, 120, 90, mfg.MfgImage.IMAGE_TREE),
-                mfg.MfgGameObjectFactory.createDecoration(1350, 850, 120, 90, mfg.MfgImage.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, ninjas.Image.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, ninjas.Image.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, ninjas.Image.IMAGE_TREE),
                 // moveable boxes
                 // sigsaws
                 // items
-                mfg.MfgGameObjectFactory.createItem(10, 1000 - 52),
-                mfg.MfgGameObjectFactory.createItem(40, 1000 - 52),
-                mfg.MfgGameObjectFactory.createItem(70, 1000 - 52),
-                mfg.MfgGameObjectFactory.createItem(100, 1000 - 52),
+                ninjas.GameObjectFactory.createItem(10, 1000 - 52),
+                ninjas.GameObjectFactory.createItem(40, 1000 - 52),
+                ninjas.GameObjectFactory.createItem(70, 1000 - 52),
+                ninjas.GameObjectFactory.createItem(100, 1000 - 52),
                 // enemies
                 // player
                 this.player,
                 // fg decoration
-                mfg.MfgGameObjectFactory.createDecoration(600, 870, 120, 90, mfg.MfgImage.IMAGE_TREE),
-                mfg.MfgGameObjectFactory.createDecoration(1100, 870, 120, 90, mfg.MfgImage.IMAGE_TREE),
-                mfg.MfgGameObjectFactory.createDecoration(1600, 817, 120, 90, mfg.MfgImage.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, ninjas.Image.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, ninjas.Image.IMAGE_TREE),
+                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, ninjas.Image.IMAGE_TREE),
             ];
     };
-    return MfgLevelEnchantedWoods;
-}(mfg.MfgLevel));
-exports.MfgLevelEnchantedWoods = MfgLevelEnchantedWoods;
+    return LevelEnchantedWoods;
+}(ninjas.Level));
+exports.LevelEnchantedWoods = LevelEnchantedWoods;
 
 
 /***/ }),
@@ -13236,19 +13235,18 @@ exports.MfgLevelEnchantedWoods = MfgLevelEnchantedWoods;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The key system that manages all pressed keys.
-*   TODO extract MfgKey!
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgKeySystem = /** @class */ (function () {
+var KeySystem = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a new key system.
     ***************************************************************************************************************/
-    function MfgKeySystem() {
+    function KeySystem() {
         var _this = this;
         /** All 'pressed' information for all keys. */
         this.keysPressed = [];
@@ -13263,7 +13261,7 @@ var MfgKeySystem = /** @class */ (function () {
             var keyCode = evt.which;
             if (!_this.keysNeedRelease[keyCode]) {
                 _this.keysPressed[keyCode] = true;
-                mfg.MfgDebug.key.log("key pressed [" + keyCode + "]");
+                ninjas.Debug.key.log("key pressed [" + keyCode + "]");
             }
         };
         /***************************************************************************************************************
@@ -13275,7 +13273,7 @@ var MfgKeySystem = /** @class */ (function () {
             var keyCode = evt.which;
             _this.keysPressed[keyCode] = false;
             _this.keysNeedRelease[keyCode] = false;
-            mfg.MfgDebug.key.log("key released [" + keyCode + "]");
+            ninjas.Debug.key.log("key released [" + keyCode + "]");
         };
         //set event listener for keyboard devices - all but IE
         window.addEventListener("keydown", this.onKeyDown, false);
@@ -13291,7 +13289,7 @@ var MfgKeySystem = /** @class */ (function () {
     *   @return         <code>true</code> if this key is currently pressed.
     *                   Otherwise <code>false</code>.
     ***************************************************************************************************************/
-    MfgKeySystem.prototype.isPressed = function (keyCode) {
+    KeySystem.prototype.isPressed = function (keyCode) {
         return this.keysPressed[keyCode];
     };
     /***************************************************************************************************************
@@ -13299,37 +13297,37 @@ var MfgKeySystem = /** @class */ (function () {
     *
     *   @param  keyCode The keyCode of the key to mark as 'needs key release'.
     ***************************************************************************************************************/
-    MfgKeySystem.prototype.setNeedsRelease = function (keyCode) {
+    KeySystem.prototype.setNeedsRelease = function (keyCode) {
         this.keysNeedRelease[keyCode] = true;
         this.keysPressed[keyCode] = false;
     };
     /** The keycode that represents the 'ARROW LEFT' key. */
-    MfgKeySystem.KEY_LEFT = 37;
+    KeySystem.KEY_LEFT = 37;
     /** The keycode that represents the 'ARROW UP' key. */
-    MfgKeySystem.KEY_UP = 38;
+    KeySystem.KEY_UP = 38;
     /** The keycode that represents the 'ARROW RIGHT' key. */
-    MfgKeySystem.KEY_RIGHT = 39;
+    KeySystem.KEY_RIGHT = 39;
     /** The keycode that represents the 'ARROW DOWN' key. */
-    MfgKeySystem.KEY_DOWN = 40;
+    KeySystem.KEY_DOWN = 40;
     /** The keycode that represents the '1' key. */
-    MfgKeySystem.KEY_1 = 49;
+    KeySystem.KEY_1 = 49;
     /** The keycode that represents the '1' key. */
-    MfgKeySystem.KEY_2 = 50;
+    KeySystem.KEY_2 = 50;
     /** The keycode that represents the '1' key. */
-    MfgKeySystem.KEY_3 = 51;
+    KeySystem.KEY_3 = 51;
     /** The keycode that represents the '1' key. */
-    MfgKeySystem.KEY_4 = 52;
+    KeySystem.KEY_4 = 52;
     /** The keycode that represents the '1' key. */
-    MfgKeySystem.KEY_5 = 53;
+    KeySystem.KEY_5 = 53;
     /** The keycode that represents the 'ENTER' key. */
-    MfgKeySystem.KEY_ENTER = 13;
+    KeySystem.KEY_ENTER = 13;
     /** The keycode that represents the 'ESCAPE' key. */
-    MfgKeySystem.KEY_ESCAPE = 27;
+    KeySystem.KEY_ESCAPE = 27;
     /** The keycode that represents the 'SPACE' key. */
-    MfgKeySystem.KEY_SPACE = 32;
-    return MfgKeySystem;
+    KeySystem.KEY_SPACE = 32;
+    return KeySystem;
 }());
-exports.MfgKeySystem = MfgKeySystem;
+exports.KeySystem = KeySystem;
 
 
 /***/ }),
@@ -13339,25 +13337,25 @@ exports.MfgKeySystem = MfgKeySystem;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*****************************************************************************
 *   Specifies all different soundSystem effects being used in the game.
 *
 *   @author  Christopher Stock
 *   @version 1.0
 *****************************************************************************/
-var MfgSound = /** @class */ (function () {
-    function MfgSound() {
+var Sound = /** @class */ (function () {
+    function Sound() {
     }
     /** The soundSystem 'Pachelbels Canon in D major. */
-    MfgSound.PACHELBELS_CANON = mfg.MfgSettings.PATH_SOUND + "pachelbels_canon_d_major.mp3";
+    Sound.PACHELBELS_CANON = ninjas.Setting.PATH_SOUND + "pachelbels_canon_d_major.mp3";
     /** This array contains all filenames of all sounds that shall be loaded. */
-    MfgSound.FILE_NAMES = [
-        MfgSound.PACHELBELS_CANON,
+    Sound.FILE_NAMES = [
+        Sound.PACHELBELS_CANON,
     ];
-    return MfgSound;
+    return Sound;
 }());
-exports.MfgSound = MfgSound;
+exports.Sound = Sound;
 
 
 /***/ }),
@@ -13373,13 +13371,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 *   @author  Christopher Stock
 *   @version 1.0
 *****************************************************************************/
-var MfgSoundSystem = /** @class */ (function () {
+var SoundSystem = /** @class */ (function () {
     /*****************************************************************************
     *   Loads all audio elements.
     *
     *   @param fileNames An array containing all filenames of the sounds to load.
     *****************************************************************************/
-    function MfgSoundSystem(fileNames) {
+    function SoundSystem(fileNames) {
         /** This array contains all loaded sounds. */
         this.allSounds = [];
         //load all sounds
@@ -13392,13 +13390,13 @@ var MfgSoundSystem = /** @class */ (function () {
     *
     *   @param id The ID of the audio object to play.
     *****************************************************************************/
-    MfgSoundSystem.prototype.playSound = function (id) {
+    SoundSystem.prototype.playSound = function (id) {
         var clipClone = this.allSounds[id].cloneNode(true);
         clipClone.play();
     };
-    return MfgSoundSystem;
+    return SoundSystem;
 }());
-exports.MfgSoundSystem = MfgSoundSystem;
+exports.SoundSystem = SoundSystem;
 
 
 /***/ }),
@@ -13409,14 +13407,14 @@ exports.MfgSoundSystem = MfgSoundSystem;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var Matter = __webpack_require__(1);
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Manages the camera that calculates the scrolling amounts.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgCamera = /** @class */ (function () {
+var Camera = /** @class */ (function () {
     /***************************************************************************************************************
     *   Constructs a new camera.
     *
@@ -13430,7 +13428,7 @@ var MfgCamera = /** @class */ (function () {
     *   @param canvasWidth       The width of the canvas.
     *   @param canvasHeight      The height of the canvas.
     ***************************************************************************************************************/
-    function MfgCamera(renderer, ratioX, ratioY, movingSpeed, minimumCameraMove, levelWidth, levelHeight, canvasWidth, canvasHeight) {
+    function Camera(renderer, ratioX, ratioY, movingSpeed, minimumCameraMove, levelWidth, levelHeight, canvasWidth, canvasHeight) {
         /** The renderer for the MatterJS engine. */
         this.renderer = null;
         /** Camera centering ratio X. */
@@ -13476,7 +13474,7 @@ var MfgCamera = /** @class */ (function () {
     *   @param lookingDirection The current direction the player looks at.
     *   @param allowAscendY     Allows camera ascending Y.
     ***************************************************************************************************************/
-    MfgCamera.prototype.update = function (subjectX, subjectY, lookingDirection, allowAscendY) {
+    Camera.prototype.update = function (subjectX, subjectY, lookingDirection, allowAscendY) {
         this.calculateTargets(lookingDirection, subjectX, subjectY);
         // move horizontal camera offsets to camera target
         var cameraMoveX = 0.0;
@@ -13536,15 +13534,15 @@ var MfgCamera = /** @class */ (function () {
     *   @param subjectX         The subject's X to position the camera to.
     *   @param subjectY         The subject's Y to position the camera to.
     ***************************************************************************************************************/
-    MfgCamera.prototype.calculateTargets = function (lookingDirection, subjectX, subjectY) {
+    Camera.prototype.calculateTargets = function (lookingDirection, subjectX, subjectY) {
         // calculate scroll-offsets so camera is centered to subject
         switch (lookingDirection) {
-            case mfg.MfgCharacterLookingDirection.LEFT:
+            case ninjas.CharacterLookingDirection.LEFT:
                 {
                     this.targetX = subjectX - (this.canvasWidth * (1.0 - this.ratioX));
                     break;
                 }
-            case mfg.MfgCharacterLookingDirection.RIGHT:
+            case ninjas.CharacterLookingDirection.RIGHT:
                 {
                     this.targetX = subjectX - (this.canvasWidth * this.ratioX);
                     break;
@@ -13566,15 +13564,15 @@ var MfgCamera = /** @class */ (function () {
     /***************************************************************************************************************
     *   Resets the camera targets and offsets to the current player position without buffering.
     ***************************************************************************************************************/
-    MfgCamera.prototype.reset = function () {
+    Camera.prototype.reset = function () {
         // extract level and player access!
-        this.calculateTargets(mfg.Mfg.game.level.player.lookingDirection, mfg.Mfg.game.level.player.shape.body.position.x, mfg.Mfg.game.level.player.shape.body.position.y);
+        this.calculateTargets(ninjas.Main.game.level.player.lookingDirection, ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y);
         this.offsetX = this.targetX;
         this.offsetY = this.targetY;
     };
-    return MfgCamera;
+    return Camera;
 }());
-exports.MfgCamera = MfgCamera;
+exports.Camera = Camera;
 
 
 /***/ }),
@@ -13584,66 +13582,33 @@ exports.MfgCamera = MfgCamera;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var mfg = __webpack_require__(0);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   All images the game makes use of.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgImage = /** @class */ (function () {
-    function MfgImage() {
+var Image = /** @class */ (function () {
+    function Image() {
     }
     /** Image resource 'player standing'. */
-    MfgImage.IMAGE_PLAYER_STAND = mfg.MfgSettings.PATH_IMAGE_PLAYER + "stand.png";
+    Image.IMAGE_PLAYER_STAND = ninjas.Setting.PATH_IMAGE_PLAYER + "stand.png";
     /** Image resource 'player falling'. */
-    MfgImage.IMAGE_PLAYER_FALL = mfg.MfgSettings.PATH_IMAGE_PLAYER + "fall.png";
+    Image.IMAGE_PLAYER_FALL = ninjas.Setting.PATH_IMAGE_PLAYER + "fall.png";
     /** Image resource 'item'. */
-    MfgImage.IMAGE_ITEM = mfg.MfgSettings.PATH_IMAGE_LEVEL + "item.png";
+    Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
     /** Image resource 'tree'. */
-    MfgImage.IMAGE_TREE = mfg.MfgSettings.PATH_IMAGE_LEVEL + "tree.png";
+    Image.IMAGE_TREE = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
     /** Image resource 'box'. */
-    MfgImage.IMAGE_BOX = mfg.MfgSettings.PATH_IMAGE_LEVEL + "box.jpg";
-    return MfgImage;
+    Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
+    return Image;
 }());
-exports.MfgImage = MfgImage;
+exports.Image = Image;
 
 
 /***/ }),
 /* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/*******************************************************************************************************************
-*   Offers extended static functionality for the treatment of enumerations.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var EnumEx = /** @class */ (function () {
-    function EnumEx() {
-    }
-    EnumEx.getNamesAndValues = function (e) {
-        return EnumEx.getNames(e).map(function (n) { return ({ name: n, value: e[n] }); });
-    };
-    EnumEx.getNames = function (e) {
-        return EnumEx.getObjValues(e).filter(function (v) { return typeof v === "string"; });
-    };
-    EnumEx.getValues = function (e) {
-        return EnumEx.getObjValues(e).filter(function (v) { return typeof v === "number"; });
-    };
-    EnumEx.getObjValues = function (e) {
-        return Object.keys(e).map(function (k) { return e[k]; });
-    };
-    return EnumEx;
-}());
-exports.EnumEx = EnumEx;
-
-
-/***/ }),
-/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13655,8 +13620,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgMath = /** @class */ (function () {
-    function MfgMath() {
+var MathUtil = /** @class */ (function () {
+    function MathUtil() {
     }
     /***************************************************************************************************************
     *   Converts angles to radians.
@@ -13664,16 +13629,16 @@ var MfgMath = /** @class */ (function () {
     *   @param  angle   The angle in degrees.
     *   @return         The specified angle in radians.
     ***************************************************************************************************************/
-    MfgMath.angleToRad = function (angle) {
+    MathUtil.angleToRad = function (angle) {
         return (angle * Math.PI / 180.0);
     };
-    return MfgMath;
+    return MathUtil;
 }());
-exports.MfgMath = MfgMath;
+exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13685,8 +13650,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var MfgString = /** @class */ (function () {
-    function MfgString() {
+var String = /** @class */ (function () {
+    function String() {
     }
     /***************************************************************************************************************
     *   Returns an array of all found regular expression matches.
@@ -13696,7 +13661,7 @@ var MfgString = /** @class */ (function () {
     *                    This string MUST NOT be enclosed in string quotes!
     *   @return          An array containing all matched results.
     ***************************************************************************************************************/
-    MfgString.searchRegEx = function (subject, regEx) {
+    String.searchRegEx = function (subject, regEx) {
         var results = subject.match(regEx);
         var ret = [];
         if (results != null) {
@@ -13711,7 +13676,7 @@ var MfgString = /** @class */ (function () {
     *
     *   @return string A formatted timestamp of the current system date and time.
     ***************************************************************************************************************/
-    MfgString.getDateTimeString = function () {
+    String.getDateTimeString = function () {
         var now = new Date();
         var year = (now.getFullYear()).toString();
         var month = (now.getMonth() + 1).toString();
@@ -13731,9 +13696,9 @@ var MfgString = /** @class */ (function () {
             second = '0' + second;
         return (day + '.' + month + '.' + year + ' ' + hour + ':' + minute + ':' + second);
     };
-    return MfgString;
+    return String;
 }());
-exports.MfgString = MfgString;
+exports.String = String;
 
 
 /***/ })
