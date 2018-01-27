@@ -11294,6 +11294,7 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO Throw Error if one frame in a sprite has different size!
 *   TODO Add delay between sprite frame changes.
 *   TODO Adjust render size on reassigning new sprite! (test with wide sprite)
 *   TODO Add FPS counter via npm package.
@@ -11302,6 +11303,8 @@ var ninjas = __webpack_require__(0);
 *   TODO Create parallax bg images.
 *   TODO Add react and ant design / ant design pro.
 *   TODO Create HUD.
+*   TODO Add cucumber tests.
+*   TODO Add jest tests.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -11733,6 +11736,7 @@ var GameObject = /** @class */ (function () {
         this.sprite = null;
         this.shape = shape;
         this.sprite = sprite;
+        // TODO to setNewSprite()
         if (this.sprite != null) {
             this.setImageFromSprite();
         }
@@ -11744,7 +11748,7 @@ var GameObject = /** @class */ (function () {
     GameObject.prototype.render = function () {
         // next sprite frame
         if (this.sprite != null) {
-            if (this.sprite.nextFrame()) {
+            if (this.sprite.render()) {
                 this.setImageFromSprite();
             }
         }
@@ -11755,7 +11759,7 @@ var GameObject = /** @class */ (function () {
     GameObject.prototype.setImageFromSprite = function () {
         // TODO create getter
         this.shape.body.render.sprite.texture = this.sprite.template.imageIds[this.sprite.currentFrame];
-        // TODO update dimension! ( use sprite.width .. )
+        // TODO update dimension! ( use sprite.width .. ) > to method setNewSprite!
     };
     /***************************************************************************************************************
     *   Avoids this game object from rotating.
@@ -11871,7 +11875,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return                The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createObstacle = function (x, y, width, height, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_CONCRETE, Infinity), x, y, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates a free form.
@@ -12886,7 +12890,7 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
 *
-*   TODO outsource all init stuff to separate class.
+*   TODO outsource all init stuff to separate class. > GameEngine
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -12896,6 +12900,8 @@ var Game = /** @class */ (function () {
         var _this = this;
         /** The canvas element. */
         this.canvas = null;
+        /** The canvas rendering context. */
+        this.canvasContext = null;
         /** The current width of the canvas. */
         this.canvasWidth = 0;
         /** The current height of the canvas. */
@@ -12988,6 +12994,8 @@ var Game = /** @class */ (function () {
     Game.prototype.initCanvas = function () {
         // create
         this.canvas = document.createElement("canvas");
+        // reference 2d rendering context
+        this.canvasContext = this.canvas.getContext("2d");
         // set dimension
         this.canvas.width = this.canvasWidth;
         this.canvas.height = this.canvasHeight;
@@ -13021,6 +13029,8 @@ var Game = /** @class */ (function () {
                 height: this.canvasHeight,
             },
         });
+        // disables blurry image drawing!
+        this.renderer.context.imageSmoothingEnabled = false;
         // add drawing callback after rendering
         matter.Events.on(this.renderer, 'afterRender', function (event) {
             _this.paint(_this.renderer.context);
@@ -13466,16 +13476,6 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createSphere(650, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createCrate(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 /*
-                                ninjas.GameObjectFactory.createCrate(    1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createSphere( 1350, -3240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createCrate(    1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createCrate(    1450, -3400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createSphere( 1500, -3320, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createCrate(    1550, -3240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createCrate(    1600, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createSphere( 1650, -3180, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createCrate(    1700, -3000, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                
                                 // sigsaws and bounces
                                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
                                 ninjas.GameObjectFactory.createBounce( 1900, 830,  400, 25, null ),
@@ -13946,18 +13946,26 @@ var Sprite = /** @class */ (function () {
     *
     *   @return If the frame actually changed.
     ***************************************************************************************************************/
-    Sprite.prototype.nextFrame = function () {
+    Sprite.prototype.render = function () {
         // no changes for single framed sprites
         if (this.template.singleFramed) {
             return false;
         }
-        // next frame
-        ++this.currentFrame;
-        // reset frame on reaching upper bound
-        if (this.currentFrame >= this.template.imageIds.length) {
-            this.currentFrame = 0;
+        // increase tick
+        ++this.currentTick;
+        // check if the delay is reached
+        if (this.currentTick >= this.template.ticksBetweenFrames) {
+            // reset tick count
+            this.currentTick = 0;
+            // next frame
+            ++this.currentFrame;
+            // reset frame on reaching upper bound
+            if (this.currentFrame >= this.template.imageIds.length) {
+                this.currentFrame = 0;
+            }
+            return true;
         }
-        return true;
+        return false;
     };
     return Sprite;
 }());
@@ -13974,6 +13982,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The sprite template that specifies images and their meta information.
+*
+*   TODO simplify sprite-image-system's frame ranges!
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -13995,6 +14005,9 @@ var SpriteTemplate = /** @class */ (function () {
         this.imageIds = imageIds;
         this.ticksBetweenFrames = ticksBetweenFrames;
         this.singleFramed = (this.imageIds.length == 1);
+        if (this.imageIds.length == 0) {
+            throw new Error("Fatal! Trying to construct empty sprite!");
+        }
     }
     /** Sprite 'ninja girl standing right'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT = new SpriteTemplate([
@@ -14008,7 +14021,7 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
-    ], 10);
+    ], 5);
     /** Sprite 'crate'. */
     SpriteTemplate.SPRITE_CRATE = new SpriteTemplate([
         ninjas.Image.IMAGE_BOX,

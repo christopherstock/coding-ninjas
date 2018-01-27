@@ -4,6 +4,8 @@
     /*******************************************************************************************************************
     *   The sprite template that specifies images and their meta information.
     *
+    *   TODO simplify sprite-image-system's frame ranges!
+    *
     *   @author     Christopher Stock
     *   @version    0.0.1
     *******************************************************************************************************************/
@@ -24,7 +26,7 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
             ],
-            10
+            5
         );
 
         /** Sprite 'crate'. */
@@ -74,5 +76,10 @@
             this.ticksBetweenFrames = ticksBetweenFrames;
 
             this.singleFramed       = ( this.imageIds.length == 1 );
+
+            if ( this.imageIds.length == 0 )
+            {
+                throw new Error( "Fatal! Trying to construct empty sprite!" );
+            }
         }
     }

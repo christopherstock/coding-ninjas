@@ -51,6 +51,7 @@
             this.shape  = shape;
             this.sprite = sprite;
 
+            // TODO to setNewSprite()
             if ( this.sprite != null )
             {
                 this.setImageFromSprite();
@@ -67,7 +68,7 @@
             // next sprite frame
             if ( this.sprite != null )
             {
-                if ( this.sprite.nextFrame() )
+                if ( this.sprite.render() )
                 {
                     this.setImageFromSprite();
                 }
@@ -82,7 +83,9 @@
             // TODO create getter
             this.shape.body.render.sprite.texture = this.sprite.template.imageIds[ this.sprite.currentFrame ];
 
-            // TODO update dimension! ( use sprite.width .. )
+
+
+            // TODO update dimension! ( use sprite.width .. ) > to method setNewSprite!
         }
 
         /***************************************************************************************************************

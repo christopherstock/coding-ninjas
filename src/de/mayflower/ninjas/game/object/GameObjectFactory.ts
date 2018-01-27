@@ -122,7 +122,7 @@
                     ninjas.Setting.COLOR_DEBUG_OBSTACLE,
                     true,
                     angle,
-                    ninjas.GameObject.FRICTION_DEFAULT,
+                    ninjas.GameObject.FRICTION_CONCRETE,
                     Infinity
                 ),
                 x,

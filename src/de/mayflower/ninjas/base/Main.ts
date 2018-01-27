@@ -4,6 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Throw Error if one frame in a sprite has different size!
     *   TODO Add delay between sprite frame changes.
     *   TODO Adjust render size on reassigning new sprite! (test with wide sprite)
     *   TODO Add FPS counter via npm package.
@@ -12,6 +13,8 @@
     *   TODO Create parallax bg images.
     *   TODO Add react and ant design / ant design pro.
     *   TODO Create HUD.
+    *   TODO Add cucumber tests.
+    *   TODO Add jest tests.
     *
     *   @author     Christopher Stock
     *   @version    0.0.1

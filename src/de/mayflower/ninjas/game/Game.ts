@@ -5,7 +5,7 @@
     /*******************************************************************************************************************
     *   Specifies the game logic and all primal components of the game.
     *
-    *   TODO outsource all init stuff to separate class.
+    *   TODO outsource all init stuff to separate class. > GameEngine
     *
     *   @author     Christopher Stock
     *   @version    0.0.1
@@ -13,28 +13,30 @@
     export class Game
     {
         /** The canvas element. */
-        public      canvas                  :HTMLCanvasElement      = null;
+        public      canvas                  :HTMLCanvasElement              = null;
+        /** The canvas rendering context. */
+        public      canvasContext           :CanvasRenderingContext2D       = null;
         /** The current width of the canvas. */
-        public      canvasWidth             :number                 = 0;
+        public      canvasWidth             :number                         = 0;
         /** The current height of the canvas. */
-        public      canvasHeight            :number                 = 0;
+        public      canvasHeight            :number                         = 0;
 
         /** The MatterJS engine. */
-        public      engine                  :matter.Engine          = null;
+        public      engine                  :matter.Engine                  = null;
         /** The MatterJS renderer. */
-        private     renderer                :matter.Render          = null;
+        private     renderer                :matter.Render                  = null;
 
         /** The custom key system. */
-        public      keySystem               :ninjas.KeySystem       = null;
+        public      keySystem               :ninjas.KeySystem               = null;
         /** The custom camera. */
-        public      camera                  :ninjas.Camera          = null;
+        public      camera                  :ninjas.Camera                  = null;
         /** The custom level. */
-        public      level                   :ninjas.Level           = null;
+        public      level                   :ninjas.Level                   = null;
 
         /** The image system. */
-        public      imageSystem             :ninjas.ImageSystem     = null;
+        public      imageSystem             :ninjas.ImageSystem             = null;
         /** The soundSystem system. */
-        public      soundSystem             :ninjas.SoundSystem     = null;
+        public      soundSystem             :ninjas.SoundSystem             = null;
 
         /***************************************************************************************************************
         *   Inits all components of the game.
@@ -114,6 +116,9 @@
             // create
             this.canvas = document.createElement( "canvas" );
 
+            // reference 2d rendering context
+            this.canvasContext = this.canvas.getContext( "2d" );
+
             // set dimension
             this.canvas.width  = this.canvasWidth;
             this.canvas.height = this.canvasHeight;
@@ -157,6 +162,9 @@
                     } as any,
                 }
             );
+
+            // disables blurry image drawing!
+            this.renderer.context.imageSmoothingEnabled = false;
 
             // add drawing callback after rendering
             matter.Events.on(

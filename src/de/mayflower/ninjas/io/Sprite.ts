@@ -51,7 +51,7 @@
         *
         *   @return If the frame actually changed.
         ***************************************************************************************************************/
-        public nextFrame()
+        public render()
         {
             // no changes for single framed sprites
             if ( this.template.singleFramed )
@@ -59,15 +59,27 @@
                 return false;
             }
 
-            // next frame
-            ++this.currentFrame;
+            // increase tick
+            ++this.currentTick;
 
-            // reset frame on reaching upper bound
-            if ( this.currentFrame >= this.template.imageIds.length )
+            // check if the delay is reached
+            if ( this.currentTick >= this.template.ticksBetweenFrames )
             {
-                this.currentFrame = 0;
+                // reset tick count
+                this.currentTick = 0;
+
+                // next frame
+                ++this.currentFrame;
+
+                // reset frame on reaching upper bound
+                if ( this.currentFrame >= this.template.imageIds.length )
+                {
+                    this.currentFrame = 0;
+                }
+
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
