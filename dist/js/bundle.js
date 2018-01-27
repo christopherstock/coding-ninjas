@@ -14156,6 +14156,10 @@ var Camera = /** @class */ (function () {
                             if ( this.offsetY > this.targetY ) this.offsetY = this.targetY;
             */
         }
+        // floor offsets (important for renderer bounds! fuzzy drawing problems on images may appear otherwise!)
+        this.offsetX = Math.floor(this.offsetX);
+        this.offsetY = Math.floor(this.offsetY);
+        console.log("Set renderer bounds: [" + this.offsetX + "][" + this.offsetY + "]");
         // assign current camera offset to renderer
         this.renderer.bounds = matter.Bounds.create([
             {

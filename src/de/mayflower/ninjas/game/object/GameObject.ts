@@ -85,6 +85,7 @@
 
 
 
+
             // TODO update dimension! ( use sprite.width .. ) > to method setNewSprite!
         }
 
