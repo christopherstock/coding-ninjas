@@ -14,6 +14,8 @@
         public      CANVAS_WIDTH            :number                 = 0;
         /** The current height of the canvas. */
         public      CANVAS_HEIGHT           :number                 = 0;
+        /** The canvas element. */
+        public      canvas                  :HTMLCanvasElement      = null;
 
         /** The MatterJS engine. */
         public      engine                  :matter.Engine          = null;
@@ -37,7 +39,8 @@
         ***************************************************************************************************************/
         public init()
         {
-            this.updateWindowDimensions();
+            this.updateCanvasDimension();
+            this.initCanvas();
             this.initEngine2D();
             this.initWindowResizeHandler();
             this.initKeySystem();
@@ -87,18 +90,34 @@
         }
 
         /***************************************************************************************************************
-        *   Updates the dimensions of the browser window.
+        *   Updates the dimension of the canvas according to the browser window.
         ***************************************************************************************************************/
-        private updateWindowDimensions()
+        private updateCanvasDimension()
         {
             this.CANVAS_WIDTH  = window.innerWidth;
             this.CANVAS_HEIGHT = window.innerHeight;
 
-            // clip to minimum canvas bounds
+            // clip to minimum canvas dimensions
             if ( this.CANVAS_WIDTH  < ninjas.Setting.MIN_CANVAS_WIDTH  ) this.CANVAS_WIDTH  = ninjas.Setting.MIN_CANVAS_WIDTH;
             if ( this.CANVAS_HEIGHT < ninjas.Setting.MIN_CANVAS_HEIGHT ) this.CANVAS_HEIGHT = ninjas.Setting.MIN_CANVAS_HEIGHT;
 
-            ninjas.Debug.init.log( "Updated window dimensions to [" + this.CANVAS_WIDTH + "x" + this.CANVAS_HEIGHT + "] " );
+            ninjas.Debug.init.log( "Updated canvas dimension to [" + this.CANVAS_WIDTH + "x" + this.CANVAS_HEIGHT + "] " );
+        }
+
+        /***************************************************************************************************************
+        *   Inits the 2D canvas by creating and adding it to the document body.
+        ***************************************************************************************************************/
+        private initCanvas()
+        {
+            // create
+            this.canvas = document.createElement( "canvas" );
+
+            // set dimension
+            this.canvas.width  = this.CANVAS_WIDTH;
+            this.canvas.height = this.CANVAS_HEIGHT;
+
+            // append to body
+            document.body.appendChild( this.canvas );
         }
 
         /***************************************************************************************************************
@@ -125,17 +144,14 @@
                 // textures:           ninjas.Image.FILE_NAMES,
             };
 
+
             this.renderer = matter.Render.create(
                 {
-                    element: document.body,
-
+                    canvas:  this.canvas,
                     engine:  this.engine,
                     options: rendererOptions,
                 }
             );
-
-            this.renderer.canvas.width  = this.CANVAS_WIDTH;
-            this.renderer.canvas.height = this.CANVAS_HEIGHT;
 
             this.engine.world.gravity = {
                 x: 0.0,
@@ -153,7 +169,7 @@
 
                 ninjas.Debug.init.log( "Image resize event being detected." );
 
-                this.updateWindowDimensions();
+                this.updateCanvasDimension();
 
                 this.renderer.canvas.width  = this.CANVAS_WIDTH;
                 this.renderer.canvas.height = this.CANVAS_HEIGHT;

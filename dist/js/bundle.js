@@ -10518,7 +10518,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\r\n    body\r\n    {\r\n        background:         #ffffff;\r\n        margin:             0;\r\n        padding:            0;\r\n        text-align:         center;\r\n        overflow-x:         hidden;\r\n        overflow-y:         hidden;\r\n    }\r\n", ""]);
+exports.push([module.i, "\r\n    body\r\n    {\r\n        background:         #000000;\r\n        margin:             0;\r\n        padding:            0;\r\n        text-align:         center;\r\n        overflow-x:         hidden;\r\n        overflow-y:         hidden;\r\n    }\r\n", ""]);
 
 // exports
 
@@ -11294,10 +11294,14 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO Use own canvas?
+*
+*   TODO Adjust render size on reassigning new image!
 *   TODO make the game fullscreen.
 *   TODO add resize mechanism.
 *   TODO Adjust physics object according to image dimensions!
 *   TODO create sprite system.
+*   TODO Draw HUD? Own drawing operatione?
 *   TODO Add FPS counter via npm package.
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
@@ -12855,6 +12859,8 @@ var Game = /** @class */ (function () {
         this.CANVAS_WIDTH = 0;
         /** The current height of the canvas. */
         this.CANVAS_HEIGHT = 0;
+        /** The canvas element. */
+        this.canvas = null;
         /** The MatterJS engine. */
         this.engine = null;
         /** The MatterJS renderer. */
@@ -12902,7 +12908,8 @@ var Game = /** @class */ (function () {
     *   Inits all components of the game.
     ***************************************************************************************************************/
     Game.prototype.init = function () {
-        this.updateWindowDimensions();
+        this.updateCanvasDimension();
+        this.initCanvas();
         this.initEngine2D();
         this.initWindowResizeHandler();
         this.initKeySystem();
@@ -12919,17 +12926,29 @@ var Game = /** @class */ (function () {
         window.setInterval(this.tick, ninjas.Setting.RENDER_DELTA);
     };
     /***************************************************************************************************************
-    *   Updates the dimensions of the browser window.
+    *   Updates the dimension of the canvas according to the browser window.
     ***************************************************************************************************************/
-    Game.prototype.updateWindowDimensions = function () {
+    Game.prototype.updateCanvasDimension = function () {
         this.CANVAS_WIDTH = window.innerWidth;
         this.CANVAS_HEIGHT = window.innerHeight;
-        // clip to minimum canvas bounds
+        // clip to minimum canvas dimensions
         if (this.CANVAS_WIDTH < ninjas.Setting.MIN_CANVAS_WIDTH)
             this.CANVAS_WIDTH = ninjas.Setting.MIN_CANVAS_WIDTH;
         if (this.CANVAS_HEIGHT < ninjas.Setting.MIN_CANVAS_HEIGHT)
             this.CANVAS_HEIGHT = ninjas.Setting.MIN_CANVAS_HEIGHT;
-        ninjas.Debug.init.log("Updated window dimensions to [" + this.CANVAS_WIDTH + "x" + this.CANVAS_HEIGHT + "] ");
+        ninjas.Debug.init.log("Updated canvas dimension to [" + this.CANVAS_WIDTH + "x" + this.CANVAS_HEIGHT + "] ");
+    };
+    /***************************************************************************************************************
+    *   Inits the 2D canvas by creating and adding it to the document body.
+    ***************************************************************************************************************/
+    Game.prototype.initCanvas = function () {
+        // create
+        this.canvas = document.createElement("canvas");
+        // set dimension
+        this.canvas.width = this.CANVAS_WIDTH;
+        this.canvas.height = this.CANVAS_HEIGHT;
+        // append to body
+        document.body.appendChild(this.canvas);
     };
     /***************************************************************************************************************
     *   Inits the 2D engine.
@@ -12947,12 +12966,10 @@ var Game = /** @class */ (function () {
             height: this.CANVAS_HEIGHT,
         };
         this.renderer = matter.Render.create({
-            element: document.body,
+            canvas: this.canvas,
             engine: this.engine,
             options: rendererOptions,
         });
-        this.renderer.canvas.width = this.CANVAS_WIDTH;
-        this.renderer.canvas.height = this.CANVAS_HEIGHT;
         this.engine.world.gravity = {
             x: 0.0,
             y: ninjas.Setting.DEFAULT_GRAVITY_Y,
@@ -12966,7 +12983,7 @@ var Game = /** @class */ (function () {
         var _this = this;
         window.onresize = function (event) {
             ninjas.Debug.init.log("Image resize event being detected.");
-            _this.updateWindowDimensions();
+            _this.updateCanvasDimension();
             _this.renderer.canvas.width = _this.CANVAS_WIDTH;
             _this.renderer.canvas.height = _this.CANVAS_HEIGHT;
             _this.renderer.options.width = _this.CANVAS_WIDTH;
