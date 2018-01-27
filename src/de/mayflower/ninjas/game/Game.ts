@@ -5,6 +5,8 @@
     /*******************************************************************************************************************
     *   Specifies the game logic and all primal components of the game.
     *
+    *   TODO outsource all init stuff to separate class.
+    *
     *   @author     Christopher Stock
     *   @version    0.0.1
     *******************************************************************************************************************/
@@ -127,37 +129,43 @@
         {
             ninjas.Debug.init.log( "Initing 2D physics engine" );
 
+            // create engine
             this.engine = matter.Engine.create();
-
-            let rendererOptions:any =
-            {
-                hasBounds:          true,
-                wireframes:         false,
-                showCollisions:     true,
-                showAngleIndicator: true,
-                showVelocity:       true,
-
-                width:              this.canvasWidth,
-                height:             this.canvasHeight,
-
-                // TODO enable texture cache?
-                // textures:           ninjas.Image.FILE_NAMES,
-            };
-
-
-            this.renderer = matter.Render.create(
-                {
-                    canvas:  this.canvas,
-                    engine:  this.engine,
-                    options: rendererOptions,
-                }
-            );
-
             this.engine.world.gravity = {
                 x: 0.0,
                 y: ninjas.Setting.DEFAULT_GRAVITY_Y,
                 scale: 0.001
             };
+
+            // create renderer
+            this.renderer = matter.Render.create(
+                {
+                    canvas:  this.canvas,
+                    engine:  this.engine,
+                    options: {
+                        hasBounds:          true,
+                        wireframes:         false,
+                        showCollisions:     true,
+                        showAngleIndicator: true,
+                        showVelocity:       true,
+
+                        width:              this.canvasWidth,
+                        height:             this.canvasHeight,
+
+                        // TODO enable texture cache?
+                        // textures:           ninjas.Image.FILE_NAMES,
+                    } as any,
+                }
+            );
+
+            // add drawing callback after rendering
+            matter.Events.on(
+                this.renderer,
+                'afterRender',
+                ( event ) => {
+                    this.paint( this.renderer.context );
+                }
+            );
         }
 
         /***************************************************************************************************************
@@ -283,6 +291,15 @@
                 this.level.player.lookingDirection,
                 this.level.player.collidesBottom
             );
+        }
+
+        /***************************************************************************************************************
+        *   Paints all overlays after Matter.js completed rendering the scene.
+        ***************************************************************************************************************/
+        private paint( context:CanvasRenderingContext2D )
+        {
+            this.renderer.context.fillStyle = "#ff0000";
+            this.renderer.context.fillRect( this.canvasWidth - 200, 50, 150, 50 );
         }
 
         /***************************************************************************************************************

@@ -11295,15 +11295,13 @@ var ninjas = __webpack_require__(0);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO Add delay between sprite frame changes.
-*   TODO recut 'chinese'.
-*   TODO Adjust render size on reassigning new image! (test with wide sprite)
-*   TODO Adjust physics object according to image dimensions!
-*   TODO Draw HUD? Enable own drawing operatione?
+*   TODO Adjust render size on reassigning new sprite! (test with wide sprite)
 *   TODO Add FPS counter via npm package.
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Create parallax bg images.
 *   TODO Add react and ant design / ant design pro.
+*   TODO Create HUD.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -12888,6 +12886,8 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
 *
+*   TODO outsource all init stuff to separate class.
+*
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
@@ -12998,27 +12998,33 @@ var Game = /** @class */ (function () {
     *   Inits the 2D engine.
     ***************************************************************************************************************/
     Game.prototype.initEngine2D = function () {
+        var _this = this;
         ninjas.Debug.init.log("Initing 2D physics engine");
+        // create engine
         this.engine = matter.Engine.create();
-        var rendererOptions = {
-            hasBounds: true,
-            wireframes: false,
-            showCollisions: true,
-            showAngleIndicator: true,
-            showVelocity: true,
-            width: this.canvasWidth,
-            height: this.canvasHeight,
-        };
-        this.renderer = matter.Render.create({
-            canvas: this.canvas,
-            engine: this.engine,
-            options: rendererOptions,
-        });
         this.engine.world.gravity = {
             x: 0.0,
             y: ninjas.Setting.DEFAULT_GRAVITY_Y,
             scale: 0.001
         };
+        // create renderer
+        this.renderer = matter.Render.create({
+            canvas: this.canvas,
+            engine: this.engine,
+            options: {
+                hasBounds: true,
+                wireframes: false,
+                showCollisions: true,
+                showAngleIndicator: true,
+                showVelocity: true,
+                width: this.canvasWidth,
+                height: this.canvasHeight,
+            },
+        });
+        // add drawing callback after rendering
+        matter.Events.on(this.renderer, 'afterRender', function (event) {
+            _this.paint(_this.renderer.context);
+        });
     };
     /***************************************************************************************************************
     *   Inits the window resize handler.
@@ -13087,6 +13093,13 @@ var Game = /** @class */ (function () {
         this.level.render();
         // render camera
         this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.lookingDirection, this.level.player.collidesBottom);
+    };
+    /***************************************************************************************************************
+    *   Paints all overlays after Matter.js completed rendering the scene.
+    ***************************************************************************************************************/
+    Game.prototype.paint = function (context) {
+        this.renderer.context.fillStyle = "#ff0000";
+        this.renderer.context.fillRect(this.canvasWidth - 200, 50, 150, 50);
     };
     /***************************************************************************************************************
     *   Handles pressed menu keys.
@@ -13237,7 +13250,7 @@ var LevelAllElements = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelAllElements.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(50, 500.0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(50, 500, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
@@ -13347,7 +13360,7 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelEnchantedWoods.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(750, 880.0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(750, 880, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
@@ -13423,7 +13436,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(100, 500.0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(0, 0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [

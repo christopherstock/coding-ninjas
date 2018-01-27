@@ -24,7 +24,7 @@
             this.player = new ninjas.Player
             (
                 50,
-                500.0,
+                500,
                 ninjas.CharacterLookingDirection.RIGHT,
                 new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT )
             );

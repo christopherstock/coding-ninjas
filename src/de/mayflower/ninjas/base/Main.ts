@@ -5,15 +5,13 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Add delay between sprite frame changes.
-    *   TODO recut 'chinese'.
-    *   TODO Adjust render size on reassigning new image! (test with wide sprite)
-    *   TODO Adjust physics object according to image dimensions!
-    *   TODO Draw HUD? Enable own drawing operatione?
+    *   TODO Adjust render size on reassigning new sprite! (test with wide sprite)
     *   TODO Add FPS counter via npm package.
     *   TODO create wow popup on entering a room!
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Create parallax bg images.
     *   TODO Add react and ant design / ant design pro.
+    *   TODO Create HUD.
     *
     *   @author     Christopher Stock
     *   @version    0.0.1

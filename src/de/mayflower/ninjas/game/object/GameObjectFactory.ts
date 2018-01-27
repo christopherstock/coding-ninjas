@@ -141,7 +141,7 @@
         *
         *   @return         The created obstacle.
         ***************************************************************************************************************/
-        public static createFreeForm(x:number, y:number, vertices:Array<matter.Vector>, angle:number ):ninjas.Obstacle
+        public static createFreeForm( x:number, y:number, vertices:Array<matter.Vector>, angle:number ):ninjas.Obstacle
         {
             return new ninjas.Obstacle
             (
