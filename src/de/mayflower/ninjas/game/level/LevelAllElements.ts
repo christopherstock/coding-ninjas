@@ -26,7 +26,7 @@
                 50,
                 500.0,
                 ninjas.CharacterLookingDirection.RIGHT,
-                ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT )
+                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT )
             );
 
             // setup all game objects
@@ -41,8 +41,8 @@
                 ninjas.GameObjectFactory.createObstacle( 4080, 730, 500, 15, 0.0,  false ),
 
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration( 30,  450, 76, 170, ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170, ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 30,  450, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
 
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
@@ -113,8 +113,8 @@
                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
 
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
             ];
         }
     }

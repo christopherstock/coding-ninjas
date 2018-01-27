@@ -26,7 +26,7 @@
                 100,
                 500.0,
                 ninjas.CharacterLookingDirection.RIGHT,
-                ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT )
+                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT )
             );
 
             // setup all game objects

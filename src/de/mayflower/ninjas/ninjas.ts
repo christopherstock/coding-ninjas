@@ -38,7 +38,7 @@
     export * from './io/Sound';
     export * from './io/SoundSystem';
     export * from './io/Sprite';
-    export * from './io/SpriteSystem';
+    export * from './io/SpriteTemplate';
 
     export * from './ui/Camera';
 

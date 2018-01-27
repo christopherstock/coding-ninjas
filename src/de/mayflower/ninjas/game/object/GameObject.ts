@@ -79,7 +79,8 @@
         ***************************************************************************************************************/
         protected setImageFromSprite() : void
         {
-            this.shape.body.render.sprite.texture = this.sprite.imageIds[ this.sprite.currentFrame ];
+            // TODO create getter
+            this.shape.body.render.sprite.texture = this.sprite.template.imageIds[ this.sprite.currentFrame ];
 
             // TODO update dimension! ( use sprite.width .. )
         }

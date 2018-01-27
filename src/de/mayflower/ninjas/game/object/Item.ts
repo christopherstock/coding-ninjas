@@ -27,7 +27,7 @@
                 shape,
                 x,
                 y,
-                ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_ITEM )
+                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_ITEM )
             );
 
             this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;

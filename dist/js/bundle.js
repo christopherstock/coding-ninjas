@@ -11755,7 +11755,8 @@ var GameObject = /** @class */ (function () {
     *   Assigns the current active sprite frame as the game objects image.
     ***************************************************************************************************************/
     GameObject.prototype.setImageFromSprite = function () {
-        this.shape.body.render.sprite.texture = this.sprite.imageIds[this.sprite.currentFrame];
+        // TODO create getter
+        this.shape.body.render.sprite.texture = this.sprite.template.imageIds[this.sprite.currentFrame];
         // TODO update dimension! ( use sprite.width .. )
     };
     /***************************************************************************************************************
@@ -11832,7 +11833,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return       The created box.
     ***************************************************************************************************************/
     GameObjectFactory.createCrate = function (x, y, width, height, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_CRATE));
+        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_CRATE));
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -12537,7 +12538,7 @@ var Item = /** @class */ (function (_super) {
     *   @param y      Startup position Y.
     ***************************************************************************************************************/
     function Item(shape, x, y) {
-        var _this = _super.call(this, shape, x, y, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_ITEM)) || this;
+        var _this = _super.call(this, shape, x, y, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_ITEM)) || this;
         /** Indicates if this item has been picked. */
         _this.picked = null;
         _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
@@ -13220,7 +13221,7 @@ var LevelAllElements = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelAllElements.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(50, 500.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(50, 500.0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
@@ -13232,8 +13233,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createObstacle(3230, 830, 500, 15, 0.0, false),
                 ninjas.GameObjectFactory.createObstacle(4080, 730, 500, 15, 0.0, false),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
@@ -13282,8 +13283,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 // enemies (fg)
                 ninjas.GameObjectFactory.createEnemy(1200, 0),
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
             ];
     };
     return LevelAllElements;
@@ -13330,7 +13331,7 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelEnchantedWoods.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(750, 880.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(750, 880.0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
@@ -13341,9 +13342,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // hut
                 ninjas.GameObjectFactory.createDecoration(140, 870, 350, 130, null),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 // moveable boxes
                 // sigsaws
                 // items
@@ -13355,9 +13356,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // player
                 this.player,
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
             ];
     };
     return LevelEnchantedWoods;
@@ -13404,7 +13405,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(100, 500.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(100, 500.0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
@@ -13873,7 +13874,7 @@ exports.SoundSystem = SoundSystem;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
-*   All sprites the game makes use of.
+*   Represents one game sprite.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -13882,31 +13883,23 @@ var Sprite = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a new sprite.
     *
-    *   @param imageIds           All image ids this sprite consists of.
-    *   @param ticksBetweenFrames The number of ticks to delay until the frame is changed.
+    *   @param template The template for this sprite.
     ***************************************************************************************************************/
-    function Sprite(imageIds, ticksBetweenFrames) {
-        // TODO all to SpriteSystem
-        /** All image ids this sprite consists of. TODO private */
-        this.imageIds = null;
-        /** Flags if this sprite has only one frame. */
-        this.singleFramed = false;
-        /** The number of ticks between frame changes. */
-        this.ticksBetweenFrames = 0;
-        /** The current tick since last frame change. */
-        this.currentTick = 0;
+    function Sprite(template) {
+        /** The sprite template for this sprite. TODO private */
+        this.template = null;
         /** The id of the current frame for this sprite. TODO private */
         this.currentFrame = 0;
+        /** The current tick since last frame change. */
+        this.currentTick = 0;
         /** The width of all images in this sprite. TODO private with getter */
         this.width = 0;
         /** The height of all images in this sprite. TODO private with getter */
         this.height = 0;
-        this.imageIds = imageIds;
-        this.singleFramed = (this.imageIds.length == 1);
-        this.ticksBetweenFrames = ticksBetweenFrames;
+        this.template = template;
         // assign dimensions from 1st frame - TODO commitment is that all frames of a sprite have same size?
-        this.width = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).width;
-        this.height = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).height;
+        this.width = ninjas.Main.game.imageSystem.getImage(this.template.imageIds[0]).width;
+        this.height = ninjas.Main.game.imageSystem.getImage(this.template.imageIds[0]).height;
     }
     /***************************************************************************************************************
     *   Resets this sprite to the first frame and resets tick counter.
@@ -13922,42 +13915,17 @@ var Sprite = /** @class */ (function () {
     ***************************************************************************************************************/
     Sprite.prototype.nextFrame = function () {
         // no changes for single framed sprites
-        if (this.singleFramed) {
+        if (this.template.singleFramed) {
             return false;
         }
         // next frame
         ++this.currentFrame;
         // reset frame on reaching upper bound
-        if (this.currentFrame >= this.imageIds.length) {
+        if (this.currentFrame >= this.template.imageIds.length) {
             this.currentFrame = 0;
         }
         return true;
     };
-    /** Sprite 'ninja girl standing right'. */
-    Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT = [
-        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
-        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2,
-        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3,
-        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4,
-        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5,
-        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6,
-        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7,
-        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
-        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
-        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
-    ];
-    /** Sprite 'crate'. */
-    Sprite.SPRITE_CRATE = [
-        ninjas.Image.IMAGE_BOX,
-    ];
-    /** Sprite 'item'. */
-    Sprite.SPRITE_ITEM = [
-        ninjas.Image.IMAGE_ITEM,
-    ];
-    /** Sprite 'tree'. */
-    Sprite.SPRITE_TREE = [
-        ninjas.Image.IMAGE_TREE,
-    ];
     return Sprite;
 }());
 exports.Sprite = Sprite;
@@ -13972,25 +13940,57 @@ exports.Sprite = Sprite;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
-*   Created and manages sprite instances.
+*   The sprite template that specifies images and their meta information.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var SpriteSystem = /** @class */ (function () {
-    function SpriteSystem() {
-    }
+var SpriteTemplate = /** @class */ (function () {
     /***************************************************************************************************************
-    *   Creates a new sprite instance.
+    *   Creates a new sprite.
     *
-    *   @param imageSources All image ids this sprite consists of.
+    *   @param imageIds           All image ids this sprite consists of.
+    *   @param ticksBetweenFrames The number of ticks to delay until the frame is changed.
     ***************************************************************************************************************/
-    SpriteSystem.createSpriteInstance = function (imageSources) {
-        return new ninjas.Sprite(imageSources, 0);
-    };
-    return SpriteSystem;
+    function SpriteTemplate(imageIds, ticksBetweenFrames) {
+        /** All image ids this sprite consists of. TODO private */
+        this.imageIds = null;
+        /** The number of ticks between frame changes. */
+        this.ticksBetweenFrames = 0;
+        /** Flags if this sprite has only one frame. */
+        this.singleFramed = false;
+        this.imageIds = imageIds;
+        this.ticksBetweenFrames = ticksBetweenFrames;
+        this.singleFramed = (this.imageIds.length == 1);
+    }
+    /** Sprite 'ninja girl standing right'. */
+    SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT = new SpriteTemplate([
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
+    ], 10);
+    /** Sprite 'crate'. */
+    SpriteTemplate.SPRITE_CRATE = new SpriteTemplate([
+        ninjas.Image.IMAGE_BOX,
+    ], 10);
+    /** Sprite 'item'. */
+    SpriteTemplate.SPRITE_ITEM = new SpriteTemplate([
+        ninjas.Image.IMAGE_ITEM,
+    ], 10);
+    /** Sprite 'tree'. */
+    SpriteTemplate.SPRITE_TREE = new SpriteTemplate([
+        ninjas.Image.IMAGE_TREE,
+    ], 10);
+    return SpriteTemplate;
 }());
-exports.SpriteSystem = SpriteSystem;
+exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),

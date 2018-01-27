@@ -38,7 +38,7 @@
                 ),
                 x,
                 y,
-                ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_CRATE )
+                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_CRATE )
             );
         }
 
