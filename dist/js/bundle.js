@@ -11294,6 +11294,7 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO Add delay between sprite frame changes.
 *   TODO Adjust render size on reassigning new image!
 *   TODO make the game fullscreen.
 *   TODO add resize mechanism.
@@ -11729,9 +11730,9 @@ var GameObject = /** @class */ (function () {
     *   TODO rearrange object params up!
     ***************************************************************************************************************/
     function GameObject(shape, x, y, sprite) {
-        /** Game object shape. */
+        /** Objects Collision shape. */
         this.shape = null;
-        /** Game object sprite. */
+        /** Objects sprite. */
         this.sprite = null;
         this.shape = shape;
         this.sprite = sprite;
@@ -11745,13 +11746,18 @@ var GameObject = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObject.prototype.render = function () {
         // next sprite frame
+        if (this.sprite != null) {
+            if (this.sprite.nextFrame()) {
+                this.setImageFromSprite();
+            }
+        }
     };
     /***************************************************************************************************************
     *   Assigns the current active sprite frame as the game objects image.
     ***************************************************************************************************************/
     GameObject.prototype.setImageFromSprite = function () {
         this.shape.body.render.sprite.texture = this.sprite.imageIds[this.sprite.currentFrame];
-        // TODO update dimension!
+        // TODO update dimension! ( use sprite.width .. )
     };
     /***************************************************************************************************************
     *   Avoids this game object from rotating.
@@ -13881,18 +13887,39 @@ var Sprite = /** @class */ (function () {
     ***************************************************************************************************************/
     function Sprite(imageIds) {
         // TODO all to SpriteSystem
-        /** All image ids this sprite consists of. */
+        /** All image ids this sprite consists of. TODO private */
         this.imageIds = null;
-        /** The id of the current frame for this sprite. */
+        /** Flags if this sprite has only one frame. */
+        this.singleFramed = false;
+        /** The id of the current frame for this sprite. TODO private */
         this.currentFrame = 0;
-        /** The width of all images in this sprite. */
+        /** The width of all images in this sprite. TODO private with getter */
         this.width = 0;
-        /** The height of all images in this sprite. */
+        /** The height of all images in this sprite. TODO private with getter */
         this.height = 0;
         this.imageIds = imageIds;
+        this.singleFramed = (this.imageIds.length == 1);
         this.width = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).width;
         this.height = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).height;
     }
+    /***************************************************************************************************************
+    *   Sets the next frame for this sprite.
+    *
+    *   @return If the frame actually changed.
+    ***************************************************************************************************************/
+    Sprite.prototype.nextFrame = function () {
+        // no changes for single framed sprites
+        if (this.singleFramed) {
+            return false;
+        }
+        // next frame
+        ++this.currentFrame;
+        // reset frame on reaching upper bound
+        if (this.currentFrame >= this.imageIds.length) {
+            this.currentFrame = 0;
+        }
+        return true;
+    };
     /** Sprite 'ninja girl standing right'. */
     Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT = [
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,

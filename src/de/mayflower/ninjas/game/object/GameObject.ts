@@ -24,10 +24,10 @@
         /** Default density. */
         public  static  DENSITY_DEFAULT         :number                         = 0.001;
 
-        /** Game object shape. */
+        /** Objects Collision shape. */
         public          shape                   :ninjas.Shape                   = null;
 
-        /** Game object sprite. */
+        /** Objects sprite. */
         public          sprite                  :ninjas.Sprite                  = null;
 
         /***************************************************************************************************************
@@ -65,7 +65,13 @@
         public render()
         {
             // next sprite frame
-
+            if ( this.sprite != null )
+            {
+                if ( this.sprite.nextFrame() )
+                {
+                    this.setImageFromSprite();
+                }
+            }
         }
 
         /***************************************************************************************************************
@@ -75,7 +81,7 @@
         {
             this.shape.body.render.sprite.texture = this.sprite.imageIds[ this.sprite.currentFrame ];
 
-            // TODO update dimension!
+            // TODO update dimension! ( use sprite.width .. )
         }
 
         /***************************************************************************************************************

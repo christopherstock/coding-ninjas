@@ -4,6 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Add delay between sprite frame changes.
     *   TODO Adjust render size on reassigning new image!
     *   TODO make the game fullscreen.
     *   TODO add resize mechanism.
