@@ -11295,16 +11295,15 @@ var ninjas = __webpack_require__(0);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO Add delay between sprite frame changes.
-*   TODO Adjust render size on reassigning new image!
-*   TODO make the game fullscreen.
-*   TODO add resize mechanism.
+*   TODO recut 'chinese'.
+*   TODO Adjust render size on reassigning new image! (test with wide sprite)
 *   TODO Adjust physics object according to image dimensions!
-*   TODO create sprite system.
 *   TODO Draw HUD? Enable own drawing operatione?
 *   TODO Add FPS counter via npm package.
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Create parallax bg images.
+*   TODO Add react and ant design / ant design pro.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
