@@ -28,13 +28,13 @@
         ***************************************************************************************************************/
         public constructor
         (
-            width:number,
-            height:number,
-            debugColor:string,
-            isStatic:boolean,
-            angle:number,
-            friction:number,
-            density:number
+            width      :number,
+            height     :number,
+            debugColor :string,
+            isStatic   :boolean,
+            angle      :number,
+            friction   :number,
+            density    :number
         )
         {
             super( debugColor, isStatic, angle, friction, density );

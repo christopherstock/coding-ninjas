@@ -11726,7 +11726,7 @@ var GameObject = /** @class */ (function () {
     *   @param y      Startup position Y.
     *   @param sprite The image for this game object.
     *
-    *   TODO rearrange object params up!
+    *   TODO rearrange object params up ( x and y down )!
     ***************************************************************************************************************/
     function GameObject(shape, x, y, sprite) {
         /** Objects Collision shape. */
@@ -11934,6 +11934,20 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createDecoration = function (x, y, width, height, sprite) {
         return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, sprite);
+    };
+    /***************************************************************************************************************
+    *   Creates a non-collidable background.
+    *
+    *   @param x      Anchor X.
+    *   @param y      Anchor Y.
+    *   @param width  Object width.
+    *   @param height Object height.
+    *   @param color  The color of this background.
+    *
+    *   @return       The created decoration.
+    ***************************************************************************************************************/
+    GameObjectFactory.createBackground = function (x, y, width, height, color) {
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, color, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, null);
     };
     /***************************************************************************************************************
     *   Creates a sigsaw.
@@ -13130,6 +13144,8 @@ var Level = /** @class */ (function () {
         this.width = 0.0;
         /** The height of this level. */
         this.height = 0.0;
+        /** The background color of this level. */
+        this.bgColor = null;
         /** The player instance. */
         this.player = null;
         /** ALL game objects for this level, including the player. */
@@ -13398,6 +13414,8 @@ var LevelWebsite = /** @class */ (function (_super) {
         _this.width = 10000.0;
         /** The height of this level. */
         _this.height = 10000.0;
+        /** The background color of this level. */
+        _this.bgColor = "#000000";
         return _this;
     }
     /***************************************************************************************************************
@@ -13409,6 +13427,8 @@ var LevelWebsite = /** @class */ (function (_super) {
         // setup all game objects
         this.gameObjects =
             [
+                // bg
+                ninjas.GameObjectFactory.createBackground(0, 0, this.width, this.height, this.bgColor),
                 // grounds and walls
                 // ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createObstacle(0, 1000, 5000, 15, 0.0, false),

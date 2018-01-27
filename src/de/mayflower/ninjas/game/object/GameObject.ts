@@ -38,7 +38,7 @@
         *   @param y      Startup position Y.
         *   @param sprite The image for this game object.
         *
-        *   TODO rearrange object params up!
+        *   TODO rearrange object params up ( x and y down )!
         ***************************************************************************************************************/
         protected constructor
         (

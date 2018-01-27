@@ -17,7 +17,7 @@
         *   @param y      Startup position Y.
         *   @param sprite The sprite to use.
         ***************************************************************************************************************/
-        public constructor(shape:ninjas.Shape, x:number, y:number, sprite:ninjas.Sprite )
+        public constructor( shape:ninjas.Shape, x:number, y:number, sprite:ninjas.Sprite )
         {
             super
             (

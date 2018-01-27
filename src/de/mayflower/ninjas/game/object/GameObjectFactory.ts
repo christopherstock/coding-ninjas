@@ -261,6 +261,37 @@
         }
 
         /***************************************************************************************************************
+        *   Creates a non-collidable background.
+        *
+        *   @param x      Anchor X.
+        *   @param y      Anchor Y.
+        *   @param width  Object width.
+        *   @param height Object height.
+        *   @param color  The color of this background.
+        *
+        *   @return       The created decoration.
+        ***************************************************************************************************************/
+        public static createBackground( x:number, y:number, width:number, height:number, color:string ) : ninjas.Decoration
+        {
+            return new ninjas.Decoration
+            (
+                new ninjas.ShapeRectangle
+                (
+                    width,
+                    height,
+                    color,
+                    true,
+                    0.0,
+                    ninjas.GameObject.FRICTION_DEFAULT,
+                    Infinity
+                ),
+                x,
+                y,
+                null
+            );
+        }
+
+        /***************************************************************************************************************
         *   Creates a sigsaw.
         *
         *   @param x      Anchor X.
