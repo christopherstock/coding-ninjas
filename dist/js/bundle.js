@@ -11719,29 +11719,31 @@ var GameObject = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a new game object.
     *
-    *   @param shape      The shape for this object.
-    *   @param x          Startup position X.
-    *   @param y          Startup position Y.
-    *   @param image      The image for this game object.
+    *   @param shape  The shape for this object.
+    *   @param x      Startup position X.
+    *   @param y      Startup position Y.
+    *   @param sprite The image for this game object.
+    *
+    *   TODO rearrange object params up!
     ***************************************************************************************************************/
-    function GameObject(shape, x, y, image) {
+    function GameObject(shape, x, y, sprite) {
         /** Game object shape. */
         this.shape = null;
-        /** Game object image. */
-        this.image = null;
+        /** Game object sprite. */
+        this.sprite = null;
         this.shape = shape;
-        this.setImage(image);
+        this.setSprite(sprite);
         matter.Body.translate(this.shape.body, matter.Vector.create(x, y));
     }
     /***************************************************************************************************************
-    *   Sets a new image for this game object.
+    *   Sets a new sprite for this game object.
     *
-    *   @param image The image source to set.
+    *   @param sprite The image source to set.
     ***************************************************************************************************************/
-    GameObject.prototype.setImage = function (image) {
-        if (image != null) {
-            this.image = image;
-            this.shape.body.render.sprite.texture = image.src;
+    GameObject.prototype.setSprite = function (sprite) {
+        if (sprite != null) {
+            this.sprite = sprite;
+            this.shape.body.render.sprite.texture = sprite.imageIds[0];
         }
     };
     /***************************************************************************************************************
@@ -11804,7 +11806,7 @@ var GameObjectFactory = /** @class */ (function () {
     function GameObjectFactory() {
     }
     /***************************************************************************************************************
-    *   Creates a box.
+    *   Creates a crate.
     *
     *   @param x        Anchor X.
     *   @param y        Anchor Y.
@@ -11815,8 +11817,8 @@ var GameObjectFactory = /** @class */ (function () {
     *
     *   @return       The created box.
     ***************************************************************************************************************/
-    GameObjectFactory.createBox = function (x, y, width, height, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_BOX));
+    GameObjectFactory.createCrate = function (x, y, width, height, friction, density) {
+        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_CRATE));
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -11911,12 +11913,12 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param y      Anchor Y.
     *   @param width  Object width.
     *   @param height Object height.
-    *   @param image  The decoration image.
+    *   @param sprite The decoration sprite.
     *
     *   @return       The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createDecoration = function (x, y, width, height, image) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, image);
+    GameObjectFactory.createDecoration = function (x, y, width, height, sprite) {
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, sprite);
     };
     /***************************************************************************************************************
     *   Creates a sigsaw.
@@ -11925,26 +11927,26 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param y      Anchor Y.
     *   @param width  Object width.
     *   @param height Object height.
-    *   @param image  The decoration image.
+    *   @param sprite The decoration sprite.
     *
     *   @return       The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createSigsaw = function (x, y, width, height, image) {
-        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, image);
+    GameObjectFactory.createSigsaw = function (x, y, width, height, sprite) {
+        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, sprite);
     };
     /***************************************************************************************************************
     *   Creates a platform.
     *
     *   @param width     Object width.
     *   @param height    Object height.
-    *   @param image     The decoration image.
+    *   @param sprite    The decoration sprite.
     *   @param speed     Moving speed of the platform in px per tick.
     *   @param waypoints Moving waypoints. First waypoint is the startup position.
     *
     *   @return       The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createPlatform = function (width, height, image, speed, waypoints) {
-        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), speed, waypoints, image);
+    GameObjectFactory.createPlatform = function (width, height, sprite, speed, waypoints) {
+        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), speed, waypoints, sprite);
     };
     /***************************************************************************************************************
      *   Creates a bounce.
@@ -11953,12 +11955,12 @@ var GameObjectFactory = /** @class */ (function () {
      *   @param y      Anchor Y.
      *   @param width  Object width.
      *   @param height Object height.
-     *   @param image  The decoration image.
+     *   @param sprite The decoration sprite.
      *
      *   @return       The created decoration.
      ***************************************************************************************************************/
-    GameObjectFactory.createBounce = function (x, y, width, height, image) {
-        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, image);
+    GameObjectFactory.createBounce = function (x, y, width, height, sprite) {
+        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, sprite);
     };
     return GameObjectFactory;
 }());
@@ -12029,13 +12031,13 @@ var Character = /** @class */ (function (_super) {
     *   @param shape            The shape for this object.
     *   @param x                Startup position X.
     *   @param y                Startup position Y.
-    *   @param image            The image for this game object.
+    *   @param sprite            The image for this game object.
     *   @param lookingDirection The initial looking direction.
     *   @param speedMove        The speed for horizontal movement.
     *   @param jumpPower        The vertical force to apply on jumping.
     ***************************************************************************************************************/
-    function Character(shape, x, y, image, lookingDirection, speedMove, jumpPower) {
-        var _this = _super.call(this, shape, x, y, image) || this;
+    function Character(shape, x, y, sprite, lookingDirection, speedMove, jumpPower) {
+        var _this = _super.call(this, shape, x, y, sprite) || this;
         /** The looking direction for this character. */
         _this.lookingDirection = null;
         /** Flags if this character is dead. */
@@ -12241,10 +12243,10 @@ var Platform = /** @class */ (function (_super) {
     *   @param shape     The shape for this object.
     *   @param speed     The speed in pixels per tick.
     *   @param waypoints The waypoints for this platform to move to.
-    *   @param image     The image for this platform.
+    *   @param sprite    The sprite for this platform.
     ***************************************************************************************************************/
-    function Platform(shape, speed, waypoints, image) {
-        var _this = _super.call(this, shape, 0.0, 0.0, image) || this;
+    function Platform(shape, speed, waypoints, sprite) {
+        var _this = _super.call(this, shape, 0.0, 0.0, sprite) || this;
         /** The waypoints for this platform to move. */
         _this.waypoints = null;
         /** The number of ticks till the next waypoint is reached. */
@@ -12359,10 +12361,10 @@ var Player = /** @class */ (function (_super) {
     *   @param x                Startup position X.
     *   @param y                Startup position Y.
     *   @param lookingDirection The initial looking direction.
-    *   @param image            The initial image for the player.
+    *   @param sprite            The initial image for the player.
     ***************************************************************************************************************/
-    function Player(x, y, lookingDirection, image) {
-        return _super.call(this, new ninjas.ShapeRectangle(image.width, image.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, image, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
+    function Player(x, y, lookingDirection, sprite) {
+        return _super.call(this, new ninjas.ShapeRectangle(sprite.width, sprite.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, sprite, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -12464,13 +12466,13 @@ var Movable = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new movable.
     *
-    *   @param shape    The shape for this object.
-    *   @param x        Startup position X.
-    *   @param y        Startup position Y.
-    *   @param image    The image for this box.
+    *   @param shape  The shape for this object.
+    *   @param x      Startup position X.
+    *   @param y      Startup position Y.
+    *   @param sprite The sprite for this box.
     ***************************************************************************************************************/
-    function Movable(shape, x, y, image) {
-        return _super.call(this, shape, x, y, image) || this;
+    function Movable(shape, x, y, sprite) {
+        return _super.call(this, shape, x, y, sprite) || this;
     }
     /***************************************************************************************************************
     *   Renders this box.
@@ -12518,7 +12520,7 @@ var Item = /** @class */ (function (_super) {
     *   @param y      Startup position Y.
     ***************************************************************************************************************/
     function Item(shape, x, y) {
-        var _this = _super.call(this, shape, x, y, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_ITEM)) || this;
+        var _this = _super.call(this, shape, x, y, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_ITEM)) || this;
         /** Indicates if this item has been picked. */
         _this.picked = null;
         _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
@@ -12581,10 +12583,10 @@ var Decoration = /** @class */ (function (_super) {
     *   @param shape  The shape for this object.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param image  The image source to use.
+    *   @param sprite The sprite to use.
     ***************************************************************************************************************/
-    function Decoration(shape, x, y, image) {
-        var _this = _super.call(this, shape, x, y, image) || this;
+    function Decoration(shape, x, y, sprite) {
+        var _this = _super.call(this, shape, x, y, sprite) || this;
         _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO;
         return _this;
     }
@@ -12701,10 +12703,10 @@ var SigSaw = /** @class */ (function (_super) {
     *   @param shape  The shape for this object.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param image  The image for this game object.
+    *   @param sprite The sprite for this game object.
     ***************************************************************************************************************/
-    function SigSaw(shape, x, y, image) {
-        var _this = _super.call(this, shape, x, y, image) || this;
+    function SigSaw(shape, x, y, sprite) {
+        var _this = _super.call(this, shape, x, y, sprite) || this;
         /** The constraint that builds the turning point for the sigsaw. */
         _this.constraint = null;
         _this.constraint = matter.Constraint.create({
@@ -12798,10 +12800,10 @@ var Bounce = /** @class */ (function (_super) {
     *   @param shape  The shape for this object.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param image  The image for this game object.
+    *   @param sprite The sprite for this game object.
     ***************************************************************************************************************/
-    function Bounce(shape, x, y, image) {
-        var _this = _super.call(this, shape, x, y, image) || this;
+    function Bounce(shape, x, y, sprite) {
+        var _this = _super.call(this, shape, x, y, sprite) || this;
         /** The constraint that builds the turning point for the bounce. */
         _this.constraint = null;
         _this.constraint = matter.Constraint.create({
@@ -13172,7 +13174,7 @@ var LevelAllElements = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelAllElements.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(50, 500.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1));
+        this.player = new ninjas.Player(50, 500.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
@@ -13184,27 +13186,27 @@ var LevelAllElements = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createObstacle(3230, 830, 500, 15, 0.0, false),
                 ninjas.GameObjectFactory.createObstacle(4080, 730, 500, 15, 0.0, false),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
                 // moveable boxes
-                ninjas.GameObjectFactory.createBox(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(500, 320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(650, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(1350, -3240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(1450, -3400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1450, -3400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(1500, -3320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(1550, -3240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(1600, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1550, -3240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1600, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(1650, -3180, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(1700, -3000, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1700, -3000, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 // sigsaws and bounces
                 ninjas.GameObjectFactory.createSigsaw(1490, 830, 400, 25, null),
                 ninjas.GameObjectFactory.createBounce(1900, 830, 400, 25, null),
@@ -13234,8 +13236,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 // enemies (fg)
                 ninjas.GameObjectFactory.createEnemy(1200, 0),
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
             ];
     };
     return LevelAllElements;
@@ -13282,7 +13284,7 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelEnchantedWoods.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(750, 880.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1));
+        this.player = new ninjas.Player(750, 880.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
@@ -13293,9 +13295,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // hut
                 ninjas.GameObjectFactory.createDecoration(140, 870, 350, 130, null),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
                 // moveable boxes
                 // sigsaws
                 // items
@@ -13307,9 +13309,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // player
                 this.player,
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_TREE)),
             ];
     };
     return LevelEnchantedWoods;
@@ -13356,7 +13358,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(100, 500.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1));
+        this.player = new ninjas.Player(100, 500.0, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteSystem.createSpriteInstance(ninjas.Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
@@ -13374,25 +13376,25 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170, ninjas.Image.IMAGE_TREE ),
                 */
                 // moveable boxes
-                ninjas.GameObjectFactory.createBox(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(500, 320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(650, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createBox(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 /*
-                                ninjas.GameObjectFactory.createBox(    1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(    1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                                 ninjas.GameObjectFactory.createSphere( 1350, -3240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createBox(    1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createBox(    1450, -3400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(    1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(    1450, -3400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                                 ninjas.GameObjectFactory.createSphere( 1500, -3320, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createBox(    1550, -3240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createBox(    1600, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(    1550, -3240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(    1600, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                                 ninjas.GameObjectFactory.createSphere( 1650, -3180, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                                ninjas.GameObjectFactory.createBox(    1700, -3000, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(    1700, -3000, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 
                                 // sigsaws and bounces
                                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
@@ -13841,7 +13843,13 @@ var Sprite = /** @class */ (function () {
         this.imageIds = null;
         /** The id of the current frame for this sprite. */
         this.currentFrame = 0;
+        /** The width of all images in this sprite. */
+        this.width = 0;
+        /** The height of all images in this sprite. */
+        this.height = 0;
         this.imageIds = imageIds;
+        this.width = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).width;
+        this.height = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).height;
     }
     /** Sprite 'ninja girl standing right'. */
     Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT = [
@@ -13859,6 +13867,14 @@ var Sprite = /** @class */ (function () {
     /** Sprite 'crate'. */
     Sprite.SPRITE_CRATE = [
         ninjas.Image.IMAGE_BOX,
+    ];
+    /** Sprite 'item'. */
+    Sprite.SPRITE_ITEM = [
+        ninjas.Image.IMAGE_ITEM,
+    ];
+    /** Sprite 'tree'. */
+    Sprite.SPRITE_TREE = [
+        ninjas.Image.IMAGE_TREE,
     ];
     return Sprite;
 }());

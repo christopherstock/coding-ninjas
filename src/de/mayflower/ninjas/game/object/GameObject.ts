@@ -27,27 +27,29 @@
         /** Game object shape. */
         public          shape                   :ninjas.Shape                   = null;
 
-        /** Game object image. */
-        public          image                   :HTMLImageElement               = null;
+        /** Game object sprite. */
+        public          sprite                  :ninjas.Sprite                  = null;
 
         /***************************************************************************************************************
         *   Creates a new game object.
         *
-        *   @param shape      The shape for this object.
-        *   @param x          Startup position X.
-        *   @param y          Startup position Y.
-        *   @param image      The image for this game object.
+        *   @param shape  The shape for this object.
+        *   @param x      Startup position X.
+        *   @param y      Startup position Y.
+        *   @param sprite The image for this game object.
+        *
+        *   TODO rearrange object params up!
         ***************************************************************************************************************/
         protected constructor
         (
-            shape :ninjas.Shape,
-            x     :number,
-            y     :number,
-            image :HTMLImageElement
+            shape  :ninjas.Shape,
+            x      :number,
+            y      :number,
+            sprite :ninjas.Sprite
         )
         {
             this.shape = shape;
-            this.setImage( image );
+            this.setSprite( sprite );
 
             matter.Body.translate( this.shape.body, matter.Vector.create( x, y ) );
         }
@@ -58,16 +60,16 @@
         public abstract render();
 
         /***************************************************************************************************************
-        *   Sets a new image for this game object.
+        *   Sets a new sprite for this game object.
         *
-        *   @param image The image source to set.
+        *   @param sprite The image source to set.
         ***************************************************************************************************************/
-        protected setImage( image:HTMLImageElement ) : void
+        protected setSprite( sprite:ninjas.Sprite ) : void
         {
-            if ( image != null )
+            if ( sprite != null )
             {
-                this.image = image;
-                this.shape.body.render.sprite.texture = image.src;
+                this.sprite = sprite;
+                this.shape.body.render.sprite.texture = sprite.imageIds[ 0 ];
             }
         }
 

@@ -26,7 +26,7 @@
                 100,
                 500.0,
                 ninjas.CharacterLookingDirection.RIGHT,
-                ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 )
+                ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT )
             );
 
             // setup all game objects
@@ -48,25 +48,25 @@
                 ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170, ninjas.Image.IMAGE_TREE ),
 */
                 // moveable boxes
-                ninjas.GameObjectFactory.createBox(    300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 350,  240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createBox(    400,  320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createBox(    450,  400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    400,  320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    450,  400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 500,  320, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createBox(    550,  240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createBox(    600,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    550,  240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    600,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 650,  80,  80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createBox(    700,  0,   80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    700,  0,   80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
 /*
-                ninjas.GameObjectFactory.createBox(    1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 1350, -3240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createBox(    1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createBox(    1450, -3400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    1450, -3400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 1500, -3320, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createBox(    1550, -3240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createBox(    1600, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    1550, -3240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    1600, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 1650, -3180, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createBox(    1700, -3000, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(    1700, -3000, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
 
                 // sigsaws and bounces
                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),

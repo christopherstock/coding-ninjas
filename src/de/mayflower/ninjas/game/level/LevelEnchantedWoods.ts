@@ -25,7 +25,7 @@
                 750,
                 880.0,
                 ninjas.CharacterLookingDirection.RIGHT,
-                ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 )
+                ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_NINJA_GIRL_STANDING_RIGHT )
             );
 
             // setup all game objects
@@ -41,9 +41,9 @@
                 ninjas.GameObjectFactory.createDecoration( 140, 870, 350, 130, null ),
 
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration( 350,  870, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 850,  870, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 1350, 850, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 350,  870, 120, 90, ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 850,  870, 120, 90, ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 1350, 850, 120, 90, ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_TREE ) ),
 
                 // moveable boxes
 
@@ -61,9 +61,9 @@
                 this.player,
 
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration( 600,  870, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 1100, 870, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 1600, 817, 120, 90, ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 600,  870, 120, 90, ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 1100, 870, 120, 90, ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 1600, 817, 120, 90, ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_TREE ) ),
             ];
         }
     }

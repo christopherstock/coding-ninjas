@@ -36,14 +36,14 @@
         *   @param shape     The shape for this object.
         *   @param speed     The speed in pixels per tick.
         *   @param waypoints The waypoints for this platform to move to.
-        *   @param image     The image for this platform.
+        *   @param sprite    The sprite for this platform.
         ***************************************************************************************************************/
         public constructor
         (
             shape     :ninjas.Shape,
             speed     :number,
             waypoints :Array<matter.Vector>,
-            image     :HTMLImageElement
+            sprite    :ninjas.Sprite
         )
         {
             super
@@ -51,7 +51,7 @@
                 shape,
                 0.0,
                 0.0,
-                image
+                sprite
             );
 
             if ( waypoints.length == 0 )

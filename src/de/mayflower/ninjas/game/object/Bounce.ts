@@ -19,16 +19,16 @@
         *   @param shape  The shape for this object.
         *   @param x      Startup position X.
         *   @param y      Startup position Y.
-        *   @param image  The image for this game object.
+        *   @param sprite The sprite for this game object.
         ***************************************************************************************************************/
-        public constructor(shape:ninjas.Shape, x:number, y:number, image:HTMLImageElement )
+        public constructor( shape:ninjas.Shape, x:number, y:number, sprite:ninjas.Sprite )
         {
             super
             (
                 shape,
                 x,
                 y,
-                image
+                sprite
             );
 
             this.constraint = matter.Constraint.create(

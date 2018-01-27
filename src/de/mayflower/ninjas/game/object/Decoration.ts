@@ -15,16 +15,16 @@
         *   @param shape  The shape for this object.
         *   @param x      Startup position X.
         *   @param y      Startup position Y.
-        *   @param image  The image source to use.
+        *   @param sprite The sprite to use.
         ***************************************************************************************************************/
-        public constructor(shape:ninjas.Shape, x:number, y:number, image:HTMLImageElement )
+        public constructor(shape:ninjas.Shape, x:number, y:number, sprite:ninjas.Sprite )
         {
             super
             (
                 shape,
                 x,
                 y,
-                image
+                sprite
             );
 
             this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO;

@@ -31,7 +31,7 @@
         *   @param shape            The shape for this object.
         *   @param x                Startup position X.
         *   @param y                Startup position Y.
-        *   @param image            The image for this game object.
+        *   @param sprite            The image for this game object.
         *   @param lookingDirection The initial looking direction.
         *   @param speedMove        The speed for horizontal movement.
         *   @param jumpPower        The vertical force to apply on jumping.
@@ -41,7 +41,7 @@
             shape            :ninjas.Shape,
             x                :number,
             y                :number,
-            image            :HTMLImageElement,
+            sprite           :ninjas.Sprite,
             lookingDirection :ninjas.CharacterLookingDirection,
             speedMove        :number,
             jumpPower        :number
@@ -52,7 +52,7 @@
                 shape,
                 x,
                 y,
-                image
+                sprite
             );
 
             this.lookingDirection = lookingDirection;

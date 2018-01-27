@@ -11,7 +11,7 @@
     export abstract class GameObjectFactory
     {
         /***************************************************************************************************************
-        *   Creates a box.
+        *   Creates a crate.
         *
         *   @param x        Anchor X.
         *   @param y        Anchor Y.
@@ -22,7 +22,7 @@
         *
         *   @return       The created box.
         ***************************************************************************************************************/
-        public static createBox( x:number, y:number, width:number, height:number, friction:number, density:number ):ninjas.Movable
+        public static createCrate(x:number, y:number, width:number, height:number, friction:number, density:number ):ninjas.Movable
         {
             return new ninjas.Movable
             (
@@ -38,7 +38,7 @@
                 ),
                 x,
                 y,
-                ninjas.Main.game.imageSystem.getImage( ninjas.Image.IMAGE_BOX )
+                ninjas.SpriteSystem.createSpriteInstance( ninjas.Sprite.SPRITE_CRATE )
             );
         }
 
@@ -236,11 +236,11 @@
         *   @param y      Anchor Y.
         *   @param width  Object width.
         *   @param height Object height.
-        *   @param image  The decoration image.
+        *   @param sprite The decoration sprite.
         *
         *   @return       The created decoration.
         ***************************************************************************************************************/
-        public static createDecoration( x:number, y:number, width:number, height:number, image:HTMLImageElement ):ninjas.Decoration
+        public static createDecoration( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ):ninjas.Decoration
         {
             return new ninjas.Decoration
             (
@@ -256,7 +256,7 @@
                 ),
                 x,
                 y,
-                image
+                sprite
             );
         }
 
@@ -267,11 +267,11 @@
         *   @param y      Anchor Y.
         *   @param width  Object width.
         *   @param height Object height.
-        *   @param image  The decoration image.
+        *   @param sprite The decoration sprite.
         *
         *   @return       The created decoration.
         ***************************************************************************************************************/
-        public static createSigsaw( x:number, y:number, width:number, height:number, image:HTMLImageElement ):ninjas.SigSaw
+        public static createSigsaw( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ):ninjas.SigSaw
         {
             return new ninjas.SigSaw
             (
@@ -287,7 +287,7 @@
                 ),
                 x,
                 y,
-                image
+                sprite
             );
         }
 
@@ -296,7 +296,7 @@
         *
         *   @param width     Object width.
         *   @param height    Object height.
-        *   @param image     The decoration image.
+        *   @param sprite    The decoration sprite.
         *   @param speed     Moving speed of the platform in px per tick.
         *   @param waypoints Moving waypoints. First waypoint is the startup position.
         *
@@ -304,11 +304,11 @@
         ***************************************************************************************************************/
         public static createPlatform
         (
-            width:number,
-            height:number,
-            image:HTMLImageElement,
-            speed:number,
-            waypoints:Array<matter.Vector>
+            width     :number,
+            height    :number,
+            sprite    :ninjas.Sprite,
+            speed     :number,
+            waypoints :Array<matter.Vector>
         )
         :ninjas.Platform
         {
@@ -326,7 +326,7 @@
                 ),
                 speed,
                 waypoints,
-                image
+                sprite
             );
         }
 
@@ -337,11 +337,11 @@
          *   @param y      Anchor Y.
          *   @param width  Object width.
          *   @param height Object height.
-         *   @param image  The decoration image.
+         *   @param sprite The decoration sprite.
          *
          *   @return       The created decoration.
          ***************************************************************************************************************/
-        public static createBounce( x:number, y:number, width:number, height:number, image:HTMLImageElement ):ninjas.Bounce
+        public static createBounce( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ):ninjas.Bounce
         {
             return new ninjas.Bounce
             (
@@ -357,7 +357,7 @@
                 ),
                 x,
                 y,
-                image
+                sprite
             );
         }
     }

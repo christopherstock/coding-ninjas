@@ -30,11 +30,26 @@
             ninjas.Image.IMAGE_BOX,
         ];
 
+        /** Sprite 'item'. */
+        public      static      SPRITE_ITEM                                 :Array<string>      =
+        [
+            ninjas.Image.IMAGE_ITEM,
+        ];
+
+        /** Sprite 'tree'. */
+        public      static      SPRITE_TREE                                 :Array<string>      =
+        [
+            ninjas.Image.IMAGE_TREE,
+        ];
+
         /** All image ids this sprite consists of. */
         public                  imageIds                                    :Array<string>      = null;
-
         /** The id of the current frame for this sprite. */
         public                  currentFrame                                :number             = 0;
+        /** The width of all images in this sprite. */
+        public                  width                                       :number             = 0;
+        /** The height of all images in this sprite. */
+        public                  height                                      :number             = 0;
 
         /***************************************************************************************************************
         *   Creates a new sprite.
@@ -44,5 +59,8 @@
         public constructor( imageIds:Array<string> )
         {
             this.imageIds = imageIds;
+
+            this.width  = ninjas.Main.game.imageSystem.getImage( this.imageIds[ 0 ] ).width;
+            this.height = ninjas.Main.game.imageSystem.getImage( this.imageIds[ 0 ] ).height;
         }
     }

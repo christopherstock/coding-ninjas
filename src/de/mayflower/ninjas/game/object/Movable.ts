@@ -12,17 +12,17 @@
         /***************************************************************************************************************
         *   Creates a new movable.
         *
-        *   @param shape    The shape for this object.
-        *   @param x        Startup position X.
-        *   @param y        Startup position Y.
-        *   @param image    The image for this box.
+        *   @param shape  The shape for this object.
+        *   @param x      Startup position X.
+        *   @param y      Startup position Y.
+        *   @param sprite The sprite for this box.
         ***************************************************************************************************************/
         public constructor
         (
-            shape :ninjas.Shape,
-            x     :number,
-            y     :number,
-            image :HTMLImageElement
+            shape  :ninjas.Shape,
+            x      :number,
+            y      :number,
+            sprite :ninjas.Sprite
         )
         {
             super
@@ -30,7 +30,7 @@
                 shape,
                 x,
                 y,
-                image
+                sprite
             );
         }
 
