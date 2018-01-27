@@ -10,9 +10,6 @@
     *******************************************************************************************************************/
     export abstract class Character extends ninjas.GameObject
     {
-        /** The default jump power ( player ). */
-        public      static  readonly    JUMP_POWER_DEFAULT                  :number                             = -10.0;
-
         /** The looking direction for this character. */
         public                          lookingDirection                    :ninjas.CharacterLookingDirection   = null;
 

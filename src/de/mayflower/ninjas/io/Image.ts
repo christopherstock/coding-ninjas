@@ -30,12 +30,13 @@
         /** Image resource 'ninja girl standing right frame 10'. */
         public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10    :string         = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/10.png";
 
+        /** Image resource 'box'. */
+        public      static      IMAGE_BOX                                   :string         = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
+
         /** Image resource 'item'. */
         public      static      IMAGE_ITEM                                  :string         = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
         /** Image resource 'tree'. */
         public      static      IMAGE_TREE                                  :string         = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
-        /** Image resource 'box'. */
-        public      static      IMAGE_BOX                                   :string         = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
 
         /** An array holding all filenames of all images to load. */
         public      static      FILE_NAMES                                  :Array<string>  =

@@ -26,6 +26,8 @@
         /** The minimum canvas2D height. */
         public      static  readonly    MIN_CANVAS_HEIGHT                           :number                     = 600;
 
+        /** The default jump power. */
+        public      static  readonly    PLAYER_JUMP_POWER                           :number                     = -15.0;
         /** The player's speed in world coordinate per tick. */
         public      static  readonly    PLAYER_SPEED_MOVE                           :number                     = 7.5;
 

@@ -27,7 +27,7 @@
                 null,
                 ninjas.CharacterLookingDirection.LEFT,
                 4.0,
-                ninjas.Character.JUMP_POWER_DEFAULT
+                ninjas.Setting.PLAYER_JUMP_POWER
             );
         }
 

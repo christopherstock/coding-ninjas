@@ -24,6 +24,12 @@
             ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
         ];
 
+        /** Sprite 'crate'. */
+        public      static      SPRITE_CRATE                                :Array<string>      =
+        [
+            ninjas.Image.IMAGE_BOX,
+        ];
+
         /** All image ids this sprite consists of. */
         public                  imageIds                                    :Array<string>      = null;
 

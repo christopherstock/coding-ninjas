@@ -22,9 +22,9 @@
         *
         *   @return       The created box.
         ***************************************************************************************************************/
-        public static createBox( x:number, y:number, width:number, height:number, friction:number, density:number ):ninjas.Box
+        public static createBox( x:number, y:number, width:number, height:number, friction:number, density:number ):ninjas.Movable
         {
-            return new ninjas.Box
+            return new ninjas.Movable
             (
                 new ninjas.ShapeRectangle
                 (
@@ -53,9 +53,9 @@
         *
         *   @return         The created sphere.
         ***************************************************************************************************************/
-        public static createSphere( x:number, y:number, diameter:number, friction:number, density:number ):ninjas.Box
+        public static createSphere( x:number, y:number, diameter:number, friction:number, density:number ):ninjas.Movable
         {
-            return new ninjas.Box
+            return new ninjas.Movable
             (
                 new ninjas.ShapeCircle
                 (

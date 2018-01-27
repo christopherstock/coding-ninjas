@@ -43,7 +43,7 @@
                 image,
                 lookingDirection,
                 ninjas.Setting.PLAYER_SPEED_MOVE,
-                ninjas.Character.JUMP_POWER_DEFAULT
+                ninjas.Setting.PLAYER_JUMP_POWER
             );
         }
 

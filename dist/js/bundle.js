@@ -11150,6 +11150,8 @@ var Setting = /** @class */ (function () {
     Setting.MIN_CANVAS_WIDTH = 800;
     /** The minimum canvas2D height. */
     Setting.MIN_CANVAS_HEIGHT = 600;
+    /** The default jump power. */
+    Setting.PLAYER_JUMP_POWER = -15.0;
     /** The player's speed in world coordinate per tick. */
     Setting.PLAYER_SPEED_MOVE = 7.5;
     /** The default vertical gravity for all levels. */
@@ -11814,7 +11816,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return       The created box.
     ***************************************************************************************************************/
     GameObjectFactory.createBox = function (x, y, width, height, friction, density) {
-        return new ninjas.Box(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_BOX));
+        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, ninjas.Main.game.imageSystem.getImage(ninjas.Image.IMAGE_BOX));
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -11828,7 +11830,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return         The created sphere.
     ***************************************************************************************************************/
     GameObjectFactory.createSphere = function (x, y, diameter, friction, density) {
-        return new ninjas.Box(new ninjas.ShapeCircle(diameter, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, null);
+        return new ninjas.Movable(new ninjas.ShapeCircle(diameter, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, null);
     };
     /***************************************************************************************************************
     *   Creates an item.
@@ -12131,8 +12133,6 @@ var Character = /** @class */ (function (_super) {
         matter.Body.translate(this.shape.body, matter.Vector.create(this.speedMove, 0));
         this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
     };
-    /** The default jump power ( player ). */
-    Character.JUMP_POWER_DEFAULT = -10.0;
     return Character;
 }(ninjas.GameObject));
 exports.Character = Character;
@@ -12173,7 +12173,7 @@ var Enemy = /** @class */ (function (_super) {
     *   @param y      Startup position Y.
     ***************************************************************************************************************/
     function Enemy(shape, x, y) {
-        return _super.call(this, shape, x, y, null, ninjas.CharacterLookingDirection.LEFT, 4.0, ninjas.Character.JUMP_POWER_DEFAULT) || this;
+        return _super.call(this, shape, x, y, null, ninjas.CharacterLookingDirection.LEFT, 4.0, ninjas.Setting.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -12362,7 +12362,7 @@ var Player = /** @class */ (function (_super) {
     *   @param image            The initial image for the player.
     ***************************************************************************************************************/
     function Player(x, y, lookingDirection, image) {
-        return _super.call(this, new ninjas.ShapeRectangle(image.width, image.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, image, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Character.JUMP_POWER_DEFAULT) || this;
+        return _super.call(this, new ninjas.ShapeRectangle(image.width, image.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, image, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -12459,28 +12459,28 @@ var ninjas = __webpack_require__(0);
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var Box = /** @class */ (function (_super) {
-    __extends(Box, _super);
+var Movable = /** @class */ (function (_super) {
+    __extends(Movable, _super);
     /***************************************************************************************************************
-    *   Creates a new box.
+    *   Creates a new movable.
     *
     *   @param shape    The shape for this object.
     *   @param x        Startup position X.
     *   @param y        Startup position Y.
     *   @param image    The image for this box.
     ***************************************************************************************************************/
-    function Box(shape, x, y, image) {
+    function Movable(shape, x, y, image) {
         return _super.call(this, shape, x, y, image) || this;
     }
     /***************************************************************************************************************
     *   Renders this box.
     ***************************************************************************************************************/
-    Box.prototype.render = function () {
+    Movable.prototype.render = function () {
         this.clipToHorizontalLevelBounds();
     };
-    return Box;
+    return Movable;
 }(ninjas.GameObject));
-exports.Box = Box;
+exports.Movable = Movable;
 
 
 /***/ }),
@@ -13604,12 +13604,12 @@ var Image = /** @class */ (function () {
     Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/09.png";
     /** Image resource 'ninja girl standing right frame 10'. */
     Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/10.png";
+    /** Image resource 'box'. */
+    Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
     /** Image resource 'item'. */
     Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
     /** Image resource 'tree'. */
     Image.IMAGE_TREE = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
-    /** Image resource 'box'. */
-    Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
     /** An array holding all filenames of all images to load. */
     Image.FILE_NAMES = [
         Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
@@ -13855,6 +13855,10 @@ var Sprite = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
+    ];
+    /** Sprite 'crate'. */
+    Sprite.SPRITE_CRATE = [
+        ninjas.Image.IMAGE_BOX,
     ];
     return Sprite;
 }());

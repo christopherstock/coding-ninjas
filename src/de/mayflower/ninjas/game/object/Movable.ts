@@ -7,10 +7,10 @@
     *   @author     Christopher Stock
     *   @version    0.0.1
     *******************************************************************************************************************/
-    export class Box extends ninjas.GameObject
+    export class Movable extends ninjas.GameObject
     {
         /***************************************************************************************************************
-        *   Creates a new box.
+        *   Creates a new movable.
         *
         *   @param shape    The shape for this object.
         *   @param x        Startup position X.

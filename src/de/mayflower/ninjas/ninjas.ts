@@ -16,7 +16,7 @@
     export * from './game/object/Enemy';
     export * from './game/object/Platform';
     export * from './game/object/Player';
-    export * from './game/object/Box';
+    export * from './game/object/Movable';
     export * from './game/object/Item';
     export * from './game/object/Decoration';
     export * from './game/object/Obstacle';
