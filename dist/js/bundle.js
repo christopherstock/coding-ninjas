@@ -13882,14 +13882,19 @@ var Sprite = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a new sprite.
     *
-    *   @param imageIds All image ids this sprite consists of.
+    *   @param imageIds           All image ids this sprite consists of.
+    *   @param ticksBetweenFrames The number of ticks to delay until the frame is changed.
     ***************************************************************************************************************/
-    function Sprite(imageIds) {
+    function Sprite(imageIds, ticksBetweenFrames) {
         // TODO all to SpriteSystem
         /** All image ids this sprite consists of. TODO private */
         this.imageIds = null;
         /** Flags if this sprite has only one frame. */
         this.singleFramed = false;
+        /** The number of ticks between frame changes. */
+        this.ticksBetweenFrames = 0;
+        /** The current tick since last frame change. */
+        this.currentTick = 0;
         /** The id of the current frame for this sprite. TODO private */
         this.currentFrame = 0;
         /** The width of all images in this sprite. TODO private with getter */
@@ -13898,9 +13903,18 @@ var Sprite = /** @class */ (function () {
         this.height = 0;
         this.imageIds = imageIds;
         this.singleFramed = (this.imageIds.length == 1);
+        this.ticksBetweenFrames = ticksBetweenFrames;
+        // assign dimensions from 1st frame - TODO commitment is that all frames of a sprite have same size?
         this.width = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).width;
         this.height = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).height;
     }
+    /***************************************************************************************************************
+    *   Resets this sprite to the first frame and resets tick counter.
+    ***************************************************************************************************************/
+    Sprite.prototype.reset = function () {
+        this.currentFrame = 0;
+        this.currentTick = 0;
+    };
     /***************************************************************************************************************
     *   Sets the next frame for this sprite.
     *
@@ -13972,7 +13986,7 @@ var SpriteSystem = /** @class */ (function () {
     *   @param imageSources All image ids this sprite consists of.
     ***************************************************************************************************************/
     SpriteSystem.createSpriteInstance = function (imageSources) {
-        return new ninjas.Sprite(imageSources);
+        return new ninjas.Sprite(imageSources, 0);
     };
     return SpriteSystem;
 }());

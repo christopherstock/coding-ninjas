@@ -49,6 +49,11 @@
         /** Flags if this sprite has only one frame. */
         private                 singleFramed                                :boolean            = false;
 
+        /** The number of ticks between frame changes. */
+        public                  ticksBetweenFrames                          :number             = 0;
+        /** The current tick since last frame change. */
+        public                  currentTick                                 :number             = 0;
+
         /** The id of the current frame for this sprite. TODO private */
         public                  currentFrame                                :number             = 0;
         /** The width of all images in this sprite. TODO private with getter */
@@ -59,15 +64,28 @@
         /***************************************************************************************************************
         *   Creates a new sprite.
         *
-        *   @param imageIds All image ids this sprite consists of.
+        *   @param imageIds           All image ids this sprite consists of.
+        *   @param ticksBetweenFrames The number of ticks to delay until the frame is changed.
         ***************************************************************************************************************/
-        public constructor( imageIds:Array<string> )
+        public constructor( imageIds:Array<string>, ticksBetweenFrames:number )
         {
             this.imageIds     = imageIds;
             this.singleFramed = ( this.imageIds.length == 1 );
 
+            this.ticksBetweenFrames = ticksBetweenFrames;
+
+            // assign dimensions from 1st frame - TODO commitment is that all frames of a sprite have same size?
             this.width  = ninjas.Main.game.imageSystem.getImage( this.imageIds[ 0 ] ).width;
             this.height = ninjas.Main.game.imageSystem.getImage( this.imageIds[ 0 ] ).height;
+        }
+
+        /***************************************************************************************************************
+        *   Resets this sprite to the first frame and resets tick counter.
+        ***************************************************************************************************************/
+        public reset()
+        {
+            this.currentFrame = 0;
+            this.currentTick  = 0;
         }
 
         /***************************************************************************************************************

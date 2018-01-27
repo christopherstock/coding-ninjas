@@ -16,6 +16,6 @@
         ***************************************************************************************************************/
         public static createSpriteInstance( imageSources:Array<string> )
         {
-            return new ninjas.Sprite( imageSources );
+            return new ninjas.Sprite( imageSources, 0 );
         }
     }
