@@ -65,8 +65,9 @@
         ***************************************************************************************************************/
         public render()
         {
-            this.checkBottomCollision();
+            super.render();
 
+            this.checkBottomCollision();
             this.resetRotation();
             this.clipToHorizontalLevelBounds();
 

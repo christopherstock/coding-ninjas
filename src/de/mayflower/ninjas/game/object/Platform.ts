@@ -115,6 +115,8 @@
         ***************************************************************************************************************/
         public render()
         {
+            super.render();
+
             ++this.currentStep;
             if ( this.currentStep > this.stepsTillNextWaypoint )
             {

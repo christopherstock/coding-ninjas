@@ -42,6 +42,8 @@
             ninjas.Image.IMAGE_TREE,
         ];
 
+        // TODO all to SpriteSystem
+
         /** All image ids this sprite consists of. */
         public                  imageIds                                    :Array<string>      = null;
         /** The id of the current frame for this sprite. */

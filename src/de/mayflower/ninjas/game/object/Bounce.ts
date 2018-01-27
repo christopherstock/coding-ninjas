@@ -57,6 +57,8 @@
         ***************************************************************************************************************/
         public render()
         {
+            super.render();
+
             matter.Body.setAngle(           this.shape.body, 0.0 );
             matter.Body.setAngularVelocity( this.shape.body, 0.0 );
         }

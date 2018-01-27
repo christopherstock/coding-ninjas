@@ -38,14 +38,24 @@
         ***************************************************************************************************************/
         public render()
         {
+            super.render();
+
             if ( !this.picked )
             {
-                if ( matter.Bounds.overlaps( this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds ) )
-                {
-                    ninjas.Debug.item.log("Player picked item");
+                this.checkPicked();
+            }
+        }
 
-                    this.pick();
-                }
+        /***************************************************************************************************************
+        *   Checks if this item is picked up in this frame.
+        ***************************************************************************************************************/
+        private checkPicked()
+        {
+            if ( matter.Bounds.overlaps( this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds ) )
+            {
+                ninjas.Debug.item.log( "Player picked item" );
+
+                this.pick();
             }
         }
 

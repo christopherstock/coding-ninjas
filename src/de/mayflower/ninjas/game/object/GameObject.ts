@@ -48,8 +48,13 @@
             sprite :ninjas.Sprite
         )
         {
-            this.shape = shape;
-            this.setSprite( sprite );
+            this.shape  = shape;
+            this.sprite = sprite;
+
+            if ( this.sprite != null )
+            {
+                this.setImageFromSprite();
+            }
 
             matter.Body.translate( this.shape.body, matter.Vector.create( x, y ) );
         }
@@ -57,20 +62,20 @@
         /***************************************************************************************************************
         *   Renders the current game object.
         ***************************************************************************************************************/
-        public abstract render();
+        public render()
+        {
+            // next sprite frame
+
+        }
 
         /***************************************************************************************************************
-        *   Sets a new sprite for this game object.
-        *
-        *   @param sprite The image source to set.
+        *   Assigns the current active sprite frame as the game objects image.
         ***************************************************************************************************************/
-        protected setSprite( sprite:ninjas.Sprite ) : void
+        protected setImageFromSprite() : void
         {
-            if ( sprite != null )
-            {
-                this.sprite = sprite;
-                this.shape.body.render.sprite.texture = sprite.imageIds[ 0 ];
-            }
+            this.shape.body.render.sprite.texture = this.sprite.imageIds[ this.sprite.currentFrame ];
+
+            // TODO update dimension!
         }
 
         /***************************************************************************************************************
@@ -87,6 +92,7 @@
         ***************************************************************************************************************/
         protected clipToHorizontalLevelBounds()
         {
+            // clip left bound
             if ( this.shape.body.position.x < this.shape.getWidth() / 2 )
             {
                 matter.Body.setPosition(
@@ -98,6 +104,7 @@
                 );
             }
 
+            // clip right bound
             if ( this.shape.body.position.x > ninjas.Main.game.level.width - this.shape.getWidth() / 2 )
             {
                 matter.Body.setPosition(

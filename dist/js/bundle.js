@@ -11294,14 +11294,12 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Use own canvas?
-*
 *   TODO Adjust render size on reassigning new image!
 *   TODO make the game fullscreen.
 *   TODO add resize mechanism.
 *   TODO Adjust physics object according to image dimensions!
 *   TODO create sprite system.
-*   TODO Draw HUD? Own drawing operatione?
+*   TODO Draw HUD? Enable own drawing operatione?
 *   TODO Add FPS counter via npm package.
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
@@ -11736,19 +11734,24 @@ var GameObject = /** @class */ (function () {
         /** Game object sprite. */
         this.sprite = null;
         this.shape = shape;
-        this.setSprite(sprite);
+        this.sprite = sprite;
+        if (this.sprite != null) {
+            this.setImageFromSprite();
+        }
         matter.Body.translate(this.shape.body, matter.Vector.create(x, y));
     }
     /***************************************************************************************************************
-    *   Sets a new sprite for this game object.
-    *
-    *   @param sprite The image source to set.
+    *   Renders the current game object.
     ***************************************************************************************************************/
-    GameObject.prototype.setSprite = function (sprite) {
-        if (sprite != null) {
-            this.sprite = sprite;
-            this.shape.body.render.sprite.texture = sprite.imageIds[0];
-        }
+    GameObject.prototype.render = function () {
+        // next sprite frame
+    };
+    /***************************************************************************************************************
+    *   Assigns the current active sprite frame as the game objects image.
+    ***************************************************************************************************************/
+    GameObject.prototype.setImageFromSprite = function () {
+        this.shape.body.render.sprite.texture = this.sprite.imageIds[this.sprite.currentFrame];
+        // TODO update dimension!
     };
     /***************************************************************************************************************
     *   Avoids this game object from rotating.
@@ -11761,12 +11764,14 @@ var GameObject = /** @class */ (function () {
     *   Clips this body to the horizontal level bounds.
     ***************************************************************************************************************/
     GameObject.prototype.clipToHorizontalLevelBounds = function () {
+        // clip left bound
         if (this.shape.body.position.x < this.shape.getWidth() / 2) {
             matter.Body.setPosition(this.shape.body, {
                 x: this.shape.getWidth() / 2,
                 y: this.shape.body.position.y
             });
         }
+        // clip right bound
         if (this.shape.body.position.x > ninjas.Main.game.level.width - this.shape.getWidth() / 2) {
             matter.Body.setPosition(this.shape.body, {
                 x: ninjas.Main.game.level.width - this.shape.getWidth() / 2,
@@ -12061,6 +12066,7 @@ var Character = /** @class */ (function (_super) {
     *   Renders the current character tick.
     ***************************************************************************************************************/
     Character.prototype.render = function () {
+        _super.prototype.render.call(this);
         this.checkBottomCollision();
         this.resetRotation();
         this.clipToHorizontalLevelBounds();
@@ -12307,6 +12313,7 @@ var Platform = /** @class */ (function (_super) {
     *   Renders this obstacle.
     ***************************************************************************************************************/
     Platform.prototype.render = function () {
+        _super.prototype.render.call(this);
         ++this.currentStep;
         if (this.currentStep > this.stepsTillNextWaypoint) {
             this.assignNextWaypoint();
@@ -12482,6 +12489,7 @@ var Movable = /** @class */ (function (_super) {
     *   Renders this box.
     ***************************************************************************************************************/
     Movable.prototype.render = function () {
+        _super.prototype.render.call(this);
         this.clipToHorizontalLevelBounds();
     };
     return Movable;
@@ -12534,11 +12542,18 @@ var Item = /** @class */ (function (_super) {
     *   Renders this item.
     ***************************************************************************************************************/
     Item.prototype.render = function () {
+        _super.prototype.render.call(this);
         if (!this.picked) {
-            if (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds)) {
-                ninjas.Debug.item.log("Player picked item");
-                this.pick();
-            }
+            this.checkPicked();
+        }
+    };
+    /***************************************************************************************************************
+    *   Checks if this item is picked up in this frame.
+    ***************************************************************************************************************/
+    Item.prototype.checkPicked = function () {
+        if (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds)) {
+            ninjas.Debug.item.log("Player picked item");
+            this.pick();
         }
     };
     /***************************************************************************************************************
@@ -12598,6 +12613,7 @@ var Decoration = /** @class */ (function (_super) {
     *   Renders this obstacle.
     ***************************************************************************************************************/
     Decoration.prototype.render = function () {
+        _super.prototype.render.call(this);
     };
     return Decoration;
 }(ninjas.GameObject));
@@ -12649,6 +12665,7 @@ var Obstacle = /** @class */ (function (_super) {
     *   Renders this obstacle.
     ***************************************************************************************************************/
     Obstacle.prototype.render = function () {
+        _super.prototype.render.call(this);
         if (this.jumpPassThrough) {
             /*
                             if
@@ -12735,6 +12752,7 @@ var SigSaw = /** @class */ (function (_super) {
     *   Renders this sigsaw.
     ***************************************************************************************************************/
     SigSaw.prototype.render = function () {
+        _super.prototype.render.call(this);
         this.clipRotation();
         this.clipRotationSpeed();
     };
@@ -12829,6 +12847,7 @@ var Bounce = /** @class */ (function (_super) {
     *   Renders this sigsaw.
     ***************************************************************************************************************/
     Bounce.prototype.render = function () {
+        _super.prototype.render.call(this);
         matter.Body.setAngle(this.shape.body, 0.0);
         matter.Body.setAngularVelocity(this.shape.body, 0.0);
     };
@@ -12855,12 +12874,12 @@ var ninjas = __webpack_require__(0);
 var Game = /** @class */ (function () {
     function Game() {
         var _this = this;
-        /** The current width of the canvas. */
-        this.CANVAS_WIDTH = 0;
-        /** The current height of the canvas. */
-        this.CANVAS_HEIGHT = 0;
         /** The canvas element. */
         this.canvas = null;
+        /** The current width of the canvas. */
+        this.canvasWidth = 0;
+        /** The current height of the canvas. */
+        this.canvasHeight = 0;
         /** The MatterJS engine. */
         this.engine = null;
         /** The MatterJS renderer. */
@@ -12902,6 +12921,11 @@ var Game = /** @class */ (function () {
             _this.render();
             // update MatterJS 2d engine
             matter.Engine.update(_this.engine, ninjas.Setting.RENDER_DELTA);
+            /*
+                        let context:CanvasRenderingContext2D = this.canvas.getContext( "2d" );
+                        context.fillStyle = "#ff0000";
+                        context.fillRect( 0, 0, 100, 200 );
+            */
         };
     }
     /***************************************************************************************************************
@@ -12929,14 +12953,14 @@ var Game = /** @class */ (function () {
     *   Updates the dimension of the canvas according to the browser window.
     ***************************************************************************************************************/
     Game.prototype.updateCanvasDimension = function () {
-        this.CANVAS_WIDTH = window.innerWidth;
-        this.CANVAS_HEIGHT = window.innerHeight;
+        this.canvasWidth = window.innerWidth;
+        this.canvasHeight = window.innerHeight;
         // clip to minimum canvas dimensions
-        if (this.CANVAS_WIDTH < ninjas.Setting.MIN_CANVAS_WIDTH)
-            this.CANVAS_WIDTH = ninjas.Setting.MIN_CANVAS_WIDTH;
-        if (this.CANVAS_HEIGHT < ninjas.Setting.MIN_CANVAS_HEIGHT)
-            this.CANVAS_HEIGHT = ninjas.Setting.MIN_CANVAS_HEIGHT;
-        ninjas.Debug.init.log("Updated canvas dimension to [" + this.CANVAS_WIDTH + "x" + this.CANVAS_HEIGHT + "] ");
+        if (this.canvasWidth < ninjas.Setting.MIN_CANVAS_WIDTH)
+            this.canvasWidth = ninjas.Setting.MIN_CANVAS_WIDTH;
+        if (this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT)
+            this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
+        ninjas.Debug.init.log("Updated canvas dimension to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
     };
     /***************************************************************************************************************
     *   Inits the 2D canvas by creating and adding it to the document body.
@@ -12945,8 +12969,8 @@ var Game = /** @class */ (function () {
         // create
         this.canvas = document.createElement("canvas");
         // set dimension
-        this.canvas.width = this.CANVAS_WIDTH;
-        this.canvas.height = this.CANVAS_HEIGHT;
+        this.canvas.width = this.canvasWidth;
+        this.canvas.height = this.canvasHeight;
         // append to body
         document.body.appendChild(this.canvas);
     };
@@ -12962,8 +12986,8 @@ var Game = /** @class */ (function () {
             showCollisions: true,
             showAngleIndicator: true,
             showVelocity: true,
-            width: this.CANVAS_WIDTH,
-            height: this.CANVAS_HEIGHT,
+            width: this.canvasWidth,
+            height: this.canvasHeight,
         };
         this.renderer = matter.Render.create({
             canvas: this.canvas,
@@ -12984,10 +13008,10 @@ var Game = /** @class */ (function () {
         window.onresize = function (event) {
             ninjas.Debug.init.log("Image resize event being detected.");
             _this.updateCanvasDimension();
-            _this.renderer.canvas.width = _this.CANVAS_WIDTH;
-            _this.renderer.canvas.height = _this.CANVAS_HEIGHT;
-            _this.renderer.options.width = _this.CANVAS_WIDTH;
-            _this.renderer.options.height = _this.CANVAS_HEIGHT;
+            _this.renderer.canvas.width = _this.canvasWidth;
+            _this.renderer.canvas.height = _this.canvasHeight;
+            _this.renderer.options.width = _this.canvasWidth;
+            _this.renderer.options.height = _this.canvasHeight;
             _this.resetCamera();
         };
     };
@@ -13030,7 +13054,7 @@ var Game = /** @class */ (function () {
     *   Resets the camera.
     ***************************************************************************************************************/
     Game.prototype.resetCamera = function () {
-        this.camera = new ninjas.Camera(this.renderer, ninjas.Setting.CAMERA_RATIO_X, ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, this.level.width, this.level.height, this.CANVAS_WIDTH, this.CANVAS_HEIGHT);
+        this.camera = new ninjas.Camera(this.renderer, ninjas.Setting.CAMERA_RATIO_X, ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, this.level.width, this.level.height, this.canvasWidth, this.canvasHeight);
         this.camera.reset();
     };
     /***************************************************************************************************************
@@ -13856,6 +13880,7 @@ var Sprite = /** @class */ (function () {
     *   @param imageIds All image ids this sprite consists of.
     ***************************************************************************************************************/
     function Sprite(imageIds) {
+        // TODO all to SpriteSystem
         /** All image ids this sprite consists of. */
         this.imageIds = null;
         /** The id of the current frame for this sprite. */

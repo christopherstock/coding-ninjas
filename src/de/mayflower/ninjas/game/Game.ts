@@ -10,12 +10,12 @@
     *******************************************************************************************************************/
     export class Game
     {
-        /** The current width of the canvas. */
-        public      CANVAS_WIDTH            :number                 = 0;
-        /** The current height of the canvas. */
-        public      CANVAS_HEIGHT           :number                 = 0;
         /** The canvas element. */
         public      canvas                  :HTMLCanvasElement      = null;
+        /** The current width of the canvas. */
+        public      canvasWidth             :number                 = 0;
+        /** The current height of the canvas. */
+        public      canvasHeight            :number                 = 0;
 
         /** The MatterJS engine. */
         public      engine                  :matter.Engine          = null;
@@ -94,14 +94,14 @@
         ***************************************************************************************************************/
         private updateCanvasDimension()
         {
-            this.CANVAS_WIDTH  = window.innerWidth;
-            this.CANVAS_HEIGHT = window.innerHeight;
+            this.canvasWidth  = window.innerWidth;
+            this.canvasHeight = window.innerHeight;
 
             // clip to minimum canvas dimensions
-            if ( this.CANVAS_WIDTH  < ninjas.Setting.MIN_CANVAS_WIDTH  ) this.CANVAS_WIDTH  = ninjas.Setting.MIN_CANVAS_WIDTH;
-            if ( this.CANVAS_HEIGHT < ninjas.Setting.MIN_CANVAS_HEIGHT ) this.CANVAS_HEIGHT = ninjas.Setting.MIN_CANVAS_HEIGHT;
+            if ( this.canvasWidth  < ninjas.Setting.MIN_CANVAS_WIDTH  ) this.canvasWidth  = ninjas.Setting.MIN_CANVAS_WIDTH;
+            if ( this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT ) this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
 
-            ninjas.Debug.init.log( "Updated canvas dimension to [" + this.CANVAS_WIDTH + "x" + this.CANVAS_HEIGHT + "] " );
+            ninjas.Debug.init.log( "Updated canvas dimension to [" + this.canvasWidth + "x" + this.canvasHeight + "] " );
         }
 
         /***************************************************************************************************************
@@ -113,8 +113,8 @@
             this.canvas = document.createElement( "canvas" );
 
             // set dimension
-            this.canvas.width  = this.CANVAS_WIDTH;
-            this.canvas.height = this.CANVAS_HEIGHT;
+            this.canvas.width  = this.canvasWidth;
+            this.canvas.height = this.canvasHeight;
 
             // append to body
             document.body.appendChild( this.canvas );
@@ -137,8 +137,8 @@
                 showAngleIndicator: true,
                 showVelocity:       true,
 
-                width:              this.CANVAS_WIDTH,
-                height:             this.CANVAS_HEIGHT,
+                width:              this.canvasWidth,
+                height:             this.canvasHeight,
 
                 // TODO enable texture cache?
                 // textures:           ninjas.Image.FILE_NAMES,
@@ -171,11 +171,11 @@
 
                 this.updateCanvasDimension();
 
-                this.renderer.canvas.width  = this.CANVAS_WIDTH;
-                this.renderer.canvas.height = this.CANVAS_HEIGHT;
+                this.renderer.canvas.width  = this.canvasWidth;
+                this.renderer.canvas.height = this.canvasHeight;
 
-                this.renderer.options.width  = this.CANVAS_WIDTH;
-                this.renderer.options.height = this.CANVAS_HEIGHT;
+                this.renderer.options.width  = this.canvasWidth;
+                this.renderer.options.height = this.canvasHeight;
 
                 this.resetCamera();
             };
@@ -242,8 +242,8 @@
                 ninjas.Setting.CAMERA_MOVING_MINIMUM,
                 this.level.width,
                 this.level.height,
-                this.CANVAS_WIDTH,
-                this.CANVAS_HEIGHT
+                this.canvasWidth,
+                this.canvasHeight
             );
             this.camera.reset();
         }
@@ -258,6 +258,11 @@
 
             // update MatterJS 2d engine
             matter.Engine.update( this.engine, ninjas.Setting.RENDER_DELTA );
+/*
+            let context:CanvasRenderingContext2D = this.canvas.getContext( "2d" );
+            context.fillStyle = "#ff0000";
+            context.fillRect( 0, 0, 100, 200 );
+*/
         };
 
         /***************************************************************************************************************
