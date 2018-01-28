@@ -12163,12 +12163,12 @@ var Bounce = /** @class */ (function (_super) {
     *   Creates a new bounce.
     *
     *   @param shape  The shape for this object.
+    *   @param sprite The sprite for this game object.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param sprite The sprite for this game object.
     ***************************************************************************************************************/
-    function Bounce(shape, x, y, sprite) {
-        var _this = _super.call(this, shape, x, y, sprite) || this;
+    function Bounce(shape, sprite, x, y) {
+        var _this = _super.call(this, shape, sprite, x, y) || this;
         /** The constraint that builds the turning point for the bounce. */
         _this.constraint = null;
         _this.constraint = matter.Constraint.create({
@@ -12240,15 +12240,15 @@ var Character = /** @class */ (function (_super) {
     *   Creates a new character.
     *
     *   @param shape            The shape for this object.
+    *   @param sprite            The image for this game object.
     *   @param x                Startup position X.
     *   @param y                Startup position Y.
-    *   @param sprite            The image for this game object.
     *   @param lookingDirection The initial looking direction.
     *   @param speedMove        The speed for horizontal movement.
     *   @param jumpPower        The vertical force to apply on jumping.
     ***************************************************************************************************************/
-    function Character(shape, x, y, sprite, lookingDirection, speedMove, jumpPower) {
-        var _this = _super.call(this, shape, x, y, sprite) || this;
+    function Character(shape, sprite, x, y, lookingDirection, speedMove, jumpPower) {
+        var _this = _super.call(this, shape, sprite, x, y) || this;
         /** The looking direction for this character. */
         _this.lookingDirection = null;
         /** Flags if this character is dead. */
@@ -12417,12 +12417,12 @@ var Decoration = /** @class */ (function (_super) {
     *   Creates a new decoration.
     *
     *   @param shape  The shape for this object.
+    *   @param sprite The sprite to use.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param sprite The sprite to use.
     ***************************************************************************************************************/
-    function Decoration(shape, x, y, sprite) {
-        var _this = _super.call(this, shape, x, y, sprite) || this;
+    function Decoration(shape, sprite, x, y) {
+        var _this = _super.call(this, shape, sprite, x, y) || this;
         _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO;
         return _this;
     }
@@ -12472,7 +12472,7 @@ var Enemy = /** @class */ (function (_super) {
     *   @param y      Startup position Y.
     ***************************************************************************************************************/
     function Enemy(shape, x, y) {
-        return _super.call(this, shape, x, y, null, ninjas.CharacterLookingDirection.LEFT, 4.0, ninjas.Setting.PLAYER_JUMP_POWER) || this;
+        return _super.call(this, shape, null, x, y, ninjas.CharacterLookingDirection.LEFT, 4.0, ninjas.Setting.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -12527,23 +12527,21 @@ var GameObject = /** @class */ (function () {
     *   Creates a new game object.
     *
     *   @param shape  The shape for this object.
+    *   @param sprite The sprite for this game object.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param sprite The sprite for this game object.
-    *
-    *   TODO rearrange object params x and y down! (or up?)
     ***************************************************************************************************************/
-    function GameObject(shape, x, y, sprite) {
+    function GameObject(shape, sprite, x, y) {
         /** Collision shape. */
         this.shape = null;
         /** Sprite. */
         this.sprite = null;
         this.shape = shape;
         this.sprite = sprite;
+        matter.Body.translate(this.shape.body, matter.Vector.create(x, y));
         if (this.sprite != null) {
             this.setImageFromSprite();
         }
-        matter.Body.translate(this.shape.body, matter.Vector.create(x, y));
     }
     /***************************************************************************************************************
     *   Sets the specified sprite template.
@@ -12673,10 +12671,10 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param friction The surface friction for this box.
     *   @param density  The density for this box.
     *
-    *   @return       The created box.
+    *   @return The created box.
     ***************************************************************************************************************/
     GameObjectFactory.createCrate = function (x, y, width, height, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_CRATE));
+        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_CRATE), x, y);
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -12687,10 +12685,10 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param friction The surface friction for this object.
     *   @param density  The density for this object.
     *
-    *   @return         The created sphere.
+    *   @return The created sphere.
     ***************************************************************************************************************/
     GameObjectFactory.createSphere = function (x, y, diameter, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeCircle(diameter, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, null);
+        return new ninjas.Movable(new ninjas.ShapeCircle(diameter, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), null, x, y);
     };
     /***************************************************************************************************************
     *   Creates an item.
@@ -12698,10 +12696,10 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param x Anchor X.
     *   @param y Anchor Y.
     *
-    *   @return  The created item.
+    *   @return The created item.
     ***************************************************************************************************************/
     GameObjectFactory.createItem = function (x, y) {
-        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.Setting.COLOR_DEBUG_ITEM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y);
+        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.Setting.COLOR_DEBUG_ITEM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_ITEM), x, y);
     };
     /***************************************************************************************************************
     *   Creates an rectangular obstacle.
@@ -12713,7 +12711,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param angle           The initial rotation.
     *   @param jumpPassThrough Specifies if the player can jump through this obstacle.
     *
-    *   @return                The created obstacle.
+    *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createObstacle = function (x, y, width, height, angle, jumpPassThrough) {
         return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_CONCRETE, Infinity), x, y, jumpPassThrough);
@@ -12726,7 +12724,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param vertices All vertices that build up the free form.
     *   @param angle    The initial rotation of the form.
     *
-    *   @return         The created obstacle.
+    *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createFreeForm = function (x, y, vertices, angle) {
         return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, false);
@@ -12740,7 +12738,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param height The remp height.
     *   @param deltaY Ramp will ascend if <code>true</code> and descend if <code>false</code>.
     *
-    *   @return         The created obstacle ramp.
+    *   @return The created obstacle ramp.
     ***************************************************************************************************************/
     GameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY) {
         var vertices = [];
@@ -12759,7 +12757,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param x Anchor X.
     *   @param y Anchor Y.
     *
-    *   @return  The created enemy.
+    *   @return The created enemy.
     ***************************************************************************************************************/
     GameObjectFactory.createEnemy = function (x, y) {
         return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.Setting.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y);
@@ -12773,10 +12771,10 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param height Object height.
     *   @param sprite The decoration sprite.
     *
-    *   @return       The created decoration.
+    *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createDecoration = function (x, y, width, height, sprite) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, sprite);
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), sprite, x, y);
     };
     /***************************************************************************************************************
     *   Creates a site trigger.
@@ -12787,10 +12785,10 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param height Object height.
     *   @param sprite The decoration sprite.
     *
-    *   @return       The created site trigger.
+    *   @return The created site trigger.
     ***************************************************************************************************************/
     GameObjectFactory.createSiteTrigger = function (x, y, width, height, sprite) {
-        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, sprite);
+        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), sprite, x, y);
     };
     /***************************************************************************************************************
     *   Creates a non-collidable background.
@@ -12801,10 +12799,10 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param height Object height.
     *   @param color  The color of this background.
     *
-    *   @return       The created decoration.
+    *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createBackground = function (x, y, width, height, color) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, color, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, null);
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, color, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), null, x, y);
     };
     /***************************************************************************************************************
     *   Creates a sigsaw.
@@ -12815,10 +12813,10 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param height Object height.
     *   @param sprite The decoration sprite.
     *
-    *   @return       The created decoration.
+    *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createSigsaw = function (x, y, width, height, sprite) {
-        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, sprite);
+        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), sprite, x, y);
     };
     /***************************************************************************************************************
     *   Creates a platform.
@@ -12829,10 +12827,10 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param speed     Moving speed of the platform in px per tick.
     *   @param waypoints Moving waypoints. First waypoint is the startup position.
     *
-    *   @return       The created decoration.
+    *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createPlatform = function (width, height, sprite, speed, waypoints) {
-        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), speed, waypoints, sprite);
+        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), sprite, speed, waypoints);
     };
     /***************************************************************************************************************
      *   Creates a bounce.
@@ -12843,10 +12841,10 @@ var GameObjectFactory = /** @class */ (function () {
      *   @param height Object height.
      *   @param sprite The decoration sprite.
      *
-     *   @return       The created decoration.
+     *   @return The created decoration.
      ***************************************************************************************************************/
     GameObjectFactory.createBounce = function (x, y, width, height, sprite) {
-        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, sprite);
+        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), sprite, x, y);
     };
     return GameObjectFactory;
 }());
@@ -12884,11 +12882,12 @@ var Item = /** @class */ (function (_super) {
     *   Creates a new item.
     *
     *   @param shape  The shape for this object.
+    *   @param sprite The sprite to use for this object.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
     ***************************************************************************************************************/
-    function Item(shape, x, y) {
-        var _this = _super.call(this, shape, x, y, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_ITEM)) || this;
+    function Item(shape, sprite, x, y) {
+        var _this = _super.call(this, shape, sprite, x, y) || this;
         /** Indicates if this item has been picked. */
         _this.picked = null;
         _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
@@ -12956,12 +12955,12 @@ var Movable = /** @class */ (function (_super) {
     *   Creates a new movable.
     *
     *   @param shape  The shape for this object.
+    *   @param sprite The sprite for this box.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param sprite The sprite for this box.
     ***************************************************************************************************************/
-    function Movable(shape, x, y, sprite) {
-        return _super.call(this, shape, x, y, sprite) || this;
+    function Movable(shape, sprite, x, y) {
+        return _super.call(this, shape, sprite, x, y) || this;
     }
     /***************************************************************************************************************
     *   Renders this box.
@@ -13010,7 +13009,7 @@ var Obstacle = /** @class */ (function (_super) {
     *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
     ***************************************************************************************************************/
     function Obstacle(shape, x, y, jumpPassThrough) {
-        var _this = _super.call(this, shape, x, y, null) || this;
+        var _this = _super.call(this, shape, null, x, y) || this;
         /** Specifies if the player shall be allowed to jump through this obstacle. */
         _this.jumpPassThrough = false;
         _this.jumpPassThrough = jumpPassThrough;
@@ -13077,12 +13076,12 @@ var Platform = /** @class */ (function (_super) {
     *   Creates a new platform. Initial position is the first waypoint.
     *
     *   @param shape     The shape for this object.
+    *   @param sprite    The sprite for this platform.
     *   @param speed     The speed in pixels per tick.
     *   @param waypoints The waypoints for this platform to move to.
-    *   @param sprite    The sprite for this platform.
     ***************************************************************************************************************/
-    function Platform(shape, speed, waypoints, sprite) {
-        var _this = _super.call(this, shape, 0.0, 0.0, sprite) || this;
+    function Platform(shape, sprite, speed, waypoints) {
+        var _this = _super.call(this, shape, sprite, 0.0, 0.0) || this;
         /** The waypoints for this platform to move. */
         _this.waypoints = null;
         /** The number of ticks till the next waypoint is reached. */
@@ -13201,7 +13200,7 @@ var Player = /** @class */ (function (_super) {
     *   @param sprite            The initial image for the player.
     ***************************************************************************************************************/
     function Player(x, y, lookingDirection, sprite) {
-        return _super.call(this, new ninjas.ShapeRectangle(sprite.template.width, sprite.template.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, sprite, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
+        return _super.call(this, new ninjas.ShapeRectangle(sprite.template.width, sprite.template.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), sprite, x, y, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -13347,12 +13346,12 @@ var SigSaw = /** @class */ (function (_super) {
     *   Creates a new sigsaw.
     *
     *   @param shape  The shape for this object.
+    *   @param sprite The sprite for this game object.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param sprite The sprite for this game object.
     ***************************************************************************************************************/
-    function SigSaw(shape, x, y, sprite) {
-        var _this = _super.call(this, shape, x, y, sprite) || this;
+    function SigSaw(shape, sprite, x, y) {
+        var _this = _super.call(this, shape, sprite, x, y) || this;
         /** The constraint that builds the turning point for the sigsaw. */
         _this.constraint = null;
         _this.constraint = matter.Constraint.create({
@@ -13446,12 +13445,12 @@ var SiteTrigger = /** @class */ (function (_super) {
     *   Creates a new site trigger.
     *
     *   @param shape  The shape for this object.
+    *   @param sprite The sprite to use.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param sprite The sprite to use.
     ***************************************************************************************************************/
-    function SiteTrigger(shape, x, y, sprite) {
-        var _this = _super.call(this, shape, x, y, sprite) || this;
+    function SiteTrigger(shape, sprite, x, y) {
+        var _this = _super.call(this, shape, sprite, x, y) || this;
         /** Flags if the according popup is currently displayed. */
         _this.popupActive = false;
         return _this;
@@ -14308,7 +14307,7 @@ var SpriteTemplate = /** @class */ (function () {
     *   @param loop               Specifies if the frame animation should be repeated infinitely.
     ***************************************************************************************************************/
     function SpriteTemplate(imageIds, ticksBetweenFrames, mirrored, loop) {
-        /** All image ids this sprite consists of. TODO private */
+        /** All image ids this sprite consists of. */
         this.imageIds = null;
         /** The number of ticks between frame changes. */
         this.ticksBetweenFrames = 0;
@@ -14318,9 +14317,9 @@ var SpriteTemplate = /** @class */ (function () {
         this.loop = false;
         /** Flags if this sprite has only one frame. */
         this.singleFramed = false;
-        /** The width of all images in this sprite. TODO private with getter */
+        /** The width of all images in this sprite. */
         this.width = 0;
-        /** The height of all images in this sprite. TODO private with getter */
+        /** The height of all images in this sprite. */
         this.height = 0;
         this.imageIds = imageIds;
         this.ticksBetweenFrames = ticksBetweenFrames;

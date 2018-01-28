@@ -34,29 +34,27 @@
         *   Creates a new game object.
         *
         *   @param shape  The shape for this object.
+        *   @param sprite The sprite for this game object.
         *   @param x      Startup position X.
         *   @param y      Startup position Y.
-        *   @param sprite The sprite for this game object.
-        *
-        *   TODO rearrange object params x and y down! (or up?)
         ***************************************************************************************************************/
         protected constructor
         (
             shape  :ninjas.Shape,
+            sprite :ninjas.Sprite,
             x      :number,
-            y      :number,
-            sprite :ninjas.Sprite
+            y      :number
         )
         {
             this.shape  = shape;
             this.sprite = sprite;
 
+            matter.Body.translate( this.shape.body, matter.Vector.create( x, y ) );
+
             if ( this.sprite != null )
             {
                 this.setImageFromSprite();
             }
-
-            matter.Body.translate( this.shape.body, matter.Vector.create( x, y ) );
         }
 
         /***************************************************************************************************************

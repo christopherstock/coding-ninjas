@@ -190,7 +190,7 @@
             SpriteTemplate.SPRITE_TREE,
         ];
 
-        /** All image ids this sprite consists of. TODO private */
+        /** All image ids this sprite consists of. */
         public                  imageIds                                :Array<string>          = null;
         /** The number of ticks between frame changes. */
         public                  ticksBetweenFrames                      :number                 = 0;
@@ -202,9 +202,9 @@
         /** Flags if this sprite has only one frame. */
         public                  singleFramed                            :boolean                = false;
 
-        /** The width of all images in this sprite. TODO private with getter */
+        /** The width of all images in this sprite. */
         public                  width                                   :number                 = 0;
-        /** The height of all images in this sprite. TODO private with getter */
+        /** The height of all images in this sprite. */
         public                  height                                  :number                 = 0;
 
         /***************************************************************************************************************

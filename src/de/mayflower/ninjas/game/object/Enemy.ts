@@ -17,14 +17,14 @@
         *   @param x      Startup position X.
         *   @param y      Startup position Y.
         ***************************************************************************************************************/
-        public constructor(shape:ninjas.Shape, x:number, y:number )
+        public constructor( shape:ninjas.Shape, x:number, y:number )
         {
             super
             (
                 shape,
+                null,
                 x,
                 y,
-                null,
                 ninjas.CharacterLookingDirection.LEFT,
                 4.0,
                 ninjas.Setting.PLAYER_JUMP_POWER

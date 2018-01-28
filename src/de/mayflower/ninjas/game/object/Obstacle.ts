@@ -20,14 +20,14 @@
         *   @param y               Startup position Y.
         *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
         ***************************************************************************************************************/
-        public constructor(shape:ninjas.Shape, x:number, y:number, jumpPassThrough:boolean )
+        public constructor( shape:ninjas.Shape, x:number, y:number, jumpPassThrough:boolean )
         {
             super
             (
                 shape,
+                null,
                 x,
-                y,
-                null
+                y
             );
 
             this.jumpPassThrough = jumpPassThrough;

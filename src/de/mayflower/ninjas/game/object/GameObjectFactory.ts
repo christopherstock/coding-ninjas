@@ -20,7 +20,7 @@
         *   @param friction The surface friction for this box.
         *   @param density  The density for this box.
         *
-        *   @return       The created box.
+        *   @return The created box.
         ***************************************************************************************************************/
         public static createCrate(x:number, y:number, width:number, height:number, friction:number, density:number ):ninjas.Movable
         {
@@ -36,9 +36,9 @@
                     friction,
                     density
                 ),
+                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_CRATE ),
                 x,
-                y,
-                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_CRATE )
+                y
             );
         }
 
@@ -51,7 +51,7 @@
         *   @param friction The surface friction for this object.
         *   @param density  The density for this object.
         *
-        *   @return         The created sphere.
+        *   @return The created sphere.
         ***************************************************************************************************************/
         public static createSphere( x:number, y:number, diameter:number, friction:number, density:number ):ninjas.Movable
         {
@@ -66,9 +66,9 @@
                     friction,
                     density
                 ),
+                null,
                 x,
-                y,
-                null
+                y
             );
         }
 
@@ -78,7 +78,7 @@
         *   @param x Anchor X.
         *   @param y Anchor Y.
         *
-        *   @return  The created item.
+        *   @return The created item.
         ***************************************************************************************************************/
         public static createItem( x:number, y:number ):ninjas.Item
         {
@@ -94,6 +94,7 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
+                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_ITEM ),
                 x,
                 y
             );
@@ -109,7 +110,7 @@
         *   @param angle           The initial rotation.
         *   @param jumpPassThrough Specifies if the player can jump through this obstacle.
         *
-        *   @return                The created obstacle.
+        *   @return The created obstacle.
         ***************************************************************************************************************/
         public static createObstacle( x:number, y:number, width:number, height:number, angle:number, jumpPassThrough:boolean ):ninjas.Obstacle
         {
@@ -139,7 +140,7 @@
         *   @param vertices All vertices that build up the free form.
         *   @param angle    The initial rotation of the form.
         *
-        *   @return         The created obstacle.
+        *   @return The created obstacle.
         ***************************************************************************************************************/
         public static createFreeForm( x:number, y:number, vertices:Array<matter.Vector>, angle:number ):ninjas.Obstacle
         {
@@ -169,7 +170,7 @@
         *   @param height The remp height.
         *   @param deltaY Ramp will ascend if <code>true</code> and descend if <code>false</code>.
         *
-        *   @return         The created obstacle ramp.
+        *   @return The created obstacle ramp.
         ***************************************************************************************************************/
         public static createElevatedRamp( x:number, y:number, width:number, height:number, deltaY:number ):ninjas.Obstacle
         {
@@ -208,7 +209,7 @@
         *   @param x Anchor X.
         *   @param y Anchor Y.
         *
-        *   @return  The created enemy.
+        *   @return The created enemy.
         ***************************************************************************************************************/
         public static createEnemy( x:number, y:number ):ninjas.Enemy
         {
@@ -238,7 +239,7 @@
         *   @param height Object height.
         *   @param sprite The decoration sprite.
         *
-        *   @return       The created decoration.
+        *   @return The created decoration.
         ***************************************************************************************************************/
         public static createDecoration( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ):ninjas.Decoration
         {
@@ -254,9 +255,9 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
+                sprite,
                 x,
-                y,
-                sprite
+                y
             );
         }
 
@@ -269,7 +270,7 @@
         *   @param height Object height.
         *   @param sprite The decoration sprite.
         *
-        *   @return       The created site trigger.
+        *   @return The created site trigger.
         ***************************************************************************************************************/
         public static createSiteTrigger( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ) : ninjas.SiteTrigger
         {
@@ -285,9 +286,9 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
+                sprite,
                 x,
-                y,
-                sprite
+                y
             );
         }
 
@@ -300,7 +301,7 @@
         *   @param height Object height.
         *   @param color  The color of this background.
         *
-        *   @return       The created decoration.
+        *   @return The created decoration.
         ***************************************************************************************************************/
         public static createBackground( x:number, y:number, width:number, height:number, color:string ) : ninjas.Decoration
         {
@@ -316,9 +317,9 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
+                null,
                 x,
-                y,
-                null
+                y
             );
         }
 
@@ -331,7 +332,7 @@
         *   @param height Object height.
         *   @param sprite The decoration sprite.
         *
-        *   @return       The created decoration.
+        *   @return The created decoration.
         ***************************************************************************************************************/
         public static createSigsaw( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ):ninjas.SigSaw
         {
@@ -347,9 +348,9 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     ninjas.GameObject.DENSITY_DEFAULT
                 ),
+                sprite,
                 x,
-                y,
-                sprite
+                y
             );
         }
 
@@ -362,7 +363,7 @@
         *   @param speed     Moving speed of the platform in px per tick.
         *   @param waypoints Moving waypoints. First waypoint is the startup position.
         *
-        *   @return       The created decoration.
+        *   @return The created decoration.
         ***************************************************************************************************************/
         public static createPlatform
         (
@@ -386,9 +387,9 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
+                sprite,
                 speed,
                 waypoints,
-                sprite
             );
         }
 
@@ -401,7 +402,7 @@
          *   @param height Object height.
          *   @param sprite The decoration sprite.
          *
-         *   @return       The created decoration.
+         *   @return The created decoration.
          ***************************************************************************************************************/
         public static createBounce( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ):ninjas.Bounce
         {
@@ -417,9 +418,9 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     ninjas.GameObject.DENSITY_DEFAULT
                 ),
+                sprite,
                 x,
-                y,
-                sprite
+                y
             );
         }
     }

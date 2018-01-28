@@ -13,24 +13,24 @@
         *   Creates a new movable.
         *
         *   @param shape  The shape for this object.
+        *   @param sprite The sprite for this box.
         *   @param x      Startup position X.
         *   @param y      Startup position Y.
-        *   @param sprite The sprite for this box.
         ***************************************************************************************************************/
         public constructor
         (
             shape  :ninjas.Shape,
+            sprite :ninjas.Sprite,
             x      :number,
-            y      :number,
-            sprite :ninjas.Sprite
+            y      :number
         )
         {
             super
             (
                 shape,
+                sprite,
                 x,
-                y,
-                sprite
+                y
             );
         }
 

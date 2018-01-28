@@ -38,9 +38,9 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     ninjas.GameObject.DENSITY_HUMAN
                 ),
+                sprite,
                 x,
                 y,
-                sprite,
                 lookingDirection,
                 ninjas.Setting.PLAYER_SPEED_MOVE,
                 ninjas.Setting.PLAYER_JUMP_POWER

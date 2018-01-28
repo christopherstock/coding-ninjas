@@ -17,17 +17,18 @@
         *   Creates a new item.
         *
         *   @param shape  The shape for this object.
+        *   @param sprite The sprite to use for this object.
         *   @param x      Startup position X.
         *   @param y      Startup position Y.
         ***************************************************************************************************************/
-        public constructor( shape:ninjas.Shape, x:number, y:number )
+        public constructor( shape:ninjas.Shape, sprite:ninjas.Sprite, x:number, y:number )
         {
             super
             (
                 shape,
+                sprite,
                 x,
                 y,
-                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_ITEM )
             );
 
             this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;

@@ -17,18 +17,18 @@
         *   Creates a new bounce.
         *
         *   @param shape  The shape for this object.
+        *   @param sprite The sprite for this game object.
         *   @param x      Startup position X.
         *   @param y      Startup position Y.
-        *   @param sprite The sprite for this game object.
         ***************************************************************************************************************/
-        public constructor( shape:ninjas.Shape, x:number, y:number, sprite:ninjas.Sprite )
+        public constructor( shape:ninjas.Shape, sprite:ninjas.Sprite, x:number, y:number,  )
         {
             super
             (
                 shape,
+                sprite,
                 x,
-                y,
-                sprite
+                y
             );
 
             this.constraint = matter.Constraint.create(
