@@ -11,14 +11,20 @@
     export class Site
     {
         /*****************************************************************************
-        *
+        *   Being invoked when a popup shall be shown.
         *****************************************************************************/
-        public static test() : void
+        public static showPopup() : void
         {
-            ninjas.Debug.site.log( "Site::test() being invoked" );
+            ninjas.Debug.site.log( "Site.showPopup() being invoked" );
 
+        }
 
-
+        /*****************************************************************************
+        *   Being invoked when a popup shall be hidden.
+        *****************************************************************************/
+        public static hidePopup() : void
+        {
+            ninjas.Debug.site.log( "Site.hidePopup() being invoked" );
 
         }
     }

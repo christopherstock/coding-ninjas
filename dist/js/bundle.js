@@ -12421,7 +12421,7 @@ var Decoration = /** @class */ (function (_super) {
         return _this;
     }
     /***************************************************************************************************************
-    *   Renders this obstacle.
+    *   Renders this decoration.
     ***************************************************************************************************************/
     Decoration.prototype.render = function () {
         _super.prototype.render.call(this);
@@ -12784,7 +12784,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return       The created site trigger.
     ***************************************************************************************************************/
     GameObjectFactory.createSiteTrigger = function (x, y, width, height, sprite) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, sprite);
+        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, sprite);
     };
     /***************************************************************************************************************
     *   Creates a non-collidable background.
@@ -13425,7 +13425,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
+var site = __webpack_require__(49);
 /*******************************************************************************************************************
 *   Represents a non-colliding decoration.
 *
@@ -13443,13 +13445,35 @@ var SiteTrigger = /** @class */ (function (_super) {
     *   @param sprite The sprite to use.
     ***************************************************************************************************************/
     function SiteTrigger(shape, x, y, sprite) {
-        return _super.call(this, shape, x, y, sprite) || this;
+        var _this = _super.call(this, shape, x, y, sprite) || this;
+        /** Flags if the according popup is currently displayed. */
+        _this.popupActive = false;
+        return _this;
     }
     /***************************************************************************************************************
-    *   Renders this obstacle.
+    *   Renders this site trigger.
     ***************************************************************************************************************/
     SiteTrigger.prototype.render = function () {
         _super.prototype.render.call(this);
+        // check if player collides with this trigger
+        if (this.checkPlayerCollision()) {
+            if (!this.popupActive) {
+                this.popupActive = true;
+                site.Site.showPopup();
+            }
+        }
+        else {
+            if (this.popupActive) {
+                this.popupActive = false;
+                site.Site.hidePopup();
+            }
+        }
+    };
+    /***************************************************************************************************************
+    *   Renders this site trigger.
+    ***************************************************************************************************************/
+    SiteTrigger.prototype.checkPlayerCollision = function () {
+        return (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds));
     };
     return SiteTrigger;
 }(ninjas.Decoration));
@@ -14744,6 +14768,53 @@ var String = /** @class */ (function () {
     return String;
 }());
 exports.String = String;
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(50));
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   Manages the communication between the game and the company presentation.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Site = /** @class */ (function () {
+    function Site() {
+    }
+    /*****************************************************************************
+    *   Being invoked when a popup shall be shown.
+    *****************************************************************************/
+    Site.showPopup = function () {
+        ninjas.Debug.site.log("Site.showPopup() being invoked");
+    };
+    /*****************************************************************************
+    *   Being invoked when a popup shall be hidden.
+    *****************************************************************************/
+    Site.hidePopup = function () {
+        ninjas.Debug.site.log("Site.hidePopup() being invoked");
+    };
+    return Site;
+}());
+exports.Site = Site;
 
 
 /***/ })

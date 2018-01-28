@@ -273,7 +273,7 @@
         ***************************************************************************************************************/
         public static createSiteTrigger( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ) : ninjas.SiteTrigger
         {
-            return new ninjas.Decoration
+            return new ninjas.SiteTrigger
             (
                 new ninjas.ShapeRectangle
                 (
