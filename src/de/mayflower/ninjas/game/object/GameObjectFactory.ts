@@ -261,6 +261,37 @@
         }
 
         /***************************************************************************************************************
+        *   Creates a site trigger.
+        *
+        *   @param x      Anchor X.
+        *   @param y      Anchor Y.
+        *   @param width  Object width.
+        *   @param height Object height.
+        *   @param sprite The decoration sprite.
+        *
+        *   @return       The created site trigger.
+        ***************************************************************************************************************/
+        public static createSiteTrigger( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ) : ninjas.SiteTrigger
+        {
+            return new ninjas.Decoration
+            (
+                new ninjas.ShapeRectangle
+                (
+                    width,
+                    height,
+                    ninjas.Setting.COLOR_DEBUG_DECORATION,
+                    true,
+                    0.0,
+                    ninjas.GameObject.FRICTION_DEFAULT,
+                    Infinity
+                ),
+                x,
+                y,
+                sprite
+            );
+        }
+
+        /***************************************************************************************************************
         *   Creates a non-collidable background.
         *
         *   @param x      Anchor X.

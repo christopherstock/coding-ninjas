@@ -5,6 +5,7 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Add FPS counter via npm package.
+    *   TODO Check if wowjs is really required .. maybe animate.css is sufficient.
     *
     *   TODO create wow popup on entering a room!
     *   TODO Try sound error handling! (Safari etc.)

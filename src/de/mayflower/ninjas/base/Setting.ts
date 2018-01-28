@@ -67,7 +67,7 @@
         /** The debug color for a bounce joint. */
         public      static  readonly    COLOR_DEBUG_BOUNCE_JOINT                    :string                     = "#e629a2";
         /** The debug color for the item. */
-        public      static  readonly    COLOR_DEBUG_ITEM                            :string                     = "#fdff72";
+        public      static  readonly    COLOR_DEBUG_ITEM                            :string                     = "#fcff97";
         /** The debug color for a decoration. */
         public      static  readonly    COLOR_DEBUG_DECORATION                      :string                     = "#b2ffbb";
         /** The debug color for a site trigger. */

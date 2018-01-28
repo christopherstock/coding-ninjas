@@ -78,19 +78,19 @@ __export(__webpack_require__(9));
 __export(__webpack_require__(10));
 __export(__webpack_require__(11));
 __export(__webpack_require__(12));
-__export(__webpack_require__(13));
 __export(__webpack_require__(14));
+__export(__webpack_require__(15));
 __export(__webpack_require__(16));
 __export(__webpack_require__(17));
 __export(__webpack_require__(18));
 __export(__webpack_require__(19));
 __export(__webpack_require__(20));
+__export(__webpack_require__(26));
 __export(__webpack_require__(21));
 __export(__webpack_require__(22));
 __export(__webpack_require__(23));
 __export(__webpack_require__(24));
 __export(__webpack_require__(25));
-__export(__webpack_require__(26));
 __export(__webpack_require__(27));
 __export(__webpack_require__(28));
 __export(__webpack_require__(29));
@@ -112,6 +112,7 @@ __export(__webpack_require__(44));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
 __export(__webpack_require__(47));
+__export(__webpack_require__(48));
 
 
 /***/ }),
@@ -10454,7 +10455,7 @@ var Vector = _dereq_('../geometry/Vector');
 
 },{"../body/Composite":2,"../core/Common":14,"../core/Events":16,"../geometry/Bounds":26,"../geometry/Vector":28}]},{},[30])(30)
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
 
 /***/ }),
 /* 2 */
@@ -11188,7 +11189,7 @@ var Setting = /** @class */ (function () {
     /** The debug color for a bounce joint. */
     Setting.COLOR_DEBUG_BOUNCE_JOINT = "#e629a2";
     /** The debug color for the item. */
-    Setting.COLOR_DEBUG_ITEM = "#fdff72";
+    Setting.COLOR_DEBUG_ITEM = "#fcff97";
     /** The debug color for a decoration. */
     Setting.COLOR_DEBUG_DECORATION = "#b2ffbb";
     /** The debug color for a site trigger. */
@@ -11302,6 +11303,7 @@ var ninjas = __webpack_require__(0);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO Add FPS counter via npm package.
+*   TODO Check if wowjs is really required .. maybe animate.css is sufficient.
 *
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
@@ -11351,24 +11353,428 @@ exports.Main = Main;
 
 "use strict";
 
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(1);
+var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
-*   Represents a character's looking direction.
+*   Represents the current level.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var CharacterLookingDirection;
-(function (CharacterLookingDirection) {
-    /** Looking left. */
-    CharacterLookingDirection[CharacterLookingDirection["LEFT"] = 0] = "LEFT";
-    /** Looking right. */
-    CharacterLookingDirection[CharacterLookingDirection["RIGHT"] = 1] = "RIGHT";
-})(CharacterLookingDirection = exports.CharacterLookingDirection || (exports.CharacterLookingDirection = {}));
+var Level = /** @class */ (function () {
+    function Level() {
+        /** The width of this level. */
+        this.width = 0.0;
+        /** The height of this level. */
+        this.height = 0.0;
+        /** The background color of this level. */
+        this.bgColor = null;
+        /** The player instance. */
+        this.player = null;
+        /** ALL game objects for this level, including the player. */
+        this.gameObjects = null;
+    }
+    /***************************************************************************************************************
+    *   Inits a new level.
+    ***************************************************************************************************************/
+    Level.prototype.init = function () {
+        this.createGameObjects();
+        try {
+            // add all bodies of all game objects to the world
+            for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var gameObject = _b.value;
+                matter.World.addBody(ninjas.Main.game.engine.world, gameObject.shape.body);
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        var e_1, _c;
+    };
+    /***************************************************************************************************************
+    *   Renders all level components.
+    ***************************************************************************************************************/
+    Level.prototype.render = function () {
+        try {
+            // render game objects
+            for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var gameObject = _b.value;
+                gameObject.render();
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        var e_2, _c;
+    };
+    return Level;
+}());
+exports.Level = Level;
 
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(1);
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   The level set for the dev level.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var LevelAllElements = /** @class */ (function (_super) {
+    __extends(LevelAllElements, _super);
+    function LevelAllElements() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /** The width of this level. */
+        _this.width = 10000.0;
+        /** The height of this level. */
+        _this.height = 1000.0;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Inits a new level.
+    ***************************************************************************************************************/
+    LevelAllElements.prototype.createGameObjects = function () {
+        // init player
+        this.player = new ninjas.Player(50, 500, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        // setup all game objects
+        this.gameObjects =
+            [
+                // grounds and ramps
+                ninjas.GameObjectFactory.createObstacle(0, 620, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(490, 765, 500, 15, 15.0, false),
+                ninjas.GameObjectFactory.createObstacle(980, 830, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(2310, 830, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(3230, 830, 500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(4080, 730, 500, 15, 0.0, false),
+                // bg decoration
+                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                // moveable boxes
+                ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(500, 320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(650, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(1350, -3240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1450, -3400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(1500, -3320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1550, -3240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1600, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(1650, -3180, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(1700, -3000, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                // sigsaws and bounces
+                ninjas.GameObjectFactory.createSigsaw(1490, 830, 400, 25, null),
+                ninjas.GameObjectFactory.createBounce(1900, 830, 400, 25, null),
+                // animated platforms
+                ninjas.GameObjectFactory.createPlatform(200.0, 15.0, null, ninjas.Platform.SPEED_NORMAL, [
+                    matter.Vector.create(2820.0, 830.0),
+                    matter.Vector.create(3020.0, 830.0),
+                ]),
+                // items
+                ninjas.GameObjectFactory.createItem(900, 620),
+                ninjas.GameObjectFactory.createItem(950, 620),
+                ninjas.GameObjectFactory.createItem(1000, 620),
+                ninjas.GameObjectFactory.createItem(2500, 740),
+                ninjas.GameObjectFactory.createItem(2550, 740),
+                ninjas.GameObjectFactory.createItem(2600, 740),
+                // free form
+                ninjas.GameObjectFactory.createFreeForm(3730.0, 730.0, [
+                    matter.Vector.create(0.0, 0.0),
+                    matter.Vector.create(350.0, -100.0),
+                    matter.Vector.create(350.0, -85.0),
+                    matter.Vector.create(0.0, 15.0),
+                ], 0.0),
+                // ascending ramp
+                ninjas.GameObjectFactory.createElevatedRamp(4600.0, 730.0, 1000.0, 15.0, -200.0),
+                // player
+                this.player,
+                // enemies (fg)
+                ninjas.GameObjectFactory.createEnemy(1200, 0),
+                // fg decoration
+                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+            ];
+    };
+    return LevelAllElements;
+}(ninjas.Level));
+exports.LevelAllElements = LevelAllElements;
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   The level set for the level 'enchanted woods'.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var LevelEnchantedWoods = /** @class */ (function (_super) {
+    __extends(LevelEnchantedWoods, _super);
+    function LevelEnchantedWoods() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /** The width of this level. */
+        _this.width = 3000.0;
+        /** The height of this level. */
+        _this.height = 1500.0;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Inits a new level.
+    ***************************************************************************************************************/
+    LevelEnchantedWoods.prototype.createGameObjects = function () {
+        // init player
+        this.player = new ninjas.Player(750, 880, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        // setup all game objects
+        this.gameObjects =
+            [
+                // floor
+                ninjas.GameObjectFactory.createObstacle(0, 1000, 1250, 500, 0.0, false),
+                ninjas.GameObjectFactory.createElevatedRamp(1250, 1000, 750, 500, -100.0),
+                ninjas.GameObjectFactory.createObstacle(2000, 900, 1250, 500, 0.0, false),
+                // hut
+                ninjas.GameObjectFactory.createDecoration(140, 870, 350, 130, null),
+                // bg decoration
+                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                // moveable boxes
+                // sigsaws
+                // items
+                ninjas.GameObjectFactory.createItem(10, 1000 - 52),
+                ninjas.GameObjectFactory.createItem(40, 1000 - 52),
+                ninjas.GameObjectFactory.createItem(70, 1000 - 52),
+                ninjas.GameObjectFactory.createItem(100, 1000 - 52),
+                // enemies
+                // player
+                this.player,
+                // fg decoration
+                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+            ];
+    };
+    return LevelEnchantedWoods;
+}(ninjas.Level));
+exports.LevelEnchantedWoods = LevelEnchantedWoods;
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   The level set for the dev level.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var LevelWebsite = /** @class */ (function (_super) {
+    __extends(LevelWebsite, _super);
+    function LevelWebsite() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /** The width of this level. */
+        _this.width = 10000.0;
+        /** The height of this level. */
+        _this.height = 10000.0;
+        /** The background color of this level. */
+        _this.bgColor = "#000000";
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Inits a new level.
+    ***************************************************************************************************************/
+    LevelWebsite.prototype.createGameObjects = function () {
+        // init player
+        this.player = new ninjas.Player(0, 0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        // setup all game objects
+        this.gameObjects =
+            [
+                // bg
+                // ninjas.GameObjectFactory.createBackground( 0, 0, this.width, this.height, this.bgColor ),
+                // grounds and walls
+                // ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle(0, 1000, 5000, 15, 0.0, false),
+                // ninjas.GameObjectFactory.createObstacle( 490,  765, 500, 15, 15.0, false ),
+                // ninjas.GameObjectFactory.createObstacle( 980,  830, 500, 15, 0.0,  false ),
+                // ninjas.GameObjectFactory.createObstacle( 2310, 830, 500, 15, 0.0,  false ),
+                // ninjas.GameObjectFactory.createObstacle( 3230, 830, 500, 15, 0.0,  false ),
+                // ninjas.GameObjectFactory.createObstacle( 4080, 730, 500, 15, 0.0,  false ),
+                // bg decoration
+                ninjas.GameObjectFactory.createDecoration(80, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(370, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                // site trigger
+                ninjas.GameObjectFactory.createSiteTrigger(970, 525, 150, 475, null),
+                // moveable boxes
+                ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(500, 320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(650, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                /*
+                                // sigsaws and bounces
+                                ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
+                                ninjas.GameObjectFactory.createBounce( 1900, 830,  400, 25, null ),
+                
+                                // animated platforms
+                                ninjas.GameObjectFactory.createPlatform
+                                (
+                                    200.0,
+                                    15.0,
+                                    null,
+                                    ninjas.Platform.SPEED_NORMAL,
+                                    [
+                                        matter.Vector.create( 2820.0, 830.0 ),
+                                        matter.Vector.create( 3020.0, 830.0 ),
+                                    ]
+                                ),
+                
+                                // items
+                                ninjas.GameObjectFactory.createItem( 900,  620 ),
+                                ninjas.GameObjectFactory.createItem( 950,  620 ),
+                                ninjas.GameObjectFactory.createItem( 1000, 620 ),
+                                ninjas.GameObjectFactory.createItem( 2500, 740 ),
+                                ninjas.GameObjectFactory.createItem( 2550, 740 ),
+                                ninjas.GameObjectFactory.createItem( 2600, 740 ),
+                
+                                // free form
+                                ninjas.GameObjectFactory.createFreeForm(
+                                    3730.0,
+                                    730.0,
+                                    [
+                                        matter.Vector.create( 0.0,   0.0    ),
+                                        matter.Vector.create( 350.0, -100.0 ),
+                                        matter.Vector.create( 350.0, -85.0  ),
+                                        matter.Vector.create( 0.0,   15.0   ),
+                                    ],
+                                    0.0
+                                ),
+                
+                                // ascending ramp
+                                ninjas.GameObjectFactory.createElevatedRamp( 4600.0, 730.0, 1000.0, 15.0, -200.0 ),
+                */
+                // player
+                this.player,
+                /*
+                                // enemies (fg)
+                                ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
+                
+                                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
+                                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),
+                */
+                // fg decoration
+                ninjas.GameObjectFactory.createDecoration(670, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+            ];
+    };
+    return LevelWebsite;
+}(ninjas.Level));
+exports.LevelWebsite = LevelWebsite;
+
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11416,7 +11822,7 @@ exports.Shape = Shape;
 
 
 /***/ }),
-/* 14 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11505,34 +11911,7 @@ exports.ShapeRectangle = ShapeRectangle;
 
 
 /***/ }),
-/* 15 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11617,7 +11996,7 @@ exports.ShapeCircle = ShapeCircle;
 
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11748,339 +12127,74 @@ exports.ShapeFreeForm = ShapeFreeForm;
 
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
-*   The abstract class of all game objects.
+*   Represents a bounce.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var GameObject = /** @class */ (function () {
+var Bounce = /** @class */ (function (_super) {
+    __extends(Bounce, _super);
     /***************************************************************************************************************
-    *   Creates a new game object.
+    *   Creates a new bounce.
     *
     *   @param shape  The shape for this object.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
     *   @param sprite The sprite for this game object.
-    *
-    *   TODO rearrange object params x and y down! (or up?)
     ***************************************************************************************************************/
-    function GameObject(shape, x, y, sprite) {
-        /** Collision shape. */
-        this.shape = null;
-        /** Sprite. */
-        this.sprite = null;
-        this.shape = shape;
-        this.sprite = sprite;
-        if (this.sprite != null) {
-            this.setImageFromSprite();
-        }
-        matter.Body.translate(this.shape.body, matter.Vector.create(x, y));
+    function Bounce(shape, x, y, sprite) {
+        var _this = _super.call(this, shape, x, y, sprite) || this;
+        /** The constraint that builds the turning point for the bounce. */
+        _this.constraint = null;
+        _this.constraint = matter.Constraint.create({
+            bodyB: _this.shape.body,
+            pointA: { x: _this.shape.body.position.x, y: _this.shape.body.position.y },
+            pointB: { x: 0, y: 0 },
+            stiffness: 0.01,
+            length: 0,
+            render: {
+                strokeStyle: ninjas.Setting.COLOR_DEBUG_BOUNCE_JOINT,
+                lineWidth: 1.0,
+                visible: true,
+            }
+        });
+        matter.Composite.add(ninjas.Main.game.engine.world, _this.constraint);
+        return _this;
     }
     /***************************************************************************************************************
-    *   Sets the specified sprite template.
-    *
-    *   @param spriteTemplate The sprite template to use for this new sprite.
+    *   Renders this sigsaw.
     ***************************************************************************************************************/
-    GameObject.prototype.setSprite = function (spriteTemplate) {
-        if (spriteTemplate != null) {
-            // deny setting new sprite if same sprite than existent
-            if (this.sprite != null && this.sprite.template == spriteTemplate) {
-                return;
-            }
-            // assign new sprite
-            this.sprite = new ninjas.Sprite(spriteTemplate);
-            // do NOT update body shape dimensions! immediate collisions will occur and block!
-            // this.shape.updateDimensions( this.sprite.width, this.sprite.height );
-            // assign new texture for MatterJS rendering object
-            this.setImageFromSprite();
-        }
-    };
-    /***************************************************************************************************************
-    *   Renders the current game object.
-    ***************************************************************************************************************/
-    GameObject.prototype.render = function () {
-        // next sprite frame
-        if (this.sprite != null) {
-            if (this.sprite.render()) {
-                this.setImageFromSprite();
-            }
-        }
-    };
-    /***************************************************************************************************************
-    *   Assigns the current active sprite frame as the game objects image.
-    ***************************************************************************************************************/
-    GameObject.prototype.setImageFromSprite = function () {
-        this.shape.body.render.sprite.texture = this.sprite.getCurrentFrameImageUrl();
-    };
-    /***************************************************************************************************************
-    *   Avoids this game object from rotating.
-    ***************************************************************************************************************/
-    GameObject.prototype.resetRotation = function () {
-        matter.Body.setAngularVelocity(this.shape.body, 0.0);
+    Bounce.prototype.render = function () {
+        _super.prototype.render.call(this);
         matter.Body.setAngle(this.shape.body, 0.0);
+        matter.Body.setAngularVelocity(this.shape.body, 0.0);
     };
-    /***************************************************************************************************************
-    *   Clips this body to the horizontal level bounds.
-    ***************************************************************************************************************/
-    GameObject.prototype.clipToHorizontalLevelBounds = function () {
-        // clip left bound
-        if (this.shape.body.position.x < this.shape.getWidth() / 2) {
-            matter.Body.setPosition(this.shape.body, {
-                x: this.shape.getWidth() / 2,
-                y: this.shape.body.position.y
-            });
-        }
-        // clip right bound
-        if (this.shape.body.position.x > ninjas.Main.game.level.width - this.shape.getWidth() / 2) {
-            matter.Body.setPosition(this.shape.body, {
-                x: ninjas.Main.game.level.width - this.shape.getWidth() / 2,
-                y: this.shape.body.position.y
-            });
-        }
-    };
-    /** Highest surface friction. */
-    GameObject.FRICTION_CONCRETE = 1.0;
-    /** Default surface friction. */
-    GameObject.FRICTION_DEFAULT = 0.1;
-    /** Low surface friction. */
-    GameObject.FRICTION_GLASS = 0.01;
-    /** Lowest surface friction. */
-    GameObject.FRICTION_ICE = 0.0;
-    /** Character density. */
-    GameObject.DENSITY_HUMAN = 0.01;
-    /** Default density. */
-    GameObject.DENSITY_DEFAULT = 0.001;
-    return GameObject;
-}());
-exports.GameObject = GameObject;
+    return Bounce;
+}(ninjas.GameObject));
+exports.Bounce = Bounce;
 
 
 /***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(1);
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   Creates customized instances of game objects.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var GameObjectFactory = /** @class */ (function () {
-    function GameObjectFactory() {
-    }
-    /***************************************************************************************************************
-    *   Creates a crate.
-    *
-    *   @param x        Anchor X.
-    *   @param y        Anchor Y.
-    *   @param width    Object width.
-    *   @param height   Object height.
-    *   @param friction The surface friction for this box.
-    *   @param density  The density for this box.
-    *
-    *   @return       The created box.
-    ***************************************************************************************************************/
-    GameObjectFactory.createCrate = function (x, y, width, height, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_CRATE));
-    };
-    /***************************************************************************************************************
-    *   Creates a sphere.
-    *
-    *   @param x        Anchor X.
-    *   @param y        Anchor Y.
-    *   @param diameter Sphere diameter.
-    *   @param friction The surface friction for this object.
-    *   @param density  The density for this object.
-    *
-    *   @return         The created sphere.
-    ***************************************************************************************************************/
-    GameObjectFactory.createSphere = function (x, y, diameter, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeCircle(diameter, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, null);
-    };
-    /***************************************************************************************************************
-    *   Creates an item.
-    *
-    *   @param x Anchor X.
-    *   @param y Anchor Y.
-    *
-    *   @return  The created item.
-    ***************************************************************************************************************/
-    GameObjectFactory.createItem = function (x, y) {
-        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.Setting.COLOR_DEBUG_ITEM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y);
-    };
-    /***************************************************************************************************************
-    *   Creates an rectangular obstacle.
-    *
-    *   @param x               Anchor X.
-    *   @param y               Anchor Y.
-    *   @param width           Object width.
-    *   @param height          Object height.
-    *   @param angle           The initial rotation.
-    *   @param jumpPassThrough Specifies if the player can jump through this obstacle.
-    *
-    *   @return                The created obstacle.
-    ***************************************************************************************************************/
-    GameObjectFactory.createObstacle = function (x, y, width, height, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_CONCRETE, Infinity), x, y, jumpPassThrough);
-    };
-    /***************************************************************************************************************
-    *   Creates a free form.
-    *
-    *   @param x        Anchor X.
-    *   @param y        Anchor Y.
-    *   @param vertices All vertices that build up the free form.
-    *   @param angle    The initial rotation of the form.
-    *
-    *   @return         The created obstacle.
-    ***************************************************************************************************************/
-    GameObjectFactory.createFreeForm = function (x, y, vertices, angle) {
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, false);
-    };
-    /***************************************************************************************************************
-    *   Creates an elevated ramp obstacle.
-    *
-    *   @param x      Anchor X.
-    *   @param y      Anchor Y.
-    *   @param width  The ramp width.
-    *   @param height The remp height.
-    *   @param deltaY Ramp will ascend if <code>true</code> and descend if <code>false</code>.
-    *
-    *   @return         The created obstacle ramp.
-    ***************************************************************************************************************/
-    GameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY) {
-        var vertices = [];
-        vertices.push(matter.Vector.create(0.0, 0.0));
-        vertices.push(matter.Vector.create(width, deltaY));
-        vertices.push(matter.Vector.create(width, height + deltaY));
-        vertices.push(matter.Vector.create(0.0, height));
-        if (deltaY <= 0.0) {
-            y += deltaY;
-        }
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, false);
-    };
-    /***************************************************************************************************************
-    *   Creates an enemy.
-    *
-    *   @param x Anchor X.
-    *   @param y Anchor Y.
-    *
-    *   @return  The created enemy.
-    ***************************************************************************************************************/
-    GameObjectFactory.createEnemy = function (x, y) {
-        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.Setting.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y);
-    };
-    /***************************************************************************************************************
-    *   Creates a decoration.
-    *
-    *   @param x      Anchor X.
-    *   @param y      Anchor Y.
-    *   @param width  Object width.
-    *   @param height Object height.
-    *   @param sprite The decoration sprite.
-    *
-    *   @return       The created decoration.
-    ***************************************************************************************************************/
-    GameObjectFactory.createDecoration = function (x, y, width, height, sprite) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, sprite);
-    };
-    /***************************************************************************************************************
-    *   Creates a non-collidable background.
-    *
-    *   @param x      Anchor X.
-    *   @param y      Anchor Y.
-    *   @param width  Object width.
-    *   @param height Object height.
-    *   @param color  The color of this background.
-    *
-    *   @return       The created decoration.
-    ***************************************************************************************************************/
-    GameObjectFactory.createBackground = function (x, y, width, height, color) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, color, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, null);
-    };
-    /***************************************************************************************************************
-    *   Creates a sigsaw.
-    *
-    *   @param x      Anchor X.
-    *   @param y      Anchor Y.
-    *   @param width  Object width.
-    *   @param height Object height.
-    *   @param sprite The decoration sprite.
-    *
-    *   @return       The created decoration.
-    ***************************************************************************************************************/
-    GameObjectFactory.createSigsaw = function (x, y, width, height, sprite) {
-        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, sprite);
-    };
-    /***************************************************************************************************************
-    *   Creates a platform.
-    *
-    *   @param width     Object width.
-    *   @param height    Object height.
-    *   @param sprite    The decoration sprite.
-    *   @param speed     Moving speed of the platform in px per tick.
-    *   @param waypoints Moving waypoints. First waypoint is the startup position.
-    *
-    *   @return       The created decoration.
-    ***************************************************************************************************************/
-    GameObjectFactory.createPlatform = function (width, height, sprite, speed, waypoints) {
-        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), speed, waypoints, sprite);
-    };
-    /***************************************************************************************************************
-     *   Creates a bounce.
-     *
-     *   @param x      Anchor X.
-     *   @param y      Anchor Y.
-     *   @param width  Object width.
-     *   @param height Object height.
-     *   @param sprite The decoration sprite.
-     *
-     *   @return       The created decoration.
-     ***************************************************************************************************************/
-    GameObjectFactory.createBounce = function (x, y, width, height, sprite) {
-        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, sprite);
-    };
-    return GameObjectFactory;
-}());
-exports.GameObjectFactory = GameObjectFactory;
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/*******************************************************************************************************************
-*   Creates customized instances of bundled game objects.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var GameObjectBundleFactory = /** @class */ (function () {
-    function GameObjectBundleFactory() {
-    }
-    return GameObjectBundleFactory;
-}());
-exports.GameObjectBundleFactory = GameObjectBundleFactory;
-
-
-/***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12246,7 +12360,79 @@ exports.Character = Character;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Represents a character's looking direction.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var CharacterLookingDirection;
+(function (CharacterLookingDirection) {
+    /** Looking left. */
+    CharacterLookingDirection[CharacterLookingDirection["LEFT"] = 0] = "LEFT";
+    /** Looking right. */
+    CharacterLookingDirection[CharacterLookingDirection["RIGHT"] = 1] = "RIGHT";
+})(CharacterLookingDirection = exports.CharacterLookingDirection || (exports.CharacterLookingDirection = {}));
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   Represents a non-colliding decoration.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Decoration = /** @class */ (function (_super) {
+    __extends(Decoration, _super);
+    /***************************************************************************************************************
+    *   Creates a new decoration.
+    *
+    *   @param shape  The shape for this object.
+    *   @param x      Startup position X.
+    *   @param y      Startup position Y.
+    *   @param sprite The sprite to use.
+    ***************************************************************************************************************/
+    function Decoration(shape, x, y, sprite) {
+        var _this = _super.call(this, shape, x, y, sprite) || this;
+        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this obstacle.
+    ***************************************************************************************************************/
+    Decoration.prototype.render = function () {
+        _super.prototype.render.call(this);
+    };
+    return Decoration;
+}(ninjas.GameObject));
+exports.Decoration = Decoration;
+
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12316,7 +12502,546 @@ exports.Enemy = Enemy;
 
 
 /***/ }),
-/* 23 */
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(1);
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   The abstract class of all game objects.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var GameObject = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Creates a new game object.
+    *
+    *   @param shape  The shape for this object.
+    *   @param x      Startup position X.
+    *   @param y      Startup position Y.
+    *   @param sprite The sprite for this game object.
+    *
+    *   TODO rearrange object params x and y down! (or up?)
+    ***************************************************************************************************************/
+    function GameObject(shape, x, y, sprite) {
+        /** Collision shape. */
+        this.shape = null;
+        /** Sprite. */
+        this.sprite = null;
+        this.shape = shape;
+        this.sprite = sprite;
+        if (this.sprite != null) {
+            this.setImageFromSprite();
+        }
+        matter.Body.translate(this.shape.body, matter.Vector.create(x, y));
+    }
+    /***************************************************************************************************************
+    *   Sets the specified sprite template.
+    *
+    *   @param spriteTemplate The sprite template to use for this new sprite.
+    ***************************************************************************************************************/
+    GameObject.prototype.setSprite = function (spriteTemplate) {
+        if (spriteTemplate != null) {
+            // deny setting new sprite if same sprite than existent
+            if (this.sprite != null && this.sprite.template == spriteTemplate) {
+                return;
+            }
+            // assign new sprite
+            this.sprite = new ninjas.Sprite(spriteTemplate);
+            // do NOT update body shape dimensions! immediate collisions will occur and block!
+            // this.shape.updateDimensions( this.sprite.width, this.sprite.height );
+            // assign new texture for MatterJS rendering object
+            this.setImageFromSprite();
+        }
+    };
+    /***************************************************************************************************************
+    *   Renders the current game object.
+    ***************************************************************************************************************/
+    GameObject.prototype.render = function () {
+        // next sprite frame
+        if (this.sprite != null) {
+            if (this.sprite.render()) {
+                this.setImageFromSprite();
+            }
+        }
+    };
+    /***************************************************************************************************************
+    *   Assigns the current active sprite frame as the game objects image.
+    ***************************************************************************************************************/
+    GameObject.prototype.setImageFromSprite = function () {
+        this.shape.body.render.sprite.texture = this.sprite.getCurrentFrameImageUrl();
+    };
+    /***************************************************************************************************************
+    *   Avoids this game object from rotating.
+    ***************************************************************************************************************/
+    GameObject.prototype.resetRotation = function () {
+        matter.Body.setAngularVelocity(this.shape.body, 0.0);
+        matter.Body.setAngle(this.shape.body, 0.0);
+    };
+    /***************************************************************************************************************
+    *   Clips this body to the horizontal level bounds.
+    ***************************************************************************************************************/
+    GameObject.prototype.clipToHorizontalLevelBounds = function () {
+        // clip left bound
+        if (this.shape.body.position.x < this.shape.getWidth() / 2) {
+            matter.Body.setPosition(this.shape.body, {
+                x: this.shape.getWidth() / 2,
+                y: this.shape.body.position.y
+            });
+        }
+        // clip right bound
+        if (this.shape.body.position.x > ninjas.Main.game.level.width - this.shape.getWidth() / 2) {
+            matter.Body.setPosition(this.shape.body, {
+                x: ninjas.Main.game.level.width - this.shape.getWidth() / 2,
+                y: this.shape.body.position.y
+            });
+        }
+    };
+    /** Highest surface friction. */
+    GameObject.FRICTION_CONCRETE = 1.0;
+    /** Default surface friction. */
+    GameObject.FRICTION_DEFAULT = 0.1;
+    /** Low surface friction. */
+    GameObject.FRICTION_GLASS = 0.01;
+    /** Lowest surface friction. */
+    GameObject.FRICTION_ICE = 0.0;
+    /** Character density. */
+    GameObject.DENSITY_HUMAN = 0.01;
+    /** Default density. */
+    GameObject.DENSITY_DEFAULT = 0.001;
+    return GameObject;
+}());
+exports.GameObject = GameObject;
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Creates customized instances of bundled game objects.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var GameObjectBundleFactory = /** @class */ (function () {
+    function GameObjectBundleFactory() {
+    }
+    return GameObjectBundleFactory;
+}());
+exports.GameObjectBundleFactory = GameObjectBundleFactory;
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(1);
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   Creates customized instances of game objects.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var GameObjectFactory = /** @class */ (function () {
+    function GameObjectFactory() {
+    }
+    /***************************************************************************************************************
+    *   Creates a crate.
+    *
+    *   @param x        Anchor X.
+    *   @param y        Anchor Y.
+    *   @param width    Object width.
+    *   @param height   Object height.
+    *   @param friction The surface friction for this box.
+    *   @param density  The density for this box.
+    *
+    *   @return       The created box.
+    ***************************************************************************************************************/
+    GameObjectFactory.createCrate = function (x, y, width, height, friction, density) {
+        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_CRATE));
+    };
+    /***************************************************************************************************************
+    *   Creates a sphere.
+    *
+    *   @param x        Anchor X.
+    *   @param y        Anchor Y.
+    *   @param diameter Sphere diameter.
+    *   @param friction The surface friction for this object.
+    *   @param density  The density for this object.
+    *
+    *   @return         The created sphere.
+    ***************************************************************************************************************/
+    GameObjectFactory.createSphere = function (x, y, diameter, friction, density) {
+        return new ninjas.Movable(new ninjas.ShapeCircle(diameter, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), x, y, null);
+    };
+    /***************************************************************************************************************
+    *   Creates an item.
+    *
+    *   @param x Anchor X.
+    *   @param y Anchor Y.
+    *
+    *   @return  The created item.
+    ***************************************************************************************************************/
+    GameObjectFactory.createItem = function (x, y) {
+        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.Setting.COLOR_DEBUG_ITEM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y);
+    };
+    /***************************************************************************************************************
+    *   Creates an rectangular obstacle.
+    *
+    *   @param x               Anchor X.
+    *   @param y               Anchor Y.
+    *   @param width           Object width.
+    *   @param height          Object height.
+    *   @param angle           The initial rotation.
+    *   @param jumpPassThrough Specifies if the player can jump through this obstacle.
+    *
+    *   @return                The created obstacle.
+    ***************************************************************************************************************/
+    GameObjectFactory.createObstacle = function (x, y, width, height, angle, jumpPassThrough) {
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_CONCRETE, Infinity), x, y, jumpPassThrough);
+    };
+    /***************************************************************************************************************
+    *   Creates a free form.
+    *
+    *   @param x        Anchor X.
+    *   @param y        Anchor Y.
+    *   @param vertices All vertices that build up the free form.
+    *   @param angle    The initial rotation of the form.
+    *
+    *   @return         The created obstacle.
+    ***************************************************************************************************************/
+    GameObjectFactory.createFreeForm = function (x, y, vertices, angle) {
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, false);
+    };
+    /***************************************************************************************************************
+    *   Creates an elevated ramp obstacle.
+    *
+    *   @param x      Anchor X.
+    *   @param y      Anchor Y.
+    *   @param width  The ramp width.
+    *   @param height The remp height.
+    *   @param deltaY Ramp will ascend if <code>true</code> and descend if <code>false</code>.
+    *
+    *   @return         The created obstacle ramp.
+    ***************************************************************************************************************/
+    GameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY) {
+        var vertices = [];
+        vertices.push(matter.Vector.create(0.0, 0.0));
+        vertices.push(matter.Vector.create(width, deltaY));
+        vertices.push(matter.Vector.create(width, height + deltaY));
+        vertices.push(matter.Vector.create(0.0, height));
+        if (deltaY <= 0.0) {
+            y += deltaY;
+        }
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, false);
+    };
+    /***************************************************************************************************************
+    *   Creates an enemy.
+    *
+    *   @param x Anchor X.
+    *   @param y Anchor Y.
+    *
+    *   @return  The created enemy.
+    ***************************************************************************************************************/
+    GameObjectFactory.createEnemy = function (x, y) {
+        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.Setting.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y);
+    };
+    /***************************************************************************************************************
+    *   Creates a decoration.
+    *
+    *   @param x      Anchor X.
+    *   @param y      Anchor Y.
+    *   @param width  Object width.
+    *   @param height Object height.
+    *   @param sprite The decoration sprite.
+    *
+    *   @return       The created decoration.
+    ***************************************************************************************************************/
+    GameObjectFactory.createDecoration = function (x, y, width, height, sprite) {
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, sprite);
+    };
+    /***************************************************************************************************************
+    *   Creates a site trigger.
+    *
+    *   @param x      Anchor X.
+    *   @param y      Anchor Y.
+    *   @param width  Object width.
+    *   @param height Object height.
+    *   @param sprite The decoration sprite.
+    *
+    *   @return       The created site trigger.
+    ***************************************************************************************************************/
+    GameObjectFactory.createSiteTrigger = function (x, y, width, height, sprite) {
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, sprite);
+    };
+    /***************************************************************************************************************
+    *   Creates a non-collidable background.
+    *
+    *   @param x      Anchor X.
+    *   @param y      Anchor Y.
+    *   @param width  Object width.
+    *   @param height Object height.
+    *   @param color  The color of this background.
+    *
+    *   @return       The created decoration.
+    ***************************************************************************************************************/
+    GameObjectFactory.createBackground = function (x, y, width, height, color) {
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, color, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, null);
+    };
+    /***************************************************************************************************************
+    *   Creates a sigsaw.
+    *
+    *   @param x      Anchor X.
+    *   @param y      Anchor Y.
+    *   @param width  Object width.
+    *   @param height Object height.
+    *   @param sprite The decoration sprite.
+    *
+    *   @return       The created decoration.
+    ***************************************************************************************************************/
+    GameObjectFactory.createSigsaw = function (x, y, width, height, sprite) {
+        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, sprite);
+    };
+    /***************************************************************************************************************
+    *   Creates a platform.
+    *
+    *   @param width     Object width.
+    *   @param height    Object height.
+    *   @param sprite    The decoration sprite.
+    *   @param speed     Moving speed of the platform in px per tick.
+    *   @param waypoints Moving waypoints. First waypoint is the startup position.
+    *
+    *   @return       The created decoration.
+    ***************************************************************************************************************/
+    GameObjectFactory.createPlatform = function (width, height, sprite, speed, waypoints) {
+        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), speed, waypoints, sprite);
+    };
+    /***************************************************************************************************************
+     *   Creates a bounce.
+     *
+     *   @param x      Anchor X.
+     *   @param y      Anchor Y.
+     *   @param width  Object width.
+     *   @param height Object height.
+     *   @param sprite The decoration sprite.
+     *
+     *   @return       The created decoration.
+     ***************************************************************************************************************/
+    GameObjectFactory.createBounce = function (x, y, width, height, sprite) {
+        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), x, y, sprite);
+    };
+    return GameObjectFactory;
+}());
+exports.GameObjectFactory = GameObjectFactory;
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(1);
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   Represents a pickable item.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Item = /** @class */ (function (_super) {
+    __extends(Item, _super);
+    /***************************************************************************************************************
+    *   Creates a new item.
+    *
+    *   @param shape  The shape for this object.
+    *   @param x      Startup position X.
+    *   @param y      Startup position Y.
+    ***************************************************************************************************************/
+    function Item(shape, x, y) {
+        var _this = _super.call(this, shape, x, y, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_ITEM)) || this;
+        /** Indicates if this item has been picked. */
+        _this.picked = null;
+        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this item.
+    ***************************************************************************************************************/
+    Item.prototype.render = function () {
+        _super.prototype.render.call(this);
+        if (!this.picked) {
+            this.checkPicked();
+        }
+    };
+    /***************************************************************************************************************
+    *   Checks if this item is picked up in this frame.
+    ***************************************************************************************************************/
+    Item.prototype.checkPicked = function () {
+        if (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds)) {
+            ninjas.Debug.item.log("Player picked item");
+            this.pick();
+        }
+    };
+    /***************************************************************************************************************
+    *   Picks up this item.
+    ***************************************************************************************************************/
+    Item.prototype.pick = function () {
+        // flag as picked
+        this.picked = true;
+        // remove item body
+        matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
+    };
+    return Item;
+}(ninjas.GameObject));
+exports.Item = Item;
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   Represents a movable box.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Movable = /** @class */ (function (_super) {
+    __extends(Movable, _super);
+    /***************************************************************************************************************
+    *   Creates a new movable.
+    *
+    *   @param shape  The shape for this object.
+    *   @param x      Startup position X.
+    *   @param y      Startup position Y.
+    *   @param sprite The sprite for this box.
+    ***************************************************************************************************************/
+    function Movable(shape, x, y, sprite) {
+        return _super.call(this, shape, x, y, sprite) || this;
+    }
+    /***************************************************************************************************************
+    *   Renders this box.
+    ***************************************************************************************************************/
+    Movable.prototype.render = function () {
+        _super.prototype.render.call(this);
+        this.clipToHorizontalLevelBounds();
+    };
+    return Movable;
+}(ninjas.GameObject));
+exports.Movable = Movable;
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   Represents a collidable and solid obstacle.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Obstacle = /** @class */ (function (_super) {
+    __extends(Obstacle, _super);
+    /***************************************************************************************************************
+    *   Creates a new obstacle.
+    *
+    *   @param shape           The shape for this object.
+    *   @param x               Startup position X.
+    *   @param y               Startup position Y.
+    *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
+    ***************************************************************************************************************/
+    function Obstacle(shape, x, y, jumpPassThrough) {
+        var _this = _super.call(this, shape, x, y, null) || this;
+        /** Specifies if the player shall be allowed to jump through this obstacle. */
+        _this.jumpPassThrough = false;
+        _this.jumpPassThrough = jumpPassThrough;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this obstacle.
+    ***************************************************************************************************************/
+    Obstacle.prototype.render = function () {
+        _super.prototype.render.call(this);
+        if (this.jumpPassThrough) {
+            /*
+                            if
+                            (
+                                ninjas.ninjas.game.level.player.body.velocity.y >= 0.0
+            
+            //                    ninjas.ninjas.game.level.player.body.position.y + ninjas.ninjas.game.level.player.height / 2
+            //                    <=  this.body.position.y
+            
+                            )
+                            {
+                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_COLLIDING;
+                            }
+                            else
+                            {
+                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_NON_COLLIDING;
+                            }
+            */
+        }
+    };
+    return Obstacle;
+}(ninjas.GameObject));
+exports.Obstacle = Obstacle;
+
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12425,7 +13150,7 @@ exports.Platform = Platform;
 
 
 /***/ }),
-/* 24 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12586,250 +13311,7 @@ exports.Player = Player;
 
 
 /***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   Represents a movable box.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Movable = /** @class */ (function (_super) {
-    __extends(Movable, _super);
-    /***************************************************************************************************************
-    *   Creates a new movable.
-    *
-    *   @param shape  The shape for this object.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
-    *   @param sprite The sprite for this box.
-    ***************************************************************************************************************/
-    function Movable(shape, x, y, sprite) {
-        return _super.call(this, shape, x, y, sprite) || this;
-    }
-    /***************************************************************************************************************
-    *   Renders this box.
-    ***************************************************************************************************************/
-    Movable.prototype.render = function () {
-        _super.prototype.render.call(this);
-        this.clipToHorizontalLevelBounds();
-    };
-    return Movable;
-}(ninjas.GameObject));
-exports.Movable = Movable;
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(1);
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   Represents a pickable item.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Item = /** @class */ (function (_super) {
-    __extends(Item, _super);
-    /***************************************************************************************************************
-    *   Creates a new item.
-    *
-    *   @param shape  The shape for this object.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
-    ***************************************************************************************************************/
-    function Item(shape, x, y) {
-        var _this = _super.call(this, shape, x, y, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_ITEM)) || this;
-        /** Indicates if this item has been picked. */
-        _this.picked = null;
-        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Renders this item.
-    ***************************************************************************************************************/
-    Item.prototype.render = function () {
-        _super.prototype.render.call(this);
-        if (!this.picked) {
-            this.checkPicked();
-        }
-    };
-    /***************************************************************************************************************
-    *   Checks if this item is picked up in this frame.
-    ***************************************************************************************************************/
-    Item.prototype.checkPicked = function () {
-        if (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds)) {
-            ninjas.Debug.item.log("Player picked item");
-            this.pick();
-        }
-    };
-    /***************************************************************************************************************
-    *   Picks up this item.
-    ***************************************************************************************************************/
-    Item.prototype.pick = function () {
-        // flag as picked
-        this.picked = true;
-        // remove item body
-        matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
-    };
-    return Item;
-}(ninjas.GameObject));
-exports.Item = Item;
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   Represents a non-colliding decoration.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Decoration = /** @class */ (function (_super) {
-    __extends(Decoration, _super);
-    /***************************************************************************************************************
-    *   Creates a new decoration.
-    *
-    *   @param shape  The shape for this object.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
-    *   @param sprite The sprite to use.
-    ***************************************************************************************************************/
-    function Decoration(shape, x, y, sprite) {
-        var _this = _super.call(this, shape, x, y, sprite) || this;
-        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO;
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Renders this obstacle.
-    ***************************************************************************************************************/
-    Decoration.prototype.render = function () {
-        _super.prototype.render.call(this);
-    };
-    return Decoration;
-}(ninjas.GameObject));
-exports.Decoration = Decoration;
-
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   Represents a collidable and solid obstacle.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Obstacle = /** @class */ (function (_super) {
-    __extends(Obstacle, _super);
-    /***************************************************************************************************************
-    *   Creates a new obstacle.
-    *
-    *   @param shape           The shape for this object.
-    *   @param x               Startup position X.
-    *   @param y               Startup position Y.
-    *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
-    ***************************************************************************************************************/
-    function Obstacle(shape, x, y, jumpPassThrough) {
-        var _this = _super.call(this, shape, x, y, null) || this;
-        /** Specifies if the player shall be allowed to jump through this obstacle. */
-        _this.jumpPassThrough = false;
-        _this.jumpPassThrough = jumpPassThrough;
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Renders this obstacle.
-    ***************************************************************************************************************/
-    Obstacle.prototype.render = function () {
-        _super.prototype.render.call(this);
-        if (this.jumpPassThrough) {
-            /*
-                            if
-                            (
-                                ninjas.ninjas.game.level.player.body.velocity.y >= 0.0
-            
-            //                    ninjas.ninjas.game.level.player.body.position.y + ninjas.ninjas.game.level.player.height / 2
-            //                    <=  this.body.position.y
-            
-                            )
-                            {
-                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_COLLIDING;
-                            }
-                            else
-                            {
-                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_NON_COLLIDING;
-                            }
-            */
-        }
-    };
-    return Obstacle;
-}(ninjas.GameObject));
-exports.Obstacle = Obstacle;
-
-
-/***/ }),
-/* 29 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12927,7 +13409,7 @@ exports.SigSaw = SigSaw;
 
 
 /***/ }),
-/* 30 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12943,58 +13425,39 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
-*   Represents a bounce.
+*   Represents a non-colliding decoration.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var Bounce = /** @class */ (function (_super) {
-    __extends(Bounce, _super);
+var SiteTrigger = /** @class */ (function (_super) {
+    __extends(SiteTrigger, _super);
     /***************************************************************************************************************
-    *   Creates a new bounce.
+    *   Creates a new site trigger.
     *
     *   @param shape  The shape for this object.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param sprite The sprite for this game object.
+    *   @param sprite The sprite to use.
     ***************************************************************************************************************/
-    function Bounce(shape, x, y, sprite) {
-        var _this = _super.call(this, shape, x, y, sprite) || this;
-        /** The constraint that builds the turning point for the bounce. */
-        _this.constraint = null;
-        _this.constraint = matter.Constraint.create({
-            bodyB: _this.shape.body,
-            pointA: { x: _this.shape.body.position.x, y: _this.shape.body.position.y },
-            pointB: { x: 0, y: 0 },
-            stiffness: 0.01,
-            length: 0,
-            render: {
-                strokeStyle: ninjas.Setting.COLOR_DEBUG_BOUNCE_JOINT,
-                lineWidth: 1.0,
-                visible: true,
-            }
-        });
-        matter.Composite.add(ninjas.Main.game.engine.world, _this.constraint);
-        return _this;
+    function SiteTrigger(shape, x, y, sprite) {
+        return _super.call(this, shape, x, y, sprite) || this;
     }
     /***************************************************************************************************************
-    *   Renders this sigsaw.
+    *   Renders this obstacle.
     ***************************************************************************************************************/
-    Bounce.prototype.render = function () {
+    SiteTrigger.prototype.render = function () {
         _super.prototype.render.call(this);
-        matter.Body.setAngle(this.shape.body, 0.0);
-        matter.Body.setAngularVelocity(this.shape.body, 0.0);
     };
-    return Bounce;
-}(ninjas.GameObject));
-exports.Bounce = Bounce;
+    return SiteTrigger;
+}(ninjas.Decoration));
+exports.SiteTrigger = SiteTrigger;
 
 
 /***/ }),
-/* 31 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13251,404 +13714,7 @@ exports.Game = Game;
 
 
 /***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __values = (this && this.__values) || function (o) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
-    if (m) return m.call(o);
-    return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(1);
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   Represents the current level.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Level = /** @class */ (function () {
-    function Level() {
-        /** The width of this level. */
-        this.width = 0.0;
-        /** The height of this level. */
-        this.height = 0.0;
-        /** The background color of this level. */
-        this.bgColor = null;
-        /** The player instance. */
-        this.player = null;
-        /** ALL game objects for this level, including the player. */
-        this.gameObjects = null;
-    }
-    /***************************************************************************************************************
-    *   Inits a new level.
-    ***************************************************************************************************************/
-    Level.prototype.init = function () {
-        this.createGameObjects();
-        try {
-            // add all bodies of all game objects to the world
-            for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
-                var gameObject = _b.value;
-                matter.World.addBody(ninjas.Main.game.engine.world, gameObject.shape.body);
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        var e_1, _c;
-    };
-    /***************************************************************************************************************
-    *   Renders all level components.
-    ***************************************************************************************************************/
-    Level.prototype.render = function () {
-        try {
-            // render game objects
-            for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
-                var gameObject = _b.value;
-                gameObject.render();
-            }
-        }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
-        finally {
-            try {
-                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
-            }
-            finally { if (e_2) throw e_2.error; }
-        }
-        var e_2, _c;
-    };
-    return Level;
-}());
-exports.Level = Level;
-
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(1);
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   The level set for the dev level.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var LevelAllElements = /** @class */ (function (_super) {
-    __extends(LevelAllElements, _super);
-    function LevelAllElements() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        /** The width of this level. */
-        _this.width = 10000.0;
-        /** The height of this level. */
-        _this.height = 1000.0;
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Inits a new level.
-    ***************************************************************************************************************/
-    LevelAllElements.prototype.createGameObjects = function () {
-        // init player
-        this.player = new ninjas.Player(50, 500, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
-        // setup all game objects
-        this.gameObjects =
-            [
-                // grounds and ramps
-                ninjas.GameObjectFactory.createObstacle(0, 620, 500, 15, 0.0, false),
-                ninjas.GameObjectFactory.createObstacle(490, 765, 500, 15, 15.0, false),
-                ninjas.GameObjectFactory.createObstacle(980, 830, 500, 15, 0.0, false),
-                ninjas.GameObjectFactory.createObstacle(2310, 830, 500, 15, 0.0, false),
-                ninjas.GameObjectFactory.createObstacle(3230, 830, 500, 15, 0.0, false),
-                ninjas.GameObjectFactory.createObstacle(4080, 730, 500, 15, 0.0, false),
-                // bg decoration
-                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                // moveable boxes
-                ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(500, 320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(650, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(1300, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(1350, -3240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(1400, -3320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(1450, -3400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(1500, -3320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(1550, -3240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(1600, -3160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(1650, -3180, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(1700, -3000, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                // sigsaws and bounces
-                ninjas.GameObjectFactory.createSigsaw(1490, 830, 400, 25, null),
-                ninjas.GameObjectFactory.createBounce(1900, 830, 400, 25, null),
-                // animated platforms
-                ninjas.GameObjectFactory.createPlatform(200.0, 15.0, null, ninjas.Platform.SPEED_NORMAL, [
-                    matter.Vector.create(2820.0, 830.0),
-                    matter.Vector.create(3020.0, 830.0),
-                ]),
-                // items
-                ninjas.GameObjectFactory.createItem(900, 620),
-                ninjas.GameObjectFactory.createItem(950, 620),
-                ninjas.GameObjectFactory.createItem(1000, 620),
-                ninjas.GameObjectFactory.createItem(2500, 740),
-                ninjas.GameObjectFactory.createItem(2550, 740),
-                ninjas.GameObjectFactory.createItem(2600, 740),
-                // free form
-                ninjas.GameObjectFactory.createFreeForm(3730.0, 730.0, [
-                    matter.Vector.create(0.0, 0.0),
-                    matter.Vector.create(350.0, -100.0),
-                    matter.Vector.create(350.0, -85.0),
-                    matter.Vector.create(0.0, 15.0),
-                ], 0.0),
-                // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp(4600.0, 730.0, 1000.0, 15.0, -200.0),
-                // player
-                this.player,
-                // enemies (fg)
-                ninjas.GameObjectFactory.createEnemy(1200, 0),
-                // fg decoration
-                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-            ];
-    };
-    return LevelAllElements;
-}(ninjas.Level));
-exports.LevelAllElements = LevelAllElements;
-
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   The level set for the level 'enchanted woods'.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var LevelEnchantedWoods = /** @class */ (function (_super) {
-    __extends(LevelEnchantedWoods, _super);
-    function LevelEnchantedWoods() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        /** The width of this level. */
-        _this.width = 3000.0;
-        /** The height of this level. */
-        _this.height = 1500.0;
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Inits a new level.
-    ***************************************************************************************************************/
-    LevelEnchantedWoods.prototype.createGameObjects = function () {
-        // init player
-        this.player = new ninjas.Player(750, 880, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
-        // setup all game objects
-        this.gameObjects =
-            [
-                // floor
-                ninjas.GameObjectFactory.createObstacle(0, 1000, 1250, 500, 0.0, false),
-                ninjas.GameObjectFactory.createElevatedRamp(1250, 1000, 750, 500, -100.0),
-                ninjas.GameObjectFactory.createObstacle(2000, 900, 1250, 500, 0.0, false),
-                // hut
-                ninjas.GameObjectFactory.createDecoration(140, 870, 350, 130, null),
-                // bg decoration
-                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                // moveable boxes
-                // sigsaws
-                // items
-                ninjas.GameObjectFactory.createItem(10, 1000 - 52),
-                ninjas.GameObjectFactory.createItem(40, 1000 - 52),
-                ninjas.GameObjectFactory.createItem(70, 1000 - 52),
-                ninjas.GameObjectFactory.createItem(100, 1000 - 52),
-                // enemies
-                // player
-                this.player,
-                // fg decoration
-                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-            ];
-    };
-    return LevelEnchantedWoods;
-}(ninjas.Level));
-exports.LevelEnchantedWoods = LevelEnchantedWoods;
-
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   The level set for the dev level.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var LevelWebsite = /** @class */ (function (_super) {
-    __extends(LevelWebsite, _super);
-    function LevelWebsite() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        /** The width of this level. */
-        _this.width = 10000.0;
-        /** The height of this level. */
-        _this.height = 10000.0;
-        /** The background color of this level. */
-        _this.bgColor = "#000000";
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Inits a new level.
-    ***************************************************************************************************************/
-    LevelWebsite.prototype.createGameObjects = function () {
-        // init player
-        this.player = new ninjas.Player(0, 0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
-        // setup all game objects
-        this.gameObjects =
-            [
-                // bg
-                // ninjas.GameObjectFactory.createBackground( 0, 0, this.width, this.height, this.bgColor ),
-                // grounds and walls
-                // ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),
-                ninjas.GameObjectFactory.createObstacle(0, 1000, 5000, 15, 0.0, false),
-                // ninjas.GameObjectFactory.createObstacle( 490,  765, 500, 15, 15.0, false ),
-                // ninjas.GameObjectFactory.createObstacle( 980,  830, 500, 15, 0.0,  false ),
-                // ninjas.GameObjectFactory.createObstacle( 2310, 830, 500, 15, 0.0,  false ),
-                // ninjas.GameObjectFactory.createObstacle( 3230, 830, 500, 15, 0.0,  false ),
-                // ninjas.GameObjectFactory.createObstacle( 4080, 730, 500, 15, 0.0,  false ),
-                // bg decoration
-                ninjas.GameObjectFactory.createDecoration(80, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(370, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                // moveable boxes
-                ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(500, 320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(650, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                /*
-                                // sigsaws and bounces
-                                ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
-                                ninjas.GameObjectFactory.createBounce( 1900, 830,  400, 25, null ),
-                
-                                // animated platforms
-                                ninjas.GameObjectFactory.createPlatform
-                                (
-                                    200.0,
-                                    15.0,
-                                    null,
-                                    ninjas.Platform.SPEED_NORMAL,
-                                    [
-                                        matter.Vector.create( 2820.0, 830.0 ),
-                                        matter.Vector.create( 3020.0, 830.0 ),
-                                    ]
-                                ),
-                
-                                // items
-                                ninjas.GameObjectFactory.createItem( 900,  620 ),
-                                ninjas.GameObjectFactory.createItem( 950,  620 ),
-                                ninjas.GameObjectFactory.createItem( 1000, 620 ),
-                                ninjas.GameObjectFactory.createItem( 2500, 740 ),
-                                ninjas.GameObjectFactory.createItem( 2550, 740 ),
-                                ninjas.GameObjectFactory.createItem( 2600, 740 ),
-                
-                                // free form
-                                ninjas.GameObjectFactory.createFreeForm(
-                                    3730.0,
-                                    730.0,
-                                    [
-                                        matter.Vector.create( 0.0,   0.0    ),
-                                        matter.Vector.create( 350.0, -100.0 ),
-                                        matter.Vector.create( 350.0, -85.0  ),
-                                        matter.Vector.create( 0.0,   15.0   ),
-                                    ],
-                                    0.0
-                                ),
-                
-                                // ascending ramp
-                                ninjas.GameObjectFactory.createElevatedRamp( 4600.0, 730.0, 1000.0, 15.0, -200.0 ),
-                */
-                // player
-                this.player,
-                /*
-                                // enemies (fg)
-                                ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
-                
-                                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
-                                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),
-                */
-                // fg decoration
-                ninjas.GameObjectFactory.createDecoration(670, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-            ];
-    };
-    return LevelWebsite;
-}(ninjas.Level));
-exports.LevelWebsite = LevelWebsite;
-
-
-/***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13693,7 +13759,7 @@ exports.Key = Key;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13771,7 +13837,7 @@ exports.KeySystem = KeySystem;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13883,7 +13949,7 @@ exports.Image = Image;
 
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13986,7 +14052,7 @@ exports.ImageSystem = ImageSystem;
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14017,7 +14083,7 @@ exports.Sound = Sound;
 
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14104,7 +14170,7 @@ exports.SoundSystem = SoundSystem;
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14189,7 +14255,7 @@ exports.Sprite = Sprite;
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14365,7 +14431,7 @@ exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14545,7 +14611,7 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14586,7 +14652,7 @@ exports.IO = IO;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14617,7 +14683,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -52,6 +52,9 @@
                 ninjas.GameObjectFactory.createDecoration( 80,  830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
                 ninjas.GameObjectFactory.createDecoration( 370, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
 
+                // site trigger
+                ninjas.GameObjectFactory.createSiteTrigger( 970, 525, 150, 475, null ),
+
 
 
 
