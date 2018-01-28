@@ -56,6 +56,8 @@
         ***************************************************************************************************************/
         private onImagesLoaded=() : void =>
         {
+            ninjas.SpriteTemplate.assignAllImageSizes();
+
             this.initSoundSystem();
         };
 

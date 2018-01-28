@@ -11274,7 +11274,7 @@ var Debug = /** @class */ (function () {
     /** Debugs the init system. */
     Debug.init = new Debug(ninjas.Setting.DEBUG_MODE && true);
     /** Debugs the image system. */
-    Debug.image = new Debug(ninjas.Setting.DEBUG_MODE && true);
+    Debug.image = new Debug(ninjas.Setting.DEBUG_MODE && false);
     /** Debugs the sound system. */
     Debug.sound = new Debug(ninjas.Setting.DEBUG_MODE && false);
     /** Debugs the key system. */
@@ -12989,6 +12989,7 @@ var Game = /** @class */ (function () {
         *   Being invoked when all images are loaded.
         ***************************************************************************************************************/
         this.onImagesLoaded = function () {
+            ninjas.SpriteTemplate.assignAllImageSizes();
             _this.initSoundSystem();
         };
         /***************************************************************************************************************
@@ -13860,7 +13861,6 @@ var ImageSystem = /** @class */ (function () {
         *   @param event The according image event.
         ***************************************************************************************************************/
         this.onMirrorImage = function (event) {
-            ninjas.Debug.image.log("Mirrored image completed!");
             if (++_this.mirroredImageCount == _this.fileNames.length) {
                 ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images mirrored");
                 _this.onLoadComplete();
@@ -14067,13 +14067,6 @@ var Sprite = /** @class */ (function () {
         this.width = ninjas.Main.game.imageSystem.getImage(this.template.imageIds[0]).width;
         this.height = ninjas.Main.game.imageSystem.getImage(this.template.imageIds[0]).height;
         // TODO outsource though redundant and performance intensive overhead!
-        // browse all frames and alert on differing dimensions
-        for (var i = 0; i < this.template.imageIds.length; ++i) {
-            if (this.width != ninjas.Main.game.imageSystem.getImage(this.template.imageIds[i]).width
-                || this.height != ninjas.Main.game.imageSystem.getImage(this.template.imageIds[i]).height) {
-                throw new Error("Differing sprite frame size detected in image id [" + this.template.imageIds[i] + "]");
-            }
-        }
     }
     /***************************************************************************************************************
     *   Resets this sprite to the first frame and resets tick counter.
@@ -14160,6 +14153,10 @@ var SpriteTemplate = /** @class */ (function () {
         this.mirrored = false;
         /** Flags if this sprite has only one frame. */
         this.singleFramed = false;
+        /** The width of all images in this sprite. TODO private with getter */
+        this.width = 0;
+        /** The height of all images in this sprite. TODO private with getter */
+        this.height = 0;
         this.imageIds = imageIds;
         this.ticksBetweenFrames = ticksBetweenFrames;
         this.mirrored = mirrored;
@@ -14168,6 +14165,29 @@ var SpriteTemplate = /** @class */ (function () {
             throw new Error("Fatal! Trying to construct empty sprite!");
         }
     }
+    /***************************************************************************************************************
+    *   Assigns the image dimensions of the first frame to all sprite templates.
+    ***************************************************************************************************************/
+    SpriteTemplate.assignAllImageSizes = function () {
+        for (var i = 0; i < SpriteTemplate.ALL_SPRITE_TEMPLATES.length; ++i) {
+            SpriteTemplate.ALL_SPRITE_TEMPLATES[i].assignImageSizes();
+        }
+    };
+    /***************************************************************************************************************
+    *   Assigns the image dimensions of the first frame for this sprite template.
+    ***************************************************************************************************************/
+    SpriteTemplate.prototype.assignImageSizes = function () {
+        this.width = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).width;
+        this.height = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).height;
+        console.log(">> Assigned [" + this.width + "][" + this.height + "]");
+        // browse all frames and alert on differing dimensions
+        for (var i = 0; i < this.imageIds.length; ++i) {
+            if (this.width != ninjas.Main.game.imageSystem.getImage(this.imageIds[i]).width
+                || this.height != ninjas.Main.game.imageSystem.getImage(this.imageIds[i]).height) {
+                throw new Error("Differing sprite frame size detected in image id [" + this.imageIds[i] + "]");
+            }
+        }
+    };
     /** Sprite 'ninja girl standing left'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
@@ -14232,6 +14252,16 @@ var SpriteTemplate = /** @class */ (function () {
     SpriteTemplate.SPRITE_TREE = new SpriteTemplate([
         ninjas.Image.IMAGE_TREE,
     ], 10, false);
+    /** A reference over all sprite templates. */
+    SpriteTemplate.ALL_SPRITE_TEMPLATES = [
+        SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT,
+        SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT,
+        SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT,
+        SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT,
+        SpriteTemplate.SPRITE_CRATE,
+        SpriteTemplate.SPRITE_ITEM,
+        SpriteTemplate.SPRITE_TREE,
+    ];
     return SpriteTemplate;
 }());
 exports.SpriteTemplate = SpriteTemplate;

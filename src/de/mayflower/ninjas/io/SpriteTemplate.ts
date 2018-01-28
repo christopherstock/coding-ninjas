@@ -12,7 +12,7 @@
     export class SpriteTemplate
     {
         /** Sprite 'ninja girl standing left'. */
-        public      static      SPRITE_NINJA_GIRL_STANDING_LEFT             :SpriteTemplate     = new SpriteTemplate
+        public      static  SPRITE_NINJA_GIRL_STANDING_LEFT             :SpriteTemplate         = new SpriteTemplate
         (
             [
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
@@ -31,7 +31,7 @@
         );
 
         /** Sprite 'ninja girl standing right'. */
-        public      static      SPRITE_NINJA_GIRL_STANDING_RIGHT            :SpriteTemplate     = new SpriteTemplate
+        public      static  SPRITE_NINJA_GIRL_STANDING_RIGHT            :SpriteTemplate         = new SpriteTemplate
         (
             [
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
@@ -50,7 +50,7 @@
         );
 
         /** Sprite 'ninja girl walking left'. */
-        public      static      SPRITE_NINJA_GIRL_WALKING_LEFT              :SpriteTemplate     = new SpriteTemplate
+        public      static  SPRITE_NINJA_GIRL_WALKING_LEFT              :SpriteTemplate         = new SpriteTemplate
         (
             [
                 ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
@@ -69,7 +69,7 @@
         );
 
         /** Sprite 'ninja girl walking right'. */
-        public      static      SPRITE_NINJA_GIRL_WALKING_RIGHT             :SpriteTemplate     = new SpriteTemplate
+        public      static  SPRITE_NINJA_GIRL_WALKING_RIGHT             :SpriteTemplate         = new SpriteTemplate
         (
             [
                 ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
@@ -88,7 +88,7 @@
         );
 
         /** Sprite 'crate'. */
-        public      static      SPRITE_CRATE                                :SpriteTemplate     = new SpriteTemplate
+        public      static  SPRITE_CRATE                                :SpriteTemplate         = new SpriteTemplate
         (
             [
                 ninjas.Image.IMAGE_BOX,
@@ -98,7 +98,7 @@
         );
 
         /** Sprite 'item'. */
-        public      static      SPRITE_ITEM                                 :SpriteTemplate     = new SpriteTemplate
+        public      static  SPRITE_ITEM                                 :SpriteTemplate         = new SpriteTemplate
         (
             [
                 ninjas.Image.IMAGE_ITEM,
@@ -108,7 +108,7 @@
         );
 
         /** Sprite 'tree'. */
-        public      static      SPRITE_TREE                                 :SpriteTemplate     = new SpriteTemplate
+        public      static  SPRITE_TREE                                 :SpriteTemplate         = new SpriteTemplate
         (
             [
                 ninjas.Image.IMAGE_TREE,
@@ -117,15 +117,32 @@
             false
         );
 
+        /** A reference over all sprite templates. */
+        private     static  ALL_SPRITE_TEMPLATES                        :Array<SpriteTemplate>  =
+        [
+            SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT,
+            SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT,
+            SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT,
+            SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT,
+            SpriteTemplate.SPRITE_CRATE,
+            SpriteTemplate.SPRITE_ITEM,
+            SpriteTemplate.SPRITE_TREE,
+        ];
+
         /** All image ids this sprite consists of. TODO private */
-        public                  imageIds                                    :Array<string>      = null;
+        public                  imageIds                                :Array<string>          = null;
         /** The number of ticks between frame changes. */
-        public                  ticksBetweenFrames                          :number             = 0;
+        public                  ticksBetweenFrames                      :number                 = 0;
         /** Specifies if all frames in this sprite should be mirrored. */
-        public                  mirrored                                    :boolean            = false;
+        public                  mirrored                                :boolean                = false;
 
         /** Flags if this sprite has only one frame. */
-        public                  singleFramed                                :boolean            = false;
+        public                  singleFramed                            :boolean                = false;
+
+        /** The width of all images in this sprite. TODO private with getter */
+        public                  width                                   :number                 = 0;
+        /** The height of all images in this sprite. TODO private with getter */
+        public                  height                                  :number                 = 0;
 
         /***************************************************************************************************************
         *   Creates a new sprite.
@@ -145,6 +162,40 @@
             if ( this.imageIds.length == 0 )
             {
                 throw new Error( "Fatal! Trying to construct empty sprite!" );
+            }
+        }
+
+        /***************************************************************************************************************
+        *   Assigns the image dimensions of the first frame to all sprite templates.
+        ***************************************************************************************************************/
+        public static assignAllImageSizes()
+        {
+            for ( let i = 0; i < SpriteTemplate.ALL_SPRITE_TEMPLATES.length; ++i )
+            {
+                SpriteTemplate.ALL_SPRITE_TEMPLATES[ i ].assignImageSizes();
+            }
+        }
+
+        /***************************************************************************************************************
+        *   Assigns the image dimensions of the first frame for this sprite template.
+        ***************************************************************************************************************/
+        private assignImageSizes()
+        {
+            this.width  = ninjas.Main.game.imageSystem.getImage( this.imageIds[ 0 ] ).width;
+            this.height = ninjas.Main.game.imageSystem.getImage( this.imageIds[ 0 ] ).height;
+
+            console.log( ">> Assigned [" + this.width + "][" + this.height + "]" );
+
+            // browse all frames and alert on differing dimensions
+            for ( let i = 0; i < this.imageIds.length; ++i )
+            {
+                if (
+                       this.width  != ninjas.Main.game.imageSystem.getImage( this.imageIds[ i ] ).width
+                    || this.height != ninjas.Main.game.imageSystem.getImage( this.imageIds[ i ] ).height
+                )
+                {
+                    throw new Error( "Differing sprite frame size detected in image id [" + this.imageIds[ i ] + "]" );
+                }
             }
         }
     }

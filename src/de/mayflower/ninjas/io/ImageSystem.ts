@@ -111,8 +111,6 @@
         ***************************************************************************************************************/
         private onMirrorImage=( event:Event ) : void =>
         {
-            ninjas.Debug.image.log( "Mirrored image completed!" );
-
             if ( ++this.mirroredImageCount == this.fileNames.length )
             {
                 ninjas.Debug.image.log( "All [" + this.fileNames.length + "] images mirrored" );
