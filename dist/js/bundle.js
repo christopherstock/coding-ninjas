@@ -11300,7 +11300,6 @@ var ninjas = __webpack_require__(0);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO Throw Error if one frame in a sprite has different size!
-*   TODO Add delay between sprite frame changes.
 *   TODO Adjust render size on reassigning new sprite! (test with wide sprite)
 *   TODO Add FPS counter via npm package.
 *   TODO create wow popup on entering a room!
@@ -11311,6 +11310,7 @@ var ninjas = __webpack_require__(0);
 *   TODO Add popup on
 *   TODO Add cucumber tests.
 *   TODO Add jest tests.
+*   TODO Prevent ALL images from being mirrored?
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -12166,6 +12166,7 @@ var Character = /** @class */ (function (_super) {
     Character.prototype.moveLeft = function () {
         matter.Body.translate(this.shape.body, matter.Vector.create(-this.speedMove, 0));
         this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
+        // this.setSprite( ninjas.Sprite. );
     };
     /***************************************************************************************************************
     *   Moves this character left.
@@ -14018,7 +14019,13 @@ var Sprite = /** @class */ (function () {
     *   @return The image url of the currently active frame.
     ***************************************************************************************************************/
     Sprite.prototype.getCurrentFrameImageUrl = function () {
-        return ninjas.Main.game.imageSystem.getImage(this.template.imageIds[this.currentFrame]).src;
+        var imageId = this.template.imageIds[this.currentFrame];
+        if (this.template.mirrored) {
+            return ninjas.Main.game.imageSystem.getMirroredImage(imageId).src;
+        }
+        else {
+            return ninjas.Main.game.imageSystem.getImage(imageId).src;
+        }
     };
     return Sprite;
 }());
@@ -14047,21 +14054,38 @@ var SpriteTemplate = /** @class */ (function () {
     *
     *   @param imageIds           All image ids this sprite consists of.
     *   @param ticksBetweenFrames The number of ticks to delay until the frame is changed.
+    *   @param mirrored           Specifies if all frames in this sprite should be mirrored.
     ***************************************************************************************************************/
-    function SpriteTemplate(imageIds, ticksBetweenFrames) {
+    function SpriteTemplate(imageIds, ticksBetweenFrames, mirrored) {
         /** All image ids this sprite consists of. TODO private */
         this.imageIds = null;
         /** The number of ticks between frame changes. */
         this.ticksBetweenFrames = 0;
+        /** Specifies if all frames in this sprite should be mirrored. */
+        this.mirrored = false;
         /** Flags if this sprite has only one frame. */
         this.singleFramed = false;
         this.imageIds = imageIds;
         this.ticksBetweenFrames = ticksBetweenFrames;
+        this.mirrored = mirrored;
         this.singleFramed = (this.imageIds.length == 1);
         if (this.imageIds.length == 0) {
             throw new Error("Fatal! Trying to construct empty sprite!");
         }
     }
+    /** Sprite 'ninja girl standing left'. */
+    SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT = new SpriteTemplate([
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
+        ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
+    ], 5, true);
     /** Sprite 'ninja girl standing right'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
@@ -14074,19 +14098,19 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
-    ], 5);
+    ], 5, false);
     /** Sprite 'crate'. */
     SpriteTemplate.SPRITE_CRATE = new SpriteTemplate([
         ninjas.Image.IMAGE_BOX,
-    ], 10);
+    ], 10, false);
     /** Sprite 'item'. */
     SpriteTemplate.SPRITE_ITEM = new SpriteTemplate([
         ninjas.Image.IMAGE_ITEM,
-    ], 10);
+    ], 10, false);
     /** Sprite 'tree'. */
     SpriteTemplate.SPRITE_TREE = new SpriteTemplate([
         ninjas.Image.IMAGE_TREE,
-    ], 10);
+    ], 10, false);
     return SpriteTemplate;
 }());
 exports.SpriteTemplate = SpriteTemplate;

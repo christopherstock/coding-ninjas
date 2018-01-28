@@ -5,7 +5,6 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Throw Error if one frame in a sprite has different size!
-    *   TODO Add delay between sprite frame changes.
     *   TODO Adjust render size on reassigning new sprite! (test with wide sprite)
     *   TODO Add FPS counter via npm package.
     *   TODO create wow popup on entering a room!
@@ -16,6 +15,7 @@
     *   TODO Add popup on
     *   TODO Add cucumber tests.
     *   TODO Add jest tests.
+    *   TODO Prevent ALL images from being mirrored?
     *
     *   @author     Christopher Stock
     *   @version    0.0.1

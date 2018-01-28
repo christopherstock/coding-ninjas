@@ -1,6 +1,5 @@
 
     import * as ninjas from '../ninjas';
-    import {SpriteTemplate} from "./SpriteTemplate";
 
     /*******************************************************************************************************************
     *   Represents one game sprite.
@@ -28,7 +27,7 @@
         *
         *   @param template The template for this sprite.
         ***************************************************************************************************************/
-        public constructor( template:SpriteTemplate )
+        public constructor( template:ninjas.SpriteTemplate )
         {
             this.template = template;
 
@@ -90,6 +89,15 @@
         ***************************************************************************************************************/
         public getCurrentFrameImageUrl() : string
         {
-            return ninjas.Main.game.imageSystem.getImage( this.template.imageIds[ this.currentFrame ] ).src;
+            let imageId:string = this.template.imageIds[ this.currentFrame ];
+
+            if ( this.template.mirrored )
+            {
+                return ninjas.Main.game.imageSystem.getMirroredImage( imageId ).src;
+            }
+            else
+            {
+                return ninjas.Main.game.imageSystem.getImage( imageId ).src;
+            }
         }
     }

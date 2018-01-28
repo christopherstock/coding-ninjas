@@ -160,6 +160,10 @@
             matter.Body.translate( this.shape.body, matter.Vector.create( -this.speedMove, 0 ) );
 
             this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
+
+            // this.setSprite( ninjas.Sprite. );
+
+
         }
 
         /***************************************************************************************************************
