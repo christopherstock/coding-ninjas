@@ -11270,7 +11270,7 @@ var Debug = /** @class */ (function () {
     /** Debugs the init system. */
     Debug.init = new Debug(ninjas.Setting.DEBUG_MODE && true);
     /** Debugs the image system. */
-    Debug.image = new Debug(ninjas.Setting.DEBUG_MODE && false);
+    Debug.image = new Debug(ninjas.Setting.DEBUG_MODE && true);
     /** Debugs the sound system. */
     Debug.sound = new Debug(ninjas.Setting.DEBUG_MODE && false);
     /** Debugs the key system. */
@@ -11716,6 +11716,8 @@ var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The abstract class of all game objects.
+*
+*   TODO Move game object classes to appropriate subpackages!
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -13753,14 +13755,18 @@ var ImageSystem = /** @class */ (function () {
         *   @param event The according image event.
         ***************************************************************************************************************/
         this.onLoadImage = function (event) {
-            ninjas.Debug.bugfix.log("Image loaded: " + _this.images[_this.fileNames[_this.loadedImageCount]].width);
-            console.log("Load mirrored image..");
-            _this.testImage = ninjas.IO.flipImageHorizontal(_this.images[_this.fileNames[_this.loadedImageCount]], function () { console.log("Mirrored image loaded!"); });
-            console.log("After loading mirrored image.");
             if (++_this.loadedImageCount == _this.fileNames.length) {
                 ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
-                _this.onLoadComplete();
+                _this.mirrorImages();
             }
+        };
+        /***************************************************************************************************************
+        *   Being invoked when one image was mirrored.
+        *
+        *   @param event The according image event.
+        ***************************************************************************************************************/
+        this.onMirrorImage = function (event) {
+            ninjas.Debug.image.log("Mirrored image completed!");
         };
         this.fileNames = fileNames;
         this.onLoadComplete = onLoadComplete;
@@ -13777,12 +13783,60 @@ var ImageSystem = /** @class */ (function () {
     *   Loads all specified image files into system memory.
     ***************************************************************************************************************/
     ImageSystem.prototype.loadImages = function () {
-        ninjas.Debug.image.log("Preloading [" + this.fileNames.length + "] images");
+        var _this = this;
+        ninjas.Debug.image.log("Loading [" + this.fileNames.length + "] images");
+        var _loop_1 = function (i) {
+            var image = new Image();
+            image.src = this_1.fileNames[i];
+            image.onload = function (event) {
+                console.log("Image loaded!");
+                _this.images[_this.fileNames[i]] = image;
+                _this.onLoadImage(event);
+            };
+        };
+        var this_1 = this;
+        // load all images
         for (var i = 0; i < this.fileNames.length; i++) {
-            this.images[this.fileNames[i]] = new Image();
-            this.images[this.fileNames[i]].src = this.fileNames[i];
-            this.images[this.fileNames[i]].onload = this.onLoadImage;
+            _loop_1(i);
         }
+    };
+    /***************************************************************************************************************
+    *   Mirrors all specified image files in system memory.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.mirrorImages = function () {
+        ninjas.Debug.image.log("Mirroring [" + this.fileNames.length + "] images");
+        this.testImage = ninjas.IO.flipImageHorizontal(this.images[this.fileNames[0]], this.onMirrorImage);
+        // mirror all images
+        // for ( let i = 0; i < this.fileNames.length; i++ )
+        {
+            /*
+                            this.images[ this.fileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
+                                this.images[ this.fileNames[ i ] ],
+                                this.onLoadImage
+                            );
+            */
+            /*
+                                    this.images[ this.fileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
+                                        image,
+                                        this.onLoadImage
+                                    );
+            
+            */
+            /*
+                            this.images[ this.fileNames[ i ] ].onload = ( event:Event ) => {
+            
+                                console.log( "mirroring [" + this.fileNames[ i ] + "]" );
+            
+            
+                            };
+            */
+            /*
+                            this.images[ this.fileNames[ i ] ]        = new Image();
+                            this.images[ this.fileNames[ i ] ].src    = this.fileNames[ i ];
+                            this.images[ this.fileNames[ i ] ].onload = this.onLoadImage;
+            */
+        }
+        this.onLoadComplete();
     };
     return ImageSystem;
 }());
@@ -14248,9 +14302,9 @@ var IO = /** @class */ (function () {
     *   Flips an image horizontally.
     *
     *   @param original      The image to flip horizontally.
-    *   @param onLoadCallack The function to invoke when this image is loaded.
+    *   @param onLoadCallack The function to invoke when the target image is mirrored.
     *
-    *   @return The horizontally flipped image.
+    *   @return The newly created but not already loaded mirrored image.
     ***************************************************************************************************************/
     IO.flipImageHorizontal = function (original, onLoadCallack) {
         var canvas = document.createElement("canvas");
@@ -14259,10 +14313,10 @@ var IO = /** @class */ (function () {
         var context = canvas.getContext("2d");
         context.scale(-1, 1);
         context.drawImage(original, -original.width, 0);
-        var ret = new Image();
-        ret.src = canvas.toDataURL();
-        ret.onload = function (event) { onLoadCallack(); };
-        return ret;
+        var target = new Image();
+        target.src = canvas.toDataURL();
+        target.onload = function (event) { onLoadCallack(); };
+        return target;
     };
     return IO;
 }());

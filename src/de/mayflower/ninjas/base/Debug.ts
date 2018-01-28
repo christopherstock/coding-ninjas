@@ -14,7 +14,7 @@
         /** Debugs the init system. */
         public      static  init            :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
         /** Debugs the image system. */
-        public      static  image           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && false );
+        public      static  image           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
         /** Debugs the sound system. */
         public      static  sound           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && false );
         /** Debugs the key system. */

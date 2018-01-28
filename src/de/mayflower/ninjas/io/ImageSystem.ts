@@ -48,14 +48,74 @@
         ***************************************************************************************************************/
         public loadImages() : void
         {
-            ninjas.Debug.image.log( "Preloading [" + this.fileNames.length + "] images" );
+            ninjas.Debug.image.log( "Loading [" + this.fileNames.length + "] images" );
 
+            // load all images
             for ( let i = 0; i < this.fileNames.length; i++ )
             {
+                let image:HTMLImageElement = new Image();
+                image.src    = this.fileNames[ i ];
+                image.onload = ( event:Event ) => {
+
+                    console.log( "Image loaded!" );
+
+                    this.images[ this.fileNames[ i ] ] = image;
+
+                    this.onLoadImage( event );
+                }
+            }
+        }
+
+        /***************************************************************************************************************
+        *   Mirrors all specified image files in system memory.
+        ***************************************************************************************************************/
+        public mirrorImages() : void
+        {
+            ninjas.Debug.image.log( "Mirroring [" + this.fileNames.length + "] images" );
+
+
+            this.testImage = ninjas.IO.flipImageHorizontal(
+                this.images[ this.fileNames[ 0 ] ],
+                this.onMirrorImage
+            );
+
+
+            // mirror all images
+            // for ( let i = 0; i < this.fileNames.length; i++ )
+            {
+
+
+/*
+                this.images[ this.fileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
+                    this.images[ this.fileNames[ i ] ],
+                    this.onLoadImage
+                );
+*/
+
+/*
+                        this.images[ this.fileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
+                            image,
+                            this.onLoadImage
+                        );
+
+*/
+
+/*
+                this.images[ this.fileNames[ i ] ].onload = ( event:Event ) => {
+
+                    console.log( "mirroring [" + this.fileNames[ i ] + "]" );
+
+
+                };
+*/
+/*
                 this.images[ this.fileNames[ i ] ]        = new Image();
                 this.images[ this.fileNames[ i ] ].src    = this.fileNames[ i ];
                 this.images[ this.fileNames[ i ] ].onload = this.onLoadImage;
+*/
             }
+
+            this.onLoadComplete();
         }
 
         /***************************************************************************************************************
@@ -65,25 +125,23 @@
         ***************************************************************************************************************/
         private onLoadImage=( event:Event ) : void =>
         {
-
-
-            ninjas.Debug.bugfix.log( "Image loaded: " + this.images[ this.fileNames[ this.loadedImageCount ] ].width );
-
-            console.log( "Load mirrored image.." );
-            this.testImage = ninjas.IO.flipImageHorizontal(
-                this.images[ this.fileNames[ this.loadedImageCount ] ],
-                () => { console.log( "Mirrored image loaded!" ); }
-            );
-            console.log( "After loading mirrored image." );
-
-
-
-
             if ( ++this.loadedImageCount == this.fileNames.length )
             {
                 ninjas.Debug.image.log( "All [" + this.fileNames.length + "] images loaded" );
 
-                this.onLoadComplete();
+                this.mirrorImages();
             }
         };
+
+        /***************************************************************************************************************
+        *   Being invoked when one image was mirrored.
+        *
+        *   @param event The according image event.
+        ***************************************************************************************************************/
+        private onMirrorImage=( event:Event ) : void =>
+        {
+            ninjas.Debug.image.log( "Mirrored image completed!" );
+
+
+        }
     }
