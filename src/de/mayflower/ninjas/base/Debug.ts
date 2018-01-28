@@ -10,19 +10,21 @@
     export class Debug
     {
         /** A global debug group. */
-        public      static  bugfix          :Debug              = new Debug( ninjas.Setting.DEBUG_MODE          );
+        public      static      bugfix          :Debug              = new Debug( true  );
         /** Debugs the init system. */
-        public      static  init            :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
+        public      static      init            :Debug              = new Debug( true  );
         /** Debugs the image system. */
-        public      static  image           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && false );
+        public      static      image           :Debug              = new Debug( false );
         /** Debugs the sound system. */
-        public      static  sound           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && false );
+        public      static      sound           :Debug              = new Debug( false );
         /** Debugs the key system. */
-        public      static  key             :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && false );
+        public      static      key             :Debug              = new Debug( false );
         /** Debugs the pickable game items. */
-        public      static  item            :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
+        public      static      item            :Debug              = new Debug( true  );
         /** Debugs enemy events. */
-        public      static  enemy           :Debug              = new Debug( ninjas.Setting.DEBUG_MODE && true  );
+        public      static      enemy           :Debug              = new Debug( true  );
+        /** Debugs site events. */
+        public      static      site            :Debug              = new Debug( true  );
 
         /** The flag that enables or disables logging for this debug group. */
         private             debugEnabled    :boolean            = false;
@@ -45,7 +47,7 @@
         ***************************************************************************************************************/
         public log( msg:string = "" ):void
         {
-            if ( this.debugEnabled )
+            if ( ninjas.Setting.DEBUG_MODE && this.debugEnabled )
             {
                 console.log( '[' + ninjas.String.getDateTimeString() + '] ' + msg );
             }

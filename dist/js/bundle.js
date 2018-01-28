@@ -11191,6 +11191,8 @@ var Setting = /** @class */ (function () {
     Setting.COLOR_DEBUG_ITEM = "#fdff72";
     /** The debug color for a decoration. */
     Setting.COLOR_DEBUG_DECORATION = "#b2ffbb";
+    /** The debug color for a site trigger. */
+    Setting.COLOR_DEBUG_SITE_TRIGGER = "#deffd9";
     /** The debug color for a platform. */
     Setting.COLOR_DEBUG_PLATFORM = "#d2d2d2";
     /** The relative path from index.html where all background images reside. */
@@ -11263,24 +11265,26 @@ var Debug = /** @class */ (function () {
     ***************************************************************************************************************/
     Debug.prototype.log = function (msg) {
         if (msg === void 0) { msg = ""; }
-        if (this.debugEnabled) {
+        if (ninjas.Setting.DEBUG_MODE && this.debugEnabled) {
             console.log('[' + ninjas.String.getDateTimeString() + '] ' + msg);
         }
     };
     /** A global debug group. */
-    Debug.bugfix = new Debug(ninjas.Setting.DEBUG_MODE);
+    Debug.bugfix = new Debug(true);
     /** Debugs the init system. */
-    Debug.init = new Debug(ninjas.Setting.DEBUG_MODE && true);
+    Debug.init = new Debug(true);
     /** Debugs the image system. */
-    Debug.image = new Debug(ninjas.Setting.DEBUG_MODE && false);
+    Debug.image = new Debug(false);
     /** Debugs the sound system. */
-    Debug.sound = new Debug(ninjas.Setting.DEBUG_MODE && false);
+    Debug.sound = new Debug(false);
     /** Debugs the key system. */
-    Debug.key = new Debug(ninjas.Setting.DEBUG_MODE && false);
+    Debug.key = new Debug(false);
     /** Debugs the pickable game items. */
-    Debug.item = new Debug(ninjas.Setting.DEBUG_MODE && true);
+    Debug.item = new Debug(true);
     /** Debugs enemy events. */
-    Debug.enemy = new Debug(ninjas.Setting.DEBUG_MODE && true);
+    Debug.enemy = new Debug(true);
+    /** Debugs site events. */
+    Debug.site = new Debug(true);
     return Debug;
 }());
 exports.Debug = Debug;
@@ -13570,11 +13574,9 @@ var LevelWebsite = /** @class */ (function (_super) {
                 // ninjas.GameObjectFactory.createObstacle( 2310, 830, 500, 15, 0.0,  false ),
                 // ninjas.GameObjectFactory.createObstacle( 3230, 830, 500, 15, 0.0,  false ),
                 // ninjas.GameObjectFactory.createObstacle( 4080, 730, 500, 15, 0.0,  false ),
-                /*
-                                // bg decoration
-                                ninjas.GameObjectFactory.createDecoration( 30,   450, 76, 170, ninjas.Image.IMAGE_TREE ),
-                                ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170, ninjas.Image.IMAGE_TREE ),
-                */
+                // bg decoration
+                ninjas.GameObjectFactory.createDecoration(80, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(370, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
@@ -13629,6 +13631,15 @@ var LevelWebsite = /** @class */ (function (_super) {
                 */
                 // player
                 this.player,
+                /*
+                                // enemies (fg)
+                                ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
+                
+                                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
+                                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),
+                */
+                // fg decoration
+                ninjas.GameObjectFactory.createDecoration(670, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
             ];
     };
     return LevelWebsite;
@@ -14138,8 +14149,8 @@ var Sprite = /** @class */ (function () {
         if (this.template.singleFramed) {
             return false;
         }
-        // no changes for non-looped sprites where the last frame has been reached
-        if (this.currentFrame == this.template.imageIds.length - 1) {
+        // non-looped sprites end on the last frame
+        if (!this.template.loop && this.currentFrame == this.template.imageIds.length - 1) {
             return false;
         }
         // increase tick

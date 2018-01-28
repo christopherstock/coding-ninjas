@@ -49,8 +49,8 @@
                 return false;
             }
 
-            // no changes for non-looped sprites where the last frame has been reached
-            if ( this.currentFrame == this.template.imageIds.length - 1 )
+            // non-looped sprites end on the last frame
+            if ( !this.template.loop && this.currentFrame == this.template.imageIds.length - 1 )
             {
                 return false;
             }

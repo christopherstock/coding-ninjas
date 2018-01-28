@@ -47,11 +47,11 @@
                 // ninjas.GameObjectFactory.createObstacle( 3230, 830, 500, 15, 0.0,  false ),
                 // ninjas.GameObjectFactory.createObstacle( 4080, 730, 500, 15, 0.0,  false ),
 
-/*
+
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration( 30,   450, 76, 170, ninjas.Image.IMAGE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 370, 450, 76, 170, ninjas.Image.IMAGE_TREE ),
-*/
+                ninjas.GameObjectFactory.createDecoration( 80,  830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 370, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
+
 
 
 
@@ -117,10 +117,11 @@
                 // enemies (fg)
                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
 
-                // fg decoration
                 ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
                 ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),
 */
+                // fg decoration
+                ninjas.GameObjectFactory.createDecoration( 670, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
             ];
         }
     }

@@ -33,7 +33,7 @@
         /*****************************************************************************
         *   This method is invoked when the application starts.
         *****************************************************************************/
-        public static main():void
+        public static main() : void
         {
             // set webpage title
             document.title = ninjas.Setting.TITLE;
