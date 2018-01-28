@@ -13744,13 +13744,13 @@ var ImageSystem = /** @class */ (function () {
     ***************************************************************************************************************/
     function ImageSystem(fileNames, onLoadComplete) {
         var _this = this;
-        /** All image file names to load. TODO fix! */
+        /** All image file names to load. TODO private! */
         this.fileNames = null;
         /** The method to invoke when all images are loaded. */
         this.onLoadComplete = null;
         /** The number of currently loaded images. */
         this.loadedImageCount = 0;
-        /** All loaded image objects. TODO fix! */
+        /** All loaded image objects. TODO private! */
         this.images = [];
         /***************************************************************************************************************
         *   Being invoked when one image was loaded completely.
@@ -13770,8 +13770,10 @@ var ImageSystem = /** @class */ (function () {
         ***************************************************************************************************************/
         this.onMirrorImage = function (event) {
             ninjas.Debug.image.log("Mirrored image completed!");
-            ninjas.Debug.image.log(">> " + _this.fileNames[0]);
-            _this.onLoadComplete();
+            if (++_this.loadedImageCount == _this.fileNames.length * 2) {
+                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images mirrored");
+                _this.onLoadComplete();
+            }
         };
         this.fileNames = fileNames;
         this.onLoadComplete = onLoadComplete;
@@ -13788,21 +13790,12 @@ var ImageSystem = /** @class */ (function () {
     *   Loads all specified image files into system memory.
     ***************************************************************************************************************/
     ImageSystem.prototype.loadImages = function () {
-        var _this = this;
         ninjas.Debug.image.log("Loading [" + this.fileNames.length + "] images");
-        var _loop_1 = function (i) {
-            var image = new Image();
-            image.src = this_1.fileNames[i];
-            image.onload = function (event) {
-                console.log("Image loaded!");
-                _this.images[_this.fileNames[i]] = image;
-                _this.onLoadImage(event);
-            };
-        };
-        var this_1 = this;
         // load all images
         for (var i = 0; i < this.fileNames.length; i++) {
-            _loop_1(i);
+            this.images[this.fileNames[i]] = new Image();
+            this.images[this.fileNames[i]].src = this.fileNames[i];
+            this.images[this.fileNames[i]].onload = this.onLoadImage;
         }
     };
     /***************************************************************************************************************
@@ -13810,36 +13803,9 @@ var ImageSystem = /** @class */ (function () {
     ***************************************************************************************************************/
     ImageSystem.prototype.mirrorImages = function () {
         ninjas.Debug.image.log("Mirroring [" + this.fileNames.length + "] images");
-        this.images[this.fileNames[0]] = ninjas.IO.flipImageHorizontal(this.images[this.fileNames[0]], this.onMirrorImage);
         // mirror all images
-        // for ( let i = 0; i < this.fileNames.length; i++ )
-        {
-            /*
-                            this.images[ this.fileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
-                                this.images[ this.fileNames[ i ] ],
-                                this.onLoadImage
-                            );
-            */
-            /*
-                                    this.images[ this.fileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
-                                        image,
-                                        this.onLoadImage
-                                    );
-            
-            */
-            /*
-                            this.images[ this.fileNames[ i ] ].onload = ( event:Event ) => {
-            
-                                console.log( "mirroring [" + this.fileNames[ i ] + "]" );
-            
-            
-                            };
-            */
-            /*
-                            this.images[ this.fileNames[ i ] ]        = new Image();
-                            this.images[ this.fileNames[ i ] ].src    = this.fileNames[ i ];
-                            this.images[ this.fileNames[ i ] ].onload = this.onLoadImage;
-            */
+        for (var i = 0; i < this.fileNames.length; i++) {
+            this.images[this.fileNames[i]] = ninjas.IO.flipImageHorizontal(this.images[this.fileNames[i]], this.onMirrorImage);
         }
     };
     return ImageSystem;

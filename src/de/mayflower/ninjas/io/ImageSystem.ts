@@ -9,15 +9,15 @@
     *******************************************************************************************************************/
     export class ImageSystem
     {
-        /** All image file names to load. TODO fix! */
-        public fileNames                       :Array<string>                  = null;
+        /** All image file names to load. TODO private! */
+        public          fileNames                       :Array<string>                  = null;
         /** The method to invoke when all images are loaded. */
         private         onLoadComplete                  :Function                       = null;
 
         /** The number of currently loaded images. */
         private         loadedImageCount                :number                         = 0;
-        /** All loaded image objects. TODO fix! */
-        public images                          :Array<HTMLImageElement>        = [];
+        /** All loaded image objects. TODO private! */
+        public          images                          :Array<HTMLImageElement>        = [];
 
         /***************************************************************************************************************
         *   Preloads all images into memory.
@@ -51,16 +51,9 @@
             // load all images
             for ( let i = 0; i < this.fileNames.length; i++ )
             {
-                let image:HTMLImageElement = new Image();
-                image.src    = this.fileNames[ i ];
-                image.onload = ( event:Event ) => {
-
-                    console.log( "Image loaded!" );
-
-                    this.images[ this.fileNames[ i ] ] = image;
-
-                    this.onLoadImage( event );
-                }
+                this.images[ this.fileNames[ i ] ]        = new Image();
+                this.images[ this.fileNames[ i ] ].src    = this.fileNames[ i ];
+                this.images[ this.fileNames[ i ] ].onload = this.onLoadImage;
             }
         }
 
@@ -71,46 +64,13 @@
         {
             ninjas.Debug.image.log( "Mirroring [" + this.fileNames.length + "] images" );
 
-
-            this.images[ this.fileNames[ 0 ] ] = ninjas.IO.flipImageHorizontal(
-                this.images[ this.fileNames[ 0 ] ],
-                this.onMirrorImage
-            );
-
-
             // mirror all images
-            // for ( let i = 0; i < this.fileNames.length; i++ )
+            for ( let i = 0; i < this.fileNames.length; i++ )
             {
-
-
-/*
                 this.images[ this.fileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
                     this.images[ this.fileNames[ i ] ],
-                    this.onLoadImage
+                    this.onMirrorImage
                 );
-*/
-
-/*
-                        this.images[ this.fileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
-                            image,
-                            this.onLoadImage
-                        );
-
-*/
-
-/*
-                this.images[ this.fileNames[ i ] ].onload = ( event:Event ) => {
-
-                    console.log( "mirroring [" + this.fileNames[ i ] + "]" );
-
-
-                };
-*/
-/*
-                this.images[ this.fileNames[ i ] ]        = new Image();
-                this.images[ this.fileNames[ i ] ].src    = this.fileNames[ i ];
-                this.images[ this.fileNames[ i ] ].onload = this.onLoadImage;
-*/
             }
         }
 
@@ -138,8 +98,11 @@
         {
             ninjas.Debug.image.log( "Mirrored image completed!" );
 
-            ninjas.Debug.image.log( ">> " + this.fileNames[ 0 ] );
+            if ( ++this.loadedImageCount == this.fileNames.length * 2 )
+            {
+                ninjas.Debug.image.log( "All [" + this.fileNames.length + "] images mirrored" );
 
-            this.onLoadComplete();
+                this.onLoadComplete();
+            }
         }
     }
