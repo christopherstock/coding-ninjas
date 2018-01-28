@@ -4,8 +4,6 @@
     /*******************************************************************************************************************
     *   The sprite template that specifies images and their meta information.
     *
-    *   TODO simplify sprite-image-system's frame ranges!
-    *
     *   @author     Christopher Stock
     *   @version    0.0.1
     *******************************************************************************************************************/
@@ -27,6 +25,7 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
             ],
             5,
+            true,
             true
         );
 
@@ -46,7 +45,8 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
             ],
             5,
-            false
+            false,
+            true
         );
 
         /** Sprite 'ninja girl walking left'. */
@@ -65,6 +65,7 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
             ],
             5,
+            true,
             true
         );
 
@@ -84,6 +85,47 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
             ],
             5,
+            false,
+            true
+        );
+
+        /** Sprite 'ninja girl jumping left'. */
+        public      static  SPRITE_NINJA_GIRL_JUMPING_LEFT              :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10,
+            ],
+            5,
+            true,
+            false
+        );
+
+        /** Sprite 'ninja girl jumping right'. */
+        public      static  SPRITE_NINJA_GIRL_JUMPING_RIGHT             :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9,
+                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10,
+            ],
+            5,
+            false,
             false
         );
 
@@ -94,6 +136,7 @@
                 ninjas.Image.IMAGE_BOX,
             ],
             10,
+            false,
             false
         );
 
@@ -104,6 +147,7 @@
                 ninjas.Image.IMAGE_ITEM,
             ],
             10,
+            false,
             false
         );
 
@@ -114,6 +158,7 @@
                 ninjas.Image.IMAGE_TREE,
             ],
             10,
+            false,
             false
         );
 
@@ -124,6 +169,8 @@
             SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT,
             SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT,
             SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT,
+            SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT,
+            SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT,
             SpriteTemplate.SPRITE_CRATE,
             SpriteTemplate.SPRITE_ITEM,
             SpriteTemplate.SPRITE_TREE,
@@ -135,6 +182,8 @@
         public                  ticksBetweenFrames                      :number                 = 0;
         /** Specifies if all frames in this sprite should be mirrored. */
         public                  mirrored                                :boolean                = false;
+        /** Specifies if the frame animation should be repeated infinitely. */
+        public                  loop                                    :boolean                = false;
 
         /** Flags if this sprite has only one frame. */
         public                  singleFramed                            :boolean                = false;
@@ -150,12 +199,14 @@
         *   @param imageIds           All image ids this sprite consists of.
         *   @param ticksBetweenFrames The number of ticks to delay until the frame is changed.
         *   @param mirrored           Specifies if all frames in this sprite should be mirrored.
+        *   @param loop               Specifies if the frame animation should be repeated infinitely.
         ***************************************************************************************************************/
-        public constructor( imageIds:Array<string>, ticksBetweenFrames:number, mirrored:boolean )
+        private constructor( imageIds:Array<string>, ticksBetweenFrames:number, mirrored:boolean, loop:boolean )
         {
             this.imageIds           = imageIds;
             this.ticksBetweenFrames = ticksBetweenFrames;
             this.mirrored           = mirrored;
+            this.loop               = loop;
 
             this.singleFramed       = ( this.imageIds.length == 1 );
 
@@ -183,8 +234,6 @@
         {
             this.width  = ninjas.Main.game.imageSystem.getImage( this.imageIds[ 0 ] ).width;
             this.height = ninjas.Main.game.imageSystem.getImage( this.imageIds[ 0 ] ).height;
-
-            console.log( ">> Assigned [" + this.width + "][" + this.height + "]" );
 
             // browse all frames and alert on differing dimensions
             for ( let i = 0; i < this.imageIds.length; ++i )

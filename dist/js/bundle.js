@@ -11133,8 +11133,6 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   All adjustments and balancings for the application.
 *
-*   TODO extract debub settings, engine settings etc. > own package?
-*
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
@@ -11306,8 +11304,12 @@ var ninjas = __webpack_require__(0);
 *   TODO Create parallax bg images.
 *   TODO Add react and ant design / ant design pro.
 *   TODO Create and use image ranges for sprite templates?
+*   TODO simplify sprite-image-system's frame ranges!
+*   TODO Move game object classes to appropriate subpackages!
+*   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and Engine
 *   TODO Create HUD.
 *   TODO Add popup on
+*   TODO Setting: extract debub settings, engine settings etc. > own package?
 *   TODO Add cucumber tests.
 *   TODO Add jest tests.
 *   TODO Prevent ALL images from being mirrored?
@@ -11752,8 +11754,6 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The abstract class of all game objects.
 *
-*   TODO Move game object classes to appropriate subpackages!
-*
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
@@ -12130,6 +12130,10 @@ var Character = /** @class */ (function (_super) {
         _this.dead = false;
         /** Flags if the character currently collides with the bottom sensor. */
         _this.collidesBottom = false;
+        /** Flags if the character is currently moving left. */
+        _this.movesLeft = false;
+        /** Flags if the character is currently moving right. */
+        _this.movesRight = false;
         /** The speed for horizontal movements. */
         _this.speedMove = 0.0;
         /** The jump power to apply for this character. */
@@ -12144,12 +12148,42 @@ var Character = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     Character.prototype.render = function () {
         _super.prototype.render.call(this);
+        this.movesLeft = false;
+        this.movesRight = false;
         this.checkBottomCollision();
         this.resetRotation();
         this.clipToHorizontalLevelBounds();
         if (!this.dead) {
             this.checkFallingDead();
         }
+    };
+    /***************************************************************************************************************
+    *   Kills this character.
+    ***************************************************************************************************************/
+    Character.prototype.kill = function () {
+        this.dead = true;
+    };
+    /***************************************************************************************************************
+    *   Lets this character jump.
+    ***************************************************************************************************************/
+    Character.prototype.jump = function () {
+        matter.Body.applyForce(this.shape.body, this.shape.body.position, matter.Vector.create(0.0, this.jumpPower));
+    };
+    /***************************************************************************************************************
+    *   Moves this character left.
+    ***************************************************************************************************************/
+    Character.prototype.moveLeft = function () {
+        matter.Body.translate(this.shape.body, matter.Vector.create(-this.speedMove, 0));
+        this.movesLeft = true;
+        this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
+    };
+    /***************************************************************************************************************
+    *   Moves this character left.
+    ***************************************************************************************************************/
+    Character.prototype.moveRight = function () {
+        matter.Body.translate(this.shape.body, matter.Vector.create(this.speedMove, 0));
+        this.movesRight = true;
+        this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
     };
     /***************************************************************************************************************
     *   Check if the player falls to death by falling out of the level.
@@ -12161,12 +12195,6 @@ var Character = /** @class */ (function (_super) {
             matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
             this.kill();
         }
-    };
-    /***************************************************************************************************************
-    *   Kills this character.
-    ***************************************************************************************************************/
-    Character.prototype.kill = function () {
-        this.dead = true;
     };
     /***************************************************************************************************************
     *   Checks if the character's bottom line currently collides with any other colliding body.
@@ -12199,28 +12227,6 @@ var Character = /** @class */ (function (_super) {
         // check colliding bodies
         this.collidesBottom = matter.Query.ray(bodiesToCheck, matter.Vector.create(this.shape.body.position.x - (this.shape.getWidth() / 2), this.shape.body.position.y + (this.shape.getHeight() / 2)), matter.Vector.create(this.shape.body.position.x + (this.shape.getWidth() / 2), this.shape.body.position.y + (this.shape.getHeight() / 2))).length > 0;
         var e_1, _c;
-    };
-    /***************************************************************************************************************
-    *   Lets this character jump.
-    ***************************************************************************************************************/
-    Character.prototype.jump = function () {
-        if (this.collidesBottom) {
-            matter.Body.applyForce(this.shape.body, this.shape.body.position, matter.Vector.create(0.0, this.jumpPower));
-        }
-    };
-    /***************************************************************************************************************
-    *   Moves this character left.
-    ***************************************************************************************************************/
-    Character.prototype.moveLeft = function () {
-        matter.Body.translate(this.shape.body, matter.Vector.create(-this.speedMove, 0));
-        this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
-    };
-    /***************************************************************************************************************
-    *   Moves this character left.
-    ***************************************************************************************************************/
-    Character.prototype.moveRight = function () {
-        matter.Body.translate(this.shape.body, matter.Vector.create(this.speedMove, 0));
-        this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
     };
     return Character;
 }(ninjas.GameObject));
@@ -12452,7 +12458,7 @@ var Player = /** @class */ (function (_super) {
     *   @param sprite            The initial image for the player.
     ***************************************************************************************************************/
     function Player(x, y, lookingDirection, sprite) {
-        return _super.call(this, new ninjas.ShapeRectangle(sprite.width, sprite.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, sprite, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
+        return _super.call(this, new ninjas.ShapeRectangle(sprite.template.width, sprite.template.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, sprite, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -12464,6 +12470,7 @@ var Player = /** @class */ (function (_super) {
             this.checkEnemyKill();
             this.clipToHorizontalLevelBounds();
         }
+        this.assignCurrentSprite();
     };
     /***************************************************************************************************************
     *   Checks all pressed player keys and performs according actions.
@@ -12471,27 +12478,48 @@ var Player = /** @class */ (function (_super) {
     Player.prototype.handleKeys = function () {
         if (ninjas.Main.game.keySystem.isPressed(ninjas.Key.KEY_LEFT)) {
             this.moveLeft();
-            this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT);
         }
         else if (ninjas.Main.game.keySystem.isPressed(ninjas.Key.KEY_RIGHT)) {
             this.moveRight();
-            this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT);
-        }
-        else {
-            if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
-                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT);
-            }
-            else {
-                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
-            }
         }
         if (ninjas.Main.game.keySystem.isPressed(ninjas.Key.KEY_UP)) {
             ninjas.Main.game.keySystem.setNeedsRelease(ninjas.Key.KEY_UP);
-            this.jump();
+            if (this.collidesBottom) {
+                this.jump();
+            }
         }
     };
     /***************************************************************************************************************
-    *   Checks if an enemy is currently killed by jumping on his head.
+    *   Assigns the current sprite to the player according to his current state.
+    ***************************************************************************************************************/
+    Player.prototype.assignCurrentSprite = function () {
+        if (this.collidesBottom) {
+            if (this.movesLeft) {
+                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT);
+            }
+            else if (this.movesRight) {
+                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT);
+            }
+            else {
+                if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT);
+                }
+                else {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+                }
+            }
+        }
+        else {
+            if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT);
+            }
+            else {
+                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT);
+            }
+        }
+    };
+    /***************************************************************************************************************
+    *   Checks if an enemy is currently killed by the player (by jumping onto the enemie's head.)
     ***************************************************************************************************************/
     Player.prototype.checkEnemyKill = function () {
         // check character landing on enemies
@@ -12954,8 +12982,6 @@ var matter = __webpack_require__(1);
 var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
-*
-*   TODO outsource all init stuff to separate classes: GameEngine > Game and Engine
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -13772,6 +13798,26 @@ var Image = /** @class */ (function () {
     Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/09.png";
     /** Image resource 'ninja girl walking right frame 10'. */
     Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/10.png";
+    /** Image resource 'ninja girl jumping right frame 1'. */
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/01.png";
+    /** Image resource 'ninja girl jumping right frame 2'. */
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/02.png";
+    /** Image resource 'ninja girl jumping right frame 3'. */
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/03.png";
+    /** Image resource 'ninja girl jumping right frame 4'. */
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/04.png";
+    /** Image resource 'ninja girl jumping right frame 5'. */
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/05.png";
+    /** Image resource 'ninja girl jumping right frame 6'. */
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/06.png";
+    /** Image resource 'ninja girl jumping right frame 7'. */
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/07.png";
+    /** Image resource 'ninja girl jumping right frame 8'. */
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/08.png";
+    /** Image resource 'ninja girl jumping right frame 9'. */
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/09.png";
+    /** Image resource 'ninja girl jumping right frame 10'. */
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/10.png";
     /** Image resource 'box'. */
     Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
     /** Image resource 'item'. */
@@ -13800,6 +13846,16 @@ var Image = /** @class */ (function () {
         Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
         Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
         Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
+        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
+        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
+        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
+        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4,
+        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5,
+        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6,
+        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7,
+        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8,
+        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9,
+        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10,
         Image.IMAGE_ITEM,
         Image.IMAGE_TREE,
         Image.IMAGE_BOX,
@@ -13989,15 +14045,15 @@ var SoundSystem = /** @class */ (function () {
     /*****************************************************************************
     *   Creates and plays a COPY of the specified audio object.
     *
-    *   @param id             The ID of the audio object to play.
-    *   @param repeatInfinite Specifies if playback for this sound should be repeated infinitely.
+    *   @param id   The ID of the audio object to play.
+    *   @param loop Specifies if playback for this sound should be repeated infinitely.
     *****************************************************************************/
-    SoundSystem.prototype.playSound = function (id, repeatInfinite) {
-        if (repeatInfinite === void 0) { repeatInfinite = false; }
+    SoundSystem.prototype.playSound = function (id, loop) {
+        if (loop === void 0) { loop = false; }
         if (!ninjas.Setting.MUTE) {
             if (this.sounds[id] != null) {
                 var clipClone_1 = this.sounds[id].cloneNode(true);
-                if (repeatInfinite) {
+                if (loop) {
                     clipClone_1.addEventListener("ended", function () {
                         ninjas.Debug.sound.log("Clip ended - now repeating ..");
                         // clipClone.
@@ -14051,22 +14107,13 @@ var Sprite = /** @class */ (function () {
     *   @param template The template for this sprite.
     ***************************************************************************************************************/
     function Sprite(template) {
-        /** The sprite template for this sprite. TODO private */
+        /** The sprite template for this sprite. */
         this.template = null;
-        /** The id of the current frame for this sprite. TODO private */
+        /** The id of the current frame for this sprite. */
         this.currentFrame = 0;
         /** The current tick since last frame change. */
         this.currentTick = 0;
-        /** The width of all images in this sprite. TODO private with getter */
-        this.width = 0;
-        /** The height of all images in this sprite. TODO private with getter */
-        this.height = 0;
         this.template = template;
-        // TODO outsource to spriteTemplate! create init method for assigning sizes!!
-        // assign dimensions from 1st frame
-        this.width = ninjas.Main.game.imageSystem.getImage(this.template.imageIds[0]).width;
-        this.height = ninjas.Main.game.imageSystem.getImage(this.template.imageIds[0]).height;
-        // TODO outsource though redundant and performance intensive overhead!
     }
     /***************************************************************************************************************
     *   Resets this sprite to the first frame and resets tick counter.
@@ -14083,6 +14130,10 @@ var Sprite = /** @class */ (function () {
     Sprite.prototype.render = function () {
         // no changes for single framed sprites
         if (this.template.singleFramed) {
+            return false;
+        }
+        // no changes for non-looped sprites where the last frame has been reached
+        if (this.currentFrame == this.template.imageIds.length - 1) {
             return false;
         }
         // increase tick
@@ -14131,8 +14182,6 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The sprite template that specifies images and their meta information.
 *
-*   TODO simplify sprite-image-system's frame ranges!
-*
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
@@ -14143,14 +14192,17 @@ var SpriteTemplate = /** @class */ (function () {
     *   @param imageIds           All image ids this sprite consists of.
     *   @param ticksBetweenFrames The number of ticks to delay until the frame is changed.
     *   @param mirrored           Specifies if all frames in this sprite should be mirrored.
+    *   @param loop               Specifies if the frame animation should be repeated infinitely.
     ***************************************************************************************************************/
-    function SpriteTemplate(imageIds, ticksBetweenFrames, mirrored) {
+    function SpriteTemplate(imageIds, ticksBetweenFrames, mirrored, loop) {
         /** All image ids this sprite consists of. TODO private */
         this.imageIds = null;
         /** The number of ticks between frame changes. */
         this.ticksBetweenFrames = 0;
         /** Specifies if all frames in this sprite should be mirrored. */
         this.mirrored = false;
+        /** Specifies if the frame animation should be repeated infinitely. */
+        this.loop = false;
         /** Flags if this sprite has only one frame. */
         this.singleFramed = false;
         /** The width of all images in this sprite. TODO private with getter */
@@ -14160,6 +14212,7 @@ var SpriteTemplate = /** @class */ (function () {
         this.imageIds = imageIds;
         this.ticksBetweenFrames = ticksBetweenFrames;
         this.mirrored = mirrored;
+        this.loop = loop;
         this.singleFramed = (this.imageIds.length == 1);
         if (this.imageIds.length == 0) {
             throw new Error("Fatal! Trying to construct empty sprite!");
@@ -14179,7 +14232,6 @@ var SpriteTemplate = /** @class */ (function () {
     SpriteTemplate.prototype.assignImageSizes = function () {
         this.width = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).width;
         this.height = ninjas.Main.game.imageSystem.getImage(this.imageIds[0]).height;
-        console.log(">> Assigned [" + this.width + "][" + this.height + "]");
         // browse all frames and alert on differing dimensions
         for (var i = 0; i < this.imageIds.length; ++i) {
             if (this.width != ninjas.Main.game.imageSystem.getImage(this.imageIds[i]).width
@@ -14200,7 +14252,7 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
-    ], 5, true);
+    ], 5, true, true);
     /** Sprite 'ninja girl standing right'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
@@ -14213,7 +14265,7 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
-    ], 5, false);
+    ], 5, false, true);
     /** Sprite 'ninja girl walking left'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
@@ -14226,7 +14278,7 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
-    ], 5, true);
+    ], 5, true, true);
     /** Sprite 'ninja girl walking right'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
@@ -14239,25 +14291,53 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
-    ], 5, false);
+    ], 5, false, true);
+    /** Sprite 'ninja girl jumping left'. */
+    SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT = new SpriteTemplate([
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10,
+    ], 5, true, false);
+    /** Sprite 'ninja girl jumping right'. */
+    SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT = new SpriteTemplate([
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9,
+        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10,
+    ], 5, false, false);
     /** Sprite 'crate'. */
     SpriteTemplate.SPRITE_CRATE = new SpriteTemplate([
         ninjas.Image.IMAGE_BOX,
-    ], 10, false);
+    ], 10, false, false);
     /** Sprite 'item'. */
     SpriteTemplate.SPRITE_ITEM = new SpriteTemplate([
         ninjas.Image.IMAGE_ITEM,
-    ], 10, false);
+    ], 10, false, false);
     /** Sprite 'tree'. */
     SpriteTemplate.SPRITE_TREE = new SpriteTemplate([
         ninjas.Image.IMAGE_TREE,
-    ], 10, false);
+    ], 10, false, false);
     /** A reference over all sprite templates. */
     SpriteTemplate.ALL_SPRITE_TEMPLATES = [
         SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT,
         SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT,
         SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT,
         SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT,
+        SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT,
+        SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT,
         SpriteTemplate.SPRITE_CRATE,
         SpriteTemplate.SPRITE_ITEM,
         SpriteTemplate.SPRITE_TREE,

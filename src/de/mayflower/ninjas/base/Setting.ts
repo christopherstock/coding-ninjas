@@ -5,8 +5,6 @@
     /*******************************************************************************************************************
     *   All adjustments and balancings for the application.
     *
-    *   TODO extract debub settings, engine settings etc. > own package?
-    *
     *   @author     Christopher Stock
     *   @version    0.0.1
     *******************************************************************************************************************/

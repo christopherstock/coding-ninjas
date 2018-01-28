@@ -9,18 +9,13 @@
     *******************************************************************************************************************/
     export class Sprite
     {
-        /** The sprite template for this sprite. TODO private */
+        /** The sprite template for this sprite. */
         public                  template                                    :ninjas.SpriteTemplate  = null;
 
-        /** The id of the current frame for this sprite. TODO private */
-        public                  currentFrame                                :number                 = 0;
+        /** The id of the current frame for this sprite. */
+        private                 currentFrame                                :number                 = 0;
         /** The current tick since last frame change. */
-        public                  currentTick                                 :number                 = 0;
-
-        /** The width of all images in this sprite. TODO private with getter */
-        public                  width                                       :number                 = 0;
-        /** The height of all images in this sprite. TODO private with getter */
-        public                  height                                      :number                 = 0;
+        private                 currentTick                                 :number                 = 0;
 
         /***************************************************************************************************************
         *   Creates a new sprite.
@@ -30,12 +25,6 @@
         public constructor( template:ninjas.SpriteTemplate )
         {
             this.template = template;
-
-            // TODO outsource to spriteTemplate! create init method for assigning sizes!!
-
-            // assign dimensions from 1st frame
-            this.width  = ninjas.Main.game.imageSystem.getImage( this.template.imageIds[ 0 ] ).width;
-            this.height = ninjas.Main.game.imageSystem.getImage( this.template.imageIds[ 0 ] ).height;
         }
 
         /***************************************************************************************************************
@@ -56,6 +45,12 @@
         {
             // no changes for single framed sprites
             if ( this.template.singleFramed )
+            {
+                return false;
+            }
+
+            // no changes for non-looped sprites where the last frame has been reached
+            if ( this.currentFrame == this.template.imageIds.length - 1 )
             {
                 return false;
             }

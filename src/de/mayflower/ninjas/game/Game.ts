@@ -5,8 +5,6 @@
     /*******************************************************************************************************************
     *   Specifies the game logic and all primal components of the game.
     *
-    *   TODO outsource all init stuff to separate classes: GameEngine > Game and Engine
-    *
     *   @author     Christopher Stock
     *   @version    0.0.1
     *******************************************************************************************************************/

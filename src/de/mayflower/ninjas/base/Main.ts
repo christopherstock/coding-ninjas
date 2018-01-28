@@ -11,8 +11,12 @@
     *   TODO Create parallax bg images.
     *   TODO Add react and ant design / ant design pro.
     *   TODO Create and use image ranges for sprite templates?
+    *   TODO simplify sprite-image-system's frame ranges!
+    *   TODO Move game object classes to appropriate subpackages!
+    *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and Engine
     *   TODO Create HUD.
     *   TODO Add popup on
+    *   TODO Setting: extract debub settings, engine settings etc. > own package?
     *   TODO Add cucumber tests.
     *   TODO Add jest tests.
     *   TODO Prevent ALL images from being mirrored?

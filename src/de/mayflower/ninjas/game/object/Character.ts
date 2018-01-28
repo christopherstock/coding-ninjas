@@ -18,10 +18,13 @@
 
         /** Flags if the character currently collides with the bottom sensor. */
         public                          collidesBottom                      :boolean                            = false;
+        /** Flags if the character is currently moving left. */
+        public                          movesLeft                           :boolean                            = false;
+        /** Flags if the character is currently moving right. */
+        public                          movesRight                          :boolean                            = false;
 
         /** The speed for horizontal movements. */
         private                         speedMove                           :number                             = 0.0;
-
         /** The jump power to apply for this character. */
         private                         jumpPower                           :number                             = 0.0;
 
@@ -67,6 +70,9 @@
         {
             super.render();
 
+            this.movesLeft  = false;
+            this.movesRight = false;
+
             this.checkBottomCollision();
             this.resetRotation();
             this.clipToHorizontalLevelBounds();
@@ -78,9 +84,52 @@
         }
 
         /***************************************************************************************************************
+        *   Kills this character.
+        ***************************************************************************************************************/
+        public kill()
+        {
+            this.dead = true;
+        }
+
+        /***************************************************************************************************************
+        *   Lets this character jump.
+        ***************************************************************************************************************/
+        protected jump()
+        {
+            matter.Body.applyForce
+            (
+                this.shape.body,
+                this.shape.body.position,
+                matter.Vector.create( 0.0, this.jumpPower )
+            );
+        }
+
+        /***************************************************************************************************************
+        *   Moves this character left.
+        ***************************************************************************************************************/
+        protected moveLeft()
+        {
+            matter.Body.translate( this.shape.body, matter.Vector.create( -this.speedMove, 0 ) );
+
+            this.movesLeft        = true;
+            this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
+        }
+
+        /***************************************************************************************************************
+        *   Moves this character left.
+        ***************************************************************************************************************/
+        protected moveRight()
+        {
+            matter.Body.translate( this.shape.body, matter.Vector.create( this.speedMove, 0 ) );
+
+            this.movesRight       = true;
+            this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
+        }
+
+        /***************************************************************************************************************
         *   Check if the player falls to death by falling out of the level.
         ***************************************************************************************************************/
-        protected checkFallingDead()
+        private checkFallingDead()
         {
             if ( this.shape.body.position.y - this.shape.getHeight() / 2 > ninjas.Main.game.level.height )
             {
@@ -91,14 +140,6 @@
 
                 this.kill();
             }
-        }
-
-        /***************************************************************************************************************
-        *   Kills this character.
-        ***************************************************************************************************************/
-        public kill()
-        {
-            this.dead = true;
         }
 
         /***************************************************************************************************************
@@ -134,41 +175,5 @@
                 matter.Vector.create( this.shape.body.position.x - ( this.shape.getWidth() / 2 ), this.shape.body.position.y + ( this.shape.getHeight() / 2 ) ),
                 matter.Vector.create( this.shape.body.position.x + ( this.shape.getWidth() / 2 ), this.shape.body.position.y + ( this.shape.getHeight() / 2 ) )
             ).length > 0;
-        }
-
-        /***************************************************************************************************************
-        *   Lets this character jump.
-        ***************************************************************************************************************/
-        protected jump()
-        {
-            if ( this.collidesBottom )
-            {
-                matter.Body.applyForce
-                (
-                    this.shape.body,
-                    this.shape.body.position,
-                    matter.Vector.create( 0.0, this.jumpPower )
-                );
-            }
-        }
-
-        /***************************************************************************************************************
-        *   Moves this character left.
-        ***************************************************************************************************************/
-        protected moveLeft()
-        {
-            matter.Body.translate( this.shape.body, matter.Vector.create( -this.speedMove, 0 ) );
-
-            this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
-        }
-
-        /***************************************************************************************************************
-        *   Moves this character left.
-        ***************************************************************************************************************/
-        protected moveRight()
-        {
-            matter.Body.translate( this.shape.body, matter.Vector.create( this.speedMove, 0 ) );
-
-            this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
         }
     }

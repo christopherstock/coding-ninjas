@@ -34,10 +34,10 @@
         /*****************************************************************************
         *   Creates and plays a COPY of the specified audio object.
         *
-        *   @param id             The ID of the audio object to play.
-        *   @param repeatInfinite Specifies if playback for this sound should be repeated infinitely.
+        *   @param id   The ID of the audio object to play.
+        *   @param loop Specifies if playback for this sound should be repeated infinitely.
         *****************************************************************************/
-        public playSound( id:string, repeatInfinite:boolean = false )
+        public playSound( id:string, loop:boolean = false )
         {
             if ( !ninjas.Setting.MUTE )
             {
@@ -45,7 +45,7 @@
                 {
                     let clipClone:HTMLAudioElement = this.sounds[ id ].cloneNode( true );
 
-                    if ( repeatInfinite )
+                    if ( loop )
                     {
                         clipClone.addEventListener(
                             "ended",

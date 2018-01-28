@@ -30,8 +30,8 @@
             (
                 new ninjas.ShapeRectangle
                 (
-                    sprite.width,
-                    sprite.height,
+                    sprite.template.width,
+                    sprite.template.height,
                     ninjas.Setting.COLOR_DEBUG_PLAYER,
                     false,
                     0.0,
@@ -61,6 +61,8 @@
 
                 this.clipToHorizontalLevelBounds();
             }
+
+            this.assignCurrentSprite();
         }
 
         /***************************************************************************************************************
@@ -71,37 +73,65 @@
             if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_LEFT ) )
             {
                 this.moveLeft();
-
-                this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT );
             }
             else if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_RIGHT ) )
             {
                 this.moveRight();
-
-                this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT );
-            }
-            else
-            {
-                if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
-                {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT );
-                }
-                else
-                {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT );
-                }
             }
 
             if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_UP ) )
             {
                 ninjas.Main.game.keySystem.setNeedsRelease( ninjas.Key.KEY_UP );
 
-                this.jump();
+                if ( this.collidesBottom )
+                {
+                    this.jump();
+                }
             }
         }
 
         /***************************************************************************************************************
-        *   Checks if an enemy is currently killed by jumping on his head.
+        *   Assigns the current sprite to the player according to his current state.
+        ***************************************************************************************************************/
+        private assignCurrentSprite()
+        {
+            if ( this.collidesBottom )
+            {
+                if ( this.movesLeft )
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT );
+                }
+                else if ( this.movesRight )
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT );
+                }
+                else
+                {
+                    if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT );
+                    }
+                    else
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT );
+                    }
+                }
+            }
+            else
+            {
+                if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT );
+                }
+                else
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT );
+                }
+            }
+        }
+
+        /***************************************************************************************************************
+        *   Checks if an enemy is currently killed by the player (by jumping onto the enemie's head.)
         ***************************************************************************************************************/
         private checkEnemyKill()
         {
