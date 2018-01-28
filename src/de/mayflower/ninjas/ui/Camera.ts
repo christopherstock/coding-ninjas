@@ -154,8 +154,6 @@
             this.offsetX = Math.floor( this.offsetX );
             this.offsetY = Math.floor( this.offsetY );
 
-            console.log( "Set renderer bounds: [" + this.offsetX + "][" + this.offsetY +"]" );
-
             // assign current camera offset to renderer
             this.renderer.bounds = matter.Bounds.create(
                 [

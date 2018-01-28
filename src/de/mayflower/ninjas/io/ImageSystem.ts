@@ -19,6 +19,8 @@
         /** All loaded image objects. */
         private         images                          :Array<HTMLImageElement>        = [];
 
+        public          testImage                       :HTMLImageElement               = null;
+
         /***************************************************************************************************************
         *   Preloads all images into memory.
         *
@@ -58,9 +60,25 @@
 
         /***************************************************************************************************************
         *   Being invoked when one image was loaded completely.
+        *
+        *   @param event The according image event.
         ***************************************************************************************************************/
-        private onLoadImage=() : void =>
+        private onLoadImage=( event:Event ) : void =>
         {
+
+
+            ninjas.Debug.bugfix.log( "Image loaded: " + this.images[ this.fileNames[ this.loadedImageCount ] ].width );
+
+            console.log( "Load mirrored image.." );
+            this.testImage = ninjas.IO.flipImageHorizontal(
+                this.images[ this.fileNames[ this.loadedImageCount ] ],
+                () => { console.log( "Mirrored image loaded!" ); }
+            );
+            console.log( "After loading mirrored image." );
+
+
+
+
             if ( ++this.loadedImageCount == this.fileNames.length )
             {
                 ninjas.Debug.image.log( "All [" + this.fileNames.length + "] images loaded" );

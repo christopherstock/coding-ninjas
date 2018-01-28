@@ -5,7 +5,7 @@
     /*******************************************************************************************************************
     *   Specifies the game logic and all primal components of the game.
     *
-    *   TODO outsource all init stuff to separate class. > GameEngine
+    *   TODO outsource all init stuff to separate classes: GameEngine > Game and Engine
     *
     *   @author     Christopher Stock
     *   @version    0.0.1
@@ -183,8 +183,6 @@
         {
             window.onresize = ( event:Event ) => {
 
-                ninjas.Debug.init.log( "Image resize event being detected." );
-
                 this.updateCanvasDimension();
 
                 this.renderer.canvas.width  = this.canvasWidth;
@@ -308,6 +306,8 @@
         {
             this.renderer.context.fillStyle = "#ff0000";
             this.renderer.context.fillRect( this.canvasWidth - 200, 50, 150, 50 );
+
+            this.renderer.context.drawImage( this.imageSystem.testImage, 0, 0 );
         }
 
         /***************************************************************************************************************

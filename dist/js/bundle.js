@@ -111,6 +111,7 @@ __export(__webpack_require__(43));
 __export(__webpack_require__(44));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
+__export(__webpack_require__(47));
 
 
 /***/ }),
@@ -11303,6 +11304,7 @@ var ninjas = __webpack_require__(0);
 *   TODO Create parallax bg images.
 *   TODO Add react and ant design / ant design pro.
 *   TODO Create HUD.
+*   TODO Add popup on
 *   TODO Add cucumber tests.
 *   TODO Add jest tests.
 *
@@ -12890,7 +12892,7 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
 *
-*   TODO outsource all init stuff to separate class. > GameEngine
+*   TODO outsource all init stuff to separate classes: GameEngine > Game and Engine
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -13042,7 +13044,6 @@ var Game = /** @class */ (function () {
     Game.prototype.initWindowResizeHandler = function () {
         var _this = this;
         window.onresize = function (event) {
-            ninjas.Debug.init.log("Image resize event being detected.");
             _this.updateCanvasDimension();
             _this.renderer.canvas.width = _this.canvasWidth;
             _this.renderer.canvas.height = _this.canvasHeight;
@@ -13110,6 +13111,7 @@ var Game = /** @class */ (function () {
     Game.prototype.paint = function (context) {
         this.renderer.context.fillStyle = "#ff0000";
         this.renderer.context.fillRect(this.canvasWidth - 200, 50, 150, 50);
+        this.renderer.context.drawImage(this.imageSystem.testImage, 0, 0);
     };
     /***************************************************************************************************************
     *   Handles pressed menu keys.
@@ -13744,10 +13746,17 @@ var ImageSystem = /** @class */ (function () {
         this.loadedImageCount = 0;
         /** All loaded image objects. */
         this.images = [];
+        this.testImage = null;
         /***************************************************************************************************************
         *   Being invoked when one image was loaded completely.
+        *
+        *   @param event The according image event.
         ***************************************************************************************************************/
-        this.onLoadImage = function () {
+        this.onLoadImage = function (event) {
+            ninjas.Debug.bugfix.log("Image loaded: " + _this.images[_this.fileNames[_this.loadedImageCount]].width);
+            console.log("Load mirrored image..");
+            _this.testImage = ninjas.IO.flipImageHorizontal(_this.images[_this.fileNames[_this.loadedImageCount]], function () { console.log("Mirrored image loaded!"); });
+            console.log("After loading mirrored image.");
             if (++_this.loadedImageCount == _this.fileNames.length) {
                 ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
                 _this.onLoadComplete();
@@ -14159,7 +14168,6 @@ var Camera = /** @class */ (function () {
         // floor offsets (important for renderer bounds! fuzzy drawing problems on images may appear otherwise!)
         this.offsetX = Math.floor(this.offsetX);
         this.offsetY = Math.floor(this.offsetY);
-        console.log("Set renderer bounds: [" + this.offsetX + "][" + this.offsetY + "]");
         // assign current camera offset to renderer
         this.renderer.bounds = matter.Bounds.create([
             {
@@ -14228,6 +14236,47 @@ exports.Camera = Camera;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 /*******************************************************************************************************************
+*   Offers additional Input/Output functionality.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var IO = /** @class */ (function () {
+    function IO() {
+    }
+    /***************************************************************************************************************
+    *   Flips an image horizontally.
+    *
+    *   @param original      The image to flip horizontally.
+    *   @param onLoadCallack The function to invoke when this image is loaded.
+    *
+    *   @return The horizontally flipped image.
+    ***************************************************************************************************************/
+    IO.flipImageHorizontal = function (original, onLoadCallack) {
+        var canvas = document.createElement("canvas");
+        canvas.width = original.width;
+        canvas.height = original.height;
+        var context = canvas.getContext("2d");
+        context.scale(-1, 1);
+        context.drawImage(original, -original.width, 0);
+        var ret = new Image();
+        ret.src = canvas.toDataURL();
+        ret.onload = function (event) { onLoadCallack(); };
+        return ret;
+    };
+    return IO;
+}());
+exports.IO = IO;
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
 *   Offers additional mathematical functionality.
 *
 *   @author     Christopher Stock
@@ -14236,6 +14285,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var MathUtil = /** @class */ (function () {
     function MathUtil() {
     }
+    // TODO add random method!
     /***************************************************************************************************************
     *   Converts angles to radians.
     *
@@ -14251,7 +14301,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
