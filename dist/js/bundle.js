@@ -13117,7 +13117,7 @@ var Game = /** @class */ (function () {
     Game.prototype.paint = function (context) {
         this.renderer.context.fillStyle = "#ff0000";
         this.renderer.context.fillRect(this.canvasWidth - 200, 50, 150, 50);
-        this.renderer.context.drawImage(this.imageSystem.images[this.imageSystem.fileNames[0]], 0, 200);
+        this.renderer.context.drawImage(this.imageSystem.originalImages[this.imageSystem.fileNames[0]], 0, 200);
     };
     /***************************************************************************************************************
     *   Handles pressed menu keys.
@@ -13750,8 +13750,12 @@ var ImageSystem = /** @class */ (function () {
         this.onLoadComplete = null;
         /** The number of currently loaded images. */
         this.loadedImageCount = 0;
+        /** The number of currently mirrored images. */
+        this.mirroredImageCount = 0;
         /** All loaded image objects. TODO private! */
-        this.images = [];
+        this.originalImages = [];
+        /** All loaded and mirrored image objects. TODO private! */
+        this.mirroredImages = [];
         /***************************************************************************************************************
         *   Being invoked when one image was loaded completely.
         *
@@ -13770,7 +13774,7 @@ var ImageSystem = /** @class */ (function () {
         ***************************************************************************************************************/
         this.onMirrorImage = function (event) {
             ninjas.Debug.image.log("Mirrored image completed!");
-            if (++_this.loadedImageCount == _this.fileNames.length * 2) {
+            if (++_this.mirroredImageCount == _this.fileNames.length) {
                 ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images mirrored");
                 _this.onLoadComplete();
             }
@@ -13784,7 +13788,15 @@ var ImageSystem = /** @class */ (function () {
     *   @param id The id of the image to receive.
     ***************************************************************************************************************/
     ImageSystem.prototype.getImage = function (id) {
-        return this.images[id];
+        return this.originalImages[id];
+    };
+    /***************************************************************************************************************
+    *   Returns the mirrored image with the specified id.
+    *
+    *   @param id The id of the mirrored image to receive.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.getMirroredImage = function (id) {
+        return this.mirroredImages[id];
     };
     /***************************************************************************************************************
     *   Loads all specified image files into system memory.
@@ -13793,9 +13805,9 @@ var ImageSystem = /** @class */ (function () {
         ninjas.Debug.image.log("Loading [" + this.fileNames.length + "] images");
         // load all images
         for (var i = 0; i < this.fileNames.length; i++) {
-            this.images[this.fileNames[i]] = new Image();
-            this.images[this.fileNames[i]].src = this.fileNames[i];
-            this.images[this.fileNames[i]].onload = this.onLoadImage;
+            this.originalImages[this.fileNames[i]] = new Image();
+            this.originalImages[this.fileNames[i]].src = this.fileNames[i];
+            this.originalImages[this.fileNames[i]].onload = this.onLoadImage;
         }
     };
     /***************************************************************************************************************
@@ -13805,7 +13817,7 @@ var ImageSystem = /** @class */ (function () {
         ninjas.Debug.image.log("Mirroring [" + this.fileNames.length + "] images");
         // mirror all images
         for (var i = 0; i < this.fileNames.length; i++) {
-            this.images[this.fileNames[i]] = ninjas.IO.flipImageHorizontal(this.images[this.fileNames[i]], this.onMirrorImage);
+            this.mirroredImages[this.fileNames[i]] = ninjas.IO.flipImageHorizontal(this.originalImages[this.fileNames[i]], this.onMirrorImage);
         }
     };
     return ImageSystem;

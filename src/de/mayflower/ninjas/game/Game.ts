@@ -309,7 +309,7 @@
 
 
 
-            this.renderer.context.drawImage( this.imageSystem.images[ this.imageSystem.fileNames[ 0 ] ], 0, 200 );
+            this.renderer.context.drawImage( this.imageSystem.originalImages[ this.imageSystem.fileNames[ 0 ] ], 0, 200 );
         }
 
         /***************************************************************************************************************
