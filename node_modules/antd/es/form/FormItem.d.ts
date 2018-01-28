@@ -57,7 +57,7 @@ export default class FormItem extends React.Component<FormItemProps, any> {
     renderValidateWrapper(c1: React.ReactNode, c2: React.ReactNode, c3: React.ReactNode): JSX.Element;
     renderWrapper(children: React.ReactNode): JSX.Element;
     isRequired(): any;
-    onLabelClick: () => void;
+    onLabelClick: (e: any) => void;
     renderLabel(): JSX.Element | null;
     renderChildren(): (JSX.Element | null)[];
     renderFormItem(children: React.ReactNode): JSX.Element;

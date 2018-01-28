@@ -3,10 +3,9 @@
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors */
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors */
 .ant-menu {
-  font-family: "Monospace Number", "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Monospaced Number", "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  color: rgba(0, 0, 0, 0.65);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   margin: 0;
@@ -17,6 +16,7 @@
   list-style: none;
   -webkit-box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.65);
   background: #fff;
   line-height: 0;
   -webkit-transition: background .3s, width .2s;
@@ -431,6 +431,9 @@
 .ant-menu-inline .ant-menu-item,
 .ant-menu-inline .ant-menu-submenu-title {
   width: calc(100% + 1px);
+}
+.ant-menu-inline .ant-menu-submenu-title {
+  padding-right: 34px;
 }
 .ant-menu-inline-collapsed {
   width: 80px;
