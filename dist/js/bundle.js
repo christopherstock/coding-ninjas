@@ -11306,6 +11306,7 @@ var ninjas = __webpack_require__(0);
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Create parallax bg images.
 *   TODO Add react and ant design / ant design pro.
+*   TODO Create image ranges for sprite templates?
 *   TODO Create HUD.
 *   TODO Add popup on
 *   TODO Add cucumber tests.
@@ -12180,7 +12181,6 @@ var Character = /** @class */ (function (_super) {
     Character.prototype.moveLeft = function () {
         matter.Body.translate(this.shape.body, matter.Vector.create(-this.speedMove, 0));
         this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
-        this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT);
     };
     /***************************************************************************************************************
     *   Moves this character left.
@@ -12188,7 +12188,6 @@ var Character = /** @class */ (function (_super) {
     Character.prototype.moveRight = function () {
         matter.Body.translate(this.shape.body, matter.Vector.create(this.speedMove, 0));
         this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
-        this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
     };
     return Character;
 }(ninjas.GameObject));
@@ -12439,9 +12438,19 @@ var Player = /** @class */ (function (_super) {
     Player.prototype.handleKeys = function () {
         if (ninjas.Main.game.keySystem.isPressed(ninjas.Key.KEY_LEFT)) {
             this.moveLeft();
+            this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT);
         }
-        if (ninjas.Main.game.keySystem.isPressed(ninjas.Key.KEY_RIGHT)) {
+        else if (ninjas.Main.game.keySystem.isPressed(ninjas.Key.KEY_RIGHT)) {
             this.moveRight();
+            this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT);
+        }
+        else {
+            if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT);
+            }
+            else {
+                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+            }
         }
         if (ninjas.Main.game.keySystem.isPressed(ninjas.Key.KEY_UP)) {
             ninjas.Main.game.keySystem.setNeedsRelease(ninjas.Key.KEY_UP);
@@ -13133,7 +13142,6 @@ var Game = /** @class */ (function () {
     Game.prototype.paint = function (context) {
         this.renderer.context.fillStyle = "#ff0000";
         this.renderer.context.fillRect(this.canvasWidth - 200, 50, 150, 50);
-        this.renderer.context.drawImage(this.imageSystem.originalImages[this.imageSystem.fileNames[0]], 0, 200);
     };
     /***************************************************************************************************************
     *   Handles pressed menu keys.
@@ -13710,6 +13718,26 @@ var Image = /** @class */ (function () {
     Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/09.png";
     /** Image resource 'ninja girl standing right frame 10'. */
     Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/10.png";
+    /** Image resource 'ninja girl walking right frame 1'. */
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/01.png";
+    /** Image resource 'ninja girl walking right frame 2'. */
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/02.png";
+    /** Image resource 'ninja girl walking right frame 3'. */
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/03.png";
+    /** Image resource 'ninja girl walking right frame 4'. */
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_4 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/04.png";
+    /** Image resource 'ninja girl walking right frame 5'. */
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_5 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/05.png";
+    /** Image resource 'ninja girl walking right frame 6'. */
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_6 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/06.png";
+    /** Image resource 'ninja girl walking right frame 7'. */
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_7 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/07.png";
+    /** Image resource 'ninja girl walking right frame 8'. */
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/08.png";
+    /** Image resource 'ninja girl walking right frame 9'. */
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/09.png";
+    /** Image resource 'ninja girl walking right frame 10'. */
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/10.png";
     /** Image resource 'box'. */
     Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
     /** Image resource 'item'. */
@@ -13728,6 +13756,16 @@ var Image = /** @class */ (function () {
         Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
         Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
         Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
+        Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
+        Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_2,
+        Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_3,
+        Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_4,
+        Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_5,
+        Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_6,
+        Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_7,
+        Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
+        Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
+        Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
         Image.IMAGE_ITEM,
         Image.IMAGE_TREE,
         Image.IMAGE_BOX,
@@ -14113,6 +14151,32 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
+    ], 5, false);
+    /** Sprite 'ninja girl walking left'. */
+    SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT = new SpriteTemplate([
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_2,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_3,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_4,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_5,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_6,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_7,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
+    ], 5, true);
+    /** Sprite 'ninja girl walking right'. */
+    SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT = new SpriteTemplate([
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_2,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_3,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_4,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_5,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_6,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_7,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
+        ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
     ], 5, false);
     /** Sprite 'crate'. */
     SpriteTemplate.SPRITE_CRATE = new SpriteTemplate([

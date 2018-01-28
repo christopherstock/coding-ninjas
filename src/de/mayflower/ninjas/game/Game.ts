@@ -306,10 +306,6 @@
         {
             this.renderer.context.fillStyle = "#ff0000";
             this.renderer.context.fillRect( this.canvasWidth - 200, 50, 150, 50 );
-
-
-
-            this.renderer.context.drawImage( this.imageSystem.originalImages[ this.imageSystem.fileNames[ 0 ] ], 0, 200 );
         }
 
         /***************************************************************************************************************

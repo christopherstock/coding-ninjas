@@ -49,6 +49,44 @@
             false
         );
 
+        /** Sprite 'ninja girl walking left'. */
+        public      static      SPRITE_NINJA_GIRL_WALKING_LEFT              :SpriteTemplate     = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_2,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_3,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_4,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_5,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_6,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_7,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
+            ],
+            5,
+            true
+        );
+
+        /** Sprite 'ninja girl walking right'. */
+        public      static      SPRITE_NINJA_GIRL_WALKING_RIGHT             :SpriteTemplate     = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_2,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_3,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_4,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_5,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_6,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_7,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
+                ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
+            ],
+            5,
+            false
+        );
+
         /** Sprite 'crate'. */
         public      static      SPRITE_CRATE                                :SpriteTemplate     = new SpriteTemplate
         (

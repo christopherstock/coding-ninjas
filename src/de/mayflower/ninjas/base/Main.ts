@@ -11,6 +11,7 @@
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Create parallax bg images.
     *   TODO Add react and ant design / ant design pro.
+    *   TODO Create and use image ranges for sprite templates?
     *   TODO Create HUD.
     *   TODO Add popup on
     *   TODO Add cucumber tests.

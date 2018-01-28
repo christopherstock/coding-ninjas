@@ -71,11 +71,25 @@
             if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_LEFT ) )
             {
                 this.moveLeft();
-            }
 
-            if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_RIGHT ) )
+                this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT );
+            }
+            else if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_RIGHT ) )
             {
                 this.moveRight();
+
+                this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT );
+            }
+            else
+            {
+                if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT );
+                }
+                else
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT );
+                }
             }
 
             if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_UP ) )
