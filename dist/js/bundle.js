@@ -11306,8 +11306,10 @@ var ninjas = __webpack_require__(0);
 *   TODO Check if wowjs is really required .. maybe animate.css is sufficient.
 *
 *   TODO create wow popup on entering a room!
+*   TODO add random method to MathUtil!
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Create parallax bg images.
+*   TODO import methods for class 'Drawing' from box2d game.
 *   TODO Add react and ant design / ant design pro.
 *   TODO Create and use image ranges for sprite templates?
 *   TODO simplify sprite-image-system's frame ranges!
@@ -11952,7 +11954,7 @@ var ShapeCircle = /** @class */ (function (_super) {
         /** The circle's diameter. */
         _this.diameter = 0.0;
         _this.diameter = diameter;
-        // TODO create method updateBody()
+        // TODO create method updateBody() for all shape classes?
         _this.body = _this.createBody();
         return _this;
     }
@@ -13634,7 +13636,7 @@ var Game = /** @class */ (function () {
         // disables blurry image drawing!
         this.renderer.context.imageSmoothingEnabled = false;
         // add drawing callback after rendering
-        matter.Events.on(this.renderer, 'afterRender', function (event) {
+        matter.Events.on(this.renderer, "afterRender", function (event) {
             _this.paint(_this.renderer.context);
         });
     };
@@ -13995,7 +13997,7 @@ var ImageSystem = /** @class */ (function () {
     ***************************************************************************************************************/
     function ImageSystem(fileNames, onLoadComplete) {
         var _this = this;
-        /** All image file names to load. TODO private! */
+        /** All image file names to load. */
         this.fileNames = null;
         /** The method to invoke when all images are loaded. */
         this.onLoadComplete = null;
@@ -14003,9 +14005,9 @@ var ImageSystem = /** @class */ (function () {
         this.loadedImageCount = 0;
         /** The number of currently mirrored images. */
         this.mirroredImageCount = 0;
-        /** All loaded image objects. TODO private! */
+        /** All loaded image objects. */
         this.originalImages = [];
-        /** All loaded and mirrored image objects. TODO private! */
+        /** All loaded and mirrored image objects. */
         this.mirroredImages = [];
         /***************************************************************************************************************
         *   Being invoked when one image was loaded completely.
@@ -14691,7 +14693,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var MathUtil = /** @class */ (function () {
     function MathUtil() {
     }
-    // TODO add random method!
     /***************************************************************************************************************
     *   Converts angles to radians.
     *
@@ -14794,6 +14795,8 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   Manages the communication between the game and the company presentation.
 *
+*   TODO outsource according functions to SitePopup.
+*
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
@@ -14805,13 +14808,32 @@ var Site = /** @class */ (function () {
     *****************************************************************************/
     Site.showPopup = function () {
         ninjas.Debug.site.log("Site.showPopup() being invoked");
+        Site.createPopup();
+        document.body.appendChild(Site.examplePopup);
     };
     /*****************************************************************************
     *   Being invoked when a popup shall be hidden.
     *****************************************************************************/
     Site.hidePopup = function () {
         ninjas.Debug.site.log("Site.hidePopup() being invoked");
+        document.body.removeChild(Site.examplePopup);
     };
+    /*****************************************************************************
+    *   Creates the site popup.
+    *****************************************************************************/
+    Site.createPopup = function () {
+        Site.examplePopup = document.createElement("div");
+        Site.examplePopup.style.width = (ninjas.Main.game.canvasWidth / 2 - Site.POPUP_BORDER_SIZE) + "px";
+        Site.examplePopup.style.height = (ninjas.Main.game.canvasHeight - 2 * Site.POPUP_BORDER_SIZE) + "px";
+        Site.examplePopup.style.backgroundColor = "#ffff00";
+        Site.examplePopup.style.position = "absolute";
+        Site.examplePopup.style.top = Site.POPUP_BORDER_SIZE + "px";
+        Site.examplePopup.style.left = Site.POPUP_BORDER_SIZE + "px";
+    };
+    /** The border size of the popup in px. */
+    Site.POPUP_BORDER_SIZE = 15;
+    /** An example site popup. */
+    Site.examplePopup = null;
     return Site;
 }());
 exports.Site = Site;

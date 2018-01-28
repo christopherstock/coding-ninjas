@@ -9,8 +9,8 @@
     *******************************************************************************************************************/
     export class ImageSystem
     {
-        /** All image file names to load. TODO private! */
-        public          fileNames                       :Array<string>                  = null;
+        /** All image file names to load. */
+        private         fileNames                       :Array<string>                  = null;
         /** The method to invoke when all images are loaded. */
         private         onLoadComplete                  :Function                       = null;
 
@@ -19,10 +19,10 @@
         /** The number of currently mirrored images. */
         private         mirroredImageCount              :number                         = 0;
 
-        /** All loaded image objects. TODO private! */
-        public          originalImages                  :Array<HTMLImageElement>        = [];
-        /** All loaded and mirrored image objects. TODO private! */
-        public          mirroredImages                  :Array<HTMLImageElement>        = [];
+        /** All loaded image objects. */
+        private         originalImages                  :Array<HTMLImageElement>        = [];
+        /** All loaded and mirrored image objects. */
+        private         mirroredImages                  :Array<HTMLImageElement>        = [];
 
         /***************************************************************************************************************
         *   Preloads all images into memory.

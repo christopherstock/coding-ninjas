@@ -8,8 +8,10 @@
     *   TODO Check if wowjs is really required .. maybe animate.css is sufficient.
     *
     *   TODO create wow popup on entering a room!
+    *   TODO add random method to MathUtil!
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Create parallax bg images.
+    *   TODO import methods for class 'Drawing' from box2d game.
     *   TODO Add react and ant design / ant design pro.
     *   TODO Create and use image ranges for sprite templates?
     *   TODO simplify sprite-image-system's frame ranges!
