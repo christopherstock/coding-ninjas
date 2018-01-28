@@ -11299,14 +11299,13 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Throw Error if one frame in a sprite has different size!
-*   TODO Adjust render size on reassigning new sprite! (test with wide sprite)
 *   TODO Add FPS counter via npm package.
+*
 *   TODO create wow popup on entering a room!
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Create parallax bg images.
 *   TODO Add react and ant design / ant design pro.
-*   TODO Create image ranges for sprite templates?
+*   TODO Create and use image ranges for sprite templates?
 *   TODO Create HUD.
 *   TODO Add popup on
 *   TODO Add cucumber tests.
@@ -11482,6 +11481,17 @@ var ShapeRectangle = /** @class */ (function (_super) {
     ShapeRectangle.prototype.getHeight = function () {
         return this.height;
     };
+    /***************************************************************************************************************
+    *   Updates this shape's body dimensions.
+    *
+    *   @param width  The new width for this shape.
+    *   @param height The new height for this shape.
+    ***************************************************************************************************************/
+    ShapeRectangle.prototype.updateDimensions = function (width, height) {
+        this.width = width;
+        this.height = height;
+        this.body = this.createBody();
+    };
     return ShapeRectangle;
 }(ninjas.Shape));
 exports.ShapeRectangle = ShapeRectangle;
@@ -11556,6 +11566,7 @@ var ShapeCircle = /** @class */ (function (_super) {
         /** The circle's diameter. */
         _this.diameter = 0.0;
         _this.diameter = diameter;
+        // TODO create method updateBody()
         _this.body = _this.createBody();
         return _this;
     }
@@ -11582,6 +11593,16 @@ var ShapeCircle = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     ShapeCircle.prototype.getHeight = function () {
         return this.diameter;
+    };
+    /***************************************************************************************************************
+    *   Updates this shape's body dimensions.
+    *
+    *   @param width  The new width for this shape.
+    *   @param height The new height for this shape.
+    ***************************************************************************************************************/
+    ShapeCircle.prototype.updateDimensions = function (width, height) {
+        this.diameter = width;
+        this.body = this.createBody();
     };
     return ShapeCircle;
 }(ninjas.Shape));
@@ -11705,6 +11726,15 @@ var ShapeFreeForm = /** @class */ (function (_super) {
         console.log("bounds: " + this.boundWidth + "   " + this.boundHeight);
         var e_1, _c;
     };
+    /***************************************************************************************************************
+    *   Updates this shape's body dimensions.
+    *
+    *   @param width  The new width for this shape.
+    *   @param height The new height for this shape.
+    ***************************************************************************************************************/
+    ShapeFreeForm.prototype.updateDimensions = function (width, height) {
+        // not implemented
+    };
     return ShapeFreeForm;
 }(ninjas.Shape));
 exports.ShapeFreeForm = ShapeFreeForm;
@@ -11736,7 +11766,7 @@ var GameObject = /** @class */ (function () {
     *   @param y      Startup position Y.
     *   @param sprite The sprite for this game object.
     *
-    *   TODO rearrange object params up ( x and y down )!
+    *   TODO rearrange object params x and y down! (or up?)
     ***************************************************************************************************************/
     function GameObject(shape, x, y, sprite) {
         /** Collision shape. */
@@ -11761,7 +11791,11 @@ var GameObject = /** @class */ (function () {
             if (this.sprite != null && this.sprite.template == spriteTemplate) {
                 return;
             }
+            // assign new sprite
             this.sprite = new ninjas.Sprite(spriteTemplate);
+            // do NOT update body shape dimensions! immediate collisions will occur and block!
+            // this.shape.updateDimensions( this.sprite.width, this.sprite.height );
+            // assign new texture for MatterJS rendering object
             this.setImageFromSprite();
         }
     };
@@ -11781,7 +11815,6 @@ var GameObject = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObject.prototype.setImageFromSprite = function () {
         this.shape.body.render.sprite.texture = this.sprite.getCurrentFrameImageUrl();
-        // TODO update dimension! ( use sprite.width .. ) > to method setNewSprite!
     };
     /***************************************************************************************************************
     *   Avoids this game object from rotating.
@@ -12990,7 +13023,7 @@ var Game = /** @class */ (function () {
     *   Inits all components of the game.
     ***************************************************************************************************************/
     Game.prototype.init = function () {
-        this.updateCanvasDimension();
+        this.updateCanvasDimensions();
         this.initCanvas();
         this.initEngine2D();
         this.initWindowResizeHandler();
@@ -13008,9 +13041,9 @@ var Game = /** @class */ (function () {
         window.setInterval(this.tick, ninjas.Setting.RENDER_DELTA);
     };
     /***************************************************************************************************************
-    *   Updates the dimension of the canvas according to the browser window.
+    *   Updates the dimensions of the canvas according to the browser window.
     ***************************************************************************************************************/
-    Game.prototype.updateCanvasDimension = function () {
+    Game.prototype.updateCanvasDimensions = function () {
         this.canvasWidth = window.innerWidth;
         this.canvasHeight = window.innerHeight;
         // clip to minimum canvas dimensions
@@ -13018,7 +13051,7 @@ var Game = /** @class */ (function () {
             this.canvasWidth = ninjas.Setting.MIN_CANVAS_WIDTH;
         if (this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT)
             this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
-        ninjas.Debug.init.log("Updated canvas dimension to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
+        ninjas.Debug.init.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
     };
     /***************************************************************************************************************
     *   Inits the 2D canvas by creating and adding it to the document body.
@@ -13028,7 +13061,7 @@ var Game = /** @class */ (function () {
         this.canvas = document.createElement("canvas");
         // reference 2d rendering context
         this.canvasContext = this.canvas.getContext("2d");
-        // set dimension
+        // set dimensions
         this.canvas.width = this.canvasWidth;
         this.canvas.height = this.canvasHeight;
         // append to body
@@ -13075,7 +13108,7 @@ var Game = /** @class */ (function () {
     Game.prototype.initWindowResizeHandler = function () {
         var _this = this;
         window.onresize = function (event) {
-            _this.updateCanvasDimension();
+            _this.updateCanvasDimensions();
             _this.renderer.canvas.width = _this.canvasWidth;
             _this.renderer.canvas.height = _this.canvasHeight;
             _this.renderer.options.width = _this.canvasWidth;
@@ -14029,9 +14062,18 @@ var Sprite = /** @class */ (function () {
         /** The height of all images in this sprite. TODO private with getter */
         this.height = 0;
         this.template = template;
-        // assign dimensions from 1st frame - TODO commitment is that all frames of a sprite have same size?
+        // TODO outsource to spriteTemplate! create init method for assigning sizes!!
+        // assign dimensions from 1st frame
         this.width = ninjas.Main.game.imageSystem.getImage(this.template.imageIds[0]).width;
         this.height = ninjas.Main.game.imageSystem.getImage(this.template.imageIds[0]).height;
+        // TODO outsource though redundant and performance intensive overhead!
+        // browse all frames and alert on differing dimensions
+        for (var i = 0; i < this.template.imageIds.length; ++i) {
+            if (this.width != ninjas.Main.game.imageSystem.getImage(this.template.imageIds[i]).width
+                || this.height != ninjas.Main.game.imageSystem.getImage(this.template.imageIds[i]).height) {
+                throw new Error("Differing sprite frame size detected in image id [" + this.template.imageIds[i] + "]");
+            }
+        }
     }
     /***************************************************************************************************************
     *   Resets this sprite to the first frame and resets tick counter.

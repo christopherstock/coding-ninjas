@@ -31,9 +31,25 @@
         {
             this.template = template;
 
-            // assign dimensions from 1st frame - TODO commitment is that all frames of a sprite have same size?
+            // TODO outsource to spriteTemplate! create init method for assigning sizes!!
+
+            // assign dimensions from 1st frame
             this.width  = ninjas.Main.game.imageSystem.getImage( this.template.imageIds[ 0 ] ).width;
             this.height = ninjas.Main.game.imageSystem.getImage( this.template.imageIds[ 0 ] ).height;
+
+            // TODO outsource though redundant and performance intensive overhead!
+
+            // browse all frames and alert on differing dimensions
+            for ( let i = 0; i < this.template.imageIds.length; ++i )
+            {
+                if (
+                       this.width  != ninjas.Main.game.imageSystem.getImage( this.template.imageIds[ i ] ).width
+                    || this.height != ninjas.Main.game.imageSystem.getImage( this.template.imageIds[ i ] ).height
+                )
+                {
+                    throw new Error( "Differing sprite frame size detected in image id [" + this.template.imageIds[ i ] + "]" );
+                }
+            }
         }
 
         /***************************************************************************************************************

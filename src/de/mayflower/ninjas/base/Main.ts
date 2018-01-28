@@ -4,9 +4,8 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Throw Error if one frame in a sprite has different size!
-    *   TODO Adjust render size on reassigning new sprite! (test with wide sprite)
     *   TODO Add FPS counter via npm package.
+    *
     *   TODO create wow popup on entering a room!
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Create parallax bg images.

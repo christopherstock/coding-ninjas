@@ -72,4 +72,12 @@
         *   @return The body for this shape.
         ***************************************************************************************************************/
         protected abstract createBody() : matter.Body;
+
+        /***************************************************************************************************************
+        *   Updates this shape's body dimensions.
+        *
+        *   @param width  The new width for this shape.
+        *   @param height The new height for this shape.
+        ***************************************************************************************************************/
+        public abstract updateDimensions( width:number, height:number ) : void;
     }

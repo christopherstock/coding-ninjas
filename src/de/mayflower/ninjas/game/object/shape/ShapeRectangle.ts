@@ -80,4 +80,18 @@
         {
             return this.height;
         }
+
+        /***************************************************************************************************************
+        *   Updates this shape's body dimensions.
+        *
+        *   @param width  The new width for this shape.
+        *   @param height The new height for this shape.
+        ***************************************************************************************************************/
+        public updateDimensions( width:number, height:number ) : void
+        {
+            this.width  = width;
+            this.height = height;
+
+            this.body   = this.createBody();
+        }
     }

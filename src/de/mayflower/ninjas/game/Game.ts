@@ -43,7 +43,7 @@
         ***************************************************************************************************************/
         public init()
         {
-            this.updateCanvasDimension();
+            this.updateCanvasDimensions();
             this.initCanvas();
             this.initEngine2D();
             this.initWindowResizeHandler();
@@ -94,9 +94,9 @@
         }
 
         /***************************************************************************************************************
-        *   Updates the dimension of the canvas according to the browser window.
+        *   Updates the dimensions of the canvas according to the browser window.
         ***************************************************************************************************************/
-        private updateCanvasDimension()
+        private updateCanvasDimensions()
         {
             this.canvasWidth  = window.innerWidth;
             this.canvasHeight = window.innerHeight;
@@ -105,7 +105,7 @@
             if ( this.canvasWidth  < ninjas.Setting.MIN_CANVAS_WIDTH  ) this.canvasWidth  = ninjas.Setting.MIN_CANVAS_WIDTH;
             if ( this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT ) this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
 
-            ninjas.Debug.init.log( "Updated canvas dimension to [" + this.canvasWidth + "x" + this.canvasHeight + "] " );
+            ninjas.Debug.init.log( "Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] " );
         }
 
         /***************************************************************************************************************
@@ -119,7 +119,7 @@
             // reference 2d rendering context
             this.canvasContext = this.canvas.getContext( "2d" );
 
-            // set dimension
+            // set dimensions
             this.canvas.width  = this.canvasWidth;
             this.canvas.height = this.canvasHeight;
 
@@ -183,7 +183,7 @@
         {
             window.onresize = ( event:Event ) => {
 
-                this.updateCanvasDimension();
+                this.updateCanvasDimensions();
 
                 this.renderer.canvas.width  = this.canvasWidth;
                 this.renderer.canvas.height = this.canvasHeight;

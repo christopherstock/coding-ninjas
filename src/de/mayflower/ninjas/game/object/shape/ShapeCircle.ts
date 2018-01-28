@@ -23,18 +23,21 @@
         *   @param friction   The object's body friction.
         *   @param density    The object's body density.
         ***************************************************************************************************************/
-        public constructor( diameter:number,
-            debugColor:string,
-            isStatic:boolean,
-            angle:number,
-            friction:number,
-            density:number
+        public constructor
+        (
+            diameter   :number,
+            debugColor :string,
+            isStatic   :boolean,
+            angle      :number,
+            friction   :number,
+            density    :number
         )
         {
             super( debugColor, isStatic, angle, friction, density );
 
             this.diameter = diameter;
 
+            // TODO create method updateBody()
             this.body     = this.createBody();
         }
 
@@ -71,5 +74,18 @@
         public getHeight() : number
         {
             return this.diameter;
+        }
+
+        /***************************************************************************************************************
+        *   Updates this shape's body dimensions.
+        *
+        *   @param width  The new width for this shape.
+        *   @param height The new height for this shape.
+        ***************************************************************************************************************/
+        public updateDimensions( width:number, height:number ) : void
+        {
+            this.diameter = width;
+
+            this.body = this.createBody();
         }
     }

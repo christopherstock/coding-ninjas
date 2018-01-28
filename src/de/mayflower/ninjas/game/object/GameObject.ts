@@ -40,7 +40,7 @@
         *   @param y      Startup position Y.
         *   @param sprite The sprite for this game object.
         *
-        *   TODO rearrange object params up ( x and y down )!
+        *   TODO rearrange object params x and y down! (or up?)
         ***************************************************************************************************************/
         protected constructor
         (
@@ -76,8 +76,13 @@
                     return;
                 }
 
+                // assign new sprite
                 this.sprite = new ninjas.Sprite( spriteTemplate );
 
+                // do NOT update body shape dimensions! immediate collisions will occur and block!
+                // this.shape.updateDimensions( this.sprite.width, this.sprite.height );
+
+                // assign new texture for MatterJS rendering object
                 this.setImageFromSprite();
             }
         }
@@ -103,8 +108,6 @@
         protected setImageFromSprite() : void
         {
             this.shape.body.render.sprite.texture = this.sprite.getCurrentFrameImageUrl();
-
-            // TODO update dimension! ( use sprite.width .. ) > to method setNewSprite!
         }
 
         /***************************************************************************************************************
