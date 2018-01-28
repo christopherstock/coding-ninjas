@@ -11306,6 +11306,7 @@ var ninjas = __webpack_require__(0);
 *   TODO Create and use image ranges for sprite templates?
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO Move game object classes to appropriate subpackages!
+*   TODO only mirror images where a mirrored SpriteTemplate exists!
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and Engine
 *   TODO Create HUD.
 *   TODO Add popup on
@@ -12186,6 +12187,13 @@ var Character = /** @class */ (function (_super) {
         this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
     };
     /***************************************************************************************************************
+    *   Checks if this character is currently falling.
+    ***************************************************************************************************************/
+    Character.prototype.isFalling = function () {
+        // TODO consider bottomContact ?
+        return (this.shape.body.velocity.y >= 0.0);
+    };
+    /***************************************************************************************************************
     *   Check if the player falls to death by falling out of the level.
     ***************************************************************************************************************/
     Character.prototype.checkFallingDead = function () {
@@ -12510,11 +12518,21 @@ var Player = /** @class */ (function (_super) {
             }
         }
         else {
-            if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
-                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT);
+            if (this.isFalling()) {
+                if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT);
+                }
+                else {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT);
+                }
             }
             else {
-                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT);
+                if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT);
+                }
+                else {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT);
+                }
             }
         }
     };
@@ -13804,20 +13822,12 @@ var Image = /** @class */ (function () {
     Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/02.png";
     /** Image resource 'ninja girl jumping right frame 3'. */
     Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/03.png";
-    /** Image resource 'ninja girl jumping right frame 4'. */
-    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/04.png";
-    /** Image resource 'ninja girl jumping right frame 5'. */
-    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/05.png";
-    /** Image resource 'ninja girl jumping right frame 6'. */
-    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/06.png";
-    /** Image resource 'ninja girl jumping right frame 7'. */
-    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/07.png";
-    /** Image resource 'ninja girl jumping right frame 8'. */
-    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/08.png";
-    /** Image resource 'ninja girl jumping right frame 9'. */
-    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/09.png";
-    /** Image resource 'ninja girl jumping right frame 10'. */
-    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/10.png";
+    /** Image resource 'ninja girl falling right frame 1'. */
+    Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "fallingRight/01.png";
+    /** Image resource 'ninja girl falling right frame 2'. */
+    Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "fallingRight/02.png";
+    /** Image resource 'ninja girl falling right frame 3'. */
+    Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "fallingRight/03.png";
     /** Image resource 'box'. */
     Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
     /** Image resource 'item'. */
@@ -13849,13 +13859,9 @@ var Image = /** @class */ (function () {
         Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
         Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
         Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
-        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4,
-        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5,
-        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6,
-        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7,
-        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8,
-        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9,
-        Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10,
+        Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1,
+        Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
+        Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
         Image.IMAGE_ITEM,
         Image.IMAGE_TREE,
         Image.IMAGE_BOX,
@@ -14297,27 +14303,25 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10,
-    ], 5, true, false);
+    ], 8, true, false);
     /** Sprite 'ninja girl jumping right'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9,
-        ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10,
-    ], 5, false, false);
+    ], 8, false, false);
+    /** Sprite 'ninja girl falling left'. */
+    SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT = new SpriteTemplate([
+        ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1,
+        ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
+        ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
+    ], 10, true, false);
+    /** Sprite 'ninja girl falling right'. */
+    SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT = new SpriteTemplate([
+        ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1,
+        ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
+        ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
+    ], 10, false, false);
     /** Sprite 'crate'. */
     SpriteTemplate.SPRITE_CRATE = new SpriteTemplate([
         ninjas.Image.IMAGE_BOX,
@@ -14338,6 +14342,8 @@ var SpriteTemplate = /** @class */ (function () {
         SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT,
         SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT,
         SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT,
+        SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT,
+        SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT,
         SpriteTemplate.SPRITE_CRATE,
         SpriteTemplate.SPRITE_ITEM,
         SpriteTemplate.SPRITE_TREE,

@@ -119,13 +119,27 @@
             }
             else
             {
-                if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                if ( this.isFalling() )
                 {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT );
+                    if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT );
+                    }
+                    else
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT );
+                    }
                 }
                 else
                 {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT );
+                    if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT );
+                    }
+                    else
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT );
+                    }
                 }
             }
         }

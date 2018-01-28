@@ -13,6 +13,7 @@
     *   TODO Create and use image ranges for sprite templates?
     *   TODO simplify sprite-image-system's frame ranges!
     *   TODO Move game object classes to appropriate subpackages!
+    *   TODO only mirror images where a mirrored SpriteTemplate exists!
     *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and Engine
     *   TODO Create HUD.
     *   TODO Add popup on

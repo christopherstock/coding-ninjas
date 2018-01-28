@@ -96,15 +96,8 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
                 ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
                 ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10,
             ],
-            5,
+            8,
             true,
             false
         );
@@ -116,15 +109,34 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
                 ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
                 ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_4,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_5,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_6,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_7,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_8,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_9,
-                ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_10,
             ],
-            5,
+            8,
+            false,
+            false
+        );
+
+        /** Sprite 'ninja girl falling left'. */
+        public      static  SPRITE_NINJA_GIRL_FALLING_LEFT              :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1,
+                ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
+                ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
+            ],
+            10,
+            true,
+            false
+        );
+
+        /** Sprite 'ninja girl falling right'. */
+        public      static  SPRITE_NINJA_GIRL_FALLING_RIGHT             :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1,
+                ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
+                ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
+            ],
+            10,
             false,
             false
         );
@@ -171,6 +183,8 @@
             SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT,
             SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT,
             SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT,
+            SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT,
+            SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT,
             SpriteTemplate.SPRITE_CRATE,
             SpriteTemplate.SPRITE_ITEM,
             SpriteTemplate.SPRITE_TREE,
