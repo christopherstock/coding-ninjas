@@ -169,7 +169,7 @@
             // add drawing callback after rendering
             matter.Events.on(
                 this.renderer,
-                'afterRender',
+                "afterRender",
                 ( event ) => {
                     this.paint( this.renderer.context );
                 }

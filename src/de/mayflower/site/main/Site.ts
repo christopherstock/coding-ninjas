@@ -10,6 +10,9 @@
     *******************************************************************************************************************/
     export class Site
     {
+        /** An example site popup. */
+        private         static              examplePopup        :HTMLDivElement             = null;
+
         /*****************************************************************************
         *   Being invoked when a popup shall be shown.
         *****************************************************************************/
@@ -17,6 +20,7 @@
         {
             ninjas.Debug.site.log( "Site.showPopup() being invoked" );
 
+            Site.examplePopup = document.createElement( "div" );
         }
 
         /*****************************************************************************
