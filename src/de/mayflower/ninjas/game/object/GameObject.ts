@@ -26,10 +26,10 @@
         /** Default density. */
         public  static  DENSITY_DEFAULT         :number                         = 0.001;
 
-        /** Objects Collision shape. */
+        /** Collision shape. */
         public          shape                   :ninjas.Shape                   = null;
 
-        /** Objects sprite. */
+        /** Sprite. */
         public          sprite                  :ninjas.Sprite                  = null;
 
         /***************************************************************************************************************
@@ -38,7 +38,7 @@
         *   @param shape  The shape for this object.
         *   @param x      Startup position X.
         *   @param y      Startup position Y.
-        *   @param sprite The image for this game object.
+        *   @param sprite The sprite for this game object.
         *
         *   TODO rearrange object params up ( x and y down )!
         ***************************************************************************************************************/
@@ -53,13 +53,33 @@
             this.shape  = shape;
             this.sprite = sprite;
 
-            // TODO to setNewSprite()
             if ( this.sprite != null )
             {
                 this.setImageFromSprite();
             }
 
             matter.Body.translate( this.shape.body, matter.Vector.create( x, y ) );
+        }
+
+        /***************************************************************************************************************
+        *   Sets the specified sprite template.
+        *
+        *   @param spriteTemplate The sprite template to use for this new sprite.
+        ***************************************************************************************************************/
+        protected setSprite( spriteTemplate:ninjas.SpriteTemplate )
+        {
+            if ( spriteTemplate != null )
+            {
+                // deny setting new sprite if same sprite than existent
+                if ( this.sprite != null && this.sprite.template == spriteTemplate )
+                {
+                    return;
+                }
+
+                this.sprite = new ninjas.Sprite( spriteTemplate );
+
+                this.setImageFromSprite();
+            }
         }
 
         /***************************************************************************************************************

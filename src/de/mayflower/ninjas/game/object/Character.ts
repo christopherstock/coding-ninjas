@@ -161,9 +161,7 @@
 
             this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
 
-            // this.setSprite( ninjas.Sprite. );
-
-
+            this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT );
         }
 
         /***************************************************************************************************************
@@ -174,5 +172,7 @@
             matter.Body.translate( this.shape.body, matter.Vector.create( this.speedMove, 0 ) );
 
             this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
+
+            this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT );
         }
     }

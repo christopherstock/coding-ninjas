@@ -11733,23 +11733,37 @@ var GameObject = /** @class */ (function () {
     *   @param shape  The shape for this object.
     *   @param x      Startup position X.
     *   @param y      Startup position Y.
-    *   @param sprite The image for this game object.
+    *   @param sprite The sprite for this game object.
     *
     *   TODO rearrange object params up ( x and y down )!
     ***************************************************************************************************************/
     function GameObject(shape, x, y, sprite) {
-        /** Objects Collision shape. */
+        /** Collision shape. */
         this.shape = null;
-        /** Objects sprite. */
+        /** Sprite. */
         this.sprite = null;
         this.shape = shape;
         this.sprite = sprite;
-        // TODO to setNewSprite()
         if (this.sprite != null) {
             this.setImageFromSprite();
         }
         matter.Body.translate(this.shape.body, matter.Vector.create(x, y));
     }
+    /***************************************************************************************************************
+    *   Sets the specified sprite template.
+    *
+    *   @param spriteTemplate The sprite template to use for this new sprite.
+    ***************************************************************************************************************/
+    GameObject.prototype.setSprite = function (spriteTemplate) {
+        if (spriteTemplate != null) {
+            // deny setting new sprite if same sprite than existent
+            if (this.sprite != null && this.sprite.template == spriteTemplate) {
+                return;
+            }
+            this.sprite = new ninjas.Sprite(spriteTemplate);
+            this.setImageFromSprite();
+        }
+    };
     /***************************************************************************************************************
     *   Renders the current game object.
     ***************************************************************************************************************/
@@ -12166,7 +12180,7 @@ var Character = /** @class */ (function (_super) {
     Character.prototype.moveLeft = function () {
         matter.Body.translate(this.shape.body, matter.Vector.create(-this.speedMove, 0));
         this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
-        // this.setSprite( ninjas.Sprite. );
+        this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT);
     };
     /***************************************************************************************************************
     *   Moves this character left.
@@ -12174,6 +12188,7 @@ var Character = /** @class */ (function (_super) {
     Character.prototype.moveRight = function () {
         matter.Body.translate(this.shape.body, matter.Vector.create(this.speedMove, 0));
         this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
+        this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
     };
     return Character;
 }(ninjas.GameObject));
