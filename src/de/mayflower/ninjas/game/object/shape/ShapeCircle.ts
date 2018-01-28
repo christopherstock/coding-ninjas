@@ -37,7 +37,6 @@
 
             this.diameter = diameter;
 
-            // TODO create method updateBody() for all shape classes?
             this.body     = this.createBody();
         }
 

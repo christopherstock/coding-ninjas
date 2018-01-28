@@ -12,8 +12,10 @@
     *******************************************************************************************************************/
     export class Site
     {
-        /** The border size of the popup in px. */
+        /** The border size of the site popup in px. */
         private     static  readonly    POPUP_BORDER_SIZE       :number                     = 15;
+        /** The background color of the site popup . */
+        private     static  readonly    POPUP_BG_COLOR          :string                     = "rgba( 255, 255, 255, 0.25 )";
 
         /** An example site popup. */
         private     static              examplePopup            :HTMLDivElement             = null;
@@ -52,7 +54,7 @@
             Site.examplePopup.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - Site.POPUP_BORDER_SIZE ) + "px";
             Site.examplePopup.style.height = ( ninjas.Main.game.canvasHeight - 2 * Site.POPUP_BORDER_SIZE ) + "px";
 
-            Site.examplePopup.style.backgroundColor = "#ffff00";
+            Site.examplePopup.style.backgroundColor = Site.POPUP_BG_COLOR;
 
             Site.examplePopup.style.position = "absolute";
             Site.examplePopup.style.top  = Site.POPUP_BORDER_SIZE + "px";

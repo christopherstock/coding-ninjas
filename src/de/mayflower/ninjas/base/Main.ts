@@ -6,7 +6,8 @@
     *
     *   TODO Add FPS counter via npm package.
     *   TODO Check if wowjs is really required .. maybe animate.css is sufficient.
-    *
+    *   TODO Update site popup size on resizing the screen.
+    *   TODO animate.css effect on popup show and hide.
     *   TODO create wow popup on entering a room!
     *   TODO add random method to MathUtil!
     *   TODO Try sound error handling! (Safari etc.)
@@ -23,6 +24,8 @@
     *   TODO Setting: extract debub settings, engine settings etc. > own package?
     *   TODO Add cucumber tests.
     *   TODO Add jest tests.
+    *   TODO enable texture cache for MatterJS game renderer?
+    *   TODO create method updateBody() for all shape classes?
     *   TODO Prevent ALL images from being mirrored?
     *
     *   @author     Christopher Stock

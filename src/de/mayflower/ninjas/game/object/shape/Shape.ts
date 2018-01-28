@@ -40,7 +40,7 @@
                     fillStyle:   debugColor,
                     strokeStyle: ninjas.Setting.COLOR_DEBUG_BORDER,
                     opacity:     ninjas.Setting.COLOR_DEBUG_OPACITY,
-                    lineWidth:   1.0,
+                    lineWidth:   ninjas.Setting.COLOR_DEBUG_LINE_WIDTH,
                 },
                 isStatic:        isStatic,
                 collisionFilter: ninjas.Setting.COLLISION_GROUP_COLLIDING,

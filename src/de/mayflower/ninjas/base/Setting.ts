@@ -48,6 +48,8 @@
 
         /** The opacity for the debug colors. */
         public      static  readonly    COLOR_DEBUG_OPACITY                         :number                     = 1.0;
+        /** The line width for debug lines. */
+        public      static  readonly    COLOR_DEBUG_LINE_WIDTH                      :number                     = 1.0;
         /** The debug color for the player block. */
         public      static  readonly    COLOR_DEBUG_BORDER                          :string                     = "#ffffff";
         /** The debug color for the player block. */

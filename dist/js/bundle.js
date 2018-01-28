@@ -11170,6 +11170,8 @@ var Setting = /** @class */ (function () {
     Setting.CANVAS_BG = "#000000";
     /** The opacity for the debug colors. */
     Setting.COLOR_DEBUG_OPACITY = 1.0;
+    /** The line width for debug lines. */
+    Setting.COLOR_DEBUG_LINE_WIDTH = 1.0;
     /** The debug color for the player block. */
     Setting.COLOR_DEBUG_BORDER = "#ffffff";
     /** The debug color for the player block. */
@@ -11304,7 +11306,8 @@ var ninjas = __webpack_require__(0);
 *
 *   TODO Add FPS counter via npm package.
 *   TODO Check if wowjs is really required .. maybe animate.css is sufficient.
-*
+*   TODO Update site popup size on resizing the screen.
+*   TODO animate.css effect on popup show and hide.
 *   TODO create wow popup on entering a room!
 *   TODO add random method to MathUtil!
 *   TODO Try sound error handling! (Safari etc.)
@@ -11321,6 +11324,8 @@ var ninjas = __webpack_require__(0);
 *   TODO Setting: extract debub settings, engine settings etc. > own package?
 *   TODO Add cucumber tests.
 *   TODO Add jest tests.
+*   TODO enable texture cache for MatterJS game renderer?
+*   TODO create method updateBody() for all shape classes?
 *   TODO Prevent ALL images from being mirrored?
 *
 *   @author     Christopher Stock
@@ -11809,7 +11814,7 @@ var Shape = /** @class */ (function () {
                 fillStyle: debugColor,
                 strokeStyle: ninjas.Setting.COLOR_DEBUG_BORDER,
                 opacity: ninjas.Setting.COLOR_DEBUG_OPACITY,
-                lineWidth: 1.0,
+                lineWidth: ninjas.Setting.COLOR_DEBUG_LINE_WIDTH,
             },
             isStatic: isStatic,
             collisionFilter: ninjas.Setting.COLLISION_GROUP_COLLIDING,
@@ -11954,7 +11959,6 @@ var ShapeCircle = /** @class */ (function (_super) {
         /** The circle's diameter. */
         _this.diameter = 0.0;
         _this.diameter = diameter;
-        // TODO create method updateBody() for all shape classes?
         _this.body = _this.createBody();
         return _this;
     }
@@ -12310,7 +12314,7 @@ var Character = /** @class */ (function (_super) {
     *   Checks if this character is currently falling.
     ***************************************************************************************************************/
     Character.prototype.isFalling = function () {
-        // TODO consider bottomContact ?
+        // TODO consider bottomContact ? try this on ramps.
         return (this.shape.body.velocity.y >= 0.0);
     };
     /***************************************************************************************************************
@@ -14825,13 +14829,15 @@ var Site = /** @class */ (function () {
         Site.examplePopup = document.createElement("div");
         Site.examplePopup.style.width = (ninjas.Main.game.canvasWidth / 2 - Site.POPUP_BORDER_SIZE) + "px";
         Site.examplePopup.style.height = (ninjas.Main.game.canvasHeight - 2 * Site.POPUP_BORDER_SIZE) + "px";
-        Site.examplePopup.style.backgroundColor = "#ffff00";
+        Site.examplePopup.style.backgroundColor = Site.POPUP_BG_COLOR;
         Site.examplePopup.style.position = "absolute";
         Site.examplePopup.style.top = Site.POPUP_BORDER_SIZE + "px";
         Site.examplePopup.style.left = Site.POPUP_BORDER_SIZE + "px";
     };
-    /** The border size of the popup in px. */
+    /** The border size of the site popup in px. */
     Site.POPUP_BORDER_SIZE = 15;
+    /** The background color of the site popup . */
+    Site.POPUP_BG_COLOR = "rgba( 255, 255, 255, 0.25 )";
     /** An example site popup. */
     Site.examplePopup = null;
     return Site;

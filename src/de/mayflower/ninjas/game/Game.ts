@@ -157,7 +157,6 @@
                         width:              this.canvasWidth,
                         height:             this.canvasHeight,
 
-                        // TODO enable texture cache?
                         // textures:           ninjas.Image.FILE_NAMES,
                     } as any,
                 }

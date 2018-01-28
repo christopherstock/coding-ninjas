@@ -131,7 +131,7 @@
         ***************************************************************************************************************/
         protected isFalling()
         {
-            // TODO consider bottomContact ?
+            // TODO consider bottomContact ? try this on ramps.
 
             return ( this.shape.body.velocity.y >= 0.0 );
         }
