@@ -9,17 +9,15 @@
     *******************************************************************************************************************/
     export class ImageSystem
     {
-        /** All image file names to load. */
-        private         fileNames                       :Array<string>                  = null;
+        /** All image file names to load. TODO fix! */
+        public fileNames                       :Array<string>                  = null;
         /** The method to invoke when all images are loaded. */
         private         onLoadComplete                  :Function                       = null;
 
         /** The number of currently loaded images. */
         private         loadedImageCount                :number                         = 0;
-        /** All loaded image objects. */
-        private         images                          :Array<HTMLImageElement>        = [];
-
-        public          testImage                       :HTMLImageElement               = null;
+        /** All loaded image objects. TODO fix! */
+        public images                          :Array<HTMLImageElement>        = [];
 
         /***************************************************************************************************************
         *   Preloads all images into memory.
@@ -74,7 +72,7 @@
             ninjas.Debug.image.log( "Mirroring [" + this.fileNames.length + "] images" );
 
 
-            this.testImage = ninjas.IO.flipImageHorizontal(
+            this.images[ this.fileNames[ 0 ] ] = ninjas.IO.flipImageHorizontal(
                 this.images[ this.fileNames[ 0 ] ],
                 this.onMirrorImage
             );
@@ -114,8 +112,6 @@
                 this.images[ this.fileNames[ i ] ].onload = this.onLoadImage;
 */
             }
-
-            this.onLoadComplete();
         }
 
         /***************************************************************************************************************
@@ -142,6 +138,8 @@
         {
             ninjas.Debug.image.log( "Mirrored image completed!" );
 
+            ninjas.Debug.image.log( ">> " + this.fileNames[ 0 ] );
 
+            this.onLoadComplete();
         }
     }

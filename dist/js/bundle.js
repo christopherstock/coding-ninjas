@@ -11133,6 +11133,8 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   All adjustments and balancings for the application.
 *
+*   TODO extract debub settings, engine settings etc. > own package?
+*
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
@@ -11165,6 +11167,8 @@ var Setting = /** @class */ (function () {
     Setting.CAMERA_MOVING_SPEED = 0.075;
     /** The minimum camera moving speed in px per move. */
     Setting.CAMERA_MOVING_MINIMUM = 2.0;
+    /** The color of the canvas bg. */
+    Setting.CANVAS_BG = "#000000";
     /** The opacity for the debug colors. */
     Setting.COLOR_DEBUG_OPACITY = 1.0;
     /** The debug color for the player block. */
@@ -11761,8 +11765,7 @@ var GameObject = /** @class */ (function () {
     *   Assigns the current active sprite frame as the game objects image.
     ***************************************************************************************************************/
     GameObject.prototype.setImageFromSprite = function () {
-        // TODO create getter
-        this.shape.body.render.sprite.texture = this.sprite.template.imageIds[this.sprite.currentFrame];
+        this.shape.body.render.sprite.texture = this.sprite.getCurrentFrameImageUrl();
         // TODO update dimension! ( use sprite.width .. ) > to method setNewSprite!
     };
     /***************************************************************************************************************
@@ -13029,6 +13032,7 @@ var Game = /** @class */ (function () {
                 showCollisions: true,
                 showAngleIndicator: true,
                 showVelocity: true,
+                background: ninjas.Setting.CANVAS_BG,
                 width: this.canvasWidth,
                 height: this.canvasHeight,
             },
@@ -13113,7 +13117,7 @@ var Game = /** @class */ (function () {
     Game.prototype.paint = function (context) {
         this.renderer.context.fillStyle = "#ff0000";
         this.renderer.context.fillRect(this.canvasWidth - 200, 50, 150, 50);
-        this.renderer.context.drawImage(this.imageSystem.testImage, 0, 0);
+        this.renderer.context.drawImage(this.imageSystem.images[this.imageSystem.fileNames[0]], 0, 200);
     };
     /***************************************************************************************************************
     *   Handles pressed menu keys.
@@ -13455,7 +13459,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.gameObjects =
             [
                 // bg
-                ninjas.GameObjectFactory.createBackground(0, 0, this.width, this.height, this.bgColor),
+                // ninjas.GameObjectFactory.createBackground( 0, 0, this.width, this.height, this.bgColor ),
                 // grounds and walls
                 // ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createObstacle(0, 1000, 5000, 15, 0.0, false),
@@ -13740,15 +13744,14 @@ var ImageSystem = /** @class */ (function () {
     ***************************************************************************************************************/
     function ImageSystem(fileNames, onLoadComplete) {
         var _this = this;
-        /** All image file names to load. */
+        /** All image file names to load. TODO fix! */
         this.fileNames = null;
         /** The method to invoke when all images are loaded. */
         this.onLoadComplete = null;
         /** The number of currently loaded images. */
         this.loadedImageCount = 0;
-        /** All loaded image objects. */
+        /** All loaded image objects. TODO fix! */
         this.images = [];
-        this.testImage = null;
         /***************************************************************************************************************
         *   Being invoked when one image was loaded completely.
         *
@@ -13767,6 +13770,8 @@ var ImageSystem = /** @class */ (function () {
         ***************************************************************************************************************/
         this.onMirrorImage = function (event) {
             ninjas.Debug.image.log("Mirrored image completed!");
+            ninjas.Debug.image.log(">> " + _this.fileNames[0]);
+            _this.onLoadComplete();
         };
         this.fileNames = fileNames;
         this.onLoadComplete = onLoadComplete;
@@ -13805,7 +13810,7 @@ var ImageSystem = /** @class */ (function () {
     ***************************************************************************************************************/
     ImageSystem.prototype.mirrorImages = function () {
         ninjas.Debug.image.log("Mirroring [" + this.fileNames.length + "] images");
-        this.testImage = ninjas.IO.flipImageHorizontal(this.images[this.fileNames[0]], this.onMirrorImage);
+        this.images[this.fileNames[0]] = ninjas.IO.flipImageHorizontal(this.images[this.fileNames[0]], this.onMirrorImage);
         // mirror all images
         // for ( let i = 0; i < this.fileNames.length; i++ )
         {
@@ -13836,7 +13841,6 @@ var ImageSystem = /** @class */ (function () {
                             this.images[ this.fileNames[ i ] ].onload = this.onLoadImage;
             */
         }
-        this.onLoadComplete();
     };
     return ImageSystem;
 }());
@@ -14029,6 +14033,14 @@ var Sprite = /** @class */ (function () {
             return true;
         }
         return false;
+    };
+    /***************************************************************************************************************
+    *   Returns the image url ( or data url for flipped images ) of the current frame.
+    *
+    *   @return The image url of the currently active frame.
+    ***************************************************************************************************************/
+    Sprite.prototype.getCurrentFrameImageUrl = function () {
+        return ninjas.Main.game.imageSystem.getImage(this.template.imageIds[this.currentFrame]).src;
     };
     return Sprite;
 }());

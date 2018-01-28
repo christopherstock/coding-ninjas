@@ -40,7 +40,7 @@
         /***************************************************************************************************************
         *   Resets this sprite to the first frame and resets tick counter.
         ***************************************************************************************************************/
-        public reset()
+        public reset() : void
         {
             this.currentFrame = 0;
             this.currentTick  = 0;
@@ -51,7 +51,7 @@
         *
         *   @return If the frame actually changed.
         ***************************************************************************************************************/
-        public render()
+        public render() : boolean
         {
             // no changes for single framed sprites
             if ( this.template.singleFramed )
@@ -81,5 +81,15 @@
             }
 
             return false;
+        }
+
+        /***************************************************************************************************************
+        *   Returns the image url ( or data url for flipped images ) of the current frame.
+        *
+        *   @return The image url of the currently active frame.
+        ***************************************************************************************************************/
+        public getCurrentFrameImageUrl() : string
+        {
+            return ninjas.Main.game.imageSystem.getImage( this.template.imageIds[ this.currentFrame ] ).src;
         }
     }

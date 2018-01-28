@@ -35,7 +35,7 @@
             this.gameObjects =
             [
                 // bg
-                ninjas.GameObjectFactory.createBackground( 0, 0, this.width, this.height, this.bgColor ),
+                // ninjas.GameObjectFactory.createBackground( 0, 0, this.width, this.height, this.bgColor ),
 
                 // grounds and walls
                 // ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),

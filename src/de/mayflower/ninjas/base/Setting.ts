@@ -5,6 +5,8 @@
     /*******************************************************************************************************************
     *   All adjustments and balancings for the application.
     *
+    *   TODO extract debub settings, engine settings etc. > own package?
+    *
     *   @author     Christopher Stock
     *   @version    0.0.1
     *******************************************************************************************************************/
@@ -42,6 +44,9 @@
         public      static  readonly    CAMERA_MOVING_SPEED                         :number                     = 0.075;
         /** The minimum camera moving speed in px per move. */
         public      static  readonly    CAMERA_MOVING_MINIMUM                       :number                     = 2.0;
+
+        /** The color of the canvas bg. */
+        public      static  readonly    CANVAS_BG                                   :string                     = "#000000";
 
         /** The opacity for the debug colors. */
         public      static  readonly    COLOR_DEBUG_OPACITY                         :number                     = 1.0;

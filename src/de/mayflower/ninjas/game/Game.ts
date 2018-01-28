@@ -153,7 +153,7 @@
                         showCollisions:     true,
                         showAngleIndicator: true,
                         showVelocity:       true,
-
+                        background:         ninjas.Setting.CANVAS_BG,
                         width:              this.canvasWidth,
                         height:             this.canvasHeight,
 
@@ -307,7 +307,9 @@
             this.renderer.context.fillStyle = "#ff0000";
             this.renderer.context.fillRect( this.canvasWidth - 200, 50, 150, 50 );
 
-            this.renderer.context.drawImage( this.imageSystem.testImage, 0, 0 );
+
+
+            this.renderer.context.drawImage( this.imageSystem.images[ this.imageSystem.fileNames[ 0 ] ], 0, 200 );
         }
 
         /***************************************************************************************************************
