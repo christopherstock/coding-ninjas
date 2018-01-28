@@ -10,6 +10,7 @@
     *   TODO animate.css effect on popup show and hide.
     *   TODO create wow popup on entering a room!
     *   TODO add random method to MathUtil!
+    *   TODO Remove package wowJs
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Create parallax bg images.
     *   TODO import methods for class 'Drawing' from box2d game.
@@ -27,6 +28,7 @@
     *   TODO enable texture cache for MatterJS game renderer?
     *   TODO create method updateBody() for all shape classes?
     *   TODO Prevent ALL images from being mirrored?
+    *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
     *
     *   @author     Christopher Stock
     *   @version    0.0.1

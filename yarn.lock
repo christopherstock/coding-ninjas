@@ -163,7 +163,7 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
-animate.css@latest:
+animate.css@^3.5.2, animate.css@latest:
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-3.5.2.tgz#91e668dc069a808e5e499514867b97aae0166c36"
 
@@ -189,9 +189,9 @@ ansi-styles@^3.1.0, ansi-styles@^3.2.0:
   dependencies:
     color-convert "^1.9.0"
 
-antd@^3.1.4:
-  version "3.1.4"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-3.1.4.tgz#1e31fce5690df63c53a56349bf7d627074d23c10"
+antd@^3.1.6:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-3.1.6.tgz#042e9f4a13e304a25283e59d999d09cb85c0c8d4"
   dependencies:
     array-tree-filter "^2.0.0"
     babel-runtime "6.x"

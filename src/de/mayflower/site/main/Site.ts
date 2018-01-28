@@ -1,4 +1,6 @@
 
+    require( "animate.css" );
+
     import * as ninjas from '../../ninjas/ninjas';
     import * as site   from '../site';
 
@@ -27,10 +29,14 @@
         {
             ninjas.Debug.site.log( "Site.showPopup() being invoked" );
 
-            Site.createPopup();
+            // TODO move creation to init method!
+            if ( Site.examplePopup == null )
+            {
+                Site.createPopup();
+                document.body.appendChild( Site.examplePopup );
+            }
 
-            document.body.appendChild( Site.examplePopup );
-
+            Site.examplePopup.className = "animated bounceInLeft";
         }
 
         /*****************************************************************************
@@ -40,8 +46,9 @@
         {
             ninjas.Debug.site.log( "Site.hidePopup() being invoked" );
 
-            document.body.removeChild( Site.examplePopup )
+            // document.body.removeChild( Site.examplePopup )
 
+            Site.examplePopup.className = "animated bounceOutLeft";
         }
 
         /*****************************************************************************
