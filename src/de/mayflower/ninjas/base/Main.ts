@@ -4,18 +4,19 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Remove package wowJs? or try usage by scrolling page?
+    *   TODO No scrollbar on site popup but responsive behaviour AND pop up elements via Wow! :D
+    *
     *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
     *   TODO move creation of Site-PopUp to init method!
-    *   TODO Check if wowjs is really required .. maybe animate.css is sufficient.
     *   TODO Update site popup size on resizing the screen.
     *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
     *   TODO Move camera to screen quarter on showing popup.
     *   TODO Enable different animations for popup.
     *   TODO animate.css effect on popup show and hide.
     *   TODO Add 'attack' action and sprite.
-    *   TODO create wow popup on entering a room!
     *   TODO add random method to MathUtil!
-    *   TODO Remove package wowJs
+    *   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
     *   TODO outsource according functions from class Site to SitePopup.
     *   TODO Turn Site to non-static class.
     *   TODO Try sound error handling! (Safari etc.)
@@ -59,7 +60,7 @@
             ninjas.Debug.init.log();
 
             //init and start the game engine
-            this.game = new ninjas.Game();
-            this.game.init();
+            Main.game = new ninjas.Game();
+            Main.game.init();
         }
     }
