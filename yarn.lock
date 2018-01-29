@@ -14,6 +14,10 @@
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@types/cucumber/-/cucumber-3.2.1.tgz#4269502cc1f8cc4b4bfe4fe4bc3bbe19226600bb"
 
+"@types/fpsmeter@^0.3.29":
+  version "0.3.29"
+  resolved "https://registry.yarnpkg.com/@types/fpsmeter/-/fpsmeter-0.3.29.tgz#34d2685f1c6e3458e9a193e0ddaf90229829d21a"
+
 "@types/fs-extra@4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-4.0.0.tgz#1dd742ad5c9bce308f7a52d02ebc01421bc9102f"
@@ -1859,6 +1863,10 @@ form-data@~2.3.1:
     asynckit "^0.4.0"
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
+
+fpsmeter@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/fpsmeter/-/fpsmeter-0.3.1.tgz#f134d41a1af06a717b35523ee698552d7f0f3ce5"
 
 fragment-cache@^0.2.1:
   version "0.2.1"

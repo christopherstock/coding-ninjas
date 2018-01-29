@@ -1,6 +1,7 @@
 
-    import * as matter from 'matter-js';
-    import * as ninjas from '../ninjas';
+    import * as matter   from 'matter-js';
+    import * as ninjas   from '../ninjas';
+    require( 'fpsmeter' );
 
     /*******************************************************************************************************************
     *   Specifies the game logic and all primal components of the game.
@@ -36,6 +37,9 @@
         /** The soundSystem system. */
         public      soundSystem             :ninjas.SoundSystem             = null;
 
+        /** The FPS counter. */
+        private     fpsMeter                :FPSMeter                       = null;
+
         /***************************************************************************************************************
         *   Inits all components of the game.
         ***************************************************************************************************************/
@@ -64,6 +68,9 @@
         ***************************************************************************************************************/
         private onSoundsLoaded=() : void =>
         {
+            // init FPS-counter
+            this.initFpsCounter();
+
             // play bg sound
             this.soundSystem.playSound( ninjas.Sound.BG_CHINESE, true );
 
@@ -205,6 +212,30 @@
         }
 
         /***************************************************************************************************************
+        *   Inits the FPS counter.
+        ***************************************************************************************************************/
+        private initFpsCounter()
+        {
+            ninjas.Debug.init.log( "Initing FPS counter" );
+
+            this.fpsMeter = new FPSMeter(
+                null,
+                {
+                    graph:    1,
+                    decimals: 1,
+                    position: "absolute",
+                    zIndex:   10,
+                    right:    "5px",
+                    top:      "auto",
+                    left:     "auto",
+                    bottom:   "5px",
+                    margin:   "0",
+                    heat:     1,
+                }
+            );
+        }
+
+        /***************************************************************************************************************
         *   Inits the image system.
         ***************************************************************************************************************/
         private initImageSystem()
@@ -266,6 +297,8 @@
         ***************************************************************************************************************/
         private tick=()=>
         {
+            this.fpsMeter.tickStart();
+
             // render the engine
             this.render();
 
@@ -276,6 +309,7 @@
             context.fillStyle = "#ff0000";
             context.fillRect( 0, 0, 100, 200 );
 */
+            this.fpsMeter.tick();
         };
 
         /***************************************************************************************************************
@@ -308,7 +342,7 @@
 
             context.fillStyle = "#ff0000";
             context.fillRect( this.canvasWidth - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, ninjas.Setting.SITE_BORDER_SIZE, testHudWidth, testHudHeight );
-            context.fillRect( this.canvasWidth - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, this.canvasHeight - ninjas.Setting.SITE_BORDER_SIZE - testHudHeight, testHudWidth, testHudHeight );
+            // context.fillRect( this.canvasWidth - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, this.canvasHeight - ninjas.Setting.SITE_BORDER_SIZE - testHudHeight, testHudWidth, testHudHeight );
         }
 
         /***************************************************************************************************************

@@ -4,15 +4,15 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and Engine
-    *   TODO Add FPS counter via npm package.
+    *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
     *   TODO move creation of Site-PopUp to init method!
     *   TODO Check if wowjs is really required .. maybe animate.css is sufficient.
     *   TODO Update site popup size on resizing the screen.
+    *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
     *   TODO Move camera to screen quarter on showing popup.
-    *   TODO Enable popup from left or right.
     *   TODO Enable different animations for popup.
     *   TODO animate.css effect on popup show and hide.
+    *   TODO Add 'attack' action and sprite.
     *   TODO create wow popup on entering a room!
     *   TODO add random method to MathUtil!
     *   TODO Remove package wowJs

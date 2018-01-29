@@ -16,6 +16,7 @@
     },
     "devDependencies": {
         "@types/cucumber": "^3.2.1",
+        "@types/fpsmeter": "^0.3.29",
         "@types/jest": "^22.1.0",
         "@types/matter-js": "^0.9.33",
         "@types/moment": "^2.13.0",
@@ -25,6 +26,7 @@
         "awesome-typescript-loader": "^3.4.1",
         "css-loader": "^0.28.9",
         "cucumber": "^4.0.0",
+        "fpsmeter": "^0.3.1",
         "jest": "^22.1.4",
         "source-map-loader": "^0.2.3",
         "style-loader": "^0.19.1",
