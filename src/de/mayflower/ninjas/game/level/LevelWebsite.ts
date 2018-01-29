@@ -14,8 +14,6 @@
         public      width                   :number                     = 10000.0;
         /** The height of this level. */
         public      height                  :number                     = 10000.0;
-        /** The background color of this level. */
-        public      bgColor                 :string                     = "#000000";
 
         /***************************************************************************************************************
         *   Inits a new level.

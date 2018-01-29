@@ -14,8 +14,6 @@
         public      width                   :number                     = 0.0;
         /** The height of this level. */
         public      height                  :number                     = 0.0;
-        /** The background color of this level. */
-        public      bgColor                 :string                     = null;
 
         /** The player instance. */
         public      player                  :ninjas.Player              = null;

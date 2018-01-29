@@ -1,7 +1,6 @@
 
     import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
-    import * as site   from '../../../site/site';
 
     /*******************************************************************************************************************
     *   Represents a non-colliding decoration.
@@ -48,7 +47,7 @@
                 if ( !this.popupActive )
                 {
                     this.popupActive = true;
-                    site.Site.showPopup();
+                    ninjas.Site.showPopup();
                 }
             }
             else
@@ -56,7 +55,7 @@
                 if ( this.popupActive )
                 {
                     this.popupActive = false;
-                    site.Site.hidePopup();
+                    ninjas.Site.hidePopup();
                 }
             }
         }

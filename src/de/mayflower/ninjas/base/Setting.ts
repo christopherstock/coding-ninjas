@@ -46,6 +46,11 @@
         /** The color of the canvas bg. */
         public      static  readonly    CANVAS_BG                                   :string                     = "#000000";
 
+        /** The border size of the site popup in px. */
+        public      static  readonly    SITE_BORDER_SIZE                            :number                     = 20;
+        /** The background color of the site popup . */
+        public      static  readonly    SITE_POPUP_BG_COLOR                         :string                     = "rgba( 255, 255, 255, 0.25 )";
+
         /** The opacity for the debug colors. */
         public      static  readonly    COLOR_DEBUG_OPACITY                         :number                     = 1.0;
         /** The line width for debug lines. */

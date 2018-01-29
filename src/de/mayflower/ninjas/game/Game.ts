@@ -303,8 +303,12 @@
         ***************************************************************************************************************/
         private paint( context:CanvasRenderingContext2D )
         {
-            this.renderer.context.fillStyle = "#ff0000";
-            this.renderer.context.fillRect( this.canvasWidth - 200, 50, 150, 50 );
+            let testHudWidth:number  = 150;
+            let testHudHeight:number = 50;
+
+            context.fillStyle = "#ff0000";
+            context.fillRect( this.canvasWidth - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, ninjas.Setting.SITE_BORDER_SIZE, testHudWidth, testHudHeight );
+            context.fillRect( this.canvasWidth - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, this.canvasHeight - ninjas.Setting.SITE_BORDER_SIZE - testHudHeight, testHudWidth, testHudHeight );
         }
 
         /***************************************************************************************************************
