@@ -23,13 +23,17 @@
         {
             ninjas.Debug.site.log( "Site.showPopup() being invoked" );
 
-            if ( Site.examplePopup == null )
+            if ( Site.examplePopup != null )
             {
-                Site.createPopup();
-                document.body.appendChild( Site.examplePopup );
+                Site.examplePopup.remove();
+                Site.examplePopup = null;
             }
 
-            Site.examplePopup.className = "animated bounceInLeft";
+            Site.createPopup();
+
+            document.body.appendChild( Site.examplePopup );
+
+            ninjas.Main.game.wowSystem.sync();
         }
 
         /*****************************************************************************
@@ -39,9 +43,21 @@
         {
             ninjas.Debug.site.log( "Site.hidePopup() being invoked" );
 
-            // document.body.removeChild( Site.examplePopup )
+            // if ( Site.examplePopup == null ) return;
 
-            Site.examplePopup.className = "animated bounceOutLeft";
+            Site.examplePopup.className = "wow bounceOutLeft";
+
+            ninjas.Main.game.wowSystem.sync();
+
+            window.setTimeout(
+                () => {
+                    // document.body.removeChild( Site.examplePopup );
+
+                    Site.examplePopup.remove();
+                    Site.examplePopup = null;
+                },
+                1000
+            );
         }
 
         /*****************************************************************************
@@ -60,7 +76,9 @@
             Site.examplePopup.style.top  = ninjas.Setting.SITE_BORDER_SIZE + "px";
             Site.examplePopup.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
 
-
+            Site.examplePopup.setAttribute( "data-wow-duration", "1.0s" );
+            Site.examplePopup.setAttribute( "data-wow-delay",    "0.0s" );
+            Site.examplePopup.className = "wow bounceInLeft";
 
 
 
@@ -78,13 +96,16 @@
 
             Site.exampleContent.style.margin = "20px 0 0 20px";
 
-            Site.exampleContent.className = "wow bounceInRight";
+            Site.exampleContent.className = "wow fadeIn";
 
-            Site.exampleContent.setAttribute( "data-wow-duration", "2s" );
-            Site.exampleContent.setAttribute( "data-wow-delay", "2s" );
+            Site.exampleContent.setAttribute( "data-wow-duration", "0.5s" );
+            Site.exampleContent.setAttribute( "data-wow-delay",    "1.0s" );
 
-            document.body.appendChild( Site.exampleContent );
+            Site.examplePopup.appendChild( Site.exampleContent );
 
-            ninjas.Main.game.wowSystem.sync();
+            //document.body.appendChild( Site.exampleContent );
+
+            // resync the WOW animation system in order to animate the WOW contents
+            // ninjas.Main.game.wowSystem.sync();
         }
     }

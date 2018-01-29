@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Remove package wowJs? or try usage by scrolling page?
     *   TODO No scrollbar on site popup but responsive behaviour AND pop up elements via Wow! :D
     *
     *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!

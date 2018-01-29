@@ -11309,7 +11309,6 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Remove package wowJs? or try usage by scrolling page?
 *   TODO No scrollbar on site popup but responsive behaviour AND pop up elements via Wow! :D
 *
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
@@ -15946,19 +15945,27 @@ var Site = /** @class */ (function () {
     *****************************************************************************/
     Site.showPopup = function () {
         ninjas.Debug.site.log("Site.showPopup() being invoked");
-        if (Site.examplePopup == null) {
-            Site.createPopup();
-            document.body.appendChild(Site.examplePopup);
+        if (Site.examplePopup != null) {
+            Site.examplePopup.remove();
+            Site.examplePopup = null;
         }
-        Site.examplePopup.className = "animated bounceInLeft";
+        Site.createPopup();
+        document.body.appendChild(Site.examplePopup);
+        ninjas.Main.game.wowSystem.sync();
     };
     /*****************************************************************************
     *   Being invoked when a popup shall be hidden.
     *****************************************************************************/
     Site.hidePopup = function () {
         ninjas.Debug.site.log("Site.hidePopup() being invoked");
-        // document.body.removeChild( Site.examplePopup )
-        Site.examplePopup.className = "animated bounceOutLeft";
+        // if ( Site.examplePopup == null ) return;
+        Site.examplePopup.className = "wow bounceOutLeft";
+        ninjas.Main.game.wowSystem.sync();
+        window.setTimeout(function () {
+            // document.body.removeChild( Site.examplePopup );
+            Site.examplePopup.remove();
+            Site.examplePopup = null;
+        }, 1000);
     };
     /*****************************************************************************
     *   Creates the site popup.
@@ -15972,6 +15979,9 @@ var Site = /** @class */ (function () {
         Site.examplePopup.style.position = "absolute";
         Site.examplePopup.style.top = ninjas.Setting.SITE_BORDER_SIZE + "px";
         Site.examplePopup.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
+        Site.examplePopup.setAttribute("data-wow-duration", "1.0s");
+        Site.examplePopup.setAttribute("data-wow-delay", "0.0s");
+        Site.examplePopup.className = "wow bounceInLeft";
         // content
         Site.exampleContent = document.createElement("div");
         Site.exampleContent.style.width = "200px";
@@ -15982,11 +15992,13 @@ var Site = /** @class */ (function () {
         Site.exampleContent.style.top = "20px";
         Site.exampleContent.style.left = "20px";
         Site.exampleContent.style.margin = "20px 0 0 20px";
-        Site.exampleContent.className = "wow bounceInRight";
-        Site.exampleContent.setAttribute("data-wow-duration", "2s");
-        Site.exampleContent.setAttribute("data-wow-delay", "2s");
-        document.body.appendChild(Site.exampleContent);
-        ninjas.Main.game.wowSystem.sync();
+        Site.exampleContent.className = "wow fadeIn";
+        Site.exampleContent.setAttribute("data-wow-duration", "0.5s");
+        Site.exampleContent.setAttribute("data-wow-delay", "1.0s");
+        Site.examplePopup.appendChild(Site.exampleContent);
+        //document.body.appendChild( Site.exampleContent );
+        // resync the WOW animation system in order to animate the WOW contents
+        // ninjas.Main.game.wowSystem.sync();
     };
     /** An example site popup. */
     Site.examplePopup = null;
