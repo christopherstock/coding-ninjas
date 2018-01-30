@@ -261,10 +261,10 @@
                     decimals: 1,
                     position: "absolute",
                     zIndex:   10,
-                    right:    "5px",
                     top:      "auto",
+                    right:    ninjas.Setting.SITE_BORDER_SIZE + "px",
+                    bottom:   ninjas.Setting.SITE_BORDER_SIZE + "px",
                     left:     "auto",
-                    bottom:   "5px",
                     margin:   "0",
                     heat:     1,
                 }

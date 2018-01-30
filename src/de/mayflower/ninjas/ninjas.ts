@@ -32,6 +32,8 @@
     export * from './game/object/SiteTrigger';
 
     export * from './game/Game';
+    export * from './game/GameEngine';
+    export * from './game/GameInit';
 
     export * from './hid/Key';
     export * from './hid/KeySystem';

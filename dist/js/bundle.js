@@ -4643,6 +4643,8 @@ __export(__webpack_require__(154));
 __export(__webpack_require__(155));
 __export(__webpack_require__(156));
 __export(__webpack_require__(157));
+__export(__webpack_require__(177));
+__export(__webpack_require__(178));
 __export(__webpack_require__(160));
 __export(__webpack_require__(161));
 __export(__webpack_require__(162));
@@ -27548,14 +27550,10 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Move camera to screen quarter on showing popup.
-*   TODO Enable different animations for popup.
-*   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
-*
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
+*
 *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
 *   TODO Add 'attack' action and sprite.
-*   TODO Border padding for FPS counter.
 *   TODO add random method to MathUtil!
 *   TODO Fence in fg.
 *   TODO Create parallax bg images in bg and fg (pick parallex class!).
@@ -27565,6 +27563,11 @@ var ninjas = __webpack_require__(1);
 *   TODO Create and use image ranges for sprite templates?
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO Move game object classes to appropriate subpackages!
+*
+*   TODO Move camera to screen quarter on showing popup.
+*   TODO Enable different animations for popup.
+*   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
+*
 *   TODO only mirror images where a mirrored SpriteTemplate exists!
 *   TODO Create HUD.
 *   TODO Add popup on
@@ -29951,10 +29954,10 @@ var Game = /** @class */ (function () {
             decimals: 1,
             position: "absolute",
             zIndex: 10,
-            right: "5px",
             top: "auto",
+            right: ninjas.Setting.SITE_BORDER_SIZE + "px",
+            bottom: ninjas.Setting.SITE_BORDER_SIZE + "px",
             left: "auto",
-            bottom: "5px",
             margin: "0",
             heat: 1,
         });
@@ -32937,6 +32940,48 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = 176;
+
+/***/ }),
+/* 177 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Specifies the game engine and its systems.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var GameEngine = /** @class */ (function () {
+    function GameEngine() {
+    }
+    return GameEngine;
+}());
+exports.GameEngine = GameEngine;
+
+
+/***/ }),
+/* 178 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Specifies the game engine and its systems.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var GameInit = /** @class */ (function () {
+    function GameInit() {
+    }
+    return GameInit;
+}());
+exports.GameInit = GameInit;
+
 
 /***/ })
 /******/ ]);
