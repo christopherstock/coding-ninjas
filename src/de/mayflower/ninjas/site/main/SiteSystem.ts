@@ -11,7 +11,7 @@
     *******************************************************************************************************************/
     export class SiteSystem
     {
-        /** The current site panel. */
+        /** The current site panel. TODO wrap to class Site !!! */
         private                 currentPanel                    :HTMLDivElement             = null;
 
         /** Flags if an animation is currently active. */
@@ -89,12 +89,10 @@
         {
             if ( this.currentPanel != null )
             {
-                // TODO clip max panel size!
-
                 this.currentPanel.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
                 this.currentPanel.style.height = ( ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
 
-                // TODO to own reference! remove id!
+                // TODO to own reference in class Site! remove id!
                 let siteContainer:HTMLDivElement = document.getElementById( "siteContainer" ) as HTMLDivElement;
                 siteContainer.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - 3 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
             }

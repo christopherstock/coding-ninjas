@@ -201,12 +201,13 @@
         ***************************************************************************************************************/
         private initWindowResizeHandler()
         {
+            // TODO oursource function!
             window.onresize = ( event:Event ) => {
 
                 this.updateCanvasDimensions();
 
 
-                // TODO to matterjs engine method
+                // TODO to matterjs engine method ( matterjs.update() .. )
                 this.renderer.canvas.width  = this.canvasWidth;
                 this.renderer.canvas.height = this.canvasHeight;
 
@@ -275,8 +276,8 @@
                     animateClass:    'animated',         // animation css class (default is animated)
                     offset:          0,                  // distance to the element when triggering the animation (default is 0)
                     mobile:          true,               // trigger animations on mobile devices (default is true)
-                    live:            true,               // act on asynchronously loaded content (default is true)
                     scrollContainer: null,               // optional scroll container selector, otherwise use window
+                    live:            true,               // act on asynchronously loaded content (default is true)
                     // callback:     function( box ) {}, // the callback is fired every time an animation is started the argument that is passed in is the DOM node being animated
                 }
             );
