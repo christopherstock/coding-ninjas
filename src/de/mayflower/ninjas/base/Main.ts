@@ -4,26 +4,20 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
-    *
     *   TODO Update site popup size on resizing the screen. (try responsive content like text)
-    *   TODO Improve WOW handling for SitePopUp.
-    *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
     *   TODO Move camera to screen quarter on showing popup.
     *   TODO Enable different animations for popup.
-    *   TODO animate.css effect on popup show and hide.
+    *   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
+    *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
+    *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
     *   TODO Add 'attack' action and sprite.
     *   TODO add random method to MathUtil!
-    *   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
-    *   TODO outsource according functions from class Site to SitePopup.
-    *   TODO Turn Site to non-static class.
-    *   TODO Try sound error handling! (Safari etc.)
-    *   TODO Create parallax bg images.
+    *   TODO Fence in fg.
+    *   TODO Create parallax bg images in bg and fg (pick parallex class!).
         TODO Character.isFalling(): consider bottomContact ? try this on ramps.
     *   TODO import methods for class 'Drawing' from box2d game.
     *   TODO Add react and ant design / ant design pro.
     *   TODO Create and use image ranges for sprite templates?
-    *   TODO Fence in fg.
     *   TODO simplify sprite-image-system's frame ranges!
     *   TODO Move game object classes to appropriate subpackages!
     *   TODO only mirror images where a mirrored SpriteTemplate exists!
@@ -36,6 +30,7 @@
     *   TODO create method updateBody() for all shape classes?
     *   TODO Prevent ALL images from being mirrored?
     *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
+    *   TODO Try sound error handling! (Safari etc.)
     *
     *   @author     Christopher Stock
     *   @version    0.0.1
