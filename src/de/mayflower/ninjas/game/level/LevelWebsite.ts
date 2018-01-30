@@ -1,5 +1,4 @@
 
-    import * as matter from 'matter-js';
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
@@ -23,7 +22,7 @@
             // init player
             this.player = new ninjas.Player
             (
-                0,
+                400,
                 0,
                 ninjas.CharacterLookingDirection.RIGHT,
                 new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT )
@@ -32,19 +31,8 @@
             // setup all game objects
             this.gameObjects =
             [
-                // bg
-                // ninjas.GameObjectFactory.createBackground( 0, 0, this.width, this.height, this.bgColor ),
-
                 // grounds and walls
-                // ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createObstacle( 0,    1000, 5000, 15, 0.0,  false ),
-
-                // ninjas.GameObjectFactory.createObstacle( 490,  765, 500, 15, 15.0, false ),
-                // ninjas.GameObjectFactory.createObstacle( 980,  830, 500, 15, 0.0,  false ),
-                // ninjas.GameObjectFactory.createObstacle( 2310, 830, 500, 15, 0.0,  false ),
-                // ninjas.GameObjectFactory.createObstacle( 3230, 830, 500, 15, 0.0,  false ),
-                // ninjas.GameObjectFactory.createObstacle( 4080, 730, 500, 15, 0.0,  false ),
-
 
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration( 80,  830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
@@ -52,11 +40,7 @@
 
                 // site trigger
                 ninjas.GameObjectFactory.createSiteTrigger( 970, 525, 150, 475, null ),
-
-
-
-
-
+/*
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 350,  240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
@@ -67,7 +51,7 @@
                 ninjas.GameObjectFactory.createCrate(  600,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createSphere( 650,  80,  80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createCrate(  700,  0,   80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-
+*/
 
 
 /*
@@ -117,12 +101,13 @@
 /*
                 // enemies (fg)
                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
-
-                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),
 */
                 // fg decoration
                 ninjas.GameObjectFactory.createDecoration( 670, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
+/*
+                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),
+*/
             ];
         }
     }

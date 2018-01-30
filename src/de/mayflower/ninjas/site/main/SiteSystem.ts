@@ -13,8 +13,7 @@
     {
         /** An example site panel. */
         private                 examplePanel                    :HTMLDivElement             = null;
-        /** An example site content. */
-        private                 exampleContent                  :HTMLDivElement             = null;
+
         /** Flags if an animation is currently active. */
         private                 animationInProgress             :boolean                    = null;
 
@@ -34,14 +33,7 @@
             }
             this.animationInProgress = true;
 
-            if ( this.examplePanel != null )
-            {
-                this.examplePanel.remove();
-                this.examplePanel = null;
-            }
-
             this.create();
-
             document.body.appendChild( this.examplePanel );
 
             ninjas.Main.game.wowSystem.sync();
@@ -83,7 +75,7 @@
 
                     this.animationInProgress = false;
                 },
-                1000
+                750
             );
 
             return true;
@@ -110,25 +102,27 @@
             this.examplePanel.className = "wow bounceInLeft";
 
 
-            // content
-            this.exampleContent = document.createElement( "div" );
+            // example div
+            let exampleDiv:HTMLDivElement = document.createElement( "div" );
 
-            this.exampleContent.style.width  = "200px";
-            this.exampleContent.style.height = "100px";
-            this.exampleContent.style.backgroundColor = "#c7d9f5";
-            this.exampleContent.style.zIndex = "1000";
+            exampleDiv.style.width  = "100%";
+            exampleDiv.style.backgroundColor = "#c7d9f5";
 
-            this.exampleContent.style.position = "absolute";
-            this.exampleContent.style.top  = "20px";
-            this.exampleContent.style.left = "20px";
+            exampleDiv.setAttribute( "data-wow-duration", "0.5s" );
+            exampleDiv.setAttribute( "data-wow-delay",    "1.0s" );
+            exampleDiv.className = "wow fadeIn";
 
-            this.exampleContent.style.margin = "20px 0 0 20px";
+            this.examplePanel.appendChild( exampleDiv );
 
-            this.exampleContent.className = "wow fadeIn";
 
-            this.exampleContent.setAttribute( "data-wow-duration", "0.5s" );
-            this.exampleContent.setAttribute( "data-wow-delay",    "1.0s" );
+            // example text
+            let exampleText:HTMLParagraphElement = document.createElement( "p" );
 
-            this.examplePanel.appendChild( this.exampleContent );
+            exampleText.innerText = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss! Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
+            exampleText.style.width  = "100%";
+            exampleText.style.padding = "20px";
+            exampleText.style.margin = "0";
+
+            exampleDiv.appendChild( exampleText );
         }
     }

@@ -11309,26 +11309,20 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
-*
 *   TODO Update site popup size on resizing the screen. (try responsive content like text)
-*   TODO Improve WOW handling for SitePopUp.
-*   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
 *   TODO Move camera to screen quarter on showing popup.
 *   TODO Enable different animations for popup.
-*   TODO animate.css effect on popup show and hide.
+*   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
+*   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
+*   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
 *   TODO Add 'attack' action and sprite.
 *   TODO add random method to MathUtil!
-*   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
-*   TODO outsource according functions from class Site to SitePopup.
-*   TODO Turn Site to non-static class.
-*   TODO Try sound error handling! (Safari etc.)
-*   TODO Create parallax bg images.
+*   TODO Fence in fg.
+*   TODO Create parallax bg images in bg and fg (pick parallex class!).
     TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO import methods for class 'Drawing' from box2d game.
 *   TODO Add react and ant design / ant design pro.
 *   TODO Create and use image ranges for sprite templates?
-*   TODO Fence in fg.
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO Move game object classes to appropriate subpackages!
 *   TODO only mirror images where a mirrored SpriteTemplate exists!
@@ -11341,6 +11335,7 @@ var ninjas = __webpack_require__(0);
 *   TODO create method updateBody() for all shape classes?
 *   TODO Prevent ALL images from being mirrored?
 *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
+*   TODO Try sound error handling! (Safari etc.)
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -11701,35 +11696,29 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(0, 0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(400, 0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
-                // bg
-                // ninjas.GameObjectFactory.createBackground( 0, 0, this.width, this.height, this.bgColor ),
                 // grounds and walls
-                // ninjas.GameObjectFactory.createObstacle( 0,    250,  5000, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createObstacle(0, 1000, 5000, 15, 0.0, false),
-                // ninjas.GameObjectFactory.createObstacle( 490,  765, 500, 15, 15.0, false ),
-                // ninjas.GameObjectFactory.createObstacle( 980,  830, 500, 15, 0.0,  false ),
-                // ninjas.GameObjectFactory.createObstacle( 2310, 830, 500, 15, 0.0,  false ),
-                // ninjas.GameObjectFactory.createObstacle( 3230, 830, 500, 15, 0.0,  false ),
-                // ninjas.GameObjectFactory.createObstacle( 4080, 730, 500, 15, 0.0,  false ),
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration(80, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(370, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 // site trigger
                 ninjas.GameObjectFactory.createSiteTrigger(970, 525, 150, 475, null),
-                // moveable boxes
-                ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(400, 320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(450, 400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(500, 320, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(550, 240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(600, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(650, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(700, 0, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                /*
+                                // moveable boxes
+                                ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createSphere( 350,  240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(  400,  320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(  450,  400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createSphere( 500,  320, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(  550,  240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(  600,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createSphere( 650,  80,  80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                                ninjas.GameObjectFactory.createCrate(  700,  0,   80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                */
                 /*
                                 // sigsaws and bounces
                                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
@@ -11777,9 +11766,6 @@ var LevelWebsite = /** @class */ (function (_super) {
                 /*
                                 // enemies (fg)
                                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
-                
-                                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
-                                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),
                 */
                 // fg decoration
                 ninjas.GameObjectFactory.createDecoration(670, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
@@ -16313,8 +16299,6 @@ var SiteSystem = /** @class */ (function () {
     function SiteSystem() {
         /** An example site panel. */
         this.examplePanel = null;
-        /** An example site content. */
-        this.exampleContent = null;
         /** Flags if an animation is currently active. */
         this.animationInProgress = null;
     }
@@ -16331,10 +16315,6 @@ var SiteSystem = /** @class */ (function () {
             return false;
         }
         this.animationInProgress = true;
-        if (this.examplePanel != null) {
-            this.examplePanel.remove();
-            this.examplePanel = null;
-        }
         this.create();
         document.body.appendChild(this.examplePanel);
         ninjas.Main.game.wowSystem.sync();
@@ -16362,7 +16342,7 @@ var SiteSystem = /** @class */ (function () {
             _this.examplePanel.remove();
             _this.examplePanel = null;
             _this.animationInProgress = false;
-        }, 1000);
+        }, 750);
         return true;
     };
     /*****************************************************************************
@@ -16380,20 +16360,21 @@ var SiteSystem = /** @class */ (function () {
         this.examplePanel.setAttribute("data-wow-duration", "1.0s");
         this.examplePanel.setAttribute("data-wow-delay", "0.0s");
         this.examplePanel.className = "wow bounceInLeft";
-        // content
-        this.exampleContent = document.createElement("div");
-        this.exampleContent.style.width = "200px";
-        this.exampleContent.style.height = "100px";
-        this.exampleContent.style.backgroundColor = "#c7d9f5";
-        this.exampleContent.style.zIndex = "1000";
-        this.exampleContent.style.position = "absolute";
-        this.exampleContent.style.top = "20px";
-        this.exampleContent.style.left = "20px";
-        this.exampleContent.style.margin = "20px 0 0 20px";
-        this.exampleContent.className = "wow fadeIn";
-        this.exampleContent.setAttribute("data-wow-duration", "0.5s");
-        this.exampleContent.setAttribute("data-wow-delay", "1.0s");
-        this.examplePanel.appendChild(this.exampleContent);
+        // example div
+        var exampleDiv = document.createElement("div");
+        exampleDiv.style.width = "100%";
+        exampleDiv.style.backgroundColor = "#c7d9f5";
+        exampleDiv.setAttribute("data-wow-duration", "0.5s");
+        exampleDiv.setAttribute("data-wow-delay", "1.0s");
+        exampleDiv.className = "wow fadeIn";
+        this.examplePanel.appendChild(exampleDiv);
+        // example text
+        var exampleText = document.createElement("p");
+        exampleText.innerText = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss! Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
+        exampleText.style.width = "100%";
+        exampleText.style.padding = "20px";
+        exampleText.style.margin = "0";
+        exampleDiv.appendChild(exampleText);
     };
     return SiteSystem;
 }());
