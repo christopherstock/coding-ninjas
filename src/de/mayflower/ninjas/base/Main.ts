@@ -5,8 +5,8 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
-    *   TODO move creation of Site-PopUp to init method! Turn non-static!
-    *   TODO Update site popup size on resizing the screen.
+    *
+    *   TODO Update site popup size on resizing the screen. (try responsive content like text)
     *   TODO Improve WOW handling for SitePopUp.
     *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
     *   TODO Move camera to screen quarter on showing popup.

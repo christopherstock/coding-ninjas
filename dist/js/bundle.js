@@ -109,7 +109,7 @@ __export(__webpack_require__(43));
 __export(__webpack_require__(44));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
-__export(__webpack_require__(47));
+__export(__webpack_require__(54));
 __export(__webpack_require__(50));
 __export(__webpack_require__(51));
 __export(__webpack_require__(52));
@@ -11310,8 +11310,8 @@ var ninjas = __webpack_require__(0);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
-*   TODO move creation of Site-PopUp to init method! Turn non-static!
-*   TODO Update site popup size on resizing the screen.
+*
+*   TODO Update site popup size on resizing the screen. (try responsive content like text)
 *   TODO Improve WOW handling for SitePopUp.
 *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
 *   TODO Move camera to screen quarter on showing popup.
@@ -13471,14 +13471,14 @@ var SiteTrigger = /** @class */ (function (_super) {
         // check if player collides with this trigger
         if (this.checkPlayerCollision()) {
             if (!this.popupActive) {
-                if (ninjas.Site.showPopup()) {
+                if (ninjas.Main.game.siteSystem.show()) {
                     this.popupActive = true;
                 }
             }
         }
         else {
             if (this.popupActive) {
-                if (ninjas.Site.hidePopup()) {
+                if (ninjas.Main.game.siteSystem.hide()) {
                     this.popupActive = false;
                 }
             }
@@ -13537,6 +13537,8 @@ var Game = /** @class */ (function () {
         this.imageSystem = null;
         /** The soundSystem system. */
         this.soundSystem = null;
+        /** The site system. */
+        this.siteSystem = null;
         /** The FPS counter. */
         this.fpsMeter = null;
         /** The WOW animation system. */
@@ -13552,6 +13554,8 @@ var Game = /** @class */ (function () {
         *   Being invoked when all sounds are loaded.
         ***************************************************************************************************************/
         this.onSoundsLoaded = function () {
+            // init site system
+            _this.initSiteSystem();
             // init FPS-counter
             _this.initFpsCounter();
             // init WOW animations
@@ -13685,6 +13689,12 @@ var Game = /** @class */ (function () {
     Game.prototype.initKeySystem = function () {
         ninjas.Debug.init.log("Initing key system");
         this.keySystem = new ninjas.KeySystem();
+    };
+    /***************************************************************************************************************
+    *   Inits the site system.
+    ***************************************************************************************************************/
+    Game.prototype.initSiteSystem = function () {
+        this.siteSystem = new ninjas.SiteSystem();
     };
     /***************************************************************************************************************
     *   Inits the FPS counter.
@@ -15924,110 +15934,7 @@ exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(48);
-var ninjas = __webpack_require__(0);
-/*******************************************************************************************************************
-*   Manages the communication between the game and the company presentation.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Site = /** @class */ (function () {
-    function Site() {
-    }
-    /*****************************************************************************
-    *   Being invoked when a popup shall be shown.
-    *
-    *   @return If showing the popup succeeded.
-    *****************************************************************************/
-    Site.showPopup = function () {
-        ninjas.Debug.site.log("Site.showPopup() being invoked");
-        if (Site.animationInProgress) {
-            ninjas.Debug.site.log("Denied showing popup - animation currently running");
-            return false;
-        }
-        Site.animationInProgress = true;
-        if (Site.examplePopup != null) {
-            Site.examplePopup.remove();
-            Site.examplePopup = null;
-        }
-        Site.createPopup();
-        document.body.appendChild(Site.examplePopup);
-        ninjas.Main.game.wowSystem.sync();
-        window.setTimeout(function () {
-            Site.animationInProgress = false;
-        }, 1000);
-        return true;
-    };
-    /*****************************************************************************
-    *   Being invoked when a popup shall be hidden.
-    *
-    *   @return If hiding the popup succeeded.
-    *****************************************************************************/
-    Site.hidePopup = function () {
-        ninjas.Debug.site.log("Site.hidePopup() being invoked");
-        if (Site.animationInProgress) {
-            ninjas.Debug.site.log("Denied hiding popup - animation currently running");
-            return false;
-        }
-        Site.animationInProgress = true;
-        Site.examplePopup.className = "wow bounceOutLeft";
-        ninjas.Main.game.wowSystem.sync();
-        window.setTimeout(function () {
-            Site.examplePopup.remove();
-            Site.examplePopup = null;
-            Site.animationInProgress = false;
-        }, 1000);
-        return true;
-    };
-    /*****************************************************************************
-    *   Creates the site popup.
-    *****************************************************************************/
-    Site.createPopup = function () {
-        // popup
-        Site.examplePopup = document.createElement("div");
-        Site.examplePopup.style.width = (ninjas.Main.game.canvasWidth / 2 - ninjas.Setting.SITE_BORDER_SIZE) + "px";
-        Site.examplePopup.style.height = (ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
-        Site.examplePopup.style.backgroundColor = ninjas.Setting.SITE_POPUP_BG_COLOR;
-        Site.examplePopup.style.position = "absolute";
-        Site.examplePopup.style.top = ninjas.Setting.SITE_BORDER_SIZE + "px";
-        Site.examplePopup.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
-        Site.examplePopup.setAttribute("data-wow-duration", "1.0s");
-        Site.examplePopup.setAttribute("data-wow-delay", "0.0s");
-        Site.examplePopup.className = "wow bounceInLeft";
-        // content
-        Site.exampleContent = document.createElement("div");
-        Site.exampleContent.style.width = "200px";
-        Site.exampleContent.style.height = "100px";
-        Site.exampleContent.style.backgroundColor = "#c7d9f5";
-        Site.exampleContent.style.zIndex = "1000";
-        Site.exampleContent.style.position = "absolute";
-        Site.exampleContent.style.top = "20px";
-        Site.exampleContent.style.left = "20px";
-        Site.exampleContent.style.margin = "20px 0 0 20px";
-        Site.exampleContent.className = "wow fadeIn";
-        Site.exampleContent.setAttribute("data-wow-duration", "0.5s");
-        Site.exampleContent.setAttribute("data-wow-delay", "1.0s");
-        Site.examplePopup.appendChild(Site.exampleContent);
-    };
-    /** An example site popup. */
-    Site.examplePopup = null;
-    /** An example site content. */
-    Site.exampleContent = null;
-    /** Flags if an animation is currently active. */
-    Site.animationInProgress = null;
-    return Site;
-}());
-exports.Site = Site;
-
-
-/***/ }),
+/* 47 */,
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16385,6 +16292,112 @@ var String = /** @class */ (function () {
     return String;
 }());
 exports.String = String;
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(48);
+var ninjas = __webpack_require__(0);
+/*******************************************************************************************************************
+*   Manages the communication between the game and the company presentation.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SiteSystem = /** @class */ (function () {
+    function SiteSystem() {
+        /** An example site panel. */
+        this.examplePanel = null;
+        /** An example site content. */
+        this.exampleContent = null;
+        /** Flags if an animation is currently active. */
+        this.animationInProgress = null;
+    }
+    /*****************************************************************************
+    *   Being invoked when a site shall be shown.
+    *
+    *   @return If showing the site succeeded.
+    *****************************************************************************/
+    SiteSystem.prototype.show = function () {
+        var _this = this;
+        ninjas.Debug.site.log("Site.showPopup() being invoked");
+        if (this.animationInProgress) {
+            ninjas.Debug.site.log("Denied showing site - animation currently running");
+            return false;
+        }
+        this.animationInProgress = true;
+        if (this.examplePanel != null) {
+            this.examplePanel.remove();
+            this.examplePanel = null;
+        }
+        this.create();
+        document.body.appendChild(this.examplePanel);
+        ninjas.Main.game.wowSystem.sync();
+        window.setTimeout(function () {
+            _this.animationInProgress = false;
+        }, 1000);
+        return true;
+    };
+    /*****************************************************************************
+    *   Being invoked when a site shall be hidden.
+    *
+    *   @return If hiding the site succeeded.
+    *****************************************************************************/
+    SiteSystem.prototype.hide = function () {
+        var _this = this;
+        ninjas.Debug.site.log("Site.hidePopup() being invoked");
+        if (this.animationInProgress) {
+            ninjas.Debug.site.log("Denied hiding site - animation currently running");
+            return false;
+        }
+        this.animationInProgress = true;
+        this.examplePanel.className = "wow bounceOutLeft";
+        ninjas.Main.game.wowSystem.sync();
+        window.setTimeout(function () {
+            _this.examplePanel.remove();
+            _this.examplePanel = null;
+            _this.animationInProgress = false;
+        }, 1000);
+        return true;
+    };
+    /*****************************************************************************
+    *   Creates the site.
+    *****************************************************************************/
+    SiteSystem.prototype.create = function () {
+        // panel
+        this.examplePanel = document.createElement("div");
+        this.examplePanel.style.width = (ninjas.Main.game.canvasWidth / 2 - ninjas.Setting.SITE_BORDER_SIZE) + "px";
+        this.examplePanel.style.height = (ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
+        this.examplePanel.style.backgroundColor = ninjas.Setting.SITE_POPUP_BG_COLOR;
+        this.examplePanel.style.position = "absolute";
+        this.examplePanel.style.top = ninjas.Setting.SITE_BORDER_SIZE + "px";
+        this.examplePanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
+        this.examplePanel.setAttribute("data-wow-duration", "1.0s");
+        this.examplePanel.setAttribute("data-wow-delay", "0.0s");
+        this.examplePanel.className = "wow bounceInLeft";
+        // content
+        this.exampleContent = document.createElement("div");
+        this.exampleContent.style.width = "200px";
+        this.exampleContent.style.height = "100px";
+        this.exampleContent.style.backgroundColor = "#c7d9f5";
+        this.exampleContent.style.zIndex = "1000";
+        this.exampleContent.style.position = "absolute";
+        this.exampleContent.style.top = "20px";
+        this.exampleContent.style.left = "20px";
+        this.exampleContent.style.margin = "20px 0 0 20px";
+        this.exampleContent.className = "wow fadeIn";
+        this.exampleContent.setAttribute("data-wow-duration", "0.5s");
+        this.exampleContent.setAttribute("data-wow-delay", "1.0s");
+        this.examplePanel.appendChild(this.exampleContent);
+    };
+    return SiteSystem;
+}());
+exports.SiteSystem = SiteSystem;
 
 
 /***/ })

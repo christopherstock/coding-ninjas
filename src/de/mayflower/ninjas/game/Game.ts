@@ -40,6 +40,9 @@
         /** The soundSystem system. */
         public      soundSystem             :ninjas.SoundSystem             = null;
 
+        /** The site system. */
+        public      siteSystem              :ninjas.SiteSystem              = null;
+
         /** The FPS counter. */
         private     fpsMeter                :FPSMeter                       = null;
         /** The WOW animation system. */
@@ -73,6 +76,9 @@
         ***************************************************************************************************************/
         private onSoundsLoaded=() : void =>
         {
+            // init site system
+            this.initSiteSystem();
+
             // init FPS-counter
             this.initFpsCounter();
 
@@ -217,6 +223,14 @@
             ninjas.Debug.init.log( "Initing key system" );
 
             this.keySystem = new ninjas.KeySystem();
+        }
+
+        /***************************************************************************************************************
+        *   Inits the site system.
+        ***************************************************************************************************************/
+        private initSiteSystem()
+        {
+            this.siteSystem = new ninjas.SiteSystem();
         }
 
         /***************************************************************************************************************

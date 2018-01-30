@@ -46,7 +46,7 @@
             {
                 if ( !this.popupActive )
                 {
-                    if ( ninjas.Site.showPopup() )
+                    if ( ninjas.Main.game.siteSystem.show() )
                     {
                         this.popupActive = true;
                     }
@@ -56,7 +56,7 @@
             {
                 if ( this.popupActive )
                 {
-                    if ( ninjas.Site.hidePopup() )
+                    if ( ninjas.Main.game.siteSystem.hide() )
                     {
                         this.popupActive = false;
                     }
