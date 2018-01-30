@@ -102,11 +102,16 @@
             this.examplePanel.className = "wow bounceInLeft";
 
 
-            // example div
+            // div relative 1
             let exampleDiv:HTMLDivElement = document.createElement( "div" );
 
-            exampleDiv.style.width  = "100%";
+            exampleDiv.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - 3 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+            // exampleDiv.style.height = ( ninjas.Main.game.canvasHeight - 4 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
             exampleDiv.style.backgroundColor = "#c7d9f5";
+
+            exampleDiv.style.position = "relative";
+            exampleDiv.style.top  = ninjas.Setting.SITE_BORDER_SIZE + "px";
+            exampleDiv.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
 
             exampleDiv.setAttribute( "data-wow-duration", "0.5s" );
             exampleDiv.setAttribute( "data-wow-delay",    "1.0s" );
@@ -119,7 +124,10 @@
             let exampleText:HTMLParagraphElement = document.createElement( "p" );
 
             exampleText.innerText = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss! Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
-            exampleText.style.width  = "100%";
+
+            // don't do that!
+            // exampleText.style.width  = "100%";
+
             exampleText.style.padding = "20px";
             exampleText.style.margin = "0";
 

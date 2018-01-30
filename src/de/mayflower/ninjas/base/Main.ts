@@ -4,10 +4,12 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Solve absolute <> relative positioning problem in Site panel.
     *   TODO Update site popup size on resizing the screen. (try responsive content like text)
     *   TODO Move camera to screen quarter on showing popup.
     *   TODO Enable different animations for popup.
     *   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
+    *
     *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
     *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
     *   TODO Add 'attack' action and sprite.
