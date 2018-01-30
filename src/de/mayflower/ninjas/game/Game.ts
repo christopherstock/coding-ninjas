@@ -205,11 +205,16 @@
 
                 this.updateCanvasDimensions();
 
+
+                // TODO to matterjs engine method
                 this.renderer.canvas.width  = this.canvasWidth;
                 this.renderer.canvas.height = this.canvasHeight;
 
                 this.renderer.options.width  = this.canvasWidth;
                 this.renderer.options.height = this.canvasHeight;
+
+
+                this.siteSystem.updatePanelSize();
 
                 this.resetCamera();
             };

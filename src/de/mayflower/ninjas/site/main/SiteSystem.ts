@@ -11,8 +11,8 @@
     *******************************************************************************************************************/
     export class SiteSystem
     {
-        /** An example site panel. */
-        private                 examplePanel                    :HTMLDivElement             = null;
+        /** The current site panel. */
+        private                 currentPanel                    :HTMLDivElement             = null;
 
         /** Flags if an animation is currently active. */
         private                 animationInProgress             :boolean                    = null;
@@ -33,8 +33,9 @@
             }
             this.animationInProgress = true;
 
-            this.create();
-            document.body.appendChild( this.examplePanel );
+            this.currentPanel = ninjas.SiteContent.createExampleContent();
+            document.body.appendChild( this.currentPanel );
+            this.updatePanelSize();
 
             ninjas.Main.game.wowSystem.sync();
 
@@ -65,13 +66,13 @@
             }
             this.animationInProgress = true;
 
-            this.examplePanel.className = "wow bounceOutLeft";
+            this.currentPanel.className = "wow bounceOutLeft";
             ninjas.Main.game.wowSystem.sync();
 
             window.setTimeout(
                 () => {
-                    this.examplePanel.remove();
-                    this.examplePanel = null;
+                    this.currentPanel.remove();
+                    this.currentPanel = null;
 
                     this.animationInProgress = false;
                 },
@@ -82,55 +83,18 @@
         }
 
         /*****************************************************************************
-        *   Creates the site.
+        *   Being invoked when the panel size should be set according to the current canvas size.
         *****************************************************************************/
-        private create() : void
+        public updatePanelSize()
         {
-            // panel
-            this.examplePanel = document.createElement( "div" );
+            if ( this.currentPanel != null )
+            {
+                this.currentPanel.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+                this.currentPanel.style.height = ( ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
 
-            this.examplePanel.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
-            this.examplePanel.style.height = ( ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
-            this.examplePanel.style.backgroundColor = ninjas.Setting.SITE_POPUP_BG_COLOR;
-
-            this.examplePanel.style.position = "absolute";
-            this.examplePanel.style.top  = ninjas.Setting.SITE_BORDER_SIZE + "px";
-            this.examplePanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
-
-            this.examplePanel.setAttribute( "data-wow-duration", "1.0s" );
-            this.examplePanel.setAttribute( "data-wow-delay",    "0.0s" );
-            this.examplePanel.className = "wow bounceInLeft";
-
-
-            // div relative 1
-            let exampleDiv:HTMLDivElement = document.createElement( "div" );
-
-            exampleDiv.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - 3 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
-            // exampleDiv.style.height = ( ninjas.Main.game.canvasHeight - 4 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
-            exampleDiv.style.backgroundColor = "#c7d9f5";
-
-            exampleDiv.style.position = "relative";
-            exampleDiv.style.top  = ninjas.Setting.SITE_BORDER_SIZE + "px";
-            exampleDiv.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
-
-            exampleDiv.setAttribute( "data-wow-duration", "0.5s" );
-            exampleDiv.setAttribute( "data-wow-delay",    "1.0s" );
-            exampleDiv.className = "wow fadeIn";
-
-            this.examplePanel.appendChild( exampleDiv );
-
-
-            // example text
-            let exampleText:HTMLParagraphElement = document.createElement( "p" );
-
-            exampleText.innerText = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss! Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
-
-            // don't do that!
-            // exampleText.style.width  = "100%";
-
-            exampleText.style.padding = "20px";
-            exampleText.style.margin = "0";
-
-            exampleDiv.appendChild( exampleText );
+                // TODO to own reference! remove id!
+                let siteContainer:HTMLDivElement = document.getElementById( "siteContainer" ) as HTMLDivElement;
+                siteContainer.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - 3 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+            }
         }
     }

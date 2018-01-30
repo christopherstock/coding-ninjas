@@ -88,6 +88,8 @@
         public      static  readonly    PATH_IMAGE_PLAYER                           :string                     = "res/image/player/";
         /** The relative path from index.html where all level images reside. */
         public      static  readonly    PATH_IMAGE_LEVEL                            :string                     = "res/image/level/";
+        /** The relative path from index.html where all site images reside. */
+        public      static  readonly    PATH_IMAGE_SITE                             :string                     = "res/image/site/";
         /** The relative path from index.html where all sounds reside. */
         public      static  readonly    PATH_SOUND                                  :string                     = "res/sound/";
 

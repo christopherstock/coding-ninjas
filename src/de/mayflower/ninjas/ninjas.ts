@@ -31,7 +31,6 @@
     export * from './game/object/SigSaw';
     export * from './game/object/SiteTrigger';
 
-
     export * from './game/Game';
 
     export * from './hid/Key';
@@ -44,6 +43,7 @@
     export * from './io/Sprite';
     export * from './io/SpriteTemplate';
 
+    export * from './site/main/SiteContent';
     export * from './site/main/SiteSystem';
 
     export * from './ui/Camera';
