@@ -1911,7 +1911,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(176)("./" + name);
+            __webpack_require__(178)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4603,7 +4603,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(175)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(177)(module)))
 
 /***/ }),
 /* 1 */
@@ -4643,8 +4643,6 @@ __export(__webpack_require__(154));
 __export(__webpack_require__(155));
 __export(__webpack_require__(156));
 __export(__webpack_require__(157));
-__export(__webpack_require__(177));
-__export(__webpack_require__(178));
 __export(__webpack_require__(160));
 __export(__webpack_require__(161));
 __export(__webpack_require__(162));
@@ -4654,11 +4652,13 @@ __export(__webpack_require__(165));
 __export(__webpack_require__(166));
 __export(__webpack_require__(167));
 __export(__webpack_require__(168));
+__export(__webpack_require__(169));
 __export(__webpack_require__(170));
-__export(__webpack_require__(171));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
+__export(__webpack_require__(175));
+__export(__webpack_require__(176));
 
 
 /***/ }),
@@ -15464,7 +15464,7 @@ function updateLink (link, options, obj) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(169);
+var content = __webpack_require__(171);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -27550,41 +27550,41 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
+*   TODO import methods for class 'Drawing' from box2d game.
+*   TODO Remove unused package 'Animate.css'?
 *
+*   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
+*   TODO Move game object classes to appropriate subpackages!
 *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
+*
 *   TODO Add 'attack' action and sprite.
-*   TODO add random method to MathUtil!
 *   TODO Fence in fg.
 *   TODO Create parallax bg images in bg and fg (pick parallex class!).
     TODO Character.isFalling(): consider bottomContact ? try this on ramps.
-*   TODO import methods for class 'Drawing' from box2d game.
-*   TODO Add react and ant design / ant design pro.
-*   TODO Create and use image ranges for sprite templates?
 *   TODO simplify sprite-image-system's frame ranges!
-*   TODO Move game object classes to appropriate subpackages!
+*   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
 *
 *   TODO Move camera to screen quarter on showing popup.
 *   TODO Enable different animations for popup.
 *   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
 *
 *   TODO only mirror images where a mirrored SpriteTemplate exists!
+*   TODO Prevent ALL images from being mirrored?
+*   TODO enable texture cache for MatterJS game renderer?
 *   TODO Create HUD.
-*   TODO Add popup on
+*   TODO Add react and ant design / ant design pro.
+*   TODO Add react for site content creation.
+*   TODO Add ant design for site contents.
+*
 *   TODO Setting: extract debub settings, engine settings etc. > own package?
 *   TODO outsource lib classes to package de.mayflower.lib??
 *   TODO Add cucumber tests.
 *   TODO Add jest tests.
-*   TODO enable texture cache for MatterJS game renderer?
-*   TODO Add react for site content creation.
-*   TODO Add ant design for site contents.
-*   TODO Add responsive behaviour for site contents.
-*   TODO Remove unused package 'Animate.css'?
-*   TODO create method updateBody() for all shape classes?
-*   TODO Prevent ALL images from being mirrored?
-*   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
-*   TODO Try sound error handling! (Safari etc.)
 *
+*   TODO create method updateBody() for all shape classes??
+*   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
+*
+*   TODO Try sound error handling! (Safari etc.)
 *   TODO Add jest tests.
 *   TODO Add cucumber tests.
 *
@@ -31472,6 +31472,48 @@ exports.Game = Game;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 /*******************************************************************************************************************
+*   Specifies the game engine and its systems.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var GameEngine = /** @class */ (function () {
+    function GameEngine() {
+    }
+    return GameEngine;
+}());
+exports.GameEngine = GameEngine;
+
+
+/***/ }),
+/* 161 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Specifies the game engine and its systems.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var GameInit = /** @class */ (function () {
+    function GameInit() {
+    }
+    return GameInit;
+}());
+exports.GameInit = GameInit;
+
+
+/***/ }),
+/* 162 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
 *   All key values used by the key system.
 *
 *   @author     Christopher Stock
@@ -31510,7 +31552,7 @@ exports.Key = Key;
 
 
 /***/ }),
-/* 161 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31588,7 +31630,7 @@ exports.KeySystem = KeySystem;
 
 
 /***/ }),
-/* 162 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31700,7 +31742,7 @@ exports.Image = Image;
 
 
 /***/ }),
-/* 163 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31803,7 +31845,7 @@ exports.ImageSystem = ImageSystem;
 
 
 /***/ }),
-/* 164 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31834,7 +31876,7 @@ exports.Sound = Sound;
 
 
 /***/ }),
-/* 165 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31921,7 +31963,7 @@ exports.SoundSystem = SoundSystem;
 
 
 /***/ }),
-/* 166 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32006,7 +32048,7 @@ exports.Sprite = Sprite;
 
 
 /***/ }),
-/* 167 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32182,7 +32224,7 @@ exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),
-/* 168 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32254,7 +32296,7 @@ exports.SiteContent = SiteContent;
 
 
 /***/ }),
-/* 169 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -32268,7 +32310,7 @@ exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://dane
 
 
 /***/ }),
-/* 170 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32355,7 +32397,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 171 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32535,7 +32577,7 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 172 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32576,7 +32618,7 @@ exports.IO = IO;
 
 
 /***/ }),
-/* 173 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32600,13 +32642,23 @@ var MathUtil = /** @class */ (function () {
     MathUtil.angleToRad = function (angle) {
         return (angle * Math.PI / 180.0);
     };
+    /*****************************************************************************
+    *   Returns a random integer between given mininum and maximum.
+    *
+    *   @param min
+    *   @param max
+    *   @return {number}
+    *****************************************************************************/
+    MathUtil.getRandomInt = function (min, max) {
+        return Math.floor((Math.random() * (max + 1 - min)) + min);
+    };
     return MathUtil;
 }());
 exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 174 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32654,7 +32706,7 @@ exports.String = String;
 
 
 /***/ }),
-/* 175 */
+/* 177 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -32682,7 +32734,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 176 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -32939,49 +32991,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 176;
-
-/***/ }),
-/* 177 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/*******************************************************************************************************************
-*   Specifies the game engine and its systems.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var GameEngine = /** @class */ (function () {
-    function GameEngine() {
-    }
-    return GameEngine;
-}());
-exports.GameEngine = GameEngine;
-
-
-/***/ }),
-/* 178 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/*******************************************************************************************************************
-*   Specifies the game engine and its systems.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var GameInit = /** @class */ (function () {
-    function GameInit() {
-    }
-    return GameInit;
-}());
-exports.GameInit = GameInit;
-
+webpackContext.id = 178;
 
 /***/ })
 /******/ ]);
