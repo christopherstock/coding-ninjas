@@ -16358,6 +16358,7 @@ var SiteSystem = /** @class */ (function () {
     *****************************************************************************/
     SiteSystem.prototype.updatePanelSize = function () {
         if (this.currentPanel != null) {
+            // TODO clip max panel size!
             this.currentPanel.style.width = (ninjas.Main.game.canvasWidth / 2 - ninjas.Setting.SITE_BORDER_SIZE) + "px";
             this.currentPanel.style.height = (ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
             // TODO to own reference! remove id!
@@ -16431,8 +16432,8 @@ var SiteContent = /** @class */ (function () {
         // example image
         var exampleImage = document.createElement("img");
         exampleImage.src = ninjas.Setting.PATH_IMAGE_SITE + "logo.png";
-        exampleImage.style.maxWidth = "500px";
-        exampleImage.style.width = "parent";
+        // exampleImage.style.maxWidth  = "500px";
+        exampleImage.style.width = "100%";
         exampleImage.style.height = "auto";
         // exampleImage.style.padding = "20px";
         // exampleImage.style.margin = "0";

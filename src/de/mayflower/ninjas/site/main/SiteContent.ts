@@ -78,8 +78,9 @@
             exampleImage.src = ninjas.Setting.PATH_IMAGE_SITE + "logo.png";
 
 
-            exampleImage.style.maxWidth  = "500px";
-            exampleImage.style.width = "parent";
+            // exampleImage.style.maxWidth  = "500px";
+
+            exampleImage.style.width = "100%";
 
             exampleImage.style.height = "auto";
 

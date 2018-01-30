@@ -89,6 +89,8 @@
         {
             if ( this.currentPanel != null )
             {
+                // TODO clip max panel size!
+
                 this.currentPanel.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
                 this.currentPanel.style.height = ( ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
 
