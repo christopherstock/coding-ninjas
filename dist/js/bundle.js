@@ -11309,11 +11309,10 @@ var ninjas = __webpack_require__(0);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO No scrollbar on site popup but responsive behaviour AND pop up elements via Wow! :D
-*
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
-*   TODO move creation of Site-PopUp to init method!
+*   TODO move creation of Site-PopUp to init method! Turn non-static!
 *   TODO Update site popup size on resizing the screen.
+*   TODO Improve WOW handling for SitePopUp.
 *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
 *   TODO Move camera to screen quarter on showing popup.
 *   TODO Enable different animations for popup.
@@ -13472,14 +13471,16 @@ var SiteTrigger = /** @class */ (function (_super) {
         // check if player collides with this trigger
         if (this.checkPlayerCollision()) {
             if (!this.popupActive) {
-                this.popupActive = true;
-                ninjas.Site.showPopup();
+                if (ninjas.Site.showPopup()) {
+                    this.popupActive = true;
+                }
             }
         }
         else {
             if (this.popupActive) {
-                this.popupActive = false;
-                ninjas.Site.hidePopup();
+                if (ninjas.Site.hidePopup()) {
+                    this.popupActive = false;
+                }
             }
         }
     };
@@ -15942,9 +15943,16 @@ var Site = /** @class */ (function () {
     }
     /*****************************************************************************
     *   Being invoked when a popup shall be shown.
+    *
+    *   @return If showing the popup succeeded.
     *****************************************************************************/
     Site.showPopup = function () {
         ninjas.Debug.site.log("Site.showPopup() being invoked");
+        if (Site.animationInProgress) {
+            ninjas.Debug.site.log("Denied showing popup - animation currently running");
+            return false;
+        }
+        Site.animationInProgress = true;
         if (Site.examplePopup != null) {
             Site.examplePopup.remove();
             Site.examplePopup = null;
@@ -15952,20 +15960,31 @@ var Site = /** @class */ (function () {
         Site.createPopup();
         document.body.appendChild(Site.examplePopup);
         ninjas.Main.game.wowSystem.sync();
+        window.setTimeout(function () {
+            Site.animationInProgress = false;
+        }, 1000);
+        return true;
     };
     /*****************************************************************************
     *   Being invoked when a popup shall be hidden.
+    *
+    *   @return If hiding the popup succeeded.
     *****************************************************************************/
     Site.hidePopup = function () {
         ninjas.Debug.site.log("Site.hidePopup() being invoked");
-        // if ( Site.examplePopup == null ) return;
+        if (Site.animationInProgress) {
+            ninjas.Debug.site.log("Denied hiding popup - animation currently running");
+            return false;
+        }
+        Site.animationInProgress = true;
         Site.examplePopup.className = "wow bounceOutLeft";
         ninjas.Main.game.wowSystem.sync();
         window.setTimeout(function () {
-            // document.body.removeChild( Site.examplePopup );
             Site.examplePopup.remove();
             Site.examplePopup = null;
+            Site.animationInProgress = false;
         }, 1000);
+        return true;
     };
     /*****************************************************************************
     *   Creates the site popup.
@@ -15996,14 +16015,13 @@ var Site = /** @class */ (function () {
         Site.exampleContent.setAttribute("data-wow-duration", "0.5s");
         Site.exampleContent.setAttribute("data-wow-delay", "1.0s");
         Site.examplePopup.appendChild(Site.exampleContent);
-        //document.body.appendChild( Site.exampleContent );
-        // resync the WOW animation system in order to animate the WOW contents
-        // ninjas.Main.game.wowSystem.sync();
     };
     /** An example site popup. */
     Site.examplePopup = null;
     /** An example site content. */
     Site.exampleContent = null;
+    /** Flags if an animation is currently active. */
+    Site.animationInProgress = null;
     return Site;
 }());
 exports.Site = Site;

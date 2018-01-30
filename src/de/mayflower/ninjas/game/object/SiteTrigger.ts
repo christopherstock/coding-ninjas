@@ -11,7 +11,7 @@
     export class SiteTrigger extends ninjas.Decoration
     {
         /** Flags if the according popup is currently displayed. */
-        private                         popupActive                 = false;
+        private                         popupActive                 :boolean        = false;
 
         /***************************************************************************************************************
         *   Creates a new site trigger.
@@ -46,16 +46,20 @@
             {
                 if ( !this.popupActive )
                 {
-                    this.popupActive = true;
-                    ninjas.Site.showPopup();
+                    if ( ninjas.Site.showPopup() )
+                    {
+                        this.popupActive = true;
+                    }
                 }
             }
             else
             {
                 if ( this.popupActive )
                 {
-                    this.popupActive = false;
-                    ninjas.Site.hidePopup();
+                    if ( ninjas.Site.hidePopup() )
+                    {
+                        this.popupActive = false;
+                    }
                 }
             }
         }

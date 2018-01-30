@@ -15,13 +15,24 @@
         private     static              examplePopup                    :HTMLDivElement             = null;
         /** An example site content. */
         private     static              exampleContent                  :HTMLDivElement             = null;
+        /** Flags if an animation is currently active. */
+        private     static              animationInProgress             :boolean                    = null;
 
         /*****************************************************************************
         *   Being invoked when a popup shall be shown.
+        *
+        *   @return If showing the popup succeeded.
         *****************************************************************************/
-        public static showPopup() : void
+        public static showPopup() : boolean
         {
             ninjas.Debug.site.log( "Site.showPopup() being invoked" );
+
+            if ( Site.animationInProgress )
+            {
+                ninjas.Debug.site.log( "Denied showing popup - animation currently running" );
+                return false;
+            }
+            Site.animationInProgress = true;
 
             if ( Site.examplePopup != null )
             {
@@ -34,30 +45,48 @@
             document.body.appendChild( Site.examplePopup );
 
             ninjas.Main.game.wowSystem.sync();
+
+            window.setTimeout(
+                () => {
+
+                    Site.animationInProgress = false;
+                },
+                1000
+            );
+
+            return true;
         }
 
         /*****************************************************************************
         *   Being invoked when a popup shall be hidden.
+        *
+        *   @return If hiding the popup succeeded.
         *****************************************************************************/
-        public static hidePopup() : void
+        public static hidePopup() : boolean
         {
             ninjas.Debug.site.log( "Site.hidePopup() being invoked" );
 
-            // if ( Site.examplePopup == null ) return;
+            if ( Site.animationInProgress )
+            {
+                ninjas.Debug.site.log( "Denied hiding popup - animation currently running" );
+                return false;
+            }
+            Site.animationInProgress = true;
 
             Site.examplePopup.className = "wow bounceOutLeft";
-
             ninjas.Main.game.wowSystem.sync();
 
             window.setTimeout(
                 () => {
-                    // document.body.removeChild( Site.examplePopup );
-
                     Site.examplePopup.remove();
                     Site.examplePopup = null;
+
+                    Site.animationInProgress = false;
                 },
                 1000
             );
+
+            return true;
         }
 
         /*****************************************************************************
@@ -81,7 +110,6 @@
             Site.examplePopup.className = "wow bounceInLeft";
 
 
-
             // content
             Site.exampleContent = document.createElement( "div" );
 
@@ -102,10 +130,5 @@
             Site.exampleContent.setAttribute( "data-wow-delay",    "1.0s" );
 
             Site.examplePopup.appendChild( Site.exampleContent );
-
-            //document.body.appendChild( Site.exampleContent );
-
-            // resync the WOW animation system in order to animate the WOW contents
-            // ninjas.Main.game.wowSystem.sync();
         }
     }
