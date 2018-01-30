@@ -27404,10 +27404,12 @@ var Setting = /** @class */ (function () {
     Setting.CAMERA_MOVING_MINIMUM = 2.0;
     /** The color of the canvas bg. */
     Setting.CANVAS_BG = "#000000";
-    /** The border size of the site popup in px. */
+    /** The border size for the site panel and all HUD elements in px. */
     Setting.SITE_BORDER_SIZE = 20;
-    /** The background color of the site popup . */
-    Setting.SITE_POPUP_BG_COLOR = "rgba( 255, 255, 255, 0.25 )";
+    /** The background color of the site panel. */
+    Setting.SITE_PANEL_BG_COLOR = "rgba( 255, 255, 255, 0.25 )";
+    /** The maximum width for the site panel. */
+    Setting.SITE_PANEL_MAX_WIDTH = 600;
     /** The opacity for the debug colors. */
     Setting.COLOR_DEBUG_OPACITY = 1.0;
     /** The line width for debug lines. */
@@ -27546,7 +27548,6 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Clip max site panel size.
 *   TODO Move camera to screen quarter on showing popup.
 *   TODO Enable different animations for popup.
 *   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
@@ -29747,6 +29748,7 @@ __webpack_require__(159);
 *******************************************************************************************************************/
 var Game = /** @class */ (function () {
     function Game() {
+        // TODO wrap these four values to class CanvasSystem
         var _this = this;
         /** The canvas element. */
         this.canvas = null;
@@ -29756,6 +29758,7 @@ var Game = /** @class */ (function () {
         this.canvasWidth = 0;
         /** The current height of the canvas. */
         this.canvasHeight = 0;
+        // TODO wrap these two values to class MatterSystem
         /** The MatterJS engine. */
         this.engine = null;
         /** The MatterJS renderer. */
@@ -29854,6 +29857,16 @@ var Game = /** @class */ (function () {
         ninjas.Debug.init.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
     };
     /***************************************************************************************************************
+    *   Updates the dimensions of the canvas according to the browser window.
+    ***************************************************************************************************************/
+    Game.prototype.updateMatterEngineDimensions = function () {
+        this.renderer.canvas.width = this.canvasWidth;
+        this.renderer.canvas.height = this.canvasHeight;
+        this.renderer.options.width = this.canvasWidth;
+        this.renderer.options.height = this.canvasHeight;
+        ninjas.Debug.init.log("Updated matter.js engine dimensions according to canvas.");
+    };
+    /***************************************************************************************************************
     *   Inits the 2D canvas by creating and adding it to the document body.
     ***************************************************************************************************************/
     Game.prototype.initCanvas = function () {
@@ -29910,11 +29923,7 @@ var Game = /** @class */ (function () {
         // TODO oursource function!
         window.onresize = function (event) {
             _this.updateCanvasDimensions();
-            // TODO to matterjs engine method ( matterjs.update() .. )
-            _this.renderer.canvas.width = _this.canvasWidth;
-            _this.renderer.canvas.height = _this.canvasHeight;
-            _this.renderer.options.width = _this.canvasWidth;
-            _this.renderer.options.height = _this.canvasHeight;
+            _this.updateMatterEngineDimensions();
             _this.siteSystem.updatePanelSize();
             _this.resetCamera();
         };
@@ -32195,7 +32204,7 @@ var SiteContent = /** @class */ (function () {
     SiteContent.createExampleContent = function () {
         // panel
         var ret = document.createElement("div");
-        ret.style.backgroundColor = ninjas.Setting.SITE_POPUP_BG_COLOR;
+        ret.style.backgroundColor = ninjas.Setting.SITE_PANEL_BG_COLOR;
         ret.style.position = "absolute";
         ret.style.top = ninjas.Setting.SITE_BORDER_SIZE + "px";
         ret.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
@@ -32326,11 +32335,15 @@ var SiteSystem = /** @class */ (function () {
     *****************************************************************************/
     SiteSystem.prototype.updatePanelSize = function () {
         if (this.currentPanel != null) {
-            this.currentPanel.style.width = (ninjas.Main.game.canvasWidth / 2 - ninjas.Setting.SITE_BORDER_SIZE) + "px";
+            var newPanelWidth = (ninjas.Main.game.canvasWidth / 2 - ninjas.Setting.SITE_BORDER_SIZE);
+            if (newPanelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
+                newPanelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
+            }
+            this.currentPanel.style.width = newPanelWidth + "px";
             this.currentPanel.style.height = (ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
             // TODO to own reference in class Site! remove id!
             var siteContainer = document.getElementById("siteContainer");
-            siteContainer.style.width = (ninjas.Main.game.canvasWidth / 2 - 3 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
+            siteContainer.style.width = (newPanelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
         }
     };
     return SiteSystem;

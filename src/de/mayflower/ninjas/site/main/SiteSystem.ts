@@ -89,12 +89,19 @@
         {
             if ( this.currentPanel != null )
             {
-                this.currentPanel.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+                let newPanelWidth:number = ( ninjas.Main.game.canvasWidth  / 2 - ninjas.Setting.SITE_BORDER_SIZE );
+
+                if ( newPanelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH )
+                {
+                    newPanelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
+                }
+
+                this.currentPanel.style.width  = newPanelWidth + "px";
                 this.currentPanel.style.height = ( ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
 
                 // TODO to own reference in class Site! remove id!
                 let siteContainer:HTMLDivElement = document.getElementById( "siteContainer" ) as HTMLDivElement;
-                siteContainer.style.width  = ( ninjas.Main.game.canvasWidth  / 2 - 3 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+                siteContainer.style.width  = ( newPanelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
             }
         }
     }

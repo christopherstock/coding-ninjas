@@ -14,6 +14,8 @@
     *******************************************************************************************************************/
     export class Game
     {
+        // TODO wrap these four values to class CanvasSystem
+
         /** The canvas element. */
         public      canvas                  :HTMLCanvasElement              = null;
         /** The canvas rendering context. */
@@ -22,6 +24,8 @@
         public      canvasWidth             :number                         = 0;
         /** The current height of the canvas. */
         public      canvasHeight            :number                         = 0;
+
+        // TODO wrap these two values to class MatterSystem
 
         /** The MatterJS engine. */
         public      engine                  :matter.Engine                  = null;
@@ -130,6 +134,20 @@
         }
 
         /***************************************************************************************************************
+        *   Updates the dimensions of the canvas according to the browser window.
+        ***************************************************************************************************************/
+        private updateMatterEngineDimensions()
+        {
+            this.renderer.canvas.width  = this.canvasWidth;
+            this.renderer.canvas.height = this.canvasHeight;
+
+            this.renderer.options.width  = this.canvasWidth;
+            this.renderer.options.height = this.canvasHeight;
+
+            ninjas.Debug.init.log( "Updated matter.js engine dimensions according to canvas." );
+        }
+
+        /***************************************************************************************************************
         *   Inits the 2D canvas by creating and adding it to the document body.
         ***************************************************************************************************************/
         private initCanvas()
@@ -205,18 +223,8 @@
             window.onresize = ( event:Event ) => {
 
                 this.updateCanvasDimensions();
-
-
-                // TODO to matterjs engine method ( matterjs.update() .. )
-                this.renderer.canvas.width  = this.canvasWidth;
-                this.renderer.canvas.height = this.canvasHeight;
-
-                this.renderer.options.width  = this.canvasWidth;
-                this.renderer.options.height = this.canvasHeight;
-
-
+                this.updateMatterEngineDimensions();
                 this.siteSystem.updatePanelSize();
-
                 this.resetCamera();
             };
         }

@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Clip max site panel size.
     *   TODO Move camera to screen quarter on showing popup.
     *   TODO Enable different animations for popup.
     *   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
