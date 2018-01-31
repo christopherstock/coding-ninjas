@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO import methods for class 'Drawing' from box2d game.
     *   TODO Remove unused package 'Animate.css'?
     *
     *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
@@ -14,7 +13,8 @@
     *   TODO Add 'attack' action and sprite.
     *   TODO Fence in fg.
     *   TODO Create parallax bg images in bg and fg (pick parallex class!).
-        TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+    *   TODO Auto-release all keys on losing canvas focus?
+    *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
     *   TODO simplify sprite-image-system's frame ranges!
     *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
     *
