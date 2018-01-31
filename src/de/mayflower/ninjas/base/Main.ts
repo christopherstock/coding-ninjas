@@ -4,10 +4,12 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Enable fixed panel popup positions!
+    *   TODO Create enums ImageMirror, SpriteLoop.
     *   TODO Enable different animations for site panel.
-    *   TODO Float site panel in from left or right, according to looking direction! ( game icons must not appear by level design! :D )
     *
-    *   TODO Create enums ImageMirror, SpriteLoop and SitePanelPosition.
+    *
+    *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
     *
     *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
     *   TODO Move game object classes to appropriate subpackages!

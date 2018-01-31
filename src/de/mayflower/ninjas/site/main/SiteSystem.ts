@@ -11,7 +11,7 @@
     *******************************************************************************************************************/
     export class SiteSystem
     {
-        /** The current site panel. TODO wrap to class Site !!! */
+        /** The current site panel. */
         private                 currentPanel                    :HTMLDivElement             = null;
 
         /** Flags if an animation is currently active. */
@@ -127,7 +127,7 @@
                 }
                 else
                 {
-                    this.currentPanel.style.right = ninjas.Setting.SITE_BORDER_SIZE + "px";
+                    this.currentPanel.style.left = ( ninjas.Main.game.canvasWidth - newPanelWidth - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
                 }
 
                 // TODO to own reference in class Site! remove id!

@@ -27553,10 +27553,12 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO Enable fixed panel popup positions!
+*   TODO Create enums ImageMirror, SpriteLoop.
 *   TODO Enable different animations for site panel.
-*   TODO Float site panel in from left or right, according to looking direction! ( game icons must not appear by level design! :D )
 *
-*   TODO Create enums ImageMirror, SpriteLoop and SitePanelPosition.
+*
+*   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
 *
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
 *   TODO Move game object classes to appropriate subpackages!
@@ -32287,7 +32289,7 @@ var SiteContent = /** @class */ (function () {
         relativeContainerDiv.id = "siteContainer";
         // example text
         var exampleText = document.createElement("p");
-        exampleText.innerText = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
+        exampleText.innerHTML = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
         exampleText.style.width = "parent";
         exampleText.style.padding = "20px";
         exampleText.style.margin = "0";
@@ -32345,7 +32347,7 @@ var ninjas = __webpack_require__(1);
 *******************************************************************************************************************/
 var SiteSystem = /** @class */ (function () {
     function SiteSystem() {
-        /** The current site panel. TODO wrap to class Site !!! */
+        /** The current site panel. */
         this.currentPanel = null;
         /** Flags if an animation is currently active. */
         this.animationInProgress = null;
@@ -32424,7 +32426,7 @@ var SiteSystem = /** @class */ (function () {
                 this.currentPanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
             }
             else {
-                this.currentPanel.style.right = ninjas.Setting.SITE_BORDER_SIZE + "px";
+                this.currentPanel.style.left = (ninjas.Main.game.canvasWidth - newPanelWidth - ninjas.Setting.SITE_BORDER_SIZE) + "px";
             }
             // TODO to own reference in class Site! remove id!
             var siteContainer = document.getElementById("siteContainer");
