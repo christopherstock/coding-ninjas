@@ -4,8 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Remove unused package 'Animate.css'?
-    *
     *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
     *   TODO Move game object classes to appropriate subpackages!
     *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
@@ -18,9 +16,9 @@
     *   TODO simplify sprite-image-system's frame ranges!
     *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
     *
-    *   TODO Move camera to screen quarter on showing popup.
-    *   TODO Enable different animations for popup.
-    *   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
+    *   TODO Move camera to screen quarter on showing site panel.
+    *   TODO Enable different animations for site panel.
+    *   TODO Float site panel in from left or right! ( game icons must not appear by level design! :D )
     *
     *   TODO only mirror images where a mirrored SpriteTemplate exists!
     *   TODO Prevent ALL images from being mirrored?

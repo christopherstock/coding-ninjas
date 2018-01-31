@@ -39,7 +39,7 @@
                 ninjas.GameObjectFactory.createDecoration( 370, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
 
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger( 970, 525, 150, 475, null ),
+                ninjas.GameObjectFactory.createSiteTrigger( 970, 525, 800, 475, null ),
 /*
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),

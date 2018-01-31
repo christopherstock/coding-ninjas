@@ -27550,8 +27550,6 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Remove unused package 'Animate.css'?
-*
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
 *   TODO Move game object classes to appropriate subpackages!
 *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
@@ -27564,9 +27562,9 @@ var ninjas = __webpack_require__(1);
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
 *
-*   TODO Move camera to screen quarter on showing popup.
-*   TODO Enable different animations for popup.
-*   TODO Float popup in from left or right! ( game icons must not appear by level design! :D )
+*   TODO Move camera to screen quarter on showing site panel.
+*   TODO Enable different animations for site panel.
+*   TODO Float site panel in from left or right! ( game icons must not appear by level design! :D )
 *
 *   TODO only mirror images where a mirrored SpriteTemplate exists!
 *   TODO Prevent ALL images from being mirrored?
@@ -27957,7 +27955,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createDecoration(80, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(370, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger(970, 525, 150, 475, null),
+                ninjas.GameObjectFactory.createSiteTrigger(970, 525, 800, 475, null),
                 /*
                                 // moveable boxes
                                 ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
@@ -29696,8 +29694,8 @@ var SiteTrigger = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     function SiteTrigger(shape, sprite, x, y) {
         var _this = _super.call(this, shape, sprite, x, y) || this;
-        /** Flags if the according popup is currently displayed. */
-        _this.popupActive = false;
+        /** Flags if the according site panel is currently displayed. */
+        _this.sitePanelActive = false;
         return _this;
     }
     /***************************************************************************************************************
@@ -29707,16 +29705,16 @@ var SiteTrigger = /** @class */ (function (_super) {
         _super.prototype.render.call(this);
         // check if player collides with this trigger
         if (this.checkPlayerCollision()) {
-            if (!this.popupActive) {
+            if (!this.sitePanelActive) {
                 if (ninjas.Main.game.siteSystem.show()) {
-                    this.popupActive = true;
+                    this.sitePanelActive = true;
                 }
             }
         }
         else {
-            if (this.popupActive) {
+            if (this.sitePanelActive) {
                 if (ninjas.Main.game.siteSystem.hide()) {
-                    this.popupActive = false;
+                    this.sitePanelActive = false;
                 }
             }
         }
@@ -32338,9 +32336,9 @@ var SiteSystem = /** @class */ (function () {
     *****************************************************************************/
     SiteSystem.prototype.show = function () {
         var _this = this;
-        ninjas.Debug.site.log("Site.showPopup() being invoked");
+        ninjas.Debug.site.log("Showing site panel");
         if (this.animationInProgress) {
-            ninjas.Debug.site.log("Denied showing site - animation currently running");
+            ninjas.Debug.site.log("Animation currently running - canceling show");
             return false;
         }
         this.animationInProgress = true;
@@ -32360,9 +32358,9 @@ var SiteSystem = /** @class */ (function () {
     *****************************************************************************/
     SiteSystem.prototype.hide = function () {
         var _this = this;
-        ninjas.Debug.site.log("Site.hidePopup() being invoked");
+        ninjas.Debug.site.log("Hiding site panel");
         if (this.animationInProgress) {
-            ninjas.Debug.site.log("Denied hiding site - animation currently running");
+            ninjas.Debug.site.log("Animation currently running - canceling hide");
             return false;
         }
         this.animationInProgress = true;

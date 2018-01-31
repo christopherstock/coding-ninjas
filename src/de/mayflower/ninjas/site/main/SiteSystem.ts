@@ -24,11 +24,11 @@
         *****************************************************************************/
         public show() : boolean
         {
-            ninjas.Debug.site.log( "Site.showPopup() being invoked" );
+            ninjas.Debug.site.log( "Showing site panel" );
 
             if ( this.animationInProgress )
             {
-                ninjas.Debug.site.log( "Denied showing site - animation currently running" );
+                ninjas.Debug.site.log( "Animation currently running - canceling show" );
                 return false;
             }
             this.animationInProgress = true;
@@ -57,11 +57,11 @@
         *****************************************************************************/
         public hide() : boolean
         {
-            ninjas.Debug.site.log( "Site.hidePopup() being invoked" );
+            ninjas.Debug.site.log( "Hiding site panel" );
 
             if ( this.animationInProgress )
             {
-                ninjas.Debug.site.log( "Denied hiding site - animation currently running" );
+                ninjas.Debug.site.log( "Animation currently running - canceling hide" );
                 return false;
             }
             this.animationInProgress = true;

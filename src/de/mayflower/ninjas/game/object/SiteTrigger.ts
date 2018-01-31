@@ -10,8 +10,8 @@
     *******************************************************************************************************************/
     export class SiteTrigger extends ninjas.Decoration
     {
-        /** Flags if the according popup is currently displayed. */
-        private                         popupActive                 :boolean        = false;
+        /** Flags if the according site panel is currently displayed. */
+        private                         sitePanelActive                 :boolean        = false;
 
         /***************************************************************************************************************
         *   Creates a new site trigger.
@@ -44,21 +44,21 @@
             // check if player collides with this trigger
             if ( this.checkPlayerCollision() )
             {
-                if ( !this.popupActive )
+                if ( !this.sitePanelActive )
                 {
                     if ( ninjas.Main.game.siteSystem.show() )
                     {
-                        this.popupActive = true;
+                        this.sitePanelActive = true;
                     }
                 }
             }
             else
             {
-                if ( this.popupActive )
+                if ( this.sitePanelActive )
                 {
                     if ( ninjas.Main.game.siteSystem.hide() )
                     {
-                        this.popupActive = false;
+                        this.sitePanelActive = false;
                     }
                 }
             }
