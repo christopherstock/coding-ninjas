@@ -93,19 +93,19 @@
         *   Updates the singleton instance of the camera by reassigning
         *   it's horizontal and vertical offset.
         *
-        *   @param subjectX              The subject coordinate X to center the camera.
-        *   @param subjectY              The subject coordinate Y to center the camera.
-        *   @param lookingDirection      The current direction the player looks at. TODO outsource?
-        *   @param allowAscendY          Allows camera ascending Y.
-        *   @param targetOnScreenQuarter Flags if the camera should be targeted to screen quarter.
+        *   @param subjectX         The subject coordinate X to center the camera.
+        *   @param subjectY         The subject coordinate Y to center the camera.
+        *   @param lookingDirection The current direction the player looks at. TODO outsource?
+        *   @param allowAscendY     Allows camera ascending Y.
+        *   @param fixedTargetX     A fixed camera position X or -1 if none.
         ***************************************************************************************************************/
         public update
         (
-            subjectX              :number,
-            subjectY              :number,
-            lookingDirection      :ninjas.CharacterLookingDirection,
-            allowAscendY          :boolean,
-            targetOnScreenQuarter :boolean
+            subjectX         :number,
+            subjectY         :number,
+            lookingDirection :ninjas.CharacterLookingDirection,
+            allowAscendY     :boolean,
+            fixedTargetX     :number
         )
         {
             this.calculateTargets
@@ -113,7 +113,7 @@
                 lookingDirection,
                 subjectX,
                 subjectY,
-                targetOnScreenQuarter
+                fixedTargetX
             );
 
             // move horizontal camera offsets to camera target
@@ -186,23 +186,23 @@
         /***************************************************************************************************************
         *   Calculates the current camera tarets according to the specified subject.
         *
-        *   @param lookingDirection      The current direction the subject is looking in.
-        *   @param subjectX              The subject's X to position the camera to.
-        *   @param subjectY              The subject's Y to position the camera to.
-        *   @param targetOnScreenQuarter Flags if the camera should be targeted to screen quarter.
+        *   @param lookingDirection The current direction the subject is looking in.
+        *   @param subjectX         The subject's X to position the camera to.
+        *   @param subjectY         The subject's Y to position the camera to.
+        *   @param fixedTargetX     A fixed camera position X.
         ***************************************************************************************************************/
         private calculateTargets
         (
-            lookingDirection      :ninjas.CharacterLookingDirection,
-            subjectX              :number,
-            subjectY              :number,
-            targetOnScreenQuarter :boolean
+            lookingDirection :ninjas.CharacterLookingDirection,
+            subjectX         :number,
+            subjectY         :number,
+            fixedTargetX     :number
         )
         {
             // check screen quarter target
-            if ( targetOnScreenQuarter )
+            if ( fixedTargetX != -1 )
             {
-                this.targetX = subjectX - ( this.canvasWidth  * 0.75 );
+                this.targetX = subjectX - fixedTargetX;
             }
             else
             {
@@ -248,7 +248,7 @@
                 ninjas.Main.game.level.player.lookingDirection,
                 ninjas.Main.game.level.player.shape.body.position.x,
                 ninjas.Main.game.level.player.shape.body.position.y,
-                false
+                -1
             );
 
             this.offsetX = this.targetX;

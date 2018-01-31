@@ -18,14 +18,14 @@
         private                 animationInProgress             :boolean                    = null;
 
         /** Flags if a panel is currently shown. */
-        private                 panelActive                     :boolean                    = null;
+        private                 panelPosition                   :ninjas.SitePanelPosition   = ninjas.SitePanelPosition.GONE;
 
         /*****************************************************************************
         *   Being invoked when a site shall be shown.
         *
         *   @return If showing the site succeeded.
         *****************************************************************************/
-        public show() : boolean
+        public show( position:ninjas.SitePanelPosition ) : boolean
         {
             ninjas.Debug.site.log( "Showing site panel" );
 
@@ -35,11 +35,21 @@
                 return false;
             }
             this.animationInProgress = true;
-            this.panelActive         = true;
+            this.panelPosition       = position;
 
             this.currentPanel = ninjas.SiteContent.createExampleContent();
+
+            if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
+            {
+                this.currentPanel.className = "wow bounceInLeft";
+            }
+            else
+            {
+                this.currentPanel.className = "wow bounceInRight";
+            }
+
             document.body.appendChild( this.currentPanel );
-            this.updatePanelSize();
+            this.updatePanelSizeAndPosition();
 
             ninjas.Main.game.wowSystem.sync();
 
@@ -70,7 +80,15 @@
             }
             this.animationInProgress = true;
 
-            this.currentPanel.className = "wow bounceOutLeft";
+            if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
+            {
+                this.currentPanel.className = "wow bounceOutLeft";
+            }
+            else
+            {
+                this.currentPanel.className = "wow bounceOutRight";
+            }
+
             ninjas.Main.game.wowSystem.sync();
 
             window.setTimeout(
@@ -79,7 +97,7 @@
                     this.currentPanel = null;
 
                     this.animationInProgress = false;
-                    this.panelActive         = false;
+                    this.panelPosition       = ninjas.SitePanelPosition.GONE;
                 },
                 750
             );
@@ -90,12 +108,11 @@
         /*****************************************************************************
         *   Being invoked when the panel size should be set according to the current canvas size.
         *****************************************************************************/
-        public updatePanelSize()
+        public updatePanelSizeAndPosition()
         {
             if ( this.currentPanel != null )
             {
                 let newPanelWidth:number = ( ninjas.Main.game.canvasWidth  / 2 - ninjas.Setting.SITE_BORDER_SIZE );
-
                 if ( newPanelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH )
                 {
                     newPanelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
@@ -103,6 +120,15 @@
 
                 this.currentPanel.style.width  = newPanelWidth + "px";
                 this.currentPanel.style.height = ( ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+
+                if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
+                {
+                    this.currentPanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
+                }
+                else
+                {
+                    this.currentPanel.style.right = ninjas.Setting.SITE_BORDER_SIZE + "px";
+                }
 
                 // TODO to own reference in class Site! remove id!
                 let siteContainer:HTMLDivElement = document.getElementById( "siteContainer" ) as HTMLDivElement;
@@ -115,8 +141,24 @@
         *
         *   @return <code>true</code> if a site panel is currently active.
         *****************************************************************************/
-        public isPanelActive()
+        public getFixedCameraTargetX() : number
         {
-            return this.panelActive;
+            switch ( this.panelPosition )
+            {
+                case ninjas.SitePanelPosition.GONE:
+                {
+                    return -1;
+                }
+
+                case ninjas.SitePanelPosition.LEFT:
+                {
+                    return ( ninjas.Main.game.canvasWidth  * 0.75 );
+                }
+
+                case ninjas.SitePanelPosition.RIGHT:
+                {
+                    return ( ninjas.Main.game.canvasWidth  * 0.25 );
+                }
+            }
         }
     }

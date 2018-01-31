@@ -224,7 +224,7 @@
 
                 this.updateCanvasDimensions();
                 this.updateMatterEngineDimensions();
-                this.siteSystem.updatePanelSize();
+                this.siteSystem.updatePanelSizeAndPosition();
                 this.resetCamera();
             };
         }
@@ -387,7 +387,7 @@
                 this.level.player.shape.body.position.y,
                 this.level.player.lookingDirection,
                 this.level.player.collidesBottom,
-                this.siteSystem.isPanelActive()
+                this.siteSystem.getFixedCameraTargetX()
             );
         }
 

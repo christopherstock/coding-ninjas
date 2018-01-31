@@ -4654,6 +4654,7 @@ __export(__webpack_require__(167));
 __export(__webpack_require__(168));
 __export(__webpack_require__(169));
 __export(__webpack_require__(170));
+__export(__webpack_require__(179));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
@@ -27552,27 +27553,30 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Move camera to screen quarter on showing site panel.
+*   TODO Enable different animations for site panel.
+*   TODO Float site panel in from left or right, according to looking direction! ( game icons must not appear by level design! :D )
+*
+*   TODO Create enums ImageMirror, SpriteLoop and SitePanelPosition.
 *
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
 *   TODO Move game object classes to appropriate subpackages!
 *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
 *
 *   TODO Add 'attack' action and sprite.
-*   TODO Fence in fg.
+*   TODO Parallax Fence in fg. ( parallax machanism for game decos ? )
 *   TODO Create parallax bg images in bg and fg (pick parallex class!).
 *   TODO Auto-release all keys on losing canvas focus?
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
 *
-*   TODO Enable different animations for site panel.
-*   TODO Float site panel in from left or right! ( game icons must not appear by level design! :D )
-*
 *   TODO only mirror images where a mirrored SpriteTemplate exists!
 *   TODO Prevent ALL images from being mirrored?
 *   TODO enable texture cache for MatterJS game renderer?
+*   TODO fix flickering image issues ..!
 *   TODO Create HUD.
+*   TODO Create item pickup HUD effect!
+*   TODO Add tutorial notifiers.
 *   TODO Add react and ant design / ant design pro.
 *   TODO Add react for site content creation.
 *   TODO Add ant design for site contents.
@@ -27581,6 +27585,7 @@ var ninjas = __webpack_require__(1);
 *   TODO outsource lib classes to package de.mayflower.lib??
 *   TODO Add cucumber tests.
 *   TODO Add jest tests.
+*   TODO separate maximum camera moving speed if fixed target is active?
 *
 *   TODO create method updateBody() for all shape classes??
 *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
@@ -29709,7 +29714,9 @@ var SiteTrigger = /** @class */ (function (_super) {
         // check if player collides with this trigger
         if (this.checkPlayerCollision()) {
             if (!this.sitePanelActive) {
-                if (ninjas.Main.game.siteSystem.show()) {
+                // get panel popup according to player looking direction
+                var panelPosition = this.determinePanelPosition();
+                if (ninjas.Main.game.siteSystem.show(panelPosition)) {
                     this.sitePanelActive = true;
                 }
             }
@@ -29727,6 +29734,19 @@ var SiteTrigger = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     SiteTrigger.prototype.checkPlayerCollision = function () {
         return (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds));
+    };
+    /***************************************************************************************************************
+    *   Determines the position of the panel to show according to the player's current looking direction.
+    *
+    *   @return The position of the panel to be shown.
+    ***************************************************************************************************************/
+    SiteTrigger.prototype.determinePanelPosition = function () {
+        if (ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+            return ninjas.SitePanelPosition.LEFT;
+        }
+        else {
+            return ninjas.SitePanelPosition.RIGHT;
+        }
     };
     return SiteTrigger;
 }(ninjas.Decoration));
@@ -29928,7 +29948,7 @@ var Game = /** @class */ (function () {
         window.onresize = function (event) {
             _this.updateCanvasDimensions();
             _this.updateMatterEngineDimensions();
-            _this.siteSystem.updatePanelSize();
+            _this.siteSystem.updatePanelSizeAndPosition();
             _this.resetCamera();
         };
     };
@@ -30022,7 +30042,7 @@ var Game = /** @class */ (function () {
         // render level
         this.level.render();
         // render camera
-        this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.lookingDirection, this.level.player.collidesBottom, this.siteSystem.isPanelActive());
+        this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.lookingDirection, this.level.player.collidesBottom, this.siteSystem.getFixedCameraTargetX());
     };
     /***************************************************************************************************************
     *   Paints all overlays after Matter.js completed rendering the scene.
@@ -32253,10 +32273,8 @@ var SiteContent = /** @class */ (function () {
         ret.style.backgroundColor = ninjas.Setting.SITE_PANEL_BG_COLOR;
         ret.style.position = "absolute";
         ret.style.top = ninjas.Setting.SITE_BORDER_SIZE + "px";
-        ret.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
         ret.setAttribute("data-wow-duration", "1.0s");
         ret.setAttribute("data-wow-delay", "0.0s");
-        ret.className = "wow bounceInLeft";
         // relative container div
         var relativeContainerDiv = document.createElement("div");
         relativeContainerDiv.style.backgroundColor = "#c7d9f5";
@@ -32332,14 +32350,14 @@ var SiteSystem = /** @class */ (function () {
         /** Flags if an animation is currently active. */
         this.animationInProgress = null;
         /** Flags if a panel is currently shown. */
-        this.panelActive = null;
+        this.panelPosition = ninjas.SitePanelPosition.GONE;
     }
     /*****************************************************************************
     *   Being invoked when a site shall be shown.
     *
     *   @return If showing the site succeeded.
     *****************************************************************************/
-    SiteSystem.prototype.show = function () {
+    SiteSystem.prototype.show = function (position) {
         var _this = this;
         ninjas.Debug.site.log("Showing site panel");
         if (this.animationInProgress) {
@@ -32347,10 +32365,16 @@ var SiteSystem = /** @class */ (function () {
             return false;
         }
         this.animationInProgress = true;
-        this.panelActive = true;
+        this.panelPosition = position;
         this.currentPanel = ninjas.SiteContent.createExampleContent();
+        if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
+            this.currentPanel.className = "wow bounceInLeft";
+        }
+        else {
+            this.currentPanel.className = "wow bounceInRight";
+        }
         document.body.appendChild(this.currentPanel);
-        this.updatePanelSize();
+        this.updatePanelSizeAndPosition();
         ninjas.Main.game.wowSystem.sync();
         window.setTimeout(function () {
             _this.animationInProgress = false;
@@ -32370,20 +32394,25 @@ var SiteSystem = /** @class */ (function () {
             return false;
         }
         this.animationInProgress = true;
-        this.currentPanel.className = "wow bounceOutLeft";
+        if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
+            this.currentPanel.className = "wow bounceOutLeft";
+        }
+        else {
+            this.currentPanel.className = "wow bounceOutRight";
+        }
         ninjas.Main.game.wowSystem.sync();
         window.setTimeout(function () {
             _this.currentPanel.remove();
             _this.currentPanel = null;
             _this.animationInProgress = false;
-            _this.panelActive = false;
+            _this.panelPosition = ninjas.SitePanelPosition.GONE;
         }, 750);
         return true;
     };
     /*****************************************************************************
     *   Being invoked when the panel size should be set according to the current canvas size.
     *****************************************************************************/
-    SiteSystem.prototype.updatePanelSize = function () {
+    SiteSystem.prototype.updatePanelSizeAndPosition = function () {
         if (this.currentPanel != null) {
             var newPanelWidth = (ninjas.Main.game.canvasWidth / 2 - ninjas.Setting.SITE_BORDER_SIZE);
             if (newPanelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
@@ -32391,6 +32420,12 @@ var SiteSystem = /** @class */ (function () {
             }
             this.currentPanel.style.width = newPanelWidth + "px";
             this.currentPanel.style.height = (ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
+            if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
+                this.currentPanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
+            }
+            else {
+                this.currentPanel.style.right = ninjas.Setting.SITE_BORDER_SIZE + "px";
+            }
             // TODO to own reference in class Site! remove id!
             var siteContainer = document.getElementById("siteContainer");
             siteContainer.style.width = (newPanelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
@@ -32401,8 +32436,21 @@ var SiteSystem = /** @class */ (function () {
     *
     *   @return <code>true</code> if a site panel is currently active.
     *****************************************************************************/
-    SiteSystem.prototype.isPanelActive = function () {
-        return this.panelActive;
+    SiteSystem.prototype.getFixedCameraTargetX = function () {
+        switch (this.panelPosition) {
+            case ninjas.SitePanelPosition.GONE:
+                {
+                    return -1;
+                }
+            case ninjas.SitePanelPosition.LEFT:
+                {
+                    return (ninjas.Main.game.canvasWidth * 0.75);
+                }
+            case ninjas.SitePanelPosition.RIGHT:
+                {
+                    return (ninjas.Main.game.canvasWidth * 0.25);
+                }
+        }
     };
     return SiteSystem;
 }());
@@ -32483,14 +32531,14 @@ var Camera = /** @class */ (function () {
     *   Updates the singleton instance of the camera by reassigning
     *   it's horizontal and vertical offset.
     *
-    *   @param subjectX              The subject coordinate X to center the camera.
-    *   @param subjectY              The subject coordinate Y to center the camera.
-    *   @param lookingDirection      The current direction the player looks at.
-    *   @param allowAscendY          Allows camera ascending Y.
-    *   @param targetOnScreenQuarter Flags if the camera should be targeted to screen quarter.
+    *   @param subjectX         The subject coordinate X to center the camera.
+    *   @param subjectY         The subject coordinate Y to center the camera.
+    *   @param lookingDirection The current direction the player looks at. TODO outsource?
+    *   @param allowAscendY     Allows camera ascending Y.
+    *   @param fixedTargetX     A fixed camera position X or -1 if none.
     ***************************************************************************************************************/
-    Camera.prototype.update = function (subjectX, subjectY, lookingDirection, allowAscendY, targetOnScreenQuarter) {
-        this.calculateTargets(lookingDirection, subjectX, subjectY, targetOnScreenQuarter);
+    Camera.prototype.update = function (subjectX, subjectY, lookingDirection, allowAscendY, fixedTargetX) {
+        this.calculateTargets(lookingDirection, subjectX, subjectY, fixedTargetX);
         // move horizontal camera offsets to camera target
         var cameraMoveX = 0.0;
         if (this.offsetX < this.targetX) {
@@ -32553,15 +32601,15 @@ var Camera = /** @class */ (function () {
     /***************************************************************************************************************
     *   Calculates the current camera tarets according to the specified subject.
     *
-    *   @param lookingDirection      The current direction the subject is looking in.
-    *   @param subjectX              The subject's X to position the camera to.
-    *   @param subjectY              The subject's Y to position the camera to.
-    *   @param targetOnScreenQuarter Flags if the camera should be targeted to screen quarter.
+    *   @param lookingDirection The current direction the subject is looking in.
+    *   @param subjectX         The subject's X to position the camera to.
+    *   @param subjectY         The subject's Y to position the camera to.
+    *   @param fixedTargetX     A fixed camera position X.
     ***************************************************************************************************************/
-    Camera.prototype.calculateTargets = function (lookingDirection, subjectX, subjectY, targetOnScreenQuarter) {
+    Camera.prototype.calculateTargets = function (lookingDirection, subjectX, subjectY, fixedTargetX) {
         // check screen quarter target
-        if (targetOnScreenQuarter) {
-            this.targetX = subjectX - (this.canvasWidth * 0.75);
+        if (fixedTargetX != -1) {
+            this.targetX = subjectX - fixedTargetX;
         }
         else {
             // calculate scroll-offsets so camera is centered to subject
@@ -32596,7 +32644,7 @@ var Camera = /** @class */ (function () {
     ***************************************************************************************************************/
     Camera.prototype.reset = function () {
         // extract level and player access!
-        this.calculateTargets(ninjas.Main.game.level.player.lookingDirection, ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, false);
+        this.calculateTargets(ninjas.Main.game.level.player.lookingDirection, ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, -1);
         this.offsetX = this.targetX;
         this.offsetY = this.targetY;
     };
@@ -33021,6 +33069,27 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = 178;
+
+/***/ }),
+/* 179 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Contains all possible positions for the site panel.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SitePanelPosition;
+(function (SitePanelPosition) {
+    SitePanelPosition[SitePanelPosition["LEFT"] = 0] = "LEFT";
+    SitePanelPosition[SitePanelPosition["RIGHT"] = 1] = "RIGHT";
+    SitePanelPosition[SitePanelPosition["GONE"] = 2] = "GONE";
+})(SitePanelPosition = exports.SitePanelPosition || (exports.SitePanelPosition = {}));
+
 
 /***/ })
 /******/ ]);

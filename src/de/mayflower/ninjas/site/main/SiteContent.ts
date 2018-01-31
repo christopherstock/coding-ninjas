@@ -22,14 +22,11 @@
             let ret:HTMLDivElement = document.createElement( "div" );
 
             ret.style.backgroundColor = ninjas.Setting.SITE_PANEL_BG_COLOR;
-            ret.style.position = "absolute";
-            ret.style.top  = ninjas.Setting.SITE_BORDER_SIZE + "px";
-            ret.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
+            ret.style.position        = "absolute";
+            ret.style.top             = ninjas.Setting.SITE_BORDER_SIZE + "px";
 
             ret.setAttribute( "data-wow-duration", "1.0s" );
             ret.setAttribute( "data-wow-delay",    "0.0s" );
-            ret.className = "wow bounceInLeft";
-
 
             // relative container div
             let relativeContainerDiv:HTMLDivElement = document.createElement( "div" );

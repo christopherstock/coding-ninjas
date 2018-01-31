@@ -5,14 +5,16 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Enable different animations for site panel.
-    *   TODO Float site panel in from left or right! ( game icons must not appear by level design! :D )
-
+    *   TODO Float site panel in from left or right, according to looking direction! ( game icons must not appear by level design! :D )
+    *
+    *   TODO Create enums ImageMirror, SpriteLoop and SitePanelPosition.
+    *
     *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
     *   TODO Move game object classes to appropriate subpackages!
     *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
     *
     *   TODO Add 'attack' action and sprite.
-    *   TODO Fence in fg.
+    *   TODO Parallax Fence in fg. ( parallax machanism for game decos ? )
     *   TODO Create parallax bg images in bg and fg (pick parallex class!).
     *   TODO Auto-release all keys on losing canvas focus?
     *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
@@ -22,7 +24,10 @@
     *   TODO only mirror images where a mirrored SpriteTemplate exists!
     *   TODO Prevent ALL images from being mirrored?
     *   TODO enable texture cache for MatterJS game renderer?
+    *   TODO fix flickering image issues ..!
     *   TODO Create HUD.
+    *   TODO Create item pickup HUD effect!
+    *   TODO Add tutorial notifiers.
     *   TODO Add react and ant design / ant design pro.
     *   TODO Add react for site content creation.
     *   TODO Add ant design for site contents.
@@ -31,6 +36,7 @@
     *   TODO outsource lib classes to package de.mayflower.lib??
     *   TODO Add cucumber tests.
     *   TODO Add jest tests.
+    *   TODO separate maximum camera moving speed if fixed target is active?
     *
     *   TODO create method updateBody() for all shape classes??
     *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
