@@ -17,6 +17,9 @@
         /** Flags if an animation is currently active. */
         private                 animationInProgress             :boolean                    = null;
 
+        /** Flags if a panel is currently shown. */
+        private                 panelActive                     :boolean                    = null;
+
         /*****************************************************************************
         *   Being invoked when a site shall be shown.
         *
@@ -32,6 +35,7 @@
                 return false;
             }
             this.animationInProgress = true;
+            this.panelActive         = true;
 
             this.currentPanel = ninjas.SiteContent.createExampleContent();
             document.body.appendChild( this.currentPanel );
@@ -75,6 +79,7 @@
                     this.currentPanel = null;
 
                     this.animationInProgress = false;
+                    this.panelActive         = false;
                 },
                 750
             );
@@ -103,5 +108,15 @@
                 let siteContainer:HTMLDivElement = document.getElementById( "siteContainer" ) as HTMLDivElement;
                 siteContainer.style.width  = ( newPanelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
             }
+        }
+
+        /*****************************************************************************
+        *   Determines if a site panel is currently active.
+        *
+        *   @return <code>true</code> if a site panel is currently active.
+        *****************************************************************************/
+        public isPanelActive()
+        {
+            return this.panelActive;
         }
     }

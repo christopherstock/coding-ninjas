@@ -22,6 +22,8 @@
         private     movingSpeed                 :number                 = 0.0;
         /** Minimum camera moving speed in px. */
         private     minimumCameraMove           :number                 = 0.0;
+        /** Maximum camera moving speed in px. */
+        private     maximumCameraMove           :number                 = 0.0;
 
         /** Current camera target X. */
         private     targetX                     :number                 = 0.0;
@@ -51,6 +53,7 @@
         *   @param ratioY            Camera ratio Y for vertical centering   of the player.
         *   @param movingSpeed       The moving speed for the camera.
         *   @param minimumCameraMove The minimum camera movement step in px.
+        *   @param maximumCameraMove The maximum camera movement step in px.
         *   @param levelWidth        The width of the level.
         *   @param levelHeight       The height of the level.
         *   @param canvasWidth       The width of the canvas.
@@ -58,15 +61,16 @@
         ***************************************************************************************************************/
         public constructor
         (
-            renderer:matter.Render,
-            ratioX:number,
-            ratioY:number,
-            movingSpeed:number,
-            minimumCameraMove:number,
-            levelWidth:number,
-            levelHeight:number,
-            canvasWidth:number,
-            canvasHeight:number
+            renderer          :matter.Render,
+            ratioX            :number,
+            ratioY            :number,
+            movingSpeed       :number,
+            minimumCameraMove :number,
+            maximumCameraMove :number,
+            levelWidth        :number,
+            levelHeight       :number,
+            canvasWidth       :number,
+            canvasHeight      :number
         )
         {
             this.renderer          = renderer;
@@ -76,6 +80,7 @@
 
             this.movingSpeed       = movingSpeed;
             this.minimumCameraMove = minimumCameraMove;
+            this.maximumCameraMove = maximumCameraMove;
 
             this.levelWidth        = levelWidth;
             this.levelHeight       = levelHeight;
@@ -88,17 +93,19 @@
         *   Updates the singleton instance of the camera by reassigning
         *   it's horizontal and vertical offset.
         *
-        *   @param subjectX         The subject coordinate X to center the camera.
-        *   @param subjectY         The subject coordinate Y to center the camera.
-        *   @param lookingDirection The current direction the player looks at.
-        *   @param allowAscendY     Allows camera ascending Y.
+        *   @param subjectX              The subject coordinate X to center the camera.
+        *   @param subjectY              The subject coordinate Y to center the camera.
+        *   @param lookingDirection      The current direction the player looks at. TODO outsource?
+        *   @param allowAscendY          Allows camera ascending Y.
+        *   @param targetOnScreenQuarter Flags if the camera should be targeted to screen quarter.
         ***************************************************************************************************************/
         public update
         (
-            subjectX:number,
-            subjectY:number,
-            lookingDirection:ninjas.CharacterLookingDirection,
-            allowAscendY:boolean
+            subjectX              :number,
+            subjectY              :number,
+            lookingDirection      :ninjas.CharacterLookingDirection,
+            allowAscendY          :boolean,
+            targetOnScreenQuarter :boolean
         )
         {
             this.calculateTargets
@@ -106,6 +113,7 @@
                 lookingDirection,
                 subjectX,
                 subjectY,
+                targetOnScreenQuarter
             );
 
             // move horizontal camera offsets to camera target
@@ -113,14 +121,20 @@
             if ( this.offsetX < this.targetX )
             {
                 cameraMoveX = ( this.targetX - this.offsetX ) * this.movingSpeed;
+
                 if ( cameraMoveX < this.minimumCameraMove ) cameraMoveX = this.minimumCameraMove;
+                if ( cameraMoveX > this.maximumCameraMove ) cameraMoveX = this.maximumCameraMove;
+
                 this.offsetX += cameraMoveX;
                 if ( this.offsetX > this.targetX ) this.offsetX = this.targetX;
             }
             else if ( this.offsetX > this.targetX )
             {
                 cameraMoveX = ( this.offsetX - this.targetX ) * this.movingSpeed;
+
                 if ( cameraMoveX < this.minimumCameraMove ) cameraMoveX = this.minimumCameraMove;
+                if ( cameraMoveX > this.maximumCameraMove ) cameraMoveX = this.maximumCameraMove;
+
                 this.offsetX -= cameraMoveX;
                 if ( this.offsetX < this.targetX ) this.offsetX = this.targetX;
             }
@@ -172,35 +186,46 @@
         /***************************************************************************************************************
         *   Calculates the current camera tarets according to the specified subject.
         *
-        *   @param lookingDirection The current direction the subject is looking in.
-        *   @param subjectX         The subject's X to position the camera to.
-        *   @param subjectY         The subject's Y to position the camera to.
+        *   @param lookingDirection      The current direction the subject is looking in.
+        *   @param subjectX              The subject's X to position the camera to.
+        *   @param subjectY              The subject's Y to position the camera to.
+        *   @param targetOnScreenQuarter Flags if the camera should be targeted to screen quarter.
         ***************************************************************************************************************/
         private calculateTargets
         (
-            lookingDirection:ninjas.CharacterLookingDirection,
-            subjectX:number,
-            subjectY:number,
+            lookingDirection      :ninjas.CharacterLookingDirection,
+            subjectX              :number,
+            subjectY              :number,
+            targetOnScreenQuarter :boolean
         )
         {
-            // calculate scroll-offsets so camera is centered to subject
-            switch ( lookingDirection )
+            // check screen quarter target
+            if ( targetOnScreenQuarter )
             {
-                case ninjas.CharacterLookingDirection.LEFT:
+                this.targetX = subjectX - ( this.canvasWidth  * 0.75 );
+            }
+            else
+            {
+                // calculate scroll-offsets so camera is centered to subject
+                switch ( lookingDirection )
                 {
-                    this.targetX = subjectX - ( this.canvasWidth  * ( 1.0 - this.ratioX ) );
-                    break;
-                }
+                    case ninjas.CharacterLookingDirection.LEFT:
+                    {
+                        this.targetX = subjectX - ( this.canvasWidth  * ( 1.0 - this.ratioX ) );
+                        break;
+                    }
 
-                case ninjas.CharacterLookingDirection.RIGHT:
-                {
-                    this.targetX = subjectX - ( this.canvasWidth  * this.ratioX );
-                    break;
+                    case ninjas.CharacterLookingDirection.RIGHT:
+                    {
+                        this.targetX = subjectX - ( this.canvasWidth  * this.ratioX );
+                        break;
+                    }
                 }
             }
+
             this.targetY = subjectY - ( this.canvasHeight * this.ratioY );
 
-            // refactor to own method!
+            // TODO refactor to own method!
 
             // clip camera target x to level bounds
             if ( this.targetX < 0                                  ) this.targetX = 0;
@@ -223,6 +248,7 @@
                 ninjas.Main.game.level.player.lookingDirection,
                 ninjas.Main.game.level.player.shape.body.position.x,
                 ninjas.Main.game.level.player.shape.body.position.y,
+                false
             );
 
             this.offsetX = this.targetX;

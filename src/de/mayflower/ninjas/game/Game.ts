@@ -341,6 +341,7 @@
                 ninjas.Setting.CAMERA_RATIO_Y,
                 ninjas.Setting.CAMERA_MOVING_SPEED,
                 ninjas.Setting.CAMERA_MOVING_MINIMUM,
+                ninjas.Setting.CAMERA_MOVING_MAXIMUM,
                 this.level.width,
                 this.level.height,
                 this.canvasWidth,
@@ -385,7 +386,8 @@
                 this.level.player.shape.body.position.x,
                 this.level.player.shape.body.position.y,
                 this.level.player.lookingDirection,
-                this.level.player.collidesBottom
+                this.level.player.collidesBottom,
+                this.siteSystem.isPanelActive()
             );
         }
 
