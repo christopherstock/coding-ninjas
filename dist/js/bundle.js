@@ -27553,11 +27553,9 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Enable fixed panel popup positions!
-*   TODO Create enums ImageMirror, SpriteLoop.
 *   TODO Enable different animations for site panel.
 *
-*
+*   TODO Remove timeout and use Enine.events.tick?
 *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
 *
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
@@ -27574,8 +27572,7 @@ var ninjas = __webpack_require__(1);
 *
 *   TODO only mirror images where a mirrored SpriteTemplate exists!
 *   TODO Prevent ALL images from being mirrored?
-*   TODO enable texture cache for MatterJS game renderer?
-*   TODO fix flickering image issues ..!
+*   TODO Fix camera on first scene (floating in).
 *   TODO Create HUD.
 *   TODO Create item pickup HUD effect!
 *   TODO Add tutorial notifiers.
@@ -27592,9 +27589,15 @@ var ninjas = __webpack_require__(1);
 *   TODO create method updateBody() for all shape classes??
 *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
 *
+*   TODO Step-Flow-Meter (progress, navi etc.) in React.
+*   TODO Try ant design in front panel.
+*
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Add jest tests.
 *   TODO Add cucumber tests.
+*   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
+*
+*   TODO Test in all browsers.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -27955,7 +27958,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(1500, 0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(1500, 0, ninjas.CharacterLookingDirection.LEFT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
@@ -27965,8 +27968,8 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createDecoration(1080, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(10370, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger(1400, 600, 600, 400, ninjas.SitePanelPosition.LEFT),
-                ninjas.GameObjectFactory.createSiteTrigger(3200, 600, 600, 400, ninjas.SitePanelPosition.NONE),
+                ninjas.GameObjectFactory.createSiteTrigger(1400, 500, 600, 500, ninjas.SitePanelPosition.LEFT),
+                ninjas.GameObjectFactory.createSiteTrigger(3200, 500, 600, 500, ninjas.SitePanelPosition.NONE),
                 /*
                                 // moveable boxes
                                 ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
@@ -28459,6 +28462,7 @@ var GameObject = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObject.prototype.setImageFromSprite = function () {
         this.shape.body.render.sprite.texture = this.sprite.getCurrentFrameImageUrl();
+        this.shape.body.render.sprite.xScale = -1.0;
     };
     /***************************************************************************************************************
     *   Avoids this game object from rotating.
@@ -29832,12 +29836,18 @@ var Game = /** @class */ (function () {
         *   Being invoked when all sounds are loaded.
         ***************************************************************************************************************/
         this.onSoundsLoaded = function () {
+            // init matterJS
+            _this.initMatterJS();
+            // init window resize handler
+            _this.initWindowResizeHandler();
             // init site system
             _this.initSiteSystem();
             // init FPS-counter
             _this.initFpsCounter();
             // init WOW animations
             _this.initWow();
+            // init key system
+            _this.initKeySystem();
             // play bg sound
             _this.soundSystem.playSound(ninjas.Sound.BG_CHINESE, true);
             // launch initial level
@@ -29861,6 +29871,7 @@ var Game = /** @class */ (function () {
                         context.fillStyle = "#ff0000";
                         context.fillRect( 0, 0, 100, 200 );
             */
+            // console.dir( this.renderer.textures );
             _this.fpsMeter.tick();
         };
     }
@@ -29870,9 +29881,6 @@ var Game = /** @class */ (function () {
     Game.prototype.init = function () {
         this.updateCanvasDimensions();
         this.initCanvas();
-        this.initEngine2D();
-        this.initWindowResizeHandler();
-        this.initKeySystem();
         this.initImageSystem();
     };
     /***************************************************************************************************************
@@ -29925,7 +29933,7 @@ var Game = /** @class */ (function () {
     /***************************************************************************************************************
     *   Inits the 2D engine.
     ***************************************************************************************************************/
-    Game.prototype.initEngine2D = function () {
+    Game.prototype.initMatterJS = function () {
         var _this = this;
         ninjas.Debug.init.log("Initing 2D physics engine");
         // create engine
@@ -29950,6 +29958,8 @@ var Game = /** @class */ (function () {
                 height: this.canvasHeight,
             },
         });
+        //set all loaded image as MatterJS texture cache
+        this.assignMatterJSTextureCache();
         // disables blurry image drawing!
         this.renderer.context.imageSmoothingEnabled = false;
         // add drawing callback after rendering
@@ -30091,6 +30101,13 @@ var Game = /** @class */ (function () {
             ninjas.Debug.init.log("Switching to level 3");
             this.resetAndLaunchLevel(new ninjas.LevelEnchantedWoods());
         }
+    };
+    /***************************************************************************************************************
+    *   Assigns all loaded images to the MatterJS engine's texture cache.
+    ***************************************************************************************************************/
+    Game.prototype.assignMatterJSTextureCache = function () {
+        this.renderer.textures = this.imageSystem.getAll();
+        ninjas.Debug.init.log("Assigned [" + Object.keys(this.renderer.textures).length + "] textures to renderer texture cache ");
     };
     return Game;
 }());
@@ -31789,6 +31806,14 @@ exports.Image = Image;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
+*   Possible decisions for mirroring an image.
+*******************************************************************************************************************/
+var MirrorImage;
+(function (MirrorImage) {
+    MirrorImage[MirrorImage["YES"] = 0] = "YES";
+    MirrorImage[MirrorImage["NO"] = 1] = "NO";
+})(MirrorImage = exports.MirrorImage || (exports.MirrorImage = {}));
+/*******************************************************************************************************************
 *   All images the game makes use of.
 *
 *   @author     Christopher Stock
@@ -31877,6 +31902,19 @@ var ImageSystem = /** @class */ (function () {
         for (var i = 0; i < this.fileNames.length; i++) {
             this.mirroredImages[this.fileNames[i]] = ninjas.IO.flipImageHorizontal(this.originalImages[this.fileNames[i]], this.onMirrorImage);
         }
+    };
+    /***************************************************************************************************************
+    *   Delivers an associated array with all images where the src is the key.
+    *
+    *   @return An associated array of all images. Source attribute is the key.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.getAll = function () {
+        var ret = [];
+        for (var i = 0; i < this.fileNames.length; i++) {
+            ret[this.getImage(this.fileNames[i]).src] = this.getImage(this.fileNames[i]);
+            ret[this.getMirroredImage(this.fileNames[i]).src] = this.getMirroredImage(this.fileNames[i]);
+        }
+        return ret;
     };
     return ImageSystem;
 }());
@@ -32048,7 +32086,7 @@ var Sprite = /** @class */ (function () {
             return false;
         }
         // non-looped sprites end on the last frame
-        if (!this.template.loop && this.currentFrame == this.template.imageIds.length - 1) {
+        if (this.template.loop == ninjas.LoopSprite.NO && this.currentFrame == this.template.imageIds.length - 1) {
             return false;
         }
         // increase tick
@@ -32074,7 +32112,7 @@ var Sprite = /** @class */ (function () {
     ***************************************************************************************************************/
     Sprite.prototype.getCurrentFrameImageUrl = function () {
         var imageId = this.template.imageIds[this.currentFrame];
-        if (this.template.mirrored) {
+        if (this.template.mirrored == ninjas.MirrorImage.YES) {
             return ninjas.Main.game.imageSystem.getMirroredImage(imageId).src;
         }
         else {
@@ -32094,6 +32132,14 @@ exports.Sprite = Sprite;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Possible decisions for looping a sprite.
+*******************************************************************************************************************/
+var LoopSprite;
+(function (LoopSprite) {
+    LoopSprite[LoopSprite["YES"] = 0] = "YES";
+    LoopSprite[LoopSprite["NO"] = 1] = "NO";
+})(LoopSprite = exports.LoopSprite || (exports.LoopSprite = {}));
 /*******************************************************************************************************************
 *   The sprite template that specifies images and their meta information.
 *
@@ -32115,9 +32161,9 @@ var SpriteTemplate = /** @class */ (function () {
         /** The number of ticks between frame changes. */
         this.ticksBetweenFrames = 0;
         /** Specifies if all frames in this sprite should be mirrored. */
-        this.mirrored = false;
+        this.mirrored = null;
         /** Specifies if the frame animation should be repeated infinitely. */
-        this.loop = false;
+        this.loop = null;
         /** Flags if this sprite has only one frame. */
         this.singleFramed = false;
         /** The width of all images in this sprite. */
@@ -32167,7 +32213,7 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
-    ], 5, true, true);
+    ], 5, ninjas.MirrorImage.YES, LoopSprite.YES);
     /** Sprite 'ninja girl standing right'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
@@ -32180,7 +32226,7 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
-    ], 5, false, true);
+    ], 5, ninjas.MirrorImage.NO, LoopSprite.YES);
     /** Sprite 'ninja girl walking left'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
@@ -32193,7 +32239,7 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
-    ], 5, true, true);
+    ], 5, ninjas.MirrorImage.YES, LoopSprite.YES);
     /** Sprite 'ninja girl walking right'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
@@ -32206,43 +32252,43 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
-    ], 5, false, true);
+    ], 5, ninjas.MirrorImage.NO, LoopSprite.YES);
     /** Sprite 'ninja girl jumping left'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
-    ], 8, true, false);
+    ], 8, ninjas.MirrorImage.YES, LoopSprite.NO);
     /** Sprite 'ninja girl jumping right'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
         ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
-    ], 8, false, false);
+    ], 8, ninjas.MirrorImage.NO, LoopSprite.NO);
     /** Sprite 'ninja girl falling left'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1,
         ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
         ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
-    ], 10, true, false);
+    ], 10, ninjas.MirrorImage.YES, LoopSprite.NO);
     /** Sprite 'ninja girl falling right'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1,
         ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
         ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
-    ], 10, false, false);
+    ], 10, ninjas.MirrorImage.NO, LoopSprite.NO);
     /** Sprite 'crate'. */
     SpriteTemplate.SPRITE_CRATE = new SpriteTemplate([
         ninjas.Image.IMAGE_BOX,
-    ], 10, false, false);
+    ], 10, ninjas.MirrorImage.NO, LoopSprite.NO);
     /** Sprite 'item'. */
     SpriteTemplate.SPRITE_ITEM = new SpriteTemplate([
         ninjas.Image.IMAGE_ITEM,
-    ], 10, false, false);
+    ], 10, ninjas.MirrorImage.NO, LoopSprite.NO);
     /** Sprite 'tree'. */
     SpriteTemplate.SPRITE_TREE = new SpriteTemplate([
         ninjas.Image.IMAGE_TREE,
-    ], 10, false, false);
+    ], 10, ninjas.MirrorImage.NO, LoopSprite.NO);
     /** A reference over all sprite templates. */
     SpriteTemplate.ALL_SPRITE_TEMPLATES = [
         SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT,
@@ -32724,6 +32770,7 @@ var IO = /** @class */ (function () {
         context.scale(-1, 1);
         context.drawImage(original, -original.width, 0);
         var target = new Image();
+        target.crossOrigin = "anonymous";
         target.src = canvas.toDataURL();
         target.onload = function (event) { onLoadCallack(); };
         return target;

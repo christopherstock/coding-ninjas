@@ -2,6 +2,15 @@
     import * as ninjas from '../ninjas';
 
     /*******************************************************************************************************************
+    *   Possible decisions for mirroring an image.
+    *******************************************************************************************************************/
+    export enum MirrorImage
+    {
+        YES,
+        NO,
+    }
+
+    /*******************************************************************************************************************
     *   All images the game makes use of.
     *
     *   @author     Christopher Stock
@@ -117,5 +126,23 @@
 
                 this.onLoadComplete();
             }
+        };
+
+        /***************************************************************************************************************
+        *   Delivers an associated array with all images where the src is the key.
+        *
+        *   @return An associated array of all images. Source attribute is the key.
+        ***************************************************************************************************************/
+        public getAll() : Array<HTMLImageElement>
+        {
+            let ret:Array<HTMLImageElement> = [];
+
+            for ( let i = 0; i < this.fileNames.length; i++ )
+            {
+                ret[ this.getImage(         this.fileNames[ i ] ).src ] = this.getImage(         this.fileNames[ i ] );
+                ret[ this.getMirroredImage( this.fileNames[ i ] ).src ] = this.getMirroredImage( this.fileNames[ i ] );
+            }
+
+            return ret;
         }
     }

@@ -59,9 +59,6 @@
         {
             this.updateCanvasDimensions();
             this.initCanvas();
-            this.initEngine2D();
-            this.initWindowResizeHandler();
-            this.initKeySystem();
             this.initImageSystem();
         }
 
@@ -80,6 +77,12 @@
         ***************************************************************************************************************/
         private onSoundsLoaded=() : void =>
         {
+            // init matterJS
+            this.initMatterJS();
+
+            // init window resize handler
+            this.initWindowResizeHandler();
+
             // init site system
             this.initSiteSystem();
 
@@ -88,6 +91,9 @@
 
             // init WOW animations
             this.initWow();
+
+            // init key system
+            this.initKeySystem();
 
             // play bg sound
             this.soundSystem.playSound( ninjas.Sound.BG_CHINESE, true );
@@ -169,7 +175,7 @@
         /***************************************************************************************************************
         *   Inits the 2D engine.
         ***************************************************************************************************************/
-        private initEngine2D()
+        private initMatterJS()
         {
             ninjas.Debug.init.log( "Initing 2D physics engine" );
 
@@ -200,6 +206,9 @@
                     } as any,
                 }
             );
+
+            //set all loaded image as MatterJS texture cache
+            this.assignMatterJSTextureCache();
 
             // disables blurry image drawing!
             this.renderer.context.imageSmoothingEnabled = false;
@@ -367,6 +376,8 @@
             context.fillStyle = "#ff0000";
             context.fillRect( 0, 0, 100, 200 );
 */
+            // console.dir( this.renderer.textures );
+
             this.fpsMeter.tick();
         };
 
@@ -432,5 +443,15 @@
                 ninjas.Debug.init.log( "Switching to level 3" );
                 this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );
             }
+        }
+
+        /***************************************************************************************************************
+        *   Assigns all loaded images to the MatterJS engine's texture cache.
+        ***************************************************************************************************************/
+        private assignMatterJSTextureCache()
+        {
+            this.renderer.textures = this.imageSystem.getAll();
+
+            ninjas.Debug.init.log( "Assigned [" + Object.keys( this.renderer.textures ).length + "] textures to renderer texture cache " );
         }
     }

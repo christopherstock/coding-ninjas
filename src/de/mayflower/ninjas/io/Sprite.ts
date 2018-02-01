@@ -50,7 +50,7 @@
             }
 
             // non-looped sprites end on the last frame
-            if ( !this.template.loop && this.currentFrame == this.template.imageIds.length - 1 )
+            if ( this.template.loop == ninjas.LoopSprite.NO && this.currentFrame == this.template.imageIds.length - 1 )
             {
                 return false;
             }
@@ -88,7 +88,7 @@
         {
             let imageId:string = this.template.imageIds[ this.currentFrame ];
 
-            if ( this.template.mirrored )
+            if ( this.template.mirrored == ninjas.MirrorImage.YES )
             {
                 return ninjas.Main.game.imageSystem.getMirroredImage( imageId ).src;
             }

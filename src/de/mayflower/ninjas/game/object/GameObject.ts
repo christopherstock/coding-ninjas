@@ -104,6 +104,8 @@
         protected setImageFromSprite() : void
         {
             this.shape.body.render.sprite.texture = this.sprite.getCurrentFrameImageUrl();
+
+            this.shape.body.render.sprite.xScale = -1.0;
         }
 
         /***************************************************************************************************************

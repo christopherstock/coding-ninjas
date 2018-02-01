@@ -24,7 +24,7 @@
             (
                 1500,
                 0,
-                ninjas.CharacterLookingDirection.RIGHT,
+                ninjas.CharacterLookingDirection.LEFT,
                 new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT )
             );
 
@@ -39,8 +39,8 @@
                 ninjas.GameObjectFactory.createDecoration( 10370, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
 
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger( 1400, 600, 600, 400, ninjas.SitePanelPosition.LEFT ),
-                ninjas.GameObjectFactory.createSiteTrigger( 3200, 600, 600, 400, ninjas.SitePanelPosition.NONE ),
+                ninjas.GameObjectFactory.createSiteTrigger( 1400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
+                ninjas.GameObjectFactory.createSiteTrigger( 3200, 500, 600, 500, ninjas.SitePanelPosition.NONE ),
 
 
 /*

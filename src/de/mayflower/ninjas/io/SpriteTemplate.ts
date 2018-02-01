@@ -2,6 +2,15 @@
     import * as ninjas from '../ninjas';
 
     /*******************************************************************************************************************
+    *   Possible decisions for looping a sprite.
+    *******************************************************************************************************************/
+    export enum LoopSprite
+    {
+        YES,
+        NO,
+    }
+
+    /*******************************************************************************************************************
     *   The sprite template that specifies images and their meta information.
     *
     *   @author     Christopher Stock
@@ -25,8 +34,8 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
             ],
             5,
-            true,
-            true
+            ninjas.MirrorImage.YES,
+            LoopSprite.YES
         );
 
         /** Sprite 'ninja girl standing right'. */
@@ -45,8 +54,8 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
             ],
             5,
-            false,
-            true
+            ninjas.MirrorImage.NO,
+            LoopSprite.YES
         );
 
         /** Sprite 'ninja girl walking left'. */
@@ -65,8 +74,8 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
             ],
             5,
-            true,
-            true
+            ninjas.MirrorImage.YES,
+            LoopSprite.YES
         );
 
         /** Sprite 'ninja girl walking right'. */
@@ -85,8 +94,8 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
             ],
             5,
-            false,
-            true
+            ninjas.MirrorImage.NO,
+            LoopSprite.YES
         );
 
         /** Sprite 'ninja girl jumping left'. */
@@ -98,8 +107,8 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
             ],
             8,
-            true,
-            false
+            ninjas.MirrorImage.YES,
+            LoopSprite.NO
         );
 
         /** Sprite 'ninja girl jumping right'. */
@@ -111,8 +120,8 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
             ],
             8,
-            false,
-            false
+            ninjas.MirrorImage.NO,
+            LoopSprite.NO
         );
 
         /** Sprite 'ninja girl falling left'. */
@@ -124,8 +133,8 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
             ],
             10,
-            true,
-            false
+            ninjas.MirrorImage.YES,
+            LoopSprite.NO
         );
 
         /** Sprite 'ninja girl falling right'. */
@@ -137,8 +146,8 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
             ],
             10,
-            false,
-            false
+            ninjas.MirrorImage.NO,
+            LoopSprite.NO
         );
 
         /** Sprite 'crate'. */
@@ -148,8 +157,8 @@
                 ninjas.Image.IMAGE_BOX,
             ],
             10,
-            false,
-            false
+            ninjas.MirrorImage.NO,
+            LoopSprite.NO
         );
 
         /** Sprite 'item'. */
@@ -159,8 +168,8 @@
                 ninjas.Image.IMAGE_ITEM,
             ],
             10,
-            false,
-            false
+            ninjas.MirrorImage.NO,
+            LoopSprite.NO
         );
 
         /** Sprite 'tree'. */
@@ -170,8 +179,8 @@
                 ninjas.Image.IMAGE_TREE,
             ],
             10,
-            false,
-            false
+            ninjas.MirrorImage.NO,
+            LoopSprite.NO
         );
 
         /** A reference over all sprite templates. */
@@ -195,9 +204,9 @@
         /** The number of ticks between frame changes. */
         public                  ticksBetweenFrames                      :number                 = 0;
         /** Specifies if all frames in this sprite should be mirrored. */
-        public                  mirrored                                :boolean                = false;
+        public                  mirrored                                :ninjas.MirrorImage     = null;
         /** Specifies if the frame animation should be repeated infinitely. */
-        public                  loop                                    :boolean                = false;
+        public                  loop                                    :LoopSprite             = null;
 
         /** Flags if this sprite has only one frame. */
         public                  singleFramed                            :boolean                = false;
@@ -215,7 +224,7 @@
         *   @param mirrored           Specifies if all frames in this sprite should be mirrored.
         *   @param loop               Specifies if the frame animation should be repeated infinitely.
         ***************************************************************************************************************/
-        private constructor( imageIds:Array<string>, ticksBetweenFrames:number, mirrored:boolean, loop:boolean )
+        private constructor( imageIds:Array<string>, ticksBetweenFrames:number, mirrored:ninjas.MirrorImage, loop:LoopSprite )
         {
             this.imageIds           = imageIds;
             this.ticksBetweenFrames = ticksBetweenFrames;

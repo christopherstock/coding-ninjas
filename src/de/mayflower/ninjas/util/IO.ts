@@ -26,6 +26,7 @@
             context.drawImage( original, -original.width, 0 );
 
             let target:HTMLImageElement = new Image();
+            target.crossOrigin = "anonymous";
             target.src = canvas.toDataURL();
             target.onload = ( event:Event ) => { onLoadCallack(); };
 
