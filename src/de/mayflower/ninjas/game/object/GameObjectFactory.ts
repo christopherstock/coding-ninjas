@@ -264,15 +264,23 @@
         /***************************************************************************************************************
         *   Creates a site trigger.
         *
-        *   @param x      Anchor X.
-        *   @param y      Anchor Y.
-        *   @param width  Object width.
-        *   @param height Object height.
-        *   @param sprite The decoration sprite.
+        *   @param x                  Anchor X.
+        *   @param y                  Anchor Y.
+        *   @param width              Object width.
+        *   @param height             Object height.
+        *   @param fixedPanelPosition The fixed position for the panel to appear, if desired.
         *
         *   @return The created site trigger.
         ***************************************************************************************************************/
-        public static createSiteTrigger( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ) : ninjas.SiteTrigger
+        public static createSiteTrigger
+        (
+            x                  :number,
+            y                  :number,
+            width              :number,
+            height             :number,
+            fixedPanelPosition :ninjas.SitePanelPosition
+        )
+        : ninjas.SiteTrigger
         {
             return new ninjas.SiteTrigger
             (
@@ -286,9 +294,10 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
-                sprite,
+                null,
                 x,
-                y
+                y,
+                fixedPanelPosition
             );
         }
 

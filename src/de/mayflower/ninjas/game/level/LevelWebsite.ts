@@ -22,7 +22,7 @@
             // init player
             this.player = new ninjas.Player
             (
-                1400,
+                1500,
                 0,
                 ninjas.CharacterLookingDirection.RIGHT,
                 new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT )
@@ -32,14 +32,17 @@
             this.gameObjects =
             [
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle( 1000,    1000, 5000, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 1000, 1000, 7000, 15, 0.0,  false ),
 
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration( 1080,  830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
                 ninjas.GameObjectFactory.createDecoration( 10370, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
 
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger( 1970, 525, 800, 475, null ),
+                ninjas.GameObjectFactory.createSiteTrigger( 1400, 600, 600, 400, ninjas.SitePanelPosition.LEFT ),
+                ninjas.GameObjectFactory.createSiteTrigger( 3200, 600, 600, 400, ninjas.SitePanelPosition.NONE ),
+
+
 /*
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),

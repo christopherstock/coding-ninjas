@@ -11,17 +11,20 @@
     export class SiteTrigger extends ninjas.Decoration
     {
         /** Flags if the according site panel is currently displayed. */
-        private                         sitePanelActive                 :boolean        = false;
+        private                         sitePanelActive                 :boolean                    = false;
+        /** A fixed position for the panel to popup, if desired. */
+        private                         fixedPanelPosition              :ninjas.SitePanelPosition   = null;
 
         /***************************************************************************************************************
         *   Creates a new site trigger.
         *
-        *   @param shape  The shape for this object.
-        *   @param sprite The sprite to use.
-        *   @param x      Startup position X.
-        *   @param y      Startup position Y.
+        *   @param shape              The shape for this object.
+        *   @param sprite             The sprite to use.
+        *   @param x                  Startup position X.
+        *   @param y                  Startup position Y.
+        *   @param fixedPanelPosition Startup position Y.
         ***************************************************************************************************************/
-        public constructor( shape:ninjas.Shape, sprite:ninjas.Sprite, x:number, y:number )
+        public constructor( shape:ninjas.Shape, sprite:ninjas.Sprite, x:number, y:number, fixedPanelPosition:ninjas.SitePanelPosition )
         {
             super
             (
@@ -31,7 +34,7 @@
                 y
             );
 
-
+            this.fixedPanelPosition = fixedPanelPosition;
         }
 
         /***************************************************************************************************************
@@ -82,13 +85,26 @@
         ***************************************************************************************************************/
         private determinePanelPosition() : ninjas.SitePanelPosition
         {
-            if ( ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+            switch ( this.fixedPanelPosition )
             {
-                return ninjas.SitePanelPosition.LEFT;
-            }
-            else
-            {
-                return ninjas.SitePanelPosition.RIGHT;
+                case ninjas.SitePanelPosition.LEFT:
+                case ninjas.SitePanelPosition.RIGHT:
+                {
+                    return this.fixedPanelPosition;
+                }
+
+                case ninjas.SitePanelPosition.NONE:
+                default:
+                {
+                    if ( ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                    {
+                        return ninjas.SitePanelPosition.LEFT;
+                    }
+                    else
+                    {
+                        return ninjas.SitePanelPosition.RIGHT;
+                    }
+                }
             }
         }
     }

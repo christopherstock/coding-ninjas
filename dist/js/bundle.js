@@ -1911,7 +1911,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(178)("./" + name);
+            __webpack_require__(179)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4603,7 +4603,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(177)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(178)(module)))
 
 /***/ }),
 /* 1 */
@@ -4654,12 +4654,12 @@ __export(__webpack_require__(167));
 __export(__webpack_require__(168));
 __export(__webpack_require__(169));
 __export(__webpack_require__(170));
-__export(__webpack_require__(179));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
+__export(__webpack_require__(177));
 
 
 /***/ }),
@@ -27955,17 +27955,18 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(1400, 0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(1500, 0, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle(1000, 1000, 5000, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(1000, 1000, 7000, 15, 0.0, false),
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration(1080, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(10370, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger(1970, 525, 800, 475, null),
+                ninjas.GameObjectFactory.createSiteTrigger(1400, 600, 600, 400, ninjas.SitePanelPosition.LEFT),
+                ninjas.GameObjectFactory.createSiteTrigger(3200, 600, 600, 400, ninjas.SitePanelPosition.NONE),
                 /*
                                 // moveable boxes
                                 ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
@@ -29033,16 +29034,16 @@ var GameObjectFactory = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a site trigger.
     *
-    *   @param x      Anchor X.
-    *   @param y      Anchor Y.
-    *   @param width  Object width.
-    *   @param height Object height.
-    *   @param sprite The decoration sprite.
+    *   @param x                  Anchor X.
+    *   @param y                  Anchor Y.
+    *   @param width              Object width.
+    *   @param height             Object height.
+    *   @param fixedPanelPosition The fixed position for the panel to appear, if desired.
     *
     *   @return The created site trigger.
     ***************************************************************************************************************/
-    GameObjectFactory.createSiteTrigger = function (x, y, width, height, sprite) {
-        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), sprite, x, y);
+    GameObjectFactory.createSiteTrigger = function (x, y, width, height, fixedPanelPosition) {
+        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), null, x, y, fixedPanelPosition);
     };
     /***************************************************************************************************************
     *   Creates a non-collidable background.
@@ -29697,15 +29698,19 @@ var SiteTrigger = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new site trigger.
     *
-    *   @param shape  The shape for this object.
-    *   @param sprite The sprite to use.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
+    *   @param shape              The shape for this object.
+    *   @param sprite             The sprite to use.
+    *   @param x                  Startup position X.
+    *   @param y                  Startup position Y.
+    *   @param fixedPanelPosition Startup position Y.
     ***************************************************************************************************************/
-    function SiteTrigger(shape, sprite, x, y) {
+    function SiteTrigger(shape, sprite, x, y, fixedPanelPosition) {
         var _this = _super.call(this, shape, sprite, x, y) || this;
         /** Flags if the according site panel is currently displayed. */
         _this.sitePanelActive = false;
+        /** A fixed position for the panel to popup, if desired. */
+        _this.fixedPanelPosition = null;
+        _this.fixedPanelPosition = fixedPanelPosition;
         return _this;
     }
     /***************************************************************************************************************
@@ -29743,11 +29748,22 @@ var SiteTrigger = /** @class */ (function (_super) {
     *   @return The position of the panel to be shown.
     ***************************************************************************************************************/
     SiteTrigger.prototype.determinePanelPosition = function () {
-        if (ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
-            return ninjas.SitePanelPosition.LEFT;
-        }
-        else {
-            return ninjas.SitePanelPosition.RIGHT;
+        switch (this.fixedPanelPosition) {
+            case ninjas.SitePanelPosition.LEFT:
+            case ninjas.SitePanelPosition.RIGHT:
+                {
+                    return this.fixedPanelPosition;
+                }
+            case ninjas.SitePanelPosition.NONE:
+            default:
+                {
+                    if (ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                        return ninjas.SitePanelPosition.LEFT;
+                    }
+                    else {
+                        return ninjas.SitePanelPosition.RIGHT;
+                    }
+                }
         }
     };
     return SiteTrigger;
@@ -32337,6 +32353,27 @@ exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://dane
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Contains all possible positions for the site panel.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SitePanelPosition;
+(function (SitePanelPosition) {
+    SitePanelPosition[SitePanelPosition["NONE"] = 0] = "NONE";
+    SitePanelPosition[SitePanelPosition["LEFT"] = 1] = "LEFT";
+    SitePanelPosition[SitePanelPosition["RIGHT"] = 2] = "RIGHT";
+})(SitePanelPosition = exports.SitePanelPosition || (exports.SitePanelPosition = {}));
+
+
+/***/ }),
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(5);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
@@ -32352,7 +32389,7 @@ var SiteSystem = /** @class */ (function () {
         /** Flags if an animation is currently active. */
         this.animationInProgress = null;
         /** Flags if a panel is currently shown. */
-        this.panelPosition = ninjas.SitePanelPosition.GONE;
+        this.panelPosition = ninjas.SitePanelPosition.NONE;
     }
     /*****************************************************************************
     *   Being invoked when a site shall be shown.
@@ -32402,12 +32439,12 @@ var SiteSystem = /** @class */ (function () {
         else {
             this.currentPanel.className = "wow bounceOutRight";
         }
+        this.panelPosition = ninjas.SitePanelPosition.NONE;
         ninjas.Main.game.wowSystem.sync();
         window.setTimeout(function () {
             _this.currentPanel.remove();
             _this.currentPanel = null;
             _this.animationInProgress = false;
-            _this.panelPosition = ninjas.SitePanelPosition.GONE;
         }, 750);
         return true;
     };
@@ -32440,7 +32477,7 @@ var SiteSystem = /** @class */ (function () {
     *****************************************************************************/
     SiteSystem.prototype.getFixedCameraTargetX = function () {
         switch (this.panelPosition) {
-            case ninjas.SitePanelPosition.GONE:
+            case ninjas.SitePanelPosition.NONE:
                 {
                     return -1;
                 }
@@ -32460,7 +32497,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32656,7 +32693,7 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32697,7 +32734,7 @@ exports.IO = IO;
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32737,7 +32774,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32785,7 +32822,7 @@ exports.String = String;
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -32813,7 +32850,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -33070,28 +33107,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 178;
-
-/***/ }),
-/* 179 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/*******************************************************************************************************************
-*   Contains all possible positions for the site panel.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SitePanelPosition;
-(function (SitePanelPosition) {
-    SitePanelPosition[SitePanelPosition["LEFT"] = 0] = "LEFT";
-    SitePanelPosition[SitePanelPosition["RIGHT"] = 1] = "RIGHT";
-    SitePanelPosition[SitePanelPosition["GONE"] = 2] = "GONE";
-})(SitePanelPosition = exports.SitePanelPosition || (exports.SitePanelPosition = {}));
-
+webpackContext.id = 179;
 
 /***/ })
 /******/ ]);

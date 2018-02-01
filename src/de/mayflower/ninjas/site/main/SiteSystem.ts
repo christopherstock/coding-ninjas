@@ -18,7 +18,7 @@
         private                 animationInProgress             :boolean                    = null;
 
         /** Flags if a panel is currently shown. */
-        private                 panelPosition                   :ninjas.SitePanelPosition   = ninjas.SitePanelPosition.GONE;
+        private                 panelPosition                   :ninjas.SitePanelPosition   = ninjas.SitePanelPosition.NONE;
 
         /*****************************************************************************
         *   Being invoked when a site shall be shown.
@@ -89,6 +89,8 @@
                 this.currentPanel.className = "wow bounceOutRight";
             }
 
+            this.panelPosition = ninjas.SitePanelPosition.NONE;
+
             ninjas.Main.game.wowSystem.sync();
 
             window.setTimeout(
@@ -97,7 +99,6 @@
                     this.currentPanel = null;
 
                     this.animationInProgress = false;
-                    this.panelPosition       = ninjas.SitePanelPosition.GONE;
                 },
                 750
             );
@@ -145,7 +146,7 @@
         {
             switch ( this.panelPosition )
             {
-                case ninjas.SitePanelPosition.GONE:
+                case ninjas.SitePanelPosition.NONE:
                 {
                     return -1;
                 }
