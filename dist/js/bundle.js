@@ -4658,6 +4658,8 @@ __export(__webpack_require__(172));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
 __export(__webpack_require__(180));
+__export(__webpack_require__(183));
+__export(__webpack_require__(184));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
 __export(__webpack_require__(177));
@@ -29798,10 +29800,11 @@ __webpack_require__(159);
 *******************************************************************************************************************/
 var Game = /** @class */ (function () {
     function Game() {
-        // TODO wrap these four values to class CanvasSystem
         var _this = this;
         /** The canvas element. */
         this.canvasSystem = null;
+        /** The matterJS engine. */
+        this.matterJsSystem = null;
         // TODO wrap these two values to class MatterSystem
         /** The MatterJS engine. */
         this.engine = null;
@@ -29809,7 +29812,8 @@ var Game = /** @class */ (function () {
         this.renderer = null;
         /** The custom key system. */
         this.keySystem = null;
-        /** The custom camera. */
+        // TODO to engine!!
+        /** The custom camera system. */
         this.camera = null;
         /** The custom level. */
         this.level = null;
@@ -29920,6 +29924,7 @@ var Game = /** @class */ (function () {
     Game.prototype.initMatterJS = function () {
         var _this = this;
         ninjas.Debug.init.log("Initing 2D physics engine");
+        this.matterJsSystem = new ninjas.MatterJsSystem();
         // create engine
         this.engine = matter.Engine.create();
         this.engine.world.gravity = {
@@ -33218,6 +33223,132 @@ var CanvasSystem = /** @class */ (function () {
     return CanvasSystem;
 }());
 exports.CanvasSystem = CanvasSystem;
+
+
+/***/ }),
+/* 181 */,
+/* 182 */,
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Offers orthogonal drawing functionality.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Drawing = /** @class */ (function () {
+    function Drawing() {
+    }
+    /*****************************************************************************
+    *   Strokes a line with the specified points color and size.
+    *
+    *   @param  ctx The rendering context.
+    *   @param  x1  The start point's x.
+    *   @param  y1  The start point's y.
+    *   @param  x2  The end point's x.
+    *   @param  y2  The end point's y.
+    *   @param  col A stroke color.
+    *****************************************************************************/
+    Drawing.strokeLine = function (ctx, x1, y1, x2, y2, col) {
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 1.0;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+    };
+    /*****************************************************************************
+    *   Draws a rect's stroke with the specified dimensions and color.
+    *
+    *   @param  ctx        The rendering context.
+    *   @param  x          The left  coordinate.
+    *   @param  y          The right coordinate.
+    *   @param  width      The desired width.
+    *   @param  height     The desired height.
+    *   @param  col        A stroke color.
+    *****************************************************************************/
+    Drawing.strokeRect = function (ctx, x, y, width, height, col) {
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 1.0;
+        ctx.strokeRect(x, y, width, height);
+    };
+    /*****************************************************************************
+    *   Fills a rect with the specified dimensions and color.
+    *
+    *   @param  ctx     The rendering context.
+    *   @param  x       The left  coordinate.
+    *   @param  y       The right coordinate.
+    *   @param  width   The desired width.
+    *   @param  height  The desired height.
+    *   @param  col     A fill color.
+    *****************************************************************************/
+    Drawing.fillRect = function (ctx, x, y, width, height, col) {
+        ctx.fillStyle = col;
+        ctx.fillRect(x, y, width, height);
+    };
+    /*****************************************************************************
+    *   Draws an image at the specified location with a specified anchor.
+    *
+    *   @param  ctx         The rendering context
+    *   @param  img         The image to draw.
+    *   @param  x           Drawing position x.
+    *   @param  y           Drawing position y.
+    *   @param  alpha       The desired alpha value to draw the image.
+    *                       This value has a range of 0.0 to 1.0.
+    *****************************************************************************/
+    Drawing.drawImage = function (ctx, img, x, y, alpha) {
+        Drawing.drawImageScaledClipped(ctx, img, x, y, 0, 0, img.width, img.height, img.width, img.height, alpha);
+    };
+    /*****************************************************************************
+    *   Draws an image at the specified location with a specified anchor
+    *   and scales it to the given destiny dimensions.
+    *
+    *   @param  ctx         The rendering context
+    *   @param  img         The image to draw.
+    *   @param  srcX        Clipping position x.
+    *   @param  srcY        Clipping position y.
+    *   @param  srcWidth    Clipping width.
+    *   @param  srcHeight   Clipping height.
+    *   @param  destX       Drawing position x.
+    *   @param  destY       Drawing position y.
+    *   @param  destWidth   Destination width.
+    *   @param  destHeight  Destination height.
+    *   @param  alpha       The desired alpha value to draw the image from 0.0 to 1.0.
+    *****************************************************************************/
+    Drawing.drawImageScaledClipped = function (ctx, img, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, alpha) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(img, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight);
+        ctx.restore();
+    };
+    return Drawing;
+}());
+exports.Drawing = Drawing;
+
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Manages the Matter JS engine.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var MatterJsSystem = /** @class */ (function () {
+    function MatterJsSystem() {
+    }
+    return MatterJsSystem;
+}());
+exports.MatterJsSystem = MatterJsSystem;
 
 
 /***/ })

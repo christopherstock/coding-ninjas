@@ -17,8 +17,8 @@
         /** The canvas element. */
         public      canvasSystem            :ninjas.CanvasSystem            = null;
 
-
-
+        /** The matterJS engine. */
+        public      matterJsSystem          :ninjas.MatterJsSystem          = null;
 
 
 
@@ -31,10 +31,15 @@
 
         /** The custom key system. */
         public      keySystem               :ninjas.KeySystem               = null;
-        /** The custom camera. */
+
+        // TODO to engine!!
+
+        /** The custom camera system. */
         public      camera                  :ninjas.Camera                  = null;
         /** The custom level. */
         public      level                   :ninjas.Level                   = null;
+
+
 
         /** The image system. */
         public      imageSystem             :ninjas.ImageSystem             = null;
@@ -158,6 +163,13 @@
         private initMatterJS()
         {
             ninjas.Debug.init.log( "Initing 2D physics engine" );
+
+            this.matterJsSystem = new ninjas.MatterJsSystem();
+
+
+
+
+
 
             // create engine
             this.engine = matter.Engine.create();

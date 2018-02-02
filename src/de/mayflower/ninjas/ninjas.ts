@@ -51,6 +51,8 @@
 
     export * from './ui/Camera';
     export * from './ui/CanvasSystem';
+    export * from './ui/Drawing';
+    export * from './ui/MatterJsSystem';
 
     export * from './util/IO';
     export * from './util/MathUtil';
