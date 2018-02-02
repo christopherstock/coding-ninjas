@@ -11,6 +11,10 @@
     *******************************************************************************************************************/
     export class Game
     {
+        /** The game engine. */
+        public      engine                  :ninjas.GameEngine              = null;
+
+
         /** The canvas element. */
         public      canvasSystem            :ninjas.CanvasSystem            = null;
         /** The image system. */
@@ -21,10 +25,10 @@
         public      matterJsSystem          :ninjas.MatterJsSystem          = null;
         /** The site system. */
         public      siteSystem              :ninjas.SiteSystem              = null;
-        /** The FPS counter. */
-        private     fpsMeter                :FPSMeter                       = null;
         /** The custom key system. */
         public      keySystem               :ninjas.KeySystem               = null;
+        /** The FPS counter. */
+        private     fpsMeter                :FPSMeter                       = null;
 
         /** The custom camera system. */
         public      camera                  :ninjas.Camera                  = null;
@@ -36,8 +40,11 @@
         ***************************************************************************************************************/
         public init()
         {
+            this.engine = new ninjas.GameEngine();
+            this.engine.init();
+
             this.initCanvas();
-            this.updateCanvasDimensions();
+            this.canvasSystem.updateDimensions();
             this.initImageSystem();
         }
 
@@ -65,11 +72,11 @@
             // init window resize handler
             this.initWindowResizeHandler();
 
-            // init FPS-counter
-            this.initFpsCounter();
-
             // init key system
             this.initKeySystem();
+
+            // init FPS-counter
+            this.initFpsCounter();
 
             // play bg sound
             this.soundSystem.playSound( ninjas.Sound.BG_CHINESE, true );
@@ -101,16 +108,6 @@
         }
 
         /***************************************************************************************************************
-        *   Updates the dimensions of the canvas according to the browser window.
-        *
-        *   TODO prune?
-        ***************************************************************************************************************/
-        private updateCanvasDimensions()
-        {
-            this.canvasSystem.updateDimensions();
-        }
-
-        /***************************************************************************************************************
         *   Inits the 2D canvas by creating and adding it to the document body.
         ***************************************************************************************************************/
         private initCanvas()
@@ -121,8 +118,6 @@
 
         /***************************************************************************************************************
         *   Inits the 2D engine.
-        *
-        *   TODO prune?
         ***************************************************************************************************************/
         private initMatterJS()
         {
@@ -141,10 +136,9 @@
         ***************************************************************************************************************/
         private initWindowResizeHandler()
         {
-            // TODO oursource function!
             window.onresize = ( event:Event ) => {
 
-                this.updateCanvasDimensions();
+                this.canvasSystem.updateDimensions();
                 this.matterJsSystem.updateEngineDimensions
                 (
                     this.canvasSystem.getWidth(),
