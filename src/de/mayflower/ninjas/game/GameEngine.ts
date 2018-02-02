@@ -59,13 +59,15 @@
             this.initMatterJS();
 
             // init site system
-            this.initSiteSystem();
+            ninjas.Debug.init.log( "Initing site system" );
+            this.siteSystem = new ninjas.SiteSystem();
 
             // init window resize handler
             this.initWindowResizeHandler();
 
             // init key system
-            this.initKeySystem();
+            ninjas.Debug.init.log( "Initing key system" );
+            this.keySystem = new ninjas.KeySystem();
 
             // init FPS-counter
             this.initFpsCounter();
@@ -109,26 +111,6 @@
                 this.siteSystem.updatePanelSizeAndPosition();
                 ninjas.Main.game.resetCamera();
             };
-        }
-
-        /***************************************************************************************************************
-        *   Inits the key system. TODO prune!
-        ***************************************************************************************************************/
-        private initKeySystem()
-        {
-            ninjas.Debug.init.log( "Initing key system" );
-
-            this.keySystem = new ninjas.KeySystem();
-        }
-
-        /***************************************************************************************************************
-        *   Inits the site system. TODO prune!
-        ***************************************************************************************************************/
-        private initSiteSystem()
-        {
-            ninjas.Debug.init.log( "Initing site system" );
-
-            this.siteSystem = new ninjas.SiteSystem();
         }
 
         /***************************************************************************************************************

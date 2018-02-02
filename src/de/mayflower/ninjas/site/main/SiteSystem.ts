@@ -17,10 +17,17 @@
         private                 animationInProgress             :boolean                    = null;
         /** Flags if a panel is currently shown. */
         private                 panelPosition                   :ninjas.SitePanelPosition   = ninjas.SitePanelPosition.NONE;
-        /** The current width of the panel. */
-        private                 panelWidth                      :number                     = 0;
         /** The WOW animation system. */
         private                 wowSystem                       :any                        = null;
+
+        /** The current width of the panel. */
+        private                 panelWidth                      :number                     = 0;
+        /** The current width of the panel including border size. */
+        private                 panelAndBorderWidth             :number                     = 0;
+        /** The left camera target X if the border is shown right. */
+        private                 leftCameraTargetX               :number                     = 0;
+        /** The right camera target X if the border is shown left. */
+        private                 rightCameraTargetX              :number                     = 0;
 
         /*****************************************************************************
         *   Creates a new site system.
@@ -28,6 +35,7 @@
         public constructor()
         {
             this.initWowSystem();
+            this.updatePanelSizeAndPosition();
         }
 
         /*****************************************************************************
@@ -122,11 +130,16 @@
         public updatePanelSizeAndPosition()
         {
             // calculate panel size
-            this.panelWidth = ( ninjas.Main.game.engine.canvasSystem.getWidth()  / 2 - ninjas.Setting.SITE_BORDER_SIZE );
+            this.panelWidth = ( ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.Setting.SITE_BORDER_SIZE );
             if ( this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH )
             {
                 this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
             }
+
+            // calculate panel size including border and left and right position
+            this.panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+            this.leftCameraTargetX   = ( this.panelAndBorderWidth + ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 ) );
+            this.rightCameraTargetX  = ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 );
 
             // update panel size and position
             if ( this.currentPanel != null )
@@ -156,11 +169,6 @@
         *****************************************************************************/
         public getCameraTargetX() : number
         {
-            // TODO cache in calculating panel sizes!!
-            let panelAndBorderWidth :number = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
-            let leftCameraTargetX   :number = ( panelAndBorderWidth + ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth ) / 2 ) );
-            let rightCameraTargetX  :number = ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth ) / 2 );
-
             switch ( this.panelPosition )
             {
                 case ninjas.SitePanelPosition.NONE:
@@ -169,12 +177,12 @@
                     {
                         case ninjas.CharacterLookingDirection.LEFT:
                         {
-                            return leftCameraTargetX;
+                            return this.leftCameraTargetX;
                         }
 
                         case ninjas.CharacterLookingDirection.RIGHT:
                         {
-                            return rightCameraTargetX;
+                            return this.rightCameraTargetX;
                         }
                     }
 
@@ -183,12 +191,12 @@
 
                 case ninjas.SitePanelPosition.LEFT:
                 {
-                    return leftCameraTargetX;
+                    return this.leftCameraTargetX;
                 }
 
                 case ninjas.SitePanelPosition.RIGHT:
                 {
-                    return rightCameraTargetX;
+                    return this.rightCameraTargetX;
                 }
             }
         }

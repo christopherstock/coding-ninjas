@@ -1911,7 +1911,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(182)("./" + name);
+            __webpack_require__(181)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4603,7 +4603,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(181)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(180)(module)))
 
 /***/ }),
 /* 1 */
@@ -4642,8 +4642,7 @@ __export(__webpack_require__(153));
 __export(__webpack_require__(154));
 __export(__webpack_require__(155));
 __export(__webpack_require__(156));
-__export(__webpack_require__(157));
-__export(__webpack_require__(159));
+__export(__webpack_require__(158));
 __export(__webpack_require__(160));
 __export(__webpack_require__(161));
 __export(__webpack_require__(162));
@@ -4653,16 +4652,15 @@ __export(__webpack_require__(165));
 __export(__webpack_require__(166));
 __export(__webpack_require__(167));
 __export(__webpack_require__(168));
-__export(__webpack_require__(169));
+__export(__webpack_require__(170));
 __export(__webpack_require__(171));
-__export(__webpack_require__(172));
+__export(__webpack_require__(173));
 __export(__webpack_require__(174));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
 __export(__webpack_require__(177));
 __export(__webpack_require__(178));
 __export(__webpack_require__(179));
-__export(__webpack_require__(180));
 
 
 /***/ }),
@@ -15468,7 +15466,7 @@ function updateLink (link, options, obj) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(170);
+var content = __webpack_require__(169);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -28597,6 +28595,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
+*   Represents a character's looking direction.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var CharacterLookingDirection;
+(function (CharacterLookingDirection) {
+    /** Looking left. */
+    CharacterLookingDirection[CharacterLookingDirection["LEFT"] = 0] = "LEFT";
+    /** Looking right. */
+    CharacterLookingDirection[CharacterLookingDirection["RIGHT"] = 1] = "RIGHT";
+})(CharacterLookingDirection = exports.CharacterLookingDirection || (exports.CharacterLookingDirection = {}));
+/*******************************************************************************************************************
 *   Represents a character.
 *
 *   @author     Christopher Stock
@@ -28738,30 +28749,6 @@ exports.Character = Character;
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-/*******************************************************************************************************************
-*   Represents a character's looking direction.
-*
-*   TODO move to class 'character'.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var CharacterLookingDirection;
-(function (CharacterLookingDirection) {
-    /** Looking left. */
-    CharacterLookingDirection[CharacterLookingDirection["LEFT"] = 0] = "LEFT";
-    /** Looking right. */
-    CharacterLookingDirection[CharacterLookingDirection["RIGHT"] = 1] = "RIGHT";
-})(CharacterLookingDirection = exports.CharacterLookingDirection || (exports.CharacterLookingDirection = {}));
-
-
-/***/ }),
-/* 146 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -28807,7 +28794,7 @@ exports.Decoration = Decoration;
 
 
 /***/ }),
-/* 147 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28877,7 +28864,7 @@ exports.Enemy = Enemy;
 
 
 /***/ }),
-/* 148 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28898,7 +28885,7 @@ exports.GameObjectBundleFactory = GameObjectBundleFactory;
 
 
 /***/ }),
-/* 149 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29106,7 +29093,7 @@ exports.GameObjectFactory = GameObjectFactory;
 
 
 /***/ }),
-/* 150 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29180,7 +29167,7 @@ exports.Item = Item;
 
 
 /***/ }),
-/* 151 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29229,7 +29216,7 @@ exports.Movable = Movable;
 
 
 /***/ }),
-/* 152 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29300,7 +29287,7 @@ exports.Obstacle = Obstacle;
 
 
 /***/ }),
-/* 153 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29409,7 +29396,7 @@ exports.Platform = Platform;
 
 
 /***/ }),
-/* 154 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29570,7 +29557,7 @@ exports.Player = Player;
 
 
 /***/ }),
-/* 155 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29668,7 +29655,7 @@ exports.SigSaw = SigSaw;
 
 
 /***/ }),
-/* 156 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29771,14 +29758,14 @@ exports.SiteTrigger = SiteTrigger;
 
 
 /***/ }),
-/* 157 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-__webpack_require__(158);
+__webpack_require__(157);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
 *
@@ -29893,7 +29880,7 @@ exports.Game = Game;
 
 
 /***/ }),
-/* 158 */
+/* 157 */
 /***/ (function(module, exports) {
 
 /*!
@@ -30780,7 +30767,7 @@ exports.Game = Game;
 }(window, FPSMeter));
 
 /***/ }),
-/* 159 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30826,11 +30813,13 @@ var GameEngine = /** @class */ (function () {
             // init matterJS
             _this.initMatterJS();
             // init site system
-            _this.initSiteSystem();
+            ninjas.Debug.init.log("Initing site system");
+            _this.siteSystem = new ninjas.SiteSystem();
             // init window resize handler
             _this.initWindowResizeHandler();
             // init key system
-            _this.initKeySystem();
+            ninjas.Debug.init.log("Initing key system");
+            _this.keySystem = new ninjas.KeySystem();
             // init FPS-counter
             _this.initFpsCounter();
             // play bg sound
@@ -30870,20 +30859,6 @@ var GameEngine = /** @class */ (function () {
         };
     };
     /***************************************************************************************************************
-    *   Inits the key system. TODO prune!
-    ***************************************************************************************************************/
-    GameEngine.prototype.initKeySystem = function () {
-        ninjas.Debug.init.log("Initing key system");
-        this.keySystem = new ninjas.KeySystem();
-    };
-    /***************************************************************************************************************
-    *   Inits the site system. TODO prune!
-    ***************************************************************************************************************/
-    GameEngine.prototype.initSiteSystem = function () {
-        ninjas.Debug.init.log("Initing site system");
-        this.siteSystem = new ninjas.SiteSystem();
-    };
-    /***************************************************************************************************************
     *   Inits the FPS counter.
     ***************************************************************************************************************/
     GameEngine.prototype.initFpsCounter = function () {
@@ -30907,28 +30882,8 @@ exports.GameEngine = GameEngine;
 
 
 /***/ }),
+/* 159 */,
 /* 160 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/*******************************************************************************************************************
-*   Specifies the initialization progress of the game engine.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var GameInit = /** @class */ (function () {
-    function GameInit() {
-    }
-    return GameInit;
-}());
-exports.GameInit = GameInit;
-
-
-/***/ }),
-/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30973,7 +30928,7 @@ exports.Key = Key;
 
 
 /***/ }),
-/* 162 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31051,7 +31006,7 @@ exports.KeySystem = KeySystem;
 
 
 /***/ }),
-/* 163 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31163,7 +31118,7 @@ exports.Image = Image;
 
 
 /***/ }),
-/* 164 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31287,7 +31242,7 @@ exports.ImageSystem = ImageSystem;
 
 
 /***/ }),
-/* 165 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31318,7 +31273,7 @@ exports.Sound = Sound;
 
 
 /***/ }),
-/* 166 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31405,7 +31360,7 @@ exports.SoundSystem = SoundSystem;
 
 
 /***/ }),
-/* 167 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31490,7 +31445,7 @@ exports.Sprite = Sprite;
 
 
 /***/ }),
-/* 168 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31674,7 +31629,7 @@ exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),
-/* 169 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31744,7 +31699,7 @@ exports.SiteContent = SiteContent;
 
 
 /***/ }),
-/* 170 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -31758,7 +31713,7 @@ exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://dane
 
 
 /***/ }),
-/* 171 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31779,14 +31734,14 @@ var SitePanelPosition;
 
 
 /***/ }),
-/* 172 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-var wow = __webpack_require__(173);
+var wow = __webpack_require__(172);
 __webpack_require__(5);
 /*******************************************************************************************************************
 *   Manages the communication between the game and the company presentation.
@@ -31805,11 +31760,18 @@ var SiteSystem = /** @class */ (function () {
         this.animationInProgress = null;
         /** Flags if a panel is currently shown. */
         this.panelPosition = ninjas.SitePanelPosition.NONE;
-        /** The current width of the panel. */
-        this.panelWidth = 0;
         /** The WOW animation system. */
         this.wowSystem = null;
+        /** The current width of the panel. */
+        this.panelWidth = 0;
+        /** The current width of the panel including border size. */
+        this.panelAndBorderWidth = 0;
+        /** The left camera target X if the border is shown right. */
+        this.leftCameraTargetX = 0;
+        /** The right camera target X if the border is shown left. */
+        this.rightCameraTargetX = 0;
         this.initWowSystem();
+        this.updatePanelSizeAndPosition();
     }
     /*****************************************************************************
     *   Being invoked when a site shall be shown.
@@ -31877,6 +31839,10 @@ var SiteSystem = /** @class */ (function () {
         if (this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
             this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
         }
+        // calculate panel size including border and left and right position
+        this.panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+        this.leftCameraTargetX = (this.panelAndBorderWidth + ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2));
+        this.rightCameraTargetX = ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2);
         // update panel size and position
         if (this.currentPanel != null) {
             this.currentPanel.style.width = this.panelWidth + "px";
@@ -31898,32 +31864,28 @@ var SiteSystem = /** @class */ (function () {
     *   @return <code>true</code> if a site panel is currently active.
     *****************************************************************************/
     SiteSystem.prototype.getCameraTargetX = function () {
-        // TODO cache in calculating panel sizes!!
-        var panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
-        var leftCameraTargetX = (panelAndBorderWidth + ((ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth) / 2));
-        var rightCameraTargetX = ((ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth) / 2);
         switch (this.panelPosition) {
             case ninjas.SitePanelPosition.NONE:
                 {
                     switch (ninjas.Main.game.level.player.lookingDirection) {
                         case ninjas.CharacterLookingDirection.LEFT:
                             {
-                                return leftCameraTargetX;
+                                return this.leftCameraTargetX;
                             }
                         case ninjas.CharacterLookingDirection.RIGHT:
                             {
-                                return rightCameraTargetX;
+                                return this.rightCameraTargetX;
                             }
                     }
                     throw new Error("Camera position not determinable though undefined player looking direction!");
                 }
             case ninjas.SitePanelPosition.LEFT:
                 {
-                    return leftCameraTargetX;
+                    return this.leftCameraTargetX;
                 }
             case ninjas.SitePanelPosition.RIGHT:
                 {
-                    return rightCameraTargetX;
+                    return this.rightCameraTargetX;
                 }
         }
     };
@@ -31948,7 +31910,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 173 */
+/* 172 */
 /***/ (function(module, exports) {
 
 (function() {
@@ -32467,7 +32429,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 174 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32645,7 +32607,7 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 175 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32721,7 +32683,7 @@ exports.CanvasSystem = CanvasSystem;
 
 
 /***/ }),
-/* 176 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32824,7 +32786,7 @@ exports.Drawing = Drawing;
 
 
 /***/ }),
-/* 177 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32942,7 +32904,7 @@ exports.MatterJsSystem = MatterJsSystem;
 
 
 /***/ }),
-/* 178 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32984,7 +32946,7 @@ exports.IO = IO;
 
 
 /***/ }),
-/* 179 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33024,7 +32986,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 180 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33072,7 +33034,7 @@ exports.String = String;
 
 
 /***/ }),
-/* 181 */
+/* 180 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -33100,7 +33062,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 182 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -33357,7 +33319,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 182;
+webpackContext.id = 181;
 
 /***/ })
 /******/ ]);

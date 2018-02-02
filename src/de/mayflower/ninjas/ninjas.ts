@@ -18,7 +18,6 @@
 
     export * from './game/object/Bounce';
     export * from './game/object/Character';
-    export * from './game/object/CharacterLookingDirection';
     export * from './game/object/Decoration';
     export * from './game/object/Enemy';
     export * from './game/object/GameObjectBundleFactory';
@@ -33,7 +32,6 @@
 
     export * from './game/Game';
     export * from './game/GameEngine';
-    export * from './game/GameInit';
 
     export * from './hid/Key';
     export * from './hid/KeySystem';
