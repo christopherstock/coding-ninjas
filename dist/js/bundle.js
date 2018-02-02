@@ -27400,8 +27400,6 @@ var Setting = /** @class */ (function () {
     Setting.PLAYER_SPEED_MOVE = 7.5;
     /** The default vertical gravity for all levels. */
     Setting.DEFAULT_GRAVITY_Y = 1.0;
-    /** The camera ration for the horizontal axis. TODO prune! > according to panel width! */
-    Setting.CAMERA_RATIO_X = 0.25;
     /** The camera ration for the vertical axis. */
     Setting.CAMERA_RATIO_Y = 0.5;
     /** The camera moving speed from 0.0 to 1.0. */
@@ -27558,7 +27556,6 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Camera for looking directions same as if panel wou
 *   TODO Move game object classes to appropriate subpackages!
 *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
 *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
@@ -28745,6 +28742,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /*******************************************************************************************************************
 *   Represents a character's looking direction.
 *
+*   TODO move to class 'character'.
+*
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
@@ -29845,7 +29844,7 @@ var Game = /** @class */ (function () {
     *   Resets the camera.
     ***************************************************************************************************************/
     Game.prototype.resetCamera = function () {
-        this.camera = new ninjas.Camera(this.engine.matterJsSystem.getRenderer(), ninjas.Setting.CAMERA_RATIO_X, ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, ninjas.Setting.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.engine.canvasSystem.getWidth(), this.engine.canvasSystem.getHeight());
+        this.camera = new ninjas.Camera(this.engine.matterJsSystem.getRenderer(), ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, ninjas.Setting.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.engine.canvasSystem.getWidth(), this.engine.canvasSystem.getHeight());
         this.camera.reset();
     };
     /***************************************************************************************************************
@@ -29857,7 +29856,7 @@ var Game = /** @class */ (function () {
         // render level
         this.level.render();
         // render camera
-        this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.lookingDirection, this.level.player.collidesBottom, this.engine.siteSystem.getFixedCameraTargetX());
+        this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.collidesBottom, this.engine.siteSystem.getCameraTargetX());
     };
     /***************************************************************************************************************
     *   Paints all overlays after Matter.js completed rendering the scene.
@@ -29867,7 +29866,6 @@ var Game = /** @class */ (function () {
         var testHudHeight = 50;
         context.fillStyle = "#ff0000";
         context.fillRect(this.engine.canvasSystem.getWidth() - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, ninjas.Setting.SITE_BORDER_SIZE, testHudWidth, testHudHeight);
-        // context.fillRect( this.canvasWidth - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, this.canvasHeight - ninjas.Setting.SITE_BORDER_SIZE - testHudHeight, testHudWidth, testHudHeight );
     };
     /***************************************************************************************************************
     *   Handles pressed menu keys.
@@ -30872,7 +30870,7 @@ var GameEngine = /** @class */ (function () {
         };
     };
     /***************************************************************************************************************
-    *   Inits the key system.
+    *   Inits the key system. TODO prune!
     ***************************************************************************************************************/
     GameEngine.prototype.initKeySystem = function () {
         ninjas.Debug.init.log("Initing key system");
@@ -31899,21 +31897,33 @@ var SiteSystem = /** @class */ (function () {
     *
     *   @return <code>true</code> if a site panel is currently active.
     *****************************************************************************/
-    SiteSystem.prototype.getFixedCameraTargetX = function () {
+    SiteSystem.prototype.getCameraTargetX = function () {
+        // TODO cache in calculating panel sizes!!
+        var panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+        var leftCameraTargetX = (panelAndBorderWidth + ((ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth) / 2));
+        var rightCameraTargetX = ((ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth) / 2);
         switch (this.panelPosition) {
             case ninjas.SitePanelPosition.NONE:
                 {
-                    return -1;
+                    switch (ninjas.Main.game.level.player.lookingDirection) {
+                        case ninjas.CharacterLookingDirection.LEFT:
+                            {
+                                return leftCameraTargetX;
+                            }
+                        case ninjas.CharacterLookingDirection.RIGHT:
+                            {
+                                return rightCameraTargetX;
+                            }
+                    }
+                    throw new Error("Camera position not determinable though undefined player looking direction!");
                 }
             case ninjas.SitePanelPosition.LEFT:
                 {
-                    var panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
-                    return (panelAndBorderWidth + ((ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth) / 2));
+                    return leftCameraTargetX;
                 }
             case ninjas.SitePanelPosition.RIGHT:
                 {
-                    var panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
-                    return ((ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth) / 2);
+                    return rightCameraTargetX;
                 }
         }
     };
@@ -32476,8 +32486,7 @@ var Camera = /** @class */ (function () {
     *   Constructs a new camera.
     *
     *   @param renderer         The MatterJS renderer to set the viewport to.
-    *   @param ratioX            Camera ratio X for horizontal centering of the player.
-    *   @param ratioY            Camera ratio Y for vertical centering   of the player.
+    *   @param ratioY            Camera ratio Y for vertical centering of the player.
     *   @param movingSpeed       The moving speed for the camera.
     *   @param minimumCameraMove The minimum camera movement step in px.
     *   @param maximumCameraMove The maximum camera movement step in px.
@@ -32486,11 +32495,9 @@ var Camera = /** @class */ (function () {
     *   @param canvasWidth       The width of the canvas.
     *   @param canvasHeight      The height of the canvas.
     ***************************************************************************************************************/
-    function Camera(renderer, ratioX, ratioY, movingSpeed, minimumCameraMove, maximumCameraMove, levelWidth, levelHeight, canvasWidth, canvasHeight) {
+    function Camera(renderer, ratioY, movingSpeed, minimumCameraMove, maximumCameraMove, levelWidth, levelHeight, canvasWidth, canvasHeight) {
         /** The renderer for the MatterJS engine. */
         this.renderer = null;
-        /** Camera centering ratio X. */
-        this.ratioX = 0.0;
         /** Camera centering ratio X. */
         this.ratioY = 0.0;
         /** Camera moving speed. */
@@ -32516,7 +32523,6 @@ var Camera = /** @class */ (function () {
         /** The height of the canvas. */
         this.canvasHeight = 0.0;
         this.renderer = renderer;
-        this.ratioX = ratioX;
         this.ratioY = ratioY;
         this.movingSpeed = movingSpeed;
         this.minimumCameraMove = minimumCameraMove;
@@ -32530,14 +32536,13 @@ var Camera = /** @class */ (function () {
     *   Updates the singleton instance of the camera by reassigning
     *   it's horizontal and vertical offset.
     *
-    *   @param subjectX         The subject coordinate X to center the camera.
-    *   @param subjectY         The subject coordinate Y to center the camera.
-    *   @param lookingDirection The current direction the player looks at. TODO outsource / remove!
-    *   @param allowAscendY     Allows camera ascending Y.
-    *   @param fixedTargetX     A fixed camera position X or -1 if none.
+    *   @param subjectX     The subject coordinate X to center the camera.
+    *   @param subjectY     The subject coordinate Y to center the camera.
+    *   @param allowAscendY Allows camera ascending Y.
+    *   @param targetX      The camera target X.
     ***************************************************************************************************************/
-    Camera.prototype.update = function (subjectX, subjectY, lookingDirection, allowAscendY, fixedTargetX) {
-        this.calculateTargets(lookingDirection, subjectX, subjectY, fixedTargetX);
+    Camera.prototype.update = function (subjectX, subjectY, allowAscendY, targetX) {
+        this.calculateTargets(subjectX, subjectY, targetX);
         // move horizontal camera offsets to camera target
         var cameraMoveX = 0.0;
         if (this.offsetX < this.targetX) {
@@ -32602,38 +32607,19 @@ var Camera = /** @class */ (function () {
     ***************************************************************************************************************/
     Camera.prototype.reset = function () {
         // extract level and player access!
-        this.calculateTargets(ninjas.Main.game.level.player.lookingDirection, ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, -1);
+        this.calculateTargets(ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, ninjas.Main.game.engine.siteSystem.getCameraTargetX());
         this.offsetX = this.targetX;
         this.offsetY = this.targetY;
     };
     /***************************************************************************************************************
     *   Calculates the current camera tarets according to the specified subject.
     *
-    *   @param lookingDirection The current direction the subject is looking in.
-    *   @param subjectX         The subject's X to position the camera to.
-    *   @param subjectY         The subject's Y to position the camera to.
-    *   @param fixedTargetX     A fixed camera position X.
+    *   @param subjectX The subject's X to position the camera to.
+    *   @param subjectY The subject's Y to position the camera to.
+    *   @param targetX  A fixed camera position X.
     ***************************************************************************************************************/
-    Camera.prototype.calculateTargets = function (lookingDirection, subjectX, subjectY, fixedTargetX) {
-        // check screen quarter target
-        if (fixedTargetX != -1) {
-            this.targetX = subjectX - fixedTargetX;
-        }
-        else {
-            // calculate scroll-offsets so camera is centered to subject
-            switch (lookingDirection) {
-                case ninjas.CharacterLookingDirection.LEFT:
-                    {
-                        this.targetX = subjectX - (this.canvasWidth * (1.0 - this.ratioX));
-                        break;
-                    }
-                case ninjas.CharacterLookingDirection.RIGHT:
-                    {
-                        this.targetX = subjectX - (this.canvasWidth * this.ratioX);
-                        break;
-                    }
-            }
-        }
+    Camera.prototype.calculateTargets = function (subjectX, subjectY, targetX) {
+        this.targetX = subjectX - targetX;
         this.targetY = subjectY - (this.canvasHeight * this.ratioY);
         // clip targets X and Y to level bounds
         this.clipTargetsToLevelBounds();

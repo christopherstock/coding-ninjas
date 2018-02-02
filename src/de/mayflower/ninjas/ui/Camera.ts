@@ -14,8 +14,6 @@
         private     renderer                    :matter.Render          = null;
 
         /** Camera centering ratio X. */
-        private     ratioX                      :number                 = 0.0;
-        /** Camera centering ratio X. */
         private     ratioY                      :number                 = 0.0;
 
         /** Camera moving speed. */
@@ -49,8 +47,7 @@
         *   Constructs a new camera.
         *
         *   @param renderer         The MatterJS renderer to set the viewport to.
-        *   @param ratioX            Camera ratio X for horizontal centering of the player.
-        *   @param ratioY            Camera ratio Y for vertical centering   of the player.
+        *   @param ratioY            Camera ratio Y for vertical centering of the player.
         *   @param movingSpeed       The moving speed for the camera.
         *   @param minimumCameraMove The minimum camera movement step in px.
         *   @param maximumCameraMove The maximum camera movement step in px.
@@ -62,7 +59,6 @@
         public constructor
         (
             renderer          :matter.Render,
-            ratioX            :number,
             ratioY            :number,
             movingSpeed       :number,
             minimumCameraMove :number,
@@ -75,7 +71,6 @@
         {
             this.renderer          = renderer;
 
-            this.ratioX            = ratioX;
             this.ratioY            = ratioY;
 
             this.movingSpeed       = movingSpeed;
@@ -93,27 +88,24 @@
         *   Updates the singleton instance of the camera by reassigning
         *   it's horizontal and vertical offset.
         *
-        *   @param subjectX         The subject coordinate X to center the camera.
-        *   @param subjectY         The subject coordinate Y to center the camera.
-        *   @param lookingDirection The current direction the player looks at. TODO outsource / remove!
-        *   @param allowAscendY     Allows camera ascending Y.
-        *   @param fixedTargetX     A fixed camera position X or -1 if none.
+        *   @param subjectX     The subject coordinate X to center the camera.
+        *   @param subjectY     The subject coordinate Y to center the camera.
+        *   @param allowAscendY Allows camera ascending Y.
+        *   @param targetX      The camera target X.
         ***************************************************************************************************************/
         public update
         (
-            subjectX         :number,
-            subjectY         :number,
-            lookingDirection :ninjas.CharacterLookingDirection,
-            allowAscendY     :boolean,
-            fixedTargetX     :number
+            subjectX     :number,
+            subjectY     :number,
+            allowAscendY :boolean,
+            targetX      :number
         )
         {
             this.calculateTargets
             (
-                lookingDirection,
                 subjectX,
                 subjectY,
-                fixedTargetX
+                targetX
             );
 
             // move horizontal camera offsets to camera target
@@ -192,10 +184,9 @@
 
             this.calculateTargets
             (
-                ninjas.Main.game.level.player.lookingDirection,
                 ninjas.Main.game.level.player.shape.body.position.x,
                 ninjas.Main.game.level.player.shape.body.position.y,
-                -1
+                ninjas.Main.game.engine.siteSystem.getCameraTargetX()
             );
 
             this.offsetX = this.targetX;
@@ -205,43 +196,18 @@
         /***************************************************************************************************************
         *   Calculates the current camera tarets according to the specified subject.
         *
-        *   @param lookingDirection The current direction the subject is looking in.
-        *   @param subjectX         The subject's X to position the camera to.
-        *   @param subjectY         The subject's Y to position the camera to.
-        *   @param fixedTargetX     A fixed camera position X.
+        *   @param subjectX The subject's X to position the camera to.
+        *   @param subjectY The subject's Y to position the camera to.
+        *   @param targetX  A fixed camera position X.
         ***************************************************************************************************************/
         private calculateTargets
         (
-            lookingDirection :ninjas.CharacterLookingDirection,
-            subjectX         :number,
-            subjectY         :number,
-            fixedTargetX     :number
+            subjectX :number,
+            subjectY :number,
+            targetX  :number
         )
         {
-            // check screen quarter target
-            if ( fixedTargetX != -1 )
-            {
-                this.targetX = subjectX - fixedTargetX;
-            }
-            else
-            {
-                // calculate scroll-offsets so camera is centered to subject
-                switch ( lookingDirection )
-                {
-                    case ninjas.CharacterLookingDirection.LEFT:
-                    {
-                        this.targetX = subjectX - ( this.canvasWidth  * ( 1.0 - this.ratioX ) );
-                        break;
-                    }
-
-                    case ninjas.CharacterLookingDirection.RIGHT:
-                    {
-                        this.targetX = subjectX - ( this.canvasWidth  * this.ratioX );
-                        break;
-                    }
-                }
-            }
-
+            this.targetX = subjectX - targetX;
             this.targetY = subjectY - ( this.canvasHeight * this.ratioY );
 
             // clip targets X and Y to level bounds

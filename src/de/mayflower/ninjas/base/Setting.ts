@@ -34,8 +34,6 @@
         /** The default vertical gravity for all levels. */
         public      static  readonly    DEFAULT_GRAVITY_Y                           :number                     = 1.0;
 
-        /** The camera ration for the horizontal axis. TODO prune! > according to panel width! */
-        public      static  readonly    CAMERA_RATIO_X                              :number                     = 0.25;
         /** The camera ration for the vertical axis. */
         public      static  readonly    CAMERA_RATIO_Y                              :number                     = 0.5;
         /** The camera moving speed from 0.0 to 1.0. */

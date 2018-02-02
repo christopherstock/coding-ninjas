@@ -76,7 +76,6 @@
         {
             this.camera = new ninjas.Camera(
                 this.engine.matterJsSystem.getRenderer(),
-                ninjas.Setting.CAMERA_RATIO_X,
                 ninjas.Setting.CAMERA_RATIO_Y,
                 ninjas.Setting.CAMERA_MOVING_SPEED,
                 ninjas.Setting.CAMERA_MOVING_MINIMUM,
@@ -120,9 +119,8 @@
             this.camera.update(
                 this.level.player.shape.body.position.x,
                 this.level.player.shape.body.position.y,
-                this.level.player.lookingDirection,
                 this.level.player.collidesBottom,
-                this.engine.siteSystem.getFixedCameraTargetX()
+                this.engine.siteSystem.getCameraTargetX()
             );
         }
 
@@ -136,7 +134,6 @@
 
             context.fillStyle = "#ff0000";
             context.fillRect( this.engine.canvasSystem.getWidth() - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, ninjas.Setting.SITE_BORDER_SIZE, testHudWidth, testHudHeight );
-            // context.fillRect( this.canvasWidth - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, this.canvasHeight - ninjas.Setting.SITE_BORDER_SIZE - testHudHeight, testHudWidth, testHudHeight );
         }
 
         /***************************************************************************************************************

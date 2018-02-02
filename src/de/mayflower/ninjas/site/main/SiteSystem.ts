@@ -154,27 +154,41 @@
         *
         *   @return <code>true</code> if a site panel is currently active.
         *****************************************************************************/
-        public getFixedCameraTargetX() : number
+        public getCameraTargetX() : number
         {
+            // TODO cache in calculating panel sizes!!
+            let panelAndBorderWidth :number = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+            let leftCameraTargetX   :number = ( panelAndBorderWidth + ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth ) / 2 ) );
+            let rightCameraTargetX  :number = ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth ) / 2 );
+
             switch ( this.panelPosition )
             {
                 case ninjas.SitePanelPosition.NONE:
                 {
-                    return -1;
+                    switch ( ninjas.Main.game.level.player.lookingDirection )
+                    {
+                        case ninjas.CharacterLookingDirection.LEFT:
+                        {
+                            return leftCameraTargetX;
+                        }
+
+                        case ninjas.CharacterLookingDirection.RIGHT:
+                        {
+                            return rightCameraTargetX;
+                        }
+                    }
+
+                    throw new Error( "Camera position not determinable though undefined player looking direction!" );
                 }
 
                 case ninjas.SitePanelPosition.LEFT:
                 {
-                    let panelAndBorderWidth:number = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
-
-                    return ( panelAndBorderWidth + ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth ) / 2 ) );
+                    return leftCameraTargetX;
                 }
 
                 case ninjas.SitePanelPosition.RIGHT:
                 {
-                    let panelAndBorderWidth:number = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
-
-                    return ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - panelAndBorderWidth ) / 2 );
+                    return rightCameraTargetX;
                 }
             }
         }
