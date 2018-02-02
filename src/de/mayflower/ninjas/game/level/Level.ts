@@ -34,7 +34,7 @@
 
             // add all bodies of all game objects to the world
             for ( let gameObject of this.gameObjects ) {
-                ninjas.Main.game.matterJsSystem.addToWorld( gameObject.shape.body );
+                ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
             }
         }
 

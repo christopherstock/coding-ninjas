@@ -14,24 +14,9 @@
         /** The game engine. */
         public      engine                  :ninjas.GameEngine              = null;
 
-
-        /** The canvas element. */
-        public      canvasSystem            :ninjas.CanvasSystem            = null;
-        /** The image system. */
-        public      imageSystem             :ninjas.ImageSystem             = null;
-        /** The soundSystem system. */
-        public      soundSystem             :ninjas.SoundSystem             = null;
-        /** The matterJS engine. */
-        public      matterJsSystem          :ninjas.MatterJsSystem          = null;
-        /** The site system. */
-        public      siteSystem              :ninjas.SiteSystem              = null;
-        /** The custom key system. */
-        public      keySystem               :ninjas.KeySystem               = null;
-        /** The FPS counter. */
-        private     fpsMeter                :FPSMeter                       = null;
-
         /** The custom camera system. */
         public      camera                  :ninjas.Camera                  = null;
+
         /** The custom level. */
         public      level                   :ninjas.Level                   = null;
 
@@ -42,177 +27,30 @@
         {
             this.engine = new ninjas.GameEngine();
             this.engine.init();
-
-            this.initCanvas();
-            this.canvasSystem.updateDimensions();
-            this.initImageSystem();
         }
-
-        /***************************************************************************************************************
-        *   Being invoked when all images are loaded.
-        ***************************************************************************************************************/
-        private onImagesLoaded=() : void =>
-        {
-            ninjas.SpriteTemplate.assignAllImageSizes();
-
-            this.initSoundSystem();
-        };
-
-        /***************************************************************************************************************
-        *   Being invoked when all sounds are loaded.
-        ***************************************************************************************************************/
-        private onSoundsLoaded=() : void =>
-        {
-            // init matterJS
-            this.initMatterJS();
-
-            // init site system
-            this.initSiteSystem();
-
-            // init window resize handler
-            this.initWindowResizeHandler();
-
-            // init key system
-            this.initKeySystem();
-
-            // init FPS-counter
-            this.initFpsCounter();
-
-            // play bg sound
-            this.soundSystem.playSound( ninjas.Sound.BG_CHINESE, true );
-
-            // launch initial level
-            this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
-
-            // start game loop
-            ninjas.Debug.init.log( "Initing game engine completed" );
-            ninjas.Debug.init.log();
-            this.start();
-        };
 
         /***************************************************************************************************************
         *   Starts the game loop.
         ***************************************************************************************************************/
-        private start()
+        public start()
         {
+            ninjas.Debug.init.log( "Starting the game loop" );
+            ninjas.Debug.init.log();
+
+            // launch initial level
+            this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
+
             // render 1st engine tick
             this.tick();
 
             // start the renderer
-            this.matterJsSystem.startRenderer();
+            this.engine.matterJsSystem.startRenderer();
 
+            // invoke engine ticks repeatedly
             window.setInterval(
                 this.tick,
                 ninjas.Setting.RENDER_DELTA
             );
-        }
-
-        /***************************************************************************************************************
-        *   Inits the 2D canvas by creating and adding it to the document body.
-        ***************************************************************************************************************/
-        private initCanvas()
-        {
-            // create canvas system
-            this.canvasSystem = new ninjas.CanvasSystem();
-        }
-
-        /***************************************************************************************************************
-        *   Inits the 2D engine.
-        ***************************************************************************************************************/
-        private initMatterJS()
-        {
-            ninjas.Debug.init.log( "Initing 2D physics engine" );
-
-            this.matterJsSystem = new ninjas.MatterJsSystem
-            (
-                this.canvasSystem.getCanvas(),
-                ( renderContext:CanvasRenderingContext2D ) => { this.paint( renderContext ); },
-                this.imageSystem.getAll()
-            );
-        }
-
-        /***************************************************************************************************************
-        *   Inits the window resize handler.
-        ***************************************************************************************************************/
-        private initWindowResizeHandler()
-        {
-            window.onresize = ( event:Event ) => {
-
-                this.canvasSystem.updateDimensions();
-                this.matterJsSystem.updateEngineDimensions
-                (
-                    this.canvasSystem.getWidth(),
-                    this.canvasSystem.getHeight()
-                );
-                this.siteSystem.updatePanelSizeAndPosition();
-                this.resetCamera();
-            };
-        }
-
-        /***************************************************************************************************************
-        *   Inits the key system.
-        ***************************************************************************************************************/
-        private initKeySystem()
-        {
-            ninjas.Debug.init.log( "Initing key system" );
-
-            this.keySystem = new ninjas.KeySystem();
-        }
-
-        /***************************************************************************************************************
-        *   Inits the site system. TODO prune!
-        ***************************************************************************************************************/
-        private initSiteSystem()
-        {
-            ninjas.Debug.init.log( "Initing site system" );
-
-            this.siteSystem = new ninjas.SiteSystem();
-        }
-
-        /***************************************************************************************************************
-        *   Inits the FPS counter.
-        ***************************************************************************************************************/
-        private initFpsCounter()
-        {
-            ninjas.Debug.init.log( "Initing FPS counter" );
-
-            this.fpsMeter = new FPSMeter(
-                null,
-                {
-                    graph:    1,
-                    decimals: 1,
-                    position: "absolute",
-                    zIndex:   10,
-                    top:      "auto",
-                    right:    ninjas.Setting.SITE_BORDER_SIZE + "px",
-                    bottom:   ninjas.Setting.SITE_BORDER_SIZE + "px",
-                    left:     "auto",
-                    margin:   "0",
-                    heat:     1,
-                }
-            );
-        }
-
-        /***************************************************************************************************************
-        *   Inits the image system.
-        ***************************************************************************************************************/
-        private initImageSystem()
-        {
-            ninjas.Debug.init.log( "Initing image system" );
-
-            this.imageSystem = new ninjas.ImageSystem( ninjas.Image.FILE_NAMES, this.onImagesLoaded );
-            this.imageSystem.loadImages();
-        }
-
-        /***************************************************************************************************************
-        *   Inits the sound system.
-        ***************************************************************************************************************/
-        private initSoundSystem()
-        {
-            ninjas.Debug.init.log( "Initing sound system" );
-
-            this.soundSystem = new ninjas.SoundSystem( ninjas.Sound.FILE_NAMES, this.onSoundsLoaded );
-            this.soundSystem.loadSounds();
         }
 
         /***************************************************************************************************************
@@ -221,7 +59,7 @@
         private resetAndLaunchLevel( levelToLaunch:ninjas.Level )
         {
             // clear world
-            this.matterJsSystem.resetWorld();
+            this.engine.matterJsSystem.resetWorld();
 
             // assign and init level
             this.level = levelToLaunch;
@@ -234,10 +72,10 @@
         /***************************************************************************************************************
         *   Resets the camera.
         ***************************************************************************************************************/
-        private resetCamera()
+        public resetCamera()
         {
             this.camera = new ninjas.Camera(
-                this.matterJsSystem.getRenderer(),
+                this.engine.matterJsSystem.getRenderer(),
                 ninjas.Setting.CAMERA_RATIO_X,
                 ninjas.Setting.CAMERA_RATIO_Y,
                 ninjas.Setting.CAMERA_MOVING_SPEED,
@@ -245,8 +83,8 @@
                 ninjas.Setting.CAMERA_MOVING_MAXIMUM,
                 this.level.width,
                 this.level.height,
-                this.canvasSystem.getWidth(),
-                this.canvasSystem.getHeight()
+                this.engine.canvasSystem.getWidth(),
+                this.engine.canvasSystem.getHeight()
             );
             this.camera.reset();
         }
@@ -256,15 +94,15 @@
         ***************************************************************************************************************/
         private tick=()=>
         {
-            this.fpsMeter.tickStart();
+            this.engine.fpsMeter.tickStart();
 
             // render the engine
             this.render();
 
             // update MatterJS 2d engine
-            this.matterJsSystem.updateEngine( ninjas.Setting.RENDER_DELTA );
+            this.engine.matterJsSystem.updateEngine( ninjas.Setting.RENDER_DELTA );
 
-            this.fpsMeter.tick();
+            this.engine.fpsMeter.tick();
         };
 
         /***************************************************************************************************************
@@ -284,20 +122,20 @@
                 this.level.player.shape.body.position.y,
                 this.level.player.lookingDirection,
                 this.level.player.collidesBottom,
-                this.siteSystem.getFixedCameraTargetX()
+                this.engine.siteSystem.getFixedCameraTargetX()
             );
         }
 
         /***************************************************************************************************************
         *   Paints all overlays after Matter.js completed rendering the scene.
         ***************************************************************************************************************/
-        private paint( context:CanvasRenderingContext2D )
+        public paint( context:CanvasRenderingContext2D )
         {
             let testHudWidth:number  = 150;
             let testHudHeight:number = 50;
 
             context.fillStyle = "#ff0000";
-            context.fillRect( this.canvasSystem.getWidth() - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, ninjas.Setting.SITE_BORDER_SIZE, testHudWidth, testHudHeight );
+            context.fillRect( this.engine.canvasSystem.getWidth() - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, ninjas.Setting.SITE_BORDER_SIZE, testHudWidth, testHudHeight );
             // context.fillRect( this.canvasWidth - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, this.canvasHeight - ninjas.Setting.SITE_BORDER_SIZE - testHudHeight, testHudWidth, testHudHeight );
         }
 
@@ -306,25 +144,25 @@
         ***************************************************************************************************************/
         private handleMenuKey()
         {
-            if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_1 ) )
+            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_1 ) )
             {
-                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.Key.KEY_1 );
+                ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_1 );
 
                 ninjas.Debug.init.log( "Switching to level 1" );
                 this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
             }
 
-            if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_2 ) )
+            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_2 ) )
             {
-                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.Key.KEY_2 );
+                ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_2 );
 
                 ninjas.Debug.init.log( "Switching to level 2" );
                 this.resetAndLaunchLevel( new ninjas.LevelAllElements() );
             }
 
-            if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_3 ) )
+            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_3 ) )
             {
-                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.Key.KEY_3 );
+                ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_3 );
 
                 ninjas.Debug.init.log( "Switching to level 3" );
                 this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );

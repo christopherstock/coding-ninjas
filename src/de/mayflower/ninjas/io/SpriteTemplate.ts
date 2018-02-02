@@ -255,15 +255,15 @@
         ***************************************************************************************************************/
         private assignImageSizes()
         {
-            this.width  = ninjas.Main.game.imageSystem.getImage( this.imageIds[ 0 ] ).width;
-            this.height = ninjas.Main.game.imageSystem.getImage( this.imageIds[ 0 ] ).height;
+            this.width  = ninjas.Main.game.engine.imageSystem.getImage( this.imageIds[ 0 ] ).width;
+            this.height = ninjas.Main.game.engine.imageSystem.getImage( this.imageIds[ 0 ] ).height;
 
             // browse all frames and alert on differing dimensions
             for ( let i = 0; i < this.imageIds.length; ++i )
             {
                 if (
-                       this.width  != ninjas.Main.game.imageSystem.getImage( this.imageIds[ i ] ).width
-                    || this.height != ninjas.Main.game.imageSystem.getImage( this.imageIds[ i ] ).height
+                       this.width  != ninjas.Main.game.engine.imageSystem.getImage( this.imageIds[ i ] ).width
+                    || this.height != ninjas.Main.game.engine.imageSystem.getImage( this.imageIds[ i ] ).height
                 )
                 {
                     throw new Error( "Differing sprite frame size detected in image id [" + this.imageIds[ i ] + "]" );

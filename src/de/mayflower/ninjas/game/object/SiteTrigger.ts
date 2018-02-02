@@ -52,7 +52,7 @@
                     // get panel popup according to player looking direction
                     let panelPosition:ninjas.SitePanelPosition = this.determinePanelPosition();
 
-                    if ( ninjas.Main.game.siteSystem.show( panelPosition ) )
+                    if ( ninjas.Main.game.engine.siteSystem.show( panelPosition ) )
                     {
                         this.sitePanelActive = true;
                     }
@@ -62,7 +62,7 @@
             {
                 if ( this.sitePanelActive )
                 {
-                    if ( ninjas.Main.game.siteSystem.hide() )
+                    if ( ninjas.Main.game.engine.siteSystem.hide() )
                     {
                         this.sitePanelActive = false;
                     }

@@ -5,7 +5,6 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Camera for looking directions same as if panel wou
-    *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
     *   TODO Move game object classes to appropriate subpackages!
     *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
     *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!

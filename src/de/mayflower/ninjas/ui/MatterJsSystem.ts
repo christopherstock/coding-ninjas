@@ -49,8 +49,8 @@
                         showAngleIndicator: true,
                         showVelocity:       true,
                         background:         ninjas.Setting.CANVAS_BG,
-                        width:              ninjas.Main.game.canvasSystem.getWidth(),
-                        height:             ninjas.Main.game.canvasSystem.getHeight(),
+                        width:              ninjas.Main.game.engine.canvasSystem.getWidth(),
+                        height:             ninjas.Main.game.engine.canvasSystem.getHeight(),
 
                         // textures:           ninjas.Image.FILE_NAMES,
                     } as any,

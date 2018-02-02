@@ -70,18 +70,18 @@
         ***************************************************************************************************************/
         private handleKeys()
         {
-            if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_LEFT ) )
+            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_LEFT ) )
             {
                 this.moveLeft();
             }
-            else if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_RIGHT ) )
+            else if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_RIGHT ) )
             {
                 this.moveRight();
             }
 
-            if ( ninjas.Main.game.keySystem.isPressed( ninjas.Key.KEY_UP ) )
+            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_UP ) )
             {
-                ninjas.Main.game.keySystem.setNeedsRelease( ninjas.Key.KEY_UP );
+                ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_UP );
 
                 if ( this.collidesBottom )
                 {

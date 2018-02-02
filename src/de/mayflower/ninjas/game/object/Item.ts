@@ -69,6 +69,6 @@
             this.picked = true;
 
             // remove item body
-            ninjas.Main.game.matterJsSystem.removeFromWorld( this.shape.body );
+            ninjas.Main.game.engine.matterJsSystem.removeFromWorld( this.shape.body );
         }
     }

@@ -90,11 +90,11 @@
 
             if ( this.template.mirrored == ninjas.MirrorImage.YES )
             {
-                return ninjas.Main.game.imageSystem.getMirroredImage( imageId ).src;
+                return ninjas.Main.game.engine.imageSystem.getMirroredImage( imageId ).src;
             }
             else
             {
-                return ninjas.Main.game.imageSystem.getImage( imageId ).src;
+                return ninjas.Main.game.engine.imageSystem.getImage( imageId ).src;
             }
         }
     }

@@ -46,7 +46,7 @@
                 }
             );
 
-            ninjas.Main.game.matterJsSystem.addToWorld( this.constraint );
+            ninjas.Main.game.engine.matterJsSystem.addToWorld( this.constraint );
         }
 
         /***************************************************************************************************************
