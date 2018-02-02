@@ -50,6 +50,7 @@
     export * from './site/main/SiteSystem';
 
     export * from './ui/Camera';
+    export * from './ui/CanvasSystem';
 
     export * from './util/IO';
     export * from './util/MathUtil';

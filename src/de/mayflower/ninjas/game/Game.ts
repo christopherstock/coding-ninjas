@@ -14,7 +14,13 @@
     *******************************************************************************************************************/
     export class Game
     {
+
+
+
         // TODO wrap these four values to class CanvasSystem
+
+        /** The canvas element. */
+        public      canvasSystem            :ninjas.CanvasSystem            = null;
 
         /** The canvas element. */
         public      canvas                  :HTMLCanvasElement              = null;
@@ -57,8 +63,8 @@
         ***************************************************************************************************************/
         public init()
         {
-            this.updateCanvasDimensions();
             this.initCanvas();
+            this.updateCanvasDimensions();
             this.initImageSystem();
         }
 
@@ -158,6 +164,11 @@
         ***************************************************************************************************************/
         private initCanvas()
         {
+            // create canvas system
+            this.canvasSystem = new ninjas.CanvasSystem();
+
+
+
             // create
             this.canvas = document.createElement( "canvas" );
 

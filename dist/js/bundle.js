@@ -4657,6 +4657,7 @@ __export(__webpack_require__(170));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
+__export(__webpack_require__(180));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
 __export(__webpack_require__(177));
@@ -27397,7 +27398,7 @@ var Setting = /** @class */ (function () {
     Setting.PLAYER_SPEED_MOVE = 7.5;
     /** The default vertical gravity for all levels. */
     Setting.DEFAULT_GRAVITY_Y = 1.0;
-    /** The camera ration for the horizontal axis. */
+    /** The camera ration for the horizontal axis. TODO prune! > according to panel width! */
     Setting.CAMERA_RATIO_X = 0.25;
     /** The camera ration for the vertical axis. */
     Setting.CAMERA_RATIO_Y = 0.5;
@@ -27553,19 +27554,18 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Enable different animations for site panel.
-*
-*   TODO Remove timeout and use Enine.events.tick?
-*   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
-*
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
+*
 *   TODO Move game object classes to appropriate subpackages!
 *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
 *
+*   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
+*   TODO Remove timeout and use Enine.events.tick?
 *   TODO Add 'attack' action and sprite.
 *   TODO Parallax Fence in fg. ( parallax machanism for game decos ? )
 *   TODO Create parallax bg images in bg and fg (pick parallex class!).
 *   TODO Auto-release all keys on losing canvas focus?
+*   TODO Enable different animations for site panel.
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
@@ -27579,6 +27579,7 @@ var ninjas = __webpack_require__(1);
 *   TODO Add react and ant design / ant design pro.
 *   TODO Add react for site content creation.
 *   TODO Add ant design for site contents.
+*   TODO Camera for looking directions same as if panel would be open!
 *
 *   TODO Setting: extract debub settings, engine settings etc. > own package?
 *   TODO outsource lib classes to package de.mayflower.lib??
@@ -29798,6 +29799,8 @@ var Game = /** @class */ (function () {
         // TODO wrap these four values to class CanvasSystem
         var _this = this;
         /** The canvas element. */
+        this.canvasSystem = null;
+        /** The canvas element. */
         this.canvas = null;
         /** The canvas rendering context. */
         this.canvasContext = null;
@@ -29880,8 +29883,8 @@ var Game = /** @class */ (function () {
     *   Inits all components of the game.
     ***************************************************************************************************************/
     Game.prototype.init = function () {
-        this.updateCanvasDimensions();
         this.initCanvas();
+        this.updateCanvasDimensions();
         this.initImageSystem();
     };
     /***************************************************************************************************************
@@ -29921,6 +29924,8 @@ var Game = /** @class */ (function () {
     *   Inits the 2D canvas by creating and adding it to the document body.
     ***************************************************************************************************************/
     Game.prototype.initCanvas = function () {
+        // create canvas system
+        this.canvasSystem = new ninjas.CanvasSystem();
         // create
         this.canvas = document.createElement("canvas");
         // reference 2d rendering context
@@ -33160,6 +33165,30 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = 179;
+
+/***/ }),
+/* 180 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Manages the canvas.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var CanvasSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Constructs a new canvas system.
+    ***************************************************************************************************************/
+    function CanvasSystem() {
+    }
+    return CanvasSystem;
+}());
+exports.CanvasSystem = CanvasSystem;
+
 
 /***/ })
 /******/ ]);

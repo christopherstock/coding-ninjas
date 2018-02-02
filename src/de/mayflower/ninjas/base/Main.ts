@@ -4,19 +4,18 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Enable different animations for site panel.
-    *
-    *   TODO Remove timeout and use Enine.events.tick?
-    *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
-    *
     *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
+    *
     *   TODO Move game object classes to appropriate subpackages!
     *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
     *
+    *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
+    *   TODO Remove timeout and use Enine.events.tick?
     *   TODO Add 'attack' action and sprite.
     *   TODO Parallax Fence in fg. ( parallax machanism for game decos ? )
     *   TODO Create parallax bg images in bg and fg (pick parallex class!).
     *   TODO Auto-release all keys on losing canvas focus?
+    *   TODO Enable different animations for site panel.
     *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
     *   TODO simplify sprite-image-system's frame ranges!
     *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
@@ -30,6 +29,7 @@
     *   TODO Add react and ant design / ant design pro.
     *   TODO Add react for site content creation.
     *   TODO Add ant design for site contents.
+    *   TODO Camera for looking directions same as if panel would be open!
     *
     *   TODO Setting: extract debub settings, engine settings etc. > own package?
     *   TODO outsource lib classes to package de.mayflower.lib??
