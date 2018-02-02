@@ -32437,6 +32437,8 @@ var SiteSystem = /** @class */ (function () {
         this.animationInProgress = null;
         /** Flags if a panel is currently shown. */
         this.panelPosition = ninjas.SitePanelPosition.NONE;
+        /** The current width of the panel. */
+        this.panelWidth = 0;
     }
     /*****************************************************************************
     *   Being invoked when a site shall be shown.
@@ -32500,21 +32502,21 @@ var SiteSystem = /** @class */ (function () {
     *****************************************************************************/
     SiteSystem.prototype.updatePanelSizeAndPosition = function () {
         if (this.currentPanel != null) {
-            var newPanelWidth = (ninjas.Main.game.canvasWidth / 2 - ninjas.Setting.SITE_BORDER_SIZE);
-            if (newPanelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
-                newPanelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
+            this.panelWidth = (ninjas.Main.game.canvasWidth / 2 - ninjas.Setting.SITE_BORDER_SIZE);
+            if (this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
+                this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
             }
-            this.currentPanel.style.width = newPanelWidth + "px";
+            this.currentPanel.style.width = this.panelWidth + "px";
             this.currentPanel.style.height = (ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
             if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
                 this.currentPanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
             }
             else {
-                this.currentPanel.style.left = (ninjas.Main.game.canvasWidth - newPanelWidth - ninjas.Setting.SITE_BORDER_SIZE) + "px";
+                this.currentPanel.style.left = (ninjas.Main.game.canvasWidth - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE) + "px";
             }
             // TODO to own reference in class Site! remove id!
             var siteContainer = document.getElementById("siteContainer");
-            siteContainer.style.width = (newPanelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
+            siteContainer.style.width = (this.panelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
         }
     };
     /*****************************************************************************
@@ -32530,11 +32532,13 @@ var SiteSystem = /** @class */ (function () {
                 }
             case ninjas.SitePanelPosition.LEFT:
                 {
-                    return (ninjas.Main.game.canvasWidth * 0.75);
+                    var panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+                    return (panelAndBorderWidth + ((ninjas.Main.game.canvasWidth - panelAndBorderWidth) / 2));
                 }
             case ninjas.SitePanelPosition.RIGHT:
                 {
-                    return (ninjas.Main.game.canvasWidth * 0.25);
+                    var panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+                    return ((ninjas.Main.game.canvasWidth - panelAndBorderWidth) / 2);
                 }
         }
     };

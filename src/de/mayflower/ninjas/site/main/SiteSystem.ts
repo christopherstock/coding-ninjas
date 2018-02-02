@@ -20,6 +20,9 @@
         /** Flags if a panel is currently shown. */
         private                 panelPosition                   :ninjas.SitePanelPosition   = ninjas.SitePanelPosition.NONE;
 
+        /** The current width of the panel. */
+        private                 panelWidth                      :number                     = 0;
+
         /*****************************************************************************
         *   Being invoked when a site shall be shown.
         *
@@ -113,13 +116,13 @@
         {
             if ( this.currentPanel != null )
             {
-                let newPanelWidth:number = ( ninjas.Main.game.canvasWidth  / 2 - ninjas.Setting.SITE_BORDER_SIZE );
-                if ( newPanelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH )
+                this.panelWidth = ( ninjas.Main.game.canvasWidth  / 2 - ninjas.Setting.SITE_BORDER_SIZE );
+                if ( this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH )
                 {
-                    newPanelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
+                    this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
                 }
 
-                this.currentPanel.style.width  = newPanelWidth + "px";
+                this.currentPanel.style.width  = this.panelWidth + "px";
                 this.currentPanel.style.height = ( ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
 
                 if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
@@ -128,12 +131,12 @@
                 }
                 else
                 {
-                    this.currentPanel.style.left = ( ninjas.Main.game.canvasWidth - newPanelWidth - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+                    this.currentPanel.style.left = ( ninjas.Main.game.canvasWidth - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
                 }
 
                 // TODO to own reference in class Site! remove id!
                 let siteContainer:HTMLDivElement = document.getElementById( "siteContainer" ) as HTMLDivElement;
-                siteContainer.style.width  = ( newPanelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+                siteContainer.style.width  = ( this.panelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
             }
         }
 
@@ -153,12 +156,16 @@
 
                 case ninjas.SitePanelPosition.LEFT:
                 {
-                    return ( ninjas.Main.game.canvasWidth  * 0.75 );
+                    let panelAndBorderWidth:number = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+
+                    return ( panelAndBorderWidth + ( ( ninjas.Main.game.canvasWidth - panelAndBorderWidth ) / 2 ) );
                 }
 
                 case ninjas.SitePanelPosition.RIGHT:
                 {
-                    return ( ninjas.Main.game.canvasWidth  * 0.25 );
+                    let panelAndBorderWidth:number = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+
+                    return ( ( ninjas.Main.game.canvasWidth - panelAndBorderWidth ) / 2 );
                 }
             }
         }
