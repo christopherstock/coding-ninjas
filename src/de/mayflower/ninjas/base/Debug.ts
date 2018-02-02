@@ -25,9 +25,11 @@
         public      static      enemy           :Debug              = new Debug( true  );
         /** Debugs site events. */
         public      static      site            :Debug              = new Debug( true  );
+        /** Debugs canvas events. */
+        public      static      canvas          :Debug              = new Debug( true  );
 
         /** The flag that enables or disables logging for this debug group. */
-        private             debugEnabled    :boolean            = false;
+        private                 debugEnabled    :boolean            = false;
 
         /***************************************************************************************************************
         *   Constructs a new debug group.

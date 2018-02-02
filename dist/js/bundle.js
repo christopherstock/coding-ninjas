@@ -27538,6 +27538,8 @@ var Debug = /** @class */ (function () {
     Debug.enemy = new Debug(true);
     /** Debugs site events. */
     Debug.site = new Debug(true);
+    /** Debugs canvas events. */
+    Debug.canvas = new Debug(true);
     return Debug;
 }());
 exports.Debug = Debug;
@@ -29800,14 +29802,6 @@ var Game = /** @class */ (function () {
         var _this = this;
         /** The canvas element. */
         this.canvasSystem = null;
-        /** The canvas element. */
-        this.canvas = null;
-        /** The canvas rendering context. */
-        this.canvasContext = null;
-        /** The current width of the canvas. */
-        this.canvasWidth = 0;
-        /** The current height of the canvas. */
-        this.canvasHeight = 0;
         // TODO wrap these two values to class MatterSystem
         /** The MatterJS engine. */
         this.engine = null;
@@ -29901,23 +29895,16 @@ var Game = /** @class */ (function () {
     *   Updates the dimensions of the canvas according to the browser window.
     ***************************************************************************************************************/
     Game.prototype.updateCanvasDimensions = function () {
-        this.canvasWidth = window.innerWidth;
-        this.canvasHeight = window.innerHeight;
-        // clip to minimum canvas dimensions
-        if (this.canvasWidth < ninjas.Setting.MIN_CANVAS_WIDTH)
-            this.canvasWidth = ninjas.Setting.MIN_CANVAS_WIDTH;
-        if (this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT)
-            this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
-        ninjas.Debug.init.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
+        this.canvasSystem.updateDimensions();
     };
     /***************************************************************************************************************
     *   Updates the dimensions of the canvas according to the browser window.
     ***************************************************************************************************************/
     Game.prototype.updateMatterEngineDimensions = function () {
-        this.renderer.canvas.width = this.canvasWidth;
-        this.renderer.canvas.height = this.canvasHeight;
-        this.renderer.options.width = this.canvasWidth;
-        this.renderer.options.height = this.canvasHeight;
+        this.renderer.canvas.width = this.canvasSystem.getWidth();
+        this.renderer.canvas.height = this.canvasSystem.getHeight();
+        this.renderer.options.width = this.canvasSystem.getWidth();
+        this.renderer.options.height = this.canvasSystem.getHeight();
         ninjas.Debug.init.log("Updated matter.js engine dimensions according to canvas.");
     };
     /***************************************************************************************************************
@@ -29926,15 +29913,6 @@ var Game = /** @class */ (function () {
     Game.prototype.initCanvas = function () {
         // create canvas system
         this.canvasSystem = new ninjas.CanvasSystem();
-        // create
-        this.canvas = document.createElement("canvas");
-        // reference 2d rendering context
-        this.canvasContext = this.canvas.getContext("2d");
-        // set dimensions
-        this.canvas.width = this.canvasWidth;
-        this.canvas.height = this.canvasHeight;
-        // append to body
-        document.body.appendChild(this.canvas);
     };
     /***************************************************************************************************************
     *   Inits the 2D engine.
@@ -29951,7 +29929,7 @@ var Game = /** @class */ (function () {
         };
         // create renderer
         this.renderer = matter.Render.create({
-            canvas: this.canvas,
+            canvas: this.canvasSystem.getCanvas(),
             engine: this.engine,
             options: {
                 hasBounds: true,
@@ -29960,8 +29938,8 @@ var Game = /** @class */ (function () {
                 showAngleIndicator: true,
                 showVelocity: true,
                 background: ninjas.Setting.CANVAS_BG,
-                width: this.canvasWidth,
-                height: this.canvasHeight,
+                width: this.canvasSystem.getWidth(),
+                height: this.canvasSystem.getHeight(),
             },
         });
         //set all loaded image as MatterJS texture cache
@@ -30064,7 +30042,7 @@ var Game = /** @class */ (function () {
     *   Resets the camera.
     ***************************************************************************************************************/
     Game.prototype.resetCamera = function () {
-        this.camera = new ninjas.Camera(this.renderer, ninjas.Setting.CAMERA_RATIO_X, ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, ninjas.Setting.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.canvasWidth, this.canvasHeight);
+        this.camera = new ninjas.Camera(this.renderer, ninjas.Setting.CAMERA_RATIO_X, ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, ninjas.Setting.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.canvasSystem.getWidth(), this.canvasSystem.getHeight());
         this.camera.reset();
     };
     /***************************************************************************************************************
@@ -30085,7 +30063,7 @@ var Game = /** @class */ (function () {
         var testHudWidth = 150;
         var testHudHeight = 50;
         context.fillStyle = "#ff0000";
-        context.fillRect(this.canvasWidth - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, ninjas.Setting.SITE_BORDER_SIZE, testHudWidth, testHudHeight);
+        context.fillRect(this.canvasSystem.getWidth() - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, ninjas.Setting.SITE_BORDER_SIZE, testHudWidth, testHudHeight);
         // context.fillRect( this.canvasWidth - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, this.canvasHeight - ninjas.Setting.SITE_BORDER_SIZE - testHudHeight, testHudWidth, testHudHeight );
     };
     /***************************************************************************************************************
@@ -32507,17 +32485,17 @@ var SiteSystem = /** @class */ (function () {
     *****************************************************************************/
     SiteSystem.prototype.updatePanelSizeAndPosition = function () {
         if (this.currentPanel != null) {
-            this.panelWidth = (ninjas.Main.game.canvasWidth / 2 - ninjas.Setting.SITE_BORDER_SIZE);
+            this.panelWidth = (ninjas.Main.game.canvasSystem.getWidth() / 2 - ninjas.Setting.SITE_BORDER_SIZE);
             if (this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
                 this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
             }
             this.currentPanel.style.width = this.panelWidth + "px";
-            this.currentPanel.style.height = (ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
+            this.currentPanel.style.height = (ninjas.Main.game.canvasSystem.getHeight() - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
             if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
                 this.currentPanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
             }
             else {
-                this.currentPanel.style.left = (ninjas.Main.game.canvasWidth - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE) + "px";
+                this.currentPanel.style.left = (ninjas.Main.game.canvasSystem.getWidth() - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE) + "px";
             }
             // TODO to own reference in class Site! remove id!
             var siteContainer = document.getElementById("siteContainer");
@@ -32538,12 +32516,12 @@ var SiteSystem = /** @class */ (function () {
             case ninjas.SitePanelPosition.LEFT:
                 {
                     var panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
-                    return (panelAndBorderWidth + ((ninjas.Main.game.canvasWidth - panelAndBorderWidth) / 2));
+                    return (panelAndBorderWidth + ((ninjas.Main.game.canvasSystem.getWidth() - panelAndBorderWidth) / 2));
                 }
             case ninjas.SitePanelPosition.RIGHT:
                 {
                     var panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
-                    return ((ninjas.Main.game.canvasWidth - panelAndBorderWidth) / 2);
+                    return ((ninjas.Main.game.canvasSystem.getWidth() - panelAndBorderWidth) / 2);
                 }
         }
     };
@@ -33173,6 +33151,7 @@ webpackContext.id = 179;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   Manages the canvas.
 *
@@ -33184,7 +33163,58 @@ var CanvasSystem = /** @class */ (function () {
     *   Constructs a new canvas system.
     ***************************************************************************************************************/
     function CanvasSystem() {
+        /** The canvas element. */
+        this.canvas = null;
+        /** The canvas rendering context. */
+        this.canvasContext = null;
+        /** The current width of the canvas. */
+        this.canvasWidth = 0;
+        /** The current height of the canvas. */
+        this.canvasHeight = 0;
+        // create
+        this.canvas = document.createElement("canvas");
+        // reference 2d rendering context
+        this.canvasContext = this.canvas.getContext("2d");
+        // append to body
+        document.body.appendChild(this.canvas);
     }
+    /***************************************************************************************************************
+    *   Updates the canvas dimensions according to current screen size.
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.updateDimensions = function () {
+        this.canvasWidth = window.innerWidth;
+        this.canvasHeight = window.innerHeight;
+        // clip to minimum canvas dimensions
+        if (this.canvasWidth < ninjas.Setting.MIN_CANVAS_WIDTH)
+            this.canvasWidth = ninjas.Setting.MIN_CANVAS_WIDTH;
+        if (this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT)
+            this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
+        ninjas.Debug.canvas.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
+    };
+    /***************************************************************************************************************
+    *   Returns the current canvas width.
+    *
+    *   @return Current canvas width.
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.getWidth = function () {
+        return this.canvasWidth;
+    };
+    /***************************************************************************************************************
+    *   Returns the current canvas height.
+    *
+    *   @return Current canvas height.
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.getHeight = function () {
+        return this.canvasHeight;
+    };
+    /***************************************************************************************************************
+    *   Returns the current canvas object.
+    *
+    *   @return The HTML canvas object..
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.getCanvas = function () {
+        return this.canvas;
+    };
     return CanvasSystem;
 }());
 exports.CanvasSystem = CanvasSystem;

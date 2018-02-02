@@ -116,14 +116,14 @@
         {
             if ( this.currentPanel != null )
             {
-                this.panelWidth = ( ninjas.Main.game.canvasWidth  / 2 - ninjas.Setting.SITE_BORDER_SIZE );
+                this.panelWidth = ( ninjas.Main.game.canvasSystem.getWidth()  / 2 - ninjas.Setting.SITE_BORDER_SIZE );
                 if ( this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH )
                 {
                     this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
                 }
 
                 this.currentPanel.style.width  = this.panelWidth + "px";
-                this.currentPanel.style.height = ( ninjas.Main.game.canvasHeight - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+                this.currentPanel.style.height = ( ninjas.Main.game.canvasSystem.getHeight() - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
 
                 if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
                 {
@@ -131,7 +131,7 @@
                 }
                 else
                 {
-                    this.currentPanel.style.left = ( ninjas.Main.game.canvasWidth - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+                    this.currentPanel.style.left = ( ninjas.Main.game.canvasSystem.getWidth() - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
                 }
 
                 // TODO to own reference in class Site! remove id!
@@ -158,14 +158,14 @@
                 {
                     let panelAndBorderWidth:number = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
 
-                    return ( panelAndBorderWidth + ( ( ninjas.Main.game.canvasWidth - panelAndBorderWidth ) / 2 ) );
+                    return ( panelAndBorderWidth + ( ( ninjas.Main.game.canvasSystem.getWidth() - panelAndBorderWidth ) / 2 ) );
                 }
 
                 case ninjas.SitePanelPosition.RIGHT:
                 {
                     let panelAndBorderWidth:number = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
 
-                    return ( ( ninjas.Main.game.canvasWidth - panelAndBorderWidth ) / 2 );
+                    return ( ( ninjas.Main.game.canvasSystem.getWidth() - panelAndBorderWidth ) / 2 );
                 }
             }
         }
