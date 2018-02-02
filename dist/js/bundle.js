@@ -29788,7 +29788,6 @@ exports.SiteTrigger = SiteTrigger;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-var wow = __webpack_require__(158);
 __webpack_require__(159);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
@@ -29801,25 +29800,22 @@ var Game = /** @class */ (function () {
         var _this = this;
         /** The canvas element. */
         this.canvasSystem = null;
-        /** The matterJS engine. */
-        this.matterJsSystem = null;
-        // TODO to engine!!
-        /** The custom camera system. */
-        this.camera = null;
-        /** The custom level. */
-        this.level = null;
         /** The image system. */
         this.imageSystem = null;
         /** The soundSystem system. */
         this.soundSystem = null;
-        /** The custom key system. */
-        this.keySystem = null;
+        /** The matterJS engine. */
+        this.matterJsSystem = null;
         /** The site system. */
         this.siteSystem = null;
         /** The FPS counter. */
         this.fpsMeter = null;
-        /** The WOW animation system. TODO to siteSystem? */
-        this.wowSystem = null;
+        /** The custom key system. */
+        this.keySystem = null;
+        /** The custom camera system. */
+        this.camera = null;
+        /** The custom level. */
+        this.level = null;
         /***************************************************************************************************************
         *   Being invoked when all images are loaded.
         ***************************************************************************************************************/
@@ -29833,14 +29829,12 @@ var Game = /** @class */ (function () {
         this.onSoundsLoaded = function () {
             // init matterJS
             _this.initMatterJS();
-            // init window resize handler
-            _this.initWindowResizeHandler();
             // init site system
             _this.initSiteSystem();
+            // init window resize handler
+            _this.initWindowResizeHandler();
             // init FPS-counter
             _this.initFpsCounter();
-            // init WOW animations
-            _this.initWow();
             // init key system
             _this.initKeySystem();
             // play bg sound
@@ -29928,9 +29922,10 @@ var Game = /** @class */ (function () {
         this.keySystem = new ninjas.KeySystem();
     };
     /***************************************************************************************************************
-    *   Inits the site system.
+    *   Inits the site system. TODO prune!
     ***************************************************************************************************************/
     Game.prototype.initSiteSystem = function () {
+        ninjas.Debug.init.log("Initing site system");
         this.siteSystem = new ninjas.SiteSystem();
     };
     /***************************************************************************************************************
@@ -29950,21 +29945,6 @@ var Game = /** @class */ (function () {
             margin: "0",
             heat: 1,
         });
-    };
-    /***************************************************************************************************************
-    *   Inits the WOW animation system.
-    ***************************************************************************************************************/
-    Game.prototype.initWow = function () {
-        ninjas.Debug.init.log("Initing WOW animations");
-        this.wowSystem = new wow.WOW({
-            boxClass: 'wow',
-            animateClass: 'animated',
-            offset: 0,
-            mobile: true,
-            scrollContainer: null,
-            live: true,
-        });
-        this.wowSystem.init();
     };
     /***************************************************************************************************************
     *   Inits the image system.
@@ -32353,8 +32333,9 @@ var SitePanelPosition;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(5);
 var ninjas = __webpack_require__(1);
+__webpack_require__(5);
+var wow = __webpack_require__(158);
 /*******************************************************************************************************************
 *   Manages the communication between the game and the company presentation.
 *
@@ -32362,6 +32343,9 @@ var ninjas = __webpack_require__(1);
 *   @version    0.0.1
 *******************************************************************************************************************/
 var SiteSystem = /** @class */ (function () {
+    /*****************************************************************************
+    *   Creates a new site system.
+    *****************************************************************************/
     function SiteSystem() {
         /** The current site panel. */
         this.currentPanel = null;
@@ -32371,6 +32355,9 @@ var SiteSystem = /** @class */ (function () {
         this.panelPosition = ninjas.SitePanelPosition.NONE;
         /** The current width of the panel. */
         this.panelWidth = 0;
+        /** The WOW animation system. */
+        this.wowSystem = null;
+        this.initWowSystem();
     }
     /*****************************************************************************
     *   Being invoked when a site shall be shown.
@@ -32395,7 +32382,7 @@ var SiteSystem = /** @class */ (function () {
         }
         document.body.appendChild(this.currentPanel);
         this.updatePanelSizeAndPosition();
-        ninjas.Main.game.wowSystem.sync();
+        this.wowSystem.sync();
         window.setTimeout(function () {
             _this.animationInProgress = false;
         }, 1000);
@@ -32421,7 +32408,7 @@ var SiteSystem = /** @class */ (function () {
             this.currentPanel.className = "wow bounceOutRight";
         }
         this.panelPosition = ninjas.SitePanelPosition.NONE;
-        ninjas.Main.game.wowSystem.sync();
+        this.wowSystem.sync();
         window.setTimeout(function () {
             _this.currentPanel.remove();
             _this.currentPanel = null;
@@ -32473,6 +32460,21 @@ var SiteSystem = /** @class */ (function () {
                     return ((ninjas.Main.game.canvasSystem.getWidth() - panelAndBorderWidth) / 2);
                 }
         }
+    };
+    /***************************************************************************************************************
+    *   Inits the WOW animation system.
+    ***************************************************************************************************************/
+    SiteSystem.prototype.initWowSystem = function () {
+        ninjas.Debug.init.log("Initing WOW animations");
+        this.wowSystem = new wow.WOW({
+            boxClass: 'wow',
+            animateClass: 'animated',
+            offset: 0,
+            mobile: true,
+            scrollContainer: null,
+            live: true,
+        });
+        this.wowSystem.init();
     };
     return SiteSystem;
 }());

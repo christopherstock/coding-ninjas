@@ -1,8 +1,6 @@
 
     import * as ninjas from '../ninjas';
 
-    const wow = require( 'wowjs' );
-
     require( 'fpsmeter' );
 
     /*******************************************************************************************************************
@@ -15,32 +13,23 @@
     {
         /** The canvas element. */
         public      canvasSystem            :ninjas.CanvasSystem            = null;
-
+        /** The image system. */
+        public      imageSystem             :ninjas.ImageSystem             = null;
+        /** The soundSystem system. */
+        public      soundSystem             :ninjas.SoundSystem             = null;
         /** The matterJS engine. */
         public      matterJsSystem          :ninjas.MatterJsSystem          = null;
-
-
-        // TODO to engine!!
+        /** The site system. */
+        public      siteSystem              :ninjas.SiteSystem              = null;
+        /** The FPS counter. */
+        private     fpsMeter                :FPSMeter                       = null;
+        /** The custom key system. */
+        public      keySystem               :ninjas.KeySystem               = null;
 
         /** The custom camera system. */
         public      camera                  :ninjas.Camera                  = null;
         /** The custom level. */
         public      level                   :ninjas.Level                   = null;
-
-
-        /** The image system. */
-        public      imageSystem             :ninjas.ImageSystem             = null;
-        /** The soundSystem system. */
-        public      soundSystem             :ninjas.SoundSystem             = null;
-        /** The custom key system. */
-        public      keySystem               :ninjas.KeySystem               = null;
-        /** The site system. */
-        public      siteSystem              :ninjas.SiteSystem              = null;
-
-        /** The FPS counter. */
-        private     fpsMeter                :FPSMeter                       = null;
-        /** The WOW animation system. TODO to siteSystem? */
-        public      wowSystem               :any                            = null;
 
         /***************************************************************************************************************
         *   Inits all components of the game.
@@ -70,17 +59,14 @@
             // init matterJS
             this.initMatterJS();
 
-            // init window resize handler
-            this.initWindowResizeHandler();
-
             // init site system
             this.initSiteSystem();
 
+            // init window resize handler
+            this.initWindowResizeHandler();
+
             // init FPS-counter
             this.initFpsCounter();
-
-            // init WOW animations
-            this.initWow();
 
             // init key system
             this.initKeySystem();
@@ -180,10 +166,12 @@
         }
 
         /***************************************************************************************************************
-        *   Inits the site system.
+        *   Inits the site system. TODO prune!
         ***************************************************************************************************************/
         private initSiteSystem()
         {
+            ninjas.Debug.init.log( "Initing site system" );
+
             this.siteSystem = new ninjas.SiteSystem();
         }
 
@@ -209,27 +197,6 @@
                     heat:     1,
                 }
             );
-        }
-
-        /***************************************************************************************************************
-        *   Inits the WOW animation system.
-        ***************************************************************************************************************/
-        private initWow()
-        {
-            ninjas.Debug.init.log( "Initing WOW animations" );
-
-            this.wowSystem = new wow.WOW(
-                {
-                    boxClass:        'wow',              // animated element css class (default is wow)
-                    animateClass:    'animated',         // animation css class (default is animated)
-                    offset:          0,                  // distance to the element when triggering the animation (default is 0)
-                    mobile:          true,               // trigger animations on mobile devices (default is true)
-                    scrollContainer: null,               // optional scroll container selector, otherwise use window
-                    live:            true,               // act on asynchronously loaded content (default is true)
-                    // callback:     function( box ) {}, // the callback is fired every time an animation is started the argument that is passed in is the DOM node being animated
-                }
-            );
-            this.wowSystem.init();
         }
 
         /***************************************************************************************************************

@@ -1,7 +1,9 @@
 
+    import * as ninjas from '../../ninjas';
+
     require( "animate.css" );
 
-    import * as ninjas from '../../ninjas';
+    const wow = require( 'wowjs' );
 
     /*******************************************************************************************************************
     *   Manages the communication between the game and the company presentation.
@@ -13,15 +15,22 @@
     {
         /** The current site panel. */
         private                 currentPanel                    :HTMLDivElement             = null;
-
         /** Flags if an animation is currently active. */
         private                 animationInProgress             :boolean                    = null;
-
         /** Flags if a panel is currently shown. */
         private                 panelPosition                   :ninjas.SitePanelPosition   = ninjas.SitePanelPosition.NONE;
-
         /** The current width of the panel. */
         private                 panelWidth                      :number                     = 0;
+        /** The WOW animation system. */
+        private                 wowSystem                       :any                        = null;
+
+        /*****************************************************************************
+        *   Creates a new site system.
+        *****************************************************************************/
+        public constructor()
+        {
+            this.initWowSystem();
+        }
 
         /*****************************************************************************
         *   Being invoked when a site shall be shown.
@@ -54,7 +63,7 @@
             document.body.appendChild( this.currentPanel );
             this.updatePanelSizeAndPosition();
 
-            ninjas.Main.game.wowSystem.sync();
+            this.wowSystem.sync();
 
             window.setTimeout(
                 () => {
@@ -94,7 +103,7 @@
 
             this.panelPosition = ninjas.SitePanelPosition.NONE;
 
-            ninjas.Main.game.wowSystem.sync();
+            this.wowSystem.sync();
 
             window.setTimeout(
                 () => {
@@ -168,5 +177,26 @@
                     return ( ( ninjas.Main.game.canvasSystem.getWidth() - panelAndBorderWidth ) / 2 );
                 }
             }
+        }
+
+        /***************************************************************************************************************
+        *   Inits the WOW animation system.
+        ***************************************************************************************************************/
+        private initWowSystem() : void
+        {
+            ninjas.Debug.init.log( "Initing WOW animations" );
+
+            this.wowSystem = new wow.WOW(
+                {
+                    boxClass:        'wow',              // animated element css class (default is wow)
+                    animateClass:    'animated',         // animation css class (default is animated)
+                    offset:          0,                  // distance to the element when triggering the animation (default is 0)
+                    mobile:          true,               // trigger animations on mobile devices (default is true)
+                    scrollContainer: null,               // optional scroll container selector, otherwise use window
+                    live:            true,               // act on asynchronously loaded content (default is true)
+                    // callback:     function( box ) {}, // the callback is fired every time an animation is started the argument that is passed in is the DOM node being animated
+                }
+            );
+            this.wowSystem.init();
         }
     }
