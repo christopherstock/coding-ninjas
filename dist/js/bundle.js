@@ -27558,22 +27558,20 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO Camera for looking directions same as if panel wou
 *   TODO class game: outsource all init stuff to separate classes: GameEngine > Game and all Engine functions to Engine!
-*
 *   TODO Move game object classes to appropriate subpackages!
 *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
-*
 *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
 *   TODO Remove timeout and use Enine.events.tick?
+*   TODO Auto-release all keys on losing canvas focus?
 *   TODO Add 'attack' action and sprite.
 *   TODO Parallax Fence in fg. ( parallax machanism for game decos ? )
 *   TODO Create parallax bg images in bg and fg (pick parallex class!).
-*   TODO Auto-release all keys on losing canvas focus?
 *   TODO Enable different animations for site panel.
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
-*
 *   TODO only mirror images where a mirrored SpriteTemplate exists!
 *   TODO Prevent ALL images from being mirrored?
 *   TODO Fix camera on first scene (floating in).
@@ -27583,24 +27581,18 @@ var ninjas = __webpack_require__(1);
 *   TODO Add react and ant design / ant design pro.
 *   TODO Add react for site content creation.
 *   TODO Add ant design for site contents.
-*   TODO Camera for looking directions same as if panel wou
-*
 *   TODO Setting: extract debub settings, engine settings etc. > own package?
 *   TODO outsource lib classes to package de.mayflower.lib??
 *   TODO Add cucumber tests.
 *   TODO Add jest tests.
 *   TODO separate maximum camera moving speed if fixed target is active?
-*
 *   TODO create method updateBody() for all shape classes??
 *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
-*
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Try ant design in front panel.
-*
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Add jest tests.
 *   TODO Add cucumber tests.
-*
 *   TODO Fix flickering wow effects in all browsers.
 *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
 *   TODO Test in all browsers.
@@ -31462,7 +31454,7 @@ exports.GameEngine = GameEngine;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 /*******************************************************************************************************************
-*   Specifies the game engine and its systems.
+*   Specifies the initialization progress of the game engine.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -32334,8 +32326,8 @@ var SitePanelPosition;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-__webpack_require__(5);
 var wow = __webpack_require__(158);
+__webpack_require__(5);
 /*******************************************************************************************************************
 *   Manages the communication between the game and the company presentation.
 *
@@ -32420,11 +32412,13 @@ var SiteSystem = /** @class */ (function () {
     *   Being invoked when the panel size should be set according to the current canvas size.
     *****************************************************************************/
     SiteSystem.prototype.updatePanelSizeAndPosition = function () {
+        // calculate panel size
+        this.panelWidth = (ninjas.Main.game.canvasSystem.getWidth() / 2 - ninjas.Setting.SITE_BORDER_SIZE);
+        if (this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
+            this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
+        }
+        // update panel size and position
         if (this.currentPanel != null) {
-            this.panelWidth = (ninjas.Main.game.canvasSystem.getWidth() / 2 - ninjas.Setting.SITE_BORDER_SIZE);
-            if (this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
-                this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
-            }
             this.currentPanel.style.width = this.panelWidth + "px";
             this.currentPanel.style.height = (ninjas.Main.game.canvasSystem.getHeight() - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
             if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
@@ -32557,7 +32551,7 @@ var Camera = /** @class */ (function () {
     *
     *   @param subjectX         The subject coordinate X to center the camera.
     *   @param subjectY         The subject coordinate Y to center the camera.
-    *   @param lookingDirection The current direction the player looks at. TODO outsource?
+    *   @param lookingDirection The current direction the player looks at. TODO outsource / remove!
     *   @param allowAscendY     Allows camera ascending Y.
     *   @param fixedTargetX     A fixed camera position X or -1 if none.
     ***************************************************************************************************************/
@@ -32623,6 +32617,15 @@ var Camera = /** @class */ (function () {
         ]);
     };
     /***************************************************************************************************************
+    *   Resets the camera targets and offsets to the current player position without buffering.
+    ***************************************************************************************************************/
+    Camera.prototype.reset = function () {
+        // extract level and player access!
+        this.calculateTargets(ninjas.Main.game.level.player.lookingDirection, ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, -1);
+        this.offsetX = this.targetX;
+        this.offsetY = this.targetY;
+    };
+    /***************************************************************************************************************
     *   Calculates the current camera tarets according to the specified subject.
     *
     *   @param lookingDirection The current direction the subject is looking in.
@@ -32651,7 +32654,13 @@ var Camera = /** @class */ (function () {
             }
         }
         this.targetY = subjectY - (this.canvasHeight * this.ratioY);
-        // TODO refactor to own method!
+        // clip targets X and Y to level bounds
+        this.clipTargetsToLevelBounds();
+    };
+    /***************************************************************************************************************
+    *   Clips the camera targets X and Y to the current level bounds.
+    ***************************************************************************************************************/
+    Camera.prototype.clipTargetsToLevelBounds = function () {
         // clip camera target x to level bounds
         if (this.targetX < 0)
             this.targetX = 0;
@@ -32662,15 +32671,6 @@ var Camera = /** @class */ (function () {
             this.targetY = 0;
         if (this.targetY > this.levelHeight - this.canvasHeight)
             this.targetY = this.levelHeight - this.canvasHeight;
-    };
-    /***************************************************************************************************************
-    *   Resets the camera targets and offsets to the current player position without buffering.
-    ***************************************************************************************************************/
-    Camera.prototype.reset = function () {
-        // extract level and player access!
-        this.calculateTargets(ninjas.Main.game.level.player.lookingDirection, ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, -1);
-        this.offsetX = this.targetX;
-        this.offsetY = this.targetY;
     };
     return Camera;
 }());

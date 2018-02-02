@@ -3,7 +3,7 @@
     import * as ninjas   from '../ninjas';
 
     /*******************************************************************************************************************
-    *   Specifies the game engine and its systems.
+    *   Specifies the initialization progress of the game engine.
     *
     *   @author     Christopher Stock
     *   @version    0.0.1

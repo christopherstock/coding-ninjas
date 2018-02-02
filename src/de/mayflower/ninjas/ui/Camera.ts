@@ -95,7 +95,7 @@
         *
         *   @param subjectX         The subject coordinate X to center the camera.
         *   @param subjectY         The subject coordinate Y to center the camera.
-        *   @param lookingDirection The current direction the player looks at. TODO outsource?
+        *   @param lookingDirection The current direction the player looks at. TODO outsource / remove!
         *   @param allowAscendY     Allows camera ascending Y.
         *   @param fixedTargetX     A fixed camera position X or -1 if none.
         ***************************************************************************************************************/
@@ -184,6 +184,25 @@
         }
 
         /***************************************************************************************************************
+        *   Resets the camera targets and offsets to the current player position without buffering.
+        ***************************************************************************************************************/
+        public reset()
+        {
+            // extract level and player access!
+
+            this.calculateTargets
+            (
+                ninjas.Main.game.level.player.lookingDirection,
+                ninjas.Main.game.level.player.shape.body.position.x,
+                ninjas.Main.game.level.player.shape.body.position.y,
+                -1
+            );
+
+            this.offsetX = this.targetX;
+            this.offsetY = this.targetY;
+        }
+
+        /***************************************************************************************************************
         *   Calculates the current camera tarets according to the specified subject.
         *
         *   @param lookingDirection The current direction the subject is looking in.
@@ -225,8 +244,15 @@
 
             this.targetY = subjectY - ( this.canvasHeight * this.ratioY );
 
-            // TODO refactor to own method!
+            // clip targets X and Y to level bounds
+            this.clipTargetsToLevelBounds();
+        }
 
+        /***************************************************************************************************************
+        *   Clips the camera targets X and Y to the current level bounds.
+        ***************************************************************************************************************/
+        private clipTargetsToLevelBounds()
+        {
             // clip camera target x to level bounds
             if ( this.targetX < 0                                  ) this.targetX = 0;
             if ( this.targetX > this.levelWidth - this.canvasWidth ) this.targetX = this.levelWidth - this.canvasWidth;
@@ -234,24 +260,5 @@
             // clip camera target y to level bounds
             if ( this.targetY < 0                                    ) this.targetY = 0;
             if ( this.targetY > this.levelHeight - this.canvasHeight ) this.targetY = this.levelHeight - this.canvasHeight;
-        }
-
-        /***************************************************************************************************************
-        *   Resets the camera targets and offsets to the current player position without buffering.
-        ***************************************************************************************************************/
-        public reset()
-        {
-            // extract level and player access!
-
-            this.calculateTargets
-            (
-                ninjas.Main.game.level.player.lookingDirection,
-                ninjas.Main.game.level.player.shape.body.position.x,
-                ninjas.Main.game.level.player.shape.body.position.y,
-                -1
-            );
-
-            this.offsetX = this.targetX;
-            this.offsetY = this.targetY;
         }
     }

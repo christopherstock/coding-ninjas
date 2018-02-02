@@ -1,9 +1,7 @@
 
     import * as ninjas from '../../ninjas';
-
-    require( "animate.css" );
-
     const wow = require( 'wowjs' );
+    require( "animate.css" );
 
     /*******************************************************************************************************************
     *   Manages the communication between the game and the company presentation.
@@ -123,14 +121,16 @@
         *****************************************************************************/
         public updatePanelSizeAndPosition()
         {
+            // calculate panel size
+            this.panelWidth = ( ninjas.Main.game.canvasSystem.getWidth()  / 2 - ninjas.Setting.SITE_BORDER_SIZE );
+            if ( this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH )
+            {
+                this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
+            }
+
+            // update panel size and position
             if ( this.currentPanel != null )
             {
-                this.panelWidth = ( ninjas.Main.game.canvasSystem.getWidth()  / 2 - ninjas.Setting.SITE_BORDER_SIZE );
-                if ( this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH )
-                {
-                    this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
-                }
-
                 this.currentPanel.style.width  = this.panelWidth + "px";
                 this.currentPanel.style.height = ( ninjas.Main.game.canvasSystem.getHeight() - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
 
