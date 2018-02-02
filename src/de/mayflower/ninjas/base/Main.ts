@@ -29,7 +29,7 @@
     *   TODO Add react and ant design / ant design pro.
     *   TODO Add react for site content creation.
     *   TODO Add ant design for site contents.
-    *   TODO Camera for looking directions same as if panel would be open!
+    *   TODO Camera for looking directions same as if panel wou
     *
     *   TODO Setting: extract debub settings, engine settings etc. > own package?
     *   TODO outsource lib classes to package de.mayflower.lib??

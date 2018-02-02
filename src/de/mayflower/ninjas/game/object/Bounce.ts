@@ -46,10 +46,7 @@
                 }
             );
 
-            matter.Composite.add(
-                ninjas.Main.game.engine.world,
-                this.constraint
-            );
+            ninjas.Main.game.matterJsSystem.addToWorld( this.constraint );
         }
 
         /***************************************************************************************************************

@@ -1,6 +1,5 @@
 
-    import * as matter   from 'matter-js';
-    import * as ninjas   from '../ninjas';
+    import * as ninjas from '../ninjas';
 
     const wow = require( 'wowjs' );
 
@@ -21,17 +20,6 @@
         public      matterJsSystem          :ninjas.MatterJsSystem          = null;
 
 
-
-        // TODO wrap these two values to class MatterSystem
-
-        /** The MatterJS engine. */
-        public      engine                  :matter.Engine                  = null;
-        /** The MatterJS renderer. */
-        private     renderer                :matter.Render                  = null;
-
-        /** The custom key system. */
-        public      keySystem               :ninjas.KeySystem               = null;
-
         // TODO to engine!!
 
         /** The custom camera system. */
@@ -40,18 +28,18 @@
         public      level                   :ninjas.Level                   = null;
 
 
-
         /** The image system. */
         public      imageSystem             :ninjas.ImageSystem             = null;
         /** The soundSystem system. */
         public      soundSystem             :ninjas.SoundSystem             = null;
-
+        /** The custom key system. */
+        public      keySystem               :ninjas.KeySystem               = null;
         /** The site system. */
         public      siteSystem              :ninjas.SiteSystem              = null;
 
         /** The FPS counter. */
         private     fpsMeter                :FPSMeter                       = null;
-        /** The WOW animation system. */
+        /** The WOW animation system. TODO to siteSystem? */
         public      wowSystem               :any                            = null;
 
         /***************************************************************************************************************
@@ -118,7 +106,7 @@
             this.tick();
 
             // start the renderer
-            matter.Render.run( this.renderer );
+            this.matterJsSystem.startRenderer();
 
             window.setInterval(
                 this.tick,
@@ -128,24 +116,12 @@
 
         /***************************************************************************************************************
         *   Updates the dimensions of the canvas according to the browser window.
+        *
+        *   TODO prune?
         ***************************************************************************************************************/
         private updateCanvasDimensions()
         {
             this.canvasSystem.updateDimensions();
-        }
-
-        /***************************************************************************************************************
-        *   Updates the dimensions of the canvas according to the browser window.
-        ***************************************************************************************************************/
-        private updateMatterEngineDimensions()
-        {
-            this.renderer.canvas.width  = this.canvasSystem.getWidth();
-            this.renderer.canvas.height = this.canvasSystem.getHeight();
-
-            this.renderer.options.width  = this.canvasSystem.getWidth();
-            this.renderer.options.height = this.canvasSystem.getHeight();
-
-            ninjas.Debug.init.log( "Updated matter.js engine dimensions according to canvas." );
         }
 
         /***************************************************************************************************************
@@ -159,59 +135,18 @@
 
         /***************************************************************************************************************
         *   Inits the 2D engine.
+        *
+        *   TODO prune?
         ***************************************************************************************************************/
         private initMatterJS()
         {
             ninjas.Debug.init.log( "Initing 2D physics engine" );
 
-            this.matterJsSystem = new ninjas.MatterJsSystem();
-
-
-
-
-
-
-            // create engine
-            this.engine = matter.Engine.create();
-            this.engine.world.gravity = {
-                x: 0.0,
-                y: ninjas.Setting.DEFAULT_GRAVITY_Y,
-                scale: 0.001
-            };
-
-            // create renderer
-            this.renderer = matter.Render.create(
-                {
-                    canvas:  this.canvasSystem.getCanvas(),
-                    engine:  this.engine,
-                    options: {
-                        hasBounds:          true,
-                        wireframes:         false,
-                        showCollisions:     true,
-                        showAngleIndicator: true,
-                        showVelocity:       true,
-                        background:         ninjas.Setting.CANVAS_BG,
-                        width:              this.canvasSystem.getWidth(),
-                        height:             this.canvasSystem.getHeight(),
-
-                        // textures:           ninjas.Image.FILE_NAMES,
-                    } as any,
-                }
-            );
-
-            //set all loaded image as MatterJS texture cache
-            this.assignMatterJSTextureCache();
-
-            // disables blurry image drawing!
-            this.renderer.context.imageSmoothingEnabled = false;
-
-            // add drawing callback after rendering
-            matter.Events.on(
-                this.renderer,
-                "afterRender",
-                ( event ) => {
-                    this.paint( this.renderer.context );
-                }
+            this.matterJsSystem = new ninjas.MatterJsSystem
+            (
+                this.canvasSystem.getCanvas(),
+                ( renderContext:CanvasRenderingContext2D ) => { this.paint( renderContext ); },
+                this.imageSystem.getAll()
             );
         }
 
@@ -224,7 +159,11 @@
             window.onresize = ( event:Event ) => {
 
                 this.updateCanvasDimensions();
-                this.updateMatterEngineDimensions();
+                this.matterJsSystem.updateEngineDimensions
+                (
+                    this.canvasSystem.getWidth(),
+                    this.canvasSystem.getHeight()
+                );
                 this.siteSystem.updatePanelSizeAndPosition();
                 this.resetCamera();
             };
@@ -321,7 +260,7 @@
         private resetAndLaunchLevel( levelToLaunch:ninjas.Level )
         {
             // clear world
-            matter.World.clear( this.engine.world, false );
+            this.matterJsSystem.resetWorld();
 
             // assign and init level
             this.level = levelToLaunch;
@@ -337,7 +276,7 @@
         private resetCamera()
         {
             this.camera = new ninjas.Camera(
-                this.renderer,
+                this.matterJsSystem.getRenderer(),
                 ninjas.Setting.CAMERA_RATIO_X,
                 ninjas.Setting.CAMERA_RATIO_Y,
                 ninjas.Setting.CAMERA_MOVING_SPEED,
@@ -362,13 +301,7 @@
             this.render();
 
             // update MatterJS 2d engine
-            matter.Engine.update( this.engine, ninjas.Setting.RENDER_DELTA );
-/*
-            let context:CanvasRenderingContext2D = this.canvas.getContext( "2d" );
-            context.fillStyle = "#ff0000";
-            context.fillRect( 0, 0, 100, 200 );
-*/
-            // console.dir( this.renderer.textures );
+            this.matterJsSystem.updateEngine( ninjas.Setting.RENDER_DELTA );
 
             this.fpsMeter.tick();
         };
@@ -435,15 +368,5 @@
                 ninjas.Debug.init.log( "Switching to level 3" );
                 this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );
             }
-        }
-
-        /***************************************************************************************************************
-        *   Assigns all loaded images to the MatterJS engine's texture cache.
-        ***************************************************************************************************************/
-        private assignMatterJSTextureCache()
-        {
-            this.renderer.textures = this.imageSystem.getAll();
-
-            ninjas.Debug.init.log( "Assigned [" + Object.keys( this.renderer.textures ).length + "] textures to renderer texture cache " );
         }
     }

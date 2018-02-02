@@ -48,10 +48,7 @@
 /*
             matter.Body.setMass( this.body, 25.0 );
 */
-            matter.Composite.add(
-                ninjas.Main.game.engine.world,
-                this.constraint
-            );
+            ninjas.Main.game.matterJsSystem.addToWorld( this.constraint );
         }
 
         /***************************************************************************************************************

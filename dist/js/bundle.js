@@ -1911,7 +1911,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(179)("./" + name);
+            __webpack_require__(182)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4603,7 +4603,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(178)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(181)(module)))
 
 /***/ }),
 /* 1 */
@@ -4620,7 +4620,7 @@ __export(__webpack_require__(130));
 __export(__webpack_require__(131));
 __export(__webpack_require__(132));
 __export(__webpack_require__(133));
-__export(__webpack_require__(135));
+__export(__webpack_require__(134));
 __export(__webpack_require__(136));
 __export(__webpack_require__(137));
 __export(__webpack_require__(138));
@@ -4657,12 +4657,12 @@ __export(__webpack_require__(170));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
-__export(__webpack_require__(180));
-__export(__webpack_require__(183));
-__export(__webpack_require__(184));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
 __export(__webpack_require__(177));
+__export(__webpack_require__(178));
+__export(__webpack_require__(179));
+__export(__webpack_require__(180));
 
 
 /***/ }),
@@ -15005,7 +15005,7 @@ var Vector = _dereq_('../geometry/Vector');
 
 },{"../body/Composite":2,"../core/Common":14,"../core/Events":16,"../geometry/Bounds":26,"../geometry/Vector":28}]},{},[30])(30)
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(134)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(135)))
 
 /***/ }),
 /* 3 */
@@ -27583,7 +27583,7 @@ var ninjas = __webpack_require__(1);
 *   TODO Add react and ant design / ant design pro.
 *   TODO Add react for site content creation.
 *   TODO Add ant design for site contents.
-*   TODO Camera for looking directions same as if panel would be open!
+*   TODO Camera for looking directions same as if panel wou
 *
 *   TODO Setting: extract debub settings, engine settings etc. > own package?
 *   TODO outsource lib classes to package de.mayflower.lib??
@@ -27648,7 +27648,6 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   Represents the current level.
@@ -27676,7 +27675,7 @@ var Level = /** @class */ (function () {
             // add all bodies of all game objects to the world
             for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
                 var gameObject = _b.value;
-                matter.World.addBody(ninjas.Main.game.engine.world, gameObject.shape.body);
+                ninjas.Main.game.matterJsSystem.addToWorld(gameObject.shape.body);
             }
         }
         catch (e_1_1) { e_1 = { error: e_1_1 }; }
@@ -27715,33 +27714,6 @@ exports.Level = Level;
 
 /***/ }),
 /* 134 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27849,6 +27821,33 @@ var LevelAllElements = /** @class */ (function (_super) {
     return LevelAllElements;
 }(ninjas.Level));
 exports.LevelAllElements = LevelAllElements;
+
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
@@ -28564,7 +28563,7 @@ var Bounce = /** @class */ (function (_super) {
                 visible: true,
             }
         });
-        matter.Composite.add(ninjas.Main.game.engine.world, _this.constraint);
+        ninjas.Main.game.matterJsSystem.addToWorld(_this.constraint);
         return _this;
     }
     /***************************************************************************************************************
@@ -28704,7 +28703,7 @@ var Character = /** @class */ (function (_super) {
         if (this.shape.body.position.y - this.shape.getHeight() / 2 > ninjas.Main.game.level.height) {
             ninjas.Debug.bugfix.log("Character has fallen to dead");
             // remove character body
-            matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
+            ninjas.Main.game.matterJsSystem.removeFromWorld(this.shape.body);
             this.kill();
         }
     };
@@ -29183,7 +29182,7 @@ var Item = /** @class */ (function (_super) {
         // flag as picked
         this.picked = true;
         // remove item body
-        matter.World.remove(ninjas.Main.game.engine.world, this.shape.body);
+        ninjas.Main.game.matterJsSystem.removeFromWorld(this.shape.body);
     };
     return Item;
 }(ninjas.GameObject));
@@ -29634,7 +29633,7 @@ var SigSaw = /** @class */ (function (_super) {
         /*
                     matter.Body.setMass( this.body, 25.0 );
         */
-        matter.Composite.add(ninjas.Main.game.engine.world, _this.constraint);
+        ninjas.Main.game.matterJsSystem.addToWorld(_this.constraint);
         return _this;
     }
     /***************************************************************************************************************
@@ -29788,7 +29787,6 @@ exports.SiteTrigger = SiteTrigger;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
 var wow = __webpack_require__(158);
 __webpack_require__(159);
@@ -29805,13 +29803,6 @@ var Game = /** @class */ (function () {
         this.canvasSystem = null;
         /** The matterJS engine. */
         this.matterJsSystem = null;
-        // TODO wrap these two values to class MatterSystem
-        /** The MatterJS engine. */
-        this.engine = null;
-        /** The MatterJS renderer. */
-        this.renderer = null;
-        /** The custom key system. */
-        this.keySystem = null;
         // TODO to engine!!
         /** The custom camera system. */
         this.camera = null;
@@ -29821,11 +29812,13 @@ var Game = /** @class */ (function () {
         this.imageSystem = null;
         /** The soundSystem system. */
         this.soundSystem = null;
+        /** The custom key system. */
+        this.keySystem = null;
         /** The site system. */
         this.siteSystem = null;
         /** The FPS counter. */
         this.fpsMeter = null;
-        /** The WOW animation system. */
+        /** The WOW animation system. TODO to siteSystem? */
         this.wowSystem = null;
         /***************************************************************************************************************
         *   Being invoked when all images are loaded.
@@ -29867,13 +29860,7 @@ var Game = /** @class */ (function () {
             // render the engine
             _this.render();
             // update MatterJS 2d engine
-            matter.Engine.update(_this.engine, ninjas.Setting.RENDER_DELTA);
-            /*
-                        let context:CanvasRenderingContext2D = this.canvas.getContext( "2d" );
-                        context.fillStyle = "#ff0000";
-                        context.fillRect( 0, 0, 100, 200 );
-            */
-            // console.dir( this.renderer.textures );
+            _this.matterJsSystem.updateEngine(ninjas.Setting.RENDER_DELTA);
             _this.fpsMeter.tick();
         };
     }
@@ -29892,24 +29879,16 @@ var Game = /** @class */ (function () {
         // render 1st engine tick
         this.tick();
         // start the renderer
-        matter.Render.run(this.renderer);
+        this.matterJsSystem.startRenderer();
         window.setInterval(this.tick, ninjas.Setting.RENDER_DELTA);
     };
     /***************************************************************************************************************
     *   Updates the dimensions of the canvas according to the browser window.
+    *
+    *   TODO prune?
     ***************************************************************************************************************/
     Game.prototype.updateCanvasDimensions = function () {
         this.canvasSystem.updateDimensions();
-    };
-    /***************************************************************************************************************
-    *   Updates the dimensions of the canvas according to the browser window.
-    ***************************************************************************************************************/
-    Game.prototype.updateMatterEngineDimensions = function () {
-        this.renderer.canvas.width = this.canvasSystem.getWidth();
-        this.renderer.canvas.height = this.canvasSystem.getHeight();
-        this.renderer.options.width = this.canvasSystem.getWidth();
-        this.renderer.options.height = this.canvasSystem.getHeight();
-        ninjas.Debug.init.log("Updated matter.js engine dimensions according to canvas.");
     };
     /***************************************************************************************************************
     *   Inits the 2D canvas by creating and adding it to the document body.
@@ -29920,41 +29899,13 @@ var Game = /** @class */ (function () {
     };
     /***************************************************************************************************************
     *   Inits the 2D engine.
+    *
+    *   TODO prune?
     ***************************************************************************************************************/
     Game.prototype.initMatterJS = function () {
         var _this = this;
         ninjas.Debug.init.log("Initing 2D physics engine");
-        this.matterJsSystem = new ninjas.MatterJsSystem();
-        // create engine
-        this.engine = matter.Engine.create();
-        this.engine.world.gravity = {
-            x: 0.0,
-            y: ninjas.Setting.DEFAULT_GRAVITY_Y,
-            scale: 0.001
-        };
-        // create renderer
-        this.renderer = matter.Render.create({
-            canvas: this.canvasSystem.getCanvas(),
-            engine: this.engine,
-            options: {
-                hasBounds: true,
-                wireframes: false,
-                showCollisions: true,
-                showAngleIndicator: true,
-                showVelocity: true,
-                background: ninjas.Setting.CANVAS_BG,
-                width: this.canvasSystem.getWidth(),
-                height: this.canvasSystem.getHeight(),
-            },
-        });
-        //set all loaded image as MatterJS texture cache
-        this.assignMatterJSTextureCache();
-        // disables blurry image drawing!
-        this.renderer.context.imageSmoothingEnabled = false;
-        // add drawing callback after rendering
-        matter.Events.on(this.renderer, "afterRender", function (event) {
-            _this.paint(_this.renderer.context);
-        });
+        this.matterJsSystem = new ninjas.MatterJsSystem(this.canvasSystem.getCanvas(), function (renderContext) { _this.paint(renderContext); }, this.imageSystem.getAll());
     };
     /***************************************************************************************************************
     *   Inits the window resize handler.
@@ -29964,7 +29915,7 @@ var Game = /** @class */ (function () {
         // TODO oursource function!
         window.onresize = function (event) {
             _this.updateCanvasDimensions();
-            _this.updateMatterEngineDimensions();
+            _this.matterJsSystem.updateEngineDimensions(_this.canvasSystem.getWidth(), _this.canvasSystem.getHeight());
             _this.siteSystem.updatePanelSizeAndPosition();
             _this.resetCamera();
         };
@@ -30036,7 +29987,7 @@ var Game = /** @class */ (function () {
     ***************************************************************************************************************/
     Game.prototype.resetAndLaunchLevel = function (levelToLaunch) {
         // clear world
-        matter.World.clear(this.engine.world, false);
+        this.matterJsSystem.resetWorld();
         // assign and init level
         this.level = levelToLaunch;
         this.level.init();
@@ -30047,7 +29998,7 @@ var Game = /** @class */ (function () {
     *   Resets the camera.
     ***************************************************************************************************************/
     Game.prototype.resetCamera = function () {
-        this.camera = new ninjas.Camera(this.renderer, ninjas.Setting.CAMERA_RATIO_X, ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, ninjas.Setting.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.canvasSystem.getWidth(), this.canvasSystem.getHeight());
+        this.camera = new ninjas.Camera(this.matterJsSystem.getRenderer(), ninjas.Setting.CAMERA_RATIO_X, ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, ninjas.Setting.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.canvasSystem.getWidth(), this.canvasSystem.getHeight());
         this.camera.reset();
     };
     /***************************************************************************************************************
@@ -30090,13 +30041,6 @@ var Game = /** @class */ (function () {
             ninjas.Debug.init.log("Switching to level 3");
             this.resetAndLaunchLevel(new ninjas.LevelEnchantedWoods());
         }
-    };
-    /***************************************************************************************************************
-    *   Assigns all loaded images to the MatterJS engine's texture cache.
-    ***************************************************************************************************************/
-    Game.prototype.assignMatterJSTextureCache = function () {
-        this.renderer.textures = this.imageSystem.getAll();
-        ninjas.Debug.init.log("Assigned [" + Object.keys(this.renderer.textures).length + "] textures to renderer texture cache ");
     };
     return Game;
 }());
@@ -32738,6 +32682,303 @@ exports.Camera = Camera;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Manages the canvas.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var CanvasSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Constructs a new canvas system.
+    ***************************************************************************************************************/
+    function CanvasSystem() {
+        /** The canvas element. */
+        this.canvas = null;
+        /** The canvas rendering context. */
+        this.canvasContext = null;
+        /** The current width of the canvas. */
+        this.canvasWidth = 0;
+        /** The current height of the canvas. */
+        this.canvasHeight = 0;
+        // create
+        this.canvas = document.createElement("canvas");
+        // reference 2d rendering context
+        this.canvasContext = this.canvas.getContext("2d");
+        // append to body
+        document.body.appendChild(this.canvas);
+    }
+    /***************************************************************************************************************
+    *   Updates the canvas dimensions according to current screen size.
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.updateDimensions = function () {
+        this.canvasWidth = window.innerWidth;
+        this.canvasHeight = window.innerHeight;
+        // clip to minimum canvas dimensions
+        if (this.canvasWidth < ninjas.Setting.MIN_CANVAS_WIDTH)
+            this.canvasWidth = ninjas.Setting.MIN_CANVAS_WIDTH;
+        if (this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT)
+            this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
+        ninjas.Debug.canvas.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
+    };
+    /***************************************************************************************************************
+    *   Returns the current canvas width.
+    *
+    *   @return Current canvas width.
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.getWidth = function () {
+        return this.canvasWidth;
+    };
+    /***************************************************************************************************************
+    *   Returns the current canvas height.
+    *
+    *   @return Current canvas height.
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.getHeight = function () {
+        return this.canvasHeight;
+    };
+    /***************************************************************************************************************
+    *   Returns the current canvas object.
+    *
+    *   @return The HTML canvas object..
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.getCanvas = function () {
+        return this.canvas;
+    };
+    return CanvasSystem;
+}());
+exports.CanvasSystem = CanvasSystem;
+
+
+/***/ }),
+/* 176 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   Offers orthogonal drawing functionality.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Drawing = /** @class */ (function () {
+    function Drawing() {
+    }
+    /*****************************************************************************
+    *   Strokes a line with the specified points color and size.
+    *
+    *   @param  ctx The rendering context.
+    *   @param  x1  The start point's x.
+    *   @param  y1  The start point's y.
+    *   @param  x2  The end point's x.
+    *   @param  y2  The end point's y.
+    *   @param  col A stroke color.
+    *****************************************************************************/
+    Drawing.strokeLine = function (ctx, x1, y1, x2, y2, col) {
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 1.0;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+    };
+    /*****************************************************************************
+    *   Draws a rect's stroke with the specified dimensions and color.
+    *
+    *   @param  ctx        The rendering context.
+    *   @param  x          The left  coordinate.
+    *   @param  y          The right coordinate.
+    *   @param  width      The desired width.
+    *   @param  height     The desired height.
+    *   @param  col        A stroke color.
+    *****************************************************************************/
+    Drawing.strokeRect = function (ctx, x, y, width, height, col) {
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 1.0;
+        ctx.strokeRect(x, y, width, height);
+    };
+    /*****************************************************************************
+    *   Fills a rect with the specified dimensions and color.
+    *
+    *   @param  ctx     The rendering context.
+    *   @param  x       The left  coordinate.
+    *   @param  y       The right coordinate.
+    *   @param  width   The desired width.
+    *   @param  height  The desired height.
+    *   @param  col     A fill color.
+    *****************************************************************************/
+    Drawing.fillRect = function (ctx, x, y, width, height, col) {
+        ctx.fillStyle = col;
+        ctx.fillRect(x, y, width, height);
+    };
+    /*****************************************************************************
+    *   Draws an image at the specified location with a specified anchor.
+    *
+    *   @param  ctx         The rendering context
+    *   @param  img         The image to draw.
+    *   @param  x           Drawing position x.
+    *   @param  y           Drawing position y.
+    *   @param  alpha       The desired alpha value to draw the image.
+    *                       This value has a range of 0.0 to 1.0.
+    *****************************************************************************/
+    Drawing.drawImage = function (ctx, img, x, y, alpha) {
+        Drawing.drawImageScaledClipped(ctx, img, x, y, 0, 0, img.width, img.height, img.width, img.height, alpha);
+    };
+    /*****************************************************************************
+    *   Draws an image at the specified location with a specified anchor
+    *   and scales it to the given destiny dimensions.
+    *
+    *   @param  ctx         The rendering context
+    *   @param  img         The image to draw.
+    *   @param  srcX        Clipping position x.
+    *   @param  srcY        Clipping position y.
+    *   @param  srcWidth    Clipping width.
+    *   @param  srcHeight   Clipping height.
+    *   @param  destX       Drawing position x.
+    *   @param  destY       Drawing position y.
+    *   @param  destWidth   Destination width.
+    *   @param  destHeight  Destination height.
+    *   @param  alpha       The desired alpha value to draw the image from 0.0 to 1.0.
+    *****************************************************************************/
+    Drawing.drawImageScaledClipped = function (ctx, img, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, alpha) {
+        ctx.save();
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(img, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight);
+        ctx.restore();
+    };
+    return Drawing;
+}());
+exports.Drawing = Drawing;
+
+
+/***/ }),
+/* 177 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(2);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Manages the Matter.js engine.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var MatterJsSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Creates a new Matter.js engine.
+    *
+    *   @param canvas              The canvas to use.
+    *   @param callbackAfterRender The function to invoke after the engine has been rendered.
+    *   @param textureCache        All cached textures to use.
+    ***************************************************************************************************************/
+    function MatterJsSystem(canvas, callbackAfterRender, textureCache) {
+        var _this = this;
+        /** The Matter.js engine. */
+        this.engine = null;
+        /** The Matter.js renderer. */
+        this.renderer = null;
+        // create engine
+        this.engine = matter.Engine.create();
+        this.engine.world.gravity = {
+            x: 0.0,
+            y: ninjas.Setting.DEFAULT_GRAVITY_Y,
+            scale: 0.001
+        };
+        // create renderer
+        this.renderer = matter.Render.create({
+            canvas: canvas,
+            engine: this.engine,
+            options: {
+                hasBounds: true,
+                wireframes: false,
+                showCollisions: true,
+                showAngleIndicator: true,
+                showVelocity: true,
+                background: ninjas.Setting.CANVAS_BG,
+                width: ninjas.Main.game.canvasSystem.getWidth(),
+                height: ninjas.Main.game.canvasSystem.getHeight(),
+            },
+        });
+        //set all loaded image as MatterJS texture cache
+        this.renderer.textures = textureCache;
+        ninjas.Debug.init.log("Assigned [" + Object.keys(this.renderer.textures).length + "] textures to renderer texture cache ");
+        // disables blurry image drawing!
+        this.renderer.context.imageSmoothingEnabled = false;
+        // add drawing callback after rendering
+        matter.Events.on(this.renderer, "afterRender", function () { callbackAfterRender(_this.renderer.context); });
+    }
+    /***************************************************************************************************************
+    *   Starts the Matter.js renderer.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.startRenderer = function () {
+        matter.Render.run(this.renderer);
+    };
+    /***************************************************************************************************************
+    *   Adds the specified constraint to the world.
+    *
+    *   @param constraint A body, composite or constraint of the Matter.js system.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.addToWorld = function (constraint) {
+        matter.Composite.add(this.engine.world, constraint);
+    };
+    /***************************************************************************************************************
+    *   Removes the specified constraint from the world.
+    *
+    *   @param constraint A body, composite or constraint of the Matter.js system.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.removeFromWorld = function (constraint) {
+        matter.Composite.remove(this.engine.world, constraint);
+    };
+    /***************************************************************************************************************
+    *   Updates the dimensions of the Matter.js rendering system.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.updateEngineDimensions = function (newWidth, newHeight) {
+        this.renderer.canvas.width = newWidth;
+        this.renderer.canvas.height = newHeight;
+        this.renderer.options.width = newWidth;
+        this.renderer.options.height = newHeight;
+        ninjas.Debug.canvas.log("Updated matter.js engine dimensions according to canvas.");
+    };
+    /***************************************************************************************************************
+    *   Updates the Matter.js engine for the specified rendering delta.
+    *
+    *   @param renderDelta The rendering delta in ms.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.updateEngine = function (renderDelta) {
+        matter.Engine.update(this.engine, renderDelta);
+    };
+    /***************************************************************************************************************
+    *   Resets the world of the Matter.js engine.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.resetWorld = function () {
+        matter.World.clear(this.engine.world, false);
+    };
+    /***************************************************************************************************************
+    *   Returns the renderer of the Matter.js engine.
+    *
+    *   @return The renderer of the Matter.js engine.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.getRenderer = function () {
+        return this.renderer;
+    };
+    return MatterJsSystem;
+}());
+exports.MatterJsSystem = MatterJsSystem;
+
+
+/***/ }),
+/* 178 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 /*******************************************************************************************************************
 *   Offers additional Input/Output functionality.
 *
@@ -32774,7 +33015,7 @@ exports.IO = IO;
 
 
 /***/ }),
-/* 176 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32814,7 +33055,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 177 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32862,7 +33103,7 @@ exports.String = String;
 
 
 /***/ }),
-/* 178 */
+/* 181 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -32890,7 +33131,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 179 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -33147,209 +33388,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 179;
-
-/***/ }),
-/* 180 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Manages the canvas.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var CanvasSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Constructs a new canvas system.
-    ***************************************************************************************************************/
-    function CanvasSystem() {
-        /** The canvas element. */
-        this.canvas = null;
-        /** The canvas rendering context. */
-        this.canvasContext = null;
-        /** The current width of the canvas. */
-        this.canvasWidth = 0;
-        /** The current height of the canvas. */
-        this.canvasHeight = 0;
-        // create
-        this.canvas = document.createElement("canvas");
-        // reference 2d rendering context
-        this.canvasContext = this.canvas.getContext("2d");
-        // append to body
-        document.body.appendChild(this.canvas);
-    }
-    /***************************************************************************************************************
-    *   Updates the canvas dimensions according to current screen size.
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.updateDimensions = function () {
-        this.canvasWidth = window.innerWidth;
-        this.canvasHeight = window.innerHeight;
-        // clip to minimum canvas dimensions
-        if (this.canvasWidth < ninjas.Setting.MIN_CANVAS_WIDTH)
-            this.canvasWidth = ninjas.Setting.MIN_CANVAS_WIDTH;
-        if (this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT)
-            this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
-        ninjas.Debug.canvas.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
-    };
-    /***************************************************************************************************************
-    *   Returns the current canvas width.
-    *
-    *   @return Current canvas width.
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.getWidth = function () {
-        return this.canvasWidth;
-    };
-    /***************************************************************************************************************
-    *   Returns the current canvas height.
-    *
-    *   @return Current canvas height.
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.getHeight = function () {
-        return this.canvasHeight;
-    };
-    /***************************************************************************************************************
-    *   Returns the current canvas object.
-    *
-    *   @return The HTML canvas object..
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.getCanvas = function () {
-        return this.canvas;
-    };
-    return CanvasSystem;
-}());
-exports.CanvasSystem = CanvasSystem;
-
-
-/***/ }),
-/* 181 */,
-/* 182 */,
-/* 183 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/*******************************************************************************************************************
-*   Offers orthogonal drawing functionality.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Drawing = /** @class */ (function () {
-    function Drawing() {
-    }
-    /*****************************************************************************
-    *   Strokes a line with the specified points color and size.
-    *
-    *   @param  ctx The rendering context.
-    *   @param  x1  The start point's x.
-    *   @param  y1  The start point's y.
-    *   @param  x2  The end point's x.
-    *   @param  y2  The end point's y.
-    *   @param  col A stroke color.
-    *****************************************************************************/
-    Drawing.strokeLine = function (ctx, x1, y1, x2, y2, col) {
-        ctx.strokeStyle = col;
-        ctx.lineWidth = 1.0;
-        ctx.beginPath();
-        ctx.moveTo(x1, y1);
-        ctx.lineTo(x2, y2);
-        ctx.stroke();
-    };
-    /*****************************************************************************
-    *   Draws a rect's stroke with the specified dimensions and color.
-    *
-    *   @param  ctx        The rendering context.
-    *   @param  x          The left  coordinate.
-    *   @param  y          The right coordinate.
-    *   @param  width      The desired width.
-    *   @param  height     The desired height.
-    *   @param  col        A stroke color.
-    *****************************************************************************/
-    Drawing.strokeRect = function (ctx, x, y, width, height, col) {
-        ctx.strokeStyle = col;
-        ctx.lineWidth = 1.0;
-        ctx.strokeRect(x, y, width, height);
-    };
-    /*****************************************************************************
-    *   Fills a rect with the specified dimensions and color.
-    *
-    *   @param  ctx     The rendering context.
-    *   @param  x       The left  coordinate.
-    *   @param  y       The right coordinate.
-    *   @param  width   The desired width.
-    *   @param  height  The desired height.
-    *   @param  col     A fill color.
-    *****************************************************************************/
-    Drawing.fillRect = function (ctx, x, y, width, height, col) {
-        ctx.fillStyle = col;
-        ctx.fillRect(x, y, width, height);
-    };
-    /*****************************************************************************
-    *   Draws an image at the specified location with a specified anchor.
-    *
-    *   @param  ctx         The rendering context
-    *   @param  img         The image to draw.
-    *   @param  x           Drawing position x.
-    *   @param  y           Drawing position y.
-    *   @param  alpha       The desired alpha value to draw the image.
-    *                       This value has a range of 0.0 to 1.0.
-    *****************************************************************************/
-    Drawing.drawImage = function (ctx, img, x, y, alpha) {
-        Drawing.drawImageScaledClipped(ctx, img, x, y, 0, 0, img.width, img.height, img.width, img.height, alpha);
-    };
-    /*****************************************************************************
-    *   Draws an image at the specified location with a specified anchor
-    *   and scales it to the given destiny dimensions.
-    *
-    *   @param  ctx         The rendering context
-    *   @param  img         The image to draw.
-    *   @param  srcX        Clipping position x.
-    *   @param  srcY        Clipping position y.
-    *   @param  srcWidth    Clipping width.
-    *   @param  srcHeight   Clipping height.
-    *   @param  destX       Drawing position x.
-    *   @param  destY       Drawing position y.
-    *   @param  destWidth   Destination width.
-    *   @param  destHeight  Destination height.
-    *   @param  alpha       The desired alpha value to draw the image from 0.0 to 1.0.
-    *****************************************************************************/
-    Drawing.drawImageScaledClipped = function (ctx, img, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, alpha) {
-        ctx.save();
-        ctx.globalAlpha = alpha;
-        ctx.drawImage(img, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight);
-        ctx.restore();
-    };
-    return Drawing;
-}());
-exports.Drawing = Drawing;
-
-
-/***/ }),
-/* 184 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/*******************************************************************************************************************
-*   Manages the Matter JS engine.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var MatterJsSystem = /** @class */ (function () {
-    function MatterJsSystem() {
-    }
-    return MatterJsSystem;
-}());
-exports.MatterJsSystem = MatterJsSystem;
-
+webpackContext.id = 182;
 
 /***/ })
 /******/ ]);

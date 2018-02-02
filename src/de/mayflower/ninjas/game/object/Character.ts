@@ -144,7 +144,7 @@
                 ninjas.Debug.bugfix.log( "Character has fallen to dead" );
 
                 // remove character body
-                matter.World.remove( ninjas.Main.game.engine.world, this.shape.body );
+                ninjas.Main.game.matterJsSystem.removeFromWorld( this.shape.body );
 
                 this.kill();
             }
