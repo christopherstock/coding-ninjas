@@ -46,8 +46,9 @@
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Add jest tests.
     *   TODO Add cucumber tests.
-    *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
     *
+    *   TODO Fix flickering wow effects in all browsers.
+    *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
     *   TODO Test in all browsers.
     *
     *   @author     Christopher Stock
