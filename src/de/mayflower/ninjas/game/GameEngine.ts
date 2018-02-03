@@ -90,7 +90,7 @@
             this.matterJsSystem = new ninjas.MatterJsSystem
             (
                 this.canvasSystem.getCanvas(),
-                ( renderContext:CanvasRenderingContext2D ) => { ninjas.Main.game.paintAfter(  renderContext ); },
+                ( renderContext:CanvasRenderingContext2D ) => { ninjas.Main.game.paintHUD(  renderContext ); },
                 this.imageSystem.getAll()
             );
         }

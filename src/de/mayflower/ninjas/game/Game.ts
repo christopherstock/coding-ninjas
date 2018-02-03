@@ -128,10 +128,10 @@
 
         /***************************************************************************************************************
         *   Paints all overlays after Matter.js completed rendering the scene.
-        *   TODO rename to 'paint hud' ?
+        *
         *   @param context The 2D rendering context to draw onto.
         ***************************************************************************************************************/
-        public paintAfter( context:CanvasRenderingContext2D )
+        public paintHUD( context:CanvasRenderingContext2D )
         {
             let testHudWidth:number  = 150;
             let testHudHeight:number = 50;

@@ -166,7 +166,6 @@
                     this.currentPanel.style.left = ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
                 }
 
-                // TODO to own reference in class Site! remove id!
                 let siteContainer:HTMLDivElement = document.getElementById( "siteContainer" ) as HTMLDivElement;
                 siteContainer.style.width  = ( this.panelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
             }

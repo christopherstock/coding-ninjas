@@ -27555,20 +27555,20 @@ var ninjas = __webpack_require__(1);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO Move game object classes to appropriate subpackages!
-*
 *   TODO move all system classes to package game/engine /io .. ?
-*
 *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
 *   TODO Remove timeout and use Enine.events.tick?
 *   TODO Auto-release all keys on losing canvas focus?
 *   TODO Add translucent overlay for blend effects.
 *   TODO Add 'attack' action and sprite.
+*   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
 *   TODO Craft and complete parallax game objects!
 *   TODO Parallax Fence in fg. ( parallax machanism for game decos ? )
 *   TODO Create parallax bg images in bg and fg (pick parallex class!).
 *   TODO Enable different animations for site panel.
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO simplify sprite-image-system's frame ranges!
+*   TODO create class HUD and assign its non-static method paintHud?
 *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
 *   TODO only mirror images where a mirrored SpriteTemplate exists!
 *   TODO Prevent ALL images from being mirrored?
@@ -29867,7 +29867,7 @@ var Game = /** @class */ (function () {
     *
     *   @param context The 2D rendering context to draw onto.
     ***************************************************************************************************************/
-    Game.prototype.paintAfter = function (context) {
+    Game.prototype.paintHUD = function (context) {
         var testHudWidth = 150;
         var testHudHeight = 50;
         context.fillStyle = "#ff0000";
@@ -30863,7 +30863,7 @@ var GameEngine = /** @class */ (function () {
     ***************************************************************************************************************/
     GameEngine.prototype.initMatterJS = function () {
         ninjas.Debug.init.log("Initing 2D physics engine");
-        this.matterJsSystem = new ninjas.MatterJsSystem(this.canvasSystem.getCanvas(), function (renderContext) { ninjas.Main.game.paintAfter(renderContext); }, this.imageSystem.getAll());
+        this.matterJsSystem = new ninjas.MatterJsSystem(this.canvasSystem.getCanvas(), function (renderContext) { ninjas.Main.game.paintHUD(renderContext); }, this.imageSystem.getAll());
     };
     /***************************************************************************************************************
     *   Inits the window resize handler.
@@ -31877,7 +31877,6 @@ var SiteSystem = /** @class */ (function () {
             else {
                 this.currentPanel.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE) + "px";
             }
-            // TODO to own reference in class Site! remove id!
             var siteContainer = document.getElementById("siteContainer");
             siteContainer.style.width = (this.panelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
         }
