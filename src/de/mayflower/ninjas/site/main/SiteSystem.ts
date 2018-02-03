@@ -47,6 +47,11 @@
         {
             ninjas.Debug.site.log( "Showing site panel" );
 
+            if ( this.panelPosition != ninjas.SitePanelPosition.NONE )
+            {
+                return false;
+            }
+
             if ( this.animationInProgress )
             {
                 ninjas.Debug.site.log( "Animation currently running - canceling show" );
@@ -90,6 +95,11 @@
         public hide() : boolean
         {
             ninjas.Debug.site.log( "Hiding site panel" );
+
+            if ( this.panelPosition == ninjas.SitePanelPosition.NONE )
+            {
+                return false;
+            }
 
             if ( this.animationInProgress )
             {

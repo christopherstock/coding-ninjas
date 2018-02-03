@@ -1911,7 +1911,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(181)("./" + name);
+            __webpack_require__(180)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4603,7 +4603,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(180)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(179)(module)))
 
 /***/ }),
 /* 1 */
@@ -4643,6 +4643,7 @@ __export(__webpack_require__(154));
 __export(__webpack_require__(155));
 __export(__webpack_require__(156));
 __export(__webpack_require__(158));
+__export(__webpack_require__(159));
 __export(__webpack_require__(160));
 __export(__webpack_require__(161));
 __export(__webpack_require__(162));
@@ -4651,16 +4652,15 @@ __export(__webpack_require__(164));
 __export(__webpack_require__(165));
 __export(__webpack_require__(166));
 __export(__webpack_require__(167));
-__export(__webpack_require__(168));
+__export(__webpack_require__(169));
 __export(__webpack_require__(170));
-__export(__webpack_require__(171));
+__export(__webpack_require__(172));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
 __export(__webpack_require__(177));
 __export(__webpack_require__(178));
-__export(__webpack_require__(179));
 
 
 /***/ }),
@@ -15466,7 +15466,7 @@ function updateLink (link, options, obj) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(169);
+var content = __webpack_require__(168);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -27555,10 +27555,13 @@ var ninjas = __webpack_require__(1);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO Move game object classes to appropriate subpackages!
+*
+*
 *   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
 *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
 *   TODO Remove timeout and use Enine.events.tick?
 *   TODO Auto-release all keys on losing canvas focus?
+*   TODO Add translucent overlay for blend effects.
 *   TODO Add 'attack' action and sprite.
 *   TODO Parallax Fence in fg. ( parallax machanism for game decos ? )
 *   TODO Create parallax bg images in bg and fg (pick parallex class!).
@@ -29785,11 +29788,13 @@ var Game = /** @class */ (function () {
         *   Being invoked each tick of the game loop in order to render the game.
         ***************************************************************************************************************/
         this.tick = function () {
+            // start fpsMetet tick
             _this.engine.fpsMeter.tickStart();
-            // render the engine
+            // render one game tick
             _this.render();
             // update MatterJS 2d engine
             _this.engine.matterJsSystem.updateEngine(ninjas.Setting.RENDER_DELTA);
+            // stop fpsMetet tick
             _this.engine.fpsMeter.tick();
         };
     }
@@ -29847,8 +29852,28 @@ var Game = /** @class */ (function () {
     };
     /***************************************************************************************************************
     *   Paints all overlays after Matter.js completed rendering the scene.
+    *
+    *   @param context The 2D rendering context to draw onto.
     ***************************************************************************************************************/
-    Game.prototype.paint = function (context) {
+    Game.prototype.paintBefore = function (context) {
+        console.log("paintBefore");
+        context.globalCompositeOperation = 'source-over';
+        /*
+                context.globalCompositeOperation = 'source-in';
+                context.fillStyle = "transparent";
+                context.fillRect(0, 0, canvas.width, canvas.height);
+        */
+        context.fillStyle = "#ffff00";
+        context.fillRect(0, 0, 500, 500);
+        context.globalCompositeOperation = 'source-in';
+    };
+    /***************************************************************************************************************
+    *   Paints all overlays after Matter.js completed rendering the scene.
+    *
+    *   @param context The 2D rendering context to draw onto.
+    ***************************************************************************************************************/
+    Game.prototype.paintAfter = function (context) {
+        console.log("paintAfter");
         var testHudWidth = 150;
         var testHudHeight = 50;
         context.fillStyle = "#ff0000";
@@ -30844,7 +30869,7 @@ var GameEngine = /** @class */ (function () {
     ***************************************************************************************************************/
     GameEngine.prototype.initMatterJS = function () {
         ninjas.Debug.init.log("Initing 2D physics engine");
-        this.matterJsSystem = new ninjas.MatterJsSystem(this.canvasSystem.getCanvas(), function (renderContext) { ninjas.Main.game.paint(renderContext); }, this.imageSystem.getAll());
+        this.matterJsSystem = new ninjas.MatterJsSystem(this.canvasSystem.getCanvas(), function (renderContext) { ninjas.Main.game.paintBefore(renderContext); }, function (renderContext) { ninjas.Main.game.paintAfter(renderContext); }, this.imageSystem.getAll());
     };
     /***************************************************************************************************************
     *   Inits the window resize handler.
@@ -30882,8 +30907,7 @@ exports.GameEngine = GameEngine;
 
 
 /***/ }),
-/* 159 */,
-/* 160 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30928,7 +30952,7 @@ exports.Key = Key;
 
 
 /***/ }),
-/* 161 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31006,7 +31030,7 @@ exports.KeySystem = KeySystem;
 
 
 /***/ }),
-/* 162 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31118,7 +31142,7 @@ exports.Image = Image;
 
 
 /***/ }),
-/* 163 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31242,7 +31266,7 @@ exports.ImageSystem = ImageSystem;
 
 
 /***/ }),
-/* 164 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31273,7 +31297,7 @@ exports.Sound = Sound;
 
 
 /***/ }),
-/* 165 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31360,7 +31384,7 @@ exports.SoundSystem = SoundSystem;
 
 
 /***/ }),
-/* 166 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31445,7 +31469,7 @@ exports.Sprite = Sprite;
 
 
 /***/ }),
-/* 167 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31629,7 +31653,7 @@ exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),
-/* 168 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31699,7 +31723,7 @@ exports.SiteContent = SiteContent;
 
 
 /***/ }),
-/* 169 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -31713,7 +31737,7 @@ exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://dane
 
 
 /***/ }),
-/* 170 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31734,14 +31758,14 @@ var SitePanelPosition;
 
 
 /***/ }),
-/* 171 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-var wow = __webpack_require__(172);
+var wow = __webpack_require__(171);
 __webpack_require__(5);
 /*******************************************************************************************************************
 *   Manages the communication between the game and the company presentation.
@@ -31781,6 +31805,9 @@ var SiteSystem = /** @class */ (function () {
     SiteSystem.prototype.show = function (position) {
         var _this = this;
         ninjas.Debug.site.log("Showing site panel");
+        if (this.panelPosition != ninjas.SitePanelPosition.NONE) {
+            return false;
+        }
         if (this.animationInProgress) {
             ninjas.Debug.site.log("Animation currently running - canceling show");
             return false;
@@ -31810,6 +31837,9 @@ var SiteSystem = /** @class */ (function () {
     SiteSystem.prototype.hide = function () {
         var _this = this;
         ninjas.Debug.site.log("Hiding site panel");
+        if (this.panelPosition == ninjas.SitePanelPosition.NONE) {
+            return false;
+        }
         if (this.animationInProgress) {
             ninjas.Debug.site.log("Animation currently running - canceling hide");
             return false;
@@ -31910,7 +31940,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 172 */
+/* 171 */
 /***/ (function(module, exports) {
 
 (function() {
@@ -32429,7 +32459,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 173 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32607,7 +32637,7 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 174 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32683,7 +32713,7 @@ exports.CanvasSystem = CanvasSystem;
 
 
 /***/ }),
-/* 175 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32786,7 +32816,7 @@ exports.Drawing = Drawing;
 
 
 /***/ }),
-/* 176 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32804,11 +32834,12 @@ var MatterJsSystem = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a new Matter.js engine.
     *
-    *   @param canvas              The canvas to use.
-    *   @param callbackAfterRender The function to invoke after the engine has been rendered.
-    *   @param textureCache        All cached textures to use.
+    *   @param canvas               The canvas to use.
+    *   @param callbackBeforeRender The function to invoke before the engine has been rendered and drawed.
+    *   @param callbackAfterRender  The function to invoke after  the engine has been rendered and drawed.
+    *   @param textureCache         All cached textures to use.
     ***************************************************************************************************************/
-    function MatterJsSystem(canvas, callbackAfterRender, textureCache) {
+    function MatterJsSystem(canvas, callbackBeforeRender, callbackAfterRender, textureCache) {
         var _this = this;
         /** The Matter.js engine. */
         this.engine = null;
@@ -32829,9 +32860,10 @@ var MatterJsSystem = /** @class */ (function () {
                 hasBounds: true,
                 wireframes: false,
                 showCollisions: true,
+                showAxes: true,
                 showAngleIndicator: true,
                 showVelocity: true,
-                background: ninjas.Setting.CANVAS_BG,
+                background: "rgba( 0, 200, 0, 0.1 )",
                 width: ninjas.Main.game.engine.canvasSystem.getWidth(),
                 height: ninjas.Main.game.engine.canvasSystem.getHeight(),
             },
@@ -32842,6 +32874,7 @@ var MatterJsSystem = /** @class */ (function () {
         // disables blurry image drawing!
         this.renderer.context.imageSmoothingEnabled = false;
         // add drawing callback after rendering
+        matter.Events.on(this.renderer, "beforeRender", function () { callbackBeforeRender(_this.renderer.context); });
         matter.Events.on(this.renderer, "afterRender", function () { callbackAfterRender(_this.renderer.context); });
     }
     /***************************************************************************************************************
@@ -32904,7 +32937,7 @@ exports.MatterJsSystem = MatterJsSystem;
 
 
 /***/ }),
-/* 177 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32946,7 +32979,7 @@ exports.IO = IO;
 
 
 /***/ }),
-/* 178 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32986,7 +33019,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 179 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33034,7 +33067,7 @@ exports.String = String;
 
 
 /***/ }),
-/* 180 */
+/* 179 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -33062,7 +33095,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 181 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -33319,7 +33352,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 181;
+webpackContext.id = 180;
 
 /***/ })
 /******/ ]);
