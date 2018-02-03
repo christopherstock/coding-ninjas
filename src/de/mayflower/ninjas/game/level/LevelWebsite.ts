@@ -19,10 +19,13 @@
         ***************************************************************************************************************/
         protected createGameObjects()
         {
+            this.parallaxTest = ninjas.GameObjectFactory.createDecoration( 0,  0, 500, 150, null );
+
+
             // init player
             this.player = new ninjas.Player
             (
-                2500,
+                0,
                 0,
                 ninjas.CharacterLookingDirection.LEFT,
                 new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT )
@@ -31,7 +34,13 @@
             // setup all game objects
             this.gameObjects =
             [
+                // parallax background
+                this.parallaxTest,
+
+
+
                 // grounds and walls
+                ninjas.GameObjectFactory.createObstacle( 0,    350,  2000, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
 
                 // bg decoration

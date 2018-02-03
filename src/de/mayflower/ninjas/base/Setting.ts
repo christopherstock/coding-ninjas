@@ -78,7 +78,7 @@
         /** The debug color for the item. */
         public      static  readonly    COLOR_DEBUG_ITEM                            :string                     = "#fcff97";
         /** The debug color for a decoration. */
-        public      static  readonly    COLOR_DEBUG_DECORATION                      :string                     = "#b2ffbb";
+        public      static  readonly    COLOR_DEBUG_DECORATION                      :string                     = "#b5fffd";
         /** The debug color for a site trigger. */
         public      static  readonly    COLOR_DEBUG_SITE_TRIGGER                    :string                     = "#deffd9";
         /** The debug color for a platform. */

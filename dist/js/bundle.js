@@ -27439,7 +27439,7 @@ var Setting = /** @class */ (function () {
     /** The debug color for the item. */
     Setting.COLOR_DEBUG_ITEM = "#fcff97";
     /** The debug color for a decoration. */
-    Setting.COLOR_DEBUG_DECORATION = "#b2ffbb";
+    Setting.COLOR_DEBUG_DECORATION = "#b5fffd";
     /** The debug color for a site trigger. */
     Setting.COLOR_DEBUG_SITE_TRIGGER = "#deffd9";
     /** The debug color for a platform. */
@@ -27556,13 +27556,14 @@ var ninjas = __webpack_require__(1);
 *
 *   TODO Move game object classes to appropriate subpackages!
 *
+*   TODO move all system classes to package game/engine /io .. ?
 *
-*   TODO Extend afterRender and beforeRender. Move FPS-tickStart methods there!
 *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
 *   TODO Remove timeout and use Enine.events.tick?
 *   TODO Auto-release all keys on losing canvas focus?
 *   TODO Add translucent overlay for blend effects.
 *   TODO Add 'attack' action and sprite.
+*   TODO Craft and complete parallax game objects!
 *   TODO Parallax Fence in fg. ( parallax machanism for game decos ? )
 *   TODO Create parallax bg images in bg and fg (pick parallex class!).
 *   TODO Enable different animations for site panel.
@@ -27637,6 +27638,7 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   Represents the current level.
@@ -27654,6 +27656,8 @@ var Level = /** @class */ (function () {
         this.player = null;
         /** ALL game objects for this level, including the player. */
         this.gameObjects = null;
+        /** Testing parallax bg. */
+        this.parallaxTest = null;
     }
     /***************************************************************************************************************
     *   Inits a new level.
@@ -27693,6 +27697,10 @@ var Level = /** @class */ (function () {
                 if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
             }
             finally { if (e_2) throw e_2.error; }
+        }
+        // test rendering parallax objects
+        if (this.parallaxTest != null) {
+            matter.Body.setPosition(this.parallaxTest.shape.body, matter.Vector.create(ninjas.Main.game.camera.getOffsetX() + (this.parallaxTest.shape.getWidth() / 2), ninjas.Main.game.camera.getOffsetY() + (this.parallaxTest.shape.getHeight() / 2)));
         }
         var e_2, _c;
     };
@@ -27951,12 +27959,16 @@ var LevelWebsite = /** @class */ (function (_super) {
     *   Inits a new level.
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
+        this.parallaxTest = ninjas.GameObjectFactory.createDecoration(0, 0, 500, 150, null);
         // init player
-        this.player = new ninjas.Player(2500, 0, ninjas.CharacterLookingDirection.LEFT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(0, 0, ninjas.CharacterLookingDirection.LEFT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
+                // parallax background
+                this.parallaxTest,
                 // grounds and walls
+                ninjas.GameObjectFactory.createObstacle(0, 350, 2000, 15, 0.0, false),
                 ninjas.GameObjectFactory.createObstacle(2000, 1000, 7000, 15, 0.0, false),
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration(2080, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
@@ -29032,7 +29044,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created site trigger.
     ***************************************************************************************************************/
     GameObjectFactory.createSiteTrigger = function (x, y, width, height, fixedPanelPosition) {
-        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), null, x, y, fixedPanelPosition);
+        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SITE_TRIGGER, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), null, x, y, fixedPanelPosition);
     };
     /***************************************************************************************************************
     *   Creates a non-collidable background.
@@ -29845,27 +29857,10 @@ var Game = /** @class */ (function () {
     Game.prototype.render = function () {
         // handle menu key
         this.handleMenuKey();
-        // render level
-        this.level.render();
         // render camera
         this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.collidesBottom, this.engine.siteSystem.getCameraTargetX());
-    };
-    /***************************************************************************************************************
-    *   Paints all overlays after Matter.js completed rendering the scene.
-    *
-    *   @param context The 2D rendering context to draw onto.
-    ***************************************************************************************************************/
-    Game.prototype.paintBefore = function (context) {
-        console.log("paintBefore");
-        context.globalCompositeOperation = 'source-over';
-        /*
-                context.globalCompositeOperation = 'source-in';
-                context.fillStyle = "transparent";
-                context.fillRect(0, 0, canvas.width, canvas.height);
-        */
-        context.fillStyle = "#ffff00";
-        context.fillRect(0, 0, 500, 500);
-        context.globalCompositeOperation = 'source-in';
+        // render level
+        this.level.render();
     };
     /***************************************************************************************************************
     *   Paints all overlays after Matter.js completed rendering the scene.
@@ -29873,7 +29868,6 @@ var Game = /** @class */ (function () {
     *   @param context The 2D rendering context to draw onto.
     ***************************************************************************************************************/
     Game.prototype.paintAfter = function (context) {
-        console.log("paintAfter");
         var testHudWidth = 150;
         var testHudHeight = 50;
         context.fillStyle = "#ff0000";
@@ -30869,7 +30863,7 @@ var GameEngine = /** @class */ (function () {
     ***************************************************************************************************************/
     GameEngine.prototype.initMatterJS = function () {
         ninjas.Debug.init.log("Initing 2D physics engine");
-        this.matterJsSystem = new ninjas.MatterJsSystem(this.canvasSystem.getCanvas(), function (renderContext) { ninjas.Main.game.paintBefore(renderContext); }, function (renderContext) { ninjas.Main.game.paintAfter(renderContext); }, this.imageSystem.getAll());
+        this.matterJsSystem = new ninjas.MatterJsSystem(this.canvasSystem.getCanvas(), function (renderContext) { ninjas.Main.game.paintAfter(renderContext); }, this.imageSystem.getAll());
     };
     /***************************************************************************************************************
     *   Inits the window resize handler.
@@ -32631,6 +32625,22 @@ var Camera = /** @class */ (function () {
         if (this.targetY > this.levelHeight - this.canvasHeight)
             this.targetY = this.levelHeight - this.canvasHeight;
     };
+    /***************************************************************************************************************
+    *   Returns the current camera offset X.
+    *
+    *   @return Current offset X.
+    ***************************************************************************************************************/
+    Camera.prototype.getOffsetX = function () {
+        return this.offsetX;
+    };
+    /***************************************************************************************************************
+    *   Returns the current camera offset Y.
+    *
+    *   @return Current offset X.
+    ***************************************************************************************************************/
+    Camera.prototype.getOffsetY = function () {
+        return this.offsetY;
+    };
     return Camera;
 }());
 exports.Camera = Camera;
@@ -32834,12 +32844,11 @@ var MatterJsSystem = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a new Matter.js engine.
     *
-    *   @param canvas               The canvas to use.
-    *   @param callbackBeforeRender The function to invoke before the engine has been rendered and drawed.
-    *   @param callbackAfterRender  The function to invoke after  the engine has been rendered and drawed.
-    *   @param textureCache         All cached textures to use.
+    *   @param canvas              The canvas to use.
+    *   @param callbackAfterRender The function to invoke after  the engine has been rendered and drawed.
+    *   @param textureCache        All cached textures to use.
     ***************************************************************************************************************/
-    function MatterJsSystem(canvas, callbackBeforeRender, callbackAfterRender, textureCache) {
+    function MatterJsSystem(canvas, callbackAfterRender, textureCache) {
         var _this = this;
         /** The Matter.js engine. */
         this.engine = null;
@@ -32863,7 +32872,7 @@ var MatterJsSystem = /** @class */ (function () {
                 showAxes: true,
                 showAngleIndicator: true,
                 showVelocity: true,
-                background: "rgba( 0, 200, 0, 0.1 )",
+                background: ninjas.Setting.CANVAS_BG,
                 width: ninjas.Main.game.engine.canvasSystem.getWidth(),
                 height: ninjas.Main.game.engine.canvasSystem.getHeight(),
             },
@@ -32874,7 +32883,6 @@ var MatterJsSystem = /** @class */ (function () {
         // disables blurry image drawing!
         this.renderer.context.imageSmoothingEnabled = false;
         // add drawing callback after rendering
-        matter.Events.on(this.renderer, "beforeRender", function () { callbackBeforeRender(_this.renderer.context); });
         matter.Events.on(this.renderer, "afterRender", function () { callbackAfterRender(_this.renderer.context); });
     }
     /***************************************************************************************************************

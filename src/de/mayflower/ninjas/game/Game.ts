@@ -93,14 +93,16 @@
         ***************************************************************************************************************/
         private tick=()=>
         {
+            // start fpsMetet tick
             this.engine.fpsMeter.tickStart();
 
-            // render the engine
+            // render one game tick
             this.render();
 
             // update MatterJS 2d engine
             this.engine.matterJsSystem.updateEngine( ninjas.Setting.RENDER_DELTA );
 
+            // stop fpsMetet tick
             this.engine.fpsMeter.tick();
         };
 
@@ -112,9 +114,6 @@
             // handle menu key
             this.handleMenuKey();
 
-            // render level
-            this.level.render();
-
             // render camera
             this.camera.update(
                 this.level.player.shape.body.position.x,
@@ -122,12 +121,17 @@
                 this.level.player.collidesBottom,
                 this.engine.siteSystem.getCameraTargetX()
             );
+
+            // render level
+            this.level.render();
         }
 
         /***************************************************************************************************************
         *   Paints all overlays after Matter.js completed rendering the scene.
+        *   TODO rename to 'paint hud' ?
+        *   @param context The 2D rendering context to draw onto.
         ***************************************************************************************************************/
-        public paint( context:CanvasRenderingContext2D )
+        public paintAfter( context:CanvasRenderingContext2D )
         {
             let testHudWidth:number  = 150;
             let testHudHeight:number = 50;

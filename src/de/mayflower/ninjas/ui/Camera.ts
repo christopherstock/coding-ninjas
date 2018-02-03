@@ -227,4 +227,24 @@
             if ( this.targetY < 0                                    ) this.targetY = 0;
             if ( this.targetY > this.levelHeight - this.canvasHeight ) this.targetY = this.levelHeight - this.canvasHeight;
         }
+
+        /***************************************************************************************************************
+        *   Returns the current camera offset X.
+        *
+        *   @return Current offset X.
+        ***************************************************************************************************************/
+        public getOffsetX()
+        {
+            return this.offsetX;
+        }
+
+        /***************************************************************************************************************
+        *   Returns the current camera offset Y.
+        *
+        *   @return Current offset X.
+        ***************************************************************************************************************/
+        public getOffsetY()
+        {
+            return this.offsetY;
+        }
     }

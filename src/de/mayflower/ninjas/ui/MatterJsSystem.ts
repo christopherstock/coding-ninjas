@@ -19,14 +19,14 @@
         *   Creates a new Matter.js engine.
         *
         *   @param canvas              The canvas to use.
-        *   @param callbackAfterRender The function to invoke after the engine has been rendered.
+        *   @param callbackAfterRender The function to invoke after  the engine has been rendered and drawed.
         *   @param textureCache        All cached textures to use.
         ***************************************************************************************************************/
         public constructor
         (
-            canvas:HTMLCanvasElement,
-            callbackAfterRender:Function,
-            textureCache:Array<HTMLImageElement>
+            canvas              :HTMLCanvasElement,
+            callbackAfterRender :Function,
+            textureCache        :Array<HTMLImageElement>
         )
         {
             // create engine
@@ -46,13 +46,27 @@
                         hasBounds:          true,
                         wireframes:         false,
                         showCollisions:     true,
+                        showAxes:           true,
                         showAngleIndicator: true,
                         showVelocity:       true,
+
                         background:         ninjas.Setting.CANVAS_BG,
+
                         width:              ninjas.Main.game.engine.canvasSystem.getWidth(),
                         height:             ninjas.Main.game.engine.canvasSystem.getHeight(),
-
-                        // textures:           ninjas.Image.FILE_NAMES,
+/*
+                        showSleeping:       true,
+                        showDebug:          true,
+                        showBroadphase:     true,
+                        showBounds:         true,
+                        showSeparations:    true,
+                        showPositions:      true,
+                        showIds:            true,
+                        showShadows:        true,
+                        showVertexNumbers:  true,
+                        showConvexHulls:    true,
+                        showInternalEdges:  true,
+*/
                     } as any,
                 }
             );
@@ -65,11 +79,7 @@
             this.renderer.context.imageSmoothingEnabled = false;
 
             // add drawing callback after rendering
-            matter.Events.on(
-                this.renderer,
-                "afterRender",
-                () => { callbackAfterRender( this.renderer.context ) }
-            );
+            matter.Events.on( this.renderer, "afterRender",  () => { callbackAfterRender( this.renderer.context ) } );
         }
 
         /***************************************************************************************************************

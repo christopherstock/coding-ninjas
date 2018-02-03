@@ -288,7 +288,7 @@
                 (
                     width,
                     height,
-                    ninjas.Setting.COLOR_DEBUG_DECORATION,
+                    ninjas.Setting.COLOR_DEBUG_SITE_TRIGGER,
                     true,
                     0.0,
                     ninjas.GameObject.FRICTION_DEFAULT,

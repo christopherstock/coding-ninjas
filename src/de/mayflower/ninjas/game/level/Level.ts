@@ -20,6 +20,9 @@
         /** ALL game objects for this level, including the player. */
         public      gameObjects             :Array<ninjas.GameObject>   = null;
 
+        /** Testing parallax bg. */
+        public      parallaxTest            :ninjas.Decoration          = null;
+
         /***************************************************************************************************************
         *   Sets the player and the game objects.
         ***************************************************************************************************************/
@@ -47,6 +50,18 @@
             for ( let gameObject of this.gameObjects )
             {
                 gameObject.render();
+            }
+
+            // test rendering parallax objects
+            if ( this.parallaxTest != null )
+            {
+                matter.Body.setPosition(
+                    this.parallaxTest.shape.body,
+                    matter.Vector.create(
+                        ninjas.Main.game.camera.getOffsetX() + ( this.parallaxTest.shape.getWidth()  / 2 ),
+                        ninjas.Main.game.camera.getOffsetY() + ( this.parallaxTest.shape.getHeight() / 2 )
+                    )
+                )
             }
         }
     }
