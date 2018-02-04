@@ -1,5 +1,5 @@
 
-    import * as ninjas from '../ninjas';
+    import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
     *   Possible decisions for mirroring an image.

@@ -1,5 +1,5 @@
 
-    import * as ninjas from '../ninjas';
+    import * as ninjas from '../../ninjas';
 
     /*****************************************************************************
     *   Loads and manages all desired sounds.

@@ -1,5 +1,5 @@
 
-    import * as ninjas from '../ninjas';
+    import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
     *   The key system that manages all pressed keys.

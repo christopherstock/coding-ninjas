@@ -4,6 +4,19 @@
     require( "animate.css" );
 
     /*******************************************************************************************************************
+    *   Contains all possible positions for the site panel.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum SitePanelPosition
+    {
+        NONE,
+        LEFT,
+        RIGHT,
+    }
+
+    /*******************************************************************************************************************
     *   Manages the communication between the game and the company presentation.
     *
     *   @author     Christopher Stock

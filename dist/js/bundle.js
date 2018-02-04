@@ -1911,7 +1911,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(180)("./" + name);
+            __webpack_require__(179)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4603,7 +4603,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(179)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(178)(module)))
 
 /***/ }),
 /* 1 */
@@ -4621,12 +4621,10 @@ __export(__webpack_require__(131));
 __export(__webpack_require__(132));
 __export(__webpack_require__(133));
 __export(__webpack_require__(134));
+__export(__webpack_require__(135));
 __export(__webpack_require__(136));
-__export(__webpack_require__(137));
-__export(__webpack_require__(138));
 __export(__webpack_require__(139));
 __export(__webpack_require__(140));
-__export(__webpack_require__(141));
 __export(__webpack_require__(142));
 __export(__webpack_require__(143));
 __export(__webpack_require__(144));
@@ -4642,6 +4640,7 @@ __export(__webpack_require__(153));
 __export(__webpack_require__(154));
 __export(__webpack_require__(155));
 __export(__webpack_require__(156));
+__export(__webpack_require__(157));
 __export(__webpack_require__(158));
 __export(__webpack_require__(159));
 __export(__webpack_require__(160));
@@ -4649,18 +4648,18 @@ __export(__webpack_require__(161));
 __export(__webpack_require__(162));
 __export(__webpack_require__(163));
 __export(__webpack_require__(164));
-__export(__webpack_require__(165));
 __export(__webpack_require__(166));
 __export(__webpack_require__(167));
+__export(__webpack_require__(168));
 __export(__webpack_require__(169));
 __export(__webpack_require__(170));
+__export(__webpack_require__(171));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
 __export(__webpack_require__(177));
-__export(__webpack_require__(178));
 
 
 /***/ }),
@@ -15003,7 +15002,7 @@ var Vector = _dereq_('../geometry/Vector');
 
 },{"../body/Composite":2,"../core/Common":14,"../core/Events":16,"../geometry/Bounds":26,"../geometry/Vector":28}]},{},[30])(30)
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(135)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(141)))
 
 /***/ }),
 /* 3 */
@@ -15466,7 +15465,7 @@ function updateLink (link, options, obj) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(168);
+var content = __webpack_require__(138);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -27554,10 +27553,7 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO move all system classes to package game/engine /io .. ?
-*
-*   TODO Prune width and height from decoration? Use Sprite size instead!
-*   TODO Add translucent overlay for blend effects.
+*   TODO Prune width and height from decoration (check other game objects)? Use Sprite size instead!
 *   TODO Auto-release all keys on losing canvas focus?
 *   TODO Create static spriteTemplate creator for single image sprites.
 *   TODO Y location for all creator methods on bottom instead of on top?
@@ -27571,8 +27567,9 @@ var ninjas = __webpack_require__(1);
 *   TODO create method updateBody() for all shape classes??
 *   TODO Try sound error handling! (Safari etc.)
 *
-*   TODO Complete an MVP!
+*   TODO Complete the MVP!
 *
+*   TODO Add translucent overlay for blend effects.
 *   TODO create class HUD and assign its non-static method paintHud?
 *   TODO Fix flickering wow effects in all browsers!!
 *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
@@ -27622,6 +27619,1243 @@ exports.Main = Main;
 
 /***/ }),
 /* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   The key system that manages all pressed keys.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var KeySystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Creates a new key system.
+    ***************************************************************************************************************/
+    function KeySystem() {
+        var _this = this;
+        /** All 'pressed' information for all keys. */
+        this.keysPressed = [];
+        /** All 'needs release' information for all keys. */
+        this.keysNeedRelease = [];
+        /***************************************************************************************************************
+        *   This method is always invoked by the system if a key is pressed.
+        *
+        *   @param evt  The system's propagated key event.
+        ***************************************************************************************************************/
+        this.onKeyDown = function (evt) {
+            var keyCode = evt.which;
+            if (!_this.keysNeedRelease[keyCode]) {
+                _this.keysPressed[keyCode] = true;
+                ninjas.Debug.key.log("key pressed [" + keyCode + "]");
+            }
+        };
+        /***************************************************************************************************************
+        *   This method is always invoked by the system if a key is released.
+        *
+        *   @param evt  The system's propagated key event.
+        ***************************************************************************************************************/
+        this.onKeyUp = function (evt) {
+            var keyCode = evt.which;
+            _this.keysPressed[keyCode] = false;
+            _this.keysNeedRelease[keyCode] = false;
+            ninjas.Debug.key.log("key released [" + keyCode + "]");
+        };
+        //set event listener for keyboard devices - all but IE
+        window.addEventListener("keydown", this.onKeyDown, false);
+        window.addEventListener("keyup", this.onKeyUp, false);
+        //set event listener for keyboard devices - IE
+        window.addEventListener("onkeydown", this.onKeyDown, false);
+        window.addEventListener("onkeyup", this.onKeyUp, false);
+    }
+    /***************************************************************************************************************
+    *   Checks if the key with the given keyCode is currently pressed.
+    *
+    *   @param  keyCode The keyCode of the key to return pressed state.
+    *   @return         <code>true</code> if this key is currently pressed.
+    *                   Otherwise <code>false</code>.
+    ***************************************************************************************************************/
+    KeySystem.prototype.isPressed = function (keyCode) {
+        return this.keysPressed[keyCode];
+    };
+    /***************************************************************************************************************
+    *   Flags that a key needs release before being able to be pressed again.
+    *
+    *   @param  keyCode The keyCode of the key to mark as 'needs key release'.
+    ***************************************************************************************************************/
+    KeySystem.prototype.setNeedsRelease = function (keyCode) {
+        this.keysNeedRelease[keyCode] = true;
+        this.keysPressed[keyCode] = false;
+    };
+    return KeySystem;
+}());
+exports.KeySystem = KeySystem;
+
+
+/***/ }),
+/* 134 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Possible decisions for mirroring an image.
+*******************************************************************************************************************/
+var MirrorImage;
+(function (MirrorImage) {
+    MirrorImage[MirrorImage["YES"] = 0] = "YES";
+    MirrorImage[MirrorImage["NO"] = 1] = "NO";
+})(MirrorImage = exports.MirrorImage || (exports.MirrorImage = {}));
+/*******************************************************************************************************************
+*   All images the game makes use of.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var ImageSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Preloads all images into memory.
+    *
+    *   @param fileNames      The names of all image files to load.
+    *   @param onLoadComplete The method to invoke when all image files are loaded.
+    ***************************************************************************************************************/
+    function ImageSystem(fileNames, onLoadComplete) {
+        var _this = this;
+        /** All image file names to load. */
+        this.fileNames = null;
+        /** The method to invoke when all images are loaded. */
+        this.onLoadComplete = null;
+        /** The number of currently loaded images. */
+        this.loadedImageCount = 0;
+        /** The number of currently mirrored images. */
+        this.mirroredImageCount = 0;
+        /** All loaded image objects. */
+        this.originalImages = [];
+        /** All loaded and mirrored image objects. */
+        this.mirroredImages = [];
+        /***************************************************************************************************************
+        *   Being invoked when one image was loaded completely.
+        *
+        *   @param event The according image event.
+        ***************************************************************************************************************/
+        this.onLoadImage = function (event) {
+            if (++_this.loadedImageCount == _this.fileNames.length) {
+                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
+                _this.mirrorImages();
+            }
+        };
+        /***************************************************************************************************************
+        *   Being invoked when one image was mirrored.
+        *
+        *   @param event The according image event.
+        ***************************************************************************************************************/
+        this.onMirrorImage = function (event) {
+            if (++_this.mirroredImageCount == _this.fileNames.length) {
+                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images mirrored");
+                _this.onLoadComplete();
+            }
+        };
+        this.fileNames = fileNames;
+        this.onLoadComplete = onLoadComplete;
+    }
+    /***************************************************************************************************************
+    *   Returns the image with the specified id.
+    *
+    *   @param id The id of the image to receive.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.getImage = function (id) {
+        return this.originalImages[id];
+    };
+    /***************************************************************************************************************
+    *   Returns the mirrored image with the specified id.
+    *
+    *   @param id The id of the mirrored image to receive.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.getMirroredImage = function (id) {
+        return this.mirroredImages[id];
+    };
+    /***************************************************************************************************************
+    *   Loads all specified image files into system memory.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.loadImages = function () {
+        ninjas.Debug.image.log("Loading [" + this.fileNames.length + "] images");
+        // load all images
+        for (var i = 0; i < this.fileNames.length; i++) {
+            this.originalImages[this.fileNames[i]] = new Image();
+            this.originalImages[this.fileNames[i]].src = this.fileNames[i];
+            this.originalImages[this.fileNames[i]].onload = this.onLoadImage;
+        }
+    };
+    /***************************************************************************************************************
+    *   Mirrors all specified image files in system memory.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.mirrorImages = function () {
+        ninjas.Debug.image.log("Mirroring [" + this.fileNames.length + "] images");
+        // mirror all images
+        for (var i = 0; i < this.fileNames.length; i++) {
+            this.mirroredImages[this.fileNames[i]] = ninjas.IO.flipImageHorizontal(this.originalImages[this.fileNames[i]], this.onMirrorImage);
+        }
+    };
+    /***************************************************************************************************************
+    *   Delivers an associated array with all images where the src is the key.
+    *
+    *   @return An associated array of all images. Source attribute is the key.
+    ***************************************************************************************************************/
+    ImageSystem.prototype.getAll = function () {
+        var ret = [];
+        for (var i = 0; i < this.fileNames.length; i++) {
+            ret[this.getImage(this.fileNames[i]).src] = this.getImage(this.fileNames[i]);
+            ret[this.getMirroredImage(this.fileNames[i]).src] = this.getMirroredImage(this.fileNames[i]);
+        }
+        return ret;
+    };
+    return ImageSystem;
+}());
+exports.ImageSystem = ImageSystem;
+
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*****************************************************************************
+*   Loads and manages all desired sounds.
+*
+*   @author  Christopher Stock
+*   @version 1.0
+*****************************************************************************/
+var SoundSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Preloads all images into memory.
+    *
+    *   @param fileNames      The names of all image files to load.
+    *   @param onLoadComplete The method to invoke when all image files are loaded.
+    ***************************************************************************************************************/
+    function SoundSystem(fileNames, onLoadComplete) {
+        var _this = this;
+        /** All sound file names to load. */
+        this.fileNames = null;
+        /** The method to invoke when all sounds are loaded. */
+        this.onLoadComplete = null;
+        /** The number of currently loaded sounds. */
+        this.loadedSoundCount = 0;
+        /** All loaded sound objects. */
+        this.sounds = [];
+        /***************************************************************************************************************
+        *   Being invoked when one image was loaded completely.
+        ***************************************************************************************************************/
+        this.onLoadSound = function () {
+            if (++_this.loadedSoundCount == _this.fileNames.length) {
+                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] sounds loaded");
+                _this.onLoadComplete();
+            }
+        };
+        this.fileNames = fileNames;
+        this.onLoadComplete = onLoadComplete;
+    }
+    /*****************************************************************************
+    *   Creates and plays a COPY of the specified audio object.
+    *
+    *   @param id   The ID of the audio object to play.
+    *   @param loop Specifies if playback for this sound should be repeated infinitely.
+    *****************************************************************************/
+    SoundSystem.prototype.playSound = function (id, loop) {
+        if (loop === void 0) { loop = false; }
+        if (!ninjas.Setting.MUTE) {
+            if (this.sounds[id] != null) {
+                var clipClone_1 = this.sounds[id].cloneNode(true);
+                if (loop) {
+                    clipClone_1.addEventListener("ended", function () {
+                        ninjas.Debug.sound.log("Clip ended - now repeating ..");
+                        // clipClone.
+                        clipClone_1.play();
+                    });
+                }
+                clipClone_1.play();
+            }
+        }
+    };
+    /***************************************************************************************************************
+    *   Loads all specified sound files into system memory.
+    ***************************************************************************************************************/
+    SoundSystem.prototype.loadSounds = function () {
+        ninjas.Debug.sound.log("Preloading [" + this.fileNames.length + "] sounds");
+        for (var i = 0; i < this.fileNames.length; i++) {
+            try {
+                this.sounds[this.fileNames[i]] = new Audio();
+                this.sounds[this.fileNames[i]].src = this.fileNames[i];
+                this.sounds[this.fileNames[i]].onloadeddata = this.onLoadSound;
+            }
+            catch (e) {
+                ninjas.Debug.sound.log("Error on creating Audio element: " + e.message);
+                this.onLoadSound();
+            }
+        }
+    };
+    return SoundSystem;
+}());
+exports.SoundSystem = SoundSystem;
+
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+var wow = __webpack_require__(137);
+__webpack_require__(5);
+/*******************************************************************************************************************
+*   Contains all possible positions for the site panel.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SitePanelPosition;
+(function (SitePanelPosition) {
+    SitePanelPosition[SitePanelPosition["NONE"] = 0] = "NONE";
+    SitePanelPosition[SitePanelPosition["LEFT"] = 1] = "LEFT";
+    SitePanelPosition[SitePanelPosition["RIGHT"] = 2] = "RIGHT";
+})(SitePanelPosition = exports.SitePanelPosition || (exports.SitePanelPosition = {}));
+/*******************************************************************************************************************
+*   Manages the communication between the game and the company presentation.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SiteSystem = /** @class */ (function () {
+    /*****************************************************************************
+    *   Creates a new site system.
+    *****************************************************************************/
+    function SiteSystem() {
+        /** The current site panel. */
+        this.currentPanel = null;
+        /** Flags if an animation is currently active. */
+        this.animationInProgress = null;
+        /** Flags if a panel is currently shown. */
+        this.panelPosition = ninjas.SitePanelPosition.NONE;
+        /** The WOW animation system. */
+        this.wowSystem = null;
+        /** The current width of the panel. */
+        this.panelWidth = 0;
+        /** The current width of the panel including border size. */
+        this.panelAndBorderWidth = 0;
+        /** The left camera target X if the border is shown right. */
+        this.leftCameraTargetX = 0;
+        /** The right camera target X if the border is shown left. */
+        this.rightCameraTargetX = 0;
+        this.initWowSystem();
+        this.updatePanelSizeAndPosition();
+    }
+    /*****************************************************************************
+    *   Being invoked when a site shall be shown.
+    *
+    *   @return If showing the site succeeded.
+    *****************************************************************************/
+    SiteSystem.prototype.show = function (position) {
+        var _this = this;
+        ninjas.Debug.site.log("Showing site panel");
+        if (this.panelPosition != ninjas.SitePanelPosition.NONE) {
+            return false;
+        }
+        if (this.animationInProgress) {
+            ninjas.Debug.site.log("Animation currently running - canceling show");
+            return false;
+        }
+        this.animationInProgress = true;
+        this.panelPosition = position;
+        this.currentPanel = ninjas.SiteContent.createExampleContent();
+        if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
+            this.currentPanel.className = "wow bounceInLeft";
+        }
+        else {
+            this.currentPanel.className = "wow bounceInRight";
+        }
+        document.body.appendChild(this.currentPanel);
+        this.updatePanelSizeAndPosition();
+        this.wowSystem.sync();
+        window.setTimeout(function () {
+            _this.animationInProgress = false;
+        }, 1000);
+        return true;
+    };
+    /*****************************************************************************
+    *   Being invoked when a site shall be hidden.
+    *
+    *   @return If hiding the site succeeded.
+    *****************************************************************************/
+    SiteSystem.prototype.hide = function () {
+        var _this = this;
+        ninjas.Debug.site.log("Hiding site panel");
+        if (this.panelPosition == ninjas.SitePanelPosition.NONE) {
+            return false;
+        }
+        if (this.animationInProgress) {
+            ninjas.Debug.site.log("Animation currently running - canceling hide");
+            return false;
+        }
+        this.animationInProgress = true;
+        if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
+            this.currentPanel.className = "wow bounceOutLeft";
+        }
+        else {
+            this.currentPanel.className = "wow bounceOutRight";
+        }
+        this.panelPosition = ninjas.SitePanelPosition.NONE;
+        this.wowSystem.sync();
+        window.setTimeout(function () {
+            _this.currentPanel.remove();
+            _this.currentPanel = null;
+            _this.animationInProgress = false;
+        }, 750);
+        return true;
+    };
+    /*****************************************************************************
+    *   Being invoked when the panel size should be set according to the current canvas size.
+    *****************************************************************************/
+    SiteSystem.prototype.updatePanelSizeAndPosition = function () {
+        // calculate panel size
+        this.panelWidth = (ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.Setting.SITE_BORDER_SIZE);
+        if (this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
+            this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
+        }
+        // calculate panel size including border and left and right position
+        this.panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+        this.leftCameraTargetX = (this.panelAndBorderWidth + ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2));
+        this.rightCameraTargetX = ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2);
+        // update panel size and position
+        if (this.currentPanel != null) {
+            this.currentPanel.style.width = this.panelWidth + "px";
+            this.currentPanel.style.height = (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
+            if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
+                this.currentPanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
+            }
+            else {
+                this.currentPanel.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE) + "px";
+            }
+            var siteContainer = document.getElementById("siteContainer");
+            siteContainer.style.width = (this.panelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
+        }
+    };
+    /*****************************************************************************
+    *   Determines if a site panel is currently active.
+    *
+    *   @return <code>true</code> if a site panel is currently active.
+    *****************************************************************************/
+    SiteSystem.prototype.getCameraTargetX = function () {
+        switch (this.panelPosition) {
+            case ninjas.SitePanelPosition.NONE:
+                {
+                    switch (ninjas.Main.game.level.player.lookingDirection) {
+                        case ninjas.CharacterLookingDirection.LEFT:
+                            {
+                                return this.leftCameraTargetX;
+                            }
+                        case ninjas.CharacterLookingDirection.RIGHT:
+                            {
+                                return this.rightCameraTargetX;
+                            }
+                    }
+                    throw new Error("Camera position not determinable though undefined player looking direction!");
+                }
+            case ninjas.SitePanelPosition.LEFT:
+                {
+                    return this.leftCameraTargetX;
+                }
+            case ninjas.SitePanelPosition.RIGHT:
+                {
+                    return this.rightCameraTargetX;
+                }
+        }
+    };
+    /***************************************************************************************************************
+    *   Inits the WOW animation system.
+    ***************************************************************************************************************/
+    SiteSystem.prototype.initWowSystem = function () {
+        ninjas.Debug.init.log("Initing WOW animations");
+        this.wowSystem = new wow.WOW({
+            boxClass: 'wow',
+            animateClass: 'animated',
+            offset: 0,
+            mobile: true,
+            scrollContainer: null,
+            live: true,
+        });
+        this.wowSystem.init();
+    };
+    return SiteSystem;
+}());
+exports.SiteSystem = SiteSystem;
+
+
+/***/ }),
+/* 137 */
+/***/ (function(module, exports) {
+
+(function() {
+  var MutationObserver, Util, WeakMap, getComputedStyle, getComputedStyleRX,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  Util = (function() {
+    function Util() {}
+
+    Util.prototype.extend = function(custom, defaults) {
+      var key, value;
+      for (key in defaults) {
+        value = defaults[key];
+        if (custom[key] == null) {
+          custom[key] = value;
+        }
+      }
+      return custom;
+    };
+
+    Util.prototype.isMobile = function(agent) {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
+    };
+
+    Util.prototype.createEvent = function(event, bubble, cancel, detail) {
+      var customEvent;
+      if (bubble == null) {
+        bubble = false;
+      }
+      if (cancel == null) {
+        cancel = false;
+      }
+      if (detail == null) {
+        detail = null;
+      }
+      if (document.createEvent != null) {
+        customEvent = document.createEvent('CustomEvent');
+        customEvent.initCustomEvent(event, bubble, cancel, detail);
+      } else if (document.createEventObject != null) {
+        customEvent = document.createEventObject();
+        customEvent.eventType = event;
+      } else {
+        customEvent.eventName = event;
+      }
+      return customEvent;
+    };
+
+    Util.prototype.emitEvent = function(elem, event) {
+      if (elem.dispatchEvent != null) {
+        return elem.dispatchEvent(event);
+      } else if (event in (elem != null)) {
+        return elem[event]();
+      } else if (("on" + event) in (elem != null)) {
+        return elem["on" + event]();
+      }
+    };
+
+    Util.prototype.addEvent = function(elem, event, fn) {
+      if (elem.addEventListener != null) {
+        return elem.addEventListener(event, fn, false);
+      } else if (elem.attachEvent != null) {
+        return elem.attachEvent("on" + event, fn);
+      } else {
+        return elem[event] = fn;
+      }
+    };
+
+    Util.prototype.removeEvent = function(elem, event, fn) {
+      if (elem.removeEventListener != null) {
+        return elem.removeEventListener(event, fn, false);
+      } else if (elem.detachEvent != null) {
+        return elem.detachEvent("on" + event, fn);
+      } else {
+        return delete elem[event];
+      }
+    };
+
+    Util.prototype.innerHeight = function() {
+      if ('innerHeight' in window) {
+        return window.innerHeight;
+      } else {
+        return document.documentElement.clientHeight;
+      }
+    };
+
+    return Util;
+
+  })();
+
+  WeakMap = this.WeakMap || this.MozWeakMap || (WeakMap = (function() {
+    function WeakMap() {
+      this.keys = [];
+      this.values = [];
+    }
+
+    WeakMap.prototype.get = function(key) {
+      var i, item, j, len, ref;
+      ref = this.keys;
+      for (i = j = 0, len = ref.length; j < len; i = ++j) {
+        item = ref[i];
+        if (item === key) {
+          return this.values[i];
+        }
+      }
+    };
+
+    WeakMap.prototype.set = function(key, value) {
+      var i, item, j, len, ref;
+      ref = this.keys;
+      for (i = j = 0, len = ref.length; j < len; i = ++j) {
+        item = ref[i];
+        if (item === key) {
+          this.values[i] = value;
+          return;
+        }
+      }
+      this.keys.push(key);
+      return this.values.push(value);
+    };
+
+    return WeakMap;
+
+  })());
+
+  MutationObserver = this.MutationObserver || this.WebkitMutationObserver || this.MozMutationObserver || (MutationObserver = (function() {
+    function MutationObserver() {
+      if (typeof console !== "undefined" && console !== null) {
+        console.warn('MutationObserver is not supported by your browser.');
+      }
+      if (typeof console !== "undefined" && console !== null) {
+        console.warn('WOW.js cannot detect dom mutations, please call .sync() after loading new content.');
+      }
+    }
+
+    MutationObserver.notSupported = true;
+
+    MutationObserver.prototype.observe = function() {};
+
+    return MutationObserver;
+
+  })());
+
+  getComputedStyle = this.getComputedStyle || function(el, pseudo) {
+    this.getPropertyValue = function(prop) {
+      var ref;
+      if (prop === 'float') {
+        prop = 'styleFloat';
+      }
+      if (getComputedStyleRX.test(prop)) {
+        prop.replace(getComputedStyleRX, function(_, _char) {
+          return _char.toUpperCase();
+        });
+      }
+      return ((ref = el.currentStyle) != null ? ref[prop] : void 0) || null;
+    };
+    return this;
+  };
+
+  getComputedStyleRX = /(\-([a-z]){1})/g;
+
+  this.WOW = (function() {
+    WOW.prototype.defaults = {
+      boxClass: 'wow',
+      animateClass: 'animated',
+      offset: 0,
+      mobile: true,
+      live: true,
+      callback: null,
+      scrollContainer: null
+    };
+
+    function WOW(options) {
+      if (options == null) {
+        options = {};
+      }
+      this.scrollCallback = bind(this.scrollCallback, this);
+      this.scrollHandler = bind(this.scrollHandler, this);
+      this.resetAnimation = bind(this.resetAnimation, this);
+      this.start = bind(this.start, this);
+      this.scrolled = true;
+      this.config = this.util().extend(options, this.defaults);
+      if (options.scrollContainer != null) {
+        this.config.scrollContainer = document.querySelector(options.scrollContainer);
+      }
+      this.animationNameCache = new WeakMap();
+      this.wowEvent = this.util().createEvent(this.config.boxClass);
+    }
+
+    WOW.prototype.init = function() {
+      var ref;
+      this.element = window.document.documentElement;
+      if ((ref = document.readyState) === "interactive" || ref === "complete") {
+        this.start();
+      } else {
+        this.util().addEvent(document, 'DOMContentLoaded', this.start);
+      }
+      return this.finished = [];
+    };
+
+    WOW.prototype.start = function() {
+      var box, j, len, ref;
+      this.stopped = false;
+      this.boxes = (function() {
+        var j, len, ref, results;
+        ref = this.element.querySelectorAll("." + this.config.boxClass);
+        results = [];
+        for (j = 0, len = ref.length; j < len; j++) {
+          box = ref[j];
+          results.push(box);
+        }
+        return results;
+      }).call(this);
+      this.all = (function() {
+        var j, len, ref, results;
+        ref = this.boxes;
+        results = [];
+        for (j = 0, len = ref.length; j < len; j++) {
+          box = ref[j];
+          results.push(box);
+        }
+        return results;
+      }).call(this);
+      if (this.boxes.length) {
+        if (this.disabled()) {
+          this.resetStyle();
+        } else {
+          ref = this.boxes;
+          for (j = 0, len = ref.length; j < len; j++) {
+            box = ref[j];
+            this.applyStyle(box, true);
+          }
+        }
+      }
+      if (!this.disabled()) {
+        this.util().addEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
+        this.util().addEvent(window, 'resize', this.scrollHandler);
+        this.interval = setInterval(this.scrollCallback, 50);
+      }
+      if (this.config.live) {
+        return new MutationObserver((function(_this) {
+          return function(records) {
+            var k, len1, node, record, results;
+            results = [];
+            for (k = 0, len1 = records.length; k < len1; k++) {
+              record = records[k];
+              results.push((function() {
+                var l, len2, ref1, results1;
+                ref1 = record.addedNodes || [];
+                results1 = [];
+                for (l = 0, len2 = ref1.length; l < len2; l++) {
+                  node = ref1[l];
+                  results1.push(this.doSync(node));
+                }
+                return results1;
+              }).call(_this));
+            }
+            return results;
+          };
+        })(this)).observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      }
+    };
+
+    WOW.prototype.stop = function() {
+      this.stopped = true;
+      this.util().removeEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
+      this.util().removeEvent(window, 'resize', this.scrollHandler);
+      if (this.interval != null) {
+        return clearInterval(this.interval);
+      }
+    };
+
+    WOW.prototype.sync = function(element) {
+      if (MutationObserver.notSupported) {
+        return this.doSync(this.element);
+      }
+    };
+
+    WOW.prototype.doSync = function(element) {
+      var box, j, len, ref, results;
+      if (element == null) {
+        element = this.element;
+      }
+      if (element.nodeType !== 1) {
+        return;
+      }
+      element = element.parentNode || element;
+      ref = element.querySelectorAll("." + this.config.boxClass);
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        box = ref[j];
+        if (indexOf.call(this.all, box) < 0) {
+          this.boxes.push(box);
+          this.all.push(box);
+          if (this.stopped || this.disabled()) {
+            this.resetStyle();
+          } else {
+            this.applyStyle(box, true);
+          }
+          results.push(this.scrolled = true);
+        } else {
+          results.push(void 0);
+        }
+      }
+      return results;
+    };
+
+    WOW.prototype.show = function(box) {
+      this.applyStyle(box);
+      box.className = box.className + " " + this.config.animateClass;
+      if (this.config.callback != null) {
+        this.config.callback(box);
+      }
+      this.util().emitEvent(box, this.wowEvent);
+      this.util().addEvent(box, 'animationend', this.resetAnimation);
+      this.util().addEvent(box, 'oanimationend', this.resetAnimation);
+      this.util().addEvent(box, 'webkitAnimationEnd', this.resetAnimation);
+      this.util().addEvent(box, 'MSAnimationEnd', this.resetAnimation);
+      return box;
+    };
+
+    WOW.prototype.applyStyle = function(box, hidden) {
+      var delay, duration, iteration;
+      duration = box.getAttribute('data-wow-duration');
+      delay = box.getAttribute('data-wow-delay');
+      iteration = box.getAttribute('data-wow-iteration');
+      return this.animate((function(_this) {
+        return function() {
+          return _this.customStyle(box, hidden, duration, delay, iteration);
+        };
+      })(this));
+    };
+
+    WOW.prototype.animate = (function() {
+      if ('requestAnimationFrame' in window) {
+        return function(callback) {
+          return window.requestAnimationFrame(callback);
+        };
+      } else {
+        return function(callback) {
+          return callback();
+        };
+      }
+    })();
+
+    WOW.prototype.resetStyle = function() {
+      var box, j, len, ref, results;
+      ref = this.boxes;
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        box = ref[j];
+        results.push(box.style.visibility = 'visible');
+      }
+      return results;
+    };
+
+    WOW.prototype.resetAnimation = function(event) {
+      var target;
+      if (event.type.toLowerCase().indexOf('animationend') >= 0) {
+        target = event.target || event.srcElement;
+        return target.className = target.className.replace(this.config.animateClass, '').trim();
+      }
+    };
+
+    WOW.prototype.customStyle = function(box, hidden, duration, delay, iteration) {
+      if (hidden) {
+        this.cacheAnimationName(box);
+      }
+      box.style.visibility = hidden ? 'hidden' : 'visible';
+      if (duration) {
+        this.vendorSet(box.style, {
+          animationDuration: duration
+        });
+      }
+      if (delay) {
+        this.vendorSet(box.style, {
+          animationDelay: delay
+        });
+      }
+      if (iteration) {
+        this.vendorSet(box.style, {
+          animationIterationCount: iteration
+        });
+      }
+      this.vendorSet(box.style, {
+        animationName: hidden ? 'none' : this.cachedAnimationName(box)
+      });
+      return box;
+    };
+
+    WOW.prototype.vendors = ["moz", "webkit"];
+
+    WOW.prototype.vendorSet = function(elem, properties) {
+      var name, results, value, vendor;
+      results = [];
+      for (name in properties) {
+        value = properties[name];
+        elem["" + name] = value;
+        results.push((function() {
+          var j, len, ref, results1;
+          ref = this.vendors;
+          results1 = [];
+          for (j = 0, len = ref.length; j < len; j++) {
+            vendor = ref[j];
+            results1.push(elem["" + vendor + (name.charAt(0).toUpperCase()) + (name.substr(1))] = value);
+          }
+          return results1;
+        }).call(this));
+      }
+      return results;
+    };
+
+    WOW.prototype.vendorCSS = function(elem, property) {
+      var j, len, ref, result, style, vendor;
+      style = getComputedStyle(elem);
+      result = style.getPropertyCSSValue(property);
+      ref = this.vendors;
+      for (j = 0, len = ref.length; j < len; j++) {
+        vendor = ref[j];
+        result = result || style.getPropertyCSSValue("-" + vendor + "-" + property);
+      }
+      return result;
+    };
+
+    WOW.prototype.animationName = function(box) {
+      var animationName, error;
+      try {
+        animationName = this.vendorCSS(box, 'animation-name').cssText;
+      } catch (error) {
+        animationName = getComputedStyle(box).getPropertyValue('animation-name');
+      }
+      if (animationName === 'none') {
+        return '';
+      } else {
+        return animationName;
+      }
+    };
+
+    WOW.prototype.cacheAnimationName = function(box) {
+      return this.animationNameCache.set(box, this.animationName(box));
+    };
+
+    WOW.prototype.cachedAnimationName = function(box) {
+      return this.animationNameCache.get(box);
+    };
+
+    WOW.prototype.scrollHandler = function() {
+      return this.scrolled = true;
+    };
+
+    WOW.prototype.scrollCallback = function() {
+      var box;
+      if (this.scrolled) {
+        this.scrolled = false;
+        this.boxes = (function() {
+          var j, len, ref, results;
+          ref = this.boxes;
+          results = [];
+          for (j = 0, len = ref.length; j < len; j++) {
+            box = ref[j];
+            if (!(box)) {
+              continue;
+            }
+            if (this.isVisible(box)) {
+              this.show(box);
+              continue;
+            }
+            results.push(box);
+          }
+          return results;
+        }).call(this);
+        if (!(this.boxes.length || this.config.live)) {
+          return this.stop();
+        }
+      }
+    };
+
+    WOW.prototype.offsetTop = function(element) {
+      var top;
+      while (element.offsetTop === void 0) {
+        element = element.parentNode;
+      }
+      top = element.offsetTop;
+      while (element = element.offsetParent) {
+        top += element.offsetTop;
+      }
+      return top;
+    };
+
+    WOW.prototype.isVisible = function(box) {
+      var bottom, offset, top, viewBottom, viewTop;
+      offset = box.getAttribute('data-wow-offset') || this.config.offset;
+      viewTop = (this.config.scrollContainer && this.config.scrollContainer.scrollTop) || window.pageYOffset;
+      viewBottom = viewTop + Math.min(this.element.clientHeight, this.util().innerHeight()) - offset;
+      top = this.offsetTop(box);
+      bottom = top + box.clientHeight;
+      return top <= viewBottom && bottom >= viewTop;
+    };
+
+    WOW.prototype.util = function() {
+      return this._util != null ? this._util : this._util = new Util();
+    };
+
+    WOW.prototype.disabled = function() {
+      return !this.config.mobile && this.util().isMobile(navigator.userAgent);
+    };
+
+    return WOW;
+
+  })();
+
+}).call(this);
+
+
+/***/ }),
+/* 138 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)(false);
+// imports
+
+
+// module
+exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://daneden.me/animate\n * Version - 3.5.1\n * Licensed under the MIT license - http://opensource.org/licenses/MIT\n *\n * Copyright (c) 2016 Daniel Eden\n */\n\n.animated {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both;\n}\n\n.animated.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite;\n}\n\n.animated.hinge {\n  -webkit-animation-duration: 2s;\n  animation-duration: 2s;\n}\n\n.animated.flipOutX,\n.animated.flipOutY,\n.animated.bounceIn,\n.animated.bounceOut {\n  -webkit-animation-duration: .75s;\n  animation-duration: .75s;\n}\n\n@-webkit-keyframes bounce {\n  from, 20%, 53%, 80%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    -webkit-transform: translate3d(0,0,0);\n    transform: translate3d(0,0,0);\n  }\n\n  40%, 43% {\n    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    -webkit-transform: translate3d(0, -30px, 0);\n    transform: translate3d(0, -30px, 0);\n  }\n\n  70% {\n    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    -webkit-transform: translate3d(0, -15px, 0);\n    transform: translate3d(0, -15px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0,-4px,0);\n    transform: translate3d(0,-4px,0);\n  }\n}\n\n@keyframes bounce {\n  from, 20%, 53%, 80%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    -webkit-transform: translate3d(0,0,0);\n    transform: translate3d(0,0,0);\n  }\n\n  40%, 43% {\n    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    -webkit-transform: translate3d(0, -30px, 0);\n    transform: translate3d(0, -30px, 0);\n  }\n\n  70% {\n    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    -webkit-transform: translate3d(0, -15px, 0);\n    transform: translate3d(0, -15px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0,-4px,0);\n    transform: translate3d(0,-4px,0);\n  }\n}\n\n.bounce {\n  -webkit-animation-name: bounce;\n  animation-name: bounce;\n  -webkit-transform-origin: center bottom;\n  transform-origin: center bottom;\n}\n\n@-webkit-keyframes flash {\n  from, 50%, to {\n    opacity: 1;\n  }\n\n  25%, 75% {\n    opacity: 0;\n  }\n}\n\n@keyframes flash {\n  from, 50%, to {\n    opacity: 1;\n  }\n\n  25%, 75% {\n    opacity: 0;\n  }\n}\n\n.flash {\n  -webkit-animation-name: flash;\n  animation-name: flash;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@-webkit-keyframes pulse {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  50% {\n    -webkit-transform: scale3d(1.05, 1.05, 1.05);\n    transform: scale3d(1.05, 1.05, 1.05);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n@keyframes pulse {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  50% {\n    -webkit-transform: scale3d(1.05, 1.05, 1.05);\n    transform: scale3d(1.05, 1.05, 1.05);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.pulse {\n  -webkit-animation-name: pulse;\n  animation-name: pulse;\n}\n\n@-webkit-keyframes rubberBand {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  30% {\n    -webkit-transform: scale3d(1.25, 0.75, 1);\n    transform: scale3d(1.25, 0.75, 1);\n  }\n\n  40% {\n    -webkit-transform: scale3d(0.75, 1.25, 1);\n    transform: scale3d(0.75, 1.25, 1);\n  }\n\n  50% {\n    -webkit-transform: scale3d(1.15, 0.85, 1);\n    transform: scale3d(1.15, 0.85, 1);\n  }\n\n  65% {\n    -webkit-transform: scale3d(.95, 1.05, 1);\n    transform: scale3d(.95, 1.05, 1);\n  }\n\n  75% {\n    -webkit-transform: scale3d(1.05, .95, 1);\n    transform: scale3d(1.05, .95, 1);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n@keyframes rubberBand {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  30% {\n    -webkit-transform: scale3d(1.25, 0.75, 1);\n    transform: scale3d(1.25, 0.75, 1);\n  }\n\n  40% {\n    -webkit-transform: scale3d(0.75, 1.25, 1);\n    transform: scale3d(0.75, 1.25, 1);\n  }\n\n  50% {\n    -webkit-transform: scale3d(1.15, 0.85, 1);\n    transform: scale3d(1.15, 0.85, 1);\n  }\n\n  65% {\n    -webkit-transform: scale3d(.95, 1.05, 1);\n    transform: scale3d(.95, 1.05, 1);\n  }\n\n  75% {\n    -webkit-transform: scale3d(1.05, .95, 1);\n    transform: scale3d(1.05, .95, 1);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.rubberBand {\n  -webkit-animation-name: rubberBand;\n  animation-name: rubberBand;\n}\n\n@-webkit-keyframes shake {\n  from, to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  10%, 30%, 50%, 70%, 90% {\n    -webkit-transform: translate3d(-10px, 0, 0);\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  20%, 40%, 60%, 80% {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0);\n  }\n}\n\n@keyframes shake {\n  from, to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  10%, 30%, 50%, 70%, 90% {\n    -webkit-transform: translate3d(-10px, 0, 0);\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  20%, 40%, 60%, 80% {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0);\n  }\n}\n\n.shake {\n  -webkit-animation-name: shake;\n  animation-name: shake;\n}\n\n@-webkit-keyframes headShake {\n  0% {\n    -webkit-transform: translateX(0);\n    transform: translateX(0);\n  }\n\n  6.5% {\n    -webkit-transform: translateX(-6px) rotateY(-9deg);\n    transform: translateX(-6px) rotateY(-9deg);\n  }\n\n  18.5% {\n    -webkit-transform: translateX(5px) rotateY(7deg);\n    transform: translateX(5px) rotateY(7deg);\n  }\n\n  31.5% {\n    -webkit-transform: translateX(-3px) rotateY(-5deg);\n    transform: translateX(-3px) rotateY(-5deg);\n  }\n\n  43.5% {\n    -webkit-transform: translateX(2px) rotateY(3deg);\n    transform: translateX(2px) rotateY(3deg);\n  }\n\n  50% {\n    -webkit-transform: translateX(0);\n    transform: translateX(0);\n  }\n}\n\n@keyframes headShake {\n  0% {\n    -webkit-transform: translateX(0);\n    transform: translateX(0);\n  }\n\n  6.5% {\n    -webkit-transform: translateX(-6px) rotateY(-9deg);\n    transform: translateX(-6px) rotateY(-9deg);\n  }\n\n  18.5% {\n    -webkit-transform: translateX(5px) rotateY(7deg);\n    transform: translateX(5px) rotateY(7deg);\n  }\n\n  31.5% {\n    -webkit-transform: translateX(-3px) rotateY(-5deg);\n    transform: translateX(-3px) rotateY(-5deg);\n  }\n\n  43.5% {\n    -webkit-transform: translateX(2px) rotateY(3deg);\n    transform: translateX(2px) rotateY(3deg);\n  }\n\n  50% {\n    -webkit-transform: translateX(0);\n    transform: translateX(0);\n  }\n}\n\n.headShake {\n  -webkit-animation-timing-function: ease-in-out;\n  animation-timing-function: ease-in-out;\n  -webkit-animation-name: headShake;\n  animation-name: headShake;\n}\n\n@-webkit-keyframes swing {\n  20% {\n    -webkit-transform: rotate3d(0, 0, 1, 15deg);\n    transform: rotate3d(0, 0, 1, 15deg);\n  }\n\n  40% {\n    -webkit-transform: rotate3d(0, 0, 1, -10deg);\n    transform: rotate3d(0, 0, 1, -10deg);\n  }\n\n  60% {\n    -webkit-transform: rotate3d(0, 0, 1, 5deg);\n    transform: rotate3d(0, 0, 1, 5deg);\n  }\n\n  80% {\n    -webkit-transform: rotate3d(0, 0, 1, -5deg);\n    transform: rotate3d(0, 0, 1, -5deg);\n  }\n\n  to {\n    -webkit-transform: rotate3d(0, 0, 1, 0deg);\n    transform: rotate3d(0, 0, 1, 0deg);\n  }\n}\n\n@keyframes swing {\n  20% {\n    -webkit-transform: rotate3d(0, 0, 1, 15deg);\n    transform: rotate3d(0, 0, 1, 15deg);\n  }\n\n  40% {\n    -webkit-transform: rotate3d(0, 0, 1, -10deg);\n    transform: rotate3d(0, 0, 1, -10deg);\n  }\n\n  60% {\n    -webkit-transform: rotate3d(0, 0, 1, 5deg);\n    transform: rotate3d(0, 0, 1, 5deg);\n  }\n\n  80% {\n    -webkit-transform: rotate3d(0, 0, 1, -5deg);\n    transform: rotate3d(0, 0, 1, -5deg);\n  }\n\n  to {\n    -webkit-transform: rotate3d(0, 0, 1, 0deg);\n    transform: rotate3d(0, 0, 1, 0deg);\n  }\n}\n\n.swing {\n  -webkit-transform-origin: top center;\n  transform-origin: top center;\n  -webkit-animation-name: swing;\n  animation-name: swing;\n}\n\n@-webkit-keyframes tada {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  10%, 20% {\n    -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\n    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\n  }\n\n  30%, 50%, 70%, 90% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\n  }\n\n  40%, 60%, 80% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n@keyframes tada {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  10%, 20% {\n    -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\n    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\n  }\n\n  30%, 50%, 70%, 90% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\n  }\n\n  40%, 60%, 80% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.tada {\n  -webkit-animation-name: tada;\n  animation-name: tada;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@-webkit-keyframes wobble {\n  from {\n    -webkit-transform: none;\n    transform: none;\n  }\n\n  15% {\n    -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\n    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\n  }\n\n  30% {\n    -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\n    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\n  }\n\n  45% {\n    -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\n    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\n  }\n\n  60% {\n    -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\n    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\n  }\n\n  75% {\n    -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\n    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes wobble {\n  from {\n    -webkit-transform: none;\n    transform: none;\n  }\n\n  15% {\n    -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\n    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\n  }\n\n  30% {\n    -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\n    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\n  }\n\n  45% {\n    -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\n    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\n  }\n\n  60% {\n    -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\n    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\n  }\n\n  75% {\n    -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\n    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.wobble {\n  -webkit-animation-name: wobble;\n  animation-name: wobble;\n}\n\n@-webkit-keyframes jello {\n  from, 11.1%, to {\n    -webkit-transform: none;\n    transform: none;\n  }\n\n  22.2% {\n    -webkit-transform: skewX(-12.5deg) skewY(-12.5deg);\n    transform: skewX(-12.5deg) skewY(-12.5deg);\n  }\n\n  33.3% {\n    -webkit-transform: skewX(6.25deg) skewY(6.25deg);\n    transform: skewX(6.25deg) skewY(6.25deg);\n  }\n\n  44.4% {\n    -webkit-transform: skewX(-3.125deg) skewY(-3.125deg);\n    transform: skewX(-3.125deg) skewY(-3.125deg);\n  }\n\n  55.5% {\n    -webkit-transform: skewX(1.5625deg) skewY(1.5625deg);\n    transform: skewX(1.5625deg) skewY(1.5625deg);\n  }\n\n  66.6% {\n    -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);\n    transform: skewX(-0.78125deg) skewY(-0.78125deg);\n  }\n\n  77.7% {\n    -webkit-transform: skewX(0.390625deg) skewY(0.390625deg);\n    transform: skewX(0.390625deg) skewY(0.390625deg);\n  }\n\n  88.8% {\n    -webkit-transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\n    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\n  }\n}\n\n@keyframes jello {\n  from, 11.1%, to {\n    -webkit-transform: none;\n    transform: none;\n  }\n\n  22.2% {\n    -webkit-transform: skewX(-12.5deg) skewY(-12.5deg);\n    transform: skewX(-12.5deg) skewY(-12.5deg);\n  }\n\n  33.3% {\n    -webkit-transform: skewX(6.25deg) skewY(6.25deg);\n    transform: skewX(6.25deg) skewY(6.25deg);\n  }\n\n  44.4% {\n    -webkit-transform: skewX(-3.125deg) skewY(-3.125deg);\n    transform: skewX(-3.125deg) skewY(-3.125deg);\n  }\n\n  55.5% {\n    -webkit-transform: skewX(1.5625deg) skewY(1.5625deg);\n    transform: skewX(1.5625deg) skewY(1.5625deg);\n  }\n\n  66.6% {\n    -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);\n    transform: skewX(-0.78125deg) skewY(-0.78125deg);\n  }\n\n  77.7% {\n    -webkit-transform: skewX(0.390625deg) skewY(0.390625deg);\n    transform: skewX(0.390625deg) skewY(0.390625deg);\n  }\n\n  88.8% {\n    -webkit-transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\n    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\n  }\n}\n\n.jello {\n  -webkit-animation-name: jello;\n  animation-name: jello;\n  -webkit-transform-origin: center;\n  transform-origin: center;\n}\n\n@-webkit-keyframes bounceIn {\n  from, 20%, 40%, 60%, 80%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  20% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1);\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  40% {\n    -webkit-transform: scale3d(.9, .9, .9);\n    transform: scale3d(.9, .9, .9);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(1.03, 1.03, 1.03);\n    transform: scale3d(1.03, 1.03, 1.03);\n  }\n\n  80% {\n    -webkit-transform: scale3d(.97, .97, .97);\n    transform: scale3d(.97, .97, .97);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n@keyframes bounceIn {\n  from, 20%, 40%, 60%, 80%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  20% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1);\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  40% {\n    -webkit-transform: scale3d(.9, .9, .9);\n    transform: scale3d(.9, .9, .9);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(1.03, 1.03, 1.03);\n    transform: scale3d(1.03, 1.03, 1.03);\n  }\n\n  80% {\n    -webkit-transform: scale3d(.97, .97, .97);\n    transform: scale3d(.97, .97, .97);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.bounceIn {\n  -webkit-animation-name: bounceIn;\n  animation-name: bounceIn;\n}\n\n@-webkit-keyframes bounceInDown {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -3000px, 0);\n    transform: translate3d(0, -3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 25px, 0);\n    transform: translate3d(0, 25px, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(0, -10px, 0);\n    transform: translate3d(0, -10px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0, 5px, 0);\n    transform: translate3d(0, 5px, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes bounceInDown {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -3000px, 0);\n    transform: translate3d(0, -3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 25px, 0);\n    transform: translate3d(0, 25px, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(0, -10px, 0);\n    transform: translate3d(0, -10px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0, 5px, 0);\n    transform: translate3d(0, 5px, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.bounceInDown {\n  -webkit-animation-name: bounceInDown;\n  animation-name: bounceInDown;\n}\n\n@-webkit-keyframes bounceInLeft {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(-3000px, 0, 0);\n    transform: translate3d(-3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(25px, 0, 0);\n    transform: translate3d(25px, 0, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(-10px, 0, 0);\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(5px, 0, 0);\n    transform: translate3d(5px, 0, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes bounceInLeft {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(-3000px, 0, 0);\n    transform: translate3d(-3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(25px, 0, 0);\n    transform: translate3d(25px, 0, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(-10px, 0, 0);\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(5px, 0, 0);\n    transform: translate3d(5px, 0, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.bounceInLeft {\n  -webkit-animation-name: bounceInLeft;\n  animation-name: bounceInLeft;\n}\n\n@-webkit-keyframes bounceInRight {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(3000px, 0, 0);\n    transform: translate3d(3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(-25px, 0, 0);\n    transform: translate3d(-25px, 0, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(-5px, 0, 0);\n    transform: translate3d(-5px, 0, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes bounceInRight {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(3000px, 0, 0);\n    transform: translate3d(3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(-25px, 0, 0);\n    transform: translate3d(-25px, 0, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(-5px, 0, 0);\n    transform: translate3d(-5px, 0, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.bounceInRight {\n  -webkit-animation-name: bounceInRight;\n  animation-name: bounceInRight;\n}\n\n@-webkit-keyframes bounceInUp {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 3000px, 0);\n    transform: translate3d(0, 3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(0, 10px, 0);\n    transform: translate3d(0, 10px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0, -5px, 0);\n    transform: translate3d(0, -5px, 0);\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes bounceInUp {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 3000px, 0);\n    transform: translate3d(0, 3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(0, 10px, 0);\n    transform: translate3d(0, 10px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0, -5px, 0);\n    transform: translate3d(0, -5px, 0);\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.bounceInUp {\n  -webkit-animation-name: bounceInUp;\n  animation-name: bounceInUp;\n}\n\n@-webkit-keyframes bounceOut {\n  20% {\n    -webkit-transform: scale3d(.9, .9, .9);\n    transform: scale3d(.9, .9, .9);\n  }\n\n  50%, 55% {\n    opacity: 1;\n    -webkit-transform: scale3d(1.1, 1.1, 1.1);\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n}\n\n@keyframes bounceOut {\n  20% {\n    -webkit-transform: scale3d(.9, .9, .9);\n    transform: scale3d(.9, .9, .9);\n  }\n\n  50%, 55% {\n    opacity: 1;\n    -webkit-transform: scale3d(1.1, 1.1, 1.1);\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n}\n\n.bounceOut {\n  -webkit-animation-name: bounceOut;\n  animation-name: bounceOut;\n}\n\n@-webkit-keyframes bounceOutDown {\n  20% {\n    -webkit-transform: translate3d(0, 10px, 0);\n    transform: translate3d(0, 10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n@keyframes bounceOutDown {\n  20% {\n    -webkit-transform: translate3d(0, 10px, 0);\n    transform: translate3d(0, 10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n.bounceOutDown {\n  -webkit-animation-name: bounceOutDown;\n  animation-name: bounceOutDown;\n}\n\n@-webkit-keyframes bounceOutLeft {\n  20% {\n    opacity: 1;\n    -webkit-transform: translate3d(20px, 0, 0);\n    transform: translate3d(20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n@keyframes bounceOutLeft {\n  20% {\n    opacity: 1;\n    -webkit-transform: translate3d(20px, 0, 0);\n    transform: translate3d(20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n.bounceOutLeft {\n  -webkit-animation-name: bounceOutLeft;\n  animation-name: bounceOutLeft;\n}\n\n@-webkit-keyframes bounceOutRight {\n  20% {\n    opacity: 1;\n    -webkit-transform: translate3d(-20px, 0, 0);\n    transform: translate3d(-20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n@keyframes bounceOutRight {\n  20% {\n    opacity: 1;\n    -webkit-transform: translate3d(-20px, 0, 0);\n    transform: translate3d(-20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n.bounceOutRight {\n  -webkit-animation-name: bounceOutRight;\n  animation-name: bounceOutRight;\n}\n\n@-webkit-keyframes bounceOutUp {\n  20% {\n    -webkit-transform: translate3d(0, -10px, 0);\n    transform: translate3d(0, -10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 20px, 0);\n    transform: translate3d(0, 20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n@keyframes bounceOutUp {\n  20% {\n    -webkit-transform: translate3d(0, -10px, 0);\n    transform: translate3d(0, -10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 20px, 0);\n    transform: translate3d(0, 20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n.bounceOutUp {\n  -webkit-animation-name: bounceOutUp;\n  animation-name: bounceOutUp;\n}\n\n@-webkit-keyframes fadeIn {\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n}\n\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n}\n\n.fadeIn {\n  -webkit-animation-name: fadeIn;\n  animation-name: fadeIn;\n}\n\n@-webkit-keyframes fadeInDown {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInDown {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInDown {\n  -webkit-animation-name: fadeInDown;\n  animation-name: fadeInDown;\n}\n\n@-webkit-keyframes fadeInDownBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInDownBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInDownBig {\n  -webkit-animation-name: fadeInDownBig;\n  animation-name: fadeInDownBig;\n}\n\n@-webkit-keyframes fadeInLeft {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInLeft {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInLeft {\n  -webkit-animation-name: fadeInLeft;\n  animation-name: fadeInLeft;\n}\n\n@-webkit-keyframes fadeInLeftBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInLeftBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInLeftBig {\n  -webkit-animation-name: fadeInLeftBig;\n  animation-name: fadeInLeftBig;\n}\n\n@-webkit-keyframes fadeInRight {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInRight {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInRight {\n  -webkit-animation-name: fadeInRight;\n  animation-name: fadeInRight;\n}\n\n@-webkit-keyframes fadeInRightBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInRightBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInRightBig {\n  -webkit-animation-name: fadeInRightBig;\n  animation-name: fadeInRightBig;\n}\n\n@-webkit-keyframes fadeInUp {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInUp {\n  -webkit-animation-name: fadeInUp;\n  animation-name: fadeInUp;\n}\n\n@-webkit-keyframes fadeInUpBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInUpBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInUpBig {\n  -webkit-animation-name: fadeInUpBig;\n  animation-name: fadeInUpBig;\n}\n\n@-webkit-keyframes fadeOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes fadeOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n.fadeOut {\n  -webkit-animation-name: fadeOut;\n  animation-name: fadeOut;\n}\n\n@-webkit-keyframes fadeOutDown {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n@keyframes fadeOutDown {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n.fadeOutDown {\n  -webkit-animation-name: fadeOutDown;\n  animation-name: fadeOutDown;\n}\n\n@-webkit-keyframes fadeOutDownBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n@keyframes fadeOutDownBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n.fadeOutDownBig {\n  -webkit-animation-name: fadeOutDownBig;\n  animation-name: fadeOutDownBig;\n}\n\n@-webkit-keyframes fadeOutLeft {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n@keyframes fadeOutLeft {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n.fadeOutLeft {\n  -webkit-animation-name: fadeOutLeft;\n  animation-name: fadeOutLeft;\n}\n\n@-webkit-keyframes fadeOutLeftBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n@keyframes fadeOutLeftBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n.fadeOutLeftBig {\n  -webkit-animation-name: fadeOutLeftBig;\n  animation-name: fadeOutLeftBig;\n}\n\n@-webkit-keyframes fadeOutRight {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n@keyframes fadeOutRight {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n.fadeOutRight {\n  -webkit-animation-name: fadeOutRight;\n  animation-name: fadeOutRight;\n}\n\n@-webkit-keyframes fadeOutRightBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n@keyframes fadeOutRightBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n.fadeOutRightBig {\n  -webkit-animation-name: fadeOutRightBig;\n  animation-name: fadeOutRightBig;\n}\n\n@-webkit-keyframes fadeOutUp {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n@keyframes fadeOutUp {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n.fadeOutUp {\n  -webkit-animation-name: fadeOutUp;\n  animation-name: fadeOutUp;\n}\n\n@-webkit-keyframes fadeOutUpBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n@keyframes fadeOutUpBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n.fadeOutUpBig {\n  -webkit-animation-name: fadeOutUpBig;\n  animation-name: fadeOutUpBig;\n}\n\n@-webkit-keyframes flip {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\n    -webkit-animation-timing-function: ease-out;\n    animation-timing-function: ease-out;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\n    -webkit-animation-timing-function: ease-out;\n    animation-timing-function: ease-out;\n  }\n\n  50% {\n    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) scale3d(.95, .95, .95);\n    transform: perspective(400px) scale3d(.95, .95, .95);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n}\n\n@keyframes flip {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\n    -webkit-animation-timing-function: ease-out;\n    animation-timing-function: ease-out;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\n    -webkit-animation-timing-function: ease-out;\n    animation-timing-function: ease-out;\n  }\n\n  50% {\n    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) scale3d(.95, .95, .95);\n    transform: perspective(400px) scale3d(.95, .95, .95);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n}\n\n.animated.flip {\n  -webkit-backface-visibility: visible;\n  backface-visibility: visible;\n  -webkit-animation-name: flip;\n  animation-name: flip;\n}\n\n@-webkit-keyframes flipInX {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n}\n\n@keyframes flipInX {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n}\n\n.flipInX {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  -webkit-animation-name: flipInX;\n  animation-name: flipInX;\n}\n\n@-webkit-keyframes flipInY {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n}\n\n@keyframes flipInY {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n}\n\n.flipInY {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  -webkit-animation-name: flipInY;\n  animation-name: flipInY;\n}\n\n@-webkit-keyframes flipOutX {\n  from {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n\n  30% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n@keyframes flipOutX {\n  from {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n\n  30% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n.flipOutX {\n  -webkit-animation-name: flipOutX;\n  animation-name: flipOutX;\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n}\n\n@-webkit-keyframes flipOutY {\n  from {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n\n  30% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n@keyframes flipOutY {\n  from {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n\n  30% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n.flipOutY {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  -webkit-animation-name: flipOutY;\n  animation-name: flipOutY;\n}\n\n@-webkit-keyframes lightSpeedIn {\n  from {\n    -webkit-transform: translate3d(100%, 0, 0) skewX(-30deg);\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\n    opacity: 0;\n  }\n\n  60% {\n    -webkit-transform: skewX(20deg);\n    transform: skewX(20deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: skewX(-5deg);\n    transform: skewX(-5deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes lightSpeedIn {\n  from {\n    -webkit-transform: translate3d(100%, 0, 0) skewX(-30deg);\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\n    opacity: 0;\n  }\n\n  60% {\n    -webkit-transform: skewX(20deg);\n    transform: skewX(20deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: skewX(-5deg);\n    transform: skewX(-5deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.lightSpeedIn {\n  -webkit-animation-name: lightSpeedIn;\n  animation-name: lightSpeedIn;\n  -webkit-animation-timing-function: ease-out;\n  animation-timing-function: ease-out;\n}\n\n@-webkit-keyframes lightSpeedOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: translate3d(100%, 0, 0) skewX(30deg);\n    transform: translate3d(100%, 0, 0) skewX(30deg);\n    opacity: 0;\n  }\n}\n\n@keyframes lightSpeedOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: translate3d(100%, 0, 0) skewX(30deg);\n    transform: translate3d(100%, 0, 0) skewX(30deg);\n    opacity: 0;\n  }\n}\n\n.lightSpeedOut {\n  -webkit-animation-name: lightSpeedOut;\n  animation-name: lightSpeedOut;\n  -webkit-animation-timing-function: ease-in;\n  animation-timing-function: ease-in;\n}\n\n@-webkit-keyframes rotateIn {\n  from {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: rotate3d(0, 0, 1, -200deg);\n    transform: rotate3d(0, 0, 1, -200deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes rotateIn {\n  from {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: rotate3d(0, 0, 1, -200deg);\n    transform: rotate3d(0, 0, 1, -200deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateIn {\n  -webkit-animation-name: rotateIn;\n  animation-name: rotateIn;\n}\n\n@-webkit-keyframes rotateInDownLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes rotateInDownLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInDownLeft {\n  -webkit-animation-name: rotateInDownLeft;\n  animation-name: rotateInDownLeft;\n}\n\n@-webkit-keyframes rotateInDownRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes rotateInDownRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInDownRight {\n  -webkit-animation-name: rotateInDownRight;\n  animation-name: rotateInDownRight;\n}\n\n@-webkit-keyframes rotateInUpLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes rotateInUpLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInUpLeft {\n  -webkit-animation-name: rotateInUpLeft;\n  animation-name: rotateInUpLeft;\n}\n\n@-webkit-keyframes rotateInUpRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -90deg);\n    transform: rotate3d(0, 0, 1, -90deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes rotateInUpRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -90deg);\n    transform: rotate3d(0, 0, 1, -90deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInUpRight {\n  -webkit-animation-name: rotateInUpRight;\n  animation-name: rotateInUpRight;\n}\n\n@-webkit-keyframes rotateOut {\n  from {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: rotate3d(0, 0, 1, 200deg);\n    transform: rotate3d(0, 0, 1, 200deg);\n    opacity: 0;\n  }\n}\n\n@keyframes rotateOut {\n  from {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: rotate3d(0, 0, 1, 200deg);\n    transform: rotate3d(0, 0, 1, 200deg);\n    opacity: 0;\n  }\n}\n\n.rotateOut {\n  -webkit-animation-name: rotateOut;\n  animation-name: rotateOut;\n}\n\n@-webkit-keyframes rotateOutDownLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n}\n\n@keyframes rotateOutDownLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutDownLeft {\n  -webkit-animation-name: rotateOutDownLeft;\n  animation-name: rotateOutDownLeft;\n}\n\n@-webkit-keyframes rotateOutDownRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n@keyframes rotateOutDownRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutDownRight {\n  -webkit-animation-name: rotateOutDownRight;\n  animation-name: rotateOutDownRight;\n}\n\n@-webkit-keyframes rotateOutUpLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n@keyframes rotateOutUpLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutUpLeft {\n  -webkit-animation-name: rotateOutUpLeft;\n  animation-name: rotateOutUpLeft;\n}\n\n@-webkit-keyframes rotateOutUpRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 90deg);\n    transform: rotate3d(0, 0, 1, 90deg);\n    opacity: 0;\n  }\n}\n\n@keyframes rotateOutUpRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 90deg);\n    transform: rotate3d(0, 0, 1, 90deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutUpRight {\n  -webkit-animation-name: rotateOutUpRight;\n  animation-name: rotateOutUpRight;\n}\n\n@-webkit-keyframes hinge {\n  0% {\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n  }\n\n  20%, 60% {\n    -webkit-transform: rotate3d(0, 0, 1, 80deg);\n    transform: rotate3d(0, 0, 1, 80deg);\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n  }\n\n  40%, 80% {\n    -webkit-transform: rotate3d(0, 0, 1, 60deg);\n    transform: rotate3d(0, 0, 1, 60deg);\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 700px, 0);\n    transform: translate3d(0, 700px, 0);\n    opacity: 0;\n  }\n}\n\n@keyframes hinge {\n  0% {\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n  }\n\n  20%, 60% {\n    -webkit-transform: rotate3d(0, 0, 1, 80deg);\n    transform: rotate3d(0, 0, 1, 80deg);\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n  }\n\n  40%, 80% {\n    -webkit-transform: rotate3d(0, 0, 1, 60deg);\n    transform: rotate3d(0, 0, 1, 60deg);\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 700px, 0);\n    transform: translate3d(0, 700px, 0);\n    opacity: 0;\n  }\n}\n\n.hinge {\n  -webkit-animation-name: hinge;\n  animation-name: hinge;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@-webkit-keyframes rollIn {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\n    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes rollIn {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\n    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.rollIn {\n  -webkit-animation-name: rollIn;\n  animation-name: rollIn;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@-webkit-keyframes rollOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\n    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\n  }\n}\n\n@keyframes rollOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\n    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\n  }\n}\n\n.rollOut {\n  -webkit-animation-name: rollOut;\n  animation-name: rollOut;\n}\n\n@-webkit-keyframes zoomIn {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  50% {\n    opacity: 1;\n  }\n}\n\n@keyframes zoomIn {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  50% {\n    opacity: 1;\n  }\n}\n\n.zoomIn {\n  -webkit-animation-name: zoomIn;\n  animation-name: zoomIn;\n}\n\n@-webkit-keyframes zoomInDown {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomInDown {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInDown {\n  -webkit-animation-name: zoomInDown;\n  animation-name: zoomInDown;\n}\n\n@-webkit-keyframes zoomInLeft {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\n    transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomInLeft {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\n    transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInLeft {\n  -webkit-animation-name: zoomInLeft;\n  animation-name: zoomInLeft;\n}\n\n@-webkit-keyframes zoomInRight {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\n    transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomInRight {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\n    transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInRight {\n  -webkit-animation-name: zoomInRight;\n  animation-name: zoomInRight;\n}\n\n@-webkit-keyframes zoomInUp {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomInUp {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInUp {\n  -webkit-animation-name: zoomInUp;\n  animation-name: zoomInUp;\n}\n\n@-webkit-keyframes zoomOut {\n  from {\n    opacity: 1;\n  }\n\n  50% {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes zoomOut {\n  from {\n    opacity: 1;\n  }\n\n  50% {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n.zoomOut {\n  -webkit-animation-name: zoomOut;\n  animation-name: zoomOut;\n}\n\n@-webkit-keyframes zoomOutDown {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\n    -webkit-transform-origin: center bottom;\n    transform-origin: center bottom;\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomOutDown {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\n    -webkit-transform-origin: center bottom;\n    transform-origin: center bottom;\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomOutDown {\n  -webkit-animation-name: zoomOutDown;\n  animation-name: zoomOutDown;\n}\n\n@-webkit-keyframes zoomOutLeft {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale(.1) translate3d(-2000px, 0, 0);\n    transform: scale(.1) translate3d(-2000px, 0, 0);\n    -webkit-transform-origin: left center;\n    transform-origin: left center;\n  }\n}\n\n@keyframes zoomOutLeft {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale(.1) translate3d(-2000px, 0, 0);\n    transform: scale(.1) translate3d(-2000px, 0, 0);\n    -webkit-transform-origin: left center;\n    transform-origin: left center;\n  }\n}\n\n.zoomOutLeft {\n  -webkit-animation-name: zoomOutLeft;\n  animation-name: zoomOutLeft;\n}\n\n@-webkit-keyframes zoomOutRight {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale(.1) translate3d(2000px, 0, 0);\n    transform: scale(.1) translate3d(2000px, 0, 0);\n    -webkit-transform-origin: right center;\n    transform-origin: right center;\n  }\n}\n\n@keyframes zoomOutRight {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale(.1) translate3d(2000px, 0, 0);\n    transform: scale(.1) translate3d(2000px, 0, 0);\n    -webkit-transform-origin: right center;\n    transform-origin: right center;\n  }\n}\n\n.zoomOutRight {\n  -webkit-animation-name: zoomOutRight;\n  animation-name: zoomOutRight;\n}\n\n@-webkit-keyframes zoomOutUp {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\n    -webkit-transform-origin: center bottom;\n    transform-origin: center bottom;\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomOutUp {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\n    -webkit-transform-origin: center bottom;\n    transform-origin: center bottom;\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomOutUp {\n  -webkit-animation-name: zoomOutUp;\n  animation-name: zoomOutUp;\n}\n\n@-webkit-keyframes slideInDown {\n  from {\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes slideInDown {\n  from {\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInDown {\n  -webkit-animation-name: slideInDown;\n  animation-name: slideInDown;\n}\n\n@-webkit-keyframes slideInLeft {\n  from {\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes slideInLeft {\n  from {\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInLeft {\n  -webkit-animation-name: slideInLeft;\n  animation-name: slideInLeft;\n}\n\n@-webkit-keyframes slideInRight {\n  from {\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes slideInRight {\n  from {\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInRight {\n  -webkit-animation-name: slideInRight;\n  animation-name: slideInRight;\n}\n\n@-webkit-keyframes slideInUp {\n  from {\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes slideInUp {\n  from {\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInUp {\n  -webkit-animation-name: slideInUp;\n  animation-name: slideInUp;\n}\n\n@-webkit-keyframes slideOutDown {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n@keyframes slideOutDown {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n.slideOutDown {\n  -webkit-animation-name: slideOutDown;\n  animation-name: slideOutDown;\n}\n\n@-webkit-keyframes slideOutLeft {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n@keyframes slideOutLeft {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n.slideOutLeft {\n  -webkit-animation-name: slideOutLeft;\n  animation-name: slideOutLeft;\n}\n\n@-webkit-keyframes slideOutRight {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n@keyframes slideOutRight {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n.slideOutRight {\n  -webkit-animation-name: slideOutRight;\n  animation-name: slideOutRight;\n}\n\n@-webkit-keyframes slideOutUp {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n@keyframes slideOutUp {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n.slideOutUp {\n  -webkit-animation-name: slideOutUp;\n  animation-name: slideOutUp;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Manages the canvas.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var CanvasSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Constructs a new canvas system.
+    ***************************************************************************************************************/
+    function CanvasSystem() {
+        /** The canvas element. */
+        this.canvas = null;
+        /** The canvas rendering context. */
+        this.canvasContext = null;
+        /** The current width of the canvas. */
+        this.canvasWidth = 0;
+        /** The current height of the canvas. */
+        this.canvasHeight = 0;
+        // create
+        this.canvas = document.createElement("canvas");
+        // reference 2d rendering context
+        this.canvasContext = this.canvas.getContext("2d");
+        // append to body
+        document.body.appendChild(this.canvas);
+    }
+    /***************************************************************************************************************
+    *   Updates the canvas dimensions according to current screen size.
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.updateDimensions = function () {
+        this.canvasWidth = window.innerWidth;
+        this.canvasHeight = window.innerHeight;
+        // clip to minimum canvas dimensions
+        if (this.canvasWidth < ninjas.Setting.MIN_CANVAS_WIDTH)
+            this.canvasWidth = ninjas.Setting.MIN_CANVAS_WIDTH;
+        if (this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT)
+            this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
+        ninjas.Debug.canvas.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
+    };
+    /***************************************************************************************************************
+    *   Returns the current canvas width.
+    *
+    *   @return Current canvas width.
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.getWidth = function () {
+        return this.canvasWidth;
+    };
+    /***************************************************************************************************************
+    *   Returns the current canvas height.
+    *
+    *   @return Current canvas height.
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.getHeight = function () {
+        return this.canvasHeight;
+    };
+    /***************************************************************************************************************
+    *   Returns the current canvas object.
+    *
+    *   @return The HTML canvas object..
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.getCanvas = function () {
+        return this.canvas;
+    };
+    return CanvasSystem;
+}());
+exports.CanvasSystem = CanvasSystem;
+
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(2);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Manages the Matter.js engine.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var MatterJsSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Creates a new Matter.js engine.
+    *
+    *   @param canvas              The canvas to use.
+    *   @param callbackAfterRender The function to invoke after  the engine has been rendered and drawed.
+    *   @param textureCache        All cached textures to use.
+    ***************************************************************************************************************/
+    function MatterJsSystem(canvas, callbackAfterRender, textureCache) {
+        var _this = this;
+        /** The Matter.js engine. */
+        this.engine = null;
+        /** The Matter.js renderer. */
+        this.renderer = null;
+        // create engine
+        this.engine = matter.Engine.create();
+        this.engine.world.gravity = {
+            x: 0.0,
+            y: ninjas.Setting.DEFAULT_GRAVITY_Y,
+            scale: 0.001
+        };
+        // create renderer
+        this.renderer = matter.Render.create({
+            canvas: canvas,
+            engine: this.engine,
+            options: {
+                hasBounds: true,
+                wireframes: false,
+                showCollisions: true,
+                showAxes: true,
+                showAngleIndicator: true,
+                showVelocity: true,
+                background: ninjas.Setting.CANVAS_BG,
+                width: ninjas.Main.game.engine.canvasSystem.getWidth(),
+                height: ninjas.Main.game.engine.canvasSystem.getHeight(),
+            },
+        });
+        //set all loaded image as MatterJS texture cache
+        this.renderer.textures = textureCache;
+        ninjas.Debug.init.log("Assigned [" + Object.keys(this.renderer.textures).length + "] textures to renderer texture cache ");
+        // disables blurry image drawing!
+        this.renderer.context.imageSmoothingEnabled = false;
+        // add drawing callback after rendering
+        matter.Events.on(this.renderer, "afterRender", function () { callbackAfterRender(_this.renderer.context); });
+    }
+    /***************************************************************************************************************
+    *   Starts the Matter.js renderer.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.startRenderer = function () {
+        matter.Render.run(this.renderer);
+    };
+    /***************************************************************************************************************
+    *   Adds the specified constraint to the world.
+    *
+    *   @param constraint A body, composite or constraint of the Matter.js system.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.addToWorld = function (constraint) {
+        matter.Composite.add(this.engine.world, constraint);
+    };
+    /***************************************************************************************************************
+    *   Removes the specified constraint from the world.
+    *
+    *   @param constraint A body, composite or constraint of the Matter.js system.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.removeFromWorld = function (constraint) {
+        matter.Composite.remove(this.engine.world, constraint);
+    };
+    /***************************************************************************************************************
+    *   Updates the dimensions of the Matter.js rendering system.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.updateEngineDimensions = function (newWidth, newHeight) {
+        this.renderer.canvas.width = newWidth;
+        this.renderer.canvas.height = newHeight;
+        this.renderer.options.width = newWidth;
+        this.renderer.options.height = newHeight;
+        ninjas.Debug.canvas.log("Updated matter.js engine dimensions according to canvas.");
+    };
+    /***************************************************************************************************************
+    *   Updates the Matter.js engine for the specified rendering delta.
+    *
+    *   @param renderDelta The rendering delta in ms.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.updateEngine = function (renderDelta) {
+        matter.Engine.update(this.engine, renderDelta);
+    };
+    /***************************************************************************************************************
+    *   Resets the world of the Matter.js engine.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.resetWorld = function () {
+        matter.World.clear(this.engine.world, false);
+    };
+    /***************************************************************************************************************
+    *   Returns the renderer of the Matter.js engine.
+    *
+    *   @return The renderer of the Matter.js engine.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.getRenderer = function () {
+        return this.renderer;
+    };
+    return MatterJsSystem;
+}());
+exports.MatterJsSystem = MatterJsSystem;
+
+
+/***/ }),
+/* 141 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27702,7 +28936,7 @@ exports.Level = Level;
 
 
 /***/ }),
-/* 134 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27813,34 +29047,7 @@ exports.LevelAllElements = LevelAllElements;
 
 
 /***/ }),
-/* 135 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 136 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27914,7 +29121,7 @@ exports.LevelEnchantedWoods = LevelEnchantedWoods;
 
 
 /***/ }),
-/* 137 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28043,359 +29250,7 @@ exports.LevelWebsite = LevelWebsite;
 
 
 /***/ }),
-/* 138 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents the shape of a game object.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Shape = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Creates a new game object shape.
-    *
-    *   @param debugColor The color for the debug object.
-    *   @param isStatic   Specifies that this object has a fixed position.
-    *   @param angle      The rotation of this body in degrees.
-    *   @param friction   The object's body friction.
-    *   @param density    The object's body density.
-    ***************************************************************************************************************/
-    function Shape(debugColor, isStatic, angle, friction, density) {
-        /** The body rendering options for this shape. */
-        this.options = null;
-        /** The shape's body. */
-        this.body = null;
-        this.options = {
-            render: {
-                fillStyle: debugColor,
-                strokeStyle: ninjas.Setting.COLOR_DEBUG_BORDER,
-                opacity: ninjas.Setting.COLOR_DEBUG_OPACITY,
-                lineWidth: ninjas.Setting.COLOR_DEBUG_LINE_WIDTH,
-            },
-            isStatic: isStatic,
-            collisionFilter: ninjas.Setting.COLLISION_GROUP_COLLIDING,
-            friction: friction,
-            angle: ninjas.MathUtil.angleToRad(angle),
-            density: density,
-        };
-    }
-    return Shape;
-}());
-exports.Shape = Shape;
-
-
-/***/ }),
-/* 139 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents the shape of a game object.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var ShapeRectangle = /** @class */ (function (_super) {
-    __extends(ShapeRectangle, _super);
-    /***************************************************************************************************************
-    *   Creates a new rectangle shape.
-    *
-    *   @param width      The rectangle's width.
-    *   @param height     The rectangle's height.
-    *   @param debugColor The color for the debug object.
-    *   @param isStatic   Specifies that this object has a fixed position.
-    *   @param angle      The rotation of this body in degrees.
-    *   @param friction   The object's body friction.
-    *   @param density    The object's body density.
-    ***************************************************************************************************************/
-    function ShapeRectangle(width, height, debugColor, isStatic, angle, friction, density) {
-        var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
-        /** The rectangle's width. */
-        _this.width = 0.0;
-        /** The rectangle's height. */
-        _this.height = 0.0;
-        _this.width = width;
-        _this.height = height;
-        _this.body = _this.createBody();
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Creates this shapes body.
-    *
-    *   @return The body for this shape.
-    ***************************************************************************************************************/
-    ShapeRectangle.prototype.createBody = function () {
-        return matter.Bodies.rectangle((this.width / 2), (this.height / 2), this.width, this.height, this.options);
-    };
-    /***************************************************************************************************************
-    *   Returns the width of this shape's boundaries.
-    *
-    *   @return The shape's boundaries width.
-    ***************************************************************************************************************/
-    ShapeRectangle.prototype.getWidth = function () {
-        return this.width;
-    };
-    /***************************************************************************************************************
-    *   Returns the height of this shape's boundaries.
-    *
-    *   @return The shape's boundaries height.
-    ***************************************************************************************************************/
-    ShapeRectangle.prototype.getHeight = function () {
-        return this.height;
-    };
-    /***************************************************************************************************************
-    *   Updates this shape's body dimensions.
-    *
-    *   @param width  The new width for this shape.
-    *   @param height The new height for this shape.
-    ***************************************************************************************************************/
-    ShapeRectangle.prototype.updateDimensions = function (width, height) {
-        this.width = width;
-        this.height = height;
-        this.body = this.createBody();
-    };
-    return ShapeRectangle;
-}(ninjas.Shape));
-exports.ShapeRectangle = ShapeRectangle;
-
-
-/***/ }),
-/* 140 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents the shape of a game object.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var ShapeCircle = /** @class */ (function (_super) {
-    __extends(ShapeCircle, _super);
-    /***************************************************************************************************************
-    *   Creates a new circle shape.
-    *
-    *   @param diameter   The circle's diameter.
-    *   @param debugColor The color for the debug object.
-    *   @param isStatic   Specifies that this object has a fixed position.
-    *   @param angle      The rotation of this body in degrees.
-    *   @param friction   The object's body friction.
-    *   @param density    The object's body density.
-    ***************************************************************************************************************/
-    function ShapeCircle(diameter, debugColor, isStatic, angle, friction, density) {
-        var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
-        /** The circle's diameter. */
-        _this.diameter = 0.0;
-        _this.diameter = diameter;
-        _this.body = _this.createBody();
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Creates this shapes body.
-    *
-    *   @return The body for this shape.
-    ***************************************************************************************************************/
-    ShapeCircle.prototype.createBody = function () {
-        return matter.Bodies.circle((this.diameter / 2), (this.diameter / 2), (this.diameter / 2), this.options);
-    };
-    /***************************************************************************************************************
-    *   Returns the width of this shape's boundaries.
-    *
-    *   @return The shape's boundaries width.
-    ***************************************************************************************************************/
-    ShapeCircle.prototype.getWidth = function () {
-        return this.diameter;
-    };
-    /***************************************************************************************************************
-    *   Returns the height of this shape's boundaries.
-    *
-    *   @return The shape's boundaries height.
-    ***************************************************************************************************************/
-    ShapeCircle.prototype.getHeight = function () {
-        return this.diameter;
-    };
-    /***************************************************************************************************************
-    *   Updates this shape's body dimensions.
-    *
-    *   @param width  The new width for this shape.
-    *   @param height The new height for this shape.
-    ***************************************************************************************************************/
-    ShapeCircle.prototype.updateDimensions = function (width, height) {
-        this.diameter = width;
-        this.body = this.createBody();
-    };
-    return ShapeCircle;
-}(ninjas.Shape));
-exports.ShapeCircle = ShapeCircle;
-
-
-/***/ }),
-/* 141 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __values = (this && this.__values) || function (o) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
-    if (m) return m.call(o);
-    return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   A free form shape for a game object.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var ShapeFreeForm = /** @class */ (function (_super) {
-    __extends(ShapeFreeForm, _super);
-    /***************************************************************************************************************
-    *   Creates a new free formed shape.
-    *
-    *   @param vertices   All vertices that make up the entire free form shape.
-    *   @param debugColor The color for the debug object.
-    *   @param isStatic   Specifies that this object has a fixed position.
-    *   @param angle      The rotation of this body in degrees.
-    *   @param friction   The object's body friction.
-    *   @param density    The object's body density.
-    ***************************************************************************************************************/
-    function ShapeFreeForm(vertices, debugColor, isStatic, angle, friction, density) {
-        var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
-        /** All vertices that build the free form. */
-        _this.vertices = null;
-        /** The boundary width. */
-        _this.boundWidth = 0.0;
-        /** The boundary height. */
-        _this.boundHeight = 0.0;
-        _this.vertices = vertices;
-        _this.determineBoundDimensions();
-        _this.body = _this.createBody();
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Creates this shapes body.
-    *
-    *   @return The body for this shape.
-    ***************************************************************************************************************/
-    ShapeFreeForm.prototype.createBody = function () {
-        return matter.Bodies.fromVertices((this.boundWidth / 2), (this.boundHeight / 2), [this.vertices], this.options);
-    };
-    /***************************************************************************************************************
-    *   Returns the width of this shape's boundaries.
-    *
-    *   @return The shape's boundaries width.
-    ***************************************************************************************************************/
-    ShapeFreeForm.prototype.getWidth = function () {
-        return this.boundWidth;
-    };
-    /***************************************************************************************************************
-    *   Returns the height of this shape's boundaries.
-    *
-    *   @return The shape's boundaries height.
-    ***************************************************************************************************************/
-    ShapeFreeForm.prototype.getHeight = function () {
-        return this.boundHeight;
-    };
-    /***************************************************************************************************************
-    *   Calculates the width and height of this shapes bounds.
-    ***************************************************************************************************************/
-    ShapeFreeForm.prototype.determineBoundDimensions = function () {
-        var minimumX = Infinity;
-        var minimumY = Infinity;
-        var maximumX = -Infinity;
-        var maximumY = -Infinity;
-        try {
-            for (var _a = __values(this.vertices), _b = _a.next(); !_b.done; _b = _a.next()) {
-                var vertex = _b.value;
-                if (vertex.x < minimumX)
-                    minimumX = vertex.x;
-                if (vertex.y < minimumY)
-                    minimumY = vertex.y;
-                if (vertex.x > maximumX)
-                    maximumX = vertex.x;
-                if (vertex.y > maximumY)
-                    maximumY = vertex.y;
-            }
-        }
-        catch (e_1_1) { e_1 = { error: e_1_1 }; }
-        finally {
-            try {
-                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
-            }
-            finally { if (e_1) throw e_1.error; }
-        }
-        this.boundWidth = maximumX - minimumX;
-        this.boundHeight = maximumY - minimumY;
-        console.log("bounds: " + this.boundWidth + "   " + this.boundHeight);
-        var e_1, _c;
-    };
-    /***************************************************************************************************************
-    *   Updates this shape's body dimensions.
-    *
-    *   @param width  The new width for this shape.
-    *   @param height The new height for this shape.
-    ***************************************************************************************************************/
-    ShapeFreeForm.prototype.updateDimensions = function (width, height) {
-        // not implemented
-    };
-    return ShapeFreeForm;
-}(ninjas.Shape));
-exports.ShapeFreeForm = ShapeFreeForm;
-
-
-/***/ }),
-/* 142 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28507,74 +29362,7 @@ exports.GameObject = GameObject;
 
 
 /***/ }),
-/* 143 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents a bounce.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Bounce = /** @class */ (function (_super) {
-    __extends(Bounce, _super);
-    /***************************************************************************************************************
-    *   Creates a new bounce.
-    *
-    *   @param shape          The shape for this object.
-    *   @param spriteTemplate The sprite template to use for this game object.
-    *   @param x              Startup position X.
-    *   @param y              Startup position Y.
-    ***************************************************************************************************************/
-    function Bounce(shape, spriteTemplate, x, y) {
-        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
-        /** The constraint that builds the turning point for the bounce. */
-        _this.constraint = null;
-        _this.constraint = matter.Constraint.create({
-            bodyB: _this.shape.body,
-            pointA: { x: _this.shape.body.position.x, y: _this.shape.body.position.y },
-            pointB: { x: 0, y: 0 },
-            stiffness: 0.01,
-            length: 0,
-            render: {
-                strokeStyle: ninjas.Setting.COLOR_DEBUG_BOUNCE_JOINT,
-                lineWidth: 1.0,
-                visible: true,
-            }
-        });
-        ninjas.Main.game.engine.matterJsSystem.addToWorld(_this.constraint);
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Renders this sigsaw.
-    ***************************************************************************************************************/
-    Bounce.prototype.render = function () {
-        _super.prototype.render.call(this);
-        matter.Body.setAngle(this.shape.body, 0.0);
-        matter.Body.setAngularVelocity(this.shape.body, 0.0);
-    };
-    return Bounce;
-}(ninjas.GameObject));
-exports.Bounce = Bounce;
-
-
-/***/ }),
-/* 144 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28752,57 +29540,7 @@ exports.Character = Character;
 
 
 /***/ }),
-/* 145 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents a non-colliding decoration.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Decoration = /** @class */ (function (_super) {
-    __extends(Decoration, _super);
-    /***************************************************************************************************************
-    *   Creates a new decoration.
-    *
-    *   @param shape          The shape for this object.
-    *   @param spriteTemplate The sprite template to use.
-    *   @param x              Startup position X.
-    *   @param y              Startup position Y.
-    ***************************************************************************************************************/
-    function Decoration(shape, spriteTemplate, x, y) {
-        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
-        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO;
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Renders this decoration.
-    ***************************************************************************************************************/
-    Decoration.prototype.render = function () {
-        _super.prototype.render.call(this);
-    };
-    return Decoration;
-}(ninjas.GameObject));
-exports.Decoration = Decoration;
-
-
-/***/ }),
-/* 146 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28873,7 +29611,866 @@ exports.Enemy = Enemy;
 
 
 /***/ }),
-/* 147 */
+/* 149 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(2);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents the player being controlled by the user.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Player = /** @class */ (function (_super) {
+    __extends(Player, _super);
+    /***************************************************************************************************************
+    *   Creates a new player instance.
+    *
+    *   @param x                Startup position X.
+    *   @param y                Startup position Y.
+    *   @param lookingDirection The initial looking direction.
+    *   @param spriteTemplate   The initial sprite template to use for the player.
+    ***************************************************************************************************************/
+    function Player(x, y, lookingDirection, spriteTemplate) {
+        return _super.call(this, new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), spriteTemplate, x, y, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
+    }
+    /***************************************************************************************************************
+    *   Renders the current player tick.
+    ***************************************************************************************************************/
+    Player.prototype.render = function () {
+        _super.prototype.render.call(this);
+        if (!this.dead) {
+            this.handleKeys();
+            this.checkEnemyKill();
+            this.clipToHorizontalLevelBounds();
+        }
+        this.assignCurrentSprite();
+    };
+    /***************************************************************************************************************
+    *   Checks all pressed player keys and performs according actions.
+    ***************************************************************************************************************/
+    Player.prototype.handleKeys = function () {
+        if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_LEFT)) {
+            this.moveLeft();
+        }
+        else if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_RIGHT)) {
+            this.moveRight();
+        }
+        if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_UP)) {
+            ninjas.Main.game.engine.keySystem.setNeedsRelease(ninjas.Key.KEY_UP);
+            if (this.collidesBottom) {
+                this.jump();
+            }
+        }
+    };
+    /***************************************************************************************************************
+    *   Assigns the current sprite to the player according to his current state.
+    ***************************************************************************************************************/
+    Player.prototype.assignCurrentSprite = function () {
+        if (this.collidesBottom) {
+            if (this.movesLeft) {
+                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT);
+            }
+            else if (this.movesRight) {
+                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT);
+            }
+            else {
+                if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT);
+                }
+                else {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+                }
+            }
+        }
+        else {
+            if (this.isFalling()) {
+                if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT);
+                }
+                else {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT);
+                }
+            }
+            else {
+                if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT);
+                }
+                else {
+                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT);
+                }
+            }
+        }
+    };
+    /***************************************************************************************************************
+    *   Checks if an enemy is currently killed by the player (by jumping onto the enemie's head.)
+    ***************************************************************************************************************/
+    Player.prototype.checkEnemyKill = function () {
+        // check character landing on enemies
+        if (this.collidesBottom) {
+            try {
+                for (var _a = __values(ninjas.Main.game.level.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
+                    var gameObject = _b.value;
+                    if (gameObject instanceof ninjas.Enemy) {
+                        var enemy = gameObject;
+                        // check intersection of the player and the enemy
+                        if (matter.Bounds.overlaps(this.shape.body.bounds, enemy.shape.body.bounds)) {
+                            ninjas.Debug.enemy.log("Enemy touched by player");
+                            var playerBottom = Math.floor(this.shape.body.position.y + this.shape.getHeight() / 2);
+                            var enemyTop = Math.floor(enemy.shape.body.position.y - enemy.shape.getHeight() / 2);
+                            ninjas.Debug.enemy.log(" playerBottom [" + playerBottom + "] enemyTop [" + enemyTop + "]");
+                            if (playerBottom == enemyTop) {
+                                ninjas.Debug.enemy.log(" Enemy killed");
+                                // flag enemy as dead
+                                enemy.kill();
+                                // let enemy fall out of the screen
+                                enemy.punchOut();
+                                // disable enemy collisions
+                                enemy.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+        }
+        var e_1, _c;
+    };
+    return Player;
+}(ninjas.Character));
+exports.Player = Player;
+
+
+/***/ }),
+/* 150 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents a non-colliding decoration.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Decoration = /** @class */ (function (_super) {
+    __extends(Decoration, _super);
+    /***************************************************************************************************************
+    *   Creates a new decoration.
+    *
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template to use.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
+    ***************************************************************************************************************/
+    function Decoration(shape, spriteTemplate, x, y) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
+        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this decoration.
+    ***************************************************************************************************************/
+    Decoration.prototype.render = function () {
+        _super.prototype.render.call(this);
+    };
+    return Decoration;
+}(ninjas.GameObject));
+exports.Decoration = Decoration;
+
+
+/***/ }),
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+var matter = __webpack_require__(2);
+/*******************************************************************************************************************
+*   Represents a non-colliding decoration.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var ParallaxDeco = /** @class */ (function (_super) {
+    __extends(ParallaxDeco, _super);
+    /***************************************************************************************************************
+    *   Creates a new parallax decoration.
+    *
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template to use.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
+    *   @param parallaxRatio  The parallax ratio from this game object to the level width. Defaults to 1.0.
+    ***************************************************************************************************************/
+    function ParallaxDeco(shape, spriteTemplate, x, y, parallaxRatio) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
+        /** The parallax ratio from this game object to the level width. Defaults to 1.0. */
+        _this.parallaxRatio = 0.0;
+        /** The startup position X. */
+        _this.startupX = 0.0;
+        /** The startup position Y. */
+        _this.startupY = 0.0;
+        _this.parallaxRatio = parallaxRatio;
+        _this.startupX = x;
+        _this.startupY = y;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this decoration.
+    ***************************************************************************************************************/
+    ParallaxDeco.prototype.render = function () {
+        _super.prototype.render.call(this);
+        this.setParallaxPosition();
+    };
+    /***************************************************************************************************************
+    *   Sets the current parallax position of this deco.
+    ***************************************************************************************************************/
+    ParallaxDeco.prototype.setParallaxPosition = function () {
+        var levelWidth = ninjas.Main.game.level.width;
+        var levelHeight = ninjas.Main.game.level.height;
+        var cameraOffsetX = ninjas.Main.game.camera.getOffsetX();
+        var cameraOffsetY = ninjas.Main.game.camera.getOffsetY();
+        var canvasWidth = ninjas.Main.game.engine.canvasSystem.getWidth();
+        var canvasHeight = ninjas.Main.game.engine.canvasSystem.getHeight();
+        var imgOffsetX = 0 - (this.shape.getWidth() - canvasWidth) * cameraOffsetX / (levelWidth - canvasWidth);
+        var imgOffsetY = 0 - (this.shape.getHeight() - canvasHeight) * cameraOffsetY / (levelHeight - canvasHeight);
+        imgOffsetX *= this.parallaxRatio;
+        imgOffsetY *= this.parallaxRatio;
+        matter.Body.setPosition(this.shape.body, matter.Vector.create(imgOffsetX + cameraOffsetX + (this.shape.getWidth() / 2), imgOffsetY + cameraOffsetY + (this.shape.getHeight() / 2)));
+    };
+    return ParallaxDeco;
+}(ninjas.Decoration));
+exports.ParallaxDeco = ParallaxDeco;
+
+
+/***/ }),
+/* 152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(2);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents a pickable item.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Item = /** @class */ (function (_super) {
+    __extends(Item, _super);
+    /***************************************************************************************************************
+    *   Creates a new item.
+    *
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template to use for this object.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
+    ***************************************************************************************************************/
+    function Item(shape, spriteTemplate, x, y) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
+        /** Indicates if this item has been picked. */
+        _this.picked = null;
+        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this item.
+    ***************************************************************************************************************/
+    Item.prototype.render = function () {
+        _super.prototype.render.call(this);
+        if (!this.picked) {
+            this.checkPicked();
+        }
+    };
+    /***************************************************************************************************************
+    *   Checks if this item is picked up in this frame.
+    ***************************************************************************************************************/
+    Item.prototype.checkPicked = function () {
+        if (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds)) {
+            ninjas.Debug.item.log("Player picked item");
+            this.pick();
+        }
+    };
+    /***************************************************************************************************************
+    *   Picks up this item.
+    ***************************************************************************************************************/
+    Item.prototype.pick = function () {
+        // flag as picked
+        this.picked = true;
+        // remove item body
+        ninjas.Main.game.engine.matterJsSystem.removeFromWorld(this.shape.body);
+    };
+    return Item;
+}(ninjas.GameObject));
+exports.Item = Item;
+
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents a movable box.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Movable = /** @class */ (function (_super) {
+    __extends(Movable, _super);
+    /***************************************************************************************************************
+    *   Creates a new movable.
+    *
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite for this box.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
+    ***************************************************************************************************************/
+    function Movable(shape, spriteTemplate, x, y) {
+        return _super.call(this, shape, spriteTemplate, x, y) || this;
+    }
+    /***************************************************************************************************************
+    *   Renders this box.
+    ***************************************************************************************************************/
+    Movable.prototype.render = function () {
+        _super.prototype.render.call(this);
+        this.clipToHorizontalLevelBounds();
+    };
+    return Movable;
+}(ninjas.GameObject));
+exports.Movable = Movable;
+
+
+/***/ }),
+/* 154 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents a collidable and solid obstacle.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Obstacle = /** @class */ (function (_super) {
+    __extends(Obstacle, _super);
+    /***************************************************************************************************************
+    *   Creates a new obstacle.
+    *
+    *   @param shape           The shape for this object.
+    *   @param x               Startup position X.
+    *   @param y               Startup position Y.
+    *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
+    ***************************************************************************************************************/
+    function Obstacle(shape, x, y, jumpPassThrough) {
+        var _this = _super.call(this, shape, null, x, y) || this;
+        /** Specifies if the player shall be allowed to jump through this obstacle. */
+        _this.jumpPassThrough = false;
+        _this.jumpPassThrough = jumpPassThrough;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this obstacle.
+    ***************************************************************************************************************/
+    Obstacle.prototype.render = function () {
+        _super.prototype.render.call(this);
+        if (this.jumpPassThrough) {
+            /*
+                            if
+                            (
+                                ninjas.ninjas.game.level.player.body.velocity.y >= 0.0
+            
+            //                    ninjas.ninjas.game.level.player.body.position.y + ninjas.ninjas.game.level.player.height / 2
+            //                    <=  this.body.position.y
+            
+                            )
+                            {
+                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_COLLIDING;
+                            }
+                            else
+                            {
+                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_NON_COLLIDING;
+                            }
+            */
+        }
+    };
+    return Obstacle;
+}(ninjas.GameObject));
+exports.Obstacle = Obstacle;
+
+
+/***/ }),
+/* 155 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(2);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents a bounce.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Bounce = /** @class */ (function (_super) {
+    __extends(Bounce, _super);
+    /***************************************************************************************************************
+    *   Creates a new bounce.
+    *
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template to use for this game object.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
+    ***************************************************************************************************************/
+    function Bounce(shape, spriteTemplate, x, y) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
+        /** The constraint that builds the turning point for the bounce. */
+        _this.constraint = null;
+        _this.constraint = matter.Constraint.create({
+            bodyB: _this.shape.body,
+            pointA: { x: _this.shape.body.position.x, y: _this.shape.body.position.y },
+            pointB: { x: 0, y: 0 },
+            stiffness: 0.01,
+            length: 0,
+            render: {
+                strokeStyle: ninjas.Setting.COLOR_DEBUG_BOUNCE_JOINT,
+                lineWidth: 1.0,
+                visible: true,
+            }
+        });
+        ninjas.Main.game.engine.matterJsSystem.addToWorld(_this.constraint);
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this sigsaw.
+    ***************************************************************************************************************/
+    Bounce.prototype.render = function () {
+        _super.prototype.render.call(this);
+        matter.Body.setAngle(this.shape.body, 0.0);
+        matter.Body.setAngularVelocity(this.shape.body, 0.0);
+    };
+    return Bounce;
+}(ninjas.GameObject));
+exports.Bounce = Bounce;
+
+
+/***/ }),
+/* 156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(2);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents a platform that moves.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Platform = /** @class */ (function (_super) {
+    __extends(Platform, _super);
+    /***************************************************************************************************************
+    *   Creates a new platform. Initial position is the first waypoint.
+    *
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template for this platform.
+    *   @param speed          The speed in pixels per tick.
+    *   @param waypoints      The waypoints for this platform to move to.
+    ***************************************************************************************************************/
+    function Platform(shape, spriteTemplate, speed, waypoints) {
+        var _this = _super.call(this, shape, spriteTemplate, 0.0, 0.0) || this;
+        /** The waypoints for this platform to move. */
+        _this.waypoints = null;
+        /** The number of ticks till the next waypoint is reached. */
+        _this.speed = 0.0;
+        /** The current waypoint to move to. */
+        _this.currentWaypointIndex = 0;
+        /** The number of animation steps till the next waypoint. */
+        _this.stepsTillNextWaypoint = 0;
+        /** A counter for the current step to the next waypoint. */
+        _this.currentStep = 0;
+        /** Step size X per tick in px. */
+        _this.stepSizeX = 0.0;
+        /** Step size Y per tick in px. */
+        _this.stepSizeY = 0.0;
+        if (waypoints.length == 0) {
+            throw new Error("Platform requires at least one waypoint to be specified!");
+        }
+        _this.waypoints = waypoints;
+        _this.speed = speed;
+        _this.currentWaypointIndex = -1;
+        _this.assignNextWaypoint();
+        _this.shape.body.frictionStatic = Infinity;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Assigns the next waypoint to aim to.
+    ***************************************************************************************************************/
+    Platform.prototype.assignNextWaypoint = function () {
+        // increase index for current wp
+        ++this.currentWaypointIndex;
+        // assign current wp
+        if (this.currentWaypointIndex >= this.waypoints.length)
+            this.currentWaypointIndex = 0;
+        var currentWaypoint = matter.Vector.create(this.waypoints[this.currentWaypointIndex].x + (this.shape.getWidth() / 2), this.waypoints[this.currentWaypointIndex].y + (this.shape.getHeight() / 2));
+        // assign next wp
+        var nextWaypointIndex = this.currentWaypointIndex + 1;
+        if (nextWaypointIndex >= this.waypoints.length)
+            nextWaypointIndex = 0;
+        var nextWaypoint = matter.Vector.create(this.waypoints[nextWaypointIndex].x + (this.shape.getWidth() / 2), this.waypoints[nextWaypointIndex].y + (this.shape.getHeight() / 2));
+        // set platform to starting wp
+        matter.Body.setPosition(this.shape.body, currentWaypoint);
+        // get deltas
+        var deltaX = Math.abs(nextWaypoint.x - currentWaypoint.x);
+        var deltaY = Math.abs(nextWaypoint.y - currentWaypoint.y);
+        var deltaDirect = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
+        // reset steps and calculate number of steps for reaching the next waypoint
+        this.currentStep = 0;
+        this.stepsTillNextWaypoint = deltaDirect / this.speed;
+        // calculate step size
+        this.stepSizeX = (nextWaypoint.x - currentWaypoint.x) / this.stepsTillNextWaypoint;
+        this.stepSizeY = (nextWaypoint.y - currentWaypoint.y) / this.stepsTillNextWaypoint;
+    };
+    /***************************************************************************************************************
+    *   Renders this obstacle.
+    ***************************************************************************************************************/
+    Platform.prototype.render = function () {
+        _super.prototype.render.call(this);
+        ++this.currentStep;
+        if (this.currentStep > this.stepsTillNextWaypoint) {
+            this.assignNextWaypoint();
+        }
+        // move platform
+        matter.Body.setVelocity(this.shape.body, matter.Vector.create(this.stepSizeX, this.stepSizeY));
+        matter.Body.translate(this.shape.body, matter.Vector.create(this.stepSizeX, this.stepSizeY));
+    };
+    /** Medium moving speed. */
+    Platform.SPEED_NORMAL = 1.0;
+    return Platform;
+}(ninjas.GameObject));
+exports.Platform = Platform;
+
+
+/***/ }),
+/* 157 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(2);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents a sigsaw.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SigSaw = /** @class */ (function (_super) {
+    __extends(SigSaw, _super);
+    /***************************************************************************************************************
+    *   Creates a new sigsaw.
+    *
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template for this game object.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
+    ***************************************************************************************************************/
+    function SigSaw(shape, spriteTemplate, x, y) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
+        /** The constraint that builds the turning point for the sigsaw. */
+        _this.constraint = null;
+        _this.constraint = matter.Constraint.create({
+            bodyB: _this.shape.body,
+            pointA: { x: _this.shape.body.position.x, y: _this.shape.body.position.y },
+            pointB: { x: 0, y: 0 },
+            stiffness: 1.0,
+            length: 0,
+            render: {
+                strokeStyle: ninjas.Setting.COLOR_DEBUG_SIGSAW_JOINT,
+                lineWidth: 1.0,
+                visible: true,
+            }
+        });
+        /*
+                    matter.Body.setMass( this.body, 25.0 );
+        */
+        ninjas.Main.game.engine.matterJsSystem.addToWorld(_this.constraint);
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this sigsaw.
+    ***************************************************************************************************************/
+    SigSaw.prototype.render = function () {
+        _super.prototype.render.call(this);
+        this.clipRotation();
+        this.clipRotationSpeed();
+    };
+    /***************************************************************************************************************
+    *   Clips the rotation of the sigsaw.
+    ***************************************************************************************************************/
+    SigSaw.prototype.clipRotation = function () {
+        var clipAngle = 15.0;
+        var minAngle = ninjas.MathUtil.angleToRad(-clipAngle);
+        var maxAngle = ninjas.MathUtil.angleToRad(clipAngle);
+        if (this.shape.body.angle < minAngle) {
+            matter.Body.setAngle(this.shape.body, minAngle);
+            matter.Body.setAngularVelocity(this.shape.body, 0.0);
+        }
+        else if (this.shape.body.angle > maxAngle) {
+            matter.Body.setAngle(this.shape.body, maxAngle);
+            matter.Body.setAngularVelocity(this.shape.body, 0.0);
+        }
+    };
+    /***************************************************************************************************************
+    *   Clips the rotation speed of the sigsaw.
+    ***************************************************************************************************************/
+    SigSaw.prototype.clipRotationSpeed = function () {
+        var maxRotationSpeed = 0.005;
+        if (this.shape.body.angularVelocity < -maxRotationSpeed) {
+            matter.Body.setAngularVelocity(this.shape.body, -maxRotationSpeed);
+        }
+        else if (this.shape.body.angularVelocity > maxRotationSpeed) {
+            matter.Body.setAngularVelocity(this.shape.body, maxRotationSpeed);
+        }
+    };
+    return SigSaw;
+}(ninjas.GameObject));
+exports.SigSaw = SigSaw;
+
+
+/***/ }),
+/* 158 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(2);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents a non-colliding decoration.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SiteTrigger = /** @class */ (function (_super) {
+    __extends(SiteTrigger, _super);
+    /***************************************************************************************************************
+    *   Creates a new site trigger.
+    *
+    *   @param shape              The shape for this object.
+    *   @param spriteTemplate     The sprite template to use.
+    *   @param x                  Startup position X.
+    *   @param y                  Startup position Y.
+    *   @param fixedPanelPosition Startup position Y.
+    ***************************************************************************************************************/
+    function SiteTrigger(shape, spriteTemplate, x, y, fixedPanelPosition) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
+        /** Flags if the according site panel is currently displayed. */
+        _this.sitePanelActive = false;
+        /** A fixed position for the panel to popup, if desired. */
+        _this.fixedPanelPosition = null;
+        _this.fixedPanelPosition = fixedPanelPosition;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this site trigger.
+    ***************************************************************************************************************/
+    SiteTrigger.prototype.render = function () {
+        _super.prototype.render.call(this);
+        // check if player collides with this trigger
+        if (this.checkPlayerCollision()) {
+            if (!this.sitePanelActive) {
+                // get panel popup according to player looking direction
+                var panelPosition = this.determinePanelPosition();
+                if (ninjas.Main.game.engine.siteSystem.show(panelPosition)) {
+                    this.sitePanelActive = true;
+                }
+            }
+        }
+        else {
+            if (this.sitePanelActive) {
+                if (ninjas.Main.game.engine.siteSystem.hide()) {
+                    this.sitePanelActive = false;
+                }
+            }
+        }
+    };
+    /***************************************************************************************************************
+    *   Renders this site trigger.
+    ***************************************************************************************************************/
+    SiteTrigger.prototype.checkPlayerCollision = function () {
+        return (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds));
+    };
+    /***************************************************************************************************************
+    *   Determines the position of the panel to show according to the player's current looking direction.
+    *
+    *   @return The position of the panel to be shown.
+    ***************************************************************************************************************/
+    SiteTrigger.prototype.determinePanelPosition = function () {
+        switch (this.fixedPanelPosition) {
+            case ninjas.SitePanelPosition.LEFT:
+            case ninjas.SitePanelPosition.RIGHT:
+                {
+                    return this.fixedPanelPosition;
+                }
+            case ninjas.SitePanelPosition.NONE:
+            default:
+                {
+                    if (ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                        return ninjas.SitePanelPosition.LEFT;
+                    }
+                    else {
+                        return ninjas.SitePanelPosition.RIGHT;
+                    }
+                }
+        }
+    };
+    return SiteTrigger;
+}(ninjas.Decoration));
+exports.SiteTrigger = SiteTrigger;
+
+
+/***/ }),
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29096,7 +30693,55 @@ exports.GameObjectFactory = GameObjectFactory;
 
 
 /***/ }),
-/* 148 */
+/* 160 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents the shape of a game object.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Shape = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Creates a new game object shape.
+    *
+    *   @param debugColor The color for the debug object.
+    *   @param isStatic   Specifies that this object has a fixed position.
+    *   @param angle      The rotation of this body in degrees.
+    *   @param friction   The object's body friction.
+    *   @param density    The object's body density.
+    ***************************************************************************************************************/
+    function Shape(debugColor, isStatic, angle, friction, density) {
+        /** The body rendering options for this shape. */
+        this.options = null;
+        /** The shape's body. */
+        this.body = null;
+        this.options = {
+            render: {
+                fillStyle: debugColor,
+                strokeStyle: ninjas.Setting.COLOR_DEBUG_BORDER,
+                opacity: ninjas.Setting.COLOR_DEBUG_OPACITY,
+                lineWidth: ninjas.Setting.COLOR_DEBUG_LINE_WIDTH,
+            },
+            isStatic: isStatic,
+            collisionFilter: ninjas.Setting.COLLISION_GROUP_COLLIDING,
+            friction: friction,
+            angle: ninjas.MathUtil.angleToRad(angle),
+            density: density,
+        };
+    }
+    return Shape;
+}());
+exports.Shape = Shape;
+
+
+/***/ }),
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29115,259 +30760,77 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
-*   Represents a pickable item.
+*   Represents the shape of a game object.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var Item = /** @class */ (function (_super) {
-    __extends(Item, _super);
+var ShapeRectangle = /** @class */ (function (_super) {
+    __extends(ShapeRectangle, _super);
     /***************************************************************************************************************
-    *   Creates a new item.
+    *   Creates a new rectangle shape.
     *
-    *   @param shape          The shape for this object.
-    *   @param spriteTemplate The sprite template to use for this object.
-    *   @param x              Startup position X.
-    *   @param y              Startup position Y.
+    *   @param width      The rectangle's width.
+    *   @param height     The rectangle's height.
+    *   @param debugColor The color for the debug object.
+    *   @param isStatic   Specifies that this object has a fixed position.
+    *   @param angle      The rotation of this body in degrees.
+    *   @param friction   The object's body friction.
+    *   @param density    The object's body density.
     ***************************************************************************************************************/
-    function Item(shape, spriteTemplate, x, y) {
-        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
-        /** Indicates if this item has been picked. */
-        _this.picked = null;
-        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
+    function ShapeRectangle(width, height, debugColor, isStatic, angle, friction, density) {
+        var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
+        /** The rectangle's width. */
+        _this.width = 0.0;
+        /** The rectangle's height. */
+        _this.height = 0.0;
+        _this.width = width;
+        _this.height = height;
+        _this.body = _this.createBody();
         return _this;
     }
     /***************************************************************************************************************
-    *   Renders this item.
-    ***************************************************************************************************************/
-    Item.prototype.render = function () {
-        _super.prototype.render.call(this);
-        if (!this.picked) {
-            this.checkPicked();
-        }
-    };
-    /***************************************************************************************************************
-    *   Checks if this item is picked up in this frame.
-    ***************************************************************************************************************/
-    Item.prototype.checkPicked = function () {
-        if (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds)) {
-            ninjas.Debug.item.log("Player picked item");
-            this.pick();
-        }
-    };
-    /***************************************************************************************************************
-    *   Picks up this item.
-    ***************************************************************************************************************/
-    Item.prototype.pick = function () {
-        // flag as picked
-        this.picked = true;
-        // remove item body
-        ninjas.Main.game.engine.matterJsSystem.removeFromWorld(this.shape.body);
-    };
-    return Item;
-}(ninjas.GameObject));
-exports.Item = Item;
-
-
-/***/ }),
-/* 149 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents a movable box.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Movable = /** @class */ (function (_super) {
-    __extends(Movable, _super);
-    /***************************************************************************************************************
-    *   Creates a new movable.
+    *   Creates this shapes body.
     *
-    *   @param shape          The shape for this object.
-    *   @param spriteTemplate The sprite for this box.
-    *   @param x              Startup position X.
-    *   @param y              Startup position Y.
+    *   @return The body for this shape.
     ***************************************************************************************************************/
-    function Movable(shape, spriteTemplate, x, y) {
-        return _super.call(this, shape, spriteTemplate, x, y) || this;
-    }
-    /***************************************************************************************************************
-    *   Renders this box.
-    ***************************************************************************************************************/
-    Movable.prototype.render = function () {
-        _super.prototype.render.call(this);
-        this.clipToHorizontalLevelBounds();
+    ShapeRectangle.prototype.createBody = function () {
+        return matter.Bodies.rectangle((this.width / 2), (this.height / 2), this.width, this.height, this.options);
     };
-    return Movable;
-}(ninjas.GameObject));
-exports.Movable = Movable;
-
-
-/***/ }),
-/* 150 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents a collidable and solid obstacle.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Obstacle = /** @class */ (function (_super) {
-    __extends(Obstacle, _super);
     /***************************************************************************************************************
-    *   Creates a new obstacle.
+    *   Returns the width of this shape's boundaries.
     *
-    *   @param shape           The shape for this object.
-    *   @param x               Startup position X.
-    *   @param y               Startup position Y.
-    *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
+    *   @return The shape's boundaries width.
     ***************************************************************************************************************/
-    function Obstacle(shape, x, y, jumpPassThrough) {
-        var _this = _super.call(this, shape, null, x, y) || this;
-        /** Specifies if the player shall be allowed to jump through this obstacle. */
-        _this.jumpPassThrough = false;
-        _this.jumpPassThrough = jumpPassThrough;
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Renders this obstacle.
-    ***************************************************************************************************************/
-    Obstacle.prototype.render = function () {
-        _super.prototype.render.call(this);
-        if (this.jumpPassThrough) {
-            /*
-                            if
-                            (
-                                ninjas.ninjas.game.level.player.body.velocity.y >= 0.0
-            
-            //                    ninjas.ninjas.game.level.player.body.position.y + ninjas.ninjas.game.level.player.height / 2
-            //                    <=  this.body.position.y
-            
-                            )
-                            {
-                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_COLLIDING;
-                            }
-                            else
-                            {
-                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_NON_COLLIDING;
-                            }
-            */
-        }
+    ShapeRectangle.prototype.getWidth = function () {
+        return this.width;
     };
-    return Obstacle;
-}(ninjas.GameObject));
-exports.Obstacle = Obstacle;
-
-
-/***/ }),
-/* 151 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-var matter = __webpack_require__(2);
-/*******************************************************************************************************************
-*   Represents a non-colliding decoration.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var ParallaxDeco = /** @class */ (function (_super) {
-    __extends(ParallaxDeco, _super);
     /***************************************************************************************************************
-    *   Creates a new parallax decoration.
+    *   Returns the height of this shape's boundaries.
     *
-    *   @param shape          The shape for this object.
-    *   @param spriteTemplate The sprite template to use.
-    *   @param x              Startup position X.
-    *   @param y              Startup position Y.
-    *   @param parallaxRatio  The parallax ratio from this game object to the level width. Defaults to 1.0.
+    *   @return The shape's boundaries height.
     ***************************************************************************************************************/
-    function ParallaxDeco(shape, spriteTemplate, x, y, parallaxRatio) {
-        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
-        /** The parallax ratio from this game object to the level width. Defaults to 1.0. */
-        _this.parallaxRatio = 0.0;
-        /** The startup position X. */
-        _this.startupX = 0.0;
-        /** The startup position Y. */
-        _this.startupY = 0.0;
-        _this.parallaxRatio = parallaxRatio;
-        _this.startupX = x;
-        _this.startupY = y;
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Renders this decoration.
-    ***************************************************************************************************************/
-    ParallaxDeco.prototype.render = function () {
-        _super.prototype.render.call(this);
-        this.setParallaxPosition();
+    ShapeRectangle.prototype.getHeight = function () {
+        return this.height;
     };
     /***************************************************************************************************************
-    *   Sets the current parallax position of this deco.
+    *   Updates this shape's body dimensions.
+    *
+    *   @param width  The new width for this shape.
+    *   @param height The new height for this shape.
     ***************************************************************************************************************/
-    ParallaxDeco.prototype.setParallaxPosition = function () {
-        var levelWidth = ninjas.Main.game.level.width;
-        var levelHeight = ninjas.Main.game.level.height;
-        var cameraOffsetX = ninjas.Main.game.camera.getOffsetX();
-        var cameraOffsetY = ninjas.Main.game.camera.getOffsetY();
-        var canvasWidth = ninjas.Main.game.engine.canvasSystem.getWidth();
-        var canvasHeight = ninjas.Main.game.engine.canvasSystem.getHeight();
-        var imgOffsetX = 0 - (this.shape.getWidth() - canvasWidth) * cameraOffsetX / (levelWidth - canvasWidth);
-        var imgOffsetY = 0 - (this.shape.getHeight() - canvasHeight) * cameraOffsetY / (levelHeight - canvasHeight);
-        imgOffsetX *= this.parallaxRatio;
-        imgOffsetY *= this.parallaxRatio;
-        matter.Body.setPosition(this.shape.body, matter.Vector.create(imgOffsetX + cameraOffsetX + (this.shape.getWidth() / 2), imgOffsetY + cameraOffsetY + (this.shape.getHeight() / 2)));
+    ShapeRectangle.prototype.updateDimensions = function (width, height) {
+        this.width = width;
+        this.height = height;
+        this.body = this.createBody();
     };
-    return ParallaxDeco;
-}(ninjas.Decoration));
-exports.ParallaxDeco = ParallaxDeco;
+    return ShapeRectangle;
+}(ninjas.Shape));
+exports.ShapeRectangle = ShapeRectangle;
 
 
 /***/ }),
-/* 152 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29386,97 +30849,72 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
-*   Represents a platform that moves.
+*   Represents the shape of a game object.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var Platform = /** @class */ (function (_super) {
-    __extends(Platform, _super);
+var ShapeCircle = /** @class */ (function (_super) {
+    __extends(ShapeCircle, _super);
     /***************************************************************************************************************
-    *   Creates a new platform. Initial position is the first waypoint.
+    *   Creates a new circle shape.
     *
-    *   @param shape          The shape for this object.
-    *   @param spriteTemplate The sprite template for this platform.
-    *   @param speed          The speed in pixels per tick.
-    *   @param waypoints      The waypoints for this platform to move to.
+    *   @param diameter   The circle's diameter.
+    *   @param debugColor The color for the debug object.
+    *   @param isStatic   Specifies that this object has a fixed position.
+    *   @param angle      The rotation of this body in degrees.
+    *   @param friction   The object's body friction.
+    *   @param density    The object's body density.
     ***************************************************************************************************************/
-    function Platform(shape, spriteTemplate, speed, waypoints) {
-        var _this = _super.call(this, shape, spriteTemplate, 0.0, 0.0) || this;
-        /** The waypoints for this platform to move. */
-        _this.waypoints = null;
-        /** The number of ticks till the next waypoint is reached. */
-        _this.speed = 0.0;
-        /** The current waypoint to move to. */
-        _this.currentWaypointIndex = 0;
-        /** The number of animation steps till the next waypoint. */
-        _this.stepsTillNextWaypoint = 0;
-        /** A counter for the current step to the next waypoint. */
-        _this.currentStep = 0;
-        /** Step size X per tick in px. */
-        _this.stepSizeX = 0.0;
-        /** Step size Y per tick in px. */
-        _this.stepSizeY = 0.0;
-        if (waypoints.length == 0) {
-            throw new Error("Platform requires at least one waypoint to be specified!");
-        }
-        _this.waypoints = waypoints;
-        _this.speed = speed;
-        _this.currentWaypointIndex = -1;
-        _this.assignNextWaypoint();
-        _this.shape.body.frictionStatic = Infinity;
+    function ShapeCircle(diameter, debugColor, isStatic, angle, friction, density) {
+        var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
+        /** The circle's diameter. */
+        _this.diameter = 0.0;
+        _this.diameter = diameter;
+        _this.body = _this.createBody();
         return _this;
     }
     /***************************************************************************************************************
-    *   Assigns the next waypoint to aim to.
+    *   Creates this shapes body.
+    *
+    *   @return The body for this shape.
     ***************************************************************************************************************/
-    Platform.prototype.assignNextWaypoint = function () {
-        // increase index for current wp
-        ++this.currentWaypointIndex;
-        // assign current wp
-        if (this.currentWaypointIndex >= this.waypoints.length)
-            this.currentWaypointIndex = 0;
-        var currentWaypoint = matter.Vector.create(this.waypoints[this.currentWaypointIndex].x + (this.shape.getWidth() / 2), this.waypoints[this.currentWaypointIndex].y + (this.shape.getHeight() / 2));
-        // assign next wp
-        var nextWaypointIndex = this.currentWaypointIndex + 1;
-        if (nextWaypointIndex >= this.waypoints.length)
-            nextWaypointIndex = 0;
-        var nextWaypoint = matter.Vector.create(this.waypoints[nextWaypointIndex].x + (this.shape.getWidth() / 2), this.waypoints[nextWaypointIndex].y + (this.shape.getHeight() / 2));
-        // set platform to starting wp
-        matter.Body.setPosition(this.shape.body, currentWaypoint);
-        // get deltas
-        var deltaX = Math.abs(nextWaypoint.x - currentWaypoint.x);
-        var deltaY = Math.abs(nextWaypoint.y - currentWaypoint.y);
-        var deltaDirect = Math.sqrt((deltaX * deltaX) + (deltaY * deltaY));
-        // reset steps and calculate number of steps for reaching the next waypoint
-        this.currentStep = 0;
-        this.stepsTillNextWaypoint = deltaDirect / this.speed;
-        // calculate step size
-        this.stepSizeX = (nextWaypoint.x - currentWaypoint.x) / this.stepsTillNextWaypoint;
-        this.stepSizeY = (nextWaypoint.y - currentWaypoint.y) / this.stepsTillNextWaypoint;
+    ShapeCircle.prototype.createBody = function () {
+        return matter.Bodies.circle((this.diameter / 2), (this.diameter / 2), (this.diameter / 2), this.options);
     };
     /***************************************************************************************************************
-    *   Renders this obstacle.
+    *   Returns the width of this shape's boundaries.
+    *
+    *   @return The shape's boundaries width.
     ***************************************************************************************************************/
-    Platform.prototype.render = function () {
-        _super.prototype.render.call(this);
-        ++this.currentStep;
-        if (this.currentStep > this.stepsTillNextWaypoint) {
-            this.assignNextWaypoint();
-        }
-        // move platform
-        matter.Body.setVelocity(this.shape.body, matter.Vector.create(this.stepSizeX, this.stepSizeY));
-        matter.Body.translate(this.shape.body, matter.Vector.create(this.stepSizeX, this.stepSizeY));
+    ShapeCircle.prototype.getWidth = function () {
+        return this.diameter;
     };
-    /** Medium moving speed. */
-    Platform.SPEED_NORMAL = 1.0;
-    return Platform;
-}(ninjas.GameObject));
-exports.Platform = Platform;
+    /***************************************************************************************************************
+    *   Returns the height of this shape's boundaries.
+    *
+    *   @return The shape's boundaries height.
+    ***************************************************************************************************************/
+    ShapeCircle.prototype.getHeight = function () {
+        return this.diameter;
+    };
+    /***************************************************************************************************************
+    *   Updates this shape's body dimensions.
+    *
+    *   @param width  The new width for this shape.
+    *   @param height The new height for this shape.
+    ***************************************************************************************************************/
+    ShapeCircle.prototype.updateDimensions = function (width, height) {
+        this.diameter = width;
+        this.body = this.createBody();
+    };
+    return ShapeCircle;
+}(ninjas.Shape));
+exports.ShapeCircle = ShapeCircle;
 
 
 /***/ }),
-/* 153 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29505,347 +30943,116 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
-*   Represents the player being controlled by the user.
+*   A free form shape for a game object.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var Player = /** @class */ (function (_super) {
-    __extends(Player, _super);
+var ShapeFreeForm = /** @class */ (function (_super) {
+    __extends(ShapeFreeForm, _super);
     /***************************************************************************************************************
-    *   Creates a new player instance.
+    *   Creates a new free formed shape.
     *
-    *   @param x                Startup position X.
-    *   @param y                Startup position Y.
-    *   @param lookingDirection The initial looking direction.
-    *   @param spriteTemplate   The initial sprite template to use for the player.
+    *   @param vertices   All vertices that make up the entire free form shape.
+    *   @param debugColor The color for the debug object.
+    *   @param isStatic   Specifies that this object has a fixed position.
+    *   @param angle      The rotation of this body in degrees.
+    *   @param friction   The object's body friction.
+    *   @param density    The object's body density.
     ***************************************************************************************************************/
-    function Player(x, y, lookingDirection, spriteTemplate) {
-        return _super.call(this, new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), spriteTemplate, x, y, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
+    function ShapeFreeForm(vertices, debugColor, isStatic, angle, friction, density) {
+        var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
+        /** All vertices that build the free form. */
+        _this.vertices = null;
+        /** The boundary width. */
+        _this.boundWidth = 0.0;
+        /** The boundary height. */
+        _this.boundHeight = 0.0;
+        _this.vertices = vertices;
+        _this.determineBoundDimensions();
+        _this.body = _this.createBody();
+        return _this;
     }
     /***************************************************************************************************************
-    *   Renders the current player tick.
+    *   Creates this shapes body.
+    *
+    *   @return The body for this shape.
     ***************************************************************************************************************/
-    Player.prototype.render = function () {
-        _super.prototype.render.call(this);
-        if (!this.dead) {
-            this.handleKeys();
-            this.checkEnemyKill();
-            this.clipToHorizontalLevelBounds();
-        }
-        this.assignCurrentSprite();
+    ShapeFreeForm.prototype.createBody = function () {
+        return matter.Bodies.fromVertices((this.boundWidth / 2), (this.boundHeight / 2), [this.vertices], this.options);
     };
     /***************************************************************************************************************
-    *   Checks all pressed player keys and performs according actions.
+    *   Returns the width of this shape's boundaries.
+    *
+    *   @return The shape's boundaries width.
     ***************************************************************************************************************/
-    Player.prototype.handleKeys = function () {
-        if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_LEFT)) {
-            this.moveLeft();
-        }
-        else if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_RIGHT)) {
-            this.moveRight();
-        }
-        if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_UP)) {
-            ninjas.Main.game.engine.keySystem.setNeedsRelease(ninjas.Key.KEY_UP);
-            if (this.collidesBottom) {
-                this.jump();
-            }
-        }
+    ShapeFreeForm.prototype.getWidth = function () {
+        return this.boundWidth;
     };
     /***************************************************************************************************************
-    *   Assigns the current sprite to the player according to his current state.
+    *   Returns the height of this shape's boundaries.
+    *
+    *   @return The shape's boundaries height.
     ***************************************************************************************************************/
-    Player.prototype.assignCurrentSprite = function () {
-        if (this.collidesBottom) {
-            if (this.movesLeft) {
-                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT);
-            }
-            else if (this.movesRight) {
-                this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT);
-            }
-            else {
-                if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
-                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT);
-                }
-                else {
-                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
-                }
-            }
-        }
-        else {
-            if (this.isFalling()) {
-                if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
-                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT);
-                }
-                else {
-                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT);
-                }
-            }
-            else {
-                if (this.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
-                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT);
-                }
-                else {
-                    this.setSprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT);
-                }
-            }
-        }
+    ShapeFreeForm.prototype.getHeight = function () {
+        return this.boundHeight;
     };
     /***************************************************************************************************************
-    *   Checks if an enemy is currently killed by the player (by jumping onto the enemie's head.)
+    *   Calculates the width and height of this shapes bounds.
     ***************************************************************************************************************/
-    Player.prototype.checkEnemyKill = function () {
-        // check character landing on enemies
-        if (this.collidesBottom) {
+    ShapeFreeForm.prototype.determineBoundDimensions = function () {
+        var minimumX = Infinity;
+        var minimumY = Infinity;
+        var maximumX = -Infinity;
+        var maximumY = -Infinity;
+        try {
+            for (var _a = __values(this.vertices), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var vertex = _b.value;
+                if (vertex.x < minimumX)
+                    minimumX = vertex.x;
+                if (vertex.y < minimumY)
+                    minimumY = vertex.y;
+                if (vertex.x > maximumX)
+                    maximumX = vertex.x;
+                if (vertex.y > maximumY)
+                    maximumY = vertex.y;
+            }
+        }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
             try {
-                for (var _a = __values(ninjas.Main.game.level.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
-                    var gameObject = _b.value;
-                    if (gameObject instanceof ninjas.Enemy) {
-                        var enemy = gameObject;
-                        // check intersection of the player and the enemy
-                        if (matter.Bounds.overlaps(this.shape.body.bounds, enemy.shape.body.bounds)) {
-                            ninjas.Debug.enemy.log("Enemy touched by player");
-                            var playerBottom = Math.floor(this.shape.body.position.y + this.shape.getHeight() / 2);
-                            var enemyTop = Math.floor(enemy.shape.body.position.y - enemy.shape.getHeight() / 2);
-                            ninjas.Debug.enemy.log(" playerBottom [" + playerBottom + "] enemyTop [" + enemyTop + "]");
-                            if (playerBottom == enemyTop) {
-                                ninjas.Debug.enemy.log(" Enemy killed");
-                                // flag enemy as dead
-                                enemy.kill();
-                                // let enemy fall out of the screen
-                                enemy.punchOut();
-                                // disable enemy collisions
-                                enemy.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
-                            }
-                        }
-                    }
-                }
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
             }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
+            finally { if (e_1) throw e_1.error; }
         }
+        this.boundWidth = maximumX - minimumX;
+        this.boundHeight = maximumY - minimumY;
+        console.log("bounds: " + this.boundWidth + "   " + this.boundHeight);
         var e_1, _c;
     };
-    return Player;
-}(ninjas.Character));
-exports.Player = Player;
+    /***************************************************************************************************************
+    *   Updates this shape's body dimensions.
+    *
+    *   @param width  The new width for this shape.
+    *   @param height The new height for this shape.
+    ***************************************************************************************************************/
+    ShapeFreeForm.prototype.updateDimensions = function (width, height) {
+        // not implemented
+    };
+    return ShapeFreeForm;
+}(ninjas.Shape));
+exports.ShapeFreeForm = ShapeFreeForm;
 
 
 /***/ }),
-/* 154 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents a sigsaw.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SigSaw = /** @class */ (function (_super) {
-    __extends(SigSaw, _super);
-    /***************************************************************************************************************
-    *   Creates a new sigsaw.
-    *
-    *   @param shape          The shape for this object.
-    *   @param spriteTemplate The sprite template for this game object.
-    *   @param x              Startup position X.
-    *   @param y              Startup position Y.
-    ***************************************************************************************************************/
-    function SigSaw(shape, spriteTemplate, x, y) {
-        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
-        /** The constraint that builds the turning point for the sigsaw. */
-        _this.constraint = null;
-        _this.constraint = matter.Constraint.create({
-            bodyB: _this.shape.body,
-            pointA: { x: _this.shape.body.position.x, y: _this.shape.body.position.y },
-            pointB: { x: 0, y: 0 },
-            stiffness: 1.0,
-            length: 0,
-            render: {
-                strokeStyle: ninjas.Setting.COLOR_DEBUG_SIGSAW_JOINT,
-                lineWidth: 1.0,
-                visible: true,
-            }
-        });
-        /*
-                    matter.Body.setMass( this.body, 25.0 );
-        */
-        ninjas.Main.game.engine.matterJsSystem.addToWorld(_this.constraint);
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Renders this sigsaw.
-    ***************************************************************************************************************/
-    SigSaw.prototype.render = function () {
-        _super.prototype.render.call(this);
-        this.clipRotation();
-        this.clipRotationSpeed();
-    };
-    /***************************************************************************************************************
-    *   Clips the rotation of the sigsaw.
-    ***************************************************************************************************************/
-    SigSaw.prototype.clipRotation = function () {
-        var clipAngle = 15.0;
-        var minAngle = ninjas.MathUtil.angleToRad(-clipAngle);
-        var maxAngle = ninjas.MathUtil.angleToRad(clipAngle);
-        if (this.shape.body.angle < minAngle) {
-            matter.Body.setAngle(this.shape.body, minAngle);
-            matter.Body.setAngularVelocity(this.shape.body, 0.0);
-        }
-        else if (this.shape.body.angle > maxAngle) {
-            matter.Body.setAngle(this.shape.body, maxAngle);
-            matter.Body.setAngularVelocity(this.shape.body, 0.0);
-        }
-    };
-    /***************************************************************************************************************
-    *   Clips the rotation speed of the sigsaw.
-    ***************************************************************************************************************/
-    SigSaw.prototype.clipRotationSpeed = function () {
-        var maxRotationSpeed = 0.005;
-        if (this.shape.body.angularVelocity < -maxRotationSpeed) {
-            matter.Body.setAngularVelocity(this.shape.body, -maxRotationSpeed);
-        }
-        else if (this.shape.body.angularVelocity > maxRotationSpeed) {
-            matter.Body.setAngularVelocity(this.shape.body, maxRotationSpeed);
-        }
-    };
-    return SigSaw;
-}(ninjas.GameObject));
-exports.SigSaw = SigSaw;
-
-
-/***/ }),
-/* 155 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents a non-colliding decoration.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SiteTrigger = /** @class */ (function (_super) {
-    __extends(SiteTrigger, _super);
-    /***************************************************************************************************************
-    *   Creates a new site trigger.
-    *
-    *   @param shape              The shape for this object.
-    *   @param spriteTemplate     The sprite template to use.
-    *   @param x                  Startup position X.
-    *   @param y                  Startup position Y.
-    *   @param fixedPanelPosition Startup position Y.
-    ***************************************************************************************************************/
-    function SiteTrigger(shape, spriteTemplate, x, y, fixedPanelPosition) {
-        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
-        /** Flags if the according site panel is currently displayed. */
-        _this.sitePanelActive = false;
-        /** A fixed position for the panel to popup, if desired. */
-        _this.fixedPanelPosition = null;
-        _this.fixedPanelPosition = fixedPanelPosition;
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Renders this site trigger.
-    ***************************************************************************************************************/
-    SiteTrigger.prototype.render = function () {
-        _super.prototype.render.call(this);
-        // check if player collides with this trigger
-        if (this.checkPlayerCollision()) {
-            if (!this.sitePanelActive) {
-                // get panel popup according to player looking direction
-                var panelPosition = this.determinePanelPosition();
-                if (ninjas.Main.game.engine.siteSystem.show(panelPosition)) {
-                    this.sitePanelActive = true;
-                }
-            }
-        }
-        else {
-            if (this.sitePanelActive) {
-                if (ninjas.Main.game.engine.siteSystem.hide()) {
-                    this.sitePanelActive = false;
-                }
-            }
-        }
-    };
-    /***************************************************************************************************************
-    *   Renders this site trigger.
-    ***************************************************************************************************************/
-    SiteTrigger.prototype.checkPlayerCollision = function () {
-        return (matter.Bounds.overlaps(this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds));
-    };
-    /***************************************************************************************************************
-    *   Determines the position of the panel to show according to the player's current looking direction.
-    *
-    *   @return The position of the panel to be shown.
-    ***************************************************************************************************************/
-    SiteTrigger.prototype.determinePanelPosition = function () {
-        switch (this.fixedPanelPosition) {
-            case ninjas.SitePanelPosition.LEFT:
-            case ninjas.SitePanelPosition.RIGHT:
-                {
-                    return this.fixedPanelPosition;
-                }
-            case ninjas.SitePanelPosition.NONE:
-            default:
-                {
-                    if (ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
-                        return ninjas.SitePanelPosition.LEFT;
-                    }
-                    else {
-                        return ninjas.SitePanelPosition.RIGHT;
-                    }
-                }
-        }
-    };
-    return SiteTrigger;
-}(ninjas.Decoration));
-exports.SiteTrigger = SiteTrigger;
-
-
-/***/ }),
-/* 156 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-__webpack_require__(157);
+__webpack_require__(165);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
 *
@@ -29964,7 +31171,7 @@ exports.Game = Game;
 
 
 /***/ }),
-/* 157 */
+/* 165 */
 /***/ (function(module, exports) {
 
 /*!
@@ -30851,7 +32058,7 @@ exports.Game = Game;
 }(window, FPSMeter));
 
 /***/ }),
-/* 158 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30966,7 +32173,7 @@ exports.GameEngine = GameEngine;
 
 
 /***/ }),
-/* 159 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31011,85 +32218,7 @@ exports.Key = Key;
 
 
 /***/ }),
-/* 160 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   The key system that manages all pressed keys.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var KeySystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Creates a new key system.
-    ***************************************************************************************************************/
-    function KeySystem() {
-        var _this = this;
-        /** All 'pressed' information for all keys. */
-        this.keysPressed = [];
-        /** All 'needs release' information for all keys. */
-        this.keysNeedRelease = [];
-        /***************************************************************************************************************
-        *   This method is always invoked by the system if a key is pressed.
-        *
-        *   @param evt  The system's propagated key event.
-        ***************************************************************************************************************/
-        this.onKeyDown = function (evt) {
-            var keyCode = evt.which;
-            if (!_this.keysNeedRelease[keyCode]) {
-                _this.keysPressed[keyCode] = true;
-                ninjas.Debug.key.log("key pressed [" + keyCode + "]");
-            }
-        };
-        /***************************************************************************************************************
-        *   This method is always invoked by the system if a key is released.
-        *
-        *   @param evt  The system's propagated key event.
-        ***************************************************************************************************************/
-        this.onKeyUp = function (evt) {
-            var keyCode = evt.which;
-            _this.keysPressed[keyCode] = false;
-            _this.keysNeedRelease[keyCode] = false;
-            ninjas.Debug.key.log("key released [" + keyCode + "]");
-        };
-        //set event listener for keyboard devices - all but IE
-        window.addEventListener("keydown", this.onKeyDown, false);
-        window.addEventListener("keyup", this.onKeyUp, false);
-        //set event listener for keyboard devices - IE
-        window.addEventListener("onkeydown", this.onKeyDown, false);
-        window.addEventListener("onkeyup", this.onKeyUp, false);
-    }
-    /***************************************************************************************************************
-    *   Checks if the key with the given keyCode is currently pressed.
-    *
-    *   @param  keyCode The keyCode of the key to return pressed state.
-    *   @return         <code>true</code> if this key is currently pressed.
-    *                   Otherwise <code>false</code>.
-    ***************************************************************************************************************/
-    KeySystem.prototype.isPressed = function (keyCode) {
-        return this.keysPressed[keyCode];
-    };
-    /***************************************************************************************************************
-    *   Flags that a key needs release before being able to be pressed again.
-    *
-    *   @param  keyCode The keyCode of the key to mark as 'needs key release'.
-    ***************************************************************************************************************/
-    KeySystem.prototype.setNeedsRelease = function (keyCode) {
-        this.keysNeedRelease[keyCode] = true;
-        this.keysPressed[keyCode] = false;
-    };
-    return KeySystem;
-}());
-exports.KeySystem = KeySystem;
-
-
-/***/ }),
-/* 161 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31204,131 +32333,7 @@ exports.Image = Image;
 
 
 /***/ }),
-/* 162 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Possible decisions for mirroring an image.
-*******************************************************************************************************************/
-var MirrorImage;
-(function (MirrorImage) {
-    MirrorImage[MirrorImage["YES"] = 0] = "YES";
-    MirrorImage[MirrorImage["NO"] = 1] = "NO";
-})(MirrorImage = exports.MirrorImage || (exports.MirrorImage = {}));
-/*******************************************************************************************************************
-*   All images the game makes use of.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var ImageSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Preloads all images into memory.
-    *
-    *   @param fileNames      The names of all image files to load.
-    *   @param onLoadComplete The method to invoke when all image files are loaded.
-    ***************************************************************************************************************/
-    function ImageSystem(fileNames, onLoadComplete) {
-        var _this = this;
-        /** All image file names to load. */
-        this.fileNames = null;
-        /** The method to invoke when all images are loaded. */
-        this.onLoadComplete = null;
-        /** The number of currently loaded images. */
-        this.loadedImageCount = 0;
-        /** The number of currently mirrored images. */
-        this.mirroredImageCount = 0;
-        /** All loaded image objects. */
-        this.originalImages = [];
-        /** All loaded and mirrored image objects. */
-        this.mirroredImages = [];
-        /***************************************************************************************************************
-        *   Being invoked when one image was loaded completely.
-        *
-        *   @param event The according image event.
-        ***************************************************************************************************************/
-        this.onLoadImage = function (event) {
-            if (++_this.loadedImageCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
-                _this.mirrorImages();
-            }
-        };
-        /***************************************************************************************************************
-        *   Being invoked when one image was mirrored.
-        *
-        *   @param event The according image event.
-        ***************************************************************************************************************/
-        this.onMirrorImage = function (event) {
-            if (++_this.mirroredImageCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images mirrored");
-                _this.onLoadComplete();
-            }
-        };
-        this.fileNames = fileNames;
-        this.onLoadComplete = onLoadComplete;
-    }
-    /***************************************************************************************************************
-    *   Returns the image with the specified id.
-    *
-    *   @param id The id of the image to receive.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.getImage = function (id) {
-        return this.originalImages[id];
-    };
-    /***************************************************************************************************************
-    *   Returns the mirrored image with the specified id.
-    *
-    *   @param id The id of the mirrored image to receive.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.getMirroredImage = function (id) {
-        return this.mirroredImages[id];
-    };
-    /***************************************************************************************************************
-    *   Loads all specified image files into system memory.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.loadImages = function () {
-        ninjas.Debug.image.log("Loading [" + this.fileNames.length + "] images");
-        // load all images
-        for (var i = 0; i < this.fileNames.length; i++) {
-            this.originalImages[this.fileNames[i]] = new Image();
-            this.originalImages[this.fileNames[i]].src = this.fileNames[i];
-            this.originalImages[this.fileNames[i]].onload = this.onLoadImage;
-        }
-    };
-    /***************************************************************************************************************
-    *   Mirrors all specified image files in system memory.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.mirrorImages = function () {
-        ninjas.Debug.image.log("Mirroring [" + this.fileNames.length + "] images");
-        // mirror all images
-        for (var i = 0; i < this.fileNames.length; i++) {
-            this.mirroredImages[this.fileNames[i]] = ninjas.IO.flipImageHorizontal(this.originalImages[this.fileNames[i]], this.onMirrorImage);
-        }
-    };
-    /***************************************************************************************************************
-    *   Delivers an associated array with all images where the src is the key.
-    *
-    *   @return An associated array of all images. Source attribute is the key.
-    ***************************************************************************************************************/
-    ImageSystem.prototype.getAll = function () {
-        var ret = [];
-        for (var i = 0; i < this.fileNames.length; i++) {
-            ret[this.getImage(this.fileNames[i]).src] = this.getImage(this.fileNames[i]);
-            ret[this.getMirroredImage(this.fileNames[i]).src] = this.getMirroredImage(this.fileNames[i]);
-        }
-        return ret;
-    };
-    return ImageSystem;
-}());
-exports.ImageSystem = ImageSystem;
-
-
-/***/ }),
-/* 163 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31359,94 +32364,7 @@ exports.Sound = Sound;
 
 
 /***/ }),
-/* 164 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*****************************************************************************
-*   Loads and manages all desired sounds.
-*
-*   @author  Christopher Stock
-*   @version 1.0
-*****************************************************************************/
-var SoundSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Preloads all images into memory.
-    *
-    *   @param fileNames      The names of all image files to load.
-    *   @param onLoadComplete The method to invoke when all image files are loaded.
-    ***************************************************************************************************************/
-    function SoundSystem(fileNames, onLoadComplete) {
-        var _this = this;
-        /** All sound file names to load. */
-        this.fileNames = null;
-        /** The method to invoke when all sounds are loaded. */
-        this.onLoadComplete = null;
-        /** The number of currently loaded sounds. */
-        this.loadedSoundCount = 0;
-        /** All loaded sound objects. */
-        this.sounds = [];
-        /***************************************************************************************************************
-        *   Being invoked when one image was loaded completely.
-        ***************************************************************************************************************/
-        this.onLoadSound = function () {
-            if (++_this.loadedSoundCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] sounds loaded");
-                _this.onLoadComplete();
-            }
-        };
-        this.fileNames = fileNames;
-        this.onLoadComplete = onLoadComplete;
-    }
-    /*****************************************************************************
-    *   Creates and plays a COPY of the specified audio object.
-    *
-    *   @param id   The ID of the audio object to play.
-    *   @param loop Specifies if playback for this sound should be repeated infinitely.
-    *****************************************************************************/
-    SoundSystem.prototype.playSound = function (id, loop) {
-        if (loop === void 0) { loop = false; }
-        if (!ninjas.Setting.MUTE) {
-            if (this.sounds[id] != null) {
-                var clipClone_1 = this.sounds[id].cloneNode(true);
-                if (loop) {
-                    clipClone_1.addEventListener("ended", function () {
-                        ninjas.Debug.sound.log("Clip ended - now repeating ..");
-                        // clipClone.
-                        clipClone_1.play();
-                    });
-                }
-                clipClone_1.play();
-            }
-        }
-    };
-    /***************************************************************************************************************
-    *   Loads all specified sound files into system memory.
-    ***************************************************************************************************************/
-    SoundSystem.prototype.loadSounds = function () {
-        ninjas.Debug.sound.log("Preloading [" + this.fileNames.length + "] sounds");
-        for (var i = 0; i < this.fileNames.length; i++) {
-            try {
-                this.sounds[this.fileNames[i]] = new Audio();
-                this.sounds[this.fileNames[i]].src = this.fileNames[i];
-                this.sounds[this.fileNames[i]].onloadeddata = this.onLoadSound;
-            }
-            catch (e) {
-                ninjas.Debug.sound.log("Error on creating Audio element: " + e.message);
-                this.onLoadSound();
-            }
-        }
-    };
-    return SoundSystem;
-}());
-exports.SoundSystem = SoundSystem;
-
-
-/***/ }),
-/* 165 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31531,7 +32449,7 @@ exports.Sprite = Sprite;
 
 
 /***/ }),
-/* 166 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31720,7 +32638,7 @@ exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),
-/* 167 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31790,742 +32708,7 @@ exports.SiteContent = SiteContent;
 
 
 /***/ }),
-/* 168 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)(false);
-// imports
-
-
-// module
-exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://daneden.me/animate\n * Version - 3.5.1\n * Licensed under the MIT license - http://opensource.org/licenses/MIT\n *\n * Copyright (c) 2016 Daniel Eden\n */\n\n.animated {\n  -webkit-animation-duration: 1s;\n  animation-duration: 1s;\n  -webkit-animation-fill-mode: both;\n  animation-fill-mode: both;\n}\n\n.animated.infinite {\n  -webkit-animation-iteration-count: infinite;\n  animation-iteration-count: infinite;\n}\n\n.animated.hinge {\n  -webkit-animation-duration: 2s;\n  animation-duration: 2s;\n}\n\n.animated.flipOutX,\n.animated.flipOutY,\n.animated.bounceIn,\n.animated.bounceOut {\n  -webkit-animation-duration: .75s;\n  animation-duration: .75s;\n}\n\n@-webkit-keyframes bounce {\n  from, 20%, 53%, 80%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    -webkit-transform: translate3d(0,0,0);\n    transform: translate3d(0,0,0);\n  }\n\n  40%, 43% {\n    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    -webkit-transform: translate3d(0, -30px, 0);\n    transform: translate3d(0, -30px, 0);\n  }\n\n  70% {\n    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    -webkit-transform: translate3d(0, -15px, 0);\n    transform: translate3d(0, -15px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0,-4px,0);\n    transform: translate3d(0,-4px,0);\n  }\n}\n\n@keyframes bounce {\n  from, 20%, 53%, 80%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    -webkit-transform: translate3d(0,0,0);\n    transform: translate3d(0,0,0);\n  }\n\n  40%, 43% {\n    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    -webkit-transform: translate3d(0, -30px, 0);\n    transform: translate3d(0, -30px, 0);\n  }\n\n  70% {\n    -webkit-animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);\n    -webkit-transform: translate3d(0, -15px, 0);\n    transform: translate3d(0, -15px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0,-4px,0);\n    transform: translate3d(0,-4px,0);\n  }\n}\n\n.bounce {\n  -webkit-animation-name: bounce;\n  animation-name: bounce;\n  -webkit-transform-origin: center bottom;\n  transform-origin: center bottom;\n}\n\n@-webkit-keyframes flash {\n  from, 50%, to {\n    opacity: 1;\n  }\n\n  25%, 75% {\n    opacity: 0;\n  }\n}\n\n@keyframes flash {\n  from, 50%, to {\n    opacity: 1;\n  }\n\n  25%, 75% {\n    opacity: 0;\n  }\n}\n\n.flash {\n  -webkit-animation-name: flash;\n  animation-name: flash;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@-webkit-keyframes pulse {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  50% {\n    -webkit-transform: scale3d(1.05, 1.05, 1.05);\n    transform: scale3d(1.05, 1.05, 1.05);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n@keyframes pulse {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  50% {\n    -webkit-transform: scale3d(1.05, 1.05, 1.05);\n    transform: scale3d(1.05, 1.05, 1.05);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.pulse {\n  -webkit-animation-name: pulse;\n  animation-name: pulse;\n}\n\n@-webkit-keyframes rubberBand {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  30% {\n    -webkit-transform: scale3d(1.25, 0.75, 1);\n    transform: scale3d(1.25, 0.75, 1);\n  }\n\n  40% {\n    -webkit-transform: scale3d(0.75, 1.25, 1);\n    transform: scale3d(0.75, 1.25, 1);\n  }\n\n  50% {\n    -webkit-transform: scale3d(1.15, 0.85, 1);\n    transform: scale3d(1.15, 0.85, 1);\n  }\n\n  65% {\n    -webkit-transform: scale3d(.95, 1.05, 1);\n    transform: scale3d(.95, 1.05, 1);\n  }\n\n  75% {\n    -webkit-transform: scale3d(1.05, .95, 1);\n    transform: scale3d(1.05, .95, 1);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n@keyframes rubberBand {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  30% {\n    -webkit-transform: scale3d(1.25, 0.75, 1);\n    transform: scale3d(1.25, 0.75, 1);\n  }\n\n  40% {\n    -webkit-transform: scale3d(0.75, 1.25, 1);\n    transform: scale3d(0.75, 1.25, 1);\n  }\n\n  50% {\n    -webkit-transform: scale3d(1.15, 0.85, 1);\n    transform: scale3d(1.15, 0.85, 1);\n  }\n\n  65% {\n    -webkit-transform: scale3d(.95, 1.05, 1);\n    transform: scale3d(.95, 1.05, 1);\n  }\n\n  75% {\n    -webkit-transform: scale3d(1.05, .95, 1);\n    transform: scale3d(1.05, .95, 1);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.rubberBand {\n  -webkit-animation-name: rubberBand;\n  animation-name: rubberBand;\n}\n\n@-webkit-keyframes shake {\n  from, to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  10%, 30%, 50%, 70%, 90% {\n    -webkit-transform: translate3d(-10px, 0, 0);\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  20%, 40%, 60%, 80% {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0);\n  }\n}\n\n@keyframes shake {\n  from, to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  10%, 30%, 50%, 70%, 90% {\n    -webkit-transform: translate3d(-10px, 0, 0);\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  20%, 40%, 60%, 80% {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0);\n  }\n}\n\n.shake {\n  -webkit-animation-name: shake;\n  animation-name: shake;\n}\n\n@-webkit-keyframes headShake {\n  0% {\n    -webkit-transform: translateX(0);\n    transform: translateX(0);\n  }\n\n  6.5% {\n    -webkit-transform: translateX(-6px) rotateY(-9deg);\n    transform: translateX(-6px) rotateY(-9deg);\n  }\n\n  18.5% {\n    -webkit-transform: translateX(5px) rotateY(7deg);\n    transform: translateX(5px) rotateY(7deg);\n  }\n\n  31.5% {\n    -webkit-transform: translateX(-3px) rotateY(-5deg);\n    transform: translateX(-3px) rotateY(-5deg);\n  }\n\n  43.5% {\n    -webkit-transform: translateX(2px) rotateY(3deg);\n    transform: translateX(2px) rotateY(3deg);\n  }\n\n  50% {\n    -webkit-transform: translateX(0);\n    transform: translateX(0);\n  }\n}\n\n@keyframes headShake {\n  0% {\n    -webkit-transform: translateX(0);\n    transform: translateX(0);\n  }\n\n  6.5% {\n    -webkit-transform: translateX(-6px) rotateY(-9deg);\n    transform: translateX(-6px) rotateY(-9deg);\n  }\n\n  18.5% {\n    -webkit-transform: translateX(5px) rotateY(7deg);\n    transform: translateX(5px) rotateY(7deg);\n  }\n\n  31.5% {\n    -webkit-transform: translateX(-3px) rotateY(-5deg);\n    transform: translateX(-3px) rotateY(-5deg);\n  }\n\n  43.5% {\n    -webkit-transform: translateX(2px) rotateY(3deg);\n    transform: translateX(2px) rotateY(3deg);\n  }\n\n  50% {\n    -webkit-transform: translateX(0);\n    transform: translateX(0);\n  }\n}\n\n.headShake {\n  -webkit-animation-timing-function: ease-in-out;\n  animation-timing-function: ease-in-out;\n  -webkit-animation-name: headShake;\n  animation-name: headShake;\n}\n\n@-webkit-keyframes swing {\n  20% {\n    -webkit-transform: rotate3d(0, 0, 1, 15deg);\n    transform: rotate3d(0, 0, 1, 15deg);\n  }\n\n  40% {\n    -webkit-transform: rotate3d(0, 0, 1, -10deg);\n    transform: rotate3d(0, 0, 1, -10deg);\n  }\n\n  60% {\n    -webkit-transform: rotate3d(0, 0, 1, 5deg);\n    transform: rotate3d(0, 0, 1, 5deg);\n  }\n\n  80% {\n    -webkit-transform: rotate3d(0, 0, 1, -5deg);\n    transform: rotate3d(0, 0, 1, -5deg);\n  }\n\n  to {\n    -webkit-transform: rotate3d(0, 0, 1, 0deg);\n    transform: rotate3d(0, 0, 1, 0deg);\n  }\n}\n\n@keyframes swing {\n  20% {\n    -webkit-transform: rotate3d(0, 0, 1, 15deg);\n    transform: rotate3d(0, 0, 1, 15deg);\n  }\n\n  40% {\n    -webkit-transform: rotate3d(0, 0, 1, -10deg);\n    transform: rotate3d(0, 0, 1, -10deg);\n  }\n\n  60% {\n    -webkit-transform: rotate3d(0, 0, 1, 5deg);\n    transform: rotate3d(0, 0, 1, 5deg);\n  }\n\n  80% {\n    -webkit-transform: rotate3d(0, 0, 1, -5deg);\n    transform: rotate3d(0, 0, 1, -5deg);\n  }\n\n  to {\n    -webkit-transform: rotate3d(0, 0, 1, 0deg);\n    transform: rotate3d(0, 0, 1, 0deg);\n  }\n}\n\n.swing {\n  -webkit-transform-origin: top center;\n  transform-origin: top center;\n  -webkit-animation-name: swing;\n  animation-name: swing;\n}\n\n@-webkit-keyframes tada {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  10%, 20% {\n    -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\n    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\n  }\n\n  30%, 50%, 70%, 90% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\n  }\n\n  40%, 60%, 80% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n@keyframes tada {\n  from {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n\n  10%, 20% {\n    -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\n    transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);\n  }\n\n  30%, 50%, 70%, 90% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);\n  }\n\n  40%, 60%, 80% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\n    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);\n  }\n\n  to {\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.tada {\n  -webkit-animation-name: tada;\n  animation-name: tada;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@-webkit-keyframes wobble {\n  from {\n    -webkit-transform: none;\n    transform: none;\n  }\n\n  15% {\n    -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\n    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\n  }\n\n  30% {\n    -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\n    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\n  }\n\n  45% {\n    -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\n    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\n  }\n\n  60% {\n    -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\n    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\n  }\n\n  75% {\n    -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\n    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes wobble {\n  from {\n    -webkit-transform: none;\n    transform: none;\n  }\n\n  15% {\n    -webkit-transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\n    transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);\n  }\n\n  30% {\n    -webkit-transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\n    transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);\n  }\n\n  45% {\n    -webkit-transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\n    transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);\n  }\n\n  60% {\n    -webkit-transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\n    transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);\n  }\n\n  75% {\n    -webkit-transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\n    transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.wobble {\n  -webkit-animation-name: wobble;\n  animation-name: wobble;\n}\n\n@-webkit-keyframes jello {\n  from, 11.1%, to {\n    -webkit-transform: none;\n    transform: none;\n  }\n\n  22.2% {\n    -webkit-transform: skewX(-12.5deg) skewY(-12.5deg);\n    transform: skewX(-12.5deg) skewY(-12.5deg);\n  }\n\n  33.3% {\n    -webkit-transform: skewX(6.25deg) skewY(6.25deg);\n    transform: skewX(6.25deg) skewY(6.25deg);\n  }\n\n  44.4% {\n    -webkit-transform: skewX(-3.125deg) skewY(-3.125deg);\n    transform: skewX(-3.125deg) skewY(-3.125deg);\n  }\n\n  55.5% {\n    -webkit-transform: skewX(1.5625deg) skewY(1.5625deg);\n    transform: skewX(1.5625deg) skewY(1.5625deg);\n  }\n\n  66.6% {\n    -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);\n    transform: skewX(-0.78125deg) skewY(-0.78125deg);\n  }\n\n  77.7% {\n    -webkit-transform: skewX(0.390625deg) skewY(0.390625deg);\n    transform: skewX(0.390625deg) skewY(0.390625deg);\n  }\n\n  88.8% {\n    -webkit-transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\n    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\n  }\n}\n\n@keyframes jello {\n  from, 11.1%, to {\n    -webkit-transform: none;\n    transform: none;\n  }\n\n  22.2% {\n    -webkit-transform: skewX(-12.5deg) skewY(-12.5deg);\n    transform: skewX(-12.5deg) skewY(-12.5deg);\n  }\n\n  33.3% {\n    -webkit-transform: skewX(6.25deg) skewY(6.25deg);\n    transform: skewX(6.25deg) skewY(6.25deg);\n  }\n\n  44.4% {\n    -webkit-transform: skewX(-3.125deg) skewY(-3.125deg);\n    transform: skewX(-3.125deg) skewY(-3.125deg);\n  }\n\n  55.5% {\n    -webkit-transform: skewX(1.5625deg) skewY(1.5625deg);\n    transform: skewX(1.5625deg) skewY(1.5625deg);\n  }\n\n  66.6% {\n    -webkit-transform: skewX(-0.78125deg) skewY(-0.78125deg);\n    transform: skewX(-0.78125deg) skewY(-0.78125deg);\n  }\n\n  77.7% {\n    -webkit-transform: skewX(0.390625deg) skewY(0.390625deg);\n    transform: skewX(0.390625deg) skewY(0.390625deg);\n  }\n\n  88.8% {\n    -webkit-transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\n    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);\n  }\n}\n\n.jello {\n  -webkit-animation-name: jello;\n  animation-name: jello;\n  -webkit-transform-origin: center;\n  transform-origin: center;\n}\n\n@-webkit-keyframes bounceIn {\n  from, 20%, 40%, 60%, 80%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  20% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1);\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  40% {\n    -webkit-transform: scale3d(.9, .9, .9);\n    transform: scale3d(.9, .9, .9);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(1.03, 1.03, 1.03);\n    transform: scale3d(1.03, 1.03, 1.03);\n  }\n\n  80% {\n    -webkit-transform: scale3d(.97, .97, .97);\n    transform: scale3d(.97, .97, .97);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n@keyframes bounceIn {\n  from, 20%, 40%, 60%, 80%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  20% {\n    -webkit-transform: scale3d(1.1, 1.1, 1.1);\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  40% {\n    -webkit-transform: scale3d(.9, .9, .9);\n    transform: scale3d(.9, .9, .9);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(1.03, 1.03, 1.03);\n    transform: scale3d(1.03, 1.03, 1.03);\n  }\n\n  80% {\n    -webkit-transform: scale3d(.97, .97, .97);\n    transform: scale3d(.97, .97, .97);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: scale3d(1, 1, 1);\n    transform: scale3d(1, 1, 1);\n  }\n}\n\n.bounceIn {\n  -webkit-animation-name: bounceIn;\n  animation-name: bounceIn;\n}\n\n@-webkit-keyframes bounceInDown {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -3000px, 0);\n    transform: translate3d(0, -3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 25px, 0);\n    transform: translate3d(0, 25px, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(0, -10px, 0);\n    transform: translate3d(0, -10px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0, 5px, 0);\n    transform: translate3d(0, 5px, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes bounceInDown {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -3000px, 0);\n    transform: translate3d(0, -3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 25px, 0);\n    transform: translate3d(0, 25px, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(0, -10px, 0);\n    transform: translate3d(0, -10px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0, 5px, 0);\n    transform: translate3d(0, 5px, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.bounceInDown {\n  -webkit-animation-name: bounceInDown;\n  animation-name: bounceInDown;\n}\n\n@-webkit-keyframes bounceInLeft {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(-3000px, 0, 0);\n    transform: translate3d(-3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(25px, 0, 0);\n    transform: translate3d(25px, 0, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(-10px, 0, 0);\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(5px, 0, 0);\n    transform: translate3d(5px, 0, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes bounceInLeft {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  0% {\n    opacity: 0;\n    -webkit-transform: translate3d(-3000px, 0, 0);\n    transform: translate3d(-3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(25px, 0, 0);\n    transform: translate3d(25px, 0, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(-10px, 0, 0);\n    transform: translate3d(-10px, 0, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(5px, 0, 0);\n    transform: translate3d(5px, 0, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.bounceInLeft {\n  -webkit-animation-name: bounceInLeft;\n  animation-name: bounceInLeft;\n}\n\n@-webkit-keyframes bounceInRight {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(3000px, 0, 0);\n    transform: translate3d(3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(-25px, 0, 0);\n    transform: translate3d(-25px, 0, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(-5px, 0, 0);\n    transform: translate3d(-5px, 0, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes bounceInRight {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(3000px, 0, 0);\n    transform: translate3d(3000px, 0, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(-25px, 0, 0);\n    transform: translate3d(-25px, 0, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(10px, 0, 0);\n    transform: translate3d(10px, 0, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(-5px, 0, 0);\n    transform: translate3d(-5px, 0, 0);\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.bounceInRight {\n  -webkit-animation-name: bounceInRight;\n  animation-name: bounceInRight;\n}\n\n@-webkit-keyframes bounceInUp {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 3000px, 0);\n    transform: translate3d(0, 3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(0, 10px, 0);\n    transform: translate3d(0, 10px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0, -5px, 0);\n    transform: translate3d(0, -5px, 0);\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes bounceInUp {\n  from, 60%, 75%, 90%, to {\n    -webkit-animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);\n  }\n\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 3000px, 0);\n    transform: translate3d(0, 3000px, 0);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n  }\n\n  75% {\n    -webkit-transform: translate3d(0, 10px, 0);\n    transform: translate3d(0, 10px, 0);\n  }\n\n  90% {\n    -webkit-transform: translate3d(0, -5px, 0);\n    transform: translate3d(0, -5px, 0);\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.bounceInUp {\n  -webkit-animation-name: bounceInUp;\n  animation-name: bounceInUp;\n}\n\n@-webkit-keyframes bounceOut {\n  20% {\n    -webkit-transform: scale3d(.9, .9, .9);\n    transform: scale3d(.9, .9, .9);\n  }\n\n  50%, 55% {\n    opacity: 1;\n    -webkit-transform: scale3d(1.1, 1.1, 1.1);\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n}\n\n@keyframes bounceOut {\n  20% {\n    -webkit-transform: scale3d(.9, .9, .9);\n    transform: scale3d(.9, .9, .9);\n  }\n\n  50%, 55% {\n    opacity: 1;\n    -webkit-transform: scale3d(1.1, 1.1, 1.1);\n    transform: scale3d(1.1, 1.1, 1.1);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n}\n\n.bounceOut {\n  -webkit-animation-name: bounceOut;\n  animation-name: bounceOut;\n}\n\n@-webkit-keyframes bounceOutDown {\n  20% {\n    -webkit-transform: translate3d(0, 10px, 0);\n    transform: translate3d(0, 10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n@keyframes bounceOutDown {\n  20% {\n    -webkit-transform: translate3d(0, 10px, 0);\n    transform: translate3d(0, 10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, -20px, 0);\n    transform: translate3d(0, -20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n.bounceOutDown {\n  -webkit-animation-name: bounceOutDown;\n  animation-name: bounceOutDown;\n}\n\n@-webkit-keyframes bounceOutLeft {\n  20% {\n    opacity: 1;\n    -webkit-transform: translate3d(20px, 0, 0);\n    transform: translate3d(20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n@keyframes bounceOutLeft {\n  20% {\n    opacity: 1;\n    -webkit-transform: translate3d(20px, 0, 0);\n    transform: translate3d(20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n.bounceOutLeft {\n  -webkit-animation-name: bounceOutLeft;\n  animation-name: bounceOutLeft;\n}\n\n@-webkit-keyframes bounceOutRight {\n  20% {\n    opacity: 1;\n    -webkit-transform: translate3d(-20px, 0, 0);\n    transform: translate3d(-20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n@keyframes bounceOutRight {\n  20% {\n    opacity: 1;\n    -webkit-transform: translate3d(-20px, 0, 0);\n    transform: translate3d(-20px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n.bounceOutRight {\n  -webkit-animation-name: bounceOutRight;\n  animation-name: bounceOutRight;\n}\n\n@-webkit-keyframes bounceOutUp {\n  20% {\n    -webkit-transform: translate3d(0, -10px, 0);\n    transform: translate3d(0, -10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 20px, 0);\n    transform: translate3d(0, 20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n@keyframes bounceOutUp {\n  20% {\n    -webkit-transform: translate3d(0, -10px, 0);\n    transform: translate3d(0, -10px, 0);\n  }\n\n  40%, 45% {\n    opacity: 1;\n    -webkit-transform: translate3d(0, 20px, 0);\n    transform: translate3d(0, 20px, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n.bounceOutUp {\n  -webkit-animation-name: bounceOutUp;\n  animation-name: bounceOutUp;\n}\n\n@-webkit-keyframes fadeIn {\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n}\n\n@keyframes fadeIn {\n  from {\n    opacity: 0;\n  }\n\n  to {\n    opacity: 1;\n  }\n}\n\n.fadeIn {\n  -webkit-animation-name: fadeIn;\n  animation-name: fadeIn;\n}\n\n@-webkit-keyframes fadeInDown {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInDown {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInDown {\n  -webkit-animation-name: fadeInDown;\n  animation-name: fadeInDown;\n}\n\n@-webkit-keyframes fadeInDownBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInDownBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInDownBig {\n  -webkit-animation-name: fadeInDownBig;\n  animation-name: fadeInDownBig;\n}\n\n@-webkit-keyframes fadeInLeft {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInLeft {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInLeft {\n  -webkit-animation-name: fadeInLeft;\n  animation-name: fadeInLeft;\n}\n\n@-webkit-keyframes fadeInLeftBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInLeftBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInLeftBig {\n  -webkit-animation-name: fadeInLeftBig;\n  animation-name: fadeInLeftBig;\n}\n\n@-webkit-keyframes fadeInRight {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInRight {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInRight {\n  -webkit-animation-name: fadeInRight;\n  animation-name: fadeInRight;\n}\n\n@-webkit-keyframes fadeInRightBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInRightBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInRightBig {\n  -webkit-animation-name: fadeInRightBig;\n  animation-name: fadeInRightBig;\n}\n\n@-webkit-keyframes fadeInUp {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInUp {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInUp {\n  -webkit-animation-name: fadeInUp;\n  animation-name: fadeInUp;\n}\n\n@-webkit-keyframes fadeInUpBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes fadeInUpBig {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.fadeInUpBig {\n  -webkit-animation-name: fadeInUpBig;\n  animation-name: fadeInUpBig;\n}\n\n@-webkit-keyframes fadeOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes fadeOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n.fadeOut {\n  -webkit-animation-name: fadeOut;\n  animation-name: fadeOut;\n}\n\n@-webkit-keyframes fadeOutDown {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n@keyframes fadeOutDown {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n.fadeOutDown {\n  -webkit-animation-name: fadeOutDown;\n  animation-name: fadeOutDown;\n}\n\n@-webkit-keyframes fadeOutDownBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n@keyframes fadeOutDownBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, 2000px, 0);\n    transform: translate3d(0, 2000px, 0);\n  }\n}\n\n.fadeOutDownBig {\n  -webkit-animation-name: fadeOutDownBig;\n  animation-name: fadeOutDownBig;\n}\n\n@-webkit-keyframes fadeOutLeft {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n@keyframes fadeOutLeft {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n.fadeOutLeft {\n  -webkit-animation-name: fadeOutLeft;\n  animation-name: fadeOutLeft;\n}\n\n@-webkit-keyframes fadeOutLeftBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n@keyframes fadeOutLeftBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(-2000px, 0, 0);\n    transform: translate3d(-2000px, 0, 0);\n  }\n}\n\n.fadeOutLeftBig {\n  -webkit-animation-name: fadeOutLeftBig;\n  animation-name: fadeOutLeftBig;\n}\n\n@-webkit-keyframes fadeOutRight {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n@keyframes fadeOutRight {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n.fadeOutRight {\n  -webkit-animation-name: fadeOutRight;\n  animation-name: fadeOutRight;\n}\n\n@-webkit-keyframes fadeOutRightBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n@keyframes fadeOutRightBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(2000px, 0, 0);\n    transform: translate3d(2000px, 0, 0);\n  }\n}\n\n.fadeOutRightBig {\n  -webkit-animation-name: fadeOutRightBig;\n  animation-name: fadeOutRightBig;\n}\n\n@-webkit-keyframes fadeOutUp {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n@keyframes fadeOutUp {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n.fadeOutUp {\n  -webkit-animation-name: fadeOutUp;\n  animation-name: fadeOutUp;\n}\n\n@-webkit-keyframes fadeOutUpBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n@keyframes fadeOutUpBig {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(0, -2000px, 0);\n    transform: translate3d(0, -2000px, 0);\n  }\n}\n\n.fadeOutUpBig {\n  -webkit-animation-name: fadeOutUpBig;\n  animation-name: fadeOutUpBig;\n}\n\n@-webkit-keyframes flip {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\n    -webkit-animation-timing-function: ease-out;\n    animation-timing-function: ease-out;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\n    -webkit-animation-timing-function: ease-out;\n    animation-timing-function: ease-out;\n  }\n\n  50% {\n    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) scale3d(.95, .95, .95);\n    transform: perspective(400px) scale3d(.95, .95, .95);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n}\n\n@keyframes flip {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -360deg);\n    -webkit-animation-timing-function: ease-out;\n    animation-timing-function: ease-out;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -190deg);\n    -webkit-animation-timing-function: ease-out;\n    animation-timing-function: ease-out;\n  }\n\n  50% {\n    -webkit-transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\n    transform: perspective(400px) translate3d(0, 0, 150px) rotate3d(0, 1, 0, -170deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) scale3d(.95, .95, .95);\n    transform: perspective(400px) scale3d(.95, .95, .95);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n}\n\n.animated.flip {\n  -webkit-backface-visibility: visible;\n  backface-visibility: visible;\n  -webkit-animation-name: flip;\n  animation-name: flip;\n}\n\n@-webkit-keyframes flipInX {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n}\n\n@keyframes flipInX {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n}\n\n.flipInX {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  -webkit-animation-name: flipInX;\n  animation-name: flipInX;\n}\n\n@-webkit-keyframes flipInY {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n}\n\n@keyframes flipInY {\n  from {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n    opacity: 0;\n  }\n\n  40% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);\n    -webkit-animation-timing-function: ease-in;\n    animation-timing-function: ease-in;\n  }\n\n  60% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);\n  }\n\n  to {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n}\n\n.flipInY {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  -webkit-animation-name: flipInY;\n  animation-name: flipInY;\n}\n\n@-webkit-keyframes flipOutX {\n  from {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n\n  30% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n@keyframes flipOutX {\n  from {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n\n  30% {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n.flipOutX {\n  -webkit-animation-name: flipOutX;\n  animation-name: flipOutX;\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n}\n\n@-webkit-keyframes flipOutY {\n  from {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n\n  30% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n@keyframes flipOutY {\n  from {\n    -webkit-transform: perspective(400px);\n    transform: perspective(400px);\n  }\n\n  30% {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, -15deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);\n    opacity: 0;\n  }\n}\n\n.flipOutY {\n  -webkit-backface-visibility: visible !important;\n  backface-visibility: visible !important;\n  -webkit-animation-name: flipOutY;\n  animation-name: flipOutY;\n}\n\n@-webkit-keyframes lightSpeedIn {\n  from {\n    -webkit-transform: translate3d(100%, 0, 0) skewX(-30deg);\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\n    opacity: 0;\n  }\n\n  60% {\n    -webkit-transform: skewX(20deg);\n    transform: skewX(20deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: skewX(-5deg);\n    transform: skewX(-5deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes lightSpeedIn {\n  from {\n    -webkit-transform: translate3d(100%, 0, 0) skewX(-30deg);\n    transform: translate3d(100%, 0, 0) skewX(-30deg);\n    opacity: 0;\n  }\n\n  60% {\n    -webkit-transform: skewX(20deg);\n    transform: skewX(20deg);\n    opacity: 1;\n  }\n\n  80% {\n    -webkit-transform: skewX(-5deg);\n    transform: skewX(-5deg);\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.lightSpeedIn {\n  -webkit-animation-name: lightSpeedIn;\n  animation-name: lightSpeedIn;\n  -webkit-animation-timing-function: ease-out;\n  animation-timing-function: ease-out;\n}\n\n@-webkit-keyframes lightSpeedOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: translate3d(100%, 0, 0) skewX(30deg);\n    transform: translate3d(100%, 0, 0) skewX(30deg);\n    opacity: 0;\n  }\n}\n\n@keyframes lightSpeedOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: translate3d(100%, 0, 0) skewX(30deg);\n    transform: translate3d(100%, 0, 0) skewX(30deg);\n    opacity: 0;\n  }\n}\n\n.lightSpeedOut {\n  -webkit-animation-name: lightSpeedOut;\n  animation-name: lightSpeedOut;\n  -webkit-animation-timing-function: ease-in;\n  animation-timing-function: ease-in;\n}\n\n@-webkit-keyframes rotateIn {\n  from {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: rotate3d(0, 0, 1, -200deg);\n    transform: rotate3d(0, 0, 1, -200deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes rotateIn {\n  from {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: rotate3d(0, 0, 1, -200deg);\n    transform: rotate3d(0, 0, 1, -200deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateIn {\n  -webkit-animation-name: rotateIn;\n  animation-name: rotateIn;\n}\n\n@-webkit-keyframes rotateInDownLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes rotateInDownLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInDownLeft {\n  -webkit-animation-name: rotateInDownLeft;\n  animation-name: rotateInDownLeft;\n}\n\n@-webkit-keyframes rotateInDownRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes rotateInDownRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInDownRight {\n  -webkit-animation-name: rotateInDownRight;\n  animation-name: rotateInDownRight;\n}\n\n@-webkit-keyframes rotateInUpLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes rotateInUpLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInUpLeft {\n  -webkit-animation-name: rotateInUpLeft;\n  animation-name: rotateInUpLeft;\n}\n\n@-webkit-keyframes rotateInUpRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -90deg);\n    transform: rotate3d(0, 0, 1, -90deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n@keyframes rotateInUpRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -90deg);\n    transform: rotate3d(0, 0, 1, -90deg);\n    opacity: 0;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: none;\n    transform: none;\n    opacity: 1;\n  }\n}\n\n.rotateInUpRight {\n  -webkit-animation-name: rotateInUpRight;\n  animation-name: rotateInUpRight;\n}\n\n@-webkit-keyframes rotateOut {\n  from {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: rotate3d(0, 0, 1, 200deg);\n    transform: rotate3d(0, 0, 1, 200deg);\n    opacity: 0;\n  }\n}\n\n@keyframes rotateOut {\n  from {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: center;\n    transform-origin: center;\n    -webkit-transform: rotate3d(0, 0, 1, 200deg);\n    transform: rotate3d(0, 0, 1, 200deg);\n    opacity: 0;\n  }\n}\n\n.rotateOut {\n  -webkit-animation-name: rotateOut;\n  animation-name: rotateOut;\n}\n\n@-webkit-keyframes rotateOutDownLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n}\n\n@keyframes rotateOutDownLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 45deg);\n    transform: rotate3d(0, 0, 1, 45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutDownLeft {\n  -webkit-animation-name: rotateOutDownLeft;\n  animation-name: rotateOutDownLeft;\n}\n\n@-webkit-keyframes rotateOutDownRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n@keyframes rotateOutDownRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutDownRight {\n  -webkit-animation-name: rotateOutDownRight;\n  animation-name: rotateOutDownRight;\n}\n\n@-webkit-keyframes rotateOutUpLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n@keyframes rotateOutUpLeft {\n  from {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: left bottom;\n    transform-origin: left bottom;\n    -webkit-transform: rotate3d(0, 0, 1, -45deg);\n    transform: rotate3d(0, 0, 1, -45deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutUpLeft {\n  -webkit-animation-name: rotateOutUpLeft;\n  animation-name: rotateOutUpLeft;\n}\n\n@-webkit-keyframes rotateOutUpRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 90deg);\n    transform: rotate3d(0, 0, 1, 90deg);\n    opacity: 0;\n  }\n}\n\n@keyframes rotateOutUpRight {\n  from {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform-origin: right bottom;\n    transform-origin: right bottom;\n    -webkit-transform: rotate3d(0, 0, 1, 90deg);\n    transform: rotate3d(0, 0, 1, 90deg);\n    opacity: 0;\n  }\n}\n\n.rotateOutUpRight {\n  -webkit-animation-name: rotateOutUpRight;\n  animation-name: rotateOutUpRight;\n}\n\n@-webkit-keyframes hinge {\n  0% {\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n  }\n\n  20%, 60% {\n    -webkit-transform: rotate3d(0, 0, 1, 80deg);\n    transform: rotate3d(0, 0, 1, 80deg);\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n  }\n\n  40%, 80% {\n    -webkit-transform: rotate3d(0, 0, 1, 60deg);\n    transform: rotate3d(0, 0, 1, 60deg);\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 700px, 0);\n    transform: translate3d(0, 700px, 0);\n    opacity: 0;\n  }\n}\n\n@keyframes hinge {\n  0% {\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n  }\n\n  20%, 60% {\n    -webkit-transform: rotate3d(0, 0, 1, 80deg);\n    transform: rotate3d(0, 0, 1, 80deg);\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n  }\n\n  40%, 80% {\n    -webkit-transform: rotate3d(0, 0, 1, 60deg);\n    transform: rotate3d(0, 0, 1, 60deg);\n    -webkit-transform-origin: top left;\n    transform-origin: top left;\n    -webkit-animation-timing-function: ease-in-out;\n    animation-timing-function: ease-in-out;\n    opacity: 1;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 700px, 0);\n    transform: translate3d(0, 700px, 0);\n    opacity: 0;\n  }\n}\n\n.hinge {\n  -webkit-animation-name: hinge;\n  animation-name: hinge;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@-webkit-keyframes rollIn {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\n    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n@keyframes rollIn {\n  from {\n    opacity: 0;\n    -webkit-transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\n    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);\n  }\n\n  to {\n    opacity: 1;\n    -webkit-transform: none;\n    transform: none;\n  }\n}\n\n.rollIn {\n  -webkit-animation-name: rollIn;\n  animation-name: rollIn;\n}\n\n/* originally authored by Nick Pettit - https://github.com/nickpettit/glide */\n\n@-webkit-keyframes rollOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\n    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\n  }\n}\n\n@keyframes rollOut {\n  from {\n    opacity: 1;\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\n    transform: translate3d(100%, 0, 0) rotate3d(0, 0, 1, 120deg);\n  }\n}\n\n.rollOut {\n  -webkit-animation-name: rollOut;\n  animation-name: rollOut;\n}\n\n@-webkit-keyframes zoomIn {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  50% {\n    opacity: 1;\n  }\n}\n\n@keyframes zoomIn {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  50% {\n    opacity: 1;\n  }\n}\n\n.zoomIn {\n  -webkit-animation-name: zoomIn;\n  animation-name: zoomIn;\n}\n\n@-webkit-keyframes zoomInDown {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomInDown {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, -1000px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInDown {\n  -webkit-animation-name: zoomInDown;\n  animation-name: zoomInDown;\n}\n\n@-webkit-keyframes zoomInLeft {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\n    transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomInLeft {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\n    transform: scale3d(.1, .1, .1) translate3d(-1000px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(10px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInLeft {\n  -webkit-animation-name: zoomInLeft;\n  animation-name: zoomInLeft;\n}\n\n@-webkit-keyframes zoomInRight {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\n    transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomInRight {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\n    transform: scale3d(.1, .1, .1) translate3d(1000px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(-10px, 0, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInRight {\n  -webkit-animation-name: zoomInRight;\n  animation-name: zoomInRight;\n}\n\n@-webkit-keyframes zoomInUp {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomInUp {\n  from {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, 1000px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  60% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomInUp {\n  -webkit-animation-name: zoomInUp;\n  animation-name: zoomInUp;\n}\n\n@-webkit-keyframes zoomOut {\n  from {\n    opacity: 1;\n  }\n\n  50% {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n@keyframes zoomOut {\n  from {\n    opacity: 1;\n  }\n\n  50% {\n    opacity: 0;\n    -webkit-transform: scale3d(.3, .3, .3);\n    transform: scale3d(.3, .3, .3);\n  }\n\n  to {\n    opacity: 0;\n  }\n}\n\n.zoomOut {\n  -webkit-animation-name: zoomOut;\n  animation-name: zoomOut;\n}\n\n@-webkit-keyframes zoomOutDown {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\n    -webkit-transform-origin: center bottom;\n    transform-origin: center bottom;\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomOutDown {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, -60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, 2000px, 0);\n    -webkit-transform-origin: center bottom;\n    transform-origin: center bottom;\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomOutDown {\n  -webkit-animation-name: zoomOutDown;\n  animation-name: zoomOutDown;\n}\n\n@-webkit-keyframes zoomOutLeft {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale(.1) translate3d(-2000px, 0, 0);\n    transform: scale(.1) translate3d(-2000px, 0, 0);\n    -webkit-transform-origin: left center;\n    transform-origin: left center;\n  }\n}\n\n@keyframes zoomOutLeft {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale(.1) translate3d(-2000px, 0, 0);\n    transform: scale(.1) translate3d(-2000px, 0, 0);\n    -webkit-transform-origin: left center;\n    transform-origin: left center;\n  }\n}\n\n.zoomOutLeft {\n  -webkit-animation-name: zoomOutLeft;\n  animation-name: zoomOutLeft;\n}\n\n@-webkit-keyframes zoomOutRight {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale(.1) translate3d(2000px, 0, 0);\n    transform: scale(.1) translate3d(2000px, 0, 0);\n    -webkit-transform-origin: right center;\n    transform-origin: right center;\n  }\n}\n\n@keyframes zoomOutRight {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\n    transform: scale3d(.475, .475, .475) translate3d(-42px, 0, 0);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale(.1) translate3d(2000px, 0, 0);\n    transform: scale(.1) translate3d(2000px, 0, 0);\n    -webkit-transform-origin: right center;\n    transform-origin: right center;\n  }\n}\n\n.zoomOutRight {\n  -webkit-animation-name: zoomOutRight;\n  animation-name: zoomOutRight;\n}\n\n@-webkit-keyframes zoomOutUp {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\n    -webkit-transform-origin: center bottom;\n    transform-origin: center bottom;\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n@keyframes zoomOutUp {\n  40% {\n    opacity: 1;\n    -webkit-transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    transform: scale3d(.475, .475, .475) translate3d(0, 60px, 0);\n    -webkit-animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n    animation-timing-function: cubic-bezier(0.550, 0.055, 0.675, 0.190);\n  }\n\n  to {\n    opacity: 0;\n    -webkit-transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\n    transform: scale3d(.1, .1, .1) translate3d(0, -2000px, 0);\n    -webkit-transform-origin: center bottom;\n    transform-origin: center bottom;\n    -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n    animation-timing-function: cubic-bezier(0.175, 0.885, 0.320, 1);\n  }\n}\n\n.zoomOutUp {\n  -webkit-animation-name: zoomOutUp;\n  animation-name: zoomOutUp;\n}\n\n@-webkit-keyframes slideInDown {\n  from {\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes slideInDown {\n  from {\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInDown {\n  -webkit-animation-name: slideInDown;\n  animation-name: slideInDown;\n}\n\n@-webkit-keyframes slideInLeft {\n  from {\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes slideInLeft {\n  from {\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInLeft {\n  -webkit-animation-name: slideInLeft;\n  animation-name: slideInLeft;\n}\n\n@-webkit-keyframes slideInRight {\n  from {\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes slideInRight {\n  from {\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInRight {\n  -webkit-animation-name: slideInRight;\n  animation-name: slideInRight;\n}\n\n@-webkit-keyframes slideInUp {\n  from {\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n@keyframes slideInUp {\n  from {\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n    visibility: visible;\n  }\n\n  to {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n}\n\n.slideInUp {\n  -webkit-animation-name: slideInUp;\n  animation-name: slideInUp;\n}\n\n@-webkit-keyframes slideOutDown {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n@keyframes slideOutDown {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(0, 100%, 0);\n    transform: translate3d(0, 100%, 0);\n  }\n}\n\n.slideOutDown {\n  -webkit-animation-name: slideOutDown;\n  animation-name: slideOutDown;\n}\n\n@-webkit-keyframes slideOutLeft {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n@keyframes slideOutLeft {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(-100%, 0, 0);\n    transform: translate3d(-100%, 0, 0);\n  }\n}\n\n.slideOutLeft {\n  -webkit-animation-name: slideOutLeft;\n  animation-name: slideOutLeft;\n}\n\n@-webkit-keyframes slideOutRight {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n@keyframes slideOutRight {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(100%, 0, 0);\n    transform: translate3d(100%, 0, 0);\n  }\n}\n\n.slideOutRight {\n  -webkit-animation-name: slideOutRight;\n  animation-name: slideOutRight;\n}\n\n@-webkit-keyframes slideOutUp {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n@keyframes slideOutUp {\n  from {\n    -webkit-transform: translate3d(0, 0, 0);\n    transform: translate3d(0, 0, 0);\n  }\n\n  to {\n    visibility: hidden;\n    -webkit-transform: translate3d(0, -100%, 0);\n    transform: translate3d(0, -100%, 0);\n  }\n}\n\n.slideOutUp {\n  -webkit-animation-name: slideOutUp;\n  animation-name: slideOutUp;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 169 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/*******************************************************************************************************************
-*   Contains all possible positions for the site panel.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SitePanelPosition;
-(function (SitePanelPosition) {
-    SitePanelPosition[SitePanelPosition["NONE"] = 0] = "NONE";
-    SitePanelPosition[SitePanelPosition["LEFT"] = 1] = "LEFT";
-    SitePanelPosition[SitePanelPosition["RIGHT"] = 2] = "RIGHT";
-})(SitePanelPosition = exports.SitePanelPosition || (exports.SitePanelPosition = {}));
-
-
-/***/ }),
-/* 170 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-var wow = __webpack_require__(171);
-__webpack_require__(5);
-/*******************************************************************************************************************
-*   Manages the communication between the game and the company presentation.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SiteSystem = /** @class */ (function () {
-    /*****************************************************************************
-    *   Creates a new site system.
-    *****************************************************************************/
-    function SiteSystem() {
-        /** The current site panel. */
-        this.currentPanel = null;
-        /** Flags if an animation is currently active. */
-        this.animationInProgress = null;
-        /** Flags if a panel is currently shown. */
-        this.panelPosition = ninjas.SitePanelPosition.NONE;
-        /** The WOW animation system. */
-        this.wowSystem = null;
-        /** The current width of the panel. */
-        this.panelWidth = 0;
-        /** The current width of the panel including border size. */
-        this.panelAndBorderWidth = 0;
-        /** The left camera target X if the border is shown right. */
-        this.leftCameraTargetX = 0;
-        /** The right camera target X if the border is shown left. */
-        this.rightCameraTargetX = 0;
-        this.initWowSystem();
-        this.updatePanelSizeAndPosition();
-    }
-    /*****************************************************************************
-    *   Being invoked when a site shall be shown.
-    *
-    *   @return If showing the site succeeded.
-    *****************************************************************************/
-    SiteSystem.prototype.show = function (position) {
-        var _this = this;
-        ninjas.Debug.site.log("Showing site panel");
-        if (this.panelPosition != ninjas.SitePanelPosition.NONE) {
-            return false;
-        }
-        if (this.animationInProgress) {
-            ninjas.Debug.site.log("Animation currently running - canceling show");
-            return false;
-        }
-        this.animationInProgress = true;
-        this.panelPosition = position;
-        this.currentPanel = ninjas.SiteContent.createExampleContent();
-        if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
-            this.currentPanel.className = "wow bounceInLeft";
-        }
-        else {
-            this.currentPanel.className = "wow bounceInRight";
-        }
-        document.body.appendChild(this.currentPanel);
-        this.updatePanelSizeAndPosition();
-        this.wowSystem.sync();
-        window.setTimeout(function () {
-            _this.animationInProgress = false;
-        }, 1000);
-        return true;
-    };
-    /*****************************************************************************
-    *   Being invoked when a site shall be hidden.
-    *
-    *   @return If hiding the site succeeded.
-    *****************************************************************************/
-    SiteSystem.prototype.hide = function () {
-        var _this = this;
-        ninjas.Debug.site.log("Hiding site panel");
-        if (this.panelPosition == ninjas.SitePanelPosition.NONE) {
-            return false;
-        }
-        if (this.animationInProgress) {
-            ninjas.Debug.site.log("Animation currently running - canceling hide");
-            return false;
-        }
-        this.animationInProgress = true;
-        if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
-            this.currentPanel.className = "wow bounceOutLeft";
-        }
-        else {
-            this.currentPanel.className = "wow bounceOutRight";
-        }
-        this.panelPosition = ninjas.SitePanelPosition.NONE;
-        this.wowSystem.sync();
-        window.setTimeout(function () {
-            _this.currentPanel.remove();
-            _this.currentPanel = null;
-            _this.animationInProgress = false;
-        }, 750);
-        return true;
-    };
-    /*****************************************************************************
-    *   Being invoked when the panel size should be set according to the current canvas size.
-    *****************************************************************************/
-    SiteSystem.prototype.updatePanelSizeAndPosition = function () {
-        // calculate panel size
-        this.panelWidth = (ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.Setting.SITE_BORDER_SIZE);
-        if (this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
-            this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
-        }
-        // calculate panel size including border and left and right position
-        this.panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
-        this.leftCameraTargetX = (this.panelAndBorderWidth + ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2));
-        this.rightCameraTargetX = ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2);
-        // update panel size and position
-        if (this.currentPanel != null) {
-            this.currentPanel.style.width = this.panelWidth + "px";
-            this.currentPanel.style.height = (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
-            if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
-                this.currentPanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
-            }
-            else {
-                this.currentPanel.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE) + "px";
-            }
-            var siteContainer = document.getElementById("siteContainer");
-            siteContainer.style.width = (this.panelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
-        }
-    };
-    /*****************************************************************************
-    *   Determines if a site panel is currently active.
-    *
-    *   @return <code>true</code> if a site panel is currently active.
-    *****************************************************************************/
-    SiteSystem.prototype.getCameraTargetX = function () {
-        switch (this.panelPosition) {
-            case ninjas.SitePanelPosition.NONE:
-                {
-                    switch (ninjas.Main.game.level.player.lookingDirection) {
-                        case ninjas.CharacterLookingDirection.LEFT:
-                            {
-                                return this.leftCameraTargetX;
-                            }
-                        case ninjas.CharacterLookingDirection.RIGHT:
-                            {
-                                return this.rightCameraTargetX;
-                            }
-                    }
-                    throw new Error("Camera position not determinable though undefined player looking direction!");
-                }
-            case ninjas.SitePanelPosition.LEFT:
-                {
-                    return this.leftCameraTargetX;
-                }
-            case ninjas.SitePanelPosition.RIGHT:
-                {
-                    return this.rightCameraTargetX;
-                }
-        }
-    };
-    /***************************************************************************************************************
-    *   Inits the WOW animation system.
-    ***************************************************************************************************************/
-    SiteSystem.prototype.initWowSystem = function () {
-        ninjas.Debug.init.log("Initing WOW animations");
-        this.wowSystem = new wow.WOW({
-            boxClass: 'wow',
-            animateClass: 'animated',
-            offset: 0,
-            mobile: true,
-            scrollContainer: null,
-            live: true,
-        });
-        this.wowSystem.init();
-    };
-    return SiteSystem;
-}());
-exports.SiteSystem = SiteSystem;
-
-
-/***/ }),
-/* 171 */
-/***/ (function(module, exports) {
-
-(function() {
-  var MutationObserver, Util, WeakMap, getComputedStyle, getComputedStyleRX,
-    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-  Util = (function() {
-    function Util() {}
-
-    Util.prototype.extend = function(custom, defaults) {
-      var key, value;
-      for (key in defaults) {
-        value = defaults[key];
-        if (custom[key] == null) {
-          custom[key] = value;
-        }
-      }
-      return custom;
-    };
-
-    Util.prototype.isMobile = function(agent) {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
-    };
-
-    Util.prototype.createEvent = function(event, bubble, cancel, detail) {
-      var customEvent;
-      if (bubble == null) {
-        bubble = false;
-      }
-      if (cancel == null) {
-        cancel = false;
-      }
-      if (detail == null) {
-        detail = null;
-      }
-      if (document.createEvent != null) {
-        customEvent = document.createEvent('CustomEvent');
-        customEvent.initCustomEvent(event, bubble, cancel, detail);
-      } else if (document.createEventObject != null) {
-        customEvent = document.createEventObject();
-        customEvent.eventType = event;
-      } else {
-        customEvent.eventName = event;
-      }
-      return customEvent;
-    };
-
-    Util.prototype.emitEvent = function(elem, event) {
-      if (elem.dispatchEvent != null) {
-        return elem.dispatchEvent(event);
-      } else if (event in (elem != null)) {
-        return elem[event]();
-      } else if (("on" + event) in (elem != null)) {
-        return elem["on" + event]();
-      }
-    };
-
-    Util.prototype.addEvent = function(elem, event, fn) {
-      if (elem.addEventListener != null) {
-        return elem.addEventListener(event, fn, false);
-      } else if (elem.attachEvent != null) {
-        return elem.attachEvent("on" + event, fn);
-      } else {
-        return elem[event] = fn;
-      }
-    };
-
-    Util.prototype.removeEvent = function(elem, event, fn) {
-      if (elem.removeEventListener != null) {
-        return elem.removeEventListener(event, fn, false);
-      } else if (elem.detachEvent != null) {
-        return elem.detachEvent("on" + event, fn);
-      } else {
-        return delete elem[event];
-      }
-    };
-
-    Util.prototype.innerHeight = function() {
-      if ('innerHeight' in window) {
-        return window.innerHeight;
-      } else {
-        return document.documentElement.clientHeight;
-      }
-    };
-
-    return Util;
-
-  })();
-
-  WeakMap = this.WeakMap || this.MozWeakMap || (WeakMap = (function() {
-    function WeakMap() {
-      this.keys = [];
-      this.values = [];
-    }
-
-    WeakMap.prototype.get = function(key) {
-      var i, item, j, len, ref;
-      ref = this.keys;
-      for (i = j = 0, len = ref.length; j < len; i = ++j) {
-        item = ref[i];
-        if (item === key) {
-          return this.values[i];
-        }
-      }
-    };
-
-    WeakMap.prototype.set = function(key, value) {
-      var i, item, j, len, ref;
-      ref = this.keys;
-      for (i = j = 0, len = ref.length; j < len; i = ++j) {
-        item = ref[i];
-        if (item === key) {
-          this.values[i] = value;
-          return;
-        }
-      }
-      this.keys.push(key);
-      return this.values.push(value);
-    };
-
-    return WeakMap;
-
-  })());
-
-  MutationObserver = this.MutationObserver || this.WebkitMutationObserver || this.MozMutationObserver || (MutationObserver = (function() {
-    function MutationObserver() {
-      if (typeof console !== "undefined" && console !== null) {
-        console.warn('MutationObserver is not supported by your browser.');
-      }
-      if (typeof console !== "undefined" && console !== null) {
-        console.warn('WOW.js cannot detect dom mutations, please call .sync() after loading new content.');
-      }
-    }
-
-    MutationObserver.notSupported = true;
-
-    MutationObserver.prototype.observe = function() {};
-
-    return MutationObserver;
-
-  })());
-
-  getComputedStyle = this.getComputedStyle || function(el, pseudo) {
-    this.getPropertyValue = function(prop) {
-      var ref;
-      if (prop === 'float') {
-        prop = 'styleFloat';
-      }
-      if (getComputedStyleRX.test(prop)) {
-        prop.replace(getComputedStyleRX, function(_, _char) {
-          return _char.toUpperCase();
-        });
-      }
-      return ((ref = el.currentStyle) != null ? ref[prop] : void 0) || null;
-    };
-    return this;
-  };
-
-  getComputedStyleRX = /(\-([a-z]){1})/g;
-
-  this.WOW = (function() {
-    WOW.prototype.defaults = {
-      boxClass: 'wow',
-      animateClass: 'animated',
-      offset: 0,
-      mobile: true,
-      live: true,
-      callback: null,
-      scrollContainer: null
-    };
-
-    function WOW(options) {
-      if (options == null) {
-        options = {};
-      }
-      this.scrollCallback = bind(this.scrollCallback, this);
-      this.scrollHandler = bind(this.scrollHandler, this);
-      this.resetAnimation = bind(this.resetAnimation, this);
-      this.start = bind(this.start, this);
-      this.scrolled = true;
-      this.config = this.util().extend(options, this.defaults);
-      if (options.scrollContainer != null) {
-        this.config.scrollContainer = document.querySelector(options.scrollContainer);
-      }
-      this.animationNameCache = new WeakMap();
-      this.wowEvent = this.util().createEvent(this.config.boxClass);
-    }
-
-    WOW.prototype.init = function() {
-      var ref;
-      this.element = window.document.documentElement;
-      if ((ref = document.readyState) === "interactive" || ref === "complete") {
-        this.start();
-      } else {
-        this.util().addEvent(document, 'DOMContentLoaded', this.start);
-      }
-      return this.finished = [];
-    };
-
-    WOW.prototype.start = function() {
-      var box, j, len, ref;
-      this.stopped = false;
-      this.boxes = (function() {
-        var j, len, ref, results;
-        ref = this.element.querySelectorAll("." + this.config.boxClass);
-        results = [];
-        for (j = 0, len = ref.length; j < len; j++) {
-          box = ref[j];
-          results.push(box);
-        }
-        return results;
-      }).call(this);
-      this.all = (function() {
-        var j, len, ref, results;
-        ref = this.boxes;
-        results = [];
-        for (j = 0, len = ref.length; j < len; j++) {
-          box = ref[j];
-          results.push(box);
-        }
-        return results;
-      }).call(this);
-      if (this.boxes.length) {
-        if (this.disabled()) {
-          this.resetStyle();
-        } else {
-          ref = this.boxes;
-          for (j = 0, len = ref.length; j < len; j++) {
-            box = ref[j];
-            this.applyStyle(box, true);
-          }
-        }
-      }
-      if (!this.disabled()) {
-        this.util().addEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
-        this.util().addEvent(window, 'resize', this.scrollHandler);
-        this.interval = setInterval(this.scrollCallback, 50);
-      }
-      if (this.config.live) {
-        return new MutationObserver((function(_this) {
-          return function(records) {
-            var k, len1, node, record, results;
-            results = [];
-            for (k = 0, len1 = records.length; k < len1; k++) {
-              record = records[k];
-              results.push((function() {
-                var l, len2, ref1, results1;
-                ref1 = record.addedNodes || [];
-                results1 = [];
-                for (l = 0, len2 = ref1.length; l < len2; l++) {
-                  node = ref1[l];
-                  results1.push(this.doSync(node));
-                }
-                return results1;
-              }).call(_this));
-            }
-            return results;
-          };
-        })(this)).observe(document.body, {
-          childList: true,
-          subtree: true
-        });
-      }
-    };
-
-    WOW.prototype.stop = function() {
-      this.stopped = true;
-      this.util().removeEvent(this.config.scrollContainer || window, 'scroll', this.scrollHandler);
-      this.util().removeEvent(window, 'resize', this.scrollHandler);
-      if (this.interval != null) {
-        return clearInterval(this.interval);
-      }
-    };
-
-    WOW.prototype.sync = function(element) {
-      if (MutationObserver.notSupported) {
-        return this.doSync(this.element);
-      }
-    };
-
-    WOW.prototype.doSync = function(element) {
-      var box, j, len, ref, results;
-      if (element == null) {
-        element = this.element;
-      }
-      if (element.nodeType !== 1) {
-        return;
-      }
-      element = element.parentNode || element;
-      ref = element.querySelectorAll("." + this.config.boxClass);
-      results = [];
-      for (j = 0, len = ref.length; j < len; j++) {
-        box = ref[j];
-        if (indexOf.call(this.all, box) < 0) {
-          this.boxes.push(box);
-          this.all.push(box);
-          if (this.stopped || this.disabled()) {
-            this.resetStyle();
-          } else {
-            this.applyStyle(box, true);
-          }
-          results.push(this.scrolled = true);
-        } else {
-          results.push(void 0);
-        }
-      }
-      return results;
-    };
-
-    WOW.prototype.show = function(box) {
-      this.applyStyle(box);
-      box.className = box.className + " " + this.config.animateClass;
-      if (this.config.callback != null) {
-        this.config.callback(box);
-      }
-      this.util().emitEvent(box, this.wowEvent);
-      this.util().addEvent(box, 'animationend', this.resetAnimation);
-      this.util().addEvent(box, 'oanimationend', this.resetAnimation);
-      this.util().addEvent(box, 'webkitAnimationEnd', this.resetAnimation);
-      this.util().addEvent(box, 'MSAnimationEnd', this.resetAnimation);
-      return box;
-    };
-
-    WOW.prototype.applyStyle = function(box, hidden) {
-      var delay, duration, iteration;
-      duration = box.getAttribute('data-wow-duration');
-      delay = box.getAttribute('data-wow-delay');
-      iteration = box.getAttribute('data-wow-iteration');
-      return this.animate((function(_this) {
-        return function() {
-          return _this.customStyle(box, hidden, duration, delay, iteration);
-        };
-      })(this));
-    };
-
-    WOW.prototype.animate = (function() {
-      if ('requestAnimationFrame' in window) {
-        return function(callback) {
-          return window.requestAnimationFrame(callback);
-        };
-      } else {
-        return function(callback) {
-          return callback();
-        };
-      }
-    })();
-
-    WOW.prototype.resetStyle = function() {
-      var box, j, len, ref, results;
-      ref = this.boxes;
-      results = [];
-      for (j = 0, len = ref.length; j < len; j++) {
-        box = ref[j];
-        results.push(box.style.visibility = 'visible');
-      }
-      return results;
-    };
-
-    WOW.prototype.resetAnimation = function(event) {
-      var target;
-      if (event.type.toLowerCase().indexOf('animationend') >= 0) {
-        target = event.target || event.srcElement;
-        return target.className = target.className.replace(this.config.animateClass, '').trim();
-      }
-    };
-
-    WOW.prototype.customStyle = function(box, hidden, duration, delay, iteration) {
-      if (hidden) {
-        this.cacheAnimationName(box);
-      }
-      box.style.visibility = hidden ? 'hidden' : 'visible';
-      if (duration) {
-        this.vendorSet(box.style, {
-          animationDuration: duration
-        });
-      }
-      if (delay) {
-        this.vendorSet(box.style, {
-          animationDelay: delay
-        });
-      }
-      if (iteration) {
-        this.vendorSet(box.style, {
-          animationIterationCount: iteration
-        });
-      }
-      this.vendorSet(box.style, {
-        animationName: hidden ? 'none' : this.cachedAnimationName(box)
-      });
-      return box;
-    };
-
-    WOW.prototype.vendors = ["moz", "webkit"];
-
-    WOW.prototype.vendorSet = function(elem, properties) {
-      var name, results, value, vendor;
-      results = [];
-      for (name in properties) {
-        value = properties[name];
-        elem["" + name] = value;
-        results.push((function() {
-          var j, len, ref, results1;
-          ref = this.vendors;
-          results1 = [];
-          for (j = 0, len = ref.length; j < len; j++) {
-            vendor = ref[j];
-            results1.push(elem["" + vendor + (name.charAt(0).toUpperCase()) + (name.substr(1))] = value);
-          }
-          return results1;
-        }).call(this));
-      }
-      return results;
-    };
-
-    WOW.prototype.vendorCSS = function(elem, property) {
-      var j, len, ref, result, style, vendor;
-      style = getComputedStyle(elem);
-      result = style.getPropertyCSSValue(property);
-      ref = this.vendors;
-      for (j = 0, len = ref.length; j < len; j++) {
-        vendor = ref[j];
-        result = result || style.getPropertyCSSValue("-" + vendor + "-" + property);
-      }
-      return result;
-    };
-
-    WOW.prototype.animationName = function(box) {
-      var animationName, error;
-      try {
-        animationName = this.vendorCSS(box, 'animation-name').cssText;
-      } catch (error) {
-        animationName = getComputedStyle(box).getPropertyValue('animation-name');
-      }
-      if (animationName === 'none') {
-        return '';
-      } else {
-        return animationName;
-      }
-    };
-
-    WOW.prototype.cacheAnimationName = function(box) {
-      return this.animationNameCache.set(box, this.animationName(box));
-    };
-
-    WOW.prototype.cachedAnimationName = function(box) {
-      return this.animationNameCache.get(box);
-    };
-
-    WOW.prototype.scrollHandler = function() {
-      return this.scrolled = true;
-    };
-
-    WOW.prototype.scrollCallback = function() {
-      var box;
-      if (this.scrolled) {
-        this.scrolled = false;
-        this.boxes = (function() {
-          var j, len, ref, results;
-          ref = this.boxes;
-          results = [];
-          for (j = 0, len = ref.length; j < len; j++) {
-            box = ref[j];
-            if (!(box)) {
-              continue;
-            }
-            if (this.isVisible(box)) {
-              this.show(box);
-              continue;
-            }
-            results.push(box);
-          }
-          return results;
-        }).call(this);
-        if (!(this.boxes.length || this.config.live)) {
-          return this.stop();
-        }
-      }
-    };
-
-    WOW.prototype.offsetTop = function(element) {
-      var top;
-      while (element.offsetTop === void 0) {
-        element = element.parentNode;
-      }
-      top = element.offsetTop;
-      while (element = element.offsetParent) {
-        top += element.offsetTop;
-      }
-      return top;
-    };
-
-    WOW.prototype.isVisible = function(box) {
-      var bottom, offset, top, viewBottom, viewTop;
-      offset = box.getAttribute('data-wow-offset') || this.config.offset;
-      viewTop = (this.config.scrollContainer && this.config.scrollContainer.scrollTop) || window.pageYOffset;
-      viewBottom = viewTop + Math.min(this.element.clientHeight, this.util().innerHeight()) - offset;
-      top = this.offsetTop(box);
-      bottom = top + box.clientHeight;
-      return top <= viewBottom && bottom >= viewTop;
-    };
-
-    WOW.prototype.util = function() {
-      return this._util != null ? this._util : this._util = new Util();
-    };
-
-    WOW.prototype.disabled = function() {
-      return !this.config.mobile && this.util().isMobile(navigator.userAgent);
-    };
-
-    return WOW;
-
-  })();
-
-}).call(this);
-
-
-/***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32719,82 +32902,6 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 173 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Manages the canvas.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var CanvasSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Constructs a new canvas system.
-    ***************************************************************************************************************/
-    function CanvasSystem() {
-        /** The canvas element. */
-        this.canvas = null;
-        /** The canvas rendering context. */
-        this.canvasContext = null;
-        /** The current width of the canvas. */
-        this.canvasWidth = 0;
-        /** The current height of the canvas. */
-        this.canvasHeight = 0;
-        // create
-        this.canvas = document.createElement("canvas");
-        // reference 2d rendering context
-        this.canvasContext = this.canvas.getContext("2d");
-        // append to body
-        document.body.appendChild(this.canvas);
-    }
-    /***************************************************************************************************************
-    *   Updates the canvas dimensions according to current screen size.
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.updateDimensions = function () {
-        this.canvasWidth = window.innerWidth;
-        this.canvasHeight = window.innerHeight;
-        // clip to minimum canvas dimensions
-        if (this.canvasWidth < ninjas.Setting.MIN_CANVAS_WIDTH)
-            this.canvasWidth = ninjas.Setting.MIN_CANVAS_WIDTH;
-        if (this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT)
-            this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
-        ninjas.Debug.canvas.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
-    };
-    /***************************************************************************************************************
-    *   Returns the current canvas width.
-    *
-    *   @return Current canvas width.
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.getWidth = function () {
-        return this.canvasWidth;
-    };
-    /***************************************************************************************************************
-    *   Returns the current canvas height.
-    *
-    *   @return Current canvas height.
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.getHeight = function () {
-        return this.canvasHeight;
-    };
-    /***************************************************************************************************************
-    *   Returns the current canvas object.
-    *
-    *   @return The HTML canvas object..
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.getCanvas = function () {
-        return this.canvas;
-    };
-    return CanvasSystem;
-}());
-exports.CanvasSystem = CanvasSystem;
-
-
-/***/ }),
 /* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32904,125 +33011,6 @@ exports.Drawing = Drawing;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Manages the Matter.js engine.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var MatterJsSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Creates a new Matter.js engine.
-    *
-    *   @param canvas              The canvas to use.
-    *   @param callbackAfterRender The function to invoke after  the engine has been rendered and drawed.
-    *   @param textureCache        All cached textures to use.
-    ***************************************************************************************************************/
-    function MatterJsSystem(canvas, callbackAfterRender, textureCache) {
-        var _this = this;
-        /** The Matter.js engine. */
-        this.engine = null;
-        /** The Matter.js renderer. */
-        this.renderer = null;
-        // create engine
-        this.engine = matter.Engine.create();
-        this.engine.world.gravity = {
-            x: 0.0,
-            y: ninjas.Setting.DEFAULT_GRAVITY_Y,
-            scale: 0.001
-        };
-        // create renderer
-        this.renderer = matter.Render.create({
-            canvas: canvas,
-            engine: this.engine,
-            options: {
-                hasBounds: true,
-                wireframes: false,
-                showCollisions: true,
-                showAxes: true,
-                showAngleIndicator: true,
-                showVelocity: true,
-                background: ninjas.Setting.CANVAS_BG,
-                width: ninjas.Main.game.engine.canvasSystem.getWidth(),
-                height: ninjas.Main.game.engine.canvasSystem.getHeight(),
-            },
-        });
-        //set all loaded image as MatterJS texture cache
-        this.renderer.textures = textureCache;
-        ninjas.Debug.init.log("Assigned [" + Object.keys(this.renderer.textures).length + "] textures to renderer texture cache ");
-        // disables blurry image drawing!
-        this.renderer.context.imageSmoothingEnabled = false;
-        // add drawing callback after rendering
-        matter.Events.on(this.renderer, "afterRender", function () { callbackAfterRender(_this.renderer.context); });
-    }
-    /***************************************************************************************************************
-    *   Starts the Matter.js renderer.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.startRenderer = function () {
-        matter.Render.run(this.renderer);
-    };
-    /***************************************************************************************************************
-    *   Adds the specified constraint to the world.
-    *
-    *   @param constraint A body, composite or constraint of the Matter.js system.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.addToWorld = function (constraint) {
-        matter.Composite.add(this.engine.world, constraint);
-    };
-    /***************************************************************************************************************
-    *   Removes the specified constraint from the world.
-    *
-    *   @param constraint A body, composite or constraint of the Matter.js system.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.removeFromWorld = function (constraint) {
-        matter.Composite.remove(this.engine.world, constraint);
-    };
-    /***************************************************************************************************************
-    *   Updates the dimensions of the Matter.js rendering system.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.updateEngineDimensions = function (newWidth, newHeight) {
-        this.renderer.canvas.width = newWidth;
-        this.renderer.canvas.height = newHeight;
-        this.renderer.options.width = newWidth;
-        this.renderer.options.height = newHeight;
-        ninjas.Debug.canvas.log("Updated matter.js engine dimensions according to canvas.");
-    };
-    /***************************************************************************************************************
-    *   Updates the Matter.js engine for the specified rendering delta.
-    *
-    *   @param renderDelta The rendering delta in ms.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.updateEngine = function (renderDelta) {
-        matter.Engine.update(this.engine, renderDelta);
-    };
-    /***************************************************************************************************************
-    *   Resets the world of the Matter.js engine.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.resetWorld = function () {
-        matter.World.clear(this.engine.world, false);
-    };
-    /***************************************************************************************************************
-    *   Returns the renderer of the Matter.js engine.
-    *
-    *   @return The renderer of the Matter.js engine.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.getRenderer = function () {
-        return this.renderer;
-    };
-    return MatterJsSystem;
-}());
-exports.MatterJsSystem = MatterJsSystem;
-
-
-/***/ }),
-/* 176 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
 /*******************************************************************************************************************
 *   Offers additional Input/Output functionality.
 *
@@ -33059,7 +33047,7 @@ exports.IO = IO;
 
 
 /***/ }),
-/* 177 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33099,7 +33087,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 178 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33147,7 +33135,7 @@ exports.String = String;
 
 
 /***/ }),
-/* 179 */
+/* 178 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -33175,7 +33163,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 180 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -33432,7 +33420,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 180;
+webpackContext.id = 179;
 
 /***/ })
 /******/ ]);

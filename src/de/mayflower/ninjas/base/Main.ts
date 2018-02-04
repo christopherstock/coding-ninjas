@@ -4,10 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO move all system classes to package game/engine /io .. ?
-    *
-    *   TODO Prune width and height from decoration? Use Sprite size instead!
-    *   TODO Add translucent overlay for blend effects.
+    *   TODO Prune width and height from decoration (check other game objects)? Use Sprite size instead!
     *   TODO Auto-release all keys on losing canvas focus?
     *   TODO Create static spriteTemplate creator for single image sprites.
     *   TODO Y location for all creator methods on bottom instead of on top?
@@ -21,8 +18,9 @@
     *   TODO create method updateBody() for all shape classes??
     *   TODO Try sound error handling! (Safari etc.)
     *
-    *   TODO Complete an MVP!
+    *   TODO Complete the MVP!
     *
+    *   TODO Add translucent overlay for blend effects.
     *   TODO create class HUD and assign its non-static method paintHud?
     *   TODO Fix flickering wow effects in all browsers!!
     *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
