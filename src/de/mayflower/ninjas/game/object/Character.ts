@@ -47,7 +47,7 @@
         *   Creates a new character.
         *
         *   @param shape            The shape for this object.
-        *   @param sprite            The image for this game object.
+        *   @param spriteTemplate   The sprite template to use for this game object.
         *   @param x                Startup position X.
         *   @param y                Startup position Y.
         *   @param lookingDirection The initial looking direction.
@@ -57,7 +57,7 @@
         public constructor
         (
             shape            :ninjas.Shape,
-            sprite           :ninjas.Sprite,
+            spriteTemplate   :ninjas.SpriteTemplate,
             x                :number,
             y                :number,
             lookingDirection :ninjas.CharacterLookingDirection,
@@ -68,7 +68,7 @@
             super
             (
                 shape,
-                sprite,
+                spriteTemplate,
                 x,
                 y
             );

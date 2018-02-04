@@ -23,9 +23,9 @@
             this.player = new ninjas.Player
             (
                 0,
-                0,
+                2000,
                 ninjas.CharacterLookingDirection.LEFT,
-                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT )
+                ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
             );
 
             // setup all game objects
@@ -36,14 +36,14 @@
                 ninjas.GameObjectFactory.createParallaxDeco( 0,  0, 1600, 800, 1.0, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_BG_TEST ) ),
 */
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle( 0, 500, 5000, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 0, 2500, 5000, 15, 0.0,  false ),
 /*
                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
-
+*/
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration( 2080,  830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 20370, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
-
+                ninjas.GameObjectFactory.createDecoration( 400, 2500, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 800, 2500, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE ),
+/*
                 // site trigger
                 ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3200, 500, 600, 500, ninjas.SitePanelPosition.NONE ),
@@ -112,7 +112,7 @@
                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
 */
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration( 2670, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 2670, 830, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE ),
 /*
                 ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
                 ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),

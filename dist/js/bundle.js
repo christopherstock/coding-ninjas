@@ -1911,7 +1911,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(180)("./" + name);
+            __webpack_require__(181)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4603,7 +4603,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(179)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(180)(module)))
 
 /***/ }),
 /* 1 */
@@ -4620,7 +4620,7 @@ __export(__webpack_require__(130));
 __export(__webpack_require__(131));
 __export(__webpack_require__(132));
 __export(__webpack_require__(133));
-__export(__webpack_require__(135));
+__export(__webpack_require__(134));
 __export(__webpack_require__(136));
 __export(__webpack_require__(137));
 __export(__webpack_require__(138));
@@ -4637,13 +4637,12 @@ __export(__webpack_require__(148));
 __export(__webpack_require__(149));
 __export(__webpack_require__(150));
 __export(__webpack_require__(151));
-__export(__webpack_require__(181));
 __export(__webpack_require__(152));
 __export(__webpack_require__(153));
 __export(__webpack_require__(154));
 __export(__webpack_require__(155));
 __export(__webpack_require__(156));
-__export(__webpack_require__(158));
+__export(__webpack_require__(157));
 __export(__webpack_require__(159));
 __export(__webpack_require__(160));
 __export(__webpack_require__(161));
@@ -4653,15 +4652,16 @@ __export(__webpack_require__(164));
 __export(__webpack_require__(165));
 __export(__webpack_require__(166));
 __export(__webpack_require__(167));
-__export(__webpack_require__(169));
+__export(__webpack_require__(168));
 __export(__webpack_require__(170));
-__export(__webpack_require__(172));
+__export(__webpack_require__(171));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
 __export(__webpack_require__(177));
 __export(__webpack_require__(178));
+__export(__webpack_require__(179));
 
 
 /***/ }),
@@ -15004,7 +15004,7 @@ var Vector = _dereq_('../geometry/Vector');
 
 },{"../body/Composite":2,"../core/Common":14,"../core/Events":16,"../geometry/Bounds":26,"../geometry/Vector":28}]},{},[30])(30)
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(134)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(135)))
 
 /***/ }),
 /* 3 */
@@ -15467,7 +15467,7 @@ function updateLink (link, options, obj) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(168);
+var content = __webpack_require__(169);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -27406,7 +27406,7 @@ var Setting = /** @class */ (function () {
     /** The minimum camera moving speed in px per move. */
     Setting.CAMERA_MOVING_MINIMUM = 2.0;
     /** The maximum camera moving speed in px per move. */
-    Setting.CAMERA_MOVING_MAXIMUM = 20.0;
+    Setting.CAMERA_MOVING_MAXIMUM = 50.0;
     /** The color of the canvas bg. */
     Setting.CANVAS_BG = "#000000";
     /** The border size for the site panel and all HUD elements in px. */
@@ -27555,15 +27555,15 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO GameObjectFactory: All params to SpriteTemplate instead sprite! Check propagation in game object?
 *   TODO Move game object classes to appropriate subpackages!
 *   TODO move all system classes to package game/engine /io .. ?
 *
+*   TODO Prune width and height from decoration? Use Sprite size instead!
 *   TODO Add translucent overlay for blend effects.
 *   TODO Auto-release all keys on losing canvas focus?
 *   TODO Create static spriteTemplate creator for single image sprites.
 *   TODO Y location for all creator methods on bottom instead of on top?
-*   TODO Split class 'Setting': extract debub settings, engine settings etc. > own package?
+*   TODO Split class 'Setting': extract debub settings, engine settings, matter/physics settings etc. > own package?
 *   TODO Remove timeout and use Enine.events.tick?
 *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
 *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
@@ -27572,6 +27572,8 @@ var ninjas = __webpack_require__(1);
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO create method updateBody() for all shape classes??
 *   TODO Try sound error handling! (Safari etc.)
+*
+*   TODO Complete an MVP!
 *
 *   TODO create class HUD and assign its non-static method paintHud?
 *   TODO Fix flickering wow effects in all browsers!!
@@ -27703,33 +27705,6 @@ exports.Level = Level;
 
 /***/ }),
 /* 134 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27768,7 +27743,7 @@ var LevelAllElements = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelAllElements.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(50, 500, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(50, 500, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         // setup all game objects
         this.gameObjects =
             [
@@ -27780,8 +27755,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createObstacle(3230, 830, 500, 15, 0.0, false),
                 ninjas.GameObjectFactory.createObstacle(4080, 730, 500, 15, 0.0, false),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
@@ -27830,13 +27805,40 @@ var LevelAllElements = /** @class */ (function (_super) {
                 // enemies (fg)
                 ninjas.GameObjectFactory.createEnemy(1200, 0),
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
             ];
     };
     return LevelAllElements;
 }(ninjas.Level));
 exports.LevelAllElements = LevelAllElements;
+
+
+/***/ }),
+/* 135 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
 
 
 /***/ }),
@@ -27878,7 +27880,7 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelEnchantedWoods.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(750, 880, ninjas.CharacterLookingDirection.RIGHT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(750, 880, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         // setup all game objects
         this.gameObjects =
             [
@@ -27889,9 +27891,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // hut
                 ninjas.GameObjectFactory.createDecoration(140, 870, 350, 130, null),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
                 // moveable boxes
                 // sigsaws
                 // items
@@ -27903,9 +27905,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // player
                 this.player,
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
             ];
     };
     return LevelEnchantedWoods;
@@ -27952,7 +27954,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(0, 0, ninjas.CharacterLookingDirection.LEFT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
+        this.player = new ninjas.Player(0, 2000, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         // setup all game objects
         this.gameObjects =
             [
@@ -27961,14 +27963,14 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createParallaxDeco( 0,  0, 1600, 800, 1.0, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_BG_TEST ) ),
                 */
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle(0, 500, 5000, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(0, 2500, 5000, 15, 0.0, false),
                 /*
                                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
-                
-                                // bg decoration
-                                ninjas.GameObjectFactory.createDecoration( 2080,  830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
-                                ninjas.GameObjectFactory.createDecoration( 20370, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
-                
+                */
+                // bg decoration
+                ninjas.GameObjectFactory.createDecoration(400, 2500, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(800, 2500, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
+                /*
                                 // site trigger
                                 ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
                                 ninjas.GameObjectFactory.createSiteTrigger( 3200, 500, 600, 500, ninjas.SitePanelPosition.NONE ),
@@ -28034,7 +28036,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
                 */
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(2670, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(2670, 830, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
             ];
     };
     return LevelWebsite;
@@ -28413,22 +28415,19 @@ var GameObject = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a new game object.
     *
-    *   @param shape  The shape for this object.
-    *   @param sprite The sprite for this game object.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template to use for this game object.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
     ***************************************************************************************************************/
-    function GameObject(shape, sprite, x, y) {
+    function GameObject(shape, spriteTemplate, x, y) {
         /** Collision shape. */
         this.shape = null;
         /** Sprite. */
         this.sprite = null;
         this.shape = shape;
-        this.sprite = sprite;
+        this.setSprite(spriteTemplate);
         matter.Body.translate(this.shape.body, matter.Vector.create(x, y));
-        if (this.sprite != null) {
-            this.setImageFromSprite();
-        }
     }
     /***************************************************************************************************************
     *   Sets the specified sprite template.
@@ -28441,20 +28440,19 @@ var GameObject = /** @class */ (function () {
             if (this.sprite != null && this.sprite.template == spriteTemplate) {
                 return;
             }
-            // assign new sprite
+            // assign new sprite and texture
             this.sprite = new ninjas.Sprite(spriteTemplate);
-            // do NOT update body shape dimensions! immediate collisions will occur and block!
-            // this.shape.updateDimensions( this.sprite.width, this.sprite.height );
-            // assign new texture for MatterJS rendering object
             this.setImageFromSprite();
+            // do NOT update body shape dimensions! immediate collisions will occur and block the game!
+            // this.shape.updateDimensions( this.sprite.width, this.sprite.height );
         }
     };
     /***************************************************************************************************************
     *   Renders the current game object.
     ***************************************************************************************************************/
     GameObject.prototype.render = function () {
-        // next sprite frame
         if (this.sprite != null) {
+            // render sprite and check frame change
             if (this.sprite.render()) {
                 this.setImageFromSprite();
             }
@@ -28540,13 +28538,13 @@ var Bounce = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new bounce.
     *
-    *   @param shape  The shape for this object.
-    *   @param sprite The sprite for this game object.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template to use for this game object.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
     ***************************************************************************************************************/
-    function Bounce(shape, sprite, x, y) {
-        var _this = _super.call(this, shape, sprite, x, y) || this;
+    function Bounce(shape, spriteTemplate, x, y) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
         /** The constraint that builds the turning point for the bounce. */
         _this.constraint = null;
         _this.constraint = matter.Constraint.create({
@@ -28631,15 +28629,15 @@ var Character = /** @class */ (function (_super) {
     *   Creates a new character.
     *
     *   @param shape            The shape for this object.
-    *   @param sprite            The image for this game object.
+    *   @param spriteTemplate   The sprite template to use for this game object.
     *   @param x                Startup position X.
     *   @param y                Startup position Y.
     *   @param lookingDirection The initial looking direction.
     *   @param speedMove        The speed for horizontal movement.
     *   @param jumpPower        The vertical force to apply on jumping.
     ***************************************************************************************************************/
-    function Character(shape, sprite, x, y, lookingDirection, speedMove, jumpPower) {
-        var _this = _super.call(this, shape, sprite, x, y) || this;
+    function Character(shape, spriteTemplate, x, y, lookingDirection, speedMove, jumpPower) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
         /** The looking direction for this character. */
         _this.lookingDirection = null;
         /** Flags if this character is dead. */
@@ -28784,13 +28782,13 @@ var Decoration = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new decoration.
     *
-    *   @param shape  The shape for this object.
-    *   @param sprite The sprite to use.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template to use.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
     ***************************************************************************************************************/
-    function Decoration(shape, sprite, x, y) {
-        var _this = _super.call(this, shape, sprite, x, y) || this;
+    function Decoration(shape, spriteTemplate, x, y) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
         _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO;
         return _this;
     }
@@ -28835,12 +28833,13 @@ var Enemy = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new enemy.
     *
-    *   @param shape  The shape for this object.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
+    *   @param shape          The shape for this object.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
+    *   @param spriteTemplate The sprite template to use for this game object.
     ***************************************************************************************************************/
-    function Enemy(shape, x, y) {
-        return _super.call(this, shape, null, x, y, ninjas.CharacterLookingDirection.LEFT, 4.0, ninjas.Setting.PLAYER_JUMP_POWER) || this;
+    function Enemy(shape, x, y, spriteTemplate) {
+        return _super.call(this, shape, spriteTemplate, x, y, ninjas.CharacterLookingDirection.LEFT, 4.0, ninjas.Setting.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -28927,7 +28926,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created box.
     ***************************************************************************************************************/
     GameObjectFactory.createCrate = function (x, y, width, height, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_CRATE), x, y);
+        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), ninjas.SpriteTemplate.SPRITE_CRATE, x, y);
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -28952,7 +28951,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created item.
     ***************************************************************************************************************/
     GameObjectFactory.createItem = function (x, y) {
-        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.Setting.COLOR_DEBUG_ITEM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_ITEM), x, y);
+        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.Setting.COLOR_DEBUG_ITEM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), ninjas.SpriteTemplate.SPRITE_ITEM, x, y);
     };
     /***************************************************************************************************************
     *   Creates an rectangular obstacle.
@@ -29013,36 +29012,36 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created enemy.
     ***************************************************************************************************************/
     GameObjectFactory.createEnemy = function (x, y) {
-        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.Setting.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y);
+        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.Setting.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, null);
     };
     /***************************************************************************************************************
     *   Creates a decoration.
     *
-    *   @param x      Anchor X.
-    *   @param y      Anchor Y.
-    *   @param width  Object width.
-    *   @param height Object height.
-    *   @param sprite The decoration sprite.
+    *   @param x              Anchor X.
+    *   @param y              Anchor Y.
+    *   @param width          Object width.
+    *   @param height         Object height.
+    *   @param spriteTemplate The sprite template to use for this decoration.
     *
     *   @return The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createDecoration = function (x, y, width, height, sprite) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), sprite, x, y);
+    GameObjectFactory.createDecoration = function (x, y, width, height, spriteTemplate) {
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, x, y);
     };
     /***************************************************************************************************************
     *   Creates a parallax scrolling decoration.
     *
-    *   @param x             Anchor X.
-    *   @param y             Anchor Y.
-    *   @param width         Object width.
-    *   @param height        Object height.
-    *   @param parallaxRatio The parallax ratio according to the level width.
-    *   @param sprite        The decoration sprite.
+    *   @param x              Anchor X.
+    *   @param y              Anchor Y.
+    *   @param width          Object width.
+    *   @param height         Object height.
+    *   @param parallaxRatio  The parallax ratio according to the level width.
+    *   @param spriteTemplate The decoration sprite.
     *
     *   @return The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createParallaxDeco = function (x, y, width, height, parallaxRatio, sprite) {
-        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), sprite, x, y, parallaxRatio);
+    GameObjectFactory.createParallaxDeco = function (x, y, width, height, parallaxRatio, spriteTemplate) {
+        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, x, y, parallaxRatio);
     };
     /***************************************************************************************************************
     *   Creates a site trigger.
@@ -29075,44 +29074,44 @@ var GameObjectFactory = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a sigsaw.
     *
-    *   @param x      Anchor X.
-    *   @param y      Anchor Y.
-    *   @param width  Object width.
-    *   @param height Object height.
-    *   @param sprite The decoration sprite.
+    *   @param x              Anchor X.
+    *   @param y              Anchor Y.
+    *   @param width          Object width.
+    *   @param height         Object height.
+    *   @param spriteTemplate The decoration sprite.
     *
     *   @return The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createSigsaw = function (x, y, width, height, sprite) {
-        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), sprite, x, y);
+    GameObjectFactory.createSigsaw = function (x, y, width, height, spriteTemplate) {
+        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), spriteTemplate, x, y);
     };
     /***************************************************************************************************************
     *   Creates a platform.
     *
-    *   @param width     Object width.
-    *   @param height    Object height.
-    *   @param sprite    The decoration sprite.
-    *   @param speed     Moving speed of the platform in px per tick.
-    *   @param waypoints Moving waypoints. First waypoint is the startup position.
+    *   @param width          Object width.
+    *   @param height         Object height.
+    *   @param spriteTemplate The decoration sprite.
+    *   @param speed          Moving speed of the platform in px per tick.
+    *   @param waypoints      Moving waypoints. First waypoint is the startup position.
     *
     *   @return The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createPlatform = function (width, height, sprite, speed, waypoints) {
-        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), sprite, speed, waypoints);
+    GameObjectFactory.createPlatform = function (width, height, spriteTemplate, speed, waypoints) {
+        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, speed, waypoints);
     };
     /***************************************************************************************************************
      *   Creates a bounce.
      *
-     *   @param x      Anchor X.
-     *   @param y      Anchor Y.
-     *   @param width  Object width.
-     *   @param height Object height.
-     *   @param sprite The decoration sprite.
+     *   @param x              Anchor X.
+     *   @param y              Anchor Y.
+     *   @param width          Object width.
+     *   @param height         Object height.
+     *   @param spriteTemplate The decoration sprite.
      *
      *   @return The created decoration.
      ***************************************************************************************************************/
-    GameObjectFactory.createBounce = function (x, y, width, height, sprite) {
-        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), sprite, x, y);
+    GameObjectFactory.createBounce = function (x, y, width, height, spriteTemplate) {
+        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), spriteTemplate, x, y);
     };
     return GameObjectFactory;
 }());
@@ -29149,13 +29148,13 @@ var Item = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new item.
     *
-    *   @param shape  The shape for this object.
-    *   @param sprite The sprite to use for this object.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template to use for this object.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
     ***************************************************************************************************************/
-    function Item(shape, sprite, x, y) {
-        var _this = _super.call(this, shape, sprite, x, y) || this;
+    function Item(shape, spriteTemplate, x, y) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
         /** Indicates if this item has been picked. */
         _this.picked = null;
         _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
@@ -29222,13 +29221,13 @@ var Movable = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new movable.
     *
-    *   @param shape  The shape for this object.
-    *   @param sprite The sprite for this box.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite for this box.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
     ***************************************************************************************************************/
-    function Movable(shape, sprite, x, y) {
-        return _super.call(this, shape, sprite, x, y) || this;
+    function Movable(shape, spriteTemplate, x, y) {
+        return _super.call(this, shape, spriteTemplate, x, y) || this;
     }
     /***************************************************************************************************************
     *   Renders this box.
@@ -29330,6 +29329,83 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+var matter = __webpack_require__(2);
+/*******************************************************************************************************************
+*   Represents a non-colliding decoration.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var ParallaxDeco = /** @class */ (function (_super) {
+    __extends(ParallaxDeco, _super);
+    /***************************************************************************************************************
+    *   Creates a new parallax decoration.
+    *
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template to use.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
+    *   @param parallaxRatio  The parallax ratio from this game object to the level width. Defaults to 1.0.
+    ***************************************************************************************************************/
+    function ParallaxDeco(shape, spriteTemplate, x, y, parallaxRatio) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
+        /** The parallax ratio from this game object to the level width. Defaults to 1.0. */
+        _this.parallaxRatio = 0.0;
+        /** The startup position X. */
+        _this.startupX = 0.0;
+        /** The startup position Y. */
+        _this.startupY = 0.0;
+        _this.parallaxRatio = parallaxRatio;
+        _this.startupX = x;
+        _this.startupY = y;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this decoration.
+    ***************************************************************************************************************/
+    ParallaxDeco.prototype.render = function () {
+        _super.prototype.render.call(this);
+        this.setParallaxPosition();
+    };
+    /***************************************************************************************************************
+    *   Sets the current parallax position of this deco.
+    ***************************************************************************************************************/
+    ParallaxDeco.prototype.setParallaxPosition = function () {
+        var levelWidth = ninjas.Main.game.level.width;
+        var levelHeight = ninjas.Main.game.level.height;
+        var cameraOffsetX = ninjas.Main.game.camera.getOffsetX();
+        var cameraOffsetY = ninjas.Main.game.camera.getOffsetY();
+        var canvasWidth = ninjas.Main.game.engine.canvasSystem.getWidth();
+        var canvasHeight = ninjas.Main.game.engine.canvasSystem.getHeight();
+        var imgOffsetX = 0 - (this.shape.getWidth() - canvasWidth) * cameraOffsetX / (levelWidth - canvasWidth);
+        var imgOffsetY = 0 - (this.shape.getHeight() - canvasHeight) * cameraOffsetY / (levelHeight - canvasHeight);
+        imgOffsetX *= this.parallaxRatio;
+        imgOffsetY *= this.parallaxRatio;
+        matter.Body.setPosition(this.shape.body, matter.Vector.create(imgOffsetX + cameraOffsetX + (this.shape.getWidth() / 2), imgOffsetY + cameraOffsetY + (this.shape.getHeight() / 2)));
+    };
+    return ParallaxDeco;
+}(ninjas.Decoration));
+exports.ParallaxDeco = ParallaxDeco;
+
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
 var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
@@ -29343,13 +29419,13 @@ var Platform = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new platform. Initial position is the first waypoint.
     *
-    *   @param shape     The shape for this object.
-    *   @param sprite    The sprite for this platform.
-    *   @param speed     The speed in pixels per tick.
-    *   @param waypoints The waypoints for this platform to move to.
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template for this platform.
+    *   @param speed          The speed in pixels per tick.
+    *   @param waypoints      The waypoints for this platform to move to.
     ***************************************************************************************************************/
-    function Platform(shape, sprite, speed, waypoints) {
-        var _this = _super.call(this, shape, sprite, 0.0, 0.0) || this;
+    function Platform(shape, spriteTemplate, speed, waypoints) {
+        var _this = _super.call(this, shape, spriteTemplate, 0.0, 0.0) || this;
         /** The waypoints for this platform to move. */
         _this.waypoints = null;
         /** The number of ticks till the next waypoint is reached. */
@@ -29423,7 +29499,7 @@ exports.Platform = Platform;
 
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29465,10 +29541,10 @@ var Player = /** @class */ (function (_super) {
     *   @param x                Startup position X.
     *   @param y                Startup position Y.
     *   @param lookingDirection The initial looking direction.
-    *   @param sprite            The initial image for the player.
+    *   @param spriteTemplate   The initial sprite template to use for the player.
     ***************************************************************************************************************/
-    function Player(x, y, lookingDirection, sprite) {
-        return _super.call(this, new ninjas.ShapeRectangle(sprite.template.width, sprite.template.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), sprite, x, y, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
+    function Player(x, y, lookingDirection, spriteTemplate) {
+        return _super.call(this, new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), spriteTemplate, x, y, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -29584,7 +29660,7 @@ exports.Player = Player;
 
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29613,13 +29689,13 @@ var SigSaw = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new sigsaw.
     *
-    *   @param shape  The shape for this object.
-    *   @param sprite The sprite for this game object.
-    *   @param x      Startup position X.
-    *   @param y      Startup position Y.
+    *   @param shape          The shape for this object.
+    *   @param spriteTemplate The sprite template for this game object.
+    *   @param x              Startup position X.
+    *   @param y              Startup position Y.
     ***************************************************************************************************************/
-    function SigSaw(shape, sprite, x, y) {
-        var _this = _super.call(this, shape, sprite, x, y) || this;
+    function SigSaw(shape, spriteTemplate, x, y) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
         /** The constraint that builds the turning point for the sigsaw. */
         _this.constraint = null;
         _this.constraint = matter.Constraint.create({
@@ -29682,7 +29758,7 @@ exports.SigSaw = SigSaw;
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29712,13 +29788,13 @@ var SiteTrigger = /** @class */ (function (_super) {
     *   Creates a new site trigger.
     *
     *   @param shape              The shape for this object.
-    *   @param sprite             The sprite to use.
+    *   @param spriteTemplate     The sprite template to use.
     *   @param x                  Startup position X.
     *   @param y                  Startup position Y.
     *   @param fixedPanelPosition Startup position Y.
     ***************************************************************************************************************/
-    function SiteTrigger(shape, sprite, x, y, fixedPanelPosition) {
-        var _this = _super.call(this, shape, sprite, x, y) || this;
+    function SiteTrigger(shape, spriteTemplate, x, y, fixedPanelPosition) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
         /** Flags if the according site panel is currently displayed. */
         _this.sitePanelActive = false;
         /** A fixed position for the panel to popup, if desired. */
@@ -29785,14 +29861,14 @@ exports.SiteTrigger = SiteTrigger;
 
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-__webpack_require__(157);
+__webpack_require__(158);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
 *
@@ -29911,7 +29987,7 @@ exports.Game = Game;
 
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports) {
 
 /*!
@@ -30798,7 +30874,7 @@ exports.Game = Game;
 }(window, FPSMeter));
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30913,7 +30989,7 @@ exports.GameEngine = GameEngine;
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30958,7 +31034,7 @@ exports.Key = Key;
 
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31036,7 +31112,7 @@ exports.KeySystem = KeySystem;
 
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31151,7 +31227,7 @@ exports.Image = Image;
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31275,7 +31351,7 @@ exports.ImageSystem = ImageSystem;
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31306,7 +31382,7 @@ exports.Sound = Sound;
 
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31393,7 +31469,7 @@ exports.SoundSystem = SoundSystem;
 
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31478,7 +31554,7 @@ exports.Sprite = Sprite;
 
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31667,7 +31743,7 @@ exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31737,7 +31813,7 @@ exports.SiteContent = SiteContent;
 
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -31751,7 +31827,7 @@ exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://dane
 
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31772,14 +31848,14 @@ var SitePanelPosition;
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-var wow = __webpack_require__(171);
+var wow = __webpack_require__(172);
 __webpack_require__(5);
 /*******************************************************************************************************************
 *   Manages the communication between the game and the company presentation.
@@ -31953,7 +32029,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports) {
 
 (function() {
@@ -32472,7 +32548,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32666,7 +32742,7 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32742,7 +32818,7 @@ exports.CanvasSystem = CanvasSystem;
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32845,7 +32921,7 @@ exports.Drawing = Drawing;
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32964,7 +33040,7 @@ exports.MatterJsSystem = MatterJsSystem;
 
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33006,7 +33082,7 @@ exports.IO = IO;
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33046,7 +33122,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33094,7 +33170,7 @@ exports.String = String;
 
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -33122,7 +33198,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -33379,84 +33455,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 180;
-
-/***/ }),
-/* 181 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-var matter = __webpack_require__(2);
-/*******************************************************************************************************************
-*   Represents a non-colliding decoration.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var ParallaxDeco = /** @class */ (function (_super) {
-    __extends(ParallaxDeco, _super);
-    /***************************************************************************************************************
-    *   Creates a new parallax decoration.
-    *
-    *   @param shape         The shape for this object.
-    *   @param sprite        The sprite to use.
-    *   @param x             Startup position X.
-    *   @param y             Startup position Y.
-    *   @param parallaxRatio The parallax ratio from this game object to the level width. Defaults to 1.0.
-    ***************************************************************************************************************/
-    function ParallaxDeco(shape, sprite, x, y, parallaxRatio) {
-        var _this = _super.call(this, shape, sprite, x, y) || this;
-        /** The parallax ratio from this game object to the level width. Defaults to 1.0. */
-        _this.parallaxRatio = 0.0;
-        /** The startup position X. */
-        _this.startupX = 0.0;
-        /** The startup position Y. */
-        _this.startupY = 0.0;
-        _this.parallaxRatio = parallaxRatio;
-        _this.startupX = x;
-        _this.startupY = y;
-        return _this;
-    }
-    /***************************************************************************************************************
-    *   Renders this decoration.
-    ***************************************************************************************************************/
-    ParallaxDeco.prototype.render = function () {
-        _super.prototype.render.call(this);
-        this.setParallaxPosition();
-    };
-    /***************************************************************************************************************
-    *   Sets the current parallax position of this deco.
-    ***************************************************************************************************************/
-    ParallaxDeco.prototype.setParallaxPosition = function () {
-        var levelWidth = ninjas.Main.game.level.width;
-        var levelHeight = ninjas.Main.game.level.height;
-        var cameraOffsetX = ninjas.Main.game.camera.getOffsetX();
-        var cameraOffsetY = ninjas.Main.game.camera.getOffsetY();
-        var canvasWidth = ninjas.Main.game.engine.canvasSystem.getWidth();
-        var canvasHeight = ninjas.Main.game.engine.canvasSystem.getHeight();
-        var imgOffsetX = 0 - (this.shape.getWidth() - canvasWidth) * cameraOffsetX / (levelWidth - canvasWidth);
-        var imgOffsetY = 0 - (this.shape.getHeight() - canvasHeight) * cameraOffsetY / (levelHeight - canvasHeight);
-        imgOffsetX *= this.parallaxRatio;
-        imgOffsetY *= this.parallaxRatio;
-        matter.Body.setPosition(this.shape.body, matter.Vector.create(imgOffsetX + cameraOffsetX + (this.shape.getWidth() / 2), imgOffsetY + cameraOffsetY + (this.shape.getHeight() / 2)));
-    };
-    return ParallaxDeco;
-}(ninjas.Decoration));
-exports.ParallaxDeco = ParallaxDeco;
-
+webpackContext.id = 181;
 
 /***/ })
 /******/ ]);

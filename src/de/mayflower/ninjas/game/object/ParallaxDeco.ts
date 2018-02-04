@@ -20,18 +20,18 @@
         /***************************************************************************************************************
         *   Creates a new parallax decoration.
         *
-        *   @param shape         The shape for this object.
-        *   @param sprite        The sprite to use.
-        *   @param x             Startup position X.
-        *   @param y             Startup position Y.
-        *   @param parallaxRatio The parallax ratio from this game object to the level width. Defaults to 1.0.
+        *   @param shape          The shape for this object.
+        *   @param spriteTemplate The sprite template to use.
+        *   @param x              Startup position X.
+        *   @param y              Startup position Y.
+        *   @param parallaxRatio  The parallax ratio from this game object to the level width. Defaults to 1.0.
         ***************************************************************************************************************/
-        public constructor( shape:ninjas.Shape, sprite:ninjas.Sprite, x:number, y:number, parallaxRatio:number )
+        public constructor( shape:ninjas.Shape, spriteTemplate:ninjas.SpriteTemplate, x:number, y:number, parallaxRatio:number )
         {
             super
             (
                 shape,
-                sprite,
+                spriteTemplate,
                 x,
                 y,
             );

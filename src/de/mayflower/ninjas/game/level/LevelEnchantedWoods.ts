@@ -25,7 +25,7 @@
                 750,
                 880,
                 ninjas.CharacterLookingDirection.RIGHT,
-                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT )
+                ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
             );
 
             // setup all game objects
@@ -41,9 +41,9 @@
                 ninjas.GameObjectFactory.createDecoration( 140, 870, 350, 130, null ),
 
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration( 350,  870, 120, 90, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 850,  870, 120, 90, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 1350, 850, 120, 90, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 350,  870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 850,  870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 1350, 850, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE ),
 
                 // moveable boxes
 
@@ -61,9 +61,9 @@
                 this.player,
 
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration( 600,  870, 120, 90, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 1100, 870, 120, 90, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 1600, 817, 120, 90, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 600,  870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 1100, 870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 1600, 817, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE ),
             ];
         }
     }

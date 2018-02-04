@@ -19,17 +19,24 @@
         *   Creates a new site trigger.
         *
         *   @param shape              The shape for this object.
-        *   @param sprite             The sprite to use.
+        *   @param spriteTemplate     The sprite template to use.
         *   @param x                  Startup position X.
         *   @param y                  Startup position Y.
         *   @param fixedPanelPosition Startup position Y.
         ***************************************************************************************************************/
-        public constructor( shape:ninjas.Shape, sprite:ninjas.Sprite, x:number, y:number, fixedPanelPosition:ninjas.SitePanelPosition )
+        public constructor
+        (
+            shape              :ninjas.Shape,
+            spriteTemplate     :ninjas.SpriteTemplate,
+            x                  :number,
+            y                  :number,
+            fixedPanelPosition :ninjas.SitePanelPosition
+        )
         {
             super
             (
                 shape,
-                sprite,
+                spriteTemplate,
                 x,
                 y
             );

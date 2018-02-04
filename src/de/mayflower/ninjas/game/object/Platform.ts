@@ -33,23 +33,23 @@
         /***************************************************************************************************************
         *   Creates a new platform. Initial position is the first waypoint.
         *
-        *   @param shape     The shape for this object.
-        *   @param sprite    The sprite for this platform.
-        *   @param speed     The speed in pixels per tick.
-        *   @param waypoints The waypoints for this platform to move to.
+        *   @param shape          The shape for this object.
+        *   @param spriteTemplate The sprite template for this platform.
+        *   @param speed          The speed in pixels per tick.
+        *   @param waypoints      The waypoints for this platform to move to.
         ***************************************************************************************************************/
         public constructor
         (
-            shape     :ninjas.Shape,
-            sprite    :ninjas.Sprite,
-            speed     :number,
-            waypoints :Array<matter.Vector>,
+            shape          :ninjas.Shape,
+            spriteTemplate :ninjas.SpriteTemplate,
+            speed          :number,
+            waypoints      :Array<matter.Vector>,
         )
         {
             super
             (
                 shape,
-                sprite,
+                spriteTemplate,
                 0.0,
                 0.0,
             );

@@ -33,28 +33,23 @@
         /***************************************************************************************************************
         *   Creates a new game object.
         *
-        *   @param shape  The shape for this object.
-        *   @param sprite The sprite for this game object.
-        *   @param x      Startup position X.
-        *   @param y      Startup position Y.
+        *   @param shape          The shape for this object.
+        *   @param spriteTemplate The sprite template to use for this game object.
+        *   @param x              Startup position X.
+        *   @param y              Startup position Y.
         ***************************************************************************************************************/
         protected constructor
         (
-            shape  :ninjas.Shape,
-            sprite :ninjas.Sprite,
-            x      :number,
-            y      :number
+            shape          :ninjas.Shape,
+            spriteTemplate :ninjas.SpriteTemplate,
+            x              :number,
+            y              :number
         )
         {
-            this.shape  = shape;
-            this.sprite = sprite;
+            this.shape = shape;
+            this.setSprite( spriteTemplate );
 
             matter.Body.translate( this.shape.body, matter.Vector.create( x, y ) );
-
-            if ( this.sprite != null )
-            {
-                this.setImageFromSprite();
-            }
         }
 
         /***************************************************************************************************************
@@ -72,14 +67,12 @@
                     return;
                 }
 
-                // assign new sprite
+                // assign new sprite and texture
                 this.sprite = new ninjas.Sprite( spriteTemplate );
-
-                // do NOT update body shape dimensions! immediate collisions will occur and block!
-                // this.shape.updateDimensions( this.sprite.width, this.sprite.height );
-
-                // assign new texture for MatterJS rendering object
                 this.setImageFromSprite();
+
+                // do NOT update body shape dimensions! immediate collisions will occur and block the game!
+                // this.shape.updateDimensions( this.sprite.width, this.sprite.height );
             }
         }
 
@@ -88,9 +81,9 @@
         ***************************************************************************************************************/
         public render()
         {
-            // next sprite frame
             if ( this.sprite != null )
             {
+                // render sprite and check frame change
                 if ( this.sprite.render() )
                 {
                     this.setImageFromSprite();

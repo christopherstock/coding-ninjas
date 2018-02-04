@@ -16,29 +16,29 @@
         *   @param x                Startup position X.
         *   @param y                Startup position Y.
         *   @param lookingDirection The initial looking direction.
-        *   @param sprite            The initial image for the player.
+        *   @param spriteTemplate   The initial sprite template to use for the player.
         ***************************************************************************************************************/
         public constructor
         (
             x                :number,
             y                :number,
             lookingDirection :ninjas.CharacterLookingDirection,
-            sprite           :ninjas.Sprite
+            spriteTemplate   :ninjas.SpriteTemplate
         )
         {
             super
             (
                 new ninjas.ShapeRectangle
                 (
-                    sprite.template.width,
-                    sprite.template.height,
+                    spriteTemplate.width,
+                    spriteTemplate.height,
                     ninjas.Setting.COLOR_DEBUG_PLAYER,
                     false,
                     0.0,
                     ninjas.GameObject.FRICTION_DEFAULT,
                     ninjas.GameObject.DENSITY_HUMAN
                 ),
-                sprite,
+                spriteTemplate,
                 x,
                 y,
                 lookingDirection,

@@ -22,7 +22,7 @@
         *
         *   @return The created box.
         ***************************************************************************************************************/
-        public static createCrate(x:number, y:number, width:number, height:number, friction:number, density:number ):ninjas.Movable
+        public static createCrate( x:number, y:number, width:number, height:number, friction:number, density:number ):ninjas.Movable
         {
             return new ninjas.Movable
             (
@@ -36,7 +36,7 @@
                     friction,
                     density
                 ),
-                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_CRATE ),
+                ninjas.SpriteTemplate.SPRITE_CRATE,
                 x,
                 y
             );
@@ -94,7 +94,7 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
-                new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_ITEM ),
+                ninjas.SpriteTemplate.SPRITE_ITEM,
                 x,
                 y
             );
@@ -226,22 +226,31 @@
                     ninjas.GameObject.DENSITY_HUMAN
                 ),
                 x,
-                y
+                y,
+                null
             );
         }
 
         /***************************************************************************************************************
         *   Creates a decoration.
         *
-        *   @param x      Anchor X.
-        *   @param y      Anchor Y.
-        *   @param width  Object width.
-        *   @param height Object height.
-        *   @param sprite The decoration sprite.
+        *   @param x              Anchor X.
+        *   @param y              Anchor Y.
+        *   @param width          Object width.
+        *   @param height         Object height.
+        *   @param spriteTemplate The sprite template to use for this decoration.
         *
         *   @return The created decoration.
         ***************************************************************************************************************/
-        public static createDecoration( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ):ninjas.Decoration
+        public static createDecoration
+        (
+            x              :number,
+            y              :number,
+            width          :number,
+            height         :number,
+            spriteTemplate :ninjas.SpriteTemplate
+        )
+        : ninjas.Decoration
         {
             return new ninjas.Decoration
             (
@@ -255,7 +264,7 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
-                sprite,
+                spriteTemplate,
                 x,
                 y
             );
@@ -264,23 +273,23 @@
         /***************************************************************************************************************
         *   Creates a parallax scrolling decoration.
         *
-        *   @param x             Anchor X.
-        *   @param y             Anchor Y.
-        *   @param width         Object width.
-        *   @param height        Object height.
-        *   @param parallaxRatio The parallax ratio according to the level width.
-        *   @param sprite        The decoration sprite.
+        *   @param x              Anchor X.
+        *   @param y              Anchor Y.
+        *   @param width          Object width.
+        *   @param height         Object height.
+        *   @param parallaxRatio  The parallax ratio according to the level width.
+        *   @param spriteTemplate The decoration sprite.
         *
         *   @return The created decoration.
         ***************************************************************************************************************/
         public static createParallaxDeco
         (
-            x             :number,
-            y             :number,
-            width         :number,
-            height        :number,
-            parallaxRatio :number,
-            sprite        :ninjas.Sprite
+            x              :number,
+            y              :number,
+            width          :number,
+            height         :number,
+            parallaxRatio  :number,
+            spriteTemplate :ninjas.SpriteTemplate
         )
         : ninjas.Decoration
         {
@@ -296,7 +305,7 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
-                sprite,
+                spriteTemplate,
                 x,
                 y,
                 parallaxRatio
@@ -377,15 +386,15 @@
         /***************************************************************************************************************
         *   Creates a sigsaw.
         *
-        *   @param x      Anchor X.
-        *   @param y      Anchor Y.
-        *   @param width  Object width.
-        *   @param height Object height.
-        *   @param sprite The decoration sprite.
+        *   @param x              Anchor X.
+        *   @param y              Anchor Y.
+        *   @param width          Object width.
+        *   @param height         Object height.
+        *   @param spriteTemplate The decoration sprite.
         *
         *   @return The created decoration.
         ***************************************************************************************************************/
-        public static createSigsaw( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ):ninjas.SigSaw
+        public static createSigsaw( x:number, y:number, width:number, height:number, spriteTemplate:ninjas.SpriteTemplate ):ninjas.SigSaw
         {
             return new ninjas.SigSaw
             (
@@ -399,7 +408,7 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     ninjas.GameObject.DENSITY_DEFAULT
                 ),
-                sprite,
+                spriteTemplate,
                 x,
                 y
             );
@@ -408,21 +417,21 @@
         /***************************************************************************************************************
         *   Creates a platform.
         *
-        *   @param width     Object width.
-        *   @param height    Object height.
-        *   @param sprite    The decoration sprite.
-        *   @param speed     Moving speed of the platform in px per tick.
-        *   @param waypoints Moving waypoints. First waypoint is the startup position.
+        *   @param width          Object width.
+        *   @param height         Object height.
+        *   @param spriteTemplate The decoration sprite.
+        *   @param speed          Moving speed of the platform in px per tick.
+        *   @param waypoints      Moving waypoints. First waypoint is the startup position.
         *
         *   @return The created decoration.
         ***************************************************************************************************************/
         public static createPlatform
         (
-            width     :number,
-            height    :number,
-            sprite    :ninjas.Sprite,
-            speed     :number,
-            waypoints :Array<matter.Vector>
+            width          :number,
+            height         :number,
+            spriteTemplate :ninjas.SpriteTemplate,
+            speed          :number,
+            waypoints      :Array<matter.Vector>
         )
         :ninjas.Platform
         {
@@ -438,7 +447,7 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
-                sprite,
+                spriteTemplate,
                 speed,
                 waypoints,
             );
@@ -447,15 +456,15 @@
         /***************************************************************************************************************
          *   Creates a bounce.
          *
-         *   @param x      Anchor X.
-         *   @param y      Anchor Y.
-         *   @param width  Object width.
-         *   @param height Object height.
-         *   @param sprite The decoration sprite.
+         *   @param x              Anchor X.
+         *   @param y              Anchor Y.
+         *   @param width          Object width.
+         *   @param height         Object height.
+         *   @param spriteTemplate The decoration sprite.
          *
          *   @return The created decoration.
          ***************************************************************************************************************/
-        public static createBounce( x:number, y:number, width:number, height:number, sprite:ninjas.Sprite ):ninjas.Bounce
+        public static createBounce( x:number, y:number, width:number, height:number, spriteTemplate:ninjas.SpriteTemplate ):ninjas.Bounce
         {
             return new ninjas.Bounce
             (
@@ -469,7 +478,7 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     ninjas.GameObject.DENSITY_DEFAULT
                 ),
-                sprite,
+                spriteTemplate,
                 x,
                 y
             );

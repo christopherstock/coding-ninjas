@@ -12,17 +12,17 @@
         /***************************************************************************************************************
         *   Creates a new decoration.
         *
-        *   @param shape  The shape for this object.
-        *   @param sprite The sprite to use.
-        *   @param x      Startup position X.
-        *   @param y      Startup position Y.
+        *   @param shape          The shape for this object.
+        *   @param spriteTemplate The sprite template to use.
+        *   @param x              Startup position X.
+        *   @param y              Startup position Y.
         ***************************************************************************************************************/
-        public constructor( shape:ninjas.Shape, sprite:ninjas.Sprite, x:number, y:number  )
+        public constructor( shape:ninjas.Shape, spriteTemplate:ninjas.SpriteTemplate, x:number, y:number  )
         {
             super
             (
                 shape,
-                sprite,
+                spriteTemplate,
                 x,
                 y,
             );
