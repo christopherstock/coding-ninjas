@@ -27554,44 +27554,43 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO Create parallax bg images in bg and fg (new game object class 'parallex deco' extending deco!).
+*   TODO Parallax Fence in fg. ( parallax machanism for game decos ? )
+*   TODO Craft and complete parallax game objects!
+*
 *   TODO Move game object classes to appropriate subpackages!
 *   TODO move all system classes to package game/engine /io .. ?
+*   TODO GameObjectFactory: All params to SpriteTemplate instead sprite! Check propagation in game object?
 *   TODO refactor to class class SitePanel. All fields private and reference both container divs !!!
-*   TODO Remove timeout and use Enine.events.tick?
 *   TODO Auto-release all keys on losing canvas focus?
+*   TODO Create static spriteTemplate creator for single image sprites.
+*   TODO Remove timeout and use Enine.events.tick?
 *   TODO Add translucent overlay for blend effects.
+*   TODO Y location for all creator methods on bottom instead of on top?
 *   TODO Add 'attack' action and sprite.
 *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
-*   TODO Craft and complete parallax game objects!
-*   TODO Parallax Fence in fg. ( parallax machanism for game decos ? )
-*   TODO Create parallax bg images in bg and fg (pick parallex class!).
-*   TODO Enable different animations for site panel.
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO create class HUD and assign its non-static method paintHud?
 *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
+*   TODO Fix flickering wow effects in all browsers.
 *   TODO only mirror images where a mirrored SpriteTemplate exists!
 *   TODO Prevent ALL images from being mirrored?
-*   TODO Fix camera on first scene (floating in).
 *   TODO Create HUD.
 *   TODO Create item pickup HUD effect!
-*   TODO Add tutorial notifiers.
-*   TODO Add react and ant design / ant design pro.
-*   TODO Add react for site content creation.
-*   TODO Add ant design for site contents.
+*   TODO Add tutorial notifiers?
 *   TODO Setting: extract debub settings, engine settings etc. > own package?
 *   TODO outsource lib classes to package de.mayflower.lib??
-*   TODO Add cucumber tests.
-*   TODO Add jest tests.
-*   TODO separate maximum camera moving speed if fixed target is active?
+*   TODO Fix camera on first scene (floating in).
 *   TODO create method updateBody() for all shape classes??
+*   TODO Try sound error handling! (Safari etc.)
+*
+*   TODO Add react for site content creation.
+*   TODO Try ant design (pro?) in front panel.
+*   TODO Add jest tests.
+*   TODO Add cucumber tests.
 *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
-*   TODO Try ant design in front panel.
-*   TODO Try sound error handling! (Safari etc.)
-*   TODO Add jest tests.
-*   TODO Add cucumber tests.
-*   TODO Fix flickering wow effects in all browsers.
 *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
 *   TODO Test in all browsers.
 *
@@ -27700,7 +27699,9 @@ var Level = /** @class */ (function () {
         }
         // test rendering parallax objects
         if (this.parallaxTest != null) {
-            matter.Body.setPosition(this.parallaxTest.shape.body, matter.Vector.create(ninjas.Main.game.camera.getOffsetX() + (this.parallaxTest.shape.getWidth() / 2), ninjas.Main.game.camera.getOffsetY() + (this.parallaxTest.shape.getHeight() / 2)));
+            var imgOffsetX = 0 - (this.parallaxTest.shape.getWidth() - ninjas.Main.game.engine.canvasSystem.getWidth()) * ninjas.Main.game.camera.getOffsetX() / (this.width - ninjas.Main.game.engine.canvasSystem.getWidth());
+            var imgOffsetY = 0 - (this.parallaxTest.shape.getHeight() - ninjas.Main.game.engine.canvasSystem.getHeight()) * ninjas.Main.game.camera.getOffsetY() / (this.height - ninjas.Main.game.engine.canvasSystem.getHeight());
+            matter.Body.setPosition(this.parallaxTest.shape.body, matter.Vector.create(imgOffsetX + ninjas.Main.game.camera.getOffsetX() + (this.parallaxTest.shape.getWidth() / 2), imgOffsetY + ninjas.Main.game.camera.getOffsetY() + (this.parallaxTest.shape.getHeight() / 2)));
         }
         var e_2, _c;
     };
@@ -27950,16 +27951,16 @@ var LevelWebsite = /** @class */ (function (_super) {
     function LevelWebsite() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         /** The width of this level. */
-        _this.width = 10000.0;
+        _this.width = 5000.0;
         /** The height of this level. */
-        _this.height = 10000.0;
+        _this.height = 5000.0;
         return _this;
     }
     /***************************************************************************************************************
     *   Inits a new level.
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
-        this.parallaxTest = ninjas.GameObjectFactory.createDecoration(0, 0, 500, 150, null);
+        this.parallaxTest = ninjas.GameObjectFactory.createDecoration(0, 0, 1600, 800, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_BG_TEST));
         // init player
         this.player = new ninjas.Player(0, 0, ninjas.CharacterLookingDirection.LEFT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
@@ -27968,14 +27969,19 @@ var LevelWebsite = /** @class */ (function (_super) {
                 // parallax background
                 this.parallaxTest,
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle(0, 350, 2000, 15, 0.0, false),
-                ninjas.GameObjectFactory.createObstacle(2000, 1000, 7000, 15, 0.0, false),
-                // bg decoration
-                ninjas.GameObjectFactory.createDecoration(2080, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(20370, 830, 76, 170, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_TREE)),
-                // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger(2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT),
-                ninjas.GameObjectFactory.createSiteTrigger(3200, 500, 600, 500, ninjas.SitePanelPosition.NONE),
+                ninjas.GameObjectFactory.createObstacle(0, 500, 2000, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(0, 5000 - 15, 5000, 15, 0.0, false),
+                /*
+                                ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
+                
+                                // bg decoration
+                                ninjas.GameObjectFactory.createDecoration( 2080,  830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
+                                ninjas.GameObjectFactory.createDecoration( 20370, 830, 76, 170, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_TREE ) ),
+                
+                                // site trigger
+                                ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
+                                ninjas.GameObjectFactory.createSiteTrigger( 3200, 500, 600, 500, ninjas.SitePanelPosition.NONE ),
+                */
                 /*
                                 // moveable boxes
                                 ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
@@ -31098,6 +31104,8 @@ var Image = /** @class */ (function () {
     Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
     /** Image resource 'tree'. */
     Image.IMAGE_TREE = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
+    /** A test bg image. */
+    Image.IMAGE_BG_TEST = ninjas.Setting.PATH_IMAGE_LEVEL + "bgTest.jpg";
     /** An array holding all filenames of all images to load. */
     Image.FILE_NAMES = [
         Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
@@ -31129,6 +31137,7 @@ var Image = /** @class */ (function () {
         Image.IMAGE_ITEM,
         Image.IMAGE_TREE,
         Image.IMAGE_BOX,
+        Image.IMAGE_BG_TEST
     ];
     return Image;
 }());
@@ -31618,15 +31627,19 @@ var SpriteTemplate = /** @class */ (function () {
     /** Sprite 'crate'. */
     SpriteTemplate.SPRITE_CRATE = new SpriteTemplate([
         ninjas.Image.IMAGE_BOX,
-    ], 10, ninjas.MirrorImage.NO, LoopSprite.NO);
+    ], 0, ninjas.MirrorImage.NO, LoopSprite.NO);
     /** Sprite 'item'. */
     SpriteTemplate.SPRITE_ITEM = new SpriteTemplate([
         ninjas.Image.IMAGE_ITEM,
-    ], 10, ninjas.MirrorImage.NO, LoopSprite.NO);
+    ], 0, ninjas.MirrorImage.NO, LoopSprite.NO);
     /** Sprite 'tree'. */
     SpriteTemplate.SPRITE_TREE = new SpriteTemplate([
         ninjas.Image.IMAGE_TREE,
-    ], 10, ninjas.MirrorImage.NO, LoopSprite.NO);
+    ], 0, ninjas.MirrorImage.NO, LoopSprite.NO);
+    /** Sprite 'bg test'. */
+    SpriteTemplate.SPRITE_BG_TEST = new SpriteTemplate([
+        ninjas.Image.IMAGE_BG_TEST,
+    ], 0, ninjas.MirrorImage.NO, LoopSprite.NO);
     /** A reference over all sprite templates. */
     SpriteTemplate.ALL_SPRITE_TEMPLATES = [
         SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT,
@@ -31640,6 +31653,7 @@ var SpriteTemplate = /** @class */ (function () {
         SpriteTemplate.SPRITE_CRATE,
         SpriteTemplate.SPRITE_ITEM,
         SpriteTemplate.SPRITE_TREE,
+        SpriteTemplate.SPRITE_BG_TEST,
     ];
     return SpriteTemplate;
 }());

@@ -55,11 +55,15 @@
             // test rendering parallax objects
             if ( this.parallaxTest != null )
             {
-                matter.Body.setPosition(
+                let imgOffsetX :number = 0 - ( this.parallaxTest.shape.getWidth()  - ninjas.Main.game.engine.canvasSystem.getWidth()  ) * ninjas.Main.game.camera.getOffsetX() / ( this.width  - ninjas.Main.game.engine.canvasSystem.getWidth()  );
+                let imgOffsetY :number = 0 - ( this.parallaxTest.shape.getHeight() - ninjas.Main.game.engine.canvasSystem.getHeight() ) * ninjas.Main.game.camera.getOffsetY() / ( this.height - ninjas.Main.game.engine.canvasSystem.getHeight() );
+
+                matter.Body.setPosition
+                (
                     this.parallaxTest.shape.body,
                     matter.Vector.create(
-                        ninjas.Main.game.camera.getOffsetX() + ( this.parallaxTest.shape.getWidth()  / 2 ),
-                        ninjas.Main.game.camera.getOffsetY() + ( this.parallaxTest.shape.getHeight() / 2 )
+                        imgOffsetX + ninjas.Main.game.camera.getOffsetX() + ( this.parallaxTest.shape.getWidth()  / 2 ),
+                        imgOffsetY + ninjas.Main.game.camera.getOffsetY() + ( this.parallaxTest.shape.getHeight() / 2 )
                     )
                 )
             }

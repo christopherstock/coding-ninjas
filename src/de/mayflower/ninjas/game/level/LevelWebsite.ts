@@ -10,16 +10,17 @@
     export class LevelWebsite extends ninjas.Level
     {
         /** The width of this level. */
-        public      width                   :number                     = 10000.0;
+        public      width                   :number                     = 5000.0;
         /** The height of this level. */
-        public      height                  :number                     = 10000.0;
+        public      height                  :number                     = 5000.0;
 
         /***************************************************************************************************************
         *   Inits a new level.
         ***************************************************************************************************************/
         protected createGameObjects()
         {
-            this.parallaxTest = ninjas.GameObjectFactory.createDecoration( 0,  0, 500, 150, null );
+            this.parallaxTest = ninjas.GameObjectFactory.createDecoration( 0,  0, 1600, 800, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_BG_TEST ) );
+
 
 
             // init player
@@ -40,7 +41,9 @@
 
 
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle( 0,    350,  2000, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 0, 500, 2000, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 0, 5000 - 15, 5000, 15, 0.0,  false ),
+/*
                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
 
                 // bg decoration
@@ -50,7 +53,7 @@
                 // site trigger
                 ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3200, 500, 600, 500, ninjas.SitePanelPosition.NONE ),
-
+*/
 
 /*
                 // moveable boxes

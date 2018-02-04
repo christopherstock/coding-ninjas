@@ -73,6 +73,9 @@
         /** Image resource 'tree'. */
         public      static      IMAGE_TREE                                  :string         = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
 
+        /** A test bg image. */
+        public      static      IMAGE_BG_TEST                               :string         = ninjas.Setting.PATH_IMAGE_LEVEL + "bgTest.jpg";
+
         /** An array holding all filenames of all images to load. */
         public      static      FILE_NAMES                                  :Array<string>  =
         [
@@ -109,5 +112,7 @@
             Image.IMAGE_ITEM,
             Image.IMAGE_TREE,
             Image.IMAGE_BOX,
+
+            Image.IMAGE_BG_TEST
         ];
     }

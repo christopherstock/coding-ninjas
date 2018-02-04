@@ -156,7 +156,7 @@
             [
                 ninjas.Image.IMAGE_BOX,
             ],
-            10,
+            0,
             ninjas.MirrorImage.NO,
             LoopSprite.NO
         );
@@ -167,7 +167,7 @@
             [
                 ninjas.Image.IMAGE_ITEM,
             ],
-            10,
+            0,
             ninjas.MirrorImage.NO,
             LoopSprite.NO
         );
@@ -178,7 +178,18 @@
             [
                 ninjas.Image.IMAGE_TREE,
             ],
-            10,
+            0,
+            ninjas.MirrorImage.NO,
+            LoopSprite.NO
+        );
+
+        /** Sprite 'bg test'. */
+        public      static  SPRITE_BG_TEST                              :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_BG_TEST,
+            ],
+            0,
             ninjas.MirrorImage.NO,
             LoopSprite.NO
         );
@@ -197,6 +208,7 @@
             SpriteTemplate.SPRITE_CRATE,
             SpriteTemplate.SPRITE_ITEM,
             SpriteTemplate.SPRITE_TREE,
+            SpriteTemplate.SPRITE_BG_TEST,
         ];
 
         /** All image ids this sprite consists of. */
