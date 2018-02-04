@@ -150,50 +150,6 @@
             LoopSprite.NO
         );
 
-        /** Sprite 'crate'. */
-        public      static  SPRITE_CRATE                                :SpriteTemplate         = new SpriteTemplate
-        (
-            [
-                ninjas.Image.IMAGE_BOX,
-            ],
-            0,
-            ninjas.MirrorImage.NO,
-            LoopSprite.NO
-        );
-
-        /** Sprite 'item'. */
-        public      static  SPRITE_ITEM                                 :SpriteTemplate         = new SpriteTemplate
-        (
-            [
-                ninjas.Image.IMAGE_ITEM,
-            ],
-            0,
-            ninjas.MirrorImage.NO,
-            LoopSprite.NO
-        );
-
-        /** Sprite 'tree'. */
-        public      static  SPRITE_TREE                                 :SpriteTemplate         = new SpriteTemplate
-        (
-            [
-                ninjas.Image.IMAGE_TREE,
-            ],
-            0,
-            ninjas.MirrorImage.NO,
-            LoopSprite.NO
-        );
-
-        /** Sprite 'bg test'. */
-        public      static  SPRITE_BG_TEST                              :SpriteTemplate         = new SpriteTemplate
-        (
-            [
-                ninjas.Image.IMAGE_BG_TEST,
-            ],
-            0,
-            ninjas.MirrorImage.NO,
-            LoopSprite.NO
-        );
-
         /** A reference over all sprite templates. */
         private     static  ALL_SPRITE_TEMPLATES                        :Array<SpriteTemplate>  =
         [
@@ -205,10 +161,6 @@
             SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT,
             SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT,
             SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT,
-            SpriteTemplate.SPRITE_CRATE,
-            SpriteTemplate.SPRITE_ITEM,
-            SpriteTemplate.SPRITE_TREE,
-            SpriteTemplate.SPRITE_BG_TEST,
         ];
 
         /** All image ids this sprite consists of. */
@@ -260,6 +212,21 @@
             {
                 SpriteTemplate.ALL_SPRITE_TEMPLATES[ i ].assignImageSizes();
             }
+        }
+
+        /***************************************************************************************************************
+        *   Creates a single framed sprite template of the specified image.
+        *
+        *   @param imageId The id of the image to use for this sprite.
+        ***************************************************************************************************************/
+        public static createFromSingleImage( imageId:string )
+        {
+            return new SpriteTemplate(
+                [ imageId ],
+                0,
+                ninjas.MirrorImage.NO,
+                ninjas.LoopSprite.NO
+            );
         }
 
         /***************************************************************************************************************

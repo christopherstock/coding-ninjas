@@ -24,7 +24,7 @@
         ***************************************************************************************************************/
         public static createCrate( x:number, y:number, width:number, height:number, friction:number, density:number ):ninjas.Movable
         {
-            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.SPRITE_CRATE;
+            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_CRATE );
 
             return new ninjas.Movable
             (
@@ -96,7 +96,7 @@
                     ninjas.GameObject.FRICTION_DEFAULT,
                     Infinity
                 ),
-                ninjas.SpriteTemplate.SPRITE_ITEM,
+                ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_ITEM ),
                 x,
                 y
             );
@@ -267,8 +267,6 @@
         *
         *   @param x              Anchor X.
         *   @param y              Anchor Y.
-        *   @param width          Object width.
-        *   @param height         Object height.
         *   @param parallaxRatio  The parallax ratio according to the level width.
         *   @param spriteTemplate The decoration sprite.
         *
@@ -278,8 +276,6 @@
         (
             x              :number,
             y              :number,
-            width          :number,
-            height         :number,
             parallaxRatio  :number,
             spriteTemplate :ninjas.SpriteTemplate
         )
@@ -289,8 +285,8 @@
             (
                 new ninjas.ShapeRectangle
                 (
-                    width,
-                    height,
+                    spriteTemplate.width,
+                    spriteTemplate.height,
                     ninjas.Setting.COLOR_DEBUG_DECORATION,
                     true,
                     0.0,

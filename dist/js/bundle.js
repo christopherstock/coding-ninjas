@@ -27404,7 +27404,7 @@ var Setting = /** @class */ (function () {
     /** The minimum camera moving speed in px per move. */
     Setting.CAMERA_MOVING_MINIMUM = 2.0;
     /** The maximum camera moving speed in px per move. */
-    Setting.CAMERA_MOVING_MAXIMUM = 50.0;
+    Setting.CAMERA_MOVING_MAXIMUM = 25.0;
     /** The color of the canvas bg. */
     Setting.CANVAS_BG = "#000000";
     /** The border size for the site panel and all HUD elements in px. */
@@ -27553,9 +27553,7 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Auto-release all keys on losing canvas focus?
-*   TODO Create static spriteTemplate creator for single image sprites.
-*   TODO Y location for all creator methods on bottom instead of on top?
+*   TODO Y location for all CREATOR methods on bottom instead of on top?
 *   TODO Split class 'Setting': extract debub settings, engine settings, matter/physics settings etc. > own package?
 *   TODO Remove timeout and use Enine.events.tick?
 *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
@@ -28994,8 +28992,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createObstacle(3230, 830, 500, 15, 0.0, false),
                 ninjas.GameObjectFactory.createObstacle(4080, 730, 500, 15, 0.0, false),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(30, 450, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(370, 450, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(30, 450, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(370, 450, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
@@ -29044,8 +29042,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 // enemies (fg)
                 ninjas.GameObjectFactory.createEnemy(1200, 0),
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(200, 450, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(3230, 660, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(200, 450, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(3230, 660, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
             ];
     };
     return LevelAllElements;
@@ -29103,9 +29101,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // hut
                 // ninjas.GameObjectFactory.createDecoration( 140, 870, 350, 130, null ),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(350, 870, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(850, 870, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(1350, 850, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(350, 870, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(850, 870, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1350, 850, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 // moveable boxes
                 // sigsaws
                 // items
@@ -29117,9 +29115,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // player
                 this.player,
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(600, 870, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(1100, 870, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(1600, 817, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(600, 870, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1100, 870, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1600, 817, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
             ];
     };
     return LevelEnchantedWoods;
@@ -29170,18 +29168,16 @@ var LevelWebsite = /** @class */ (function (_super) {
         // setup all game objects
         this.gameObjects =
             [
-                /*
-                                // parallax background
-                                ninjas.GameObjectFactory.createParallaxDeco( 0,  0, 1600, 800, 1.0, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_BG_TEST ) ),
-                */
+                // parallax background
+                ninjas.GameObjectFactory.createParallaxDeco(0, 0, 1.0, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BG_TEST)),
                 // grounds and walls
                 ninjas.GameObjectFactory.createObstacle(0, 2500, 5000, 15, 0.0, false),
                 /*
                                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
                 */
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(800, 2500, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(800, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 /*
                                 // site trigger
                                 ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
@@ -29248,7 +29244,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
                 */
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(2670, 830, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(2670, 830, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
             ];
     };
     return LevelWebsite;
@@ -30507,7 +30503,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created box.
     ***************************************************************************************************************/
     GameObjectFactory.createCrate = function (x, y, width, height, friction, density) {
-        var sprtiteTemplate = ninjas.SpriteTemplate.SPRITE_CRATE;
+        var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE);
         return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), sprtiteTemplate, x, y);
     };
     /***************************************************************************************************************
@@ -30533,7 +30529,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created item.
     ***************************************************************************************************************/
     GameObjectFactory.createItem = function (x, y) {
-        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.Setting.COLOR_DEBUG_ITEM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), ninjas.SpriteTemplate.SPRITE_ITEM, x, y);
+        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.Setting.COLOR_DEBUG_ITEM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_ITEM), x, y);
     };
     /***************************************************************************************************************
     *   Creates an rectangular obstacle.
@@ -30613,15 +30609,13 @@ var GameObjectFactory = /** @class */ (function () {
     *
     *   @param x              Anchor X.
     *   @param y              Anchor Y.
-    *   @param width          Object width.
-    *   @param height         Object height.
     *   @param parallaxRatio  The parallax ratio according to the level width.
     *   @param spriteTemplate The decoration sprite.
     *
     *   @return The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createParallaxDeco = function (x, y, width, height, parallaxRatio, spriteTemplate) {
-        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, x, y, parallaxRatio);
+    GameObjectFactory.createParallaxDeco = function (x, y, parallaxRatio, spriteTemplate) {
+        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, x, y, parallaxRatio);
     };
     /***************************************************************************************************************
     *   Creates a site trigger.
@@ -32305,8 +32299,8 @@ var Image = /** @class */ (function () {
     Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "fallingRight/02.png";
     /** Image resource 'ninja girl falling right frame 3'. */
     Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "fallingRight/03.png";
-    /** Image resource 'box'. */
-    Image.IMAGE_BOX = ninjas.Setting.PATH_IMAGE_LEVEL + "box.jpg";
+    /** Image resource 'crate'. */
+    Image.IMAGE_CRATE = ninjas.Setting.PATH_IMAGE_LEVEL + "crate.jpg";
     /** Image resource 'item'. */
     Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
     /** Image resource 'tree'. */
@@ -32343,7 +32337,7 @@ var Image = /** @class */ (function () {
         Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
         Image.IMAGE_ITEM,
         Image.IMAGE_TREE,
-        Image.IMAGE_BOX,
+        Image.IMAGE_CRATE,
         Image.IMAGE_BG_TEST
     ];
     return Image;
@@ -32531,6 +32525,14 @@ var SpriteTemplate = /** @class */ (function () {
         }
     };
     /***************************************************************************************************************
+    *   Creates a single framed sprite template of the specified image.
+    *
+    *   @param imageId The id of the image to use for this sprite.
+    ***************************************************************************************************************/
+    SpriteTemplate.createFromSingleImage = function (imageId) {
+        return new SpriteTemplate([imageId], 0, ninjas.MirrorImage.NO, ninjas.LoopSprite.NO);
+    };
+    /***************************************************************************************************************
     *   Assigns the image dimensions of the first frame for this sprite template.
     ***************************************************************************************************************/
     SpriteTemplate.prototype.assignImageSizes = function () {
@@ -32620,22 +32622,6 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
         ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
     ], 10, ninjas.MirrorImage.NO, LoopSprite.NO);
-    /** Sprite 'crate'. */
-    SpriteTemplate.SPRITE_CRATE = new SpriteTemplate([
-        ninjas.Image.IMAGE_BOX,
-    ], 0, ninjas.MirrorImage.NO, LoopSprite.NO);
-    /** Sprite 'item'. */
-    SpriteTemplate.SPRITE_ITEM = new SpriteTemplate([
-        ninjas.Image.IMAGE_ITEM,
-    ], 0, ninjas.MirrorImage.NO, LoopSprite.NO);
-    /** Sprite 'tree'. */
-    SpriteTemplate.SPRITE_TREE = new SpriteTemplate([
-        ninjas.Image.IMAGE_TREE,
-    ], 0, ninjas.MirrorImage.NO, LoopSprite.NO);
-    /** Sprite 'bg test'. */
-    SpriteTemplate.SPRITE_BG_TEST = new SpriteTemplate([
-        ninjas.Image.IMAGE_BG_TEST,
-    ], 0, ninjas.MirrorImage.NO, LoopSprite.NO);
     /** A reference over all sprite templates. */
     SpriteTemplate.ALL_SPRITE_TEMPLATES = [
         SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT,
@@ -32646,10 +32632,6 @@ var SpriteTemplate = /** @class */ (function () {
         SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT,
         SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT,
         SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT,
-        SpriteTemplate.SPRITE_CRATE,
-        SpriteTemplate.SPRITE_ITEM,
-        SpriteTemplate.SPRITE_TREE,
-        SpriteTemplate.SPRITE_BG_TEST,
     ];
     return SpriteTemplate;
 }());

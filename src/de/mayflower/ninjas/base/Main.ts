@@ -4,8 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Create static spriteTemplate creator for single image sprites.
-    *   TODO Y location for all creator methods on bottom instead of on top?
+    *   TODO Y location for all CREATOR methods on bottom instead of on top?
     *   TODO Split class 'Setting': extract debub settings, engine settings, matter/physics settings etc. > own package?
     *   TODO Remove timeout and use Enine.events.tick?
     *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!

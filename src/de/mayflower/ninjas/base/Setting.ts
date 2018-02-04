@@ -41,7 +41,7 @@
         /** The minimum camera moving speed in px per move. */
         public      static  readonly    CAMERA_MOVING_MINIMUM                       :number                     = 2.0;
         /** The maximum camera moving speed in px per move. */
-        public      static  readonly    CAMERA_MOVING_MAXIMUM                       :number                     = 50.0;
+        public      static  readonly    CAMERA_MOVING_MAXIMUM                       :number                     = 25.0;
 
         /** The color of the canvas bg. */
         public      static  readonly    CANVAS_BG                                   :string                     = "#000000";
