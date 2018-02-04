@@ -77,7 +77,8 @@
             matter.Body.setPosition
             (
                 this.shape.body,
-                matter.Vector.create(
+                matter.Vector.create
+                (
                     imgOffsetX + cameraOffsetX + ( this.shape.getWidth()  / 2 ),
                     imgOffsetY + cameraOffsetY + ( this.shape.getHeight() / 2 )
                 )

@@ -29164,14 +29164,15 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(0, 2000, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+        this.player = new ninjas.Player(0, 0, // 2000,
+        ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         // setup all game objects
         this.gameObjects =
             [
                 // parallax background
-                ninjas.GameObjectFactory.createParallaxDeco(0, 0, 1.0, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BG_TEST)),
+                ninjas.GameObjectFactory.createParallaxDeco(0, 2200, 1.0, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BG_TEST)),
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle(0, 2500, 5000, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(0, 4985, 5000, 15, 0.0, false),
                 /*
                                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
                 */
@@ -32530,7 +32531,10 @@ var SpriteTemplate = /** @class */ (function () {
     *   @param imageId The id of the image to use for this sprite.
     ***************************************************************************************************************/
     SpriteTemplate.createFromSingleImage = function (imageId) {
-        return new SpriteTemplate([imageId], 0, ninjas.MirrorImage.NO, ninjas.LoopSprite.NO);
+        var spriteTemplate = new SpriteTemplate([imageId], 0, ninjas.MirrorImage.NO, ninjas.LoopSprite.NO);
+        spriteTemplate.width = ninjas.Main.game.engine.imageSystem.getImage(imageId).width;
+        spriteTemplate.height = ninjas.Main.game.engine.imageSystem.getImage(imageId).height;
+        return spriteTemplate;
     };
     /***************************************************************************************************************
     *   Assigns the image dimensions of the first frame for this sprite template.

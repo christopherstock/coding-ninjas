@@ -221,12 +221,17 @@
         ***************************************************************************************************************/
         public static createFromSingleImage( imageId:string )
         {
-            return new SpriteTemplate(
+            let spriteTemplate:SpriteTemplate = new SpriteTemplate(
                 [ imageId ],
                 0,
                 ninjas.MirrorImage.NO,
                 ninjas.LoopSprite.NO
             );
+
+            spriteTemplate.width  = ninjas.Main.game.engine.imageSystem.getImage( imageId ).width;
+            spriteTemplate.height = ninjas.Main.game.engine.imageSystem.getImage( imageId ).height;
+
+            return spriteTemplate;
         }
 
         /***************************************************************************************************************

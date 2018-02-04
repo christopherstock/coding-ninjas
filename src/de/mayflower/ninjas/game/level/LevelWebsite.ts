@@ -23,7 +23,7 @@
             this.player = new ninjas.Player
             (
                 0,
-                2000,
+                0, // 2000,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
             );
@@ -33,10 +33,10 @@
             [
 
                 // parallax background
-                ninjas.GameObjectFactory.createParallaxDeco( 0,  2000, 1.0, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BG_TEST ) ),
+                ninjas.GameObjectFactory.createParallaxDeco( 0,  2200, 1.0, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BG_TEST ) ),
 
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle( 0, 2500, 5000, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 0, 4985, 5000, 15, 0.0,  false ),
 /*
                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
 */
