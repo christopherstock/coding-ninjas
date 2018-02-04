@@ -27553,7 +27553,6 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Prune width and height from decoration (check other game objects)? Use Sprite size instead!
 *   TODO Auto-release all keys on losing canvas focus?
 *   TODO Create static spriteTemplate creator for single image sprites.
 *   TODO Y location for all creator methods on bottom instead of on top?
@@ -27566,6 +27565,7 @@ var ninjas = __webpack_require__(1);
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO create method updateBody() for all shape classes??
 *   TODO Try sound error handling! (Safari etc.)
+*   TODO Prune all levels except LevelWebsite.
 *
 *   TODO Complete the MVP!
 *
@@ -28987,8 +28987,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createObstacle(3230, 830, 500, 15, 0.0, false),
                 ninjas.GameObjectFactory.createObstacle(4080, 730, 500, 15, 0.0, false),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(30, 450, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(370, 450, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(30, 450, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(370, 450, ninjas.SpriteTemplate.SPRITE_TREE),
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createSphere(350, 240, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
@@ -29037,8 +29037,8 @@ var LevelAllElements = /** @class */ (function (_super) {
                 // enemies (fg)
                 ninjas.GameObjectFactory.createEnemy(1200, 0),
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(200, 450, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(3230, 660, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(200, 450, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(3230, 660, ninjas.SpriteTemplate.SPRITE_TREE),
             ];
     };
     return LevelAllElements;
@@ -29094,11 +29094,11 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createElevatedRamp(1250, 1000, 750, 500, -100.0),
                 ninjas.GameObjectFactory.createObstacle(2000, 900, 1250, 500, 0.0, false),
                 // hut
-                ninjas.GameObjectFactory.createDecoration(140, 870, 350, 130, null),
+                // ninjas.GameObjectFactory.createDecoration( 140, 870, 350, 130, null ),
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(350, 870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(850, 870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(1350, 850, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(350, 870, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(850, 870, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(1350, 850, ninjas.SpriteTemplate.SPRITE_TREE),
                 // moveable boxes
                 // sigsaws
                 // items
@@ -29110,9 +29110,9 @@ var LevelEnchantedWoods = /** @class */ (function (_super) {
                 // player
                 this.player,
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(600, 870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(1100, 870, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(1600, 817, 120, 90, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(600, 870, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(1100, 870, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(1600, 817, ninjas.SpriteTemplate.SPRITE_TREE),
             ];
     };
     return LevelEnchantedWoods;
@@ -29173,8 +29173,8 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
                 */
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(400, 2500, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
-                ninjas.GameObjectFactory.createDecoration(800, 2500, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(800, 2500, ninjas.SpriteTemplate.SPRITE_TREE),
                 /*
                                 // site trigger
                                 ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
@@ -29241,7 +29241,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
                 */
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration(2670, 830, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE),
+                ninjas.GameObjectFactory.createDecoration(2670, 830, ninjas.SpriteTemplate.SPRITE_TREE),
             ];
     };
     return LevelWebsite;
@@ -30500,7 +30500,8 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created box.
     ***************************************************************************************************************/
     GameObjectFactory.createCrate = function (x, y, width, height, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), ninjas.SpriteTemplate.SPRITE_CRATE, x, y);
+        var sprtiteTemplate = ninjas.SpriteTemplate.SPRITE_CRATE;
+        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), sprtiteTemplate, x, y);
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -30593,14 +30594,12 @@ var GameObjectFactory = /** @class */ (function () {
     *
     *   @param x              Anchor X.
     *   @param y              Anchor Y.
-    *   @param width          Object width.
-    *   @param height         Object height.
     *   @param spriteTemplate The sprite template to use for this decoration.
     *
     *   @return The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createDecoration = function (x, y, width, height, spriteTemplate) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, x, y);
+    GameObjectFactory.createDecoration = function (x, y, spriteTemplate) {
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.width, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, x, y);
     };
     /***************************************************************************************************************
     *   Creates a parallax scrolling decoration.

@@ -24,19 +24,21 @@
         ***************************************************************************************************************/
         public static createCrate( x:number, y:number, width:number, height:number, friction:number, density:number ):ninjas.Movable
         {
+            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.SPRITE_CRATE;
+
             return new ninjas.Movable
             (
                 new ninjas.ShapeRectangle
                 (
-                    width,
-                    height,
+                    sprtiteTemplate.width,
+                    sprtiteTemplate.height,
                     ninjas.Setting.COLOR_DEBUG_BOX,
                     false,
                     0.0,
                     friction,
                     density
                 ),
-                ninjas.SpriteTemplate.SPRITE_CRATE,
+                sprtiteTemplate,
                 x,
                 y
             );
@@ -236,28 +238,18 @@
         *
         *   @param x              Anchor X.
         *   @param y              Anchor Y.
-        *   @param width          Object width.
-        *   @param height         Object height.
         *   @param spriteTemplate The sprite template to use for this decoration.
         *
         *   @return The created decoration.
         ***************************************************************************************************************/
-        public static createDecoration
-        (
-            x              :number,
-            y              :number,
-            width          :number,
-            height         :number,
-            spriteTemplate :ninjas.SpriteTemplate
-        )
-        : ninjas.Decoration
+        public static createDecoration( x:number, y:number, spriteTemplate:ninjas.SpriteTemplate ) : ninjas.Decoration
         {
             return new ninjas.Decoration
             (
                 new ninjas.ShapeRectangle
                 (
-                    width,
-                    height,
+                    spriteTemplate.width,
+                    spriteTemplate.width,
                     ninjas.Setting.COLOR_DEBUG_DECORATION,
                     true,
                     0.0,

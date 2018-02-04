@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Prune width and height from decoration (check other game objects)? Use Sprite size instead!
     *   TODO Auto-release all keys on losing canvas focus?
     *   TODO Create static spriteTemplate creator for single image sprites.
     *   TODO Y location for all creator methods on bottom instead of on top?
@@ -17,6 +16,7 @@
     *   TODO simplify sprite-image-system's frame ranges!
     *   TODO create method updateBody() for all shape classes??
     *   TODO Try sound error handling! (Safari etc.)
+    *   TODO Prune all levels except LevelWebsite.
     *
     *   TODO Complete the MVP!
     *

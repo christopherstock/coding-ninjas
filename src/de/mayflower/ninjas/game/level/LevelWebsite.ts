@@ -41,8 +41,8 @@
                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
 */
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration( 400, 2500, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 800, 2500, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 400, 2500, ninjas.SpriteTemplate.SPRITE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 800, 2500, ninjas.SpriteTemplate.SPRITE_TREE ),
 /*
                 // site trigger
                 ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
@@ -112,10 +112,10 @@
                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
 */
                 // fg decoration
-                ninjas.GameObjectFactory.createDecoration( 2670, 830, 76, 170, ninjas.SpriteTemplate.SPRITE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 2670, 830, ninjas.SpriteTemplate.SPRITE_TREE ),
 /*
-                ninjas.GameObjectFactory.createDecoration( 200,  450, 76, 170, ninjas.Image.IMAGE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 3230, 660, 76, 170, ninjas.Image.IMAGE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 200,  450, ninjas.Image.IMAGE_TREE ),
+                ninjas.GameObjectFactory.createDecoration( 3230, 660, ninjas.Image.IMAGE_TREE ),
 */
             ];
         }
