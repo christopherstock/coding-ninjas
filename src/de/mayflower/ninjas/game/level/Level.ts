@@ -55,15 +55,27 @@
             // test rendering parallax objects
             if ( this.parallaxTest != null )
             {
-                let imgOffsetX :number = 0 - ( this.parallaxTest.shape.getWidth()  - ninjas.Main.game.engine.canvasSystem.getWidth()  ) * ninjas.Main.game.camera.getOffsetX() / ( this.width  - ninjas.Main.game.engine.canvasSystem.getWidth()  );
-                let imgOffsetY :number = 0 - ( this.parallaxTest.shape.getHeight() - ninjas.Main.game.engine.canvasSystem.getHeight() ) * ninjas.Main.game.camera.getOffsetY() / ( this.height - ninjas.Main.game.engine.canvasSystem.getHeight() );
+                // level has 1.0 - the farer the parallax pane the higher this value
+                let parallaxRatio = 2.0;
+
+                let cameraOffsetX :number = ninjas.Main.game.camera.getOffsetX();
+                let cameraOffsetY :number = ninjas.Main.game.camera.getOffsetY();
+
+                let canvasWidth  :number = ninjas.Main.game.engine.canvasSystem.getWidth();
+                let canvasHeight :number = ninjas.Main.game.engine.canvasSystem.getHeight();
+
+                let imgOffsetX :number = 0 - ( this.parallaxTest.shape.getWidth()  - canvasWidth  ) * cameraOffsetX / ( this.width  - canvasWidth  );
+                let imgOffsetY :number = 0 - ( this.parallaxTest.shape.getHeight() - canvasHeight ) * cameraOffsetY / ( this.height - canvasHeight );
+
+                imgOffsetX *= parallaxRatio;
+                imgOffsetY *= parallaxRatio;
 
                 matter.Body.setPosition
                 (
                     this.parallaxTest.shape.body,
                     matter.Vector.create(
-                        imgOffsetX + ninjas.Main.game.camera.getOffsetX() + ( this.parallaxTest.shape.getWidth()  / 2 ),
-                        imgOffsetY + ninjas.Main.game.camera.getOffsetY() + ( this.parallaxTest.shape.getHeight() / 2 )
+                        imgOffsetX + cameraOffsetX + ( this.parallaxTest.shape.getWidth()  / 2 ),
+                        imgOffsetY + cameraOffsetY + ( this.parallaxTest.shape.getHeight() / 2 )
                     )
                 )
             }

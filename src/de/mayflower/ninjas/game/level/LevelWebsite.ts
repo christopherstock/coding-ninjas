@@ -41,8 +41,7 @@
 
 
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle( 0, 500, 2000, 15, 0.0,  false ),
-                ninjas.GameObjectFactory.createObstacle( 0, 5000 - 15, 5000, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 0, 500, 5000, 15, 0.0,  false ),
 /*
                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
 

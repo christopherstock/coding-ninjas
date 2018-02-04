@@ -4620,7 +4620,7 @@ __export(__webpack_require__(130));
 __export(__webpack_require__(131));
 __export(__webpack_require__(132));
 __export(__webpack_require__(133));
-__export(__webpack_require__(134));
+__export(__webpack_require__(135));
 __export(__webpack_require__(136));
 __export(__webpack_require__(137));
 __export(__webpack_require__(138));
@@ -15003,7 +15003,7 @@ var Vector = _dereq_('../geometry/Vector');
 
 },{"../body/Composite":2,"../core/Common":14,"../core/Events":16,"../geometry/Bounds":26,"../geometry/Vector":28}]},{},[30])(30)
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(135)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(134)))
 
 /***/ }),
 /* 3 */
@@ -27699,9 +27699,17 @@ var Level = /** @class */ (function () {
         }
         // test rendering parallax objects
         if (this.parallaxTest != null) {
-            var imgOffsetX = 0 - (this.parallaxTest.shape.getWidth() - ninjas.Main.game.engine.canvasSystem.getWidth()) * ninjas.Main.game.camera.getOffsetX() / (this.width - ninjas.Main.game.engine.canvasSystem.getWidth());
-            var imgOffsetY = 0 - (this.parallaxTest.shape.getHeight() - ninjas.Main.game.engine.canvasSystem.getHeight()) * ninjas.Main.game.camera.getOffsetY() / (this.height - ninjas.Main.game.engine.canvasSystem.getHeight());
-            matter.Body.setPosition(this.parallaxTest.shape.body, matter.Vector.create(imgOffsetX + ninjas.Main.game.camera.getOffsetX() + (this.parallaxTest.shape.getWidth() / 2), imgOffsetY + ninjas.Main.game.camera.getOffsetY() + (this.parallaxTest.shape.getHeight() / 2)));
+            // level has 1.0 - the farer the parallax pane the higher this value
+            var parallaxRatio = 2.0;
+            var cameraOffsetX = ninjas.Main.game.camera.getOffsetX();
+            var cameraOffsetY = ninjas.Main.game.camera.getOffsetY();
+            var canvasWidth = ninjas.Main.game.engine.canvasSystem.getWidth();
+            var canvasHeight = ninjas.Main.game.engine.canvasSystem.getHeight();
+            var imgOffsetX = 0 - (this.parallaxTest.shape.getWidth() - canvasWidth) * cameraOffsetX / (this.width - canvasWidth);
+            var imgOffsetY = 0 - (this.parallaxTest.shape.getHeight() - canvasHeight) * cameraOffsetY / (this.height - canvasHeight);
+            imgOffsetX *= parallaxRatio;
+            imgOffsetY *= parallaxRatio;
+            matter.Body.setPosition(this.parallaxTest.shape.body, matter.Vector.create(imgOffsetX + cameraOffsetX + (this.parallaxTest.shape.getWidth() / 2), imgOffsetY + cameraOffsetY + (this.parallaxTest.shape.getHeight() / 2)));
         }
         var e_2, _c;
     };
@@ -27712,6 +27720,33 @@ exports.Level = Level;
 
 /***/ }),
 /* 134 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27819,33 +27854,6 @@ var LevelAllElements = /** @class */ (function (_super) {
     return LevelAllElements;
 }(ninjas.Level));
 exports.LevelAllElements = LevelAllElements;
-
-
-/***/ }),
-/* 135 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
 
 
 /***/ }),
@@ -27969,8 +27977,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                 // parallax background
                 this.parallaxTest,
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle(0, 500, 2000, 15, 0.0, false),
-                ninjas.GameObjectFactory.createObstacle(0, 5000 - 15, 5000, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(0, 500, 5000, 15, 0.0, false),
                 /*
                                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
                 
