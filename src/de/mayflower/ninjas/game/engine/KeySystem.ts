@@ -31,11 +31,11 @@
         /***************************************************************************************************************
         *   This method is always invoked by the system if a key is pressed.
         *
-        *   @param evt  The system's propagated key event.
+        *   @param event The system's propagated key event.
         ***************************************************************************************************************/
-        public onKeyDown=( evt:Event )=>
+        public onKeyDown=( event:Event )=>
         {
-            let keyCode = ( evt as KeyboardEvent ).which;
+            let keyCode = ( event as KeyboardEvent ).which;
 
             if (!this.keysNeedRelease[ keyCode ]) {
                 this.keysPressed[ keyCode ] = true;
@@ -47,12 +47,13 @@
         /***************************************************************************************************************
         *   This method is always invoked by the system if a key is released.
         *
-        *   @param evt  The system's propagated key event.
+        *   @param event The system's propagated key event.
         ***************************************************************************************************************/
-        public onKeyUp=( evt:Event )=>
+        public onKeyUp=( event:Event )=>
         {
-            let keyCode = ( evt as KeyboardEvent ).which;
-            this.keysPressed[ keyCode ] = false;
+            let keyCode = ( event as KeyboardEvent ).which;
+
+            this.keysPressed[     keyCode ] = false;
             this.keysNeedRelease[ keyCode ] = false;
 
             ninjas.Debug.key.log( "key released ["  + keyCode + "]" );
@@ -62,6 +63,7 @@
         *   Checks if the key with the given keyCode is currently pressed.
         *
         *   @param  keyCode The keyCode of the key to return pressed state.
+        *
         *   @return         <code>true</code> if this key is currently pressed.
         *                   Otherwise <code>false</code>.
         ***************************************************************************************************************/
@@ -73,11 +75,19 @@
         /***************************************************************************************************************
         *   Flags that a key needs release before being able to be pressed again.
         *
-        *   @param  keyCode The keyCode of the key to mark as 'needs key release'.
+        *   @param keyCode The keyCode of the key to mark as 'needs key release'.
         ***************************************************************************************************************/
         public setNeedsRelease( keyCode:number )
         {
             this.keysNeedRelease[ keyCode ] = true;
             this.keysPressed[     keyCode ] = false;
+        }
+
+        /***************************************************************************************************************
+        *   Flags all keys as released.
+        ***************************************************************************************************************/
+        public releaseAllKeys()
+        {
+            this.keysPressed = [];
         }
     }

@@ -27644,10 +27644,10 @@ var KeySystem = /** @class */ (function () {
         /***************************************************************************************************************
         *   This method is always invoked by the system if a key is pressed.
         *
-        *   @param evt  The system's propagated key event.
+        *   @param event The system's propagated key event.
         ***************************************************************************************************************/
-        this.onKeyDown = function (evt) {
-            var keyCode = evt.which;
+        this.onKeyDown = function (event) {
+            var keyCode = event.which;
             if (!_this.keysNeedRelease[keyCode]) {
                 _this.keysPressed[keyCode] = true;
                 ninjas.Debug.key.log("key pressed [" + keyCode + "]");
@@ -27656,10 +27656,10 @@ var KeySystem = /** @class */ (function () {
         /***************************************************************************************************************
         *   This method is always invoked by the system if a key is released.
         *
-        *   @param evt  The system's propagated key event.
+        *   @param event The system's propagated key event.
         ***************************************************************************************************************/
-        this.onKeyUp = function (evt) {
-            var keyCode = evt.which;
+        this.onKeyUp = function (event) {
+            var keyCode = event.which;
             _this.keysPressed[keyCode] = false;
             _this.keysNeedRelease[keyCode] = false;
             ninjas.Debug.key.log("key released [" + keyCode + "]");
@@ -27675,6 +27675,7 @@ var KeySystem = /** @class */ (function () {
     *   Checks if the key with the given keyCode is currently pressed.
     *
     *   @param  keyCode The keyCode of the key to return pressed state.
+    *
     *   @return         <code>true</code> if this key is currently pressed.
     *                   Otherwise <code>false</code>.
     ***************************************************************************************************************/
@@ -27684,11 +27685,17 @@ var KeySystem = /** @class */ (function () {
     /***************************************************************************************************************
     *   Flags that a key needs release before being able to be pressed again.
     *
-    *   @param  keyCode The keyCode of the key to mark as 'needs key release'.
+    *   @param keyCode The keyCode of the key to mark as 'needs key release'.
     ***************************************************************************************************************/
     KeySystem.prototype.setNeedsRelease = function (keyCode) {
         this.keysNeedRelease[keyCode] = true;
         this.keysPressed[keyCode] = false;
+    };
+    /***************************************************************************************************************
+    *   Flags all keys as released.
+    ***************************************************************************************************************/
+    KeySystem.prototype.releaseAllKeys = function () {
+        this.keysPressed = [];
     };
     return KeySystem;
 }());
@@ -32105,11 +32112,12 @@ var GameEngine = /** @class */ (function () {
             // init site system
             ninjas.Debug.init.log("Initing site system");
             _this.siteSystem = new ninjas.SiteSystem();
-            // init window resize handler
-            _this.initWindowResizeHandler();
             // init key system
             ninjas.Debug.init.log("Initing key system");
             _this.keySystem = new ninjas.KeySystem();
+            // init window resize and blur handler
+            _this.initWindowResizeHandler();
+            _this.initWindowBlurHandler();
             // init FPS-counter
             _this.initFpsCounter();
             // play bg sound
@@ -32141,11 +32149,23 @@ var GameEngine = /** @class */ (function () {
     ***************************************************************************************************************/
     GameEngine.prototype.initWindowResizeHandler = function () {
         var _this = this;
+        ninjas.Debug.init.log("Initing window resize handler");
         window.onresize = function (event) {
             _this.canvasSystem.updateDimensions();
             _this.matterJsSystem.updateEngineDimensions(_this.canvasSystem.getWidth(), _this.canvasSystem.getHeight());
             _this.siteSystem.updatePanelSizeAndPosition();
             ninjas.Main.game.resetCamera();
+        };
+    };
+    /***************************************************************************************************************
+    *   Inits the window blur handler.
+    ***************************************************************************************************************/
+    GameEngine.prototype.initWindowBlurHandler = function () {
+        var _this = this;
+        ninjas.Debug.init.log("Initing window blur handler");
+        window.onblur = function (event) {
+            ninjas.Debug.canvas.log("Detected window focus lost. Releasing all keys.");
+            _this.keySystem.releaseAllKeys();
         };
     };
     /***************************************************************************************************************

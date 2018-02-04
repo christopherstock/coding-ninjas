@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Auto-release all keys on losing canvas focus?
     *   TODO Create static spriteTemplate creator for single image sprites.
     *   TODO Y location for all creator methods on bottom instead of on top?
     *   TODO Split class 'Setting': extract debub settings, engine settings, matter/physics settings etc. > own package?

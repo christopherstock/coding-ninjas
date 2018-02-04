@@ -62,12 +62,13 @@
             ninjas.Debug.init.log( "Initing site system" );
             this.siteSystem = new ninjas.SiteSystem();
 
-            // init window resize handler
-            this.initWindowResizeHandler();
-
             // init key system
             ninjas.Debug.init.log( "Initing key system" );
             this.keySystem = new ninjas.KeySystem();
+
+            // init window resize and blur handler
+            this.initWindowResizeHandler();
+            this.initWindowBlurHandler();
 
             // init FPS-counter
             this.initFpsCounter();
@@ -100,6 +101,8 @@
         ***************************************************************************************************************/
         private initWindowResizeHandler()
         {
+            ninjas.Debug.init.log( "Initing window resize handler" );
+
             window.onresize = ( event:Event ) => {
 
                 this.canvasSystem.updateDimensions();
@@ -110,6 +113,21 @@
                 );
                 this.siteSystem.updatePanelSizeAndPosition();
                 ninjas.Main.game.resetCamera();
+            };
+        }
+
+        /***************************************************************************************************************
+        *   Inits the window blur handler.
+        ***************************************************************************************************************/
+        private initWindowBlurHandler()
+        {
+            ninjas.Debug.init.log( "Initing window blur handler" );
+
+            window.onblur = ( event:Event ) => {
+
+                ninjas.Debug.canvas.log( "Detected window focus lost. Releasing all keys." );
+
+                this.keySystem.releaseAllKeys();
             };
         }
 
