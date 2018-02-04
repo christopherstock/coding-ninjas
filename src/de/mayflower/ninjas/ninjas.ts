@@ -25,6 +25,7 @@
     export * from './game/object/Item';
     export * from './game/object/Movable';
     export * from './game/object/Obstacle';
+    export * from './game/object/ParallaxDeco';
     export * from './game/object/Platform';
     export * from './game/object/Player';
     export * from './game/object/SigSaw';

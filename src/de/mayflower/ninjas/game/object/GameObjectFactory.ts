@@ -262,6 +262,48 @@
         }
 
         /***************************************************************************************************************
+        *   Creates a parallax scrolling decoration.
+        *
+        *   @param x             Anchor X.
+        *   @param y             Anchor Y.
+        *   @param width         Object width.
+        *   @param height        Object height.
+        *   @param parallaxRatio The parallax ratio according to the level width.
+        *   @param sprite        The decoration sprite.
+        *
+        *   @return The created decoration.
+        ***************************************************************************************************************/
+        public static createParallaxDeco
+        (
+            x             :number,
+            y             :number,
+            width         :number,
+            height        :number,
+            parallaxRatio :number,
+            sprite        :ninjas.Sprite
+        )
+        : ninjas.Decoration
+        {
+            return new ninjas.ParallaxDeco
+            (
+                new ninjas.ShapeRectangle
+                (
+                    width,
+                    height,
+                    ninjas.Setting.COLOR_DEBUG_DECORATION,
+                    true,
+                    0.0,
+                    ninjas.GameObject.FRICTION_DEFAULT,
+                    Infinity
+                ),
+                sprite,
+                x,
+                y,
+                parallaxRatio
+            );
+        }
+
+        /***************************************************************************************************************
         *   Creates a site trigger.
         *
         *   @param x                  Anchor X.

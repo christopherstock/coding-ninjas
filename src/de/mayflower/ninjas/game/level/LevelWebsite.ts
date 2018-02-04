@@ -19,10 +19,6 @@
         ***************************************************************************************************************/
         protected createGameObjects()
         {
-            this.parallaxTest = ninjas.GameObjectFactory.createDecoration( 0,  0, 1600, 800, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_BG_TEST ) );
-
-
-
             // init player
             this.player = new ninjas.Player
             (
@@ -36,8 +32,7 @@
             this.gameObjects =
             [
                 // parallax background
-                this.parallaxTest,
-
+                ninjas.GameObjectFactory.createParallaxDeco( 0,  0, 1600, 800, 1.0, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_BG_TEST ) ),
 
 
                 // grounds and walls

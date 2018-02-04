@@ -4637,6 +4637,7 @@ __export(__webpack_require__(148));
 __export(__webpack_require__(149));
 __export(__webpack_require__(150));
 __export(__webpack_require__(151));
+__export(__webpack_require__(181));
 __export(__webpack_require__(152));
 __export(__webpack_require__(153));
 __export(__webpack_require__(154));
@@ -27637,7 +27638,6 @@ var __values = (this && this.__values) || function (o) {
     };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   Represents the current level.
@@ -27655,8 +27655,6 @@ var Level = /** @class */ (function () {
         this.player = null;
         /** ALL game objects for this level, including the player. */
         this.gameObjects = null;
-        /** Testing parallax bg. */
-        this.parallaxTest = null;
     }
     /***************************************************************************************************************
     *   Inits a new level.
@@ -27696,20 +27694,6 @@ var Level = /** @class */ (function () {
                 if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
             }
             finally { if (e_2) throw e_2.error; }
-        }
-        // test rendering parallax objects
-        if (this.parallaxTest != null) {
-            // level has 1.0 - the farer the parallax pane the higher this value
-            var parallaxRatio = 2.0;
-            var cameraOffsetX = ninjas.Main.game.camera.getOffsetX();
-            var cameraOffsetY = ninjas.Main.game.camera.getOffsetY();
-            var canvasWidth = ninjas.Main.game.engine.canvasSystem.getWidth();
-            var canvasHeight = ninjas.Main.game.engine.canvasSystem.getHeight();
-            var imgOffsetX = 0 - (this.parallaxTest.shape.getWidth() - canvasWidth) * cameraOffsetX / (this.width - canvasWidth);
-            var imgOffsetY = 0 - (this.parallaxTest.shape.getHeight() - canvasHeight) * cameraOffsetY / (this.height - canvasHeight);
-            imgOffsetX *= parallaxRatio;
-            imgOffsetY *= parallaxRatio;
-            matter.Body.setPosition(this.parallaxTest.shape.body, matter.Vector.create(imgOffsetX + cameraOffsetX + (this.parallaxTest.shape.getWidth() / 2), imgOffsetY + cameraOffsetY + (this.parallaxTest.shape.getHeight() / 2)));
         }
         var e_2, _c;
     };
@@ -27968,14 +27952,13 @@ var LevelWebsite = /** @class */ (function (_super) {
     *   Inits a new level.
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
-        this.parallaxTest = ninjas.GameObjectFactory.createDecoration(0, 0, 1600, 800, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_BG_TEST));
         // init player
         this.player = new ninjas.Player(0, 0, ninjas.CharacterLookingDirection.LEFT, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT));
         // setup all game objects
         this.gameObjects =
             [
                 // parallax background
-                this.parallaxTest,
+                ninjas.GameObjectFactory.createParallaxDeco(0, 0, 1600, 800, 1.0, new ninjas.Sprite(ninjas.SpriteTemplate.SPRITE_BG_TEST)),
                 // grounds and walls
                 ninjas.GameObjectFactory.createObstacle(0, 500, 5000, 15, 0.0, false),
                 /*
@@ -29044,6 +29027,21 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createDecoration = function (x, y, width, height, sprite) {
         return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), sprite, x, y);
+    };
+    /***************************************************************************************************************
+    *   Creates a parallax scrolling decoration.
+    *
+    *   @param x             Anchor X.
+    *   @param y             Anchor Y.
+    *   @param width         Object width.
+    *   @param height        Object height.
+    *   @param parallaxRatio The parallax ratio according to the level width.
+    *   @param sprite        The decoration sprite.
+    *
+    *   @return The created decoration.
+    ***************************************************************************************************************/
+    GameObjectFactory.createParallaxDeco = function (x, y, width, height, parallaxRatio, sprite) {
+        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), sprite, x, y, parallaxRatio);
     };
     /***************************************************************************************************************
     *   Creates a site trigger.
@@ -33381,6 +33379,84 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = 180;
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+var matter = __webpack_require__(2);
+/*******************************************************************************************************************
+*   Represents a non-colliding decoration.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var ParallaxDeco = /** @class */ (function (_super) {
+    __extends(ParallaxDeco, _super);
+    /***************************************************************************************************************
+    *   Creates a new parallax decoration.
+    *
+    *   @param shape         The shape for this object.
+    *   @param sprite        The sprite to use.
+    *   @param x             Startup position X.
+    *   @param y             Startup position Y.
+    *   @param parallaxRatio The parallax ratio from this game object to the level width. Defaults to 1.0.
+    ***************************************************************************************************************/
+    function ParallaxDeco(shape, sprite, x, y, parallaxRatio) {
+        var _this = _super.call(this, shape, sprite, x, y) || this;
+        /** The parallax ratio from this game object to the level width. Defaults to 1.0. */
+        _this.parallaxRatio = 0.0;
+        /** The startup position X. */
+        _this.startupX = 0.0;
+        /** The startup position Y. */
+        _this.startupY = 0.0;
+        _this.parallaxRatio = parallaxRatio;
+        _this.startupX = x;
+        _this.startupY = y;
+        return _this;
+    }
+    /***************************************************************************************************************
+    *   Renders this decoration.
+    ***************************************************************************************************************/
+    ParallaxDeco.prototype.render = function () {
+        _super.prototype.render.call(this);
+        this.setParallaxPosition();
+    };
+    /***************************************************************************************************************
+    *   Sets the current parallax position of this deco.
+    ***************************************************************************************************************/
+    ParallaxDeco.prototype.setParallaxPosition = function () {
+        // TODO you must assume that every element has the exact width of the level!!
+        var levelWidth = ninjas.Main.game.level.width;
+        var levelHeight = ninjas.Main.game.level.height;
+        var cameraOffsetX = ninjas.Main.game.camera.getOffsetX();
+        var cameraOffsetY = ninjas.Main.game.camera.getOffsetY();
+        var canvasWidth = ninjas.Main.game.engine.canvasSystem.getWidth();
+        var canvasHeight = ninjas.Main.game.engine.canvasSystem.getHeight();
+        var imgOffsetX = 0 - (this.shape.getWidth() - canvasWidth) * cameraOffsetX / (levelWidth - canvasWidth);
+        var imgOffsetY = 0 - (this.shape.getHeight() - canvasHeight) * cameraOffsetY / (levelHeight - canvasHeight);
+        imgOffsetX *= this.parallaxRatio;
+        imgOffsetY *= this.parallaxRatio;
+        matter.Body.setPosition(this.shape.body, matter.Vector.create(imgOffsetX + cameraOffsetX + (this.shape.getWidth() / 2), imgOffsetY + cameraOffsetY + (this.shape.getHeight() / 2)));
+    };
+    return ParallaxDeco;
+}(ninjas.Decoration));
+exports.ParallaxDeco = ParallaxDeco;
+
 
 /***/ })
 /******/ ]);
