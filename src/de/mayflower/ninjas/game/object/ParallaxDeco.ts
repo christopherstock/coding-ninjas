@@ -56,7 +56,8 @@
         ***************************************************************************************************************/
         private setParallaxPosition()
         {
-            // TODO you must assume that every element has the exact width of the level!!
+
+
 
             let levelWidth  :number = ninjas.Main.game.level.width;
             let levelHeight :number = ninjas.Main.game.level.height;

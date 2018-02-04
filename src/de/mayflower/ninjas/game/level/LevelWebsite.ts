@@ -31,10 +31,10 @@
             // setup all game objects
             this.gameObjects =
             [
+/*
                 // parallax background
                 ninjas.GameObjectFactory.createParallaxDeco( 0,  0, 1600, 800, 1.0, new ninjas.Sprite( ninjas.SpriteTemplate.SPRITE_BG_TEST ) ),
-
-
+*/
                 // grounds and walls
                 ninjas.GameObjectFactory.createObstacle( 0, 500, 5000, 15, 0.0,  false ),
 /*
