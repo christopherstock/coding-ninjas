@@ -1,6 +1,6 @@
 
     import * as matter from 'matter-js';
-    import * as ninjas from '../../../ninjas';
+    import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
     *   A free form shape for a game object.

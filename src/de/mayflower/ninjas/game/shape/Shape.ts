@@ -1,6 +1,6 @@
 
     import * as matter from 'matter-js';
-    import * as ninjas from '../../../ninjas';
+    import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
     *   Represents the shape of a game object.
@@ -8,15 +8,17 @@
     *   @author     Christopher Stock
     *   @version    0.0.1
     *******************************************************************************************************************/
-    export class ShapeCircle extends ninjas.Shape
+    export abstract class Shape
     {
-        /** The circle's diameter. */
-        public              diameter                :number             = 0.0;
+        /** The body rendering options for this shape. */
+        public                  options                 :matter.IBodyDefinition         = null;
+
+        /** The shape's body. */
+        public                  body                    :matter.Body                    = null;
 
         /***************************************************************************************************************
-        *   Creates a new circle shape.
+        *   Creates a new game object shape.
         *
-        *   @param diameter   The circle's diameter.
         *   @param debugColor The color for the debug object.
         *   @param isStatic   Specifies that this object has a fixed position.
         *   @param angle      The rotation of this body in degrees.
@@ -25,34 +27,29 @@
         ***************************************************************************************************************/
         public constructor
         (
-            diameter   :number,
-            debugColor :string,
-            isStatic   :boolean,
-            angle      :number,
-            friction   :number,
-            density    :number
+            debugColor:string,
+            isStatic:boolean,
+            angle:number,
+            friction:number,
+            density:number
         )
         {
-            super( debugColor, isStatic, angle, friction, density );
-
-            this.diameter = diameter;
-
-            this.body     = this.createBody();
-        }
-
-        /***************************************************************************************************************
-        *   Creates this shapes body.
-        *
-        *   @return The body for this shape.
-        ***************************************************************************************************************/
-        protected createBody() : matter.Body
-        {
-            return matter.Bodies.circle(
-                ( this.diameter / 2 ),
-                ( this.diameter / 2 ),
-                ( this.diameter / 2 ),
-                this.options
-            );
+            this.options = {
+                render:
+                {
+                    fillStyle:   debugColor,
+                    strokeStyle: ninjas.Setting.COLOR_DEBUG_BORDER,
+                    opacity:     ninjas.Setting.COLOR_DEBUG_OPACITY,
+                    lineWidth:   ninjas.Setting.COLOR_DEBUG_LINE_WIDTH,
+                },
+                isStatic:        isStatic,
+                collisionFilter: ninjas.Setting.COLLISION_GROUP_COLLIDING,
+                friction:        friction,
+                angle:           ninjas.MathUtil.angleToRad( angle ),
+                density:         density,
+//              isSensor:        isSensor,
+//              chamfer:         { radius: [ 5.0, 5.0, 5.0, 5.0 ] },
+            };
         }
 
         /***************************************************************************************************************
@@ -60,20 +57,21 @@
         *
         *   @return The shape's boundaries width.
         ***************************************************************************************************************/
-        public getWidth() : number
-        {
-            return this.diameter;
-        }
+        public abstract getWidth() : number;
 
         /***************************************************************************************************************
         *   Returns the height of this shape's boundaries.
         *
         *   @return The shape's boundaries height.
         ***************************************************************************************************************/
-        public getHeight() : number
-        {
-            return this.diameter;
-        }
+        public abstract getHeight() : number;
+
+        /***************************************************************************************************************
+        *   Creates this shapes body.
+        *
+        *   @return The body for this shape.
+        ***************************************************************************************************************/
+        protected abstract createBody() : matter.Body;
 
         /***************************************************************************************************************
         *   Updates this shape's body dimensions.
@@ -81,10 +79,5 @@
         *   @param width  The new width for this shape.
         *   @param height The new height for this shape.
         ***************************************************************************************************************/
-        public updateDimensions( width:number, height:number ) : void
-        {
-            this.diameter = width;
-
-            this.body = this.createBody();
-        }
+        public abstract updateDimensions( width:number, height:number ) : void;
     }

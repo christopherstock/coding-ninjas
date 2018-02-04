@@ -9,27 +9,26 @@
     export * from './game/level/LevelEnchantedWoods';
     export * from './game/level/LevelWebsite';
 
-    export * from './game/object/shape/Shape';
-    export * from './game/object/shape/ShapeRectangle';
-    export * from './game/object/shape/ShapeCircle';
-    export * from './game/object/shape/ShapeFreeForm';
+    export * from './game/shape/Shape';
+    export * from './game/shape/ShapeRectangle';
+    export * from './game/shape/ShapeCircle';
+    export * from './game/shape/ShapeFreeForm';
 
     export * from './game/object/GameObject';
 
-    export * from './game/object/Bounce';
-    export * from './game/object/Character';
-    export * from './game/object/Decoration';
-    export * from './game/object/Enemy';
-    export * from './game/object/GameObjectBundleFactory';
+    export * from './game/object/special/Bounce';
+    export * from './game/object/being/Character';
+    export * from './game/object/deco/Decoration';
+    export * from './game/object/being/Enemy';
     export * from './game/object/GameObjectFactory';
-    export * from './game/object/Item';
-    export * from './game/object/Movable';
-    export * from './game/object/Obstacle';
-    export * from './game/object/ParallaxDeco';
-    export * from './game/object/Platform';
-    export * from './game/object/Player';
-    export * from './game/object/SigSaw';
-    export * from './game/object/SiteTrigger';
+    export * from './game/object/primal/Item';
+    export * from './game/object/primal/Movable';
+    export * from './game/object/primal/Obstacle';
+    export * from './game/object/deco/ParallaxDeco';
+    export * from './game/object/special/Platform';
+    export * from './game/object/being/Player';
+    export * from './game/object/special/SigSaw';
+    export * from './game/object/special/SiteTrigger';
 
     export * from './game/Game';
     export * from './game/GameEngine';

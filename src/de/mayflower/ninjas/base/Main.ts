@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Move game object classes to appropriate subpackages!
     *   TODO move all system classes to package game/engine /io .. ?
     *
     *   TODO Prune width and height from decoration? Use Sprite size instead!

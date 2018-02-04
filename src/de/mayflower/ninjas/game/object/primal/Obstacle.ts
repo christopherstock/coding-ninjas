@@ -1,5 +1,5 @@
 
-    import * as ninjas from '../../ninjas';
+    import * as ninjas from '../../../ninjas';
 
     /*******************************************************************************************************************
     *   Represents a collidable and solid obstacle.

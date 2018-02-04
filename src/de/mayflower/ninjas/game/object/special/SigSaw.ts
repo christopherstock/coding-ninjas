@@ -1,6 +1,6 @@
 
     import * as matter from 'matter-js';
-    import * as ninjas from '../../ninjas';
+    import * as ninjas from '../../../ninjas';
 
     /*******************************************************************************************************************
     *   Represents a sigsaw.
