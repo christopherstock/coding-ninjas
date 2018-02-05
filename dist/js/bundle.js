@@ -4656,6 +4656,7 @@ __export(__webpack_require__(170));
 __export(__webpack_require__(171));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
+__export(__webpack_require__(181));
 __export(__webpack_require__(174));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
@@ -27638,14 +27639,11 @@ var ninjas = __webpack_require__(1);
 *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
 *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
 *   TODO Fix flickering wow effects in all browsers!!
-*
 *   TODO Remove timeout and use Engine.events.tick?
 *   TODO Refactor: remove getRenderer in MatterJs!
-*
-*   TODO Add actions 'attack', 'jump attack' and 'float' sprites.
+*   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
 *   TODO Group different objects in level class!
 *   TODO Revise parallax rendering though different groups in level class.
-*
 *   TODO Try friction, frictionStatic and frictionAir to Shape!
 *   TODO restitution will bounce balls!
 *   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
@@ -33303,6 +33301,28 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = 180;
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(5);
+/*******************************************************************************************************************
+*   Represents a site panel that shows a site content.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SitePanel = /** @class */ (function () {
+    function SitePanel() {
+    }
+    return SitePanel;
+}());
+exports.SitePanel = SitePanel;
+
 
 /***/ })
 /******/ ]);

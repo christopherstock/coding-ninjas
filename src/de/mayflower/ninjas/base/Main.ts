@@ -7,14 +7,11 @@
     *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
     *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
     *   TODO Fix flickering wow effects in all browsers!!
-    *
     *   TODO Remove timeout and use Engine.events.tick?
     *   TODO Refactor: remove getRenderer in MatterJs!
-    *
-    *   TODO Add actions 'attack', 'jump attack' and 'float' sprites.
+    *   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
     *   TODO Group different objects in level class!
     *   TODO Revise parallax rendering though different groups in level class.
-    *
     *   TODO Try friction, frictionStatic and frictionAir to Shape!
     *   TODO restitution will bounce balls!
     *   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
