@@ -180,9 +180,9 @@
                 if
                 (
                         gameObject.shape.body == this.shape.body
-                    ||  gameObject.shape.body.collisionFilter == ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM
-                    ||  gameObject.shape.body.collisionFilter == ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO
-                    ||  gameObject.shape.body.collisionFilter == ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY
+                    ||  gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_ITEM
+                    ||  gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DECO
+                    ||  gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY
                 )
                 {
                     continue;

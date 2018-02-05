@@ -39,7 +39,7 @@
         *****************************************************************************/
         public playSound( id:string, loop:boolean = false )
         {
-            if ( !ninjas.Setting.MUTE )
+            if ( !ninjas.SettingDebug.MUTE )
             {
                 if ( this.sounds[ id ] != null )
                 {

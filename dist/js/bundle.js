@@ -1911,7 +1911,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(179)("./" + name);
+            __webpack_require__(180)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4603,7 +4603,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(178)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(179)(module)))
 
 /***/ }),
 /* 1 */
@@ -4623,9 +4623,11 @@ __export(__webpack_require__(133));
 __export(__webpack_require__(134));
 __export(__webpack_require__(135));
 __export(__webpack_require__(136));
+__export(__webpack_require__(137));
+__export(__webpack_require__(138));
 __export(__webpack_require__(139));
-__export(__webpack_require__(140));
 __export(__webpack_require__(142));
+__export(__webpack_require__(143));
 __export(__webpack_require__(145));
 __export(__webpack_require__(146));
 __export(__webpack_require__(147));
@@ -4646,7 +4648,7 @@ __export(__webpack_require__(161));
 __export(__webpack_require__(162));
 __export(__webpack_require__(163));
 __export(__webpack_require__(164));
-__export(__webpack_require__(166));
+__export(__webpack_require__(165));
 __export(__webpack_require__(167));
 __export(__webpack_require__(168));
 __export(__webpack_require__(169));
@@ -4658,6 +4660,7 @@ __export(__webpack_require__(174));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
 __export(__webpack_require__(177));
+__export(__webpack_require__(178));
 
 
 /***/ }),
@@ -15000,7 +15003,7 @@ var Vector = _dereq_('../geometry/Vector');
 
 },{"../body/Composite":2,"../core/Common":14,"../core/Events":16,"../geometry/Bounds":26,"../geometry/Vector":28}]},{},[30])(30)
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(141)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(144)))
 
 /***/ }),
 /* 3 */
@@ -15463,7 +15466,7 @@ function updateLink (link, options, obj) {
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(138);
+var content = __webpack_require__(141);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -27367,6 +27370,106 @@ exports.Version = Version;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   All debug settings.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SettingDebug = /** @class */ (function () {
+    function SettingDebug() {
+    }
+    /** The global debug switch. */
+    SettingDebug.DEBUG_MODE = true;
+    /** Disables all sounds. */
+    SettingDebug.MUTE = true;
+    /** The opacity for the debug colors. */
+    SettingDebug.COLOR_DEBUG_OPACITY = 1.0;
+    /** The line width for debug lines. */
+    SettingDebug.COLOR_DEBUG_LINE_WIDTH = 1.0;
+    /** The debug color for the player block. */
+    SettingDebug.COLOR_DEBUG_BORDER = "#ffffff";
+    /** The debug color for the player block. */
+    SettingDebug.COLOR_DEBUG_PLAYER = "#7cd1ee";
+    /** The debug color for the enemy block. */
+    SettingDebug.COLOR_DEBUG_ENEMY = "#ff7e68";
+    /** The debug color for a box. */
+    SettingDebug.COLOR_DEBUG_MOVABLE = "#ffbf54";
+    /** The debug color for an obstacle. */
+    SettingDebug.COLOR_DEBUG_OBSTACLE = "#a6a6a6";
+    /** The debug color for a sigsaw. */
+    SettingDebug.COLOR_DEBUG_SIGSAW = "#c46c9c";
+    /** The debug color for a sigsaw joint. */
+    SettingDebug.COLOR_DEBUG_SIGSAW_JOINT = "#ba3380";
+    /** The debug color for a bounce. */
+    SettingDebug.COLOR_DEBUG_BOUNCE = "#d815a9";
+    /** The debug color for a bounce joint. */
+    SettingDebug.COLOR_DEBUG_BOUNCE_JOINT = "#e629a2";
+    /** The debug color for the item. */
+    SettingDebug.COLOR_DEBUG_ITEM = "#fcff97";
+    /** The debug color for a decoration. */
+    SettingDebug.COLOR_DEBUG_DECORATION = "#b5fffd";
+    /** The debug color for a site trigger. */
+    SettingDebug.COLOR_DEBUG_SITE_TRIGGER = "#deffd9";
+    /** The debug color for a platform. */
+    SettingDebug.COLOR_DEBUG_PLATFORM = "#d2d2d2";
+    return SettingDebug;
+}());
+exports.SettingDebug = SettingDebug;
+
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   All settings for the game engine.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SettingEngine = /** @class */ (function () {
+    function SettingEngine() {
+    }
+    /** The minimum canvas2D width. */
+    SettingEngine.CANVAS_MIN_WIDTH = 800;
+    /** The minimum canvas2D height. */
+    SettingEngine.CANVAS_MIN_HEIGHT = 600;
+    /** The color of the canvas bg. */
+    SettingEngine.CANVAS_BG = "#000000";
+    /** The camera ration for the vertical axis. */
+    SettingEngine.CAMERA_RATIO_Y = 0.6;
+    /** The camera moving speed from 0.0 to 1.0. */
+    SettingEngine.CAMERA_MOVING_SPEED = 0.075;
+    /** The minimum camera moving speed in px per move. */
+    SettingEngine.CAMERA_MOVING_MINIMUM = 2.0;
+    /** The maximum camera moving speed in px per move. */
+    SettingEngine.CAMERA_MOVING_MAXIMUM = 25.0;
+    /** The relative path from index.html where all background images reside. */
+    SettingEngine.PATH_IMAGE_BG = "res/image/bg/";
+    /** The relative path from index.html where all player images reside. */
+    SettingEngine.PATH_IMAGE_PLAYER = "res/image/player/";
+    /** The relative path from index.html where all level images reside. */
+    SettingEngine.PATH_IMAGE_LEVEL = "res/image/level/";
+    /** The relative path from index.html where all site images reside. */
+    SettingEngine.PATH_IMAGE_SITE = "res/image/site/";
+    /** The relative path from index.html where all sounds reside. */
+    SettingEngine.PATH_SOUND = "res/sound/";
+    return SettingEngine;
+}());
+exports.SettingEngine = SettingEngine;
+
+
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   All adjustments and balancings for the application.
@@ -27374,116 +27477,91 @@ var ninjas = __webpack_require__(1);
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var Setting = /** @class */ (function () {
-    function Setting() {
+var SettingGame = /** @class */ (function () {
+    function SettingGame() {
     }
-    /** The global debug switch. */
-    Setting.DEBUG_MODE = true;
     /** The application's internal name. */
-    Setting.TITLE = "Coding Ninjas, (c) 2018 Mayflower GmbH" + ", " + ninjas.Version.CURRENT_VERSION.getVersionDescriptor();
-    /** Disables all sounds. */
-    Setting.MUTE = true;
+    SettingGame.TITLE = "Coding Ninjas, (c) 2018 Mayflower GmbH" + ", " + ninjas.Version.CURRENT_VERSION.getVersionDescriptor();
     /** The delay delta between ticks in ms. */
-    Setting.TICK_DELAY_DELTA = 10.0;
+    SettingGame.TICK_DELAY_DELTA = 10.0;
     /** The rendering delta between render ticks. */
-    Setting.RENDER_DELTA = 10.0;
-    /** The minimum canvas2D width. */
-    Setting.MIN_CANVAS_WIDTH = 800;
-    /** The minimum canvas2D height. */
-    Setting.MIN_CANVAS_HEIGHT = 600;
-    /** The default jump power. */
-    Setting.PLAYER_JUMP_POWER = -25.0;
-    /** The player's speed in world coordinate per tick. */
-    Setting.PLAYER_SPEED_MOVE = 7.5;
-    /** The default vertical gravity for all levels. */
-    Setting.DEFAULT_GRAVITY_Y = 1.0;
-    /** The camera ration for the vertical axis. */
-    Setting.CAMERA_RATIO_Y = 0.6;
-    /** The camera moving speed from 0.0 to 1.0. */
-    Setting.CAMERA_MOVING_SPEED = 0.075;
-    /** The minimum camera moving speed in px per move. */
-    Setting.CAMERA_MOVING_MINIMUM = 2.0;
-    /** The maximum camera moving speed in px per move. */
-    Setting.CAMERA_MOVING_MAXIMUM = 25.0;
-    /** The color of the canvas bg. */
-    Setting.CANVAS_BG = "#000000";
+    SettingGame.RENDER_DELTA = 10.0;
     /** The border size for the site panel and all HUD elements in px. */
-    Setting.SITE_BORDER_SIZE = 20;
+    SettingGame.SITE_BORDER_SIZE = 20;
     /** The background color of the site panel. */
-    Setting.SITE_PANEL_BG_COLOR = "rgba( 255, 255, 255, 0.25 )";
+    SettingGame.SITE_PANEL_BG_COLOR = "rgba( 255, 255, 255, 0.25 )";
     /** The maximum width for the site panel. */
-    Setting.SITE_PANEL_MAX_WIDTH = 600;
-    /** The opacity for the debug colors. */
-    Setting.COLOR_DEBUG_OPACITY = 1.0;
-    /** The line width for debug lines. */
-    Setting.COLOR_DEBUG_LINE_WIDTH = 1.0;
-    /** The debug color for the player block. */
-    Setting.COLOR_DEBUG_BORDER = "#ffffff";
-    /** The debug color for the player block. */
-    Setting.COLOR_DEBUG_PLAYER = "#7cd1ee";
-    /** The debug color for the enemy block. */
-    Setting.COLOR_DEBUG_ENEMY = "#ff7e68";
-    /** The debug color for a box. */
-    Setting.COLOR_DEBUG_BOX = "#ffbf54";
-    /** The debug color for an obstacle. */
-    Setting.COLOR_DEBUG_OBSTACLE = "#a6a6a6";
-    /** The debug color for a sigsaw. */
-    Setting.COLOR_DEBUG_SIGSAW = "#c46c9c";
-    /** The debug color for a sigsaw joint. */
-    Setting.COLOR_DEBUG_SIGSAW_JOINT = "#ba3380";
-    /** The debug color for a bounce. */
-    Setting.COLOR_DEBUG_BOUNCE = "#d815a9";
-    /** The debug color for a bounce joint. */
-    Setting.COLOR_DEBUG_BOUNCE_JOINT = "#e629a2";
-    /** The debug color for the item. */
-    Setting.COLOR_DEBUG_ITEM = "#fcff97";
-    /** The debug color for a decoration. */
-    Setting.COLOR_DEBUG_DECORATION = "#b5fffd";
-    /** The debug color for a site trigger. */
-    Setting.COLOR_DEBUG_SITE_TRIGGER = "#deffd9";
-    /** The debug color for a platform. */
-    Setting.COLOR_DEBUG_PLATFORM = "#d2d2d2";
-    /** The relative path from index.html where all background images reside. */
-    Setting.PATH_IMAGE_BG = "res/image/bg/";
-    /** The relative path from index.html where all player images reside. */
-    Setting.PATH_IMAGE_PLAYER = "res/image/player/";
-    /** The relative path from index.html where all level images reside. */
-    Setting.PATH_IMAGE_LEVEL = "res/image/level/";
-    /** The relative path from index.html where all site images reside. */
-    Setting.PATH_IMAGE_SITE = "res/image/site/";
-    /** The relative path from index.html where all sounds reside. */
-    Setting.PATH_SOUND = "res/sound/";
+    SettingGame.SITE_PANEL_MAX_WIDTH = 600;
+    return SettingGame;
+}());
+exports.SettingGame = SettingGame;
+
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/*******************************************************************************************************************
+*   All adjustments and balancings for the Matter.js engine.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SettingMatterJs = /** @class */ (function () {
+    function SettingMatterJs() {
+    }
+    /** Highest surface friction. */
+    SettingMatterJs.FRICTION_CONCRETE = 1.0;
+    /** Default surface friction. */
+    SettingMatterJs.FRICTION_DEFAULT = 0.1;
+    /** Low surface friction. */
+    SettingMatterJs.FRICTION_GLASS = 0.01;
+    /** Lowest surface friction. */
+    SettingMatterJs.FRICTION_ICE = 0.0;
+    /** Character density. */
+    SettingMatterJs.DENSITY_HUMAN = 0.01;
+    /** Default density. */
+    SettingMatterJs.DENSITY_DEFAULT = 0.001;
+    /** The default jump power. */
+    SettingMatterJs.PLAYER_JUMP_POWER = -25.0;
+    /** The player's speed in world coordinate per tick. */
+    SettingMatterJs.PLAYER_SPEED_MOVE = 7.5;
+    /** The default vertical gravity for all levels. */
+    SettingMatterJs.DEFAULT_GRAVITY_Y = 1.0;
     /** The default collision group for all game objects. */
-    Setting.COLLISION_GROUP_COLLIDING = {
+    SettingMatterJs.COLLISION_GROUP_COLLIDING = {
         category: 0x0001,
         mask: 0x0002,
         group: 0x0003,
     };
     /** The collision group for all non-colliding items. */
-    Setting.COLLISION_GROUP_NON_COLLIDING_ITEM = {
+    SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_ITEM = {
         category: 0x0004,
         mask: 0x0005,
         group: 0x0006,
     };
     /** The collision group for all non-colliding decos. */
-    Setting.COLLISION_GROUP_NON_COLLIDING_DECO = {
+    SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DECO = {
         category: 0x0007,
         mask: 0x0008,
         group: 0x0009,
     };
     /** The collision group for all non-colliding dead enemies. */
-    Setting.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY = {
+    SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY = {
         category: 0x0010,
         mask: 0x0011,
         group: 0x0012,
     };
-    return Setting;
+    return SettingMatterJs;
 }());
-exports.Setting = Setting;
+exports.SettingMatterJs = SettingMatterJs;
 
 
 /***/ }),
-/* 131 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27515,7 +27593,7 @@ var Debug = /** @class */ (function () {
     ***************************************************************************************************************/
     Debug.prototype.log = function (msg) {
         if (msg === void 0) { msg = ""; }
-        if (ninjas.Setting.DEBUG_MODE && this.debugEnabled) {
+        if (ninjas.SettingDebug.DEBUG_MODE && this.debugEnabled) {
             console.log('[' + ninjas.String.getDateTimeString() + '] ' + msg);
         }
     };
@@ -27543,7 +27621,7 @@ exports.Debug = Debug;
 
 
 /***/ }),
-/* 132 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27553,13 +27631,13 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Split class 'Setting': extract debub settings, engine settings, matter/physics settings etc. > own package?
 *   TODO Disable all debug paintings via DEBUG_MODE switch in SettingDebug.
 *   TODO Remove timeout and use Engine.events.tick?
+*   TODO Try friction, frictionStatic and frictionAir to Shape!
 *   TODO Add Image for sphere.
 *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
+*   TODO Move site settings (duration etc) to SettingGame or SettingSite.
 *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
-*   TODO Try friction, frictionStatic and frictionAir.
 *   TODO use density instead of mass/inverseMass
 *   TODO create or remove method updateBody() for all shape classes!
 *   TODO Group different objects in level class!
@@ -27607,9 +27685,9 @@ var Main = /** @class */ (function () {
     *****************************************************************************/
     Main.main = function () {
         // set webpage title
-        document.title = ninjas.Setting.TITLE;
+        document.title = ninjas.SettingGame.TITLE;
         // acclaim debug console
-        ninjas.Debug.init.log(ninjas.Setting.TITLE);
+        ninjas.Debug.init.log(ninjas.SettingGame.TITLE);
         ninjas.Debug.init.log();
         //init and start the game engine
         Main.game = new ninjas.Game();
@@ -27623,7 +27701,7 @@ exports.Main = Main;
 
 
 /***/ }),
-/* 133 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27708,7 +27786,7 @@ exports.KeySystem = KeySystem;
 
 
 /***/ }),
-/* 134 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27832,7 +27910,7 @@ exports.ImageSystem = ImageSystem;
 
 
 /***/ }),
-/* 135 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27882,7 +27960,7 @@ var SoundSystem = /** @class */ (function () {
     *****************************************************************************/
     SoundSystem.prototype.playSound = function (id, loop) {
         if (loop === void 0) { loop = false; }
-        if (!ninjas.Setting.MUTE) {
+        if (!ninjas.SettingDebug.MUTE) {
             if (this.sounds[id] != null) {
                 var clipClone_1 = this.sounds[id].cloneNode(true);
                 if (loop) {
@@ -27919,14 +27997,14 @@ exports.SoundSystem = SoundSystem;
 
 
 /***/ }),
-/* 136 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-var wow = __webpack_require__(137);
+var wow = __webpack_require__(140);
 __webpack_require__(5);
 /*******************************************************************************************************************
 *   Contains all possible positions for the site panel.
@@ -28038,26 +28116,26 @@ var SiteSystem = /** @class */ (function () {
     *****************************************************************************/
     SiteSystem.prototype.updatePanelSizeAndPosition = function () {
         // calculate panel size
-        this.panelWidth = (ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.Setting.SITE_BORDER_SIZE);
-        if (this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH) {
-            this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
+        this.panelWidth = (ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.SettingGame.SITE_BORDER_SIZE);
+        if (this.panelWidth > ninjas.SettingGame.SITE_PANEL_MAX_WIDTH) {
+            this.panelWidth = ninjas.SettingGame.SITE_PANEL_MAX_WIDTH;
         }
         // calculate panel size including border and left and right position
-        this.panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+        this.panelAndBorderWidth = this.panelWidth + ninjas.SettingGame.SITE_BORDER_SIZE;
         this.leftCameraTargetX = (this.panelAndBorderWidth + ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2));
         this.rightCameraTargetX = ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2);
         // update panel size and position
         if (this.currentPanel != null) {
             this.currentPanel.style.width = this.panelWidth + "px";
-            this.currentPanel.style.height = (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
+            this.currentPanel.style.height = (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
             if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
-                this.currentPanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
+                this.currentPanel.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
             }
             else {
-                this.currentPanel.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE) + "px";
+                this.currentPanel.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
             }
             var siteContainer = document.getElementById("siteContainer");
-            siteContainer.style.width = (this.panelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE) + "px";
+            siteContainer.style.width = (this.panelWidth - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
         }
     };
     /*****************************************************************************
@@ -28112,7 +28190,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 137 */
+/* 140 */
 /***/ (function(module, exports) {
 
 (function() {
@@ -28631,7 +28709,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 138 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(false);
@@ -28645,7 +28723,7 @@ exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://dane
 
 
 /***/ }),
-/* 139 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28685,10 +28763,10 @@ var CanvasSystem = /** @class */ (function () {
         this.canvasWidth = window.innerWidth;
         this.canvasHeight = window.innerHeight;
         // clip to minimum canvas dimensions
-        if (this.canvasWidth < ninjas.Setting.MIN_CANVAS_WIDTH)
-            this.canvasWidth = ninjas.Setting.MIN_CANVAS_WIDTH;
-        if (this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT)
-            this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
+        if (this.canvasWidth < ninjas.SettingEngine.CANVAS_MIN_WIDTH)
+            this.canvasWidth = ninjas.SettingEngine.CANVAS_MIN_WIDTH;
+        if (this.canvasHeight < ninjas.SettingEngine.CANVAS_MIN_HEIGHT)
+            this.canvasHeight = ninjas.SettingEngine.CANVAS_MIN_HEIGHT;
         ninjas.Debug.canvas.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
     };
     /***************************************************************************************************************
@@ -28721,7 +28799,7 @@ exports.CanvasSystem = CanvasSystem;
 
 
 /***/ }),
-/* 140 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28753,7 +28831,7 @@ var MatterJsSystem = /** @class */ (function () {
         this.engine = matter.Engine.create();
         this.engine.world.gravity = {
             x: 0.0,
-            y: ninjas.Setting.DEFAULT_GRAVITY_Y,
+            y: ninjas.SettingMatterJs.DEFAULT_GRAVITY_Y,
             scale: 0.001
         };
         this.engine.timing.timeScale = 1.0;
@@ -28768,7 +28846,7 @@ var MatterJsSystem = /** @class */ (function () {
                 showAxes: true,
                 showAngleIndicator: true,
                 showVelocity: true,
-                background: ninjas.Setting.CANVAS_BG,
+                background: ninjas.SettingEngine.CANVAS_BG,
                 width: ninjas.Main.game.engine.canvasSystem.getWidth(),
                 height: ninjas.Main.game.engine.canvasSystem.getHeight(),
             },
@@ -28841,7 +28919,7 @@ exports.MatterJsSystem = MatterJsSystem;
 
 
 /***/ }),
-/* 141 */
+/* 144 */
 /***/ (function(module, exports) {
 
 var g;
@@ -28868,7 +28946,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 142 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28958,9 +29036,7 @@ exports.Level = Level;
 
 
 /***/ }),
-/* 143 */,
-/* 144 */,
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29017,9 +29093,9 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createSiteTrigger( 3200, 500, 600, 500, ninjas.SitePanelPosition.NONE ),
                 */
                 // moveable boxes
-                ninjas.GameObjectFactory.createCrate(300, 2500, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(1200, 2500, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(1200, 2500, 80, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 /*
                                 // sigsaws and bounces
                                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
@@ -29079,7 +29155,7 @@ exports.LevelWebsite = LevelWebsite;
 
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29173,25 +29249,13 @@ var GameObject = /** @class */ (function () {
             });
         }
     };
-    /** Highest surface friction. */
-    GameObject.FRICTION_CONCRETE = 1.0;
-    /** Default surface friction. */
-    GameObject.FRICTION_DEFAULT = 0.1;
-    /** Low surface friction. */
-    GameObject.FRICTION_GLASS = 0.01;
-    /** Lowest surface friction. */
-    GameObject.FRICTION_ICE = 0.0;
-    /** Character density. */
-    GameObject.DENSITY_HUMAN = 0.01;
-    /** Default density. */
-    GameObject.DENSITY_DEFAULT = 0.001;
     return GameObject;
 }());
 exports.GameObject = GameObject;
 
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29344,9 +29408,9 @@ var Character = /** @class */ (function (_super) {
                 var gameObject = _b.value;
                 // skip own body and non-colliding game objects
                 if (gameObject.shape.body == this.shape.body
-                    || gameObject.shape.body.collisionFilter == ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM
-                    || gameObject.shape.body.collisionFilter == ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO
-                    || gameObject.shape.body.collisionFilter == ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY) {
+                    || gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_ITEM
+                    || gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DECO
+                    || gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY) {
                     continue;
                 }
                 bodiesToCheck.push(gameObject.shape.body);
@@ -29369,7 +29433,7 @@ exports.Character = Character;
 
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29404,7 +29468,7 @@ var Enemy = /** @class */ (function (_super) {
     *   @param spriteTemplate The sprite template to use for this game object.
     ***************************************************************************************************************/
     function Enemy(shape, x, y, spriteTemplate) {
-        return _super.call(this, shape, spriteTemplate, x, y, ninjas.CharacterLookingDirection.LEFT, 4.0, ninjas.Setting.PLAYER_JUMP_POWER) || this;
+        return _super.call(this, shape, spriteTemplate, x, y, ninjas.CharacterLookingDirection.LEFT, 4.0, ninjas.SettingMatterJs.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -29440,7 +29504,7 @@ exports.Enemy = Enemy;
 
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29485,7 +29549,7 @@ var Player = /** @class */ (function (_super) {
     *   @param spriteTemplate   The initial sprite template to use for the player.
     ***************************************************************************************************************/
     function Player(x, yBottom, lookingDirection, spriteTemplate) {
-        return _super.call(this, new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.Setting.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), spriteTemplate, x, yBottom - spriteTemplate.height, lookingDirection, ninjas.Setting.PLAYER_SPEED_MOVE, ninjas.Setting.PLAYER_JUMP_POWER) || this;
+        return _super.call(this, new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.SettingDebug.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, ninjas.SettingMatterJs.DENSITY_HUMAN), spriteTemplate, x, yBottom - spriteTemplate.height, lookingDirection, ninjas.SettingMatterJs.PLAYER_SPEED_MOVE, ninjas.SettingMatterJs.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -29579,7 +29643,7 @@ var Player = /** @class */ (function (_super) {
                                 // let enemy fall out of the screen
                                 enemy.punchOut();
                                 // disable enemy collisions
-                                enemy.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
+                                enemy.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
                             }
                         }
                     }
@@ -29601,7 +29665,7 @@ exports.Player = Player;
 
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29636,7 +29700,7 @@ var Decoration = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     function Decoration(shape, spriteTemplate, x, y) {
         var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
-        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DECO;
+        _this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DECO;
         return _this;
     }
     /***************************************************************************************************************
@@ -29651,7 +29715,7 @@ exports.Decoration = Decoration;
 
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29728,7 +29792,7 @@ exports.ParallaxDeco = ParallaxDeco;
 
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29766,7 +29830,7 @@ var Item = /** @class */ (function (_super) {
         var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
         /** Indicates if this item has been picked. */
         _this.picked = null;
-        _this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
+        _this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_ITEM;
         return _this;
     }
     /***************************************************************************************************************
@@ -29802,7 +29866,7 @@ exports.Item = Item;
 
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29851,7 +29915,7 @@ exports.Movable = Movable;
 
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29922,7 +29986,7 @@ exports.Obstacle = Obstacle;
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29967,7 +30031,7 @@ var Bounce = /** @class */ (function (_super) {
             stiffness: 0.01,
             length: 0,
             render: {
-                strokeStyle: ninjas.Setting.COLOR_DEBUG_BOUNCE_JOINT,
+                strokeStyle: ninjas.SettingDebug.COLOR_DEBUG_BOUNCE_JOINT,
                 lineWidth: 1.0,
                 visible: true,
             }
@@ -29989,7 +30053,7 @@ exports.Bounce = Bounce;
 
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30098,7 +30162,7 @@ exports.Platform = Platform;
 
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30143,7 +30207,7 @@ var SigSaw = /** @class */ (function (_super) {
             stiffness: 1.0,
             length: 0,
             render: {
-                strokeStyle: ninjas.Setting.COLOR_DEBUG_SIGSAW_JOINT,
+                strokeStyle: ninjas.SettingDebug.COLOR_DEBUG_SIGSAW_JOINT,
                 lineWidth: 1.0,
                 visible: true,
             }
@@ -30196,7 +30260,7 @@ exports.SigSaw = SigSaw;
 
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30299,7 +30363,7 @@ exports.SiteTrigger = SiteTrigger;
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30328,7 +30392,7 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createCrate = function (x, yBottom, friction, density) {
         var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE);
-        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
+        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.SettingDebug.COLOR_DEBUG_MOVABLE, false, 0.0, friction, density), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -30342,7 +30406,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created sphere.
     ***************************************************************************************************************/
     GameObjectFactory.createSphere = function (x, yBottom, diameter, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeCircle(diameter, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), null, x, (yBottom - diameter));
+        return new ninjas.Movable(new ninjas.ShapeCircle(diameter, ninjas.SettingDebug.COLOR_DEBUG_MOVABLE, false, 0.0, friction, density), null, x, (yBottom - diameter));
     };
     /***************************************************************************************************************
     *   Creates an item.
@@ -30353,7 +30417,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created item.
     ***************************************************************************************************************/
     GameObjectFactory.createItem = function (x, y) {
-        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.Setting.COLOR_DEBUG_ITEM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_ITEM), x, y);
+        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.SettingDebug.COLOR_DEBUG_ITEM, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_ITEM), x, y);
     };
     /***************************************************************************************************************
     *   Creates an rectangular obstacle.
@@ -30368,7 +30432,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createObstacle = function (x, yTop, width, height, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_CONCRETE, Infinity), x, yTop, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_CONCRETE, Infinity), x, yTop, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates a free form.
@@ -30381,7 +30445,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createFreeForm = function (x, y, vertices, angle) {
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, false);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, false);
     };
     /***************************************************************************************************************
     *   Creates an elevated ramp obstacle.
@@ -30403,7 +30467,7 @@ var GameObjectFactory = /** @class */ (function () {
         if (deltaY <= 0.0) {
             y += deltaY;
         }
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.Setting.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), x, y, false);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, false);
     };
     /***************************************************************************************************************
     *   Creates an enemy.
@@ -30414,7 +30478,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created enemy.
     ***************************************************************************************************************/
     GameObjectFactory.createEnemy = function (x, y) {
-        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.Setting.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_HUMAN), x, y, null);
+        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.SettingDebug.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, ninjas.SettingMatterJs.DENSITY_HUMAN), x, y, null);
     };
     /***************************************************************************************************************
     *   Creates a decoration.
@@ -30426,7 +30490,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createDecoration = function (x, yBottom, spriteTemplate) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, x, (yBottom - spriteTemplate.height));
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.SettingDebug.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), spriteTemplate, x, (yBottom - spriteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a parallax scrolling decoration.
@@ -30439,7 +30503,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createParallaxDeco = function (x, y, parallaxRatio, spriteTemplate) {
-        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, x, y, parallaxRatio);
+        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.SettingDebug.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), spriteTemplate, x, y, parallaxRatio);
     };
     /***************************************************************************************************************
     *   Creates a site trigger.
@@ -30453,7 +30517,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created site trigger.
     ***************************************************************************************************************/
     GameObjectFactory.createSiteTrigger = function (x, y, width, height, fixedPanelPosition) {
-        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SITE_TRIGGER, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), null, x, y, fixedPanelPosition);
+        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_SITE_TRIGGER, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), null, x, y, fixedPanelPosition);
     };
     /***************************************************************************************************************
     *   Creates a non-collidable background.
@@ -30467,7 +30531,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createBackground = function (x, y, width, height, color) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, color, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), null, x, y);
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(width, height, color, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), null, x, y);
     };
     /***************************************************************************************************************
     *   Creates a sigsaw.
@@ -30481,7 +30545,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createSigsaw = function (x, y, width, height, spriteTemplate) {
-        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), spriteTemplate, x, y);
+        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, ninjas.SettingMatterJs.DENSITY_DEFAULT), spriteTemplate, x, y);
     };
     /***************************************************************************************************************
     *   Creates a platform.
@@ -30495,7 +30559,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createPlatform = function (width, height, spriteTemplate, speed, waypoints) {
-        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, speed, waypoints);
+        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), spriteTemplate, speed, waypoints);
     };
     /***************************************************************************************************************
      *   Creates a bounce.
@@ -30509,7 +30573,7 @@ var GameObjectFactory = /** @class */ (function () {
      *   @return The created decoration.
      ***************************************************************************************************************/
     GameObjectFactory.createBounce = function (x, y, width, height, spriteTemplate) {
-        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.Setting.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.GameObject.FRICTION_DEFAULT, ninjas.GameObject.DENSITY_DEFAULT), spriteTemplate, x, y);
+        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, ninjas.SettingMatterJs.DENSITY_DEFAULT), spriteTemplate, x, y);
     };
     return GameObjectFactory;
 }());
@@ -30517,7 +30581,7 @@ exports.GameObjectFactory = GameObjectFactory;
 
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30548,12 +30612,12 @@ var Shape = /** @class */ (function () {
         this.options = {
             render: {
                 fillStyle: debugColor,
-                strokeStyle: ninjas.Setting.COLOR_DEBUG_BORDER,
-                opacity: ninjas.Setting.COLOR_DEBUG_OPACITY,
-                lineWidth: ninjas.Setting.COLOR_DEBUG_LINE_WIDTH,
+                strokeStyle: ninjas.SettingDebug.COLOR_DEBUG_BORDER,
+                opacity: ninjas.SettingDebug.COLOR_DEBUG_OPACITY,
+                lineWidth: ninjas.SettingDebug.COLOR_DEBUG_LINE_WIDTH,
             },
             isStatic: isStatic,
-            collisionFilter: ninjas.Setting.COLLISION_GROUP_COLLIDING,
+            collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,
             friction: friction,
             angle: ninjas.MathUtil.angleToRad(angle),
             density: density,
@@ -30565,7 +30629,7 @@ exports.Shape = Shape;
 
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30654,7 +30718,7 @@ exports.ShapeRectangle = ShapeRectangle;
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30738,7 +30802,7 @@ exports.ShapeCircle = ShapeCircle;
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30869,14 +30933,14 @@ exports.ShapeFreeForm = ShapeFreeForm;
 
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-__webpack_require__(165);
+__webpack_require__(166);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
 *
@@ -30901,7 +30965,7 @@ var Game = /** @class */ (function () {
             // render one game tick
             _this.render();
             // update MatterJS 2d engine
-            _this.engine.matterJsSystem.updateEngine(ninjas.Setting.RENDER_DELTA);
+            _this.engine.matterJsSystem.updateEngine(ninjas.SettingGame.RENDER_DELTA);
             // stop fpsMetet tick
             _this.engine.fpsMeter.tick();
         };
@@ -30926,7 +30990,7 @@ var Game = /** @class */ (function () {
         // start the renderer
         this.engine.matterJsSystem.startRenderer();
         // invoke engine ticks repeatedly
-        window.setInterval(this.tick, ninjas.Setting.TICK_DELAY_DELTA);
+        window.setInterval(this.tick, ninjas.SettingGame.TICK_DELAY_DELTA);
     };
     /***************************************************************************************************************
     *   Inits the level.
@@ -30944,7 +31008,7 @@ var Game = /** @class */ (function () {
     *   Resets the camera.
     ***************************************************************************************************************/
     Game.prototype.resetCamera = function () {
-        this.camera = new ninjas.Camera(this.engine.matterJsSystem.getRenderer(), ninjas.Setting.CAMERA_RATIO_Y, ninjas.Setting.CAMERA_MOVING_SPEED, ninjas.Setting.CAMERA_MOVING_MINIMUM, ninjas.Setting.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.engine.canvasSystem.getWidth(), this.engine.canvasSystem.getHeight());
+        this.camera = new ninjas.Camera(this.engine.matterJsSystem.getRenderer(), ninjas.SettingEngine.CAMERA_RATIO_Y, ninjas.SettingEngine.CAMERA_MOVING_SPEED, ninjas.SettingEngine.CAMERA_MOVING_MINIMUM, ninjas.SettingEngine.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.engine.canvasSystem.getWidth(), this.engine.canvasSystem.getHeight());
         this.camera.reset();
     };
     /***************************************************************************************************************
@@ -30969,7 +31033,7 @@ var Game = /** @class */ (function () {
         var testHudWidth = 150;
         var testHudHeight = 50;
         context.fillStyle = "#ff0000";
-        context.fillRect(this.engine.canvasSystem.getWidth() - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, ninjas.Setting.SITE_BORDER_SIZE, testHudWidth, testHudHeight);
+        context.fillRect(this.engine.canvasSystem.getWidth() - ninjas.SettingGame.SITE_BORDER_SIZE - testHudWidth, ninjas.SettingGame.SITE_BORDER_SIZE, testHudWidth, testHudHeight);
     };
     /***************************************************************************************************************
     *   Handles pressed menu keys.
@@ -31004,7 +31068,7 @@ exports.Game = Game;
 
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports) {
 
 /*!
@@ -31891,7 +31955,7 @@ exports.Game = Game;
 }(window, FPSMeter));
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32006,8 +32070,8 @@ var GameEngine = /** @class */ (function () {
             position: "absolute",
             zIndex: 10,
             top: "auto",
-            right: ninjas.Setting.SITE_BORDER_SIZE + "px",
-            bottom: ninjas.Setting.SITE_BORDER_SIZE + "px",
+            right: ninjas.SettingGame.SITE_BORDER_SIZE + "px",
+            bottom: ninjas.SettingGame.SITE_BORDER_SIZE + "px",
             left: "auto",
             margin: "0",
             heat: 1,
@@ -32019,7 +32083,7 @@ exports.GameEngine = GameEngine;
 
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32064,7 +32128,7 @@ exports.Key = Key;
 
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32081,65 +32145,65 @@ var Image = /** @class */ (function () {
     function Image() {
     }
     /** Image resource 'ninja girl standing right frame 1'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/01.png";
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/01.png";
     /** Image resource 'ninja girl standing right frame 2'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/02.png";
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/02.png";
     /** Image resource 'ninja girl standing right frame 3'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/03.png";
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/03.png";
     /** Image resource 'ninja girl standing right frame 4'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/04.png";
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/04.png";
     /** Image resource 'ninja girl standing right frame 5'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/05.png";
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/05.png";
     /** Image resource 'ninja girl standing right frame 6'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/06.png";
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/06.png";
     /** Image resource 'ninja girl standing right frame 7'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/07.png";
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/07.png";
     /** Image resource 'ninja girl standing right frame 8'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/08.png";
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/08.png";
     /** Image resource 'ninja girl standing right frame 9'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/09.png";
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/09.png";
     /** Image resource 'ninja girl standing right frame 10'. */
-    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "standRight/10.png";
+    Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/10.png";
     /** Image resource 'ninja girl walking right frame 1'. */
-    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/01.png";
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/01.png";
     /** Image resource 'ninja girl walking right frame 2'. */
-    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/02.png";
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_2 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/02.png";
     /** Image resource 'ninja girl walking right frame 3'. */
-    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/03.png";
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_3 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/03.png";
     /** Image resource 'ninja girl walking right frame 4'. */
-    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_4 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/04.png";
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_4 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/04.png";
     /** Image resource 'ninja girl walking right frame 5'. */
-    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_5 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/05.png";
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_5 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/05.png";
     /** Image resource 'ninja girl walking right frame 6'. */
-    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_6 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/06.png";
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_6 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/06.png";
     /** Image resource 'ninja girl walking right frame 7'. */
-    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_7 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/07.png";
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_7 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/07.png";
     /** Image resource 'ninja girl walking right frame 8'. */
-    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/08.png";
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/08.png";
     /** Image resource 'ninja girl walking right frame 9'. */
-    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/09.png";
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/09.png";
     /** Image resource 'ninja girl walking right frame 10'. */
-    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10 = ninjas.Setting.PATH_IMAGE_PLAYER + "walkRight/10.png";
+    Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/10.png";
     /** Image resource 'ninja girl jumping right frame 1'. */
-    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/01.png";
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "jumpRight/01.png";
     /** Image resource 'ninja girl jumping right frame 2'. */
-    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/02.png";
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "jumpRight/02.png";
     /** Image resource 'ninja girl jumping right frame 3'. */
-    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "jumpRight/03.png";
+    Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "jumpRight/03.png";
     /** Image resource 'ninja girl falling right frame 1'. */
-    Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1 = ninjas.Setting.PATH_IMAGE_PLAYER + "fallingRight/01.png";
+    Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallingRight/01.png";
     /** Image resource 'ninja girl falling right frame 2'. */
-    Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2 = ninjas.Setting.PATH_IMAGE_PLAYER + "fallingRight/02.png";
+    Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallingRight/02.png";
     /** Image resource 'ninja girl falling right frame 3'. */
-    Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3 = ninjas.Setting.PATH_IMAGE_PLAYER + "fallingRight/03.png";
+    Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallingRight/03.png";
     /** Image resource 'crate'. */
-    Image.IMAGE_CRATE = ninjas.Setting.PATH_IMAGE_LEVEL + "crate.jpg";
+    Image.IMAGE_CRATE = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "crate.jpg";
     /** Image resource 'item'. */
-    Image.IMAGE_ITEM = ninjas.Setting.PATH_IMAGE_LEVEL + "item.png";
+    Image.IMAGE_ITEM = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "item.png";
     /** Image resource 'tree'. */
-    Image.IMAGE_TREE = ninjas.Setting.PATH_IMAGE_LEVEL + "tree.png";
+    Image.IMAGE_TREE = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "tree.png";
     /** A test bg image. */
-    Image.IMAGE_BG_TEST = ninjas.Setting.PATH_IMAGE_LEVEL + "bgTest.jpg";
+    Image.IMAGE_BG_TEST = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
     /** An array holding all filenames of all images to load. */
     Image.FILE_NAMES = [
         Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
@@ -32179,7 +32243,7 @@ exports.Image = Image;
 
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32196,9 +32260,9 @@ var Sound = /** @class */ (function () {
     function Sound() {
     }
     /** 'chinese' from 'Graeme Norgate' taken from 'Time Splitters' - Although everybody knows that ninjas actually come from Japan .. */
-    Sound.BG_CHINESE = ninjas.Setting.PATH_SOUND + "bgChinese.mp3";
+    Sound.BG_CHINESE = ninjas.SettingEngine.PATH_SOUND + "bgChinese.mp3";
     /** 'play hard' from 'Graeme Norgate' taken from 'Killer Instict Gold' */
-    Sound.BG_PLAY_HARD = ninjas.Setting.PATH_SOUND + "bgPlayHard.mp3";
+    Sound.BG_PLAY_HARD = ninjas.SettingEngine.PATH_SOUND + "bgPlayHard.mp3";
     /** An array holding all filenames of all sounds to load. */
     Sound.FILE_NAMES = [
         Sound.BG_CHINESE,
@@ -32210,7 +32274,7 @@ exports.Sound = Sound;
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32295,7 +32359,7 @@ exports.Sprite = Sprite;
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32475,7 +32539,7 @@ exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32500,17 +32564,17 @@ var SiteContent = /** @class */ (function () {
     SiteContent.createExampleContent = function () {
         // panel
         var ret = document.createElement("div");
-        ret.style.backgroundColor = ninjas.Setting.SITE_PANEL_BG_COLOR;
+        ret.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
         ret.style.position = "absolute";
-        ret.style.top = ninjas.Setting.SITE_BORDER_SIZE + "px";
+        ret.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
         ret.setAttribute("data-wow-duration", "1.0s");
         ret.setAttribute("data-wow-delay", "0.0s");
         // relative container div
         var relativeContainerDiv = document.createElement("div");
         relativeContainerDiv.style.backgroundColor = "#c7d9f5";
         relativeContainerDiv.style.position = "relative";
-        relativeContainerDiv.style.top = ninjas.Setting.SITE_BORDER_SIZE + "px";
-        relativeContainerDiv.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
+        relativeContainerDiv.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+        relativeContainerDiv.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
         relativeContainerDiv.setAttribute("data-wow-duration", "0.5s");
         relativeContainerDiv.setAttribute("data-wow-delay", "1.0s");
         relativeContainerDiv.className = "wow fadeIn";
@@ -32529,7 +32593,7 @@ var SiteContent = /** @class */ (function () {
         exampleBlock.style.background = "#fffc9e";
         // example image
         var exampleImage = document.createElement("img");
-        exampleImage.src = ninjas.Setting.PATH_IMAGE_SITE + "logo.png";
+        exampleImage.src = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
         exampleImage.style.width = "100%";
         exampleImage.style.height = "auto";
         // append to DOM
@@ -32545,7 +32609,7 @@ exports.SiteContent = SiteContent;
 
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32753,7 +32817,7 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32856,7 +32920,7 @@ exports.Drawing = Drawing;
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32898,7 +32962,7 @@ exports.IO = IO;
 
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32938,7 +33002,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32986,7 +33050,7 @@ exports.String = String;
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -33014,7 +33078,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -33271,7 +33335,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 179;
+webpackContext.id = 180;
 
 /***/ })
 /******/ ]);

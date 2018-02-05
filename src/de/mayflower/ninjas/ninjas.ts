@@ -1,6 +1,9 @@
 
     export * from './base/Version';
-    export * from './base/Setting';
+    export * from './base/setting/SettingDebug';
+    export * from './base/setting/SettingEngine';
+    export * from './base/setting/SettingGame';
+    export * from './base/setting/SettingMatterJs';
     export * from './base/Debug';
     export * from './base/Main';
 

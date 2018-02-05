@@ -31,7 +31,7 @@
                 y,
             );
 
-            this.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_ITEM;
+            this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_ITEM;
         }
 
         /***************************************************************************************************************

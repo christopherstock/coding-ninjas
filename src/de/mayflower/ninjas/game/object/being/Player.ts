@@ -32,18 +32,18 @@
                 (
                     spriteTemplate.width,
                     spriteTemplate.height,
-                    ninjas.Setting.COLOR_DEBUG_PLAYER,
+                    ninjas.SettingDebug.COLOR_DEBUG_PLAYER,
                     false,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
-                    ninjas.GameObject.DENSITY_HUMAN
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.DENSITY_HUMAN
                 ),
                 spriteTemplate,
                 x,
                 yBottom - spriteTemplate.height,
                 lookingDirection,
-                ninjas.Setting.PLAYER_SPEED_MOVE,
-                ninjas.Setting.PLAYER_JUMP_POWER
+                ninjas.SettingMatterJs.PLAYER_SPEED_MOVE,
+                ninjas.SettingMatterJs.PLAYER_JUMP_POWER
             );
         }
 
@@ -179,7 +179,7 @@
                                 enemy.punchOut();
 
                                 // disable enemy collisions
-                                enemy.shape.body.collisionFilter = ninjas.Setting.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
+                                enemy.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
                             }
                         }
                     }

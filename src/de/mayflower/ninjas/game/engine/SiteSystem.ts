@@ -153,14 +153,14 @@
         public updatePanelSizeAndPosition()
         {
             // calculate panel size
-            this.panelWidth = ( ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.Setting.SITE_BORDER_SIZE );
-            if ( this.panelWidth > ninjas.Setting.SITE_PANEL_MAX_WIDTH )
+            this.panelWidth = ( ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.SettingGame.SITE_BORDER_SIZE );
+            if ( this.panelWidth > ninjas.SettingGame.SITE_PANEL_MAX_WIDTH )
             {
-                this.panelWidth = ninjas.Setting.SITE_PANEL_MAX_WIDTH;
+                this.panelWidth = ninjas.SettingGame.SITE_PANEL_MAX_WIDTH;
             }
 
             // calculate panel size including border and left and right position
-            this.panelAndBorderWidth = this.panelWidth + ninjas.Setting.SITE_BORDER_SIZE;
+            this.panelAndBorderWidth = this.panelWidth + ninjas.SettingGame.SITE_BORDER_SIZE;
             this.leftCameraTargetX   = ( this.panelAndBorderWidth + ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 ) );
             this.rightCameraTargetX  = ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 );
 
@@ -168,19 +168,19 @@
             if ( this.currentPanel != null )
             {
                 this.currentPanel.style.width  = this.panelWidth + "px";
-                this.currentPanel.style.height = ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+                this.currentPanel.style.height = ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
 
                 if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
                 {
-                    this.currentPanel.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
+                    this.currentPanel.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
                 }
                 else
                 {
-                    this.currentPanel.style.left = ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+                    this.currentPanel.style.left = ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
                 }
 
                 let siteContainer:HTMLDivElement = document.getElementById( "siteContainer" ) as HTMLDivElement;
-                siteContainer.style.width  = ( this.panelWidth - 2 * ninjas.Setting.SITE_BORDER_SIZE ) + "px";
+                siteContainer.style.width  = ( this.panelWidth - 2 * ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
             }
         }
 

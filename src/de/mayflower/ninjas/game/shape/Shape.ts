@@ -27,23 +27,23 @@
         ***************************************************************************************************************/
         public constructor
         (
-            debugColor:string,
-            isStatic:boolean,
-            angle:number,
-            friction:number,
-            density:number
+            debugColor :string,
+            isStatic   :boolean,
+            angle      :number,
+            friction   :number,
+            density    :number
         )
         {
             this.options = {
                 render:
                 {
                     fillStyle:   debugColor,
-                    strokeStyle: ninjas.Setting.COLOR_DEBUG_BORDER,
-                    opacity:     ninjas.Setting.COLOR_DEBUG_OPACITY,
-                    lineWidth:   ninjas.Setting.COLOR_DEBUG_LINE_WIDTH,
+                    strokeStyle: ninjas.SettingDebug.COLOR_DEBUG_BORDER,
+                    opacity:     ninjas.SettingDebug.COLOR_DEBUG_OPACITY,
+                    lineWidth:   ninjas.SettingDebug.COLOR_DEBUG_LINE_WIDTH,
                 },
                 isStatic:        isStatic,
-                collisionFilter: ninjas.Setting.COLLISION_GROUP_COLLIDING,
+                collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,
                 friction:        friction,
                 angle:           ninjas.MathUtil.angleToRad( angle ),
                 density:         density,

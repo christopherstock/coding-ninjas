@@ -49,7 +49,7 @@
         ***************************************************************************************************************/
         public log( msg:string = "" ):void
         {
-            if ( ninjas.Setting.DEBUG_MODE && this.debugEnabled )
+            if ( ninjas.SettingDebug.DEBUG_MODE && this.debugEnabled )
             {
                 console.log( '[' + ninjas.String.getDateTimeString() + '] ' + msg );
             }

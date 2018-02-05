@@ -4,13 +4,13 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Split class 'Setting': extract debub settings, engine settings, matter/physics settings etc. > own package?
     *   TODO Disable all debug paintings via DEBUG_MODE switch in SettingDebug.
     *   TODO Remove timeout and use Engine.events.tick?
+    *   TODO Try friction, frictionStatic and frictionAir to Shape!
     *   TODO Add Image for sphere.
     *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
+    *   TODO Move site settings (duration etc) to SettingGame or SettingSite.
     *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
-    *   TODO Try friction, frictionStatic and frictionAir.
     *   TODO use density instead of mass/inverseMass
     *   TODO create or remove method updateBody() for all shape classes!
     *   TODO Group different objects in level class!
@@ -61,10 +61,10 @@
         public static main() : void
         {
             // set webpage title
-            document.title = ninjas.Setting.TITLE;
+            document.title = ninjas.SettingGame.TITLE;
 
             // acclaim debug console
-            ninjas.Debug.init.log( ninjas.Setting.TITLE );
+            ninjas.Debug.init.log( ninjas.SettingGame.TITLE );
             ninjas.Debug.init.log();
 
             //init and start the game engine

@@ -21,9 +21,9 @@
             // panel
             let ret:HTMLDivElement = document.createElement( "div" );
 
-            ret.style.backgroundColor = ninjas.Setting.SITE_PANEL_BG_COLOR;
+            ret.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
             ret.style.position        = "absolute";
-            ret.style.top             = ninjas.Setting.SITE_BORDER_SIZE + "px";
+            ret.style.top             = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
 
             ret.setAttribute( "data-wow-duration", "1.0s" );
             ret.setAttribute( "data-wow-delay",    "0.0s" );
@@ -34,8 +34,8 @@
             relativeContainerDiv.style.backgroundColor = "#c7d9f5";
 
             relativeContainerDiv.style.position = "relative";
-            relativeContainerDiv.style.top  = ninjas.Setting.SITE_BORDER_SIZE + "px";
-            relativeContainerDiv.style.left = ninjas.Setting.SITE_BORDER_SIZE + "px";
+            relativeContainerDiv.style.top  = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+            relativeContainerDiv.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
 
             relativeContainerDiv.setAttribute( "data-wow-duration", "0.5s" );
             relativeContainerDiv.setAttribute( "data-wow-delay",    "1.0s" );
@@ -63,7 +63,7 @@
 
             // example image
             let exampleImage:HTMLImageElement = document.createElement( "img" );
-            exampleImage.src = ninjas.Setting.PATH_IMAGE_SITE + "logo.png";
+            exampleImage.src = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
             exampleImage.style.width = "100%";
             exampleImage.style.height = "auto";
 

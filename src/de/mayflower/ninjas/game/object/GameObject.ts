@@ -10,20 +10,6 @@
     *******************************************************************************************************************/
     export abstract class GameObject
     {
-        /** Highest surface friction. */
-        public  static  FRICTION_CONCRETE       :number                         = 1.0;
-        /** Default surface friction. */
-        public  static  FRICTION_DEFAULT        :number                         = 0.1;
-        /** Low surface friction. */
-        public  static  FRICTION_GLASS          :number                         = 0.01;
-        /** Lowest surface friction. */
-        public  static  FRICTION_ICE            :number                         = 0.0;
-
-        /** Character density. */
-        public  static  DENSITY_HUMAN           :number                         = 0.01;
-        /** Default density. */
-        public  static  DENSITY_DEFAULT         :number                         = 0.001;
-
         /** Collision shape. */
         public          shape                   :ninjas.Shape                   = null;
 

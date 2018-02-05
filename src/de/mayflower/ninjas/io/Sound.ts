@@ -10,9 +10,9 @@
     export class Sound
     {
         /** 'chinese' from 'Graeme Norgate' taken from 'Time Splitters' - Although everybody knows that ninjas actually come from Japan .. */
-        public      static      BG_CHINESE                      :string                 = ninjas.Setting.PATH_SOUND + "bgChinese.mp3";
+        public      static      BG_CHINESE                      :string                 = ninjas.SettingEngine.PATH_SOUND + "bgChinese.mp3";
         /** 'play hard' from 'Graeme Norgate' taken from 'Killer Instict Gold' */
-        public      static      BG_PLAY_HARD                    :string                 = ninjas.Setting.PATH_SOUND + "bgPlayHard.mp3";
+        public      static      BG_PLAY_HARD                    :string                 = ninjas.SettingEngine.PATH_SOUND + "bgPlayHard.mp3";
 
         /** An array holding all filenames of all sounds to load. */
         public      static      FILE_NAMES                      :Array<string>          =

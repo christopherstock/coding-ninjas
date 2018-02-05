@@ -49,7 +49,7 @@
             // invoke engine ticks repeatedly
             window.setInterval(
                 this.tick,
-                ninjas.Setting.TICK_DELAY_DELTA
+                ninjas.SettingGame.TICK_DELAY_DELTA
             );
         }
 
@@ -76,10 +76,10 @@
         {
             this.camera = new ninjas.Camera(
                 this.engine.matterJsSystem.getRenderer(),
-                ninjas.Setting.CAMERA_RATIO_Y,
-                ninjas.Setting.CAMERA_MOVING_SPEED,
-                ninjas.Setting.CAMERA_MOVING_MINIMUM,
-                ninjas.Setting.CAMERA_MOVING_MAXIMUM,
+                ninjas.SettingEngine.CAMERA_RATIO_Y,
+                ninjas.SettingEngine.CAMERA_MOVING_SPEED,
+                ninjas.SettingEngine.CAMERA_MOVING_MINIMUM,
+                ninjas.SettingEngine.CAMERA_MOVING_MAXIMUM,
                 this.level.width,
                 this.level.height,
                 this.engine.canvasSystem.getWidth(),
@@ -100,7 +100,7 @@
             this.render();
 
             // update MatterJS 2d engine
-            this.engine.matterJsSystem.updateEngine( ninjas.Setting.RENDER_DELTA );
+            this.engine.matterJsSystem.updateEngine( ninjas.SettingGame.RENDER_DELTA );
 
             // stop fpsMetet tick
             this.engine.fpsMeter.tick();
@@ -140,7 +140,7 @@
             let testHudHeight:number = 50;
 
             context.fillStyle = "#ff0000";
-            context.fillRect( this.engine.canvasSystem.getWidth() - ninjas.Setting.SITE_BORDER_SIZE - testHudWidth, ninjas.Setting.SITE_BORDER_SIZE, testHudWidth, testHudHeight );
+            context.fillRect( this.engine.canvasSystem.getWidth() - ninjas.SettingGame.SITE_BORDER_SIZE - testHudWidth, ninjas.SettingGame.SITE_BORDER_SIZE, testHudWidth, testHudHeight );
         }
 
         /***************************************************************************************************************

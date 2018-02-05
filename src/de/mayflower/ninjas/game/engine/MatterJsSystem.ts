@@ -33,7 +33,7 @@
             this.engine = matter.Engine.create();
             this.engine.world.gravity = {
                 x: 0.0,
-                y: ninjas.Setting.DEFAULT_GRAVITY_Y,
+                y: ninjas.SettingMatterJs.DEFAULT_GRAVITY_Y,
                 scale: 0.001
             };
             this.engine.timing.timeScale = 1.0;
@@ -51,7 +51,7 @@
                         showAngleIndicator: true,
                         showVelocity:       true,
 
-                        background:         ninjas.Setting.CANVAS_BG,
+                        background:         ninjas.SettingEngine.CANVAS_BG,
 
                         width:              ninjas.Main.game.engine.canvasSystem.getWidth(),
                         height:             ninjas.Main.game.engine.canvasSystem.getHeight(),

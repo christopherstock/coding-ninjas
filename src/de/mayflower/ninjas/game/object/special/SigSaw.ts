@@ -39,7 +39,7 @@
                     stiffness: 1.0,
                     length: 0,
                     render: {
-                        strokeStyle: ninjas.Setting.COLOR_DEBUG_SIGSAW_JOINT,
+                        strokeStyle: ninjas.SettingDebug.COLOR_DEBUG_SIGSAW_JOINT,
                         lineWidth: 1.0,
                         visible:   true,
                     }

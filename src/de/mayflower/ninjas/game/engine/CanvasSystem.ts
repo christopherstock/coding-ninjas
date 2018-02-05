@@ -42,8 +42,8 @@
             this.canvasHeight = window.innerHeight;
 
             // clip to minimum canvas dimensions
-            if ( this.canvasWidth  < ninjas.Setting.MIN_CANVAS_WIDTH  ) this.canvasWidth  = ninjas.Setting.MIN_CANVAS_WIDTH;
-            if ( this.canvasHeight < ninjas.Setting.MIN_CANVAS_HEIGHT ) this.canvasHeight = ninjas.Setting.MIN_CANVAS_HEIGHT;
+            if ( this.canvasWidth  < ninjas.SettingEngine.CANVAS_MIN_WIDTH  ) this.canvasWidth  = ninjas.SettingEngine.CANVAS_MIN_WIDTH;
+            if ( this.canvasHeight < ninjas.SettingEngine.CANVAS_MIN_HEIGHT ) this.canvasHeight = ninjas.SettingEngine.CANVAS_MIN_HEIGHT;
 
             ninjas.Debug.canvas.log( "Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] " );
         }

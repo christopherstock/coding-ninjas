@@ -30,7 +30,7 @@
                 (
                     sprtiteTemplate.width,
                     sprtiteTemplate.height,
-                    ninjas.Setting.COLOR_DEBUG_BOX,
+                    ninjas.SettingDebug.COLOR_DEBUG_MOVABLE,
                     false,
                     0.0,
                     friction,
@@ -60,7 +60,7 @@
                 new ninjas.ShapeCircle
                 (
                     diameter,
-                    ninjas.Setting.COLOR_DEBUG_BOX,
+                    ninjas.SettingDebug.COLOR_DEBUG_MOVABLE,
                     false,
                     0.0,
                     friction,
@@ -88,10 +88,10 @@
                 (
                     30.0,
                     52.0,
-                    ninjas.Setting.COLOR_DEBUG_ITEM,
+                    ninjas.SettingDebug.COLOR_DEBUG_ITEM,
                     true,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
                     Infinity
                 ),
                 ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_ITEM ),
@@ -120,10 +120,10 @@
                 (
                     width,
                     height,
-                    ninjas.Setting.COLOR_DEBUG_OBSTACLE,
+                    ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE,
                     true,
                     angle,
-                    ninjas.GameObject.FRICTION_CONCRETE,
+                    ninjas.SettingMatterJs.FRICTION_CONCRETE,
                     Infinity
                 ),
                 x,
@@ -149,10 +149,10 @@
                 new ninjas.ShapeFreeForm
                 (
                     vertices,
-                    ninjas.Setting.COLOR_DEBUG_OBSTACLE,
+                    ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE,
                     true,
                     angle,
-                    ninjas.GameObject.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
                     Infinity
                 ),
                 x,
@@ -191,10 +191,10 @@
                 new ninjas.ShapeFreeForm
                 (
                     vertices,
-                    ninjas.Setting.COLOR_DEBUG_OBSTACLE,
+                    ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE,
                     true,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
                     Infinity
                 ),
                 x,
@@ -219,11 +219,11 @@
                 (
                     50.0,
                     50.0,
-                    ninjas.Setting.COLOR_DEBUG_ENEMY,
+                    ninjas.SettingDebug.COLOR_DEBUG_ENEMY,
                     false,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
-                    ninjas.GameObject.DENSITY_HUMAN
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.DENSITY_HUMAN
                 ),
                 x,
                 y,
@@ -248,10 +248,10 @@
                 (
                     spriteTemplate.width,
                     spriteTemplate.height,
-                    ninjas.Setting.COLOR_DEBUG_DECORATION,
+                    ninjas.SettingDebug.COLOR_DEBUG_DECORATION,
                     true,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
                     Infinity
                 ),
                 spriteTemplate,
@@ -285,10 +285,10 @@
                 (
                     spriteTemplate.width,
                     spriteTemplate.height,
-                    ninjas.Setting.COLOR_DEBUG_DECORATION,
+                    ninjas.SettingDebug.COLOR_DEBUG_DECORATION,
                     true,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
                     Infinity
                 ),
                 spriteTemplate,
@@ -325,10 +325,10 @@
                 (
                     width,
                     height,
-                    ninjas.Setting.COLOR_DEBUG_SITE_TRIGGER,
+                    ninjas.SettingDebug.COLOR_DEBUG_SITE_TRIGGER,
                     true,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
                     Infinity
                 ),
                 null,
@@ -360,7 +360,7 @@
                     color,
                     true,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
                     Infinity
                 ),
                 null,
@@ -388,11 +388,11 @@
                 (
                     width,
                     height,
-                    ninjas.Setting.COLOR_DEBUG_SIGSAW,
+                    ninjas.SettingDebug.COLOR_DEBUG_SIGSAW,
                     false,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
-                    ninjas.GameObject.DENSITY_DEFAULT
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.DENSITY_DEFAULT
                 ),
                 spriteTemplate,
                 x,
@@ -427,10 +427,10 @@
                 (
                     width,
                     height,
-                    ninjas.Setting.COLOR_DEBUG_PLATFORM,
+                    ninjas.SettingDebug.COLOR_DEBUG_PLATFORM,
                     true,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
                     Infinity
                 ),
                 spriteTemplate,
@@ -458,11 +458,11 @@
                 (
                     width,
                     height,
-                    ninjas.Setting.COLOR_DEBUG_BOUNCE,
+                    ninjas.SettingDebug.COLOR_DEBUG_BOUNCE,
                     false,
                     0.0,
-                    ninjas.GameObject.FRICTION_DEFAULT,
-                    ninjas.GameObject.DENSITY_DEFAULT
+                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.SettingMatterJs.DENSITY_DEFAULT
                 ),
                 spriteTemplate,
                 x,
