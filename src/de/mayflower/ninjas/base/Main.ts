@@ -4,14 +4,13 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Remove timeout and use Engine.events.tick?
-    *   TODO Try friction, frictionStatic and frictionAir to Shape!
-    *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
     *   TODO Move site settings (duration etc) to SettingGame or SettingSite.
     *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
-    *   TODO use density instead of mass/inverseMass
-    *   TODO create or remove method updateBody() for all shape classes!
+    *
+    *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
     *   TODO Group different objects in level class!
+    *   TODO Try friction, frictionStatic and frictionAir to Shape!
+    *   TODO Remove timeout and use Engine.events.tick?
     *   TODO Revise parallax rendering though different groups in level class.
     *   TODO Refactor: remove getRenderer in MatterJs!
     *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.

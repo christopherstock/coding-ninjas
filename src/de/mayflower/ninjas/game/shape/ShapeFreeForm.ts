@@ -107,15 +107,4 @@
 
             console.log("bounds: " + this.boundWidth + "   " + this.boundHeight);
         }
-
-        /***************************************************************************************************************
-        *   Updates this shape's body dimensions.
-        *
-        *   @param width  The new width for this shape.
-        *   @param height The new height for this shape.
-        ***************************************************************************************************************/
-        public updateDimensions( width:number, height:number ) : void
-        {
-            // not implemented
-        }
     }
