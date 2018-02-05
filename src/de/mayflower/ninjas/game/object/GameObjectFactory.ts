@@ -47,28 +47,29 @@
         *
         *   @param x        Anchor X.
         *   @param yBottom  Anchor of bottom Y.
-        *   @param diameter Sphere diameter.
         *   @param friction The surface friction for this object.
         *   @param density  The density for this object.
         *
         *   @return The created sphere.
         ***************************************************************************************************************/
-        public static createSphere( x:number, yBottom:number, diameter:number, friction:number, density:number ):ninjas.Movable
+        public static createSphere( x:number, yBottom:number, friction:number, density:number ):ninjas.Movable
         {
+            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_SPHERE );
+
             return new ninjas.Movable
             (
                 new ninjas.ShapeCircle
                 (
-                    diameter,
+                    sprtiteTemplate.height,
                     ninjas.SettingDebug.COLOR_DEBUG_MOVABLE,
                     false,
                     0.0,
                     friction,
                     density
                 ),
-                null,
+                sprtiteTemplate,
                 x,
-                ( yBottom - diameter )
+                ( yBottom - sprtiteTemplate.height )
             );
         }
 

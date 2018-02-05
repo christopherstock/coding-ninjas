@@ -50,7 +50,7 @@
                 ninjas.GameObjectFactory.createCrate(  300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createCrate(  500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
 
-                ninjas.GameObjectFactory.createSphere( 1200, 2500, 80,     ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
 
 /*
                 // sigsaws and bounces

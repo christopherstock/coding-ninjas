@@ -72,6 +72,8 @@
         public      static      IMAGE_ITEM                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "item.png";
         /** Image resource 'tree'. */
         public      static      IMAGE_TREE                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "tree.png";
+        /** Image resource 'sphere'. */
+        public      static      IMAGE_SPHERE                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "sphere.png";
 
         /** A test bg image. */
         public      static      IMAGE_BG_TEST                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
@@ -112,6 +114,7 @@
             Image.IMAGE_ITEM,
             Image.IMAGE_TREE,
             Image.IMAGE_CRATE,
+            Image.IMAGE_SPHERE,
 
             Image.IMAGE_BG_TEST
         ];

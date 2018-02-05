@@ -27633,7 +27633,6 @@ var ninjas = __webpack_require__(1);
 *
 *   TODO Remove timeout and use Engine.events.tick?
 *   TODO Try friction, frictionStatic and frictionAir to Shape!
-*   TODO Add Image for sphere.
 *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
 *   TODO Move site settings (duration etc) to SettingGame or SettingSite.
 *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
@@ -29094,7 +29093,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(1200, 2500, 80, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
+                ninjas.GameObjectFactory.createSphere(1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 /*
                                 // sigsaws and bounces
                                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
@@ -30398,14 +30397,14 @@ var GameObjectFactory = /** @class */ (function () {
     *
     *   @param x        Anchor X.
     *   @param yBottom  Anchor of bottom Y.
-    *   @param diameter Sphere diameter.
     *   @param friction The surface friction for this object.
     *   @param density  The density for this object.
     *
     *   @return The created sphere.
     ***************************************************************************************************************/
-    GameObjectFactory.createSphere = function (x, yBottom, diameter, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeCircle(diameter, ninjas.SettingDebug.COLOR_DEBUG_MOVABLE, false, 0.0, friction, density), null, x, (yBottom - diameter));
+    GameObjectFactory.createSphere = function (x, yBottom, friction, density) {
+        var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_SPHERE);
+        return new ninjas.Movable(new ninjas.ShapeCircle(sprtiteTemplate.height, ninjas.SettingDebug.COLOR_DEBUG_MOVABLE, false, 0.0, friction, density), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates an item.
@@ -32201,6 +32200,8 @@ var Image = /** @class */ (function () {
     Image.IMAGE_ITEM = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "item.png";
     /** Image resource 'tree'. */
     Image.IMAGE_TREE = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "tree.png";
+    /** Image resource 'sphere'. */
+    Image.IMAGE_SPHERE = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "sphere.png";
     /** A test bg image. */
     Image.IMAGE_BG_TEST = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
     /** An array holding all filenames of all images to load. */
@@ -32234,6 +32235,7 @@ var Image = /** @class */ (function () {
         Image.IMAGE_ITEM,
         Image.IMAGE_TREE,
         Image.IMAGE_CRATE,
+        Image.IMAGE_SPHERE,
         Image.IMAGE_BG_TEST
     ];
     return Image;

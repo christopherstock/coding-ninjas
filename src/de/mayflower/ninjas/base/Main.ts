@@ -6,7 +6,6 @@
     *
     *   TODO Remove timeout and use Engine.events.tick?
     *   TODO Try friction, frictionStatic and frictionAir to Shape!
-    *   TODO Add Image for sphere.
     *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
     *   TODO Move site settings (duration etc) to SettingGame or SettingSite.
     *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
