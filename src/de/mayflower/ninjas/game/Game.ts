@@ -114,7 +114,10 @@
             // handle menu key
             this.handleMenuKey();
 
-            // render camera
+            // render level
+            this.level.render( false );
+
+            // update camera
             this.camera.update(
                 this.level.player.shape.body.position.x,
                 this.level.player.shape.body.position.y,
@@ -122,8 +125,8 @@
                 this.engine.siteSystem.getCameraTargetX()
             );
 
-            // render level
-            this.level.render();
+            // render parallax elements
+            this.level.render( true );
         }
 
         /***************************************************************************************************************

@@ -39,13 +39,22 @@
 
         /***************************************************************************************************************
         *   Renders all level components.
+        *
+        *   @param parallaxObjects Flags if parallax elements should be rendered.
         ***************************************************************************************************************/
-        public render()
+        public render( parallaxObjects:boolean )
         {
             // render game objects
             for ( let gameObject of this.gameObjects )
             {
-                gameObject.render();
+                if ( gameObject instanceof ninjas.ParallaxDeco )
+                {
+                    if ( parallaxObjects ) gameObject.render();
+                }
+                else
+                {
+                    if ( !parallaxObjects ) gameObject.render();
+                }
             }
         }
     }

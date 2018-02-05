@@ -143,7 +143,7 @@
         }
 
         /***************************************************************************************************************
-        *   Returns the renderer of the Matter.js engine.
+        *   Returns the renderer of the Matter.js engine. TODO prune!
         *
         *   @return The renderer of the Matter.js engine.
         ***************************************************************************************************************/

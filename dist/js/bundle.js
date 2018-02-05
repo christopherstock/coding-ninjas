@@ -27553,17 +27553,19 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Y location for all CREATOR methods on bottom instead of on top?
+*   TODO Y location for all CREATOR methods on bottom instead of on top? explicit param captioning.
+*   TODO Prune all levels except LevelWebsite.
+*
 *   TODO Split class 'Setting': extract debub settings, engine settings, matter/physics settings etc. > own package?
 *   TODO Remove timeout and use Enine.events.tick?
 *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
 *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
 *   TODO Add 'attack' action and sprite.
+*   TODO Refactor: remove getRenderer in MatterJs!
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO simplify sprite-image-system's frame ranges!
 *   TODO create method updateBody() for all shape classes??
 *   TODO Try sound error handling! (Safari etc.)
-*   TODO Prune all levels except LevelWebsite.
 *
 *   TODO Complete the MVP!
 *
@@ -28820,7 +28822,7 @@ var MatterJsSystem = /** @class */ (function () {
         matter.World.clear(this.engine.world, false);
     };
     /***************************************************************************************************************
-    *   Returns the renderer of the Matter.js engine.
+    *   Returns the renderer of the Matter.js engine. TODO prune!
     *
     *   @return The renderer of the Matter.js engine.
     ***************************************************************************************************************/
@@ -28917,13 +28919,22 @@ var Level = /** @class */ (function () {
     };
     /***************************************************************************************************************
     *   Renders all level components.
+    *
+    *   @param parallaxObjects Flags if parallax elements should be rendered.
     ***************************************************************************************************************/
-    Level.prototype.render = function () {
+    Level.prototype.render = function (parallaxObjects) {
         try {
             // render game objects
             for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
                 var gameObject = _b.value;
-                gameObject.render();
+                if (gameObject instanceof ninjas.ParallaxDeco) {
+                    if (parallaxObjects)
+                        gameObject.render();
+                }
+                else {
+                    if (!parallaxObjects)
+                        gameObject.render();
+                }
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
@@ -29164,29 +29175,30 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(0, 0, // 2000,
-        ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+        this.player = new ninjas.Player(0, 2000, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         // setup all game objects
         this.gameObjects =
             [
                 // parallax background
                 ninjas.GameObjectFactory.createParallaxDeco(0, 2200, 1.0, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BG_TEST)),
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle(0, 4985, 5000, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(0, 2500, 5000, 15, 0.0, false),
                 /*
                                 ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
                 */
                 // bg decoration
-                ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(800, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                /*
+                                ninjas.GameObjectFactory.createDecoration( 400, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
+                                ninjas.GameObjectFactory.createDecoration( 800, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
+                */
                 /*
                                 // site trigger
                                 ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
                                 ninjas.GameObjectFactory.createSiteTrigger( 3200, 500, 600, 500, ninjas.SitePanelPosition.NONE ),
                 */
+                // moveable boxes
+                ninjas.GameObjectFactory.createCrate(300, 160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT),
                 /*
-                                // moveable boxes
-                                ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                                 ninjas.GameObjectFactory.createSphere( 350,  240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                                 ninjas.GameObjectFactory.createCrate(  400,  320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
                                 ninjas.GameObjectFactory.createCrate(  450,  400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
@@ -29240,12 +29252,6 @@ var LevelWebsite = /** @class */ (function (_super) {
                 */
                 // player
                 this.player,
-                /*
-                                // enemies (fg)
-                                ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
-                */
-                // fg decoration
-                ninjas.GameObjectFactory.createDecoration(2670, 830, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
             ];
     };
     return LevelWebsite;
@@ -31130,10 +31136,12 @@ var Game = /** @class */ (function () {
     Game.prototype.render = function () {
         // handle menu key
         this.handleMenuKey();
-        // render camera
-        this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.collidesBottom, this.engine.siteSystem.getCameraTargetX());
         // render level
-        this.level.render();
+        this.level.render(false);
+        // update camera
+        this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.collidesBottom, this.engine.siteSystem.getCameraTargetX());
+        // render parallax elements
+        this.level.render(true);
     };
     /***************************************************************************************************************
     *   Paints all overlays after Matter.js completed rendering the scene.
@@ -32742,7 +32750,7 @@ var Camera = /** @class */ (function () {
     *   @param canvasHeight      The height of the canvas.
     ***************************************************************************************************************/
     function Camera(renderer, ratioY, movingSpeed, minimumCameraMove, maximumCameraMove, levelWidth, levelHeight, canvasWidth, canvasHeight) {
-        /** The renderer for the MatterJS engine. */
+        /** The renderer for the MatterJS engine. TODO outsource renderer */
         this.renderer = null;
         /** Camera centering ratio X. */
         this.ratioY = 0.0;
@@ -32779,6 +32787,22 @@ var Camera = /** @class */ (function () {
         this.canvasHeight = canvasHeight;
     }
     /***************************************************************************************************************
+    *   Returns the current camera offset X.
+    *
+    *   @return Current offset X.
+    ***************************************************************************************************************/
+    Camera.prototype.getOffsetX = function () {
+        return this.offsetX;
+    };
+    /***************************************************************************************************************
+    *   Returns the current camera offset Y.
+    *
+    *   @return Current offset X.
+    ***************************************************************************************************************/
+    Camera.prototype.getOffsetY = function () {
+        return this.offsetY;
+    };
+    /***************************************************************************************************************
     *   Updates the singleton instance of the camera by reassigning
     *   it's horizontal and vertical offset.
     *
@@ -32789,6 +32813,68 @@ var Camera = /** @class */ (function () {
     ***************************************************************************************************************/
     Camera.prototype.update = function (subjectX, subjectY, allowAscendY, targetX) {
         this.calculateTargets(subjectX, subjectY, targetX);
+        this.calculateOffsets(allowAscendY);
+        this.assignOffsetsToRenderer();
+    };
+    /***************************************************************************************************************
+    *   Resets the camera targets and offsets to the current player position without buffering.
+    ***************************************************************************************************************/
+    Camera.prototype.reset = function () {
+        // extract level and player access!
+        this.calculateTargets(ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, ninjas.Main.game.engine.siteSystem.getCameraTargetX());
+        this.offsetX = this.targetX;
+        this.offsetY = this.targetY;
+    };
+    /***************************************************************************************************************
+    *   Applies the current camera offsets to the linked renderer. TODO return bounds and make setter in renderer
+    ***************************************************************************************************************/
+    Camera.prototype.assignOffsetsToRenderer = function () {
+        // assign current camera offset to renderer
+        this.renderer.bounds = matter.Bounds.create([
+            {
+                x: this.offsetX,
+                y: this.offsetY
+            },
+            {
+                x: this.offsetX + this.canvasWidth,
+                y: this.offsetY + this.canvasHeight
+            }
+        ]);
+    };
+    /***************************************************************************************************************
+    *   Calculates the current camera tarets according to the specified subject.
+    *
+    *   @param subjectX The subject's X to position the camera to.
+    *   @param subjectY The subject's Y to position the camera to.
+    *   @param targetX  A fixed camera position X.
+    ***************************************************************************************************************/
+    Camera.prototype.calculateTargets = function (subjectX, subjectY, targetX) {
+        this.targetX = subjectX - targetX;
+        this.targetY = subjectY - (this.canvasHeight * this.ratioY);
+        // clip targets X and Y to level bounds
+        this.clipTargetsToLevelBounds();
+    };
+    /***************************************************************************************************************
+    *   Clips the camera targets X and Y to the current level bounds.
+    ***************************************************************************************************************/
+    Camera.prototype.clipTargetsToLevelBounds = function () {
+        // clip camera target x to level bounds
+        if (this.targetX < 0)
+            this.targetX = 0;
+        if (this.targetX > this.levelWidth - this.canvasWidth)
+            this.targetX = this.levelWidth - this.canvasWidth;
+        // clip camera target y to level bounds
+        if (this.targetY < 0)
+            this.targetY = 0;
+        if (this.targetY > this.levelHeight - this.canvasHeight)
+            this.targetY = this.levelHeight - this.canvasHeight;
+    };
+    /***************************************************************************************************************
+    *   Calculates the new offsets.
+    *
+    *   @param allowAscendY Specifies if the camera may ascend in this update.
+    ***************************************************************************************************************/
+    Camera.prototype.calculateOffsets = function (allowAscendY) {
         // move horizontal camera offsets to camera target
         var cameraMoveX = 0.0;
         if (this.offsetX < this.targetX) {
@@ -32836,70 +32922,6 @@ var Camera = /** @class */ (function () {
         // floor offsets (important for renderer bounds! fuzzy drawing problems on images may appear otherwise!)
         this.offsetX = Math.floor(this.offsetX);
         this.offsetY = Math.floor(this.offsetY);
-        // assign current camera offset to renderer
-        this.renderer.bounds = matter.Bounds.create([
-            {
-                x: this.offsetX,
-                y: this.offsetY
-            },
-            {
-                x: this.offsetX + this.canvasWidth,
-                y: this.offsetY + this.canvasHeight
-            }
-        ]);
-    };
-    /***************************************************************************************************************
-    *   Resets the camera targets and offsets to the current player position without buffering.
-    ***************************************************************************************************************/
-    Camera.prototype.reset = function () {
-        // extract level and player access!
-        this.calculateTargets(ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, ninjas.Main.game.engine.siteSystem.getCameraTargetX());
-        this.offsetX = this.targetX;
-        this.offsetY = this.targetY;
-    };
-    /***************************************************************************************************************
-    *   Calculates the current camera tarets according to the specified subject.
-    *
-    *   @param subjectX The subject's X to position the camera to.
-    *   @param subjectY The subject's Y to position the camera to.
-    *   @param targetX  A fixed camera position X.
-    ***************************************************************************************************************/
-    Camera.prototype.calculateTargets = function (subjectX, subjectY, targetX) {
-        this.targetX = subjectX - targetX;
-        this.targetY = subjectY - (this.canvasHeight * this.ratioY);
-        // clip targets X and Y to level bounds
-        this.clipTargetsToLevelBounds();
-    };
-    /***************************************************************************************************************
-    *   Clips the camera targets X and Y to the current level bounds.
-    ***************************************************************************************************************/
-    Camera.prototype.clipTargetsToLevelBounds = function () {
-        // clip camera target x to level bounds
-        if (this.targetX < 0)
-            this.targetX = 0;
-        if (this.targetX > this.levelWidth - this.canvasWidth)
-            this.targetX = this.levelWidth - this.canvasWidth;
-        // clip camera target y to level bounds
-        if (this.targetY < 0)
-            this.targetY = 0;
-        if (this.targetY > this.levelHeight - this.canvasHeight)
-            this.targetY = this.levelHeight - this.canvasHeight;
-    };
-    /***************************************************************************************************************
-    *   Returns the current camera offset X.
-    *
-    *   @return Current offset X.
-    ***************************************************************************************************************/
-    Camera.prototype.getOffsetX = function () {
-        return this.offsetX;
-    };
-    /***************************************************************************************************************
-    *   Returns the current camera offset Y.
-    *
-    *   @return Current offset X.
-    ***************************************************************************************************************/
-    Camera.prototype.getOffsetY = function () {
-        return this.offsetY;
     };
     return Camera;
 }());
