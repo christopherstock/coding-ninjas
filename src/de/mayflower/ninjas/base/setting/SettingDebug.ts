@@ -1,7 +1,4 @@
 
-    import * as ninjas from '../../ninjas';
-    import * as matter from 'matter-js';
-
     /*******************************************************************************************************************
     *   All debug settings.
     *

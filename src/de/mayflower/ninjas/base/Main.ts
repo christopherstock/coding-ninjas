@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Disable all debug paintings via DEBUG_MODE switch in SettingDebug.
     *   TODO Remove timeout and use Engine.events.tick?
     *   TODO Try friction, frictionStatic and frictionAir to Shape!
     *   TODO Add Image for sphere.

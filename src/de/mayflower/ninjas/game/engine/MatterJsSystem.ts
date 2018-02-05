@@ -46,10 +46,10 @@
                     options: {
                         hasBounds:          true,
                         wireframes:         false,
-                        showCollisions:     true,
-                        showAxes:           true,
-                        showAngleIndicator: true,
-                        showVelocity:       true,
+                        showCollisions:     ( ninjas.SettingDebug.DEBUG_MODE ),
+                        showAxes:           ( ninjas.SettingDebug.DEBUG_MODE ),
+                        showAngleIndicator: ( ninjas.SettingDebug.DEBUG_MODE ),
+                        showVelocity:       ( ninjas.SettingDebug.DEBUG_MODE ),
 
                         background:         ninjas.SettingEngine.CANVAS_BG,
 

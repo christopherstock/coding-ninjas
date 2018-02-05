@@ -27631,7 +27631,6 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Disable all debug paintings via DEBUG_MODE switch in SettingDebug.
 *   TODO Remove timeout and use Engine.events.tick?
 *   TODO Try friction, frictionStatic and frictionAir to Shape!
 *   TODO Add Image for sphere.
@@ -28842,10 +28841,10 @@ var MatterJsSystem = /** @class */ (function () {
             options: {
                 hasBounds: true,
                 wireframes: false,
-                showCollisions: true,
-                showAxes: true,
-                showAngleIndicator: true,
-                showVelocity: true,
+                showCollisions: (ninjas.SettingDebug.DEBUG_MODE),
+                showAxes: (ninjas.SettingDebug.DEBUG_MODE),
+                showAngleIndicator: (ninjas.SettingDebug.DEBUG_MODE),
+                showVelocity: (ninjas.SettingDebug.DEBUG_MODE),
                 background: ninjas.SettingEngine.CANVAS_BG,
                 width: ninjas.Main.game.engine.canvasSystem.getWidth(),
                 height: ninjas.Main.game.engine.canvasSystem.getHeight(),

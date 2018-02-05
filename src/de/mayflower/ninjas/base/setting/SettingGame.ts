@@ -1,6 +1,5 @@
 
     import * as ninjas from '../../ninjas';
-    import * as matter from 'matter-js';
 
     /*******************************************************************************************************************
     *   All adjustments and balancings for the application.
