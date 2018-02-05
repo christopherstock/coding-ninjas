@@ -4,26 +4,26 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Add actions 'attack', 'jump attack' and 'float' sprites.
+    *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
+    *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
+    *   TODO Fix flickering wow effects in all browsers!!
+    *
     *   TODO Remove timeout and use Engine.events.tick?
     *   TODO Refactor: remove getRenderer in MatterJs!
     *
-    *   TODO Move site settings (duration etc) to SettingGame or SettingSite.
-    *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
-    *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
-    *
+    *   TODO Add actions 'attack', 'jump attack' and 'float' sprites.
     *   TODO Group different objects in level class!
     *   TODO Revise parallax rendering though different groups in level class.
     *
     *   TODO Try friction, frictionStatic and frictionAir to Shape!
     *   TODO restitution will bounce balls!
+    *   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
     *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
     *
     *   TODO Complete the MVP!
     *
-    *   TODO Fix flickering wow effects in all browsers!!
     *   TODO Add translucent overlay for blend effects.
     *   TODO Ability to smash crates or destroyables etc.
     *   TODO Particle fx smashed crates, startup window etc.

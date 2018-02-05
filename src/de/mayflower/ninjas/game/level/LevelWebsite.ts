@@ -22,9 +22,9 @@
             // init player
             this.player = new ninjas.Player
             (
-                0,
                 2500,
-                ninjas.CharacterLookingDirection.LEFT,
+                2500,
+                ninjas.CharacterLookingDirection.RIGHT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
             );
 
@@ -41,17 +41,15 @@
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration( 400,  2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
                 ninjas.GameObjectFactory.createDecoration( 1200, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
-/*
+
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
-                ninjas.GameObjectFactory.createSiteTrigger( 3200, 500, 600, 500, ninjas.SitePanelPosition.NONE ),
-*/
+                ninjas.GameObjectFactory.createSiteTrigger( 3000, 2000, 500, 500, ninjas.SitePanelPosition.NONE ),
+
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(  300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createCrate(  500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
 
                 ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
-
 /*
                 // sigsaws and bounces
                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),

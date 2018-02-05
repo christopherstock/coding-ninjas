@@ -17,11 +17,11 @@
         /** The camera ration for the vertical axis. */
         public  static  readonly    CAMERA_RATIO_Y                          :number             = 0.6;
         /** The camera moving speed from 0.0 to 1.0. */
-        public  static  readonly    CAMERA_MOVING_SPEED                     :number             = 0.075;
+        public  static  readonly    CAMERA_MOVING_SPEED                     :number             = 0.04;
         /** The minimum camera moving speed in px per move. */
         public  static  readonly    CAMERA_MOVING_MINIMUM                   :number             = 2.0;
         /** The maximum camera moving speed in px per move. */
-        public  static  readonly    CAMERA_MOVING_MAXIMUM                   :number             = 25.0;
+        public  static  readonly    CAMERA_MOVING_MAXIMUM                   :number             = 20.0;
 
         /** The relative path from index.html where all background images reside. */
         public  static  readonly    PATH_IMAGE_BG                           :string             = "res/image/bg/";

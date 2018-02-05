@@ -27443,11 +27443,11 @@ var SettingEngine = /** @class */ (function () {
     /** The camera ration for the vertical axis. */
     SettingEngine.CAMERA_RATIO_Y = 0.6;
     /** The camera moving speed from 0.0 to 1.0. */
-    SettingEngine.CAMERA_MOVING_SPEED = 0.075;
+    SettingEngine.CAMERA_MOVING_SPEED = 0.04;
     /** The minimum camera moving speed in px per move. */
     SettingEngine.CAMERA_MOVING_MINIMUM = 2.0;
     /** The maximum camera moving speed in px per move. */
-    SettingEngine.CAMERA_MOVING_MAXIMUM = 25.0;
+    SettingEngine.CAMERA_MOVING_MAXIMUM = 20.0;
     /** The relative path from index.html where all background images reside. */
     SettingEngine.PATH_IMAGE_BG = "res/image/bg/";
     /** The relative path from index.html where all player images reside. */
@@ -27492,6 +27492,10 @@ var SettingGame = /** @class */ (function () {
     SettingGame.SITE_PANEL_BG_COLOR = "rgba( 255, 255, 255, 0.25 )";
     /** The maximum width for the site panel. */
     SettingGame.SITE_PANEL_MAX_WIDTH = 600;
+    /** The duration for showing and hiding the site panel. */
+    SettingGame.SITE_PANEL_SHOW_HIDE_DURATION = 1000;
+    /** The duration for showing and hiding the site panel. */
+    SettingGame.SITE_PANEL_CONTENT_FADE_IN_DURATION = 500;
     return SettingGame;
 }());
 exports.SettingGame = SettingGame;
@@ -27631,26 +27635,26 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Add actions 'attack', 'jump attack' and 'float' sprites.
+*   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
+*   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
+*   TODO Fix flickering wow effects in all browsers!!
+*
 *   TODO Remove timeout and use Engine.events.tick?
 *   TODO Refactor: remove getRenderer in MatterJs!
 *
-*   TODO Move site settings (duration etc) to SettingGame or SettingSite.
-*   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
-*   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
-*
+*   TODO Add actions 'attack', 'jump attack' and 'float' sprites.
 *   TODO Group different objects in level class!
 *   TODO Revise parallax rendering though different groups in level class.
 *
 *   TODO Try friction, frictionStatic and frictionAir to Shape!
 *   TODO restitution will bounce balls!
+*   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
 *
 *   TODO Complete the MVP!
 *
-*   TODO Fix flickering wow effects in all browsers!!
 *   TODO Add translucent overlay for blend effects.
 *   TODO Ability to smash crates or destroyables etc.
 *   TODO Particle fx smashed crates, startup window etc.
@@ -29070,7 +29074,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(0, 2500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+        this.player = new ninjas.Player(2500, 2500, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         // setup all game objects
         this.gameObjects =
             [
@@ -29083,11 +29087,8 @@ var LevelWebsite = /** @class */ (function (_super) {
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(1200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
-                /*
-                                // site trigger
-                                ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
-                                ninjas.GameObjectFactory.createSiteTrigger( 3200, 500, 600, 500, ninjas.SitePanelPosition.NONE ),
-                */
+                // site trigger
+                ninjas.GameObjectFactory.createSiteTrigger(3000, 2000, 500, 500, ninjas.SitePanelPosition.NONE),
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
@@ -32533,16 +32534,16 @@ var SiteContent = /** @class */ (function () {
         ret.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
         ret.style.position = "absolute";
         ret.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        ret.setAttribute("data-wow-duration", "1.0s");
-        ret.setAttribute("data-wow-delay", "0.0s");
+        ret.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
+        ret.setAttribute("data-wow-delay", "0ms");
         // relative container div
         var relativeContainerDiv = document.createElement("div");
         relativeContainerDiv.style.backgroundColor = "#c7d9f5";
         relativeContainerDiv.style.position = "relative";
         relativeContainerDiv.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
         relativeContainerDiv.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        relativeContainerDiv.setAttribute("data-wow-duration", "0.5s");
-        relativeContainerDiv.setAttribute("data-wow-delay", "1.0s");
+        relativeContainerDiv.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_CONTENT_FADE_IN_DURATION + "ms");
+        relativeContainerDiv.setAttribute("data-wow-delay", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
         relativeContainerDiv.className = "wow fadeIn";
         relativeContainerDiv.id = "siteContainer";
         // example text

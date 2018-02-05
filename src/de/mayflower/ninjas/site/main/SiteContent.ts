@@ -25,8 +25,8 @@
             ret.style.position        = "absolute";
             ret.style.top             = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
 
-            ret.setAttribute( "data-wow-duration", "1.0s" );
-            ret.setAttribute( "data-wow-delay",    "0.0s" );
+            ret.setAttribute( "data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms" );
+            ret.setAttribute( "data-wow-delay",    "0ms" );
 
             // relative container div
             let relativeContainerDiv:HTMLDivElement = document.createElement( "div" );
@@ -37,8 +37,8 @@
             relativeContainerDiv.style.top  = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
             relativeContainerDiv.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
 
-            relativeContainerDiv.setAttribute( "data-wow-duration", "0.5s" );
-            relativeContainerDiv.setAttribute( "data-wow-delay",    "1.0s" );
+            relativeContainerDiv.setAttribute( "data-wow-duration", ninjas.SettingGame.SITE_PANEL_CONTENT_FADE_IN_DURATION + "ms" );
+            relativeContainerDiv.setAttribute( "data-wow-delay",    ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms" );
             relativeContainerDiv.className = "wow fadeIn";
 
             relativeContainerDiv.id = "siteContainer";
