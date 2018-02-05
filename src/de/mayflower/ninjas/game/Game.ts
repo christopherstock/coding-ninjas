@@ -49,7 +49,7 @@
             // invoke engine ticks repeatedly
             window.setInterval(
                 this.tick,
-                ninjas.Setting.RENDER_DELTA
+                ninjas.Setting.TICK_DELAY_DELTA
             );
         }
 
@@ -152,15 +152,15 @@
             {
                 ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_1 );
 
-                ninjas.Debug.init.log( "Switching to level 1" );
+                ninjas.Debug.init.log( "Resetting and switching to level 1" );
                 this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
             }
-
+/*
             if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_2 ) )
             {
                 ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_2 );
 
-                ninjas.Debug.init.log( "Switching to level 2" );
+                ninjas.Debug.init.log( "Resetting and switching to level 2" );
                 this.resetAndLaunchLevel( new ninjas.LevelAllElements() );
             }
 
@@ -168,8 +168,9 @@
             {
                 ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_3 );
 
-                ninjas.Debug.init.log( "Switching to level 3" );
+                ninjas.Debug.init.log( "Resetting and switching to level 3" );
                 this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );
             }
+*/
         }
     }

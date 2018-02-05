@@ -14,14 +14,14 @@
         *   Creates a new player instance.
         *
         *   @param x                Startup position X.
-        *   @param y                Startup position Y.
+        *   @param yBottom          Startup position bottom Y.
         *   @param lookingDirection The initial looking direction.
         *   @param spriteTemplate   The initial sprite template to use for the player.
         ***************************************************************************************************************/
         public constructor
         (
             x                :number,
-            y                :number,
+            yBottom          :number,
             lookingDirection :ninjas.CharacterLookingDirection,
             spriteTemplate   :ninjas.SpriteTemplate
         )
@@ -40,7 +40,7 @@
                 ),
                 spriteTemplate,
                 x,
-                y,
+                yBottom - spriteTemplate.height,
                 lookingDirection,
                 ninjas.Setting.PLAYER_SPEED_MOVE,
                 ninjas.Setting.PLAYER_JUMP_POWER

@@ -23,7 +23,7 @@
             this.player = new ninjas.Player
             (
                 0,
-                2000,
+                2500,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
             );
@@ -31,41 +31,26 @@
             // setup all game objects
             this.gameObjects =
             [
-
+/*
                 // parallax background
-
                 ninjas.GameObjectFactory.createParallaxDeco( 0,  2200, 1.0, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BG_TEST ) ),
-
+*/
                 // grounds and walls
                 ninjas.GameObjectFactory.createObstacle( 0, 2500, 5000, 15, 0.0,  false ),
-/*
-                ninjas.GameObjectFactory.createObstacle( 2000, 1000, 7000, 15, 0.0,  false ),
-*/
+
                 // bg decoration
-/*
-                ninjas.GameObjectFactory.createDecoration( 400, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 800, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
-*/
+                ninjas.GameObjectFactory.createDecoration( 400,  2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 1200, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
 /*
                 // site trigger
                 ninjas.GameObjectFactory.createSiteTrigger( 2400, 500, 600, 500, ninjas.SitePanelPosition.LEFT ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3200, 500, 600, 500, ninjas.SitePanelPosition.NONE ),
 */
-
                 // moveable boxes
-                ninjas.GameObjectFactory.createCrate(  300,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(  300, 2500, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
+                ninjas.GameObjectFactory.createCrate(  500, 2500, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
 
-/*
-                ninjas.GameObjectFactory.createSphere( 350,  240, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createCrate(  400,  320, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createCrate(  450,  400, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createSphere( 500,  320, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createCrate(  550,  240, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createCrate(  600,  160, 80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createSphere( 650,  80,  80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createCrate(  700,  0,   80, 80, ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
-*/
-
+                ninjas.GameObjectFactory.createSphere( 1200, 2500, 80,     ninjas.GameObject.FRICTION_ICE, ninjas.GameObject.DENSITY_DEFAULT ),
 
 /*
                 // sigsaws and bounces
@@ -116,13 +101,8 @@
                 ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
 */
                 // fg decoration
-/*
-                ninjas.GameObjectFactory.createDecoration( 2670, 830, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
-*/
-/*
-                ninjas.GameObjectFactory.createDecoration( 200,  450, ninjas.Image.IMAGE_TREE ),
-                ninjas.GameObjectFactory.createDecoration( 3230, 660, ninjas.Image.IMAGE_TREE ),
-*/
+                ninjas.GameObjectFactory.createDecoration( 800,  2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 1600, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
             ];
         }
     }

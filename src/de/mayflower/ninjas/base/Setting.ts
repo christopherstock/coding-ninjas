@@ -18,7 +18,9 @@
         /** Disables all sounds. */
         public      static  readonly    MUTE                                        :boolean                    = true;
 
-        /** The delta between render ticks in ms. */
+        /** The delay delta between ticks in ms. */
+        public      static  readonly    TICK_DELAY_DELTA                            :number                     = 10.0;
+        /** The rendering delta between render ticks. */
         public      static  readonly    RENDER_DELTA                                :number                     = 16.66;
 
         /** The minimum canvas2D width. */

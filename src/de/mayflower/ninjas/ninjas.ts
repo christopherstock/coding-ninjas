@@ -12,8 +12,6 @@
     export * from './game/engine/MatterJsSystem';
 
     export * from './game/level/Level';
-    export * from './game/level/LevelAllElements';
-    export * from './game/level/LevelEnchantedWoods';
     export * from './game/level/LevelWebsite';
 
     export * from './game/object/GameObject';

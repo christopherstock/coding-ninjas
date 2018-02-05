@@ -4,11 +4,11 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Y location for all CREATOR methods on bottom instead of on top? explicit param captioning.
     *   TODO Prune all levels except LevelWebsite.
     *
     *   TODO Split class 'Setting': extract debub settings, engine settings, matter/physics settings etc. > own package?
     *   TODO Remove timeout and use Enine.events.tick?
+    *   TODO Image for sphere.
     *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
     *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
     *   TODO Add 'attack' action and sprite.

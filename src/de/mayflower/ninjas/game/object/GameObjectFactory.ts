@@ -14,15 +14,13 @@
         *   Creates a crate.
         *
         *   @param x        Anchor X.
-        *   @param y        Anchor Y.
-        *   @param width    Object width.
-        *   @param height   Object height.
+        *   @param yBottom  Anchor for bottom Y.
         *   @param friction The surface friction for this box.
         *   @param density  The density for this box.
         *
         *   @return The created box.
         ***************************************************************************************************************/
-        public static createCrate( x:number, y:number, width:number, height:number, friction:number, density:number ):ninjas.Movable
+        public static createCrate( x:number, yBottom:number, friction:number, density:number ):ninjas.Movable
         {
             let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_CRATE );
 
@@ -40,7 +38,7 @@
                 ),
                 sprtiteTemplate,
                 x,
-                y
+                ( yBottom - sprtiteTemplate.height )
             );
         }
 
@@ -48,14 +46,14 @@
         *   Creates a sphere.
         *
         *   @param x        Anchor X.
-        *   @param y        Anchor Y.
+        *   @param yBottom  Anchor of bottom Y.
         *   @param diameter Sphere diameter.
         *   @param friction The surface friction for this object.
         *   @param density  The density for this object.
         *
         *   @return The created sphere.
         ***************************************************************************************************************/
-        public static createSphere( x:number, y:number, diameter:number, friction:number, density:number ):ninjas.Movable
+        public static createSphere( x:number, yBottom:number, diameter:number, friction:number, density:number ):ninjas.Movable
         {
             return new ninjas.Movable
             (
@@ -70,7 +68,7 @@
                 ),
                 null,
                 x,
-                y
+                ( yBottom - diameter )
             );
         }
 
@@ -106,7 +104,7 @@
         *   Creates an rectangular obstacle.
         *
         *   @param x               Anchor X.
-        *   @param y               Anchor Y.
+        *   @param yTop            Anchor for top Y.
         *   @param width           Object width.
         *   @param height          Object height.
         *   @param angle           The initial rotation.
@@ -114,7 +112,7 @@
         *
         *   @return The created obstacle.
         ***************************************************************************************************************/
-        public static createObstacle( x:number, y:number, width:number, height:number, angle:number, jumpPassThrough:boolean ):ninjas.Obstacle
+        public static createObstacle( x:number, yTop:number, width:number, height:number, angle:number, jumpPassThrough:boolean ):ninjas.Obstacle
         {
             return new ninjas.Obstacle
             (
@@ -129,7 +127,7 @@
                     Infinity
                 ),
                 x,
-                y,
+                yTop,
                 jumpPassThrough
             );
         }
@@ -237,19 +235,19 @@
         *   Creates a decoration.
         *
         *   @param x              Anchor X.
-        *   @param y              Anchor Y.
+        *   @param yBottom        Anchor of bottom Y.
         *   @param spriteTemplate The sprite template to use for this decoration.
         *
         *   @return The created decoration.
         ***************************************************************************************************************/
-        public static createDecoration( x:number, y:number, spriteTemplate:ninjas.SpriteTemplate ) : ninjas.Decoration
+        public static createDecoration( x:number, yBottom:number, spriteTemplate:ninjas.SpriteTemplate ) : ninjas.Decoration
         {
             return new ninjas.Decoration
             (
                 new ninjas.ShapeRectangle
                 (
                     spriteTemplate.width,
-                    spriteTemplate.width,
+                    spriteTemplate.height,
                     ninjas.Setting.COLOR_DEBUG_DECORATION,
                     true,
                     0.0,
@@ -258,7 +256,7 @@
                 ),
                 spriteTemplate,
                 x,
-                y
+                ( yBottom - spriteTemplate.height )
             );
         }
 
