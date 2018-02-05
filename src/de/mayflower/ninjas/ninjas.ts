@@ -49,6 +49,7 @@
     export * from './io/SpriteTemplate';
 
     export * from './site/main/SiteContent';
+    export * from './site/main/SitePanel';
 
     export * from './ui/Camera';
     export * from './ui/Drawing';

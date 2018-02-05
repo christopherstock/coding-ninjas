@@ -23,14 +23,8 @@
         public      static  readonly    SITE_PANEL_BG_COLOR                         :string                     = "rgba( 255, 255, 255, 0.25 )";
         /** The maximum width for the site panel. */
         public      static  readonly    SITE_PANEL_MAX_WIDTH                        :number                     = 600;
-
-
-
         /** The duration for showing and hiding the site panel. */
         public      static  readonly    SITE_PANEL_SHOW_HIDE_DURATION               :number                     = 1000;
         /** The duration for showing and hiding the site panel. */
         public      static  readonly    SITE_PANEL_CONTENT_FADE_IN_DURATION         :number                     = 500;
-
-
-
     }
