@@ -21,7 +21,7 @@
         /** The delay delta between ticks in ms. */
         public      static  readonly    TICK_DELAY_DELTA                            :number                     = 10.0;
         /** The rendering delta between render ticks. */
-        public      static  readonly    RENDER_DELTA                                :number                     = 16.66;
+        public      static  readonly    RENDER_DELTA                                :number                     = 10.0;
 
         /** The minimum canvas2D width. */
         public      static  readonly    MIN_CANVAS_WIDTH                            :number                     = 800;
@@ -29,7 +29,7 @@
         public      static  readonly    MIN_CANVAS_HEIGHT                           :number                     = 600;
 
         /** The default jump power. */
-        public      static  readonly    PLAYER_JUMP_POWER                           :number                     = -15.0;
+        public      static  readonly    PLAYER_JUMP_POWER                           :number                     = -25.0;
         /** The player's speed in world coordinate per tick. */
         public      static  readonly    PLAYER_SPEED_MOVE                           :number                     = 7.5;
 
@@ -37,7 +37,7 @@
         public      static  readonly    DEFAULT_GRAVITY_Y                           :number                     = 1.0;
 
         /** The camera ration for the vertical axis. */
-        public      static  readonly    CAMERA_RATIO_Y                              :number                     = 0.5;
+        public      static  readonly    CAMERA_RATIO_Y                              :number                     = 0.6;
         /** The camera moving speed from 0.0 to 1.0. */
         public      static  readonly    CAMERA_MOVING_SPEED                         :number                     = 0.075;
         /** The minimum camera moving speed in px per move. */

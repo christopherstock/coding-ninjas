@@ -27386,19 +27386,19 @@ var Setting = /** @class */ (function () {
     /** The delay delta between ticks in ms. */
     Setting.TICK_DELAY_DELTA = 10.0;
     /** The rendering delta between render ticks. */
-    Setting.RENDER_DELTA = 16.66;
+    Setting.RENDER_DELTA = 10.0;
     /** The minimum canvas2D width. */
     Setting.MIN_CANVAS_WIDTH = 800;
     /** The minimum canvas2D height. */
     Setting.MIN_CANVAS_HEIGHT = 600;
     /** The default jump power. */
-    Setting.PLAYER_JUMP_POWER = -15.0;
+    Setting.PLAYER_JUMP_POWER = -25.0;
     /** The player's speed in world coordinate per tick. */
     Setting.PLAYER_SPEED_MOVE = 7.5;
     /** The default vertical gravity for all levels. */
     Setting.DEFAULT_GRAVITY_Y = 1.0;
     /** The camera ration for the vertical axis. */
-    Setting.CAMERA_RATIO_Y = 0.5;
+    Setting.CAMERA_RATIO_Y = 0.6;
     /** The camera moving speed from 0.0 to 1.0. */
     Setting.CAMERA_MOVING_SPEED = 0.075;
     /** The minimum camera moving speed in px per move. */
@@ -27553,23 +27553,29 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Prune all levels except LevelWebsite.
-*
 *   TODO Split class 'Setting': extract debub settings, engine settings, matter/physics settings etc. > own package?
-*   TODO Remove timeout and use Enine.events.tick?
-*   TODO Image for sphere.
+*   TODO Disable all debug paintings via DEBUG_MODE switch in SettingDebug.
+*   TODO Remove timeout and use Engine.events.tick?
+*   TODO Add Image for sphere.
 *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
 *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
-*   TODO Add 'attack' action and sprite.
+*   TODO Try friction, frictionStatic and frictionAir.
+*   TODO use density instead of mass/inverseMass
+*   TODO create or remove method updateBody() for all shape classes!
+*   TODO Group different objects in level class!
+*   TODO Revise parallax rendering though different groups in level class.
 *   TODO Refactor: remove getRenderer in MatterJs!
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO simplify sprite-image-system's frame ranges!
-*   TODO create method updateBody() for all shape classes??
 *   TODO Try sound error handling! (Safari etc.)
+*   TODO Add 'attack' action and sprite.
 *
 *   TODO Complete the MVP!
 *
+*   TODO restitution will bounce balls!
 *   TODO Add translucent overlay for blend effects.
+*   TODO Ability to smash crates or destroyables etc.
+*   TODO Particle fx smashed crates etc.
 *   TODO create class HUD and assign its non-static method paintHud?
 *   TODO Fix flickering wow effects in all browsers!!
 *   TODO Create and use image ranges for sprite templates? [not possible though single filenames!]
@@ -27580,14 +27586,13 @@ var ninjas = __webpack_require__(1);
 *   TODO Add tutorial notifiers?
 *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
 *   TODO Fixed positioning for camera on first scene (floating in).
-*   TODO outsource lib classes to package de.mayflower.lib??
 *
 *   TODO Add react for site content creation.
+*   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Try ant design (pro?) in front panel.
 *   TODO Add jest tests.
 *   TODO Add cucumber tests.
 *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
-*   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
 *   TODO Test in all browsers.
 *
@@ -28751,6 +28756,7 @@ var MatterJsSystem = /** @class */ (function () {
             y: ninjas.Setting.DEFAULT_GRAVITY_Y,
             scale: 0.001
         };
+        this.engine.timing.timeScale = 1.0;
         // create renderer
         this.renderer = matter.Render.create({
             canvas: canvas,
@@ -30322,7 +30328,7 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createCrate = function (x, yBottom, friction, density) {
         var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE);
-        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), sprtiteTemplate, x, yBottom - sprtiteTemplate.height);
+        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -30336,7 +30342,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created sphere.
     ***************************************************************************************************************/
     GameObjectFactory.createSphere = function (x, yBottom, diameter, friction, density) {
-        return new ninjas.Movable(new ninjas.ShapeCircle(diameter, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), null, x, yBottom - diameter);
+        return new ninjas.Movable(new ninjas.ShapeCircle(diameter, ninjas.Setting.COLOR_DEBUG_BOX, false, 0.0, friction, density), null, x, (yBottom - diameter));
     };
     /***************************************************************************************************************
     *   Creates an item.
@@ -30420,7 +30426,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createDecoration = function (x, yBottom, spriteTemplate) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, x, yBottom - spriteTemplate.height);
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.Setting.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.GameObject.FRICTION_DEFAULT, Infinity), spriteTemplate, x, (yBottom - spriteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a parallax scrolling decoration.

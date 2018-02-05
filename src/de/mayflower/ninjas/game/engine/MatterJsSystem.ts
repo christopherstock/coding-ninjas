@@ -36,6 +36,7 @@
                 y: ninjas.Setting.DEFAULT_GRAVITY_Y,
                 scale: 0.001
             };
+            this.engine.timing.timeScale = 1.0;
 
             // create renderer
             this.renderer = matter.Render.create(
