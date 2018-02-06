@@ -4,7 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Group different objects in level class!
+    *   TODO Group different objects in level class!?
     *   TODO Remove timeout and use Engine.events.tick?
     *   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
     *   TODO Revise parallax rendering though different groups in level class.
