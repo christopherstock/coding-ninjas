@@ -28,10 +28,10 @@
         private                 currentPanel                    :ninjas.SitePanel           = null;
         /** Flags if an animation is currently active. */
         private                 animationInProgress             :boolean                    = null;
-        /** Flags if a panel is currently shown. */
+
+
+        /** Flags if a panel is currently shown. TODO outsource! */
         private                 panelPosition                   :ninjas.SitePanelPosition   = ninjas.SitePanelPosition.NONE;
-        /** The WOW animation system. */
-        private                 wowSystem                       :any                        = null;
 
         /** The current width of the panel. */
         private                 panelWidth                      :number                     = 0;
@@ -42,13 +42,16 @@
         /** The right camera target X if the border is shown left. */
         private                 rightCameraTargetX              :number                     = 0;
 
+        /** The WOW animation system. */
+        private                 wowSystem                       :any                        = null;
+
         /*****************************************************************************
         *   Creates a new site system.
         *****************************************************************************/
         public constructor()
         {
-            this.initWowSystem();
             this.updatePanelSizeAndPosition();
+            this.initWowSystem();
         }
 
         /*****************************************************************************
@@ -73,18 +76,8 @@
             this.animationInProgress = true;
             this.panelPosition       = position;
 
-            this.currentPanel = new ninjas.SitePanel();
-
-            if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
-            {
-                this.currentPanel.outerAbsoluteContainer.className = "wow bounceInLeft";
-            }
-            else
-            {
-                this.currentPanel.outerAbsoluteContainer.className = "wow bounceInRight";
-            }
-
-            document.body.appendChild( this.currentPanel.outerAbsoluteContainer );
+            this.currentPanel = new ninjas.SitePanel( this.panelPosition );
+            this.currentPanel.addToDom();
             this.updatePanelSizeAndPosition();
 
             this.wowSystem.sync();
@@ -121,14 +114,7 @@
             }
             this.animationInProgress = true;
 
-            if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
-            {
-                this.currentPanel.outerAbsoluteContainer.className = "wow bounceOutLeft";
-            }
-            else
-            {
-                this.currentPanel.outerAbsoluteContainer.className = "wow bounceOutRight";
-            }
+            this.currentPanel.animateOut();
 
             this.panelPosition = ninjas.SitePanelPosition.NONE;
 
@@ -136,7 +122,7 @@
 
             window.setTimeout(
                 () => {
-                    this.currentPanel.outerAbsoluteContainer.remove();
+                    this.currentPanel.removeFromDom();
                     this.currentPanel = null;
 
                     this.animationInProgress = false;
@@ -149,6 +135,8 @@
 
         /*****************************************************************************
         *   Being invoked when the panel size should be set according to the current canvas size.
+        *
+        *   TODO outsource
         *****************************************************************************/
         public updatePanelSizeAndPosition()
         {
@@ -167,19 +155,12 @@
             // update panel size and position
             if ( this.currentPanel != null )
             {
-                this.currentPanel.outerAbsoluteContainer.style.width  = this.panelWidth + "px";
-                this.currentPanel.outerAbsoluteContainer.style.height = ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
-
-                if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
-                {
-                    this.currentPanel.outerAbsoluteContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-                }
-                else
-                {
-                    this.currentPanel.outerAbsoluteContainer.style.left = ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
-                }
-
-                this.currentPanel.innerRelativeContainer.style.width  = ( this.panelWidth - 2 * ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
+                this.currentPanel.updateBounds
+                (
+                    this.panelWidth,
+                    ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE ),
+                    this.panelPosition
+                );
             }
         }
 

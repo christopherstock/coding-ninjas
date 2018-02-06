@@ -2,7 +2,7 @@
     import * as ninjas from '../ninjas';
 
     /*******************************************************************************************************************
-    *   Represents one game sprite.
+    *   Represents one game sprite. TODO to game/engine
     *
     *   @author     Christopher Stock
     *   @version    0.0.1

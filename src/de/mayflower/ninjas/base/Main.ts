@@ -4,8 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
-    *   TODO Fix flickering wow effects in all browsers!!
+    *   TODO refactor to class SitePanel. All fields private!!!
     *   TODO Remove timeout and use Engine.events.tick?
     *   TODO Refactor: remove getRenderer in MatterJs!
     *   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.

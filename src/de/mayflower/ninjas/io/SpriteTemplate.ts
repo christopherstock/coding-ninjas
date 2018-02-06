@@ -33,7 +33,7 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
             ],
-            5,
+            8,
             ninjas.MirrorImage.YES,
             LoopSprite.YES
         );
@@ -53,7 +53,7 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
                 ninjas.Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
             ],
-            5,
+            8,
             ninjas.MirrorImage.NO,
             LoopSprite.YES
         );
@@ -73,7 +73,7 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
                 ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
             ],
-            5,
+            8,
             ninjas.MirrorImage.YES,
             LoopSprite.YES
         );
@@ -93,7 +93,7 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
                 ninjas.Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
             ],
-            5,
+            8,
             ninjas.MirrorImage.NO,
             LoopSprite.YES
         );
@@ -132,7 +132,7 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
                 ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
             ],
-            10,
+            8,
             ninjas.MirrorImage.YES,
             LoopSprite.NO
         );
@@ -145,7 +145,7 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
                 ninjas.Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
             ],
-            10,
+            8,
             ninjas.MirrorImage.NO,
             LoopSprite.NO
         );
