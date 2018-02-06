@@ -1911,7 +1911,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(180)("./" + name);
+            __webpack_require__(181)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -4603,7 +4603,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(179)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(180)(module)))
 
 /***/ }),
 /* 1 */
@@ -4655,13 +4655,13 @@ __export(__webpack_require__(169));
 __export(__webpack_require__(170));
 __export(__webpack_require__(171));
 __export(__webpack_require__(172));
-__export(__webpack_require__(182));
-__export(__webpack_require__(183));
+__export(__webpack_require__(173));
 __export(__webpack_require__(174));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
 __export(__webpack_require__(177));
 __export(__webpack_require__(178));
+__export(__webpack_require__(179));
 
 
 /***/ }),
@@ -15008,6 +15008,37 @@ var Vector = _dereq_('../geometry/Vector');
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(141);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(5)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../css-loader/index.js!./animate.css", function() {
+			var newContent = require("!!../css-loader/index.js!./animate.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 /*
@@ -15089,7 +15120,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -15459,37 +15490,6 @@ function updateLink (link, options, obj) {
 	if(oldSrc) URL.revokeObjectURL(oldSrc);
 }
 
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(141);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// Prepare cssTransformation
-var transform;
-
-var options = {"hmr":true}
-options.transform = transform
-// add the styles to the DOM
-var update = __webpack_require__(4)(content, options);
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(false) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept("!!../css-loader/index.js!./animate.css", function() {
-			var newContent = require("!!../css-loader/index.js!./animate.css");
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
 
 /***/ }),
 /* 6 */
@@ -27190,7 +27190,7 @@ var transform;
 var options = {"hmr":true}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(4)(content, options);
+var update = __webpack_require__(5)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -27210,7 +27210,7 @@ if(false) {
 /* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(4)(false);
 // imports
 
 
@@ -27638,10 +27638,12 @@ var ninjas = __webpack_require__(1);
 *
 *   TODO refactor to class SitePanel. All fields private!!!
 *   TODO Remove timeout and use Engine.events.tick?
+*   TODO create enum PanelAppearPosition
 *   TODO Refactor: remove getRenderer in MatterJs!
 *   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
 *   TODO Group different objects in level class!
 *   TODO Revise parallax rendering though different groups in level class.
+*   TODO Outsource all css to styles.css.
 *   TODO Try friction, frictionStatic and frictionAir to Shape!
 *   TODO restitution will bounce balls!
 *   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
@@ -28001,7 +28003,7 @@ exports.SoundSystem = SoundSystem;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 var wow = __webpack_require__(140);
-__webpack_require__(5);
+__webpack_require__(3);
 /*******************************************************************************************************************
 *   Contains all possible positions for the site panel.
 *
@@ -28691,7 +28693,7 @@ exports.SiteSystem = SiteSystem;
 /* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(4)(false);
 // imports
 
 
@@ -28956,7 +28958,7 @@ var Level = /** @class */ (function () {
         this.height = 0.0;
         /** The player instance. */
         this.player = null;
-        /** ALL game objects for this level, including the player. */
+        /** ALL game objects for this level, including the player. TODO split! */
         this.gameObjects = null;
     }
     /***************************************************************************************************************
@@ -32477,8 +32479,202 @@ exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),
-/* 173 */,
+/* 173 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(3);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Specifies the site content for the site panels.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SiteContent = /** @class */ (function () {
+    function SiteContent() {
+    }
+    /*****************************************************************************
+    *   Appends example content to the specified relative container.
+    *
+    *   @param relativeContainer The relative container to append the content to.
+    *****************************************************************************/
+    SiteContent.appendExampleContent = function (relativeContainer) {
+        // example text
+        var exampleText = document.createElement("p");
+        exampleText.innerHTML = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
+        exampleText.style.width = "parent";
+        exampleText.style.padding = "20px";
+        exampleText.style.margin = "0";
+        var exampleBlock = document.createElement("div");
+        exampleBlock.style.width = "parent";
+        exampleBlock.style.padding = "20px";
+        exampleBlock.style.margin = "0";
+        exampleBlock.style.background = "#fffc9e";
+        var exampleImage = document.createElement("img");
+        exampleImage.src = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
+        exampleImage.style.width = "100%";
+        exampleImage.style.height = "auto";
+        exampleBlock.appendChild(exampleImage);
+        // append to relative container
+        relativeContainer.appendChild(exampleBlock);
+        relativeContainer.appendChild(exampleText);
+    };
+    return SiteContent;
+}());
+exports.SiteContent = SiteContent;
+
+
+/***/ }),
 /* 174 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(3);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents a site panel that shows a site content.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SitePanel = /** @class */ (function () {
+    /*****************************************************************************
+    *   Creates a new site panel on the specified position.
+    *
+    *   @param position The position for this panel to show up.
+    *****************************************************************************/
+    function SitePanel(position) {
+        /** The outer container div. */
+        this.outerAbsoluteContainer = null;
+        /** The inner container div. */
+        this.innerRelativeContainer = null;
+        /** The position for this panel to show up. */
+        this.position = null;
+        this.position = position;
+        // create containers
+        this.createOuterAbsoluteContainer();
+        this.createInnerRelativeContainer();
+        // add content
+        ninjas.SiteContent.appendExampleContent(this.innerRelativeContainer);
+        // add inner to outer container
+        this.outerAbsoluteContainer.appendChild(this.innerRelativeContainer);
+    }
+    /*****************************************************************************
+    *   Appends the outer container to the DOM.
+    *****************************************************************************/
+    SitePanel.prototype.addToDom = function () {
+        document.body.appendChild(this.outerAbsoluteContainer);
+    };
+    /*****************************************************************************
+    *   Removed the outer container from the DOM.
+    *****************************************************************************/
+    SitePanel.prototype.removeFromDom = function () {
+        this.outerAbsoluteContainer.remove();
+    };
+    /*****************************************************************************
+    *   Updates the position and the location of this site panel.
+    *
+    *   @param width  The new panel width.
+    *   @param height The new panel height.
+    *****************************************************************************/
+    SitePanel.prototype.updateBounds = function (width, height) {
+        this.outerAbsoluteContainer.style.width = width + "px";
+        this.outerAbsoluteContainer.style.height = height + "px";
+        switch (this.position) {
+            case ninjas.SitePanelPosition.LEFT:
+                {
+                    this.outerAbsoluteContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+                    break;
+                }
+            case ninjas.SitePanelPosition.RIGHT:
+                {
+                    this.outerAbsoluteContainer.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - width - ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
+                    break;
+                }
+        }
+        this.innerRelativeContainer.style.width = (width - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
+    };
+    /*****************************************************************************
+    *   Returns the current panel position.
+    *
+    *   @return The current position of this panel.
+    *****************************************************************************/
+    SitePanel.prototype.getPosition = function () {
+        return this.position;
+    };
+    /*****************************************************************************
+    *   Sets WOW classes for animating the panel in.
+    *****************************************************************************/
+    SitePanel.prototype.animateIn = function () {
+        // set animation class
+        switch (this.position) {
+            case ninjas.SitePanelPosition.LEFT:
+                {
+                    this.outerAbsoluteContainer.className = "wow bounceInLeft";
+                    break;
+                }
+            case ninjas.SitePanelPosition.RIGHT:
+                {
+                    this.outerAbsoluteContainer.className = "wow bounceInRight";
+                    break;
+                }
+        }
+    };
+    /*****************************************************************************
+    *   Sets WOW classes for animating the panel out.
+    *****************************************************************************/
+    SitePanel.prototype.animateOut = function () {
+        // set animation class
+        switch (this.position) {
+            case ninjas.SitePanelPosition.LEFT:
+                {
+                    this.outerAbsoluteContainer.className = "wow bounceOutLeft";
+                    break;
+                }
+            case ninjas.SitePanelPosition.RIGHT:
+                {
+                    this.outerAbsoluteContainer.className = "wow bounceOutRight";
+                    break;
+                }
+        }
+    };
+    /*****************************************************************************
+    *   Creates the outer container with absolute position.
+    *****************************************************************************/
+    SitePanel.prototype.createOuterAbsoluteContainer = function () {
+        this.outerAbsoluteContainer = document.createElement("div");
+        this.outerAbsoluteContainer.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
+        this.outerAbsoluteContainer.style.position = "absolute";
+        this.outerAbsoluteContainer.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+        this.outerAbsoluteContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
+        this.outerAbsoluteContainer.setAttribute("data-wow-delay", "0ms");
+    };
+    /*****************************************************************************
+    *   Creates the inner container with relative position.
+    *****************************************************************************/
+    SitePanel.prototype.createInnerRelativeContainer = function () {
+        this.innerRelativeContainer = document.createElement("div");
+        this.innerRelativeContainer.style.backgroundColor = "#c7d9f5";
+        this.innerRelativeContainer.style.position = "relative";
+        this.innerRelativeContainer.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+        this.innerRelativeContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+        this.innerRelativeContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_CONTENT_FADE_IN_DURATION + "ms");
+        this.innerRelativeContainer.setAttribute("data-wow-delay", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
+        // this.innerRelativeContainer.className = "wow fadeIn";
+        this.innerRelativeContainer.id = "siteContainer";
+    };
+    return SitePanel;
+}());
+exports.SitePanel = SitePanel;
+
+
+/***/ }),
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32686,7 +32882,7 @@ exports.Camera = Camera;
 
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32789,7 +32985,7 @@ exports.Drawing = Drawing;
 
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32831,7 +33027,7 @@ exports.IO = IO;
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32871,7 +33067,7 @@ exports.MathUtil = MathUtil;
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32919,7 +33115,7 @@ exports.String = String;
 
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -32947,7 +33143,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -33204,203 +33400,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 180;
-
-/***/ }),
-/* 181 */,
-/* 182 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(5);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Specifies the site content for the site panels.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SiteContent = /** @class */ (function () {
-    function SiteContent() {
-    }
-    /*****************************************************************************
-    *   Appends example content to the specified relative container.
-    *
-    *   @param relativeContainer The relative container to append the content to.
-    *****************************************************************************/
-    SiteContent.appendExampleContent = function (relativeContainer) {
-        // example text
-        var exampleText = document.createElement("p");
-        exampleText.innerHTML = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
-        exampleText.style.width = "parent";
-        exampleText.style.padding = "20px";
-        exampleText.style.margin = "0";
-        var exampleBlock = document.createElement("div");
-        exampleBlock.style.width = "parent";
-        exampleBlock.style.padding = "20px";
-        exampleBlock.style.margin = "0";
-        exampleBlock.style.background = "#fffc9e";
-        var exampleImage = document.createElement("img");
-        exampleImage.src = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
-        exampleImage.style.width = "100%";
-        exampleImage.style.height = "auto";
-        exampleBlock.appendChild(exampleImage);
-        // append to relative container
-        relativeContainer.appendChild(exampleBlock);
-        relativeContainer.appendChild(exampleText);
-    };
-    return SiteContent;
-}());
-exports.SiteContent = SiteContent;
-
-
-/***/ }),
-/* 183 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(5);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents a site panel that shows a site content.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SitePanel = /** @class */ (function () {
-    /*****************************************************************************
-    *   Creates a new site panel on the specified position.
-    *
-    *   @param position The position for this panel to show up.
-    *****************************************************************************/
-    function SitePanel(position) {
-        /** The outer container div. */
-        this.outerAbsoluteContainer = null;
-        /** The inner container div. */
-        this.innerRelativeContainer = null;
-        /** The position for this panel to show up. */
-        this.position = null;
-        this.position = position;
-        // create containers
-        this.createOuterAbsoluteContainer();
-        this.createInnerRelativeContainer();
-        // add content
-        ninjas.SiteContent.appendExampleContent(this.innerRelativeContainer);
-        // add inner to outer container
-        this.outerAbsoluteContainer.appendChild(this.innerRelativeContainer);
-    }
-    /*****************************************************************************
-    *   Appends the outer container to the DOM.
-    *****************************************************************************/
-    SitePanel.prototype.addToDom = function () {
-        document.body.appendChild(this.outerAbsoluteContainer);
-    };
-    /*****************************************************************************
-    *   Removed the outer container from the DOM.
-    *****************************************************************************/
-    SitePanel.prototype.removeFromDom = function () {
-        this.outerAbsoluteContainer.remove();
-    };
-    /*****************************************************************************
-    *   Updates the position and the location of this site panel.
-    *
-    *   @param width  The new panel width.
-    *   @param height The new panel height.
-    *****************************************************************************/
-    SitePanel.prototype.updateBounds = function (width, height) {
-        this.outerAbsoluteContainer.style.width = width + "px";
-        this.outerAbsoluteContainer.style.height = height + "px";
-        switch (this.position) {
-            case ninjas.SitePanelPosition.LEFT:
-                {
-                    this.outerAbsoluteContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-                    break;
-                }
-            case ninjas.SitePanelPosition.RIGHT:
-                {
-                    this.outerAbsoluteContainer.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - width - ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
-                    break;
-                }
-        }
-        this.innerRelativeContainer.style.width = (width - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
-    };
-    /*****************************************************************************
-    *   Returns the current panel position.
-    *
-    *   @return The current position of this panel.
-    *****************************************************************************/
-    SitePanel.prototype.getPosition = function () {
-        return this.position;
-    };
-    /*****************************************************************************
-    *   Sets WOW classes for animating the panel in.
-    *****************************************************************************/
-    SitePanel.prototype.animateIn = function () {
-        // set animation class
-        switch (this.position) {
-            case ninjas.SitePanelPosition.LEFT:
-                {
-                    this.outerAbsoluteContainer.className = "wow bounceInLeft";
-                    break;
-                }
-            case ninjas.SitePanelPosition.RIGHT:
-                {
-                    this.outerAbsoluteContainer.className = "wow bounceInRight";
-                    break;
-                }
-        }
-    };
-    /*****************************************************************************
-    *   Sets WOW classes for animating the panel out.
-    *****************************************************************************/
-    SitePanel.prototype.animateOut = function () {
-        // set animation class
-        switch (this.position) {
-            case ninjas.SitePanelPosition.LEFT:
-                {
-                    this.outerAbsoluteContainer.className = "wow bounceOutLeft";
-                    break;
-                }
-            case ninjas.SitePanelPosition.RIGHT:
-                {
-                    this.outerAbsoluteContainer.className = "wow bounceOutRight";
-                    break;
-                }
-        }
-    };
-    /*****************************************************************************
-    *   Creates the outer container with absolute position.
-    *****************************************************************************/
-    SitePanel.prototype.createOuterAbsoluteContainer = function () {
-        this.outerAbsoluteContainer = document.createElement("div");
-        this.outerAbsoluteContainer.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
-        this.outerAbsoluteContainer.style.position = "absolute";
-        this.outerAbsoluteContainer.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        this.outerAbsoluteContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
-        this.outerAbsoluteContainer.setAttribute("data-wow-delay", "0ms");
-    };
-    /*****************************************************************************
-    *   Creates the inner container with relative position.
-    *****************************************************************************/
-    SitePanel.prototype.createInnerRelativeContainer = function () {
-        this.innerRelativeContainer = document.createElement("div");
-        this.innerRelativeContainer.style.backgroundColor = "#c7d9f5";
-        this.innerRelativeContainer.style.position = "relative";
-        this.innerRelativeContainer.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        this.innerRelativeContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        this.innerRelativeContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_CONTENT_FADE_IN_DURATION + "ms");
-        this.innerRelativeContainer.setAttribute("data-wow-delay", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
-        // this.innerRelativeContainer.className = "wow fadeIn";
-        this.innerRelativeContainer.id = "siteContainer";
-    };
-    return SitePanel;
-}());
-exports.SitePanel = SitePanel;
-
+webpackContext.id = 181;
 
 /***/ })
 /******/ ]);

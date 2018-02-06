@@ -6,10 +6,12 @@
     *
     *   TODO refactor to class SitePanel. All fields private!!!
     *   TODO Remove timeout and use Engine.events.tick?
+    *   TODO create enum PanelAppearPosition
     *   TODO Refactor: remove getRenderer in MatterJs!
     *   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
     *   TODO Group different objects in level class!
     *   TODO Revise parallax rendering though different groups in level class.
+    *   TODO Outsource all css to styles.css.
     *   TODO Try friction, frictionStatic and frictionAir to Shape!
     *   TODO restitution will bounce balls!
     *   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)

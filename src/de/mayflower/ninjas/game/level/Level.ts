@@ -16,7 +16,7 @@
 
         /** The player instance. */
         public      player                  :ninjas.Player              = null;
-        /** ALL game objects for this level, including the player. */
+        /** ALL game objects for this level, including the player. TODO split! */
         public      gameObjects             :Array<ninjas.GameObject>   = null;
 
         /***************************************************************************************************************
