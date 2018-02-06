@@ -27636,12 +27636,9 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO refactor to class SitePanel. All fields private!!!
-*   TODO Remove timeout and use Engine.events.tick?
-*   TODO create enum PanelAppearPosition
-*   TODO Refactor: remove getRenderer in MatterJs!
-*   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
 *   TODO Group different objects in level class!
+*   TODO Remove timeout and use Engine.events.tick?
+*   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
 *   TODO Revise parallax rendering though different groups in level class.
 *   TODO Outsource all css to styles.css.
 *   TODO Try friction, frictionStatic and frictionAir to Shape!
@@ -30951,7 +30948,7 @@ var Game = /** @class */ (function () {
     *   Resets the camera.
     ***************************************************************************************************************/
     Game.prototype.resetCamera = function () {
-        this.camera = new ninjas.Camera(ninjas.SettingEngine.CAMERA_RATIO_Y, ninjas.SettingEngine.CAMERA_MOVING_SPEED, ninjas.SettingEngine.CAMERA_MOVING_MINIMUM, ninjas.SettingEngine.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.engine.canvasSystem.getWidth(), this.engine.canvasSystem.getHeight());
+        this.camera = new ninjas.Camera(ninjas.SettingEngine.CAMERA_MOVING_SPEED, ninjas.SettingEngine.CAMERA_MOVING_MINIMUM, ninjas.SettingEngine.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.engine.canvasSystem.getWidth(), this.engine.canvasSystem.getHeight());
         this.camera.reset();
     };
     /***************************************************************************************************************
@@ -30963,7 +30960,7 @@ var Game = /** @class */ (function () {
         // render level
         this.level.render(false);
         // update camera
-        var cameraBounds = this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.collidesBottom, this.engine.siteSystem.getCameraTargetX());
+        var cameraBounds = this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.collidesBottom, this.engine.siteSystem.getCameraTargetX(), this.engine.canvasSystem.getHeight() * ninjas.SettingEngine.CAMERA_RATIO_Y);
         this.engine.matterJsSystem.setRenderBounds(cameraBounds);
         // render parallax elements
         this.level.render(true);
@@ -32626,7 +32623,6 @@ var Camera = /** @class */ (function () {
     /***************************************************************************************************************
     *   Constructs a new camera.
     *
-    *   @param ratioY            Camera ratio Y for vertical centering of the player.
     *   @param movingSpeed       The moving speed for the camera.
     *   @param minimumCameraMove The minimum camera movement step in px.
     *   @param maximumCameraMove The maximum camera movement step in px.
@@ -32635,9 +32631,7 @@ var Camera = /** @class */ (function () {
     *   @param canvasWidth       The width of the canvas.
     *   @param canvasHeight      The height of the canvas.
     ***************************************************************************************************************/
-    function Camera(ratioY, movingSpeed, minimumCameraMove, maximumCameraMove, levelWidth, levelHeight, canvasWidth, canvasHeight) {
-        /** Camera centering ratio X. TODO outsource! pass targetY to update function! */
-        this.ratioY = 0.0;
+    function Camera(movingSpeed, minimumCameraMove, maximumCameraMove, levelWidth, levelHeight, canvasWidth, canvasHeight) {
         /** Camera moving speed. */
         this.movingSpeed = 0.0;
         /** Minimum camera moving speed in px. */
@@ -32660,7 +32654,6 @@ var Camera = /** @class */ (function () {
         this.canvasWidth = 0.0;
         /** The height of the canvas. */
         this.canvasHeight = 0.0;
-        this.ratioY = ratioY;
         this.movingSpeed = movingSpeed;
         this.minimumCameraMove = minimumCameraMove;
         this.maximumCameraMove = maximumCameraMove;
@@ -32693,11 +32686,12 @@ var Camera = /** @class */ (function () {
     *   @param subjectY     The subject coordinate Y to center the camera.
     *   @param allowAscendY Allows camera ascending Y.
     *   @param targetX      The camera target X.
+    *   @param targetY      The camera target Y.
     *
     *   @return The bounds to set the camera to.
     ***************************************************************************************************************/
-    Camera.prototype.update = function (subjectX, subjectY, allowAscendY, targetX) {
-        this.calculateTargets(subjectX, subjectY, targetX);
+    Camera.prototype.update = function (subjectX, subjectY, allowAscendY, targetX, targetY) {
+        this.assignTargets(subjectX, subjectY, targetX, targetY);
         this.calculateOffsets(allowAscendY);
         return matter.Bounds.create([
             { x: this.offsetX, y: this.offsetY },
@@ -32709,21 +32703,21 @@ var Camera = /** @class */ (function () {
     ***************************************************************************************************************/
     Camera.prototype.reset = function () {
         // extract level and player access!
-        this.calculateTargets(ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, ninjas.Main.game.engine.siteSystem.getCameraTargetX());
+        this.assignTargets(ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, ninjas.Main.game.engine.siteSystem.getCameraTargetX(), ninjas.Main.game.engine.canvasSystem.getHeight() * ninjas.SettingEngine.CAMERA_RATIO_Y);
         this.offsetX = this.targetX;
         this.offsetY = this.targetY;
     };
     /***************************************************************************************************************
-    *   Calculates the current camera tarets according to the specified subject.
+    *   Assigns the specified camera tarets to the specified subject.
     *
     *   @param subjectX The subject's X to position the camera to.
     *   @param subjectY The subject's Y to position the camera to.
     *   @param targetX  A fixed camera position X.
+    *   @param targetY  A fixed camera position Y.
     ***************************************************************************************************************/
-    Camera.prototype.calculateTargets = function (subjectX, subjectY, targetX) {
+    Camera.prototype.assignTargets = function (subjectX, subjectY, targetX, targetY) {
         this.targetX = subjectX - targetX;
-        this.targetY = subjectY - (this.canvasHeight * this.ratioY);
-        // clip targets X and Y to level bounds
+        this.targetY = subjectY - targetY;
         this.clipTargetsToLevelBounds();
     };
     /***************************************************************************************************************

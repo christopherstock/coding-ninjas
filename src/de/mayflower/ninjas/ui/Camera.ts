@@ -10,9 +10,6 @@
     *******************************************************************************************************************/
     export class Camera
     {
-        /** Camera centering ratio X. TODO outsource! pass targetY to update function! */
-        private     ratioY                      :number                 = 0.0;
-
         /** Camera moving speed. */
         private     movingSpeed                 :number                 = 0.0;
         /** Minimum camera moving speed in px. */
@@ -43,7 +40,6 @@
         /***************************************************************************************************************
         *   Constructs a new camera.
         *
-        *   @param ratioY            Camera ratio Y for vertical centering of the player.
         *   @param movingSpeed       The moving speed for the camera.
         *   @param minimumCameraMove The minimum camera movement step in px.
         *   @param maximumCameraMove The maximum camera movement step in px.
@@ -54,7 +50,6 @@
         ***************************************************************************************************************/
         public constructor
         (
-            ratioY            :number,
             movingSpeed       :number,
             minimumCameraMove :number,
             maximumCameraMove :number,
@@ -64,8 +59,6 @@
             canvasHeight      :number
         )
         {
-            this.ratioY            = ratioY;
-
             this.movingSpeed       = movingSpeed;
             this.minimumCameraMove = minimumCameraMove;
             this.maximumCameraMove = maximumCameraMove;
@@ -105,6 +98,7 @@
         *   @param subjectY     The subject coordinate Y to center the camera.
         *   @param allowAscendY Allows camera ascending Y.
         *   @param targetX      The camera target X.
+        *   @param targetY      The camera target Y.
         *
         *   @return The bounds to set the camera to.
         ***************************************************************************************************************/
@@ -113,11 +107,12 @@
             subjectX     :number,
             subjectY     :number,
             allowAscendY :boolean,
-            targetX      :number
+            targetX      :number,
+            targetY      :number
         )
         : matter.Bounds
         {
-            this.calculateTargets( subjectX, subjectY, targetX );
+            this.assignTargets( subjectX, subjectY, targetX, targetY );
             this.calculateOffsets( allowAscendY );
 
             return matter.Bounds.create
@@ -136,11 +131,12 @@
         {
             // extract level and player access!
 
-            this.calculateTargets
+            this.assignTargets
             (
                 ninjas.Main.game.level.player.shape.body.position.x,
                 ninjas.Main.game.level.player.shape.body.position.y,
-                ninjas.Main.game.engine.siteSystem.getCameraTargetX()
+                ninjas.Main.game.engine.siteSystem.getCameraTargetX(),
+                ninjas.Main.game.engine.canvasSystem.getHeight() * ninjas.SettingEngine.CAMERA_RATIO_Y
             );
 
             this.offsetX = this.targetX;
@@ -148,23 +144,24 @@
         }
 
         /***************************************************************************************************************
-        *   Calculates the current camera tarets according to the specified subject.
+        *   Assigns the specified camera tarets to the specified subject.
         *
         *   @param subjectX The subject's X to position the camera to.
         *   @param subjectY The subject's Y to position the camera to.
         *   @param targetX  A fixed camera position X.
+        *   @param targetY  A fixed camera position Y.
         ***************************************************************************************************************/
-        private calculateTargets
+        private assignTargets
         (
             subjectX :number,
             subjectY :number,
-            targetX  :number
+            targetX  :number,
+            targetY  :number
         )
         {
             this.targetX = subjectX - targetX;
-            this.targetY = subjectY - ( this.canvasHeight * this.ratioY );
+            this.targetY = subjectY - targetY;
 
-            // clip targets X and Y to level bounds
             this.clipTargetsToLevelBounds();
         }
 

@@ -76,7 +76,6 @@
         public resetCamera()
         {
             this.camera = new ninjas.Camera(
-                ninjas.SettingEngine.CAMERA_RATIO_Y,
                 ninjas.SettingEngine.CAMERA_MOVING_SPEED,
                 ninjas.SettingEngine.CAMERA_MOVING_MINIMUM,
                 ninjas.SettingEngine.CAMERA_MOVING_MAXIMUM,
@@ -122,7 +121,8 @@
                 this.level.player.shape.body.position.x,
                 this.level.player.shape.body.position.y,
                 this.level.player.collidesBottom,
-                this.engine.siteSystem.getCameraTargetX()
+                this.engine.siteSystem.getCameraTargetX(),
+                this.engine.canvasSystem.getHeight() * ninjas.SettingEngine.CAMERA_RATIO_Y
             );
             this.engine.matterJsSystem.setRenderBounds( cameraBounds );
 
