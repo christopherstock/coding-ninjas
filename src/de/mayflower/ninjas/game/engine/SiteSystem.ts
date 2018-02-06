@@ -4,14 +4,14 @@
     require( "animate.css" );
 
     /*******************************************************************************************************************
-    *   Specifies all possible site animations.
-    *   TODO implement!
+    *   Specifies the current site panel animation state.
     *
     *   @author     Christopher Stock
     *   @version    0.0.1
     *******************************************************************************************************************/
     export enum SitePanelAnimation
     {
+        NONE,
         SHOW,
         HIDE,
     }
@@ -24,50 +24,47 @@
     *******************************************************************************************************************/
     export class SiteSystem
     {
-        /** The current site panel. */
-        private                 activePanel                     :ninjas.SitePanel           = null;
-        /** Flags if an animation is currently active. */
-        private                 animationInProgress             :boolean                    = null;
-        /** Flags if the panel is currently animated out. */
-        private                 animatingOut                    :boolean                    = false;
+        /** The active site panel. */
+        private             activePanel                     :ninjas.SitePanel               = null;
+        /** The current animation of the site panel. */
+        private             animationState                  :ninjas.SitePanelAnimation      = ninjas.SitePanelAnimation.NONE;
 
         /** The current width of the panel. */
-        private                 panelWidth                      :number                     = 0;
+        private             panelWidth                      :number                         = 0;
         /** The current width of the panel including border size. */
-        private                 panelAndBorderWidth             :number                     = 0;
+        private             panelAndBorderWidth             :number                         = 0;
 
         /** The left camera target X if the border is shown right. */
-        private                 leftCameraTargetX               :number                     = 0;
+        private             leftCameraTargetX               :number                         = 0;
         /** The right camera target X if the border is shown left. */
-        private                 rightCameraTargetX              :number                     = 0;
+        private             rightCameraTargetX              :number                         = 0;
 
         /** The WOW animation system. */
-        private                 wowSystem                       :any                        = null;
+        private             wowSystem                       :any                            = null;
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Creates a new site system.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public constructor()
         {
             this.updatePanelSizeAndPosition();
             this.initWowSystem();
         }
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Being invoked when a site shall be shown.
         *
         *   @return If showing the site succeeded.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public show( position:ninjas.SitePanelPosition ) : boolean
         {
             ninjas.Debug.site.log( "Showing site panel" );
 
-            if ( this.activePanel != null || this.animationInProgress )
+            if ( this.activePanel != null || this.animationState != ninjas.SitePanelAnimation.NONE )
             {
                 return false;
             }
-            this.animationInProgress = true;
-            this.animatingOut = false;
+            this.animationState = ninjas.SitePanelAnimation.SHOW;
 
             this.activePanel = new ninjas.SitePanel( position );
             this.activePanel.addToDom();
@@ -80,29 +77,28 @@
             window.setTimeout(
                 () => {
 
-                    this.animationInProgress = false;
+                    this.animationState = ninjas.SitePanelAnimation.NONE;
                 },
-                1000
+                1000 // TODO replace!
             );
 
             return true;
         }
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Being invoked when a site shall be hidden.
         *
         *   @return If hiding the site succeeded.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public hide() : boolean
         {
             ninjas.Debug.site.log( "Hiding site panel" );
 
-            if ( this.activePanel == null || this.animationInProgress )
+            if ( this.activePanel == null || this.animationState != ninjas.SitePanelAnimation.NONE )
             {
                 return false;
             }
-            this.animationInProgress = true;
-            this.animatingOut = true;
+            this.animationState = ninjas.SitePanelAnimation.HIDE;
 
             this.activePanel.animateOut();
             this.wowSystem.sync();
@@ -112,18 +108,17 @@
                     this.activePanel.removeFromDom();
                     this.activePanel = null;
 
-                    this.animationInProgress = false;
-                    this.animatingOut = false;
+                    this.animationState = ninjas.SitePanelAnimation.NONE;
                 },
-                750
+                750 // TODO replace!
             );
 
             return true;
         }
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Being invoked when the panel size should be set according to the current canvas size.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public updatePanelSizeAndPosition()
         {
             // calculate panel size
@@ -149,14 +144,14 @@
             }
         }
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Determines if a site panel is currently active.
         *
         *   @return <code>true</code> if a site panel is currently active.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public getCameraTargetX() : number
         {
-            if ( this.activePanel == null || this.animatingOut )
+            if ( this.activePanel == null || this.animationState == ninjas.SitePanelAnimation.HIDE )
             {
                 switch ( ninjas.Main.game.level.player.lookingDirection )
                 {

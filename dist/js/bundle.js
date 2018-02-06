@@ -28005,16 +28005,16 @@ var ninjas = __webpack_require__(1);
 var wow = __webpack_require__(140);
 __webpack_require__(3);
 /*******************************************************************************************************************
-*   Specifies all possible site animations.
-*   TODO implement!
+*   Specifies the current site panel animation state.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
 var SitePanelAnimation;
 (function (SitePanelAnimation) {
-    SitePanelAnimation[SitePanelAnimation["SHOW"] = 0] = "SHOW";
-    SitePanelAnimation[SitePanelAnimation["HIDE"] = 1] = "HIDE";
+    SitePanelAnimation[SitePanelAnimation["NONE"] = 0] = "NONE";
+    SitePanelAnimation[SitePanelAnimation["SHOW"] = 1] = "SHOW";
+    SitePanelAnimation[SitePanelAnimation["HIDE"] = 2] = "HIDE";
 })(SitePanelAnimation = exports.SitePanelAnimation || (exports.SitePanelAnimation = {}));
 /*******************************************************************************************************************
 *   Manages the communication between the game and the company presentation.
@@ -28023,16 +28023,14 @@ var SitePanelAnimation;
 *   @version    0.0.1
 *******************************************************************************************************************/
 var SiteSystem = /** @class */ (function () {
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Creates a new site system.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     function SiteSystem() {
-        /** The current site panel. */
+        /** The active site panel. */
         this.activePanel = null;
-        /** Flags if an animation is currently active. */
-        this.animationInProgress = null;
-        /** Flags if the panel is currently animated out. */
-        this.animatingOut = false;
+        /** The current animation of the site panel. */
+        this.animationState = ninjas.SitePanelAnimation.NONE;
         /** The current width of the panel. */
         this.panelWidth = 0;
         /** The current width of the panel including border size. */
@@ -28046,55 +28044,54 @@ var SiteSystem = /** @class */ (function () {
         this.updatePanelSizeAndPosition();
         this.initWowSystem();
     }
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Being invoked when a site shall be shown.
     *
     *   @return If showing the site succeeded.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SiteSystem.prototype.show = function (position) {
         var _this = this;
         ninjas.Debug.site.log("Showing site panel");
-        if (this.activePanel != null || this.animationInProgress) {
+        if (this.activePanel != null || this.animationState != ninjas.SitePanelAnimation.NONE) {
             return false;
         }
-        this.animationInProgress = true;
-        this.animatingOut = false;
+        this.animationState = ninjas.SitePanelAnimation.SHOW;
         this.activePanel = new ninjas.SitePanel(position);
         this.activePanel.addToDom();
         this.activePanel.animateIn();
         this.updatePanelSizeAndPosition();
         this.wowSystem.sync();
         window.setTimeout(function () {
-            _this.animationInProgress = false;
-        }, 1000);
+            _this.animationState = ninjas.SitePanelAnimation.NONE;
+        }, 1000 // TODO replace!
+        );
         return true;
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Being invoked when a site shall be hidden.
     *
     *   @return If hiding the site succeeded.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SiteSystem.prototype.hide = function () {
         var _this = this;
         ninjas.Debug.site.log("Hiding site panel");
-        if (this.activePanel == null || this.animationInProgress) {
+        if (this.activePanel == null || this.animationState != ninjas.SitePanelAnimation.NONE) {
             return false;
         }
-        this.animationInProgress = true;
-        this.animatingOut = true;
+        this.animationState = ninjas.SitePanelAnimation.HIDE;
         this.activePanel.animateOut();
         this.wowSystem.sync();
         window.setTimeout(function () {
             _this.activePanel.removeFromDom();
             _this.activePanel = null;
-            _this.animationInProgress = false;
-            _this.animatingOut = false;
-        }, 750);
+            _this.animationState = ninjas.SitePanelAnimation.NONE;
+        }, 750 // TODO replace!
+        );
         return true;
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Being invoked when the panel size should be set according to the current canvas size.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SiteSystem.prototype.updatePanelSizeAndPosition = function () {
         // calculate panel size
         this.panelWidth = (ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.SettingGame.SITE_BORDER_SIZE);
@@ -28110,13 +28107,13 @@ var SiteSystem = /** @class */ (function () {
             this.activePanel.updateBounds(this.panelWidth, (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE));
         }
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Determines if a site panel is currently active.
     *
     *   @return <code>true</code> if a site panel is currently active.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SiteSystem.prototype.getCameraTargetX = function () {
-        if (this.activePanel == null || this.animatingOut) {
+        if (this.activePanel == null || this.animationState == ninjas.SitePanelAnimation.HIDE) {
             switch (ninjas.Main.game.level.player.lookingDirection) {
                 case ninjas.CharacterLookingDirection.LEFT:
                     {
