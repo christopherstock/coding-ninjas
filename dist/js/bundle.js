@@ -28063,14 +28063,14 @@ var SiteSystem = /** @class */ (function () {
         }
         this.animationInProgress = true;
         this.panelPosition = position;
-        this.currentPanel = ninjas.SiteContent.createExampleContent();
+        this.currentPanel = new ninjas.SitePanel();
         if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
-            this.currentPanel.className = "wow bounceInLeft";
+            this.currentPanel.outerAbsoluteContainer.className = "wow bounceInLeft";
         }
         else {
-            this.currentPanel.className = "wow bounceInRight";
+            this.currentPanel.outerAbsoluteContainer.className = "wow bounceInRight";
         }
-        document.body.appendChild(this.currentPanel);
+        document.body.appendChild(this.currentPanel.outerAbsoluteContainer);
         this.updatePanelSizeAndPosition();
         this.wowSystem.sync();
         window.setTimeout(function () {
@@ -28095,15 +28095,15 @@ var SiteSystem = /** @class */ (function () {
         }
         this.animationInProgress = true;
         if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
-            this.currentPanel.className = "wow bounceOutLeft";
+            this.currentPanel.outerAbsoluteContainer.className = "wow bounceOutLeft";
         }
         else {
-            this.currentPanel.className = "wow bounceOutRight";
+            this.currentPanel.outerAbsoluteContainer.className = "wow bounceOutRight";
         }
         this.panelPosition = ninjas.SitePanelPosition.NONE;
         this.wowSystem.sync();
         window.setTimeout(function () {
-            _this.currentPanel.remove();
+            _this.currentPanel.outerAbsoluteContainer.remove();
             _this.currentPanel = null;
             _this.animationInProgress = false;
         }, 750);
@@ -28124,13 +28124,13 @@ var SiteSystem = /** @class */ (function () {
         this.rightCameraTargetX = ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2);
         // update panel size and position
         if (this.currentPanel != null) {
-            this.currentPanel.style.width = this.panelWidth + "px";
-            this.currentPanel.style.height = (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
+            this.currentPanel.outerAbsoluteContainer.style.width = this.panelWidth + "px";
+            this.currentPanel.outerAbsoluteContainer.style.height = (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
             if (this.panelPosition == ninjas.SitePanelPosition.LEFT) {
-                this.currentPanel.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+                this.currentPanel.outerAbsoluteContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
             }
             else {
-                this.currentPanel.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
+                this.currentPanel.outerAbsoluteContainer.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
             }
             var siteContainer = document.getElementById("siteContainer");
             siteContainer.style.width = (this.panelWidth - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
@@ -29086,11 +29086,11 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(1200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger(3000, 2000, 500, 500, ninjas.SitePanelPosition.NONE),
+                ninjas.GameObjectFactory.createSiteTrigger(2800, 2000, 500, 500, ninjas.SitePanelPosition.NONE),
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createSphere(1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
+                // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
                 /*
                                 // sigsaws and bounces
                                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
@@ -32513,7 +32513,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(5);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
-*   Manages the communication between the game and the company presentation.
+*   Specifies the site content for the site panels.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
@@ -32522,51 +32522,30 @@ var SiteContent = /** @class */ (function () {
     function SiteContent() {
     }
     /*****************************************************************************
-    *   Creates an example content panel.
+    *   Appends example content to the specified relative container.
     *
-    *   @return A content panel with example content.
+    *   @param relativeContainer The relative container to append the content to.
     *****************************************************************************/
-    SiteContent.createExampleContent = function () {
-        // panel
-        var ret = document.createElement("div");
-        ret.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
-        ret.style.position = "absolute";
-        ret.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        ret.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
-        ret.setAttribute("data-wow-delay", "0ms");
-        // relative container div
-        var relativeContainerDiv = document.createElement("div");
-        relativeContainerDiv.style.backgroundColor = "#c7d9f5";
-        relativeContainerDiv.style.position = "relative";
-        relativeContainerDiv.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        relativeContainerDiv.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        relativeContainerDiv.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_CONTENT_FADE_IN_DURATION + "ms");
-        relativeContainerDiv.setAttribute("data-wow-delay", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
-        relativeContainerDiv.className = "wow fadeIn";
-        relativeContainerDiv.id = "siteContainer";
+    SiteContent.appendExampleContent = function (relativeContainer) {
         // example text
         var exampleText = document.createElement("p");
         exampleText.innerHTML = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
         exampleText.style.width = "parent";
         exampleText.style.padding = "20px";
         exampleText.style.margin = "0";
-        // example block
         var exampleBlock = document.createElement("div");
         exampleBlock.style.width = "parent";
         exampleBlock.style.padding = "20px";
         exampleBlock.style.margin = "0";
         exampleBlock.style.background = "#fffc9e";
-        // example image
         var exampleImage = document.createElement("img");
         exampleImage.src = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
         exampleImage.style.width = "100%";
         exampleImage.style.height = "auto";
-        // append to DOM
         exampleBlock.appendChild(exampleImage);
-        relativeContainerDiv.appendChild(exampleBlock);
-        relativeContainerDiv.appendChild(exampleText);
-        ret.appendChild(relativeContainerDiv);
-        return ret;
+        // append to relative container
+        relativeContainer.appendChild(exampleBlock);
+        relativeContainer.appendChild(exampleText);
     };
     return SiteContent;
 }());
@@ -33310,6 +33289,7 @@ webpackContext.id = 180;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(5);
+var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   Represents a site panel that shows a site content.
 *
@@ -33317,8 +33297,47 @@ __webpack_require__(5);
 *   @version    0.0.1
 *******************************************************************************************************************/
 var SitePanel = /** @class */ (function () {
+    /*****************************************************************************
+    *   Creates a new site panel.
+    *****************************************************************************/
     function SitePanel() {
+        /** The current site panel. */
+        this.outerAbsoluteContainer = null;
+        /** The current site panel. */
+        this.innerRelativeContainer = null;
+        // create containers
+        this.createOuterAbsoluteContainer();
+        this.createInnerRelativeContainer();
+        // add content
+        ninjas.SiteContent.appendExampleContent(this.innerRelativeContainer);
+        // add inner to outer container
+        this.outerAbsoluteContainer.appendChild(this.innerRelativeContainer);
     }
+    /*****************************************************************************
+    *   Creates the outer container with absolute position.
+    *****************************************************************************/
+    SitePanel.prototype.createOuterAbsoluteContainer = function () {
+        this.outerAbsoluteContainer = document.createElement("div");
+        this.outerAbsoluteContainer.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
+        this.outerAbsoluteContainer.style.position = "absolute";
+        this.outerAbsoluteContainer.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+        this.outerAbsoluteContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
+        this.outerAbsoluteContainer.setAttribute("data-wow-delay", "0ms");
+    };
+    /*****************************************************************************
+    *   Creates the inner container with relative position.
+    *****************************************************************************/
+    SitePanel.prototype.createInnerRelativeContainer = function () {
+        this.innerRelativeContainer = document.createElement("div");
+        this.innerRelativeContainer.style.backgroundColor = "#c7d9f5";
+        this.innerRelativeContainer.style.position = "relative";
+        this.innerRelativeContainer.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+        this.innerRelativeContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+        this.innerRelativeContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_CONTENT_FADE_IN_DURATION + "ms");
+        this.innerRelativeContainer.setAttribute("data-wow-delay", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
+        this.innerRelativeContainer.className = "wow fadeIn";
+        this.innerRelativeContainer.id = "siteContainer";
+    };
     return SitePanel;
 }());
 exports.SitePanel = SitePanel;

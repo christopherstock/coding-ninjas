@@ -43,13 +43,14 @@
                 ninjas.GameObjectFactory.createDecoration( 1200, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
 
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger( 3000, 2000, 500, 500, ninjas.SitePanelPosition.NONE ),
+                ninjas.GameObjectFactory.createSiteTrigger( 2800, 2000, 500, 500, ninjas.SitePanelPosition.NONE ),
 
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(  300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createCrate(  500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
 
-                ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
+                // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
+
 /*
                 // sigsaws and bounces
                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),

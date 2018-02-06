@@ -25,7 +25,7 @@
     export class SiteSystem
     {
         /** The current site panel. */
-        private                 currentPanel                    :HTMLDivElement             = null;
+        private                 currentPanel                    :ninjas.SitePanel           = null;
         /** Flags if an animation is currently active. */
         private                 animationInProgress             :boolean                    = null;
         /** Flags if a panel is currently shown. */
@@ -73,18 +73,18 @@
             this.animationInProgress = true;
             this.panelPosition       = position;
 
-            this.currentPanel = ninjas.SiteContent.createExampleContent();
+            this.currentPanel = new ninjas.SitePanel();
 
             if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
             {
-                this.currentPanel.className = "wow bounceInLeft";
+                this.currentPanel.outerAbsoluteContainer.className = "wow bounceInLeft";
             }
             else
             {
-                this.currentPanel.className = "wow bounceInRight";
+                this.currentPanel.outerAbsoluteContainer.className = "wow bounceInRight";
             }
 
-            document.body.appendChild( this.currentPanel );
+            document.body.appendChild( this.currentPanel.outerAbsoluteContainer );
             this.updatePanelSizeAndPosition();
 
             this.wowSystem.sync();
@@ -123,11 +123,11 @@
 
             if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
             {
-                this.currentPanel.className = "wow bounceOutLeft";
+                this.currentPanel.outerAbsoluteContainer.className = "wow bounceOutLeft";
             }
             else
             {
-                this.currentPanel.className = "wow bounceOutRight";
+                this.currentPanel.outerAbsoluteContainer.className = "wow bounceOutRight";
             }
 
             this.panelPosition = ninjas.SitePanelPosition.NONE;
@@ -136,7 +136,7 @@
 
             window.setTimeout(
                 () => {
-                    this.currentPanel.remove();
+                    this.currentPanel.outerAbsoluteContainer.remove();
                     this.currentPanel = null;
 
                     this.animationInProgress = false;
@@ -167,16 +167,16 @@
             // update panel size and position
             if ( this.currentPanel != null )
             {
-                this.currentPanel.style.width  = this.panelWidth + "px";
-                this.currentPanel.style.height = ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
+                this.currentPanel.outerAbsoluteContainer.style.width  = this.panelWidth + "px";
+                this.currentPanel.outerAbsoluteContainer.style.height = ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
 
                 if ( this.panelPosition == ninjas.SitePanelPosition.LEFT )
                 {
-                    this.currentPanel.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+                    this.currentPanel.outerAbsoluteContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
                 }
                 else
                 {
-                    this.currentPanel.style.left = ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
+                    this.currentPanel.outerAbsoluteContainer.style.left = ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
                 }
 
                 let siteContainer:HTMLDivElement = document.getElementById( "siteContainer" ) as HTMLDivElement;
