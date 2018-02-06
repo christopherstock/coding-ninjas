@@ -92,26 +92,18 @@
         ***************************************************************************************************************/
         private determinePanelPosition() : ninjas.SitePanelPosition
         {
-            switch ( this.fixedPanelPosition )
+            if ( this.fixedPanelPosition == null )
             {
-                case ninjas.SitePanelPosition.LEFT:
-                case ninjas.SitePanelPosition.RIGHT:
+                if ( ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
                 {
-                    return this.fixedPanelPosition;
+                    return ninjas.SitePanelPosition.LEFT;
                 }
-
-                case ninjas.SitePanelPosition.NONE:
-                default:
+                else
                 {
-                    if ( ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
-                    {
-                        return ninjas.SitePanelPosition.LEFT;
-                    }
-                    else
-                    {
-                        return ninjas.SitePanelPosition.RIGHT;
-                    }
+                    return ninjas.SitePanelPosition.RIGHT;
                 }
             }
+
+            return this.fixedPanelPosition;
         }
     }

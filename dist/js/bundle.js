@@ -28010,10 +28010,21 @@ __webpack_require__(5);
 *******************************************************************************************************************/
 var SitePanelPosition;
 (function (SitePanelPosition) {
-    SitePanelPosition[SitePanelPosition["NONE"] = 0] = "NONE";
-    SitePanelPosition[SitePanelPosition["LEFT"] = 1] = "LEFT";
-    SitePanelPosition[SitePanelPosition["RIGHT"] = 2] = "RIGHT";
+    SitePanelPosition[SitePanelPosition["LEFT"] = 0] = "LEFT";
+    SitePanelPosition[SitePanelPosition["RIGHT"] = 1] = "RIGHT";
 })(SitePanelPosition = exports.SitePanelPosition || (exports.SitePanelPosition = {}));
+/*******************************************************************************************************************
+*   Specifies all possible site animations.
+*   TODO implement!
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SitePanelAnimation;
+(function (SitePanelAnimation) {
+    SitePanelAnimation[SitePanelAnimation["SHOW"] = 0] = "SHOW";
+    SitePanelAnimation[SitePanelAnimation["HIDE"] = 1] = "HIDE";
+})(SitePanelAnimation = exports.SitePanelAnimation || (exports.SitePanelAnimation = {}));
 /*******************************************************************************************************************
 *   Manages the communication between the game and the company presentation.
 *
@@ -28026,11 +28037,11 @@ var SiteSystem = /** @class */ (function () {
     *****************************************************************************/
     function SiteSystem() {
         /** The current site panel. */
-        this.currentPanel = null;
+        this.activePanel = null;
         /** Flags if an animation is currently active. */
         this.animationInProgress = null;
-        /** Flags if a panel is currently shown. TODO outsource! */
-        this.panelPosition = ninjas.SitePanelPosition.NONE;
+        /** Flags if the panel is currently animated out. */
+        this.animatingOut = false;
         /** The current width of the panel. */
         this.panelWidth = 0;
         /** The current width of the panel including border size. */
@@ -28052,17 +28063,14 @@ var SiteSystem = /** @class */ (function () {
     SiteSystem.prototype.show = function (position) {
         var _this = this;
         ninjas.Debug.site.log("Showing site panel");
-        if (this.panelPosition != ninjas.SitePanelPosition.NONE) {
-            return false;
-        }
-        if (this.animationInProgress) {
-            ninjas.Debug.site.log("Animation currently running - canceling show");
+        if (this.activePanel != null || this.animationInProgress) {
             return false;
         }
         this.animationInProgress = true;
-        this.panelPosition = position;
-        this.currentPanel = new ninjas.SitePanel(this.panelPosition);
-        this.currentPanel.addToDom();
+        this.animatingOut = false;
+        this.activePanel = new ninjas.SitePanel(position);
+        this.activePanel.addToDom();
+        this.activePanel.animateIn();
         this.updatePanelSizeAndPosition();
         this.wowSystem.sync();
         window.setTimeout(function () {
@@ -28078,28 +28086,23 @@ var SiteSystem = /** @class */ (function () {
     SiteSystem.prototype.hide = function () {
         var _this = this;
         ninjas.Debug.site.log("Hiding site panel");
-        if (this.panelPosition == ninjas.SitePanelPosition.NONE) {
-            return false;
-        }
-        if (this.animationInProgress) {
-            ninjas.Debug.site.log("Animation currently running - canceling hide");
+        if (this.activePanel == null || this.animationInProgress) {
             return false;
         }
         this.animationInProgress = true;
-        this.currentPanel.animateOut();
-        this.panelPosition = ninjas.SitePanelPosition.NONE;
+        this.animatingOut = true;
+        this.activePanel.animateOut();
         this.wowSystem.sync();
         window.setTimeout(function () {
-            _this.currentPanel.removeFromDom();
-            _this.currentPanel = null;
+            _this.activePanel.removeFromDom();
+            _this.activePanel = null;
             _this.animationInProgress = false;
+            _this.animatingOut = false;
         }, 750);
         return true;
     };
     /*****************************************************************************
     *   Being invoked when the panel size should be set according to the current canvas size.
-    *
-    *   TODO outsource
     *****************************************************************************/
     SiteSystem.prototype.updatePanelSizeAndPosition = function () {
         // calculate panel size
@@ -28112,8 +28115,8 @@ var SiteSystem = /** @class */ (function () {
         this.leftCameraTargetX = (this.panelAndBorderWidth + ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2));
         this.rightCameraTargetX = ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2);
         // update panel size and position
-        if (this.currentPanel != null) {
-            this.currentPanel.updateBounds(this.panelWidth, (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE), this.panelPosition);
+        if (this.activePanel != null) {
+            this.activePanel.updateBounds(this.panelWidth, (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE));
         }
     };
     /*****************************************************************************
@@ -28122,21 +28125,19 @@ var SiteSystem = /** @class */ (function () {
     *   @return <code>true</code> if a site panel is currently active.
     *****************************************************************************/
     SiteSystem.prototype.getCameraTargetX = function () {
-        switch (this.panelPosition) {
-            case ninjas.SitePanelPosition.NONE:
-                {
-                    switch (ninjas.Main.game.level.player.lookingDirection) {
-                        case ninjas.CharacterLookingDirection.LEFT:
-                            {
-                                return this.leftCameraTargetX;
-                            }
-                        case ninjas.CharacterLookingDirection.RIGHT:
-                            {
-                                return this.rightCameraTargetX;
-                            }
+        if (this.activePanel == null || this.animatingOut) {
+            switch (ninjas.Main.game.level.player.lookingDirection) {
+                case ninjas.CharacterLookingDirection.LEFT:
+                    {
+                        return this.leftCameraTargetX;
                     }
-                    throw new Error("Camera position not determinable though undefined player looking direction!");
-                }
+                case ninjas.CharacterLookingDirection.RIGHT:
+                    {
+                        return this.rightCameraTargetX;
+                    }
+            }
+        }
+        switch (this.activePanel.getPosition()) {
             case ninjas.SitePanelPosition.LEFT:
                 {
                     return this.leftCameraTargetX;
@@ -29066,7 +29067,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(1200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger(2800, 2000, 500, 500, ninjas.SitePanelPosition.NONE),
+                ninjas.GameObjectFactory.createSiteTrigger(2800, 2000, 500, 500, null),
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
@@ -30311,23 +30312,15 @@ var SiteTrigger = /** @class */ (function (_super) {
     *   @return The position of the panel to be shown.
     ***************************************************************************************************************/
     SiteTrigger.prototype.determinePanelPosition = function () {
-        switch (this.fixedPanelPosition) {
-            case ninjas.SitePanelPosition.LEFT:
-            case ninjas.SitePanelPosition.RIGHT:
-                {
-                    return this.fixedPanelPosition;
-                }
-            case ninjas.SitePanelPosition.NONE:
-            default:
-                {
-                    if (ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
-                        return ninjas.SitePanelPosition.LEFT;
-                    }
-                    else {
-                        return ninjas.SitePanelPosition.RIGHT;
-                    }
-                }
+        if (this.fixedPanelPosition == null) {
+            if (ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                return ninjas.SitePanelPosition.LEFT;
+            }
+            else {
+                return ninjas.SitePanelPosition.RIGHT;
+            }
         }
+        return this.fixedPanelPosition;
     };
     return SiteTrigger;
 }(ninjas.Decoration));
@@ -33315,14 +33308,13 @@ var SitePanel = /** @class */ (function () {
     /*****************************************************************************
     *   Updates the position and the location of this site panel.
     *
-    *   @param width         New width.
-    *   @param height        New height.
-    *   @param panelPosition Current panel position.
+    *   @param width  The new panel width.
+    *   @param height The new panel height.
     *****************************************************************************/
-    SitePanel.prototype.updateBounds = function (width, height, panelPosition) {
+    SitePanel.prototype.updateBounds = function (width, height) {
         this.outerAbsoluteContainer.style.width = width + "px";
         this.outerAbsoluteContainer.style.height = height + "px";
-        switch (panelPosition) {
+        switch (this.position) {
             case ninjas.SitePanelPosition.LEFT:
                 {
                     this.outerAbsoluteContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
@@ -33337,16 +33329,12 @@ var SitePanel = /** @class */ (function () {
         this.innerRelativeContainer.style.width = (width - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
     };
     /*****************************************************************************
-    *   Creates the outer container with absolute position.
+    *   Returns the current panel position.
+    *
+    *   @return The current position of this panel.
     *****************************************************************************/
-    SitePanel.prototype.createOuterAbsoluteContainer = function () {
-        this.outerAbsoluteContainer = document.createElement("div");
-        this.outerAbsoluteContainer.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
-        this.outerAbsoluteContainer.style.position = "absolute";
-        this.outerAbsoluteContainer.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        this.outerAbsoluteContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
-        this.outerAbsoluteContainer.setAttribute("data-wow-delay", "0ms");
-        this.animateIn();
+    SitePanel.prototype.getPosition = function () {
+        return this.position;
     };
     /*****************************************************************************
     *   Sets WOW classes for animating the panel in.
@@ -33383,6 +33371,17 @@ var SitePanel = /** @class */ (function () {
                     break;
                 }
         }
+    };
+    /*****************************************************************************
+    *   Creates the outer container with absolute position.
+    *****************************************************************************/
+    SitePanel.prototype.createOuterAbsoluteContainer = function () {
+        this.outerAbsoluteContainer = document.createElement("div");
+        this.outerAbsoluteContainer.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
+        this.outerAbsoluteContainer.style.position = "absolute";
+        this.outerAbsoluteContainer.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+        this.outerAbsoluteContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
+        this.outerAbsoluteContainer.setAttribute("data-wow-delay", "0ms");
     };
     /*****************************************************************************
     *   Creates the inner container with relative position.

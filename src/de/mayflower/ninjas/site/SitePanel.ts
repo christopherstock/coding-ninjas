@@ -58,16 +58,15 @@
         /*****************************************************************************
         *   Updates the position and the location of this site panel.
         *
-        *   @param width         New width.
-        *   @param height        New height.
-        *   @param panelPosition Current panel position.
+        *   @param width  The new panel width.
+        *   @param height The new panel height.
         *****************************************************************************/
-        public updateBounds( width:number, height:number, panelPosition:ninjas.SitePanelPosition ) : void
+        public updateBounds( width:number, height:number ) : void
         {
             this.outerAbsoluteContainer.style.width  = width  + "px";
             this.outerAbsoluteContainer.style.height = height + "px";
 
-            switch ( panelPosition )
+            switch ( this.position )
             {
                 case ninjas.SitePanelPosition.LEFT:
                 {
@@ -86,26 +85,19 @@
         }
 
         /*****************************************************************************
-        *   Creates the outer container with absolute position.
+        *   Returns the current panel position.
+        *
+        *   @return The current position of this panel.
         *****************************************************************************/
-        private createOuterAbsoluteContainer() : void
+        public getPosition() : ninjas.SitePanelPosition
         {
-            this.outerAbsoluteContainer = document.createElement( "div" );
-
-            this.outerAbsoluteContainer.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
-            this.outerAbsoluteContainer.style.position        = "absolute";
-            this.outerAbsoluteContainer.style.top             = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-
-            this.outerAbsoluteContainer.setAttribute( "data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms" );
-            this.outerAbsoluteContainer.setAttribute( "data-wow-delay",    "0ms" );
-
-            this.animateIn();
+            return this.position;
         }
 
         /*****************************************************************************
         *   Sets WOW classes for animating the panel in.
         *****************************************************************************/
-        private animateIn() : void
+        public animateIn() : void
         {
             // set animation class
             switch ( this.position )
@@ -144,6 +136,21 @@
                     break;
                 }
             }
+        }
+
+        /*****************************************************************************
+        *   Creates the outer container with absolute position.
+        *****************************************************************************/
+        private createOuterAbsoluteContainer() : void
+        {
+            this.outerAbsoluteContainer = document.createElement( "div" );
+
+            this.outerAbsoluteContainer.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
+            this.outerAbsoluteContainer.style.position        = "absolute";
+            this.outerAbsoluteContainer.style.top             = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+
+            this.outerAbsoluteContainer.setAttribute( "data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms" );
+            this.outerAbsoluteContainer.setAttribute( "data-wow-delay",    "0ms" );
         }
 
         /*****************************************************************************

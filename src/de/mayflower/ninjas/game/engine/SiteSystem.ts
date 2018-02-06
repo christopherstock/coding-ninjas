@@ -11,9 +11,21 @@
     *******************************************************************************************************************/
     export enum SitePanelPosition
     {
-        NONE,
         LEFT,
         RIGHT,
+    }
+
+    /*******************************************************************************************************************
+    *   Specifies all possible site animations.
+    *   TODO implement!
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum SitePanelAnimation
+    {
+        SHOW,
+        HIDE,
     }
 
     /*******************************************************************************************************************
@@ -25,13 +37,11 @@
     export class SiteSystem
     {
         /** The current site panel. */
-        private                 currentPanel                    :ninjas.SitePanel           = null;
+        private                 activePanel                     :ninjas.SitePanel           = null;
         /** Flags if an animation is currently active. */
         private                 animationInProgress             :boolean                    = null;
-
-
-        /** Flags if a panel is currently shown. TODO outsource! */
-        private                 panelPosition                   :ninjas.SitePanelPosition   = ninjas.SitePanelPosition.NONE;
+        /** Flags if the panel is currently animated out. */
+        private                 animatingOut                    :boolean                    = false;
 
         /** The current width of the panel. */
         private                 panelWidth                      :number                     = 0;
@@ -64,21 +74,17 @@
         {
             ninjas.Debug.site.log( "Showing site panel" );
 
-            if ( this.panelPosition != ninjas.SitePanelPosition.NONE )
+            if ( this.activePanel != null || this.animationInProgress )
             {
-                return false;
-            }
-
-            if ( this.animationInProgress )
-            {
-                ninjas.Debug.site.log( "Animation currently running - canceling show" );
                 return false;
             }
             this.animationInProgress = true;
-            this.panelPosition       = position;
+            this.animatingOut = false;
 
-            this.currentPanel = new ninjas.SitePanel( this.panelPosition );
-            this.currentPanel.addToDom();
+            this.activePanel = new ninjas.SitePanel( position );
+            this.activePanel.addToDom();
+            this.activePanel.animateIn();
+
             this.updatePanelSizeAndPosition();
 
             this.wowSystem.sync();
@@ -103,30 +109,23 @@
         {
             ninjas.Debug.site.log( "Hiding site panel" );
 
-            if ( this.panelPosition == ninjas.SitePanelPosition.NONE )
+            if ( this.activePanel == null || this.animationInProgress )
             {
-                return false;
-            }
-
-            if ( this.animationInProgress )
-            {
-                ninjas.Debug.site.log( "Animation currently running - canceling hide" );
                 return false;
             }
             this.animationInProgress = true;
+            this.animatingOut = true;
 
-            this.currentPanel.animateOut();
-
-            this.panelPosition = ninjas.SitePanelPosition.NONE;
-
+            this.activePanel.animateOut();
             this.wowSystem.sync();
 
             window.setTimeout(
                 () => {
-                    this.currentPanel.removeFromDom();
-                    this.currentPanel = null;
+                    this.activePanel.removeFromDom();
+                    this.activePanel = null;
 
                     this.animationInProgress = false;
+                    this.animatingOut = false;
                 },
                 750
             );
@@ -136,8 +135,6 @@
 
         /*****************************************************************************
         *   Being invoked when the panel size should be set according to the current canvas size.
-        *
-        *   TODO outsource
         *****************************************************************************/
         public updatePanelSizeAndPosition()
         {
@@ -154,13 +151,12 @@
             this.rightCameraTargetX  = ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 );
 
             // update panel size and position
-            if ( this.currentPanel != null )
+            if ( this.activePanel != null )
             {
-                this.currentPanel.updateBounds
+                this.activePanel.updateBounds
                 (
                     this.panelWidth,
-                    ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE ),
-                    this.panelPosition
+                    ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE )
                 );
             }
         }
@@ -172,26 +168,24 @@
         *****************************************************************************/
         public getCameraTargetX() : number
         {
-            switch ( this.panelPosition )
+            if ( this.activePanel == null || this.animatingOut )
             {
-                case ninjas.SitePanelPosition.NONE:
+                switch ( ninjas.Main.game.level.player.lookingDirection )
                 {
-                    switch ( ninjas.Main.game.level.player.lookingDirection )
+                    case ninjas.CharacterLookingDirection.LEFT:
                     {
-                        case ninjas.CharacterLookingDirection.LEFT:
-                        {
-                            return this.leftCameraTargetX;
-                        }
-
-                        case ninjas.CharacterLookingDirection.RIGHT:
-                        {
-                            return this.rightCameraTargetX;
-                        }
+                        return this.leftCameraTargetX;
                     }
 
-                    throw new Error( "Camera position not determinable though undefined player looking direction!" );
+                    case ninjas.CharacterLookingDirection.RIGHT:
+                    {
+                        return this.rightCameraTargetX;
+                    }
                 }
+            }
 
+            switch ( this.activePanel.getPosition() )
+            {
                 case ninjas.SitePanelPosition.LEFT:
                 {
                     return this.leftCameraTargetX;
