@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
     *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
     *   TODO Fix flickering wow effects in all browsers!!
     *   TODO Remove timeout and use Engine.events.tick?

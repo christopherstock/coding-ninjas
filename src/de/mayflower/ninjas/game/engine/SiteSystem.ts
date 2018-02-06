@@ -179,8 +179,7 @@
                     this.currentPanel.outerAbsoluteContainer.style.left = ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
                 }
 
-                let siteContainer:HTMLDivElement = document.getElementById( "siteContainer" ) as HTMLDivElement;
-                siteContainer.style.width  = ( this.panelWidth - 2 * ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
+                this.currentPanel.innerRelativeContainer.style.width  = ( this.panelWidth - 2 * ninjas.SettingGame.SITE_BORDER_SIZE ) + "px";
             }
         }
 

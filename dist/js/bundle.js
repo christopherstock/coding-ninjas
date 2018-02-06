@@ -27636,7 +27636,6 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO SiteSystem: inner div to own reference in class Site! remove getElementById!
 *   TODO refactor to class SitePanel. All fields private and reference both container divs !!!
 *   TODO Fix flickering wow effects in all browsers!!
 *   TODO Remove timeout and use Engine.events.tick?
@@ -28132,8 +28131,7 @@ var SiteSystem = /** @class */ (function () {
             else {
                 this.currentPanel.outerAbsoluteContainer.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelWidth - ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
             }
-            var siteContainer = document.getElementById("siteContainer");
-            siteContainer.style.width = (this.panelWidth - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
+            this.currentPanel.innerRelativeContainer.style.width = (this.panelWidth - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
         }
     };
     /*****************************************************************************
