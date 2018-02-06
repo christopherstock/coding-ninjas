@@ -28005,17 +28005,6 @@ var ninjas = __webpack_require__(1);
 var wow = __webpack_require__(140);
 __webpack_require__(3);
 /*******************************************************************************************************************
-*   Contains all possible positions for the site panel.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SitePanelPosition;
-(function (SitePanelPosition) {
-    SitePanelPosition[SitePanelPosition["LEFT"] = 0] = "LEFT";
-    SitePanelPosition[SitePanelPosition["RIGHT"] = 1] = "RIGHT";
-})(SitePanelPosition = exports.SitePanelPosition || (exports.SitePanelPosition = {}));
-/*******************************************************************************************************************
 *   Specifies all possible site animations.
 *   TODO implement!
 *
@@ -29069,7 +29058,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(1200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger(2800, 2000, 500, 500, null),
+                ninjas.GameObjectFactory.createSiteTrigger(2800, 2000, 500, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 // moveable boxes
                 ninjas.GameObjectFactory.createCrate(300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
@@ -30254,6 +30243,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
+*   Specifies possible appearances for the site panel.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SitePanelAppearance;
+(function (SitePanelAppearance) {
+    SitePanelAppearance[SitePanelAppearance["PLAYER_LOOKING"] = 0] = "PLAYER_LOOKING";
+    SitePanelAppearance[SitePanelAppearance["LEFT"] = 1] = "LEFT";
+    SitePanelAppearance[SitePanelAppearance["RIGHT"] = 2] = "RIGHT";
+})(SitePanelAppearance = exports.SitePanelAppearance || (exports.SitePanelAppearance = {}));
+/*******************************************************************************************************************
 *   Represents a non-colliding decoration.
 *
 *   @author     Christopher Stock
@@ -30264,19 +30265,19 @@ var SiteTrigger = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new site trigger.
     *
-    *   @param shape              The shape for this object.
-    *   @param spriteTemplate     The sprite template to use.
-    *   @param x                  Startup position X.
-    *   @param y                  Startup position Y.
-    *   @param fixedPanelPosition Startup position Y.
+    *   @param shape               The shape for this object.
+    *   @param spriteTemplate      The sprite template to use.
+    *   @param x                   Startup position X.
+    *   @param y                   Startup position Y.
+    *   @param sitePanelAppearance The position for the site panel to appear.
     ***************************************************************************************************************/
-    function SiteTrigger(shape, spriteTemplate, x, y, fixedPanelPosition) {
+    function SiteTrigger(shape, spriteTemplate, x, y, sitePanelAppearance) {
         var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
         /** Flags if the according site panel is currently displayed. */
         _this.sitePanelActive = false;
         /** A fixed position for the panel to popup, if desired. */
-        _this.fixedPanelPosition = null;
-        _this.fixedPanelPosition = fixedPanelPosition;
+        _this.sitePanelAppearance = null;
+        _this.sitePanelAppearance = sitePanelAppearance;
         return _this;
     }
     /***************************************************************************************************************
@@ -30314,15 +30315,25 @@ var SiteTrigger = /** @class */ (function (_super) {
     *   @return The position of the panel to be shown.
     ***************************************************************************************************************/
     SiteTrigger.prototype.determinePanelPosition = function () {
-        if (this.fixedPanelPosition == null) {
-            if (ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
-                return ninjas.SitePanelPosition.LEFT;
-            }
-            else {
-                return ninjas.SitePanelPosition.RIGHT;
-            }
+        switch (this.sitePanelAppearance) {
+            case SitePanelAppearance.PLAYER_LOOKING:
+                {
+                    if (ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT) {
+                        return ninjas.SitePanelPosition.LEFT;
+                    }
+                    else {
+                        return ninjas.SitePanelPosition.RIGHT;
+                    }
+                }
+            case SitePanelAppearance.LEFT:
+                {
+                    return ninjas.SitePanelPosition.LEFT;
+                }
+            case SitePanelAppearance.RIGHT:
+                {
+                    return ninjas.SitePanelPosition.RIGHT;
+                }
         }
-        return this.fixedPanelPosition;
     };
     return SiteTrigger;
 }(ninjas.Decoration));
@@ -30475,16 +30486,16 @@ var GameObjectFactory = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a site trigger.
     *
-    *   @param x                  Anchor X.
-    *   @param y                  Anchor Y.
-    *   @param width              Object width.
-    *   @param height             Object height.
-    *   @param fixedPanelPosition The fixed position for the panel to appear, if desired.
+    *   @param x                   Anchor X.
+    *   @param y                   Anchor Y.
+    *   @param width               Object width.
+    *   @param height              Object height.
+    *   @param sitePanelAppearance The position for the site panel to appear.
     *
     *   @return The created site trigger.
     ***************************************************************************************************************/
-    GameObjectFactory.createSiteTrigger = function (x, y, width, height, fixedPanelPosition) {
-        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_SITE_TRIGGER, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), null, x, y, fixedPanelPosition);
+    GameObjectFactory.createSiteTrigger = function (x, y, width, height, sitePanelAppearance) {
+        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_SITE_TRIGGER, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), null, x, y, sitePanelAppearance);
     };
     /***************************************************************************************************************
     *   Creates a non-collidable background.
@@ -32536,6 +32547,17 @@ exports.SiteContent = SiteContent;
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(3);
 var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Contains all possible positions for the site panel.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SitePanelPosition;
+(function (SitePanelPosition) {
+    SitePanelPosition[SitePanelPosition["LEFT"] = 0] = "LEFT";
+    SitePanelPosition[SitePanelPosition["RIGHT"] = 1] = "RIGHT";
+})(SitePanelPosition = exports.SitePanelPosition || (exports.SitePanelPosition = {}));
 /*******************************************************************************************************************
 *   Represents a site panel that shows a site content.
 *

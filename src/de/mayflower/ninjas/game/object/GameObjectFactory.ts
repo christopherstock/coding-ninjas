@@ -302,21 +302,21 @@
         /***************************************************************************************************************
         *   Creates a site trigger.
         *
-        *   @param x                  Anchor X.
-        *   @param y                  Anchor Y.
-        *   @param width              Object width.
-        *   @param height             Object height.
-        *   @param fixedPanelPosition The fixed position for the panel to appear, if desired.
+        *   @param x                   Anchor X.
+        *   @param y                   Anchor Y.
+        *   @param width               Object width.
+        *   @param height              Object height.
+        *   @param sitePanelAppearance The position for the site panel to appear.
         *
         *   @return The created site trigger.
         ***************************************************************************************************************/
         public static createSiteTrigger
         (
-            x                  :number,
-            y                  :number,
-            width              :number,
-            height             :number,
-            fixedPanelPosition :ninjas.SitePanelPosition
+            x                   :number,
+            y                   :number,
+            width               :number,
+            height              :number,
+            sitePanelAppearance :ninjas.SitePanelAppearance
         )
         : ninjas.SiteTrigger
         {
@@ -335,7 +335,7 @@
                 null,
                 x,
                 y,
-                fixedPanelPosition
+                sitePanelAppearance
             );
         }
 

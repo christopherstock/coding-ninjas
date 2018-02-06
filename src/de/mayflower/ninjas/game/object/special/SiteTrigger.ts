@@ -3,6 +3,19 @@
     import * as ninjas from '../../../ninjas';
 
     /*******************************************************************************************************************
+    *   Specifies possible appearances for the site panel.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum SitePanelAppearance
+    {
+        PLAYER_LOOKING,
+        LEFT,
+        RIGHT,
+    }
+
+    /*******************************************************************************************************************
     *   Represents a non-colliding decoration.
     *
     *   @author     Christopher Stock
@@ -11,26 +24,26 @@
     export class SiteTrigger extends ninjas.Decoration
     {
         /** Flags if the according site panel is currently displayed. */
-        private                         sitePanelActive                 :boolean                    = false;
+        private                         sitePanelActive                 :boolean                        = false;
         /** A fixed position for the panel to popup, if desired. */
-        private                         fixedPanelPosition              :ninjas.SitePanelPosition   = null;
+        private                         sitePanelAppearance             :ninjas.SitePanelAppearance     = null;
 
         /***************************************************************************************************************
         *   Creates a new site trigger.
         *
-        *   @param shape              The shape for this object.
-        *   @param spriteTemplate     The sprite template to use.
-        *   @param x                  Startup position X.
-        *   @param y                  Startup position Y.
-        *   @param fixedPanelPosition Startup position Y.
+        *   @param shape               The shape for this object.
+        *   @param spriteTemplate      The sprite template to use.
+        *   @param x                   Startup position X.
+        *   @param y                   Startup position Y.
+        *   @param sitePanelAppearance The position for the site panel to appear.
         ***************************************************************************************************************/
         public constructor
         (
-            shape              :ninjas.Shape,
-            spriteTemplate     :ninjas.SpriteTemplate,
-            x                  :number,
-            y                  :number,
-            fixedPanelPosition :ninjas.SitePanelPosition
+            shape               :ninjas.Shape,
+            spriteTemplate      :ninjas.SpriteTemplate,
+            x                   :number,
+            y                   :number,
+            sitePanelAppearance :ninjas.SitePanelAppearance
         )
         {
             super
@@ -41,7 +54,7 @@
                 y
             );
 
-            this.fixedPanelPosition = fixedPanelPosition;
+            this.sitePanelAppearance = sitePanelAppearance;
         }
 
         /***************************************************************************************************************
@@ -92,18 +105,29 @@
         ***************************************************************************************************************/
         private determinePanelPosition() : ninjas.SitePanelPosition
         {
-            if ( this.fixedPanelPosition == null )
+            switch ( this.sitePanelAppearance )
             {
-                if ( ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                case SitePanelAppearance.PLAYER_LOOKING:
+                {
+                    if ( ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                    {
+                        return ninjas.SitePanelPosition.LEFT;
+                    }
+                    else
+                    {
+                        return ninjas.SitePanelPosition.RIGHT;
+                    }
+                }
+
+                case SitePanelAppearance.LEFT:
                 {
                     return ninjas.SitePanelPosition.LEFT;
                 }
-                else
+
+                case SitePanelAppearance.RIGHT:
                 {
                     return ninjas.SitePanelPosition.RIGHT;
                 }
             }
-
-            return this.fixedPanelPosition;
         }
     }
