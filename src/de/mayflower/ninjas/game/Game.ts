@@ -1,5 +1,6 @@
 
     import * as ninjas from '../ninjas';
+    import * as matter from 'matter-js';
 
     require( 'fpsmeter' );
 
@@ -75,7 +76,6 @@
         public resetCamera()
         {
             this.camera = new ninjas.Camera(
-                this.engine.matterJsSystem.getRenderer(),
                 ninjas.SettingEngine.CAMERA_RATIO_Y,
                 ninjas.SettingEngine.CAMERA_MOVING_SPEED,
                 ninjas.SettingEngine.CAMERA_MOVING_MINIMUM,
@@ -118,12 +118,13 @@
             this.level.render( false );
 
             // update camera
-            this.camera.update(
+            let cameraBounds:matter.Bounds = this.camera.update(
                 this.level.player.shape.body.position.x,
                 this.level.player.shape.body.position.y,
                 this.level.player.collidesBottom,
                 this.engine.siteSystem.getCameraTargetX()
             );
+            this.engine.matterJsSystem.setRenderBounds( cameraBounds );
 
             // render parallax elements
             this.level.render( true );

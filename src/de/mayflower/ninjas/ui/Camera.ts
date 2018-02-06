@@ -10,9 +10,6 @@
     *******************************************************************************************************************/
     export class Camera
     {
-        /** The renderer for the MatterJS engine. TODO outsource renderer */
-        private     renderer                    :matter.Render          = null;
-
         /** Camera centering ratio X. TODO outsource! pass targetY to update function! */
         private     ratioY                      :number                 = 0.0;
 
@@ -46,7 +43,6 @@
         /***************************************************************************************************************
         *   Constructs a new camera.
         *
-        *   @param renderer         The MatterJS renderer to set the viewport to.
         *   @param ratioY            Camera ratio Y for vertical centering of the player.
         *   @param movingSpeed       The moving speed for the camera.
         *   @param minimumCameraMove The minimum camera movement step in px.
@@ -58,7 +54,6 @@
         ***************************************************************************************************************/
         public constructor
         (
-            renderer          :matter.Render,
             ratioY            :number,
             movingSpeed       :number,
             minimumCameraMove :number,
@@ -69,8 +64,6 @@
             canvasHeight      :number
         )
         {
-            this.renderer          = renderer;
-
             this.ratioY            = ratioY;
 
             this.movingSpeed       = movingSpeed;
@@ -112,6 +105,8 @@
         *   @param subjectY     The subject coordinate Y to center the camera.
         *   @param allowAscendY Allows camera ascending Y.
         *   @param targetX      The camera target X.
+        *
+        *   @return The bounds to set the camera to.
         ***************************************************************************************************************/
         public update
         (
@@ -120,10 +115,18 @@
             allowAscendY :boolean,
             targetX      :number
         )
+        : matter.Bounds
         {
             this.calculateTargets( subjectX, subjectY, targetX );
             this.calculateOffsets( allowAscendY );
-            this.assignOffsetsToRenderer();
+
+            return matter.Bounds.create
+            (
+                [
+                    { x: this.offsetX,                    y: this.offsetY                     },
+                    { x: this.offsetX + this.canvasWidth, y: this.offsetY + this.canvasHeight }
+                ]
+            );
         }
 
         /***************************************************************************************************************
@@ -142,26 +145,6 @@
 
             this.offsetX = this.targetX;
             this.offsetY = this.targetY;
-        }
-
-        /***************************************************************************************************************
-        *   Applies the current camera offsets to the linked renderer. TODO return bounds and make setter in renderer
-        ***************************************************************************************************************/
-        private assignOffsetsToRenderer()
-        {
-            // assign current camera offset to renderer
-            this.renderer.bounds = matter.Bounds.create(
-                [
-                    {
-                        x: this.offsetX,
-                        y: this.offsetY
-                    },
-                    {
-                        x: this.offsetX + this.canvasWidth,
-                        y: this.offsetY + this.canvasHeight
-                    }
-                ]
-            );
         }
 
         /***************************************************************************************************************

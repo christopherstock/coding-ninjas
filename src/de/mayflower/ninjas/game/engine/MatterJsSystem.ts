@@ -144,12 +144,12 @@
         }
 
         /***************************************************************************************************************
-        *   Returns the renderer of the Matter.js engine. TODO prune!
+        *   Sets the bounds of the world to render onto the canvas.
         *
-        *   @return The renderer of the Matter.js engine.
+        *   @param bounds The bounds to set for the renderer..
         ***************************************************************************************************************/
-        public getRenderer() : matter.Render
+        public setRenderBounds( bounds:matter.Bounds ) : void
         {
-            return this.renderer;
+            this.renderer.bounds = bounds;
         }
     }

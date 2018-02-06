@@ -28871,12 +28871,12 @@ var MatterJsSystem = /** @class */ (function () {
         matter.World.clear(this.engine.world, false);
     };
     /***************************************************************************************************************
-    *   Returns the renderer of the Matter.js engine. TODO prune!
+    *   Sets the bounds of the world to render onto the canvas.
     *
-    *   @return The renderer of the Matter.js engine.
+    *   @param bounds The bounds to set for the renderer..
     ***************************************************************************************************************/
-    MatterJsSystem.prototype.getRenderer = function () {
-        return this.renderer;
+    MatterJsSystem.prototype.setRenderBounds = function (bounds) {
+        this.renderer.bounds = bounds;
     };
     return MatterJsSystem;
 }());
@@ -30951,7 +30951,7 @@ var Game = /** @class */ (function () {
     *   Resets the camera.
     ***************************************************************************************************************/
     Game.prototype.resetCamera = function () {
-        this.camera = new ninjas.Camera(this.engine.matterJsSystem.getRenderer(), ninjas.SettingEngine.CAMERA_RATIO_Y, ninjas.SettingEngine.CAMERA_MOVING_SPEED, ninjas.SettingEngine.CAMERA_MOVING_MINIMUM, ninjas.SettingEngine.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.engine.canvasSystem.getWidth(), this.engine.canvasSystem.getHeight());
+        this.camera = new ninjas.Camera(ninjas.SettingEngine.CAMERA_RATIO_Y, ninjas.SettingEngine.CAMERA_MOVING_SPEED, ninjas.SettingEngine.CAMERA_MOVING_MINIMUM, ninjas.SettingEngine.CAMERA_MOVING_MAXIMUM, this.level.width, this.level.height, this.engine.canvasSystem.getWidth(), this.engine.canvasSystem.getHeight());
         this.camera.reset();
     };
     /***************************************************************************************************************
@@ -30963,7 +30963,8 @@ var Game = /** @class */ (function () {
         // render level
         this.level.render(false);
         // update camera
-        this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.collidesBottom, this.engine.siteSystem.getCameraTargetX());
+        var cameraBounds = this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.collidesBottom, this.engine.siteSystem.getCameraTargetX());
+        this.engine.matterJsSystem.setRenderBounds(cameraBounds);
         // render parallax elements
         this.level.render(true);
     };
@@ -32709,7 +32710,6 @@ var Camera = /** @class */ (function () {
     /***************************************************************************************************************
     *   Constructs a new camera.
     *
-    *   @param renderer         The MatterJS renderer to set the viewport to.
     *   @param ratioY            Camera ratio Y for vertical centering of the player.
     *   @param movingSpeed       The moving speed for the camera.
     *   @param minimumCameraMove The minimum camera movement step in px.
@@ -32719,9 +32719,7 @@ var Camera = /** @class */ (function () {
     *   @param canvasWidth       The width of the canvas.
     *   @param canvasHeight      The height of the canvas.
     ***************************************************************************************************************/
-    function Camera(renderer, ratioY, movingSpeed, minimumCameraMove, maximumCameraMove, levelWidth, levelHeight, canvasWidth, canvasHeight) {
-        /** The renderer for the MatterJS engine. TODO outsource renderer */
-        this.renderer = null;
+    function Camera(ratioY, movingSpeed, minimumCameraMove, maximumCameraMove, levelWidth, levelHeight, canvasWidth, canvasHeight) {
         /** Camera centering ratio X. TODO outsource! pass targetY to update function! */
         this.ratioY = 0.0;
         /** Camera moving speed. */
@@ -32746,7 +32744,6 @@ var Camera = /** @class */ (function () {
         this.canvasWidth = 0.0;
         /** The height of the canvas. */
         this.canvasHeight = 0.0;
-        this.renderer = renderer;
         this.ratioY = ratioY;
         this.movingSpeed = movingSpeed;
         this.minimumCameraMove = minimumCameraMove;
@@ -32780,11 +32777,16 @@ var Camera = /** @class */ (function () {
     *   @param subjectY     The subject coordinate Y to center the camera.
     *   @param allowAscendY Allows camera ascending Y.
     *   @param targetX      The camera target X.
+    *
+    *   @return The bounds to set the camera to.
     ***************************************************************************************************************/
     Camera.prototype.update = function (subjectX, subjectY, allowAscendY, targetX) {
         this.calculateTargets(subjectX, subjectY, targetX);
         this.calculateOffsets(allowAscendY);
-        this.assignOffsetsToRenderer();
+        return matter.Bounds.create([
+            { x: this.offsetX, y: this.offsetY },
+            { x: this.offsetX + this.canvasWidth, y: this.offsetY + this.canvasHeight }
+        ]);
     };
     /***************************************************************************************************************
     *   Resets the camera targets and offsets to the current player position without buffering.
@@ -32794,22 +32796,6 @@ var Camera = /** @class */ (function () {
         this.calculateTargets(ninjas.Main.game.level.player.shape.body.position.x, ninjas.Main.game.level.player.shape.body.position.y, ninjas.Main.game.engine.siteSystem.getCameraTargetX());
         this.offsetX = this.targetX;
         this.offsetY = this.targetY;
-    };
-    /***************************************************************************************************************
-    *   Applies the current camera offsets to the linked renderer. TODO return bounds and make setter in renderer
-    ***************************************************************************************************************/
-    Camera.prototype.assignOffsetsToRenderer = function () {
-        // assign current camera offset to renderer
-        this.renderer.bounds = matter.Bounds.create([
-            {
-                x: this.offsetX,
-                y: this.offsetY
-            },
-            {
-                x: this.offsetX + this.canvasWidth,
-                y: this.offsetY + this.canvasHeight
-            }
-        ]);
     };
     /***************************************************************************************************************
     *   Calculates the current camera tarets according to the specified subject.
