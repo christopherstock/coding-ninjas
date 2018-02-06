@@ -37,6 +37,7 @@
         private                 panelWidth                      :number                     = 0;
         /** The current width of the panel including border size. */
         private                 panelAndBorderWidth             :number                     = 0;
+
         /** The left camera target X if the border is shown right. */
         private                 leftCameraTargetX               :number                     = 0;
         /** The right camera target X if the border is shown left. */

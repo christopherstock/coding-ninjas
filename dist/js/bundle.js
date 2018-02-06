@@ -4655,8 +4655,8 @@ __export(__webpack_require__(169));
 __export(__webpack_require__(170));
 __export(__webpack_require__(171));
 __export(__webpack_require__(172));
-__export(__webpack_require__(173));
-__export(__webpack_require__(181));
+__export(__webpack_require__(182));
+__export(__webpack_require__(183));
 __export(__webpack_require__(174));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
@@ -32484,55 +32484,7 @@ exports.SpriteTemplate = SpriteTemplate;
 
 
 /***/ }),
-/* 173 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(5);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Specifies the site content for the site panels.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SiteContent = /** @class */ (function () {
-    function SiteContent() {
-    }
-    /*****************************************************************************
-    *   Appends example content to the specified relative container.
-    *
-    *   @param relativeContainer The relative container to append the content to.
-    *****************************************************************************/
-    SiteContent.appendExampleContent = function (relativeContainer) {
-        // example text
-        var exampleText = document.createElement("p");
-        exampleText.innerHTML = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
-        exampleText.style.width = "parent";
-        exampleText.style.padding = "20px";
-        exampleText.style.margin = "0";
-        var exampleBlock = document.createElement("div");
-        exampleBlock.style.width = "parent";
-        exampleBlock.style.padding = "20px";
-        exampleBlock.style.margin = "0";
-        exampleBlock.style.background = "#fffc9e";
-        var exampleImage = document.createElement("img");
-        exampleImage.src = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
-        exampleImage.style.width = "100%";
-        exampleImage.style.height = "auto";
-        exampleBlock.appendChild(exampleImage);
-        // append to relative container
-        relativeContainer.appendChild(exampleBlock);
-        relativeContainer.appendChild(exampleText);
-    };
-    return SiteContent;
-}());
-exports.SiteContent = SiteContent;
-
-
-/***/ }),
+/* 173 */,
 /* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32564,7 +32516,7 @@ var Camera = /** @class */ (function () {
     function Camera(renderer, ratioY, movingSpeed, minimumCameraMove, maximumCameraMove, levelWidth, levelHeight, canvasWidth, canvasHeight) {
         /** The renderer for the MatterJS engine. TODO outsource renderer */
         this.renderer = null;
-        /** Camera centering ratio X. */
+        /** Camera centering ratio X. TODO outsource! pass targetY to update function! */
         this.ratioY = 0.0;
         /** Camera moving speed. */
         this.movingSpeed = 0.0;
@@ -33262,7 +33214,57 @@ module.exports = webpackContext;
 webpackContext.id = 180;
 
 /***/ }),
-/* 181 */
+/* 181 */,
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(5);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Specifies the site content for the site panels.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SiteContent = /** @class */ (function () {
+    function SiteContent() {
+    }
+    /*****************************************************************************
+    *   Appends example content to the specified relative container.
+    *
+    *   @param relativeContainer The relative container to append the content to.
+    *****************************************************************************/
+    SiteContent.appendExampleContent = function (relativeContainer) {
+        // example text
+        var exampleText = document.createElement("p");
+        exampleText.innerHTML = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
+        exampleText.style.width = "parent";
+        exampleText.style.padding = "20px";
+        exampleText.style.margin = "0";
+        var exampleBlock = document.createElement("div");
+        exampleBlock.style.width = "parent";
+        exampleBlock.style.padding = "20px";
+        exampleBlock.style.margin = "0";
+        exampleBlock.style.background = "#fffc9e";
+        var exampleImage = document.createElement("img");
+        exampleImage.src = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
+        exampleImage.style.width = "100%";
+        exampleImage.style.height = "auto";
+        exampleBlock.appendChild(exampleImage);
+        // append to relative container
+        relativeContainer.appendChild(exampleBlock);
+        relativeContainer.appendChild(exampleText);
+    };
+    return SiteContent;
+}());
+exports.SiteContent = SiteContent;
+
+
+/***/ }),
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

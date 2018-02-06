@@ -1,7 +1,7 @@
 
     require( "animate.css" );
 
-    import * as ninjas from '../../ninjas';
+    import * as ninjas from '../ninjas';
 
     /*******************************************************************************************************************
     *   Specifies the site content for the site panels.

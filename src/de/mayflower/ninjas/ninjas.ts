@@ -48,8 +48,8 @@
     export * from './io/Sprite';
     export * from './io/SpriteTemplate';
 
-    export * from './site/main/SiteContent';
-    export * from './site/main/SitePanel';
+    export * from './site/SiteContent';
+    export * from './site/SitePanel';
 
     export * from './ui/Camera';
     export * from './ui/Drawing';

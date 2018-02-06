@@ -13,7 +13,7 @@
         /** The renderer for the MatterJS engine. TODO outsource renderer */
         private     renderer                    :matter.Render          = null;
 
-        /** Camera centering ratio X. */
+        /** Camera centering ratio X. TODO outsource! pass targetY to update function! */
         private     ratioY                      :number                 = 0.0;
 
         /** Camera moving speed. */
