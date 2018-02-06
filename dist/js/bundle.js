@@ -4616,18 +4616,19 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(129));
+__export(__webpack_require__(134));
+__export(__webpack_require__(135));
 __export(__webpack_require__(130));
 __export(__webpack_require__(131));
 __export(__webpack_require__(132));
 __export(__webpack_require__(133));
-__export(__webpack_require__(134));
-__export(__webpack_require__(135));
-__export(__webpack_require__(136));
-__export(__webpack_require__(137));
-__export(__webpack_require__(138));
-__export(__webpack_require__(139));
 __export(__webpack_require__(142));
+__export(__webpack_require__(137));
+__export(__webpack_require__(136));
 __export(__webpack_require__(143));
+__export(__webpack_require__(139));
+__export(__webpack_require__(138));
+__export(__webpack_require__(182));
 __export(__webpack_require__(145));
 __export(__webpack_require__(146));
 __export(__webpack_require__(147));
@@ -4653,7 +4654,6 @@ __export(__webpack_require__(167));
 __export(__webpack_require__(168));
 __export(__webpack_require__(169));
 __export(__webpack_require__(170));
-__export(__webpack_require__(171));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
@@ -32221,91 +32221,7 @@ exports.Sound = Sound;
 
 
 /***/ }),
-/* 171 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents one game sprite. TODO to game/engine
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Sprite = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Creates a new sprite.
-    *
-    *   @param template The template for this sprite.
-    ***************************************************************************************************************/
-    function Sprite(template) {
-        /** The sprite template for this sprite. */
-        this.template = null;
-        /** The id of the current frame for this sprite. */
-        this.currentFrame = 0;
-        /** The current tick since last frame change. */
-        this.currentTick = 0;
-        this.template = template;
-    }
-    /***************************************************************************************************************
-    *   Resets this sprite to the first frame and resets tick counter.
-    ***************************************************************************************************************/
-    Sprite.prototype.reset = function () {
-        this.currentFrame = 0;
-        this.currentTick = 0;
-    };
-    /***************************************************************************************************************
-    *   Sets the next frame for this sprite.
-    *
-    *   @return If the frame actually changed.
-    ***************************************************************************************************************/
-    Sprite.prototype.render = function () {
-        // no changes for single framed sprites
-        if (this.template.singleFramed) {
-            return false;
-        }
-        // non-looped sprites end on the last frame
-        if (this.template.loop == ninjas.LoopSprite.NO && this.currentFrame == this.template.imageIds.length - 1) {
-            return false;
-        }
-        // increase tick
-        ++this.currentTick;
-        // check if the delay is reached
-        if (this.currentTick >= this.template.ticksBetweenFrames) {
-            // reset tick count
-            this.currentTick = 0;
-            // next frame
-            ++this.currentFrame;
-            // reset frame on reaching upper bound
-            if (this.currentFrame >= this.template.imageIds.length) {
-                this.currentFrame = 0;
-            }
-            return true;
-        }
-        return false;
-    };
-    /***************************************************************************************************************
-    *   Returns the image url ( or data url for flipped images ) of the current frame.
-    *
-    *   @return The image url of the currently active frame.
-    ***************************************************************************************************************/
-    Sprite.prototype.getCurrentFrameImageUrl = function () {
-        var imageId = this.template.imageIds[this.currentFrame];
-        if (this.template.mirrored == ninjas.MirrorImage.YES) {
-            return ninjas.Main.game.engine.imageSystem.getMirroredImage(imageId).src;
-        }
-        else {
-            return ninjas.Main.game.engine.imageSystem.getImage(imageId).src;
-        }
-    };
-    return Sprite;
-}());
-exports.Sprite = Sprite;
-
-
-/***/ }),
+/* 171 */,
 /* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33404,6 +33320,91 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = 181;
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents one game sprite.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Sprite = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Creates a new sprite.
+    *
+    *   @param template The template for this sprite.
+    ***************************************************************************************************************/
+    function Sprite(template) {
+        /** The sprite template for this sprite. */
+        this.template = null;
+        /** The id of the current frame for this sprite. */
+        this.currentFrame = 0;
+        /** The current tick since last frame change. */
+        this.currentTick = 0;
+        this.template = template;
+    }
+    /***************************************************************************************************************
+    *   Resets this sprite to the first frame and resets tick counter.
+    ***************************************************************************************************************/
+    Sprite.prototype.reset = function () {
+        this.currentFrame = 0;
+        this.currentTick = 0;
+    };
+    /***************************************************************************************************************
+    *   Sets the next frame for this sprite.
+    *
+    *   @return If the frame actually changed.
+    ***************************************************************************************************************/
+    Sprite.prototype.render = function () {
+        // no changes for single framed sprites
+        if (this.template.singleFramed) {
+            return false;
+        }
+        // non-looped sprites end on the last frame
+        if (this.template.loop == ninjas.LoopSprite.NO && this.currentFrame == this.template.imageIds.length - 1) {
+            return false;
+        }
+        // increase tick
+        ++this.currentTick;
+        // check if the delay is reached
+        if (this.currentTick >= this.template.ticksBetweenFrames) {
+            // reset tick count
+            this.currentTick = 0;
+            // next frame
+            ++this.currentFrame;
+            // reset frame on reaching upper bound
+            if (this.currentFrame >= this.template.imageIds.length) {
+                this.currentFrame = 0;
+            }
+            return true;
+        }
+        return false;
+    };
+    /***************************************************************************************************************
+    *   Returns the image url ( or data url for flipped images ) of the current frame.
+    *
+    *   @return The image url of the currently active frame.
+    ***************************************************************************************************************/
+    Sprite.prototype.getCurrentFrameImageUrl = function () {
+        var imageId = this.template.imageIds[this.currentFrame];
+        if (this.template.mirrored == ninjas.MirrorImage.YES) {
+            return ninjas.Main.game.engine.imageSystem.getMirroredImage(imageId).src;
+        }
+        else {
+            return ninjas.Main.game.engine.imageSystem.getImage(imageId).src;
+        }
+    };
+    return Sprite;
+}());
+exports.Sprite = Sprite;
+
 
 /***/ })
 /******/ ]);
