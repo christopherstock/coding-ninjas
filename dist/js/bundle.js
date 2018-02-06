@@ -28063,8 +28063,7 @@ var SiteSystem = /** @class */ (function () {
         this.wowSystem.sync();
         window.setTimeout(function () {
             _this.animationState = ninjas.SitePanelAnimation.NONE;
-        }, 1000 // TODO replace!
-        );
+        }, ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION);
         return true;
     };
     /***************************************************************************************************************
@@ -28085,8 +28084,7 @@ var SiteSystem = /** @class */ (function () {
             _this.activePanel.removeFromDom();
             _this.activePanel = null;
             _this.animationState = ninjas.SitePanelAnimation.NONE;
-        }, 750 // TODO replace!
-        );
+        }, (ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION / 2));
         return true;
     };
     /***************************************************************************************************************
