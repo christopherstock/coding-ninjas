@@ -1,12 +1,12 @@
 
     import * as ninjas from '../ninjas';
 
-    /*****************************************************************************
+    /*******************************************************************************************************************
     *   Specifies all different soundSystem effects being used in the game.
     *
     *   @author  Christopher Stock
     *   @version 1.0
-    *****************************************************************************/
+    *******************************************************************************************************************/
     export class Sound
     {
         /** 'chinese' from 'Graeme Norgate' taken from 'Time Splitters' - Although everybody knows that ninjas actually come from Japan .. */

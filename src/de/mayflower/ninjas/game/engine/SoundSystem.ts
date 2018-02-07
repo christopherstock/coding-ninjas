@@ -1,12 +1,12 @@
 
     import * as ninjas from '../../ninjas';
 
-    /*****************************************************************************
+    /*******************************************************************************************************************
     *   Loads and manages all desired sounds.
     *
     *   @author  Christopher Stock
     *   @version 1.0
-    *****************************************************************************/
+    *******************************************************************************************************************/
     export class SoundSystem
     {
         /** All sound file names to load. */
@@ -31,12 +31,12 @@
             this.onLoadComplete = onLoadComplete;
         }
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Creates and plays a COPY of the specified audio object.
         *
         *   @param id   The ID of the audio object to play.
         *   @param loop Specifies if playback for this sound should be repeated infinitely.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public playSound( id:string, loop:boolean = false )
         {
             if ( !ninjas.SettingDebug.MUTE )

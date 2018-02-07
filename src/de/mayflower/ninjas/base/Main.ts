@@ -4,6 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Extract all css from code!
     *   TODO Group different objects in level class!?
     *   TODO Remove timeout and use Engine.events.tick?
     *   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
@@ -45,9 +46,9 @@
         /** The singleton instance of the game engine. */
         public      static          game                    :ninjas.Game                    = null;
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   This method is invoked when the application starts.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public static main() : void
         {
             // set webpage title

@@ -7,7 +7,7 @@
     *******************************************************************************************************************/
     export class Drawing
     {
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Strokes a line with the specified points color and size.
         *
         *   @param  ctx The rendering context.
@@ -16,7 +16,7 @@
         *   @param  x2  The end point's x.
         *   @param  y2  The end point's y.
         *   @param  col A stroke color.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public static strokeLine( ctx:CanvasRenderingContext2D, x1:number, y1:number, x2:number, y2:number, col:string )
         {
             ctx.strokeStyle = col;
@@ -28,7 +28,7 @@
             ctx.stroke();
         }
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Draws a rect's stroke with the specified dimensions and color.
         *
         *   @param  ctx        The rendering context.
@@ -37,7 +37,7 @@
         *   @param  width      The desired width.
         *   @param  height     The desired height.
         *   @param  col        A stroke color.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public static strokeRect( ctx:CanvasRenderingContext2D, x:number, y:number, width:number, height:number, col:string )
         {
             ctx.strokeStyle = col;
@@ -46,7 +46,7 @@
             ctx.strokeRect( x, y, width, height );
         }
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Fills a rect with the specified dimensions and color.
         *
         *   @param  ctx     The rendering context.
@@ -55,14 +55,14 @@
         *   @param  width   The desired width.
         *   @param  height  The desired height.
         *   @param  col     A fill color.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public static fillRect( ctx:CanvasRenderingContext2D, x:number, y:number, width:number, height:number, col:string )
         {
             ctx.fillStyle = col;
             ctx.fillRect( x, y, width, height );
         }
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Draws an image at the specified location with a specified anchor.
         *
         *   @param  ctx         The rendering context
@@ -71,13 +71,13 @@
         *   @param  y           Drawing position y.
         *   @param  alpha       The desired alpha value to draw the image.
         *                       This value has a range of 0.0 to 1.0.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public static drawImage( ctx:CanvasRenderingContext2D, img:HTMLImageElement, x:number, y:number, alpha:number )
         {
             Drawing.drawImageScaledClipped( ctx, img, x, y, 0, 0, img.width, img.height, img.width, img.height, alpha );
         }
 
-        /*****************************************************************************
+        /***************************************************************************************************************
         *   Draws an image at the specified location with a specified anchor
         *   and scales it to the given destiny dimensions.
         *
@@ -92,7 +92,7 @@
         *   @param  destWidth   Destination width.
         *   @param  destHeight  Destination height.
         *   @param  alpha       The desired alpha value to draw the image from 0.0 to 1.0.
-        *****************************************************************************/
+        ***************************************************************************************************************/
         public static drawImageScaledClipped
         (
             ctx         :CanvasRenderingContext2D,
