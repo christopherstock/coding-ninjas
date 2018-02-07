@@ -4,29 +4,29 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Group different objects in level class!?
     *   TODO Remove timeout and use Engine.events.tick?
-    *   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
-    *   TODO Revise parallax rendering though different groups in level class.
+    *   TODO Group different objects in level class!?
+    *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
     *   TODO Try friction, frictionStatic and frictionAir to Shape!
     *   TODO restitution will bounce balls!
     *   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
     *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
+    *   TODO Revise parallax rendering though different groups in level class.
+    *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *
     *   TODO Complete the MVP!
     *
+    *   TODO Create HUD ( for items 1st ).
+    *   TODO create class HUD and assign its non-static method paintHud?
+    *   TODO Create item pickup HUD effect!
+    *   TODO Fixed positioning for camera on first scene (player floating in).
+    *   TODO Add tutorial notifiers?
     *   TODO Flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
     *   TODO Add translucent overlay for blend effects.
     *   TODO Ability to smash crates or destroyables etc.
     *   TODO Particle fx smashed crates, startup window etc.
-    *   TODO create class HUD and assign its non-static method paintHud?
-    *   TODO Create HUD ( for items 1st ).
-    *   TODO Create item pickup HUD effect!
-    *   TODO Add tutorial notifiers?
-    *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
-    *   TODO Fixed positioning for camera on first scene (player floating in).
     *
     *   TODO Add react for site content creation.
     *   TODO Step-Flow-Meter (progress, navi etc.) in React.

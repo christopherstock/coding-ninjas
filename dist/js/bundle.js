@@ -27436,29 +27436,29 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Group different objects in level class!?
 *   TODO Remove timeout and use Engine.events.tick?
-*   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
-*   TODO Revise parallax rendering though different groups in level class.
+*   TODO Group different objects in level class!?
+*   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
 *   TODO Try friction, frictionStatic and frictionAir to Shape!
 *   TODO restitution will bounce balls!
 *   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
+*   TODO Revise parallax rendering though different groups in level class.
+*   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
 *
 *   TODO Complete the MVP!
 *
+*   TODO Create HUD ( for items 1st ).
+*   TODO create class HUD and assign its non-static method paintHud?
+*   TODO Create item pickup HUD effect!
+*   TODO Fixed positioning for camera on first scene (player floating in).
+*   TODO Add tutorial notifiers?
 *   TODO Flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
 *   TODO Add translucent overlay for blend effects.
 *   TODO Ability to smash crates or destroyables etc.
 *   TODO Particle fx smashed crates, startup window etc.
-*   TODO create class HUD and assign its non-static method paintHud?
-*   TODO Create HUD ( for items 1st ).
-*   TODO Create item pickup HUD effect!
-*   TODO Add tutorial notifiers?
-*   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
-*   TODO Fixed positioning for camera on first scene (player floating in).
 *
 *   TODO Add react for site content creation.
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
@@ -32503,9 +32503,9 @@ var SiteContent = /** @class */ (function () {
     *   @param container The container to append the content to.
     ***************************************************************************************************************/
     SiteContent.appendExampleContent = function (container) {
+        var logo = ninjas.SiteContentFactory.createImage(ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png");
         var text = ninjas.SiteContentFactory.createParagraph("Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.");
-        var image = ninjas.SiteContentFactory.createImage(ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png");
-        container.appendChild(image);
+        container.appendChild(logo);
         container.appendChild(text);
     };
     return SiteContent;
