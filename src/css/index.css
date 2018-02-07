@@ -8,3 +8,16 @@
         overflow-x:         hidden;
         overflow-y:         hidden;
     }
+
+    div.sitePanel.outerAbsoluteContainer
+    {
+        position:           absolute;
+        border-radius:      5px;
+        background:         rgba( 255, 255, 255, 0.25 );
+    }
+
+    div.sitePanel.innerRelativeContainer
+    {
+        position:           relative;
+        background:         #c7d9f5;
+    }

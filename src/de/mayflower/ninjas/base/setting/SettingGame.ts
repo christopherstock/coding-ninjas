@@ -18,13 +18,10 @@
         public      static  readonly    RENDER_DELTA                                :number                     = 10.0;
 
         /** The border size for the site panel and all HUD elements in px. */
-        public      static  readonly    SITE_BORDER_SIZE                            :number                     = 20;
-        /** The background color of the site panel. */
-        public      static  readonly    SITE_PANEL_BG_COLOR                         :string                     = "rgba( 255, 255, 255, 0.25 )";
+        public      static  readonly    BORDER_SIZE                                 :number                     = 20;
+
         /** The maximum width for the site panel. */
         public      static  readonly    SITE_PANEL_MAX_WIDTH                        :number                     = 600;
-        /** The duration for showing and hiding the site panel. */
-        public      static  readonly    SITE_PANEL_SHOW_HIDE_DURATION               :number                     = 1000;
-        /** The duration for showing and hiding the site panel. */
-        public      static  readonly    SITE_PANEL_CONTENT_FADE_IN_DURATION         :number                     = 500;
+        /** The duration for showing and hiding the site panel in ms. */
+        public      static  readonly    SITE_PANEL_ANIMATION_DURATION               :number                     = 1000;
     }

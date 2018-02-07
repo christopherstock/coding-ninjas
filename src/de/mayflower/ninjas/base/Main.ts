@@ -4,12 +4,10 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Extract all css from code!
     *   TODO Group different objects in level class!?
     *   TODO Remove timeout and use Engine.events.tick?
     *   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
     *   TODO Revise parallax rendering though different groups in level class.
-    *   TODO Outsource all css to styles.css.
     *   TODO Try friction, frictionStatic and frictionAir to Shape!
     *   TODO restitution will bounce balls!
     *   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)

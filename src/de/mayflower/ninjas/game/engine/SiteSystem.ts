@@ -77,7 +77,7 @@
 
                     this.animationState = ninjas.SitePanelAnimation.NONE;
                 },
-                ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION
+                ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION
             );
 
             return true;
@@ -108,7 +108,7 @@
 
                     this.animationState = ninjas.SitePanelAnimation.NONE;
                 },
-                ( ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION / 2 )
+                ( ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION / 2 )
             );
 
             return true;
@@ -120,24 +120,24 @@
         public updatePanelSizeAndPosition()
         {
             // calculate panel size
-            this.panelWidth = ( ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.SettingGame.SITE_BORDER_SIZE );
+            this.panelWidth = ( ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.SettingGame.BORDER_SIZE );
             if ( this.panelWidth > ninjas.SettingGame.SITE_PANEL_MAX_WIDTH )
             {
                 this.panelWidth = ninjas.SettingGame.SITE_PANEL_MAX_WIDTH;
             }
 
             // calculate panel size including border and left and right position
-            this.panelAndBorderWidth = this.panelWidth + ninjas.SettingGame.SITE_BORDER_SIZE;
+            this.panelAndBorderWidth = this.panelWidth + ninjas.SettingGame.BORDER_SIZE;
             this.leftCameraTargetX   = ( this.panelAndBorderWidth + ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 ) );
             this.rightCameraTargetX  = ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 );
 
             // update panel size and position
             if ( this.activePanel != null )
             {
-                this.activePanel.updateBounds
+                this.activePanel.updateSizeAndPosition
                 (
                     this.panelWidth,
-                    ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE )
+                    ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.BORDER_SIZE )
                 );
             }
         }

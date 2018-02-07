@@ -27215,7 +27215,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\r\n    body\r\n    {\r\n        background:         #000000;\r\n        margin:             0;\r\n        padding:            0;\r\n        text-align:         center;\r\n        overflow-x:         hidden;\r\n        overflow-y:         hidden;\r\n    }\r\n", ""]);
+exports.push([module.i, "\r\n    body\r\n    {\r\n        background:         #000000;\r\n        margin:             0;\r\n        padding:            0;\r\n        text-align:         center;\r\n        overflow-x:         hidden;\r\n        overflow-y:         hidden;\r\n    }\r\n\r\n    div.sitePanel.outerAbsoluteContainer\r\n    {\r\n        position:           absolute;\r\n        border-radius:      5px;\r\n        background:         rgba( 255, 255, 255, 0.25 );\r\n    }\r\n\r\n    div.sitePanel.innerRelativeContainer\r\n    {\r\n        position:           relative;\r\n        background:         #c7d9f5;\r\n    }\r\n", ""]);
 
 // exports
 
@@ -27488,15 +27488,11 @@ var SettingGame = /** @class */ (function () {
     /** The rendering delta between render ticks. */
     SettingGame.RENDER_DELTA = 10.0;
     /** The border size for the site panel and all HUD elements in px. */
-    SettingGame.SITE_BORDER_SIZE = 20;
-    /** The background color of the site panel. */
-    SettingGame.SITE_PANEL_BG_COLOR = "rgba( 255, 255, 255, 0.25 )";
+    SettingGame.BORDER_SIZE = 20;
     /** The maximum width for the site panel. */
     SettingGame.SITE_PANEL_MAX_WIDTH = 600;
-    /** The duration for showing and hiding the site panel. */
-    SettingGame.SITE_PANEL_SHOW_HIDE_DURATION = 1000;
-    /** The duration for showing and hiding the site panel. */
-    SettingGame.SITE_PANEL_CONTENT_FADE_IN_DURATION = 500;
+    /** The duration for showing and hiding the site panel in ms. */
+    SettingGame.SITE_PANEL_ANIMATION_DURATION = 1000;
     return SettingGame;
 }());
 exports.SettingGame = SettingGame;
@@ -27640,7 +27636,6 @@ var ninjas = __webpack_require__(1);
 *   TODO Remove timeout and use Engine.events.tick?
 *   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
 *   TODO Revise parallax rendering though different groups in level class.
-*   TODO Outsource all css to styles.css.
 *   TODO Try friction, frictionStatic and frictionAir to Shape!
 *   TODO restitution will bounce balls!
 *   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
@@ -27675,9 +27670,9 @@ var ninjas = __webpack_require__(1);
 var Main = /** @class */ (function () {
     function Main() {
     }
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   This method is invoked when the application starts.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     Main.main = function () {
         // set webpage title
         document.title = ninjas.SettingGame.TITLE;
@@ -27912,12 +27907,12 @@ exports.ImageSystem = ImageSystem;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-/*****************************************************************************
+/*******************************************************************************************************************
 *   Loads and manages all desired sounds.
 *
 *   @author  Christopher Stock
 *   @version 1.0
-*****************************************************************************/
+*******************************************************************************************************************/
 var SoundSystem = /** @class */ (function () {
     /***************************************************************************************************************
     *   Preloads all images into memory.
@@ -27947,12 +27942,12 @@ var SoundSystem = /** @class */ (function () {
         this.fileNames = fileNames;
         this.onLoadComplete = onLoadComplete;
     }
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Creates and plays a COPY of the specified audio object.
     *
     *   @param id   The ID of the audio object to play.
     *   @param loop Specifies if playback for this sound should be repeated infinitely.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SoundSystem.prototype.playSound = function (id, loop) {
         if (loop === void 0) { loop = false; }
         if (!ninjas.SettingDebug.MUTE) {
@@ -28060,7 +28055,7 @@ var SiteSystem = /** @class */ (function () {
         this.wowSystem.sync();
         window.setTimeout(function () {
             _this.animationState = ninjas.SitePanelAnimation.NONE;
-        }, ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION);
+        }, ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION);
         return true;
     };
     /***************************************************************************************************************
@@ -28081,7 +28076,7 @@ var SiteSystem = /** @class */ (function () {
             _this.activePanel.removeFromDom();
             _this.activePanel = null;
             _this.animationState = ninjas.SitePanelAnimation.NONE;
-        }, (ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION / 2));
+        }, (ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION / 2));
         return true;
     };
     /***************************************************************************************************************
@@ -28089,17 +28084,17 @@ var SiteSystem = /** @class */ (function () {
     ***************************************************************************************************************/
     SiteSystem.prototype.updatePanelSizeAndPosition = function () {
         // calculate panel size
-        this.panelWidth = (ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.SettingGame.SITE_BORDER_SIZE);
+        this.panelWidth = (ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.SettingGame.BORDER_SIZE);
         if (this.panelWidth > ninjas.SettingGame.SITE_PANEL_MAX_WIDTH) {
             this.panelWidth = ninjas.SettingGame.SITE_PANEL_MAX_WIDTH;
         }
         // calculate panel size including border and left and right position
-        this.panelAndBorderWidth = this.panelWidth + ninjas.SettingGame.SITE_BORDER_SIZE;
+        this.panelAndBorderWidth = this.panelWidth + ninjas.SettingGame.BORDER_SIZE;
         this.leftCameraTargetX = (this.panelAndBorderWidth + ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2));
         this.rightCameraTargetX = ((ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth) / 2);
         // update panel size and position
         if (this.activePanel != null) {
-            this.activePanel.updateBounds(this.panelWidth, (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.SITE_BORDER_SIZE));
+            this.activePanel.updateSizeAndPosition(this.panelWidth, (ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.BORDER_SIZE));
         }
     };
     /***************************************************************************************************************
@@ -30974,7 +30969,7 @@ var Game = /** @class */ (function () {
         var testHudWidth = 150;
         var testHudHeight = 50;
         context.fillStyle = "#ff0000";
-        context.fillRect(this.engine.canvasSystem.getWidth() - ninjas.SettingGame.SITE_BORDER_SIZE - testHudWidth, ninjas.SettingGame.SITE_BORDER_SIZE, testHudWidth, testHudHeight);
+        context.fillRect(this.engine.canvasSystem.getWidth() - ninjas.SettingGame.BORDER_SIZE - testHudWidth, ninjas.SettingGame.BORDER_SIZE, testHudWidth, testHudHeight);
     };
     /***************************************************************************************************************
     *   Handles pressed menu keys.
@@ -32011,8 +32006,8 @@ var GameEngine = /** @class */ (function () {
             position: "absolute",
             zIndex: 10,
             top: "auto",
-            right: ninjas.SettingGame.SITE_BORDER_SIZE + "px",
-            bottom: ninjas.SettingGame.SITE_BORDER_SIZE + "px",
+            right: ninjas.SettingGame.BORDER_SIZE + "px",
+            bottom: ninjas.SettingGame.BORDER_SIZE + "px",
             left: "auto",
             margin: "0",
             heat: 1,
@@ -32194,12 +32189,12 @@ exports.Image = Image;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-/*****************************************************************************
+/*******************************************************************************************************************
 *   Specifies all different soundSystem effects being used in the game.
 *
 *   @author  Christopher Stock
 *   @version 1.0
-*****************************************************************************/
+*******************************************************************************************************************/
 var Sound = /** @class */ (function () {
     function Sound() {
     }
@@ -32416,11 +32411,11 @@ var ninjas = __webpack_require__(1);
 var SiteContent = /** @class */ (function () {
     function SiteContent() {
     }
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Appends example content to the specified relative container.
     *
     *   @param relativeContainer The relative container to append the content to.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SiteContent.appendExampleContent = function (relativeContainer) {
         // example text
         var exampleText = document.createElement("p");
@@ -32474,11 +32469,11 @@ var SitePanelPosition;
 *   @version    0.0.1
 *******************************************************************************************************************/
 var SitePanel = /** @class */ (function () {
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Creates a new site panel on the specified position.
     *
     *   @param position The position for this panel to show up.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     function SitePanel(position) {
         /** The outer container div. */
         this.outerAbsoluteContainer = null;
@@ -32487,7 +32482,6 @@ var SitePanel = /** @class */ (function () {
         /** The position for this panel to show up. */
         this.position = null;
         this.position = position;
-        // create containers
         this.createOuterAbsoluteContainer();
         this.createInnerRelativeContainer();
         // add content
@@ -32495,109 +32489,107 @@ var SitePanel = /** @class */ (function () {
         // add inner to outer container
         this.outerAbsoluteContainer.appendChild(this.innerRelativeContainer);
     }
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Appends the outer container to the DOM.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SitePanel.prototype.addToDom = function () {
         document.body.appendChild(this.outerAbsoluteContainer);
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Removed the outer container from the DOM.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SitePanel.prototype.removeFromDom = function () {
         this.outerAbsoluteContainer.remove();
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Updates the position and the location of this site panel.
     *
     *   @param width  The new panel width.
     *   @param height The new panel height.
-    *****************************************************************************/
-    SitePanel.prototype.updateBounds = function (width, height) {
+    ***************************************************************************************************************/
+    SitePanel.prototype.updateSizeAndPosition = function (width, height) {
+        // outer container size
         this.outerAbsoluteContainer.style.width = width + "px";
         this.outerAbsoluteContainer.style.height = height + "px";
+        // outer container position
         switch (this.position) {
             case ninjas.SitePanelPosition.LEFT:
                 {
-                    this.outerAbsoluteContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
+                    this.outerAbsoluteContainer.style.left = ninjas.SettingGame.BORDER_SIZE + "px";
                     break;
                 }
             case ninjas.SitePanelPosition.RIGHT:
                 {
-                    this.outerAbsoluteContainer.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - width - ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
+                    this.outerAbsoluteContainer.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - width - ninjas.SettingGame.BORDER_SIZE) + "px";
                     break;
                 }
         }
-        this.innerRelativeContainer.style.width = (width - 2 * ninjas.SettingGame.SITE_BORDER_SIZE) + "px";
+        this.outerAbsoluteContainer.style.top = ninjas.SettingGame.BORDER_SIZE + "px";
+        // inner container size
+        this.innerRelativeContainer.style.width = (width - 2 * ninjas.SettingGame.BORDER_SIZE) + "px";
+        // inner container position
+        this.innerRelativeContainer.style.top = ninjas.SettingGame.BORDER_SIZE + "px";
+        this.innerRelativeContainer.style.left = ninjas.SettingGame.BORDER_SIZE + "px";
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Returns the current panel position.
     *
     *   @return The current position of this panel.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SitePanel.prototype.getPosition = function () {
         return this.position;
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Sets WOW classes for animating the panel in.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SitePanel.prototype.animateIn = function () {
         // set animation class
         switch (this.position) {
             case ninjas.SitePanelPosition.LEFT:
                 {
-                    this.outerAbsoluteContainer.className = "wow bounceInLeft";
+                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceInLeft";
                     break;
                 }
             case ninjas.SitePanelPosition.RIGHT:
                 {
-                    this.outerAbsoluteContainer.className = "wow bounceInRight";
+                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceInRight";
                     break;
                 }
         }
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Sets WOW classes for animating the panel out.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SitePanel.prototype.animateOut = function () {
         // set animation class
         switch (this.position) {
             case ninjas.SitePanelPosition.LEFT:
                 {
-                    this.outerAbsoluteContainer.className = "wow bounceOutLeft";
+                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceOutLeft";
                     break;
                 }
             case ninjas.SitePanelPosition.RIGHT:
                 {
-                    this.outerAbsoluteContainer.className = "wow bounceOutRight";
+                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceOutRight";
                     break;
                 }
         }
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Creates the outer container with absolute position.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SitePanel.prototype.createOuterAbsoluteContainer = function () {
         this.outerAbsoluteContainer = document.createElement("div");
-        this.outerAbsoluteContainer.style.backgroundColor = ninjas.SettingGame.SITE_PANEL_BG_COLOR;
-        this.outerAbsoluteContainer.style.position = "absolute";
-        this.outerAbsoluteContainer.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        this.outerAbsoluteContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
+        this.outerAbsoluteContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION + "ms");
         this.outerAbsoluteContainer.setAttribute("data-wow-delay", "0ms");
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Creates the inner container with relative position.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     SitePanel.prototype.createInnerRelativeContainer = function () {
         this.innerRelativeContainer = document.createElement("div");
-        this.innerRelativeContainer.style.backgroundColor = "#c7d9f5";
-        this.innerRelativeContainer.style.position = "relative";
-        this.innerRelativeContainer.style.top = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        this.innerRelativeContainer.style.left = ninjas.SettingGame.SITE_BORDER_SIZE + "px";
-        this.innerRelativeContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_CONTENT_FADE_IN_DURATION + "ms");
-        this.innerRelativeContainer.setAttribute("data-wow-delay", ninjas.SettingGame.SITE_PANEL_SHOW_HIDE_DURATION + "ms");
-        // this.innerRelativeContainer.className = "wow fadeIn";
-        this.innerRelativeContainer.id = "siteContainer";
+        this.innerRelativeContainer.className = "sitePanel innerRelativeContainer";
+        this.innerRelativeContainer.setAttribute("data-wow-delay", ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION + "ms");
     };
     return SitePanel;
 }());
@@ -32810,7 +32802,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Drawing = /** @class */ (function () {
     function Drawing() {
     }
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Strokes a line with the specified points color and size.
     *
     *   @param  ctx The rendering context.
@@ -32819,7 +32811,7 @@ var Drawing = /** @class */ (function () {
     *   @param  x2  The end point's x.
     *   @param  y2  The end point's y.
     *   @param  col A stroke color.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     Drawing.strokeLine = function (ctx, x1, y1, x2, y2, col) {
         ctx.strokeStyle = col;
         ctx.lineWidth = 1.0;
@@ -32828,7 +32820,7 @@ var Drawing = /** @class */ (function () {
         ctx.lineTo(x2, y2);
         ctx.stroke();
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Draws a rect's stroke with the specified dimensions and color.
     *
     *   @param  ctx        The rendering context.
@@ -32837,13 +32829,13 @@ var Drawing = /** @class */ (function () {
     *   @param  width      The desired width.
     *   @param  height     The desired height.
     *   @param  col        A stroke color.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     Drawing.strokeRect = function (ctx, x, y, width, height, col) {
         ctx.strokeStyle = col;
         ctx.lineWidth = 1.0;
         ctx.strokeRect(x, y, width, height);
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Fills a rect with the specified dimensions and color.
     *
     *   @param  ctx     The rendering context.
@@ -32852,12 +32844,12 @@ var Drawing = /** @class */ (function () {
     *   @param  width   The desired width.
     *   @param  height  The desired height.
     *   @param  col     A fill color.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     Drawing.fillRect = function (ctx, x, y, width, height, col) {
         ctx.fillStyle = col;
         ctx.fillRect(x, y, width, height);
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Draws an image at the specified location with a specified anchor.
     *
     *   @param  ctx         The rendering context
@@ -32866,11 +32858,11 @@ var Drawing = /** @class */ (function () {
     *   @param  y           Drawing position y.
     *   @param  alpha       The desired alpha value to draw the image.
     *                       This value has a range of 0.0 to 1.0.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     Drawing.drawImage = function (ctx, img, x, y, alpha) {
         Drawing.drawImageScaledClipped(ctx, img, x, y, 0, 0, img.width, img.height, img.width, img.height, alpha);
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Draws an image at the specified location with a specified anchor
     *   and scales it to the given destiny dimensions.
     *
@@ -32885,7 +32877,7 @@ var Drawing = /** @class */ (function () {
     *   @param  destWidth   Destination width.
     *   @param  destHeight  Destination height.
     *   @param  alpha       The desired alpha value to draw the image from 0.0 to 1.0.
-    *****************************************************************************/
+    ***************************************************************************************************************/
     Drawing.drawImageScaledClipped = function (ctx, img, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight, alpha) {
         ctx.save();
         ctx.globalAlpha = alpha;
@@ -32964,13 +32956,13 @@ var MathUtil = /** @class */ (function () {
     MathUtil.angleToRad = function (angle) {
         return (angle * Math.PI / 180.0);
     };
-    /*****************************************************************************
+    /***************************************************************************************************************
     *   Returns a random integer between given mininum and maximum.
     *
     *   @param min
     *   @param max
     *   @return {number}
-    *****************************************************************************/
+    ***************************************************************************************************************/
     MathUtil.getRandomInt = function (min, max) {
         return Math.floor((Math.random() * (max + 1 - min)) + min);
     };

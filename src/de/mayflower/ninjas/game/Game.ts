@@ -141,7 +141,7 @@
             let testHudHeight:number = 50;
 
             context.fillStyle = "#ff0000";
-            context.fillRect( this.engine.canvasSystem.getWidth() - ninjas.SettingGame.SITE_BORDER_SIZE - testHudWidth, ninjas.SettingGame.SITE_BORDER_SIZE, testHudWidth, testHudHeight );
+            context.fillRect( this.engine.canvasSystem.getWidth() - ninjas.SettingGame.BORDER_SIZE - testHudWidth, ninjas.SettingGame.BORDER_SIZE, testHudWidth, testHudHeight );
         }
 
         /***************************************************************************************************************
