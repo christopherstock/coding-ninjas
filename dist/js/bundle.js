@@ -4616,19 +4616,18 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(129));
-__export(__webpack_require__(134));
-__export(__webpack_require__(135));
 __export(__webpack_require__(130));
 __export(__webpack_require__(131));
 __export(__webpack_require__(132));
 __export(__webpack_require__(133));
-__export(__webpack_require__(142));
-__export(__webpack_require__(137));
+__export(__webpack_require__(134));
+__export(__webpack_require__(135));
 __export(__webpack_require__(136));
-__export(__webpack_require__(143));
-__export(__webpack_require__(139));
+__export(__webpack_require__(137));
 __export(__webpack_require__(138));
-__export(__webpack_require__(182));
+__export(__webpack_require__(139));
+__export(__webpack_require__(141));
+__export(__webpack_require__(144));
 __export(__webpack_require__(145));
 __export(__webpack_require__(146));
 __export(__webpack_require__(147));
@@ -4650,10 +4649,11 @@ __export(__webpack_require__(162));
 __export(__webpack_require__(163));
 __export(__webpack_require__(164));
 __export(__webpack_require__(165));
-__export(__webpack_require__(167));
+__export(__webpack_require__(166));
 __export(__webpack_require__(168));
 __export(__webpack_require__(169));
 __export(__webpack_require__(170));
+__export(__webpack_require__(171));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
 __export(__webpack_require__(174));
@@ -15004,7 +15004,7 @@ var Vector = _dereq_('../geometry/Vector');
 
 },{"../body/Composite":2,"../core/Common":14,"../core/Events":16,"../geometry/Bounds":26,"../geometry/Vector":28}]},{},[30])(30)
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(144)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(140)))
 
 /***/ }),
 /* 3 */
@@ -15013,7 +15013,7 @@ var Vector = _dereq_('../geometry/Vector');
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(141);
+var content = __webpack_require__(143);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -27215,7 +27215,7 @@ exports = module.exports = __webpack_require__(4)(false);
 
 
 // module
-exports.push([module.i, "\r\n    body\r\n    {\r\n        background:         #000000;\r\n        margin:             0;\r\n        padding:            0;\r\n        text-align:         center;\r\n        overflow-x:         hidden;\r\n        overflow-y:         hidden;\r\n    }\r\n\r\n    div.sitePanel.outerAbsoluteContainer\r\n    {\r\n        position:           absolute;\r\n        border-radius:      5px;\r\n        background:         rgba( 255, 255, 255, 0.25 );\r\n    }\r\n\r\n    div.sitePanel.innerRelativeContainer\r\n    {\r\n        position:           relative;\r\n        background:         #c7d9f5;\r\n    }\r\n", ""]);
+exports.push([module.i, "\r\n    body\r\n    {\r\n        background:         #000000;\r\n        margin:             0;\r\n        padding:            0;\r\n        text-align:         center;\r\n        overflow-x:         hidden;\r\n        overflow-y:         hidden;\r\n    }\r\n\r\n    div.sitePanel.outerAbsoluteContainer\r\n    {\r\n        position:           absolute;\r\n        border-radius:      5px;\r\n        background:         rgba( 255, 255, 255, 0.25 );\r\n    }\r\n\r\n    div.sitePanel.innerRelativeContainer\r\n    {\r\n        position:           relative;\r\n        background:         #c7d9f5;\r\n    }\r\n\r\n    p.sitePanel.defaultText\r\n    {\r\n        padding:            20px;\r\n        margin:             0;\r\n    }\r\n\r\n    div.sitePanel.imageContainer\r\n    {\r\n        padding:            20px;\r\n        margin:             0;\r\n        background:         #fffc9e;\r\n    }\r\n\r\n    img.sitePanel.defaultImage\r\n    {\r\n        width:              100%;\r\n        height:             auto;\r\n    }\r\n", ""]);
 
 // exports
 
@@ -27371,6 +27371,136 @@ exports.Version = Version;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents a debug group whose logging can be enabled or disabled.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Debug = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Constructs a new debug group.
+    *
+    *   @param  debugEnabled    Flags if this debug group should log messages.
+    ***************************************************************************************************************/
+    function Debug(debugEnabled) {
+        /** The flag that enables or disables logging for this debug group. */
+        this.debugEnabled = false;
+        this.debugEnabled = debugEnabled;
+    }
+    /***************************************************************************************************************
+    *   Logs a line of output to the default console. Will only generate output
+    *   if the debug for this debug group is enabled.
+    *
+    *   @param msg The message to log to the default console.
+    ***************************************************************************************************************/
+    Debug.prototype.log = function (msg) {
+        if (msg === void 0) { msg = ""; }
+        if (ninjas.SettingDebug.DEBUG_MODE && this.debugEnabled) {
+            console.log('[' + ninjas.String.getDateTimeString() + '] ' + msg);
+        }
+    };
+    /** A global debug group. */
+    Debug.bugfix = new Debug(true);
+    /** Debugs the init system. */
+    Debug.init = new Debug(true);
+    /** Debugs the image system. */
+    Debug.image = new Debug(false);
+    /** Debugs the sound system. */
+    Debug.sound = new Debug(false);
+    /** Debugs the key system. */
+    Debug.key = new Debug(false);
+    /** Debugs the pickable game items. */
+    Debug.item = new Debug(true);
+    /** Debugs enemy events. */
+    Debug.enemy = new Debug(true);
+    /** Debugs site events. */
+    Debug.site = new Debug(true);
+    /** Debugs canvas events. */
+    Debug.canvas = new Debug(true);
+    return Debug;
+}());
+exports.Debug = Debug;
+
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   The main class contains the application's points of entry and termination.
+*
+*   TODO Group different objects in level class!?
+*   TODO Remove timeout and use Engine.events.tick?
+*   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
+*   TODO Revise parallax rendering though different groups in level class.
+*   TODO Try friction, frictionStatic and frictionAir to Shape!
+*   TODO restitution will bounce balls!
+*   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
+*   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+*   TODO Try sound error handling! (Safari etc.)
+*   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
+*
+*   TODO Complete the MVP!
+*
+*   TODO Flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
+*   TODO Add translucent overlay for blend effects.
+*   TODO Ability to smash crates or destroyables etc.
+*   TODO Particle fx smashed crates, startup window etc.
+*   TODO create class HUD and assign its non-static method paintHud?
+*   TODO Create HUD ( for items 1st ).
+*   TODO Create item pickup HUD effect!
+*   TODO Add tutorial notifiers?
+*   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
+*   TODO Fixed positioning for camera on first scene (player floating in).
+*
+*   TODO Add react for site content creation.
+*   TODO Step-Flow-Meter (progress, navi etc.) in React.
+*   TODO Try ant design (pro?) in front panel.
+*   TODO Add jest tests.
+*   TODO Add cucumber tests.
+*   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
+*   TODO Test in all browsers.
+*   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Main = /** @class */ (function () {
+    function Main() {
+    }
+    /***************************************************************************************************************
+    *   This method is invoked when the application starts.
+    ***************************************************************************************************************/
+    Main.main = function () {
+        // set webpage title
+        document.title = ninjas.SettingGame.TITLE;
+        // acclaim debug console
+        ninjas.Debug.init.log(ninjas.SettingGame.TITLE);
+        ninjas.Debug.init.log();
+        //init and start the game engine
+        Main.game = new ninjas.Game();
+        Main.game.init();
+    };
+    /** The singleton instance of the game engine. */
+    Main.game = null;
+    return Main;
+}());
+exports.Main = Main;
+
+
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 /*******************************************************************************************************************
 *   All debug settings.
 *
@@ -27420,7 +27550,7 @@ exports.SettingDebug = SettingDebug;
 
 
 /***/ }),
-/* 131 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27465,7 +27595,7 @@ exports.SettingEngine = SettingEngine;
 
 
 /***/ }),
-/* 132 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27499,7 +27629,7 @@ exports.SettingGame = SettingGame;
 
 
 /***/ }),
-/* 133 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27562,135 +27692,6 @@ exports.SettingMatterJs = SettingMatterJs;
 
 
 /***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents a debug group whose logging can be enabled or disabled.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Debug = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Constructs a new debug group.
-    *
-    *   @param  debugEnabled    Flags if this debug group should log messages.
-    ***************************************************************************************************************/
-    function Debug(debugEnabled) {
-        /** The flag that enables or disables logging for this debug group. */
-        this.debugEnabled = false;
-        this.debugEnabled = debugEnabled;
-    }
-    /***************************************************************************************************************
-    *   Logs a line of output to the default console. Will only generate output
-    *   if the debug for this debug group is enabled.
-    *
-    *   @param msg The message to log to the default console.
-    ***************************************************************************************************************/
-    Debug.prototype.log = function (msg) {
-        if (msg === void 0) { msg = ""; }
-        if (ninjas.SettingDebug.DEBUG_MODE && this.debugEnabled) {
-            console.log('[' + ninjas.String.getDateTimeString() + '] ' + msg);
-        }
-    };
-    /** A global debug group. */
-    Debug.bugfix = new Debug(true);
-    /** Debugs the init system. */
-    Debug.init = new Debug(true);
-    /** Debugs the image system. */
-    Debug.image = new Debug(false);
-    /** Debugs the sound system. */
-    Debug.sound = new Debug(false);
-    /** Debugs the key system. */
-    Debug.key = new Debug(false);
-    /** Debugs the pickable game items. */
-    Debug.item = new Debug(true);
-    /** Debugs enemy events. */
-    Debug.enemy = new Debug(true);
-    /** Debugs site events. */
-    Debug.site = new Debug(true);
-    /** Debugs canvas events. */
-    Debug.canvas = new Debug(true);
-    return Debug;
-}());
-exports.Debug = Debug;
-
-
-/***/ }),
-/* 135 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   The main class contains the application's points of entry and termination.
-*
-*   TODO Group different objects in level class!?
-*   TODO Remove timeout and use Engine.events.tick?
-*   TODO Add and assign actions for 'attack', 'jump attack', 'slide' and 'float' sprites.
-*   TODO Revise parallax rendering though different groups in level class.
-*   TODO Try friction, frictionStatic and frictionAir to Shape!
-*   TODO restitution will bounce balls!
-*   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
-*   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
-*   TODO Try sound error handling! (Safari etc.)
-*   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
-*
-*   TODO Complete the MVP!
-*
-*   TODO Add translucent overlay for blend effects.
-*   TODO Ability to smash crates or destroyables etc.
-*   TODO Particle fx smashed crates, startup window etc.
-*   TODO create class HUD and assign its non-static method paintHud?
-*   TODO Create HUD ( for items 1st ).
-*   TODO Create item pickup HUD effect!
-*   TODO Add tutorial notifiers?
-*   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
-*   TODO Fixed positioning for camera on first scene (player floating in).
-*
-*   TODO Add react for site content creation.
-*   TODO Step-Flow-Meter (progress, navi etc.) in React.
-*   TODO Try ant design (pro?) in front panel.
-*   TODO Add jest tests.
-*   TODO Add cucumber tests.
-*   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
-*   TODO Test in all browsers.
-*   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Main = /** @class */ (function () {
-    function Main() {
-    }
-    /***************************************************************************************************************
-    *   This method is invoked when the application starts.
-    ***************************************************************************************************************/
-    Main.main = function () {
-        // set webpage title
-        document.title = ninjas.SettingGame.TITLE;
-        // acclaim debug console
-        ninjas.Debug.init.log(ninjas.SettingGame.TITLE);
-        ninjas.Debug.init.log();
-        //init and start the game engine
-        Main.game = new ninjas.Game();
-        Main.game.init();
-    };
-    /** The singleton instance of the game engine. */
-    Main.game = null;
-    return Main;
-}());
-exports.Main = Main;
-
-
-/***/ }),
 /* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27699,80 +27700,71 @@ exports.Main = Main;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
-*   The key system that manages all pressed keys.
+*   Manages the canvas.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var KeySystem = /** @class */ (function () {
+var CanvasSystem = /** @class */ (function () {
     /***************************************************************************************************************
-    *   Creates a new key system.
+    *   Constructs a new canvas system.
     ***************************************************************************************************************/
-    function KeySystem() {
-        var _this = this;
-        /** All 'pressed' information for all keys. */
-        this.keysPressed = [];
-        /** All 'needs release' information for all keys. */
-        this.keysNeedRelease = [];
-        /***************************************************************************************************************
-        *   This method is always invoked by the system if a key is pressed.
-        *
-        *   @param event The system's propagated key event.
-        ***************************************************************************************************************/
-        this.onKeyDown = function (event) {
-            var keyCode = event.which;
-            if (!_this.keysNeedRelease[keyCode]) {
-                _this.keysPressed[keyCode] = true;
-                ninjas.Debug.key.log("key pressed [" + keyCode + "]");
-            }
-        };
-        /***************************************************************************************************************
-        *   This method is always invoked by the system if a key is released.
-        *
-        *   @param event The system's propagated key event.
-        ***************************************************************************************************************/
-        this.onKeyUp = function (event) {
-            var keyCode = event.which;
-            _this.keysPressed[keyCode] = false;
-            _this.keysNeedRelease[keyCode] = false;
-            ninjas.Debug.key.log("key released [" + keyCode + "]");
-        };
-        //set event listener for keyboard devices - all but IE
-        window.addEventListener("keydown", this.onKeyDown, false);
-        window.addEventListener("keyup", this.onKeyUp, false);
-        //set event listener for keyboard devices - IE
-        window.addEventListener("onkeydown", this.onKeyDown, false);
-        window.addEventListener("onkeyup", this.onKeyUp, false);
+    function CanvasSystem() {
+        /** The canvas element. */
+        this.canvas = null;
+        /** The canvas rendering context. */
+        this.canvasContext = null;
+        /** The current width of the canvas. */
+        this.canvasWidth = 0;
+        /** The current height of the canvas. */
+        this.canvasHeight = 0;
+        // create
+        this.canvas = document.createElement("canvas");
+        // reference 2d rendering context
+        this.canvasContext = this.canvas.getContext("2d");
+        // append to body
+        document.body.appendChild(this.canvas);
     }
     /***************************************************************************************************************
-    *   Checks if the key with the given keyCode is currently pressed.
-    *
-    *   @param  keyCode The keyCode of the key to return pressed state.
-    *
-    *   @return         <code>true</code> if this key is currently pressed.
-    *                   Otherwise <code>false</code>.
+    *   Updates the canvas dimensions according to current screen size.
     ***************************************************************************************************************/
-    KeySystem.prototype.isPressed = function (keyCode) {
-        return this.keysPressed[keyCode];
+    CanvasSystem.prototype.updateDimensions = function () {
+        this.canvasWidth = window.innerWidth;
+        this.canvasHeight = window.innerHeight;
+        // clip to minimum canvas dimensions
+        if (this.canvasWidth < ninjas.SettingEngine.CANVAS_MIN_WIDTH)
+            this.canvasWidth = ninjas.SettingEngine.CANVAS_MIN_WIDTH;
+        if (this.canvasHeight < ninjas.SettingEngine.CANVAS_MIN_HEIGHT)
+            this.canvasHeight = ninjas.SettingEngine.CANVAS_MIN_HEIGHT;
+        ninjas.Debug.canvas.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
     };
     /***************************************************************************************************************
-    *   Flags that a key needs release before being able to be pressed again.
+    *   Returns the current canvas width.
     *
-    *   @param keyCode The keyCode of the key to mark as 'needs key release'.
+    *   @return Current canvas width.
     ***************************************************************************************************************/
-    KeySystem.prototype.setNeedsRelease = function (keyCode) {
-        this.keysNeedRelease[keyCode] = true;
-        this.keysPressed[keyCode] = false;
+    CanvasSystem.prototype.getWidth = function () {
+        return this.canvasWidth;
     };
     /***************************************************************************************************************
-    *   Flags all keys as released.
+    *   Returns the current canvas height.
+    *
+    *   @return Current canvas height.
     ***************************************************************************************************************/
-    KeySystem.prototype.releaseAllKeys = function () {
-        this.keysPressed = [];
+    CanvasSystem.prototype.getHeight = function () {
+        return this.canvasHeight;
     };
-    return KeySystem;
+    /***************************************************************************************************************
+    *   Returns the current canvas object.
+    *
+    *   @return The HTML canvas object..
+    ***************************************************************************************************************/
+    CanvasSystem.prototype.getCanvas = function () {
+        return this.canvas;
+    };
+    return CanvasSystem;
 }());
-exports.KeySystem = KeySystem;
+exports.CanvasSystem = CanvasSystem;
 
 
 /***/ }),
@@ -27908,82 +27900,80 @@ exports.ImageSystem = ImageSystem;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
-*   Loads and manages all desired sounds.
+*   The key system that manages all pressed keys.
 *
-*   @author  Christopher Stock
-*   @version 1.0
+*   @author     Christopher Stock
+*   @version    0.0.1
 *******************************************************************************************************************/
-var SoundSystem = /** @class */ (function () {
+var KeySystem = /** @class */ (function () {
     /***************************************************************************************************************
-    *   Preloads all images into memory.
-    *
-    *   @param fileNames      The names of all image files to load.
-    *   @param onLoadComplete The method to invoke when all image files are loaded.
+    *   Creates a new key system.
     ***************************************************************************************************************/
-    function SoundSystem(fileNames, onLoadComplete) {
+    function KeySystem() {
         var _this = this;
-        /** All sound file names to load. */
-        this.fileNames = null;
-        /** The method to invoke when all sounds are loaded. */
-        this.onLoadComplete = null;
-        /** The number of currently loaded sounds. */
-        this.loadedSoundCount = 0;
-        /** All loaded sound objects. */
-        this.sounds = [];
+        /** All 'pressed' information for all keys. */
+        this.keysPressed = [];
+        /** All 'needs release' information for all keys. */
+        this.keysNeedRelease = [];
         /***************************************************************************************************************
-        *   Being invoked when one image was loaded completely.
+        *   This method is always invoked by the system if a key is pressed.
+        *
+        *   @param event The system's propagated key event.
         ***************************************************************************************************************/
-        this.onLoadSound = function () {
-            if (++_this.loadedSoundCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] sounds loaded");
-                _this.onLoadComplete();
+        this.onKeyDown = function (event) {
+            var keyCode = event.which;
+            if (!_this.keysNeedRelease[keyCode]) {
+                _this.keysPressed[keyCode] = true;
+                ninjas.Debug.key.log("key pressed [" + keyCode + "]");
             }
         };
-        this.fileNames = fileNames;
-        this.onLoadComplete = onLoadComplete;
+        /***************************************************************************************************************
+        *   This method is always invoked by the system if a key is released.
+        *
+        *   @param event The system's propagated key event.
+        ***************************************************************************************************************/
+        this.onKeyUp = function (event) {
+            var keyCode = event.which;
+            _this.keysPressed[keyCode] = false;
+            _this.keysNeedRelease[keyCode] = false;
+            ninjas.Debug.key.log("key released [" + keyCode + "]");
+        };
+        //set event listener for keyboard devices - all but IE
+        window.addEventListener("keydown", this.onKeyDown, false);
+        window.addEventListener("keyup", this.onKeyUp, false);
+        //set event listener for keyboard devices - IE
+        window.addEventListener("onkeydown", this.onKeyDown, false);
+        window.addEventListener("onkeyup", this.onKeyUp, false);
     }
     /***************************************************************************************************************
-    *   Creates and plays a COPY of the specified audio object.
+    *   Checks if the key with the given keyCode is currently pressed.
     *
-    *   @param id   The ID of the audio object to play.
-    *   @param loop Specifies if playback for this sound should be repeated infinitely.
+    *   @param  keyCode The keyCode of the key to return pressed state.
+    *
+    *   @return         <code>true</code> if this key is currently pressed.
+    *                   Otherwise <code>false</code>.
     ***************************************************************************************************************/
-    SoundSystem.prototype.playSound = function (id, loop) {
-        if (loop === void 0) { loop = false; }
-        if (!ninjas.SettingDebug.MUTE) {
-            if (this.sounds[id] != null) {
-                var clipClone_1 = this.sounds[id].cloneNode(true);
-                if (loop) {
-                    clipClone_1.addEventListener("ended", function () {
-                        ninjas.Debug.sound.log("Clip ended - now repeating ..");
-                        // clipClone.
-                        clipClone_1.play();
-                    });
-                }
-                clipClone_1.play();
-            }
-        }
+    KeySystem.prototype.isPressed = function (keyCode) {
+        return this.keysPressed[keyCode];
     };
     /***************************************************************************************************************
-    *   Loads all specified sound files into system memory.
+    *   Flags that a key needs release before being able to be pressed again.
+    *
+    *   @param keyCode The keyCode of the key to mark as 'needs key release'.
     ***************************************************************************************************************/
-    SoundSystem.prototype.loadSounds = function () {
-        ninjas.Debug.sound.log("Preloading [" + this.fileNames.length + "] sounds");
-        for (var i = 0; i < this.fileNames.length; i++) {
-            try {
-                this.sounds[this.fileNames[i]] = new Audio();
-                this.sounds[this.fileNames[i]].src = this.fileNames[i];
-                this.sounds[this.fileNames[i]].onloadeddata = this.onLoadSound;
-            }
-            catch (e) {
-                ninjas.Debug.sound.log("Error on creating Audio element: " + e.message);
-                this.onLoadSound();
-            }
-        }
+    KeySystem.prototype.setNeedsRelease = function (keyCode) {
+        this.keysNeedRelease[keyCode] = true;
+        this.keysPressed[keyCode] = false;
     };
-    return SoundSystem;
+    /***************************************************************************************************************
+    *   Flags all keys as released.
+    ***************************************************************************************************************/
+    KeySystem.prototype.releaseAllKeys = function () {
+        this.keysPressed = [];
+    };
+    return KeySystem;
 }());
-exports.SoundSystem = SoundSystem;
+exports.KeySystem = KeySystem;
 
 
 /***/ }),
@@ -27993,8 +27983,155 @@ exports.SoundSystem = SoundSystem;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var matter = __webpack_require__(2);
 var ninjas = __webpack_require__(1);
-var wow = __webpack_require__(140);
+/*******************************************************************************************************************
+*   Manages the Matter.js engine.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var MatterJsSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Creates a new Matter.js engine.
+    *
+    *   @param canvas              The canvas to use.
+    *   @param callbackAfterRender The function to invoke after  the engine has been rendered and drawed.
+    *   @param textureCache        All cached textures to use.
+    ***************************************************************************************************************/
+    function MatterJsSystem(canvas, callbackAfterRender, textureCache) {
+        var _this = this;
+        /** The Matter.js engine. */
+        this.engine = null;
+        /** The Matter.js renderer. */
+        this.renderer = null;
+        // create engine
+        this.engine = matter.Engine.create();
+        this.engine.world.gravity = {
+            x: 0.0,
+            y: ninjas.SettingMatterJs.DEFAULT_GRAVITY_Y,
+            scale: 0.001
+        };
+        this.engine.timing.timeScale = 1.0;
+        // create renderer
+        this.renderer = matter.Render.create({
+            canvas: canvas,
+            engine: this.engine,
+            options: {
+                hasBounds: true,
+                wireframes: false,
+                showCollisions: (ninjas.SettingDebug.DEBUG_MODE),
+                showAxes: (ninjas.SettingDebug.DEBUG_MODE),
+                showAngleIndicator: (ninjas.SettingDebug.DEBUG_MODE),
+                showVelocity: (ninjas.SettingDebug.DEBUG_MODE),
+                background: ninjas.SettingEngine.CANVAS_BG,
+                width: ninjas.Main.game.engine.canvasSystem.getWidth(),
+                height: ninjas.Main.game.engine.canvasSystem.getHeight(),
+            },
+        });
+        //set all loaded image as MatterJS texture cache
+        this.renderer.textures = textureCache;
+        ninjas.Debug.init.log("Assigned [" + Object.keys(this.renderer.textures).length + "] textures to renderer texture cache ");
+        // disables blurry image drawing!
+        this.renderer.context.imageSmoothingEnabled = false;
+        // add drawing callback after rendering
+        matter.Events.on(this.renderer, "afterRender", function () { callbackAfterRender(_this.renderer.context); });
+    }
+    /***************************************************************************************************************
+    *   Starts the Matter.js renderer.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.startRenderer = function () {
+        matter.Render.run(this.renderer);
+    };
+    /***************************************************************************************************************
+    *   Adds the specified constraint to the world.
+    *
+    *   @param constraint A body, composite or constraint of the Matter.js system.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.addToWorld = function (constraint) {
+        matter.Composite.add(this.engine.world, constraint);
+    };
+    /***************************************************************************************************************
+    *   Removes the specified constraint from the world.
+    *
+    *   @param constraint A body, composite or constraint of the Matter.js system.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.removeFromWorld = function (constraint) {
+        matter.Composite.remove(this.engine.world, constraint);
+    };
+    /***************************************************************************************************************
+    *   Updates the dimensions of the Matter.js rendering system.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.updateEngineDimensions = function (newWidth, newHeight) {
+        this.renderer.canvas.width = newWidth;
+        this.renderer.canvas.height = newHeight;
+        this.renderer.options.width = newWidth;
+        this.renderer.options.height = newHeight;
+        ninjas.Debug.canvas.log("Updated matter.js engine dimensions according to canvas.");
+    };
+    /***************************************************************************************************************
+    *   Updates the Matter.js engine for the specified rendering delta.
+    *
+    *   @param renderDelta The rendering delta in ms.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.updateEngine = function (renderDelta) {
+        matter.Engine.update(this.engine, renderDelta);
+    };
+    /***************************************************************************************************************
+    *   Resets the world of the Matter.js engine.
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.resetWorld = function () {
+        matter.World.clear(this.engine.world, false);
+    };
+    /***************************************************************************************************************
+    *   Sets the bounds of the world to render onto the canvas.
+    *
+    *   @param bounds The bounds to set for the renderer..
+    ***************************************************************************************************************/
+    MatterJsSystem.prototype.setRenderBounds = function (bounds) {
+        this.renderer.bounds = bounds;
+    };
+    return MatterJsSystem;
+}());
+exports.MatterJsSystem = MatterJsSystem;
+
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+var wow = __webpack_require__(142);
 __webpack_require__(3);
 /*******************************************************************************************************************
 *   Specifies the current site panel animation state.
@@ -28147,7 +28284,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 140 */
+/* 142 */
 /***/ (function(module, exports) {
 
 (function() {
@@ -28666,7 +28803,7 @@ exports.SiteSystem = SiteSystem;
 
 
 /***/ }),
-/* 141 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(4)(false);
@@ -28680,230 +28817,179 @@ exports.push([module.i, "@charset \"UTF-8\";\n\n/*!\n * animate.css -http://dane
 
 
 /***/ }),
-/* 142 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Manages the canvas.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var CanvasSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Constructs a new canvas system.
-    ***************************************************************************************************************/
-    function CanvasSystem() {
-        /** The canvas element. */
-        this.canvas = null;
-        /** The canvas rendering context. */
-        this.canvasContext = null;
-        /** The current width of the canvas. */
-        this.canvasWidth = 0;
-        /** The current height of the canvas. */
-        this.canvasHeight = 0;
-        // create
-        this.canvas = document.createElement("canvas");
-        // reference 2d rendering context
-        this.canvasContext = this.canvas.getContext("2d");
-        // append to body
-        document.body.appendChild(this.canvas);
-    }
-    /***************************************************************************************************************
-    *   Updates the canvas dimensions according to current screen size.
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.updateDimensions = function () {
-        this.canvasWidth = window.innerWidth;
-        this.canvasHeight = window.innerHeight;
-        // clip to minimum canvas dimensions
-        if (this.canvasWidth < ninjas.SettingEngine.CANVAS_MIN_WIDTH)
-            this.canvasWidth = ninjas.SettingEngine.CANVAS_MIN_WIDTH;
-        if (this.canvasHeight < ninjas.SettingEngine.CANVAS_MIN_HEIGHT)
-            this.canvasHeight = ninjas.SettingEngine.CANVAS_MIN_HEIGHT;
-        ninjas.Debug.canvas.log("Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] ");
-    };
-    /***************************************************************************************************************
-    *   Returns the current canvas width.
-    *
-    *   @return Current canvas width.
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.getWidth = function () {
-        return this.canvasWidth;
-    };
-    /***************************************************************************************************************
-    *   Returns the current canvas height.
-    *
-    *   @return Current canvas height.
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.getHeight = function () {
-        return this.canvasHeight;
-    };
-    /***************************************************************************************************************
-    *   Returns the current canvas object.
-    *
-    *   @return The HTML canvas object..
-    ***************************************************************************************************************/
-    CanvasSystem.prototype.getCanvas = function () {
-        return this.canvas;
-    };
-    return CanvasSystem;
-}());
-exports.CanvasSystem = CanvasSystem;
-
-
-/***/ }),
-/* 143 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var matter = __webpack_require__(2);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Manages the Matter.js engine.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var MatterJsSystem = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Creates a new Matter.js engine.
-    *
-    *   @param canvas              The canvas to use.
-    *   @param callbackAfterRender The function to invoke after  the engine has been rendered and drawed.
-    *   @param textureCache        All cached textures to use.
-    ***************************************************************************************************************/
-    function MatterJsSystem(canvas, callbackAfterRender, textureCache) {
-        var _this = this;
-        /** The Matter.js engine. */
-        this.engine = null;
-        /** The Matter.js renderer. */
-        this.renderer = null;
-        // create engine
-        this.engine = matter.Engine.create();
-        this.engine.world.gravity = {
-            x: 0.0,
-            y: ninjas.SettingMatterJs.DEFAULT_GRAVITY_Y,
-            scale: 0.001
-        };
-        this.engine.timing.timeScale = 1.0;
-        // create renderer
-        this.renderer = matter.Render.create({
-            canvas: canvas,
-            engine: this.engine,
-            options: {
-                hasBounds: true,
-                wireframes: false,
-                showCollisions: (ninjas.SettingDebug.DEBUG_MODE),
-                showAxes: (ninjas.SettingDebug.DEBUG_MODE),
-                showAngleIndicator: (ninjas.SettingDebug.DEBUG_MODE),
-                showVelocity: (ninjas.SettingDebug.DEBUG_MODE),
-                background: ninjas.SettingEngine.CANVAS_BG,
-                width: ninjas.Main.game.engine.canvasSystem.getWidth(),
-                height: ninjas.Main.game.engine.canvasSystem.getHeight(),
-            },
-        });
-        //set all loaded image as MatterJS texture cache
-        this.renderer.textures = textureCache;
-        ninjas.Debug.init.log("Assigned [" + Object.keys(this.renderer.textures).length + "] textures to renderer texture cache ");
-        // disables blurry image drawing!
-        this.renderer.context.imageSmoothingEnabled = false;
-        // add drawing callback after rendering
-        matter.Events.on(this.renderer, "afterRender", function () { callbackAfterRender(_this.renderer.context); });
-    }
-    /***************************************************************************************************************
-    *   Starts the Matter.js renderer.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.startRenderer = function () {
-        matter.Render.run(this.renderer);
-    };
-    /***************************************************************************************************************
-    *   Adds the specified constraint to the world.
-    *
-    *   @param constraint A body, composite or constraint of the Matter.js system.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.addToWorld = function (constraint) {
-        matter.Composite.add(this.engine.world, constraint);
-    };
-    /***************************************************************************************************************
-    *   Removes the specified constraint from the world.
-    *
-    *   @param constraint A body, composite or constraint of the Matter.js system.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.removeFromWorld = function (constraint) {
-        matter.Composite.remove(this.engine.world, constraint);
-    };
-    /***************************************************************************************************************
-    *   Updates the dimensions of the Matter.js rendering system.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.updateEngineDimensions = function (newWidth, newHeight) {
-        this.renderer.canvas.width = newWidth;
-        this.renderer.canvas.height = newHeight;
-        this.renderer.options.width = newWidth;
-        this.renderer.options.height = newHeight;
-        ninjas.Debug.canvas.log("Updated matter.js engine dimensions according to canvas.");
-    };
-    /***************************************************************************************************************
-    *   Updates the Matter.js engine for the specified rendering delta.
-    *
-    *   @param renderDelta The rendering delta in ms.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.updateEngine = function (renderDelta) {
-        matter.Engine.update(this.engine, renderDelta);
-    };
-    /***************************************************************************************************************
-    *   Resets the world of the Matter.js engine.
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.resetWorld = function () {
-        matter.World.clear(this.engine.world, false);
-    };
-    /***************************************************************************************************************
-    *   Sets the bounds of the world to render onto the canvas.
-    *
-    *   @param bounds The bounds to set for the renderer..
-    ***************************************************************************************************************/
-    MatterJsSystem.prototype.setRenderBounds = function (bounds) {
-        this.renderer.bounds = bounds;
-    };
-    return MatterJsSystem;
-}());
-exports.MatterJsSystem = MatterJsSystem;
-
-
-/***/ }),
 /* 144 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-var g;
+"use strict";
 
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Loads and manages all desired sounds.
+*
+*   @author  Christopher Stock
+*   @version 1.0
+*******************************************************************************************************************/
+var SoundSystem = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Preloads all images into memory.
+    *
+    *   @param fileNames      The names of all image files to load.
+    *   @param onLoadComplete The method to invoke when all image files are loaded.
+    ***************************************************************************************************************/
+    function SoundSystem(fileNames, onLoadComplete) {
+        var _this = this;
+        /** All sound file names to load. */
+        this.fileNames = null;
+        /** The method to invoke when all sounds are loaded. */
+        this.onLoadComplete = null;
+        /** The number of currently loaded sounds. */
+        this.loadedSoundCount = 0;
+        /** All loaded sound objects. */
+        this.sounds = [];
+        /***************************************************************************************************************
+        *   Being invoked when one image was loaded completely.
+        ***************************************************************************************************************/
+        this.onLoadSound = function () {
+            if (++_this.loadedSoundCount == _this.fileNames.length) {
+                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] sounds loaded");
+                _this.onLoadComplete();
+            }
+        };
+        this.fileNames = fileNames;
+        this.onLoadComplete = onLoadComplete;
+    }
+    /***************************************************************************************************************
+    *   Creates and plays a COPY of the specified audio object.
+    *
+    *   @param id   The ID of the audio object to play.
+    *   @param loop Specifies if playback for this sound should be repeated infinitely.
+    ***************************************************************************************************************/
+    SoundSystem.prototype.playSound = function (id, loop) {
+        if (loop === void 0) { loop = false; }
+        if (!ninjas.SettingDebug.MUTE) {
+            if (this.sounds[id] != null) {
+                var clipClone_1 = this.sounds[id].cloneNode(true);
+                if (loop) {
+                    clipClone_1.addEventListener("ended", function () {
+                        ninjas.Debug.sound.log("Clip ended - now repeating ..");
+                        // clipClone.
+                        clipClone_1.play();
+                    });
+                }
+                clipClone_1.play();
+            }
+        }
+    };
+    /***************************************************************************************************************
+    *   Loads all specified sound files into system memory.
+    ***************************************************************************************************************/
+    SoundSystem.prototype.loadSounds = function () {
+        ninjas.Debug.sound.log("Preloading [" + this.fileNames.length + "] sounds");
+        for (var i = 0; i < this.fileNames.length; i++) {
+            try {
+                this.sounds[this.fileNames[i]] = new Audio();
+                this.sounds[this.fileNames[i]].src = this.fileNames[i];
+                this.sounds[this.fileNames[i]].onloadeddata = this.onLoadSound;
+            }
+            catch (e) {
+                ninjas.Debug.sound.log("Error on creating Audio element: " + e.message);
+                this.onLoadSound();
+            }
+        }
+    };
+    return SoundSystem;
+}());
+exports.SoundSystem = SoundSystem;
 
 
 /***/ }),
 /* 145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Represents one game sprite.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var Sprite = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Creates a new sprite.
+    *
+    *   @param template The template for this sprite.
+    ***************************************************************************************************************/
+    function Sprite(template) {
+        /** The sprite template for this sprite. */
+        this.template = null;
+        /** The id of the current frame for this sprite. */
+        this.currentFrame = 0;
+        /** The current tick since last frame change. */
+        this.currentTick = 0;
+        this.template = template;
+    }
+    /***************************************************************************************************************
+    *   Resets this sprite to the first frame and resets tick counter.
+    ***************************************************************************************************************/
+    Sprite.prototype.reset = function () {
+        this.currentFrame = 0;
+        this.currentTick = 0;
+    };
+    /***************************************************************************************************************
+    *   Sets the next frame for this sprite.
+    *
+    *   @return If the frame actually changed.
+    ***************************************************************************************************************/
+    Sprite.prototype.render = function () {
+        // no changes for single framed sprites
+        if (this.template.singleFramed) {
+            return false;
+        }
+        // non-looped sprites end on the last frame
+        if (this.template.loop == ninjas.LoopSprite.NO && this.currentFrame == this.template.imageIds.length - 1) {
+            return false;
+        }
+        // increase tick
+        ++this.currentTick;
+        // check if the delay is reached
+        if (this.currentTick >= this.template.ticksBetweenFrames) {
+            // reset tick count
+            this.currentTick = 0;
+            // next frame
+            ++this.currentFrame;
+            // reset frame on reaching upper bound
+            if (this.currentFrame >= this.template.imageIds.length) {
+                this.currentFrame = 0;
+            }
+            return true;
+        }
+        return false;
+    };
+    /***************************************************************************************************************
+    *   Returns the image url ( or data url for flipped images ) of the current frame.
+    *
+    *   @return The image url of the currently active frame.
+    ***************************************************************************************************************/
+    Sprite.prototype.getCurrentFrameImageUrl = function () {
+        var imageId = this.template.imageIds[this.currentFrame];
+        if (this.template.mirrored == ninjas.MirrorImage.YES) {
+            return ninjas.Main.game.engine.imageSystem.getMirroredImage(imageId).src;
+        }
+        else {
+            return ninjas.Main.game.engine.imageSystem.getImage(imageId).src;
+        }
+    };
+    return Sprite;
+}());
+exports.Sprite = Sprite;
+
+
+/***/ }),
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28993,7 +29079,7 @@ exports.Level = Level;
 
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29109,7 +29195,7 @@ exports.LevelWebsite = LevelWebsite;
 
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29209,7 +29295,7 @@ exports.GameObject = GameObject;
 
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29387,7 +29473,7 @@ exports.Character = Character;
 
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29458,7 +29544,7 @@ exports.Enemy = Enemy;
 
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29619,7 +29705,7 @@ exports.Player = Player;
 
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29669,7 +29755,7 @@ exports.Decoration = Decoration;
 
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29746,7 +29832,7 @@ exports.ParallaxDeco = ParallaxDeco;
 
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29820,7 +29906,7 @@ exports.Item = Item;
 
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29869,7 +29955,7 @@ exports.Movable = Movable;
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29940,7 +30026,7 @@ exports.Obstacle = Obstacle;
 
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30007,7 +30093,7 @@ exports.Bounce = Bounce;
 
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30116,7 +30202,7 @@ exports.Platform = Platform;
 
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30211,7 +30297,7 @@ exports.SigSaw = SigSaw;
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30328,7 +30414,7 @@ exports.SiteTrigger = SiteTrigger;
 
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30546,7 +30632,7 @@ exports.GameObjectFactory = GameObjectFactory;
 
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30594,7 +30680,7 @@ exports.Shape = Shape;
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30672,7 +30758,7 @@ exports.ShapeRectangle = ShapeRectangle;
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30746,7 +30832,7 @@ exports.ShapeCircle = ShapeCircle;
 
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -30868,14 +30954,14 @@ exports.ShapeFreeForm = ShapeFreeForm;
 
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-__webpack_require__(166);
+__webpack_require__(167);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
 *
@@ -31004,7 +31090,7 @@ exports.Game = Game;
 
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports) {
 
 /*!
@@ -31891,7 +31977,7 @@ exports.Game = Game;
 }(window, FPSMeter));
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32019,7 +32105,7 @@ exports.GameEngine = GameEngine;
 
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32064,7 +32150,7 @@ exports.Key = Key;
 
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32182,7 +32268,7 @@ exports.Image = Image;
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32213,7 +32299,6 @@ exports.Sound = Sound;
 
 
 /***/ }),
-/* 171 */,
 /* 172 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -32412,30 +32497,23 @@ var SiteContent = /** @class */ (function () {
     function SiteContent() {
     }
     /***************************************************************************************************************
-    *   Appends example content to the specified relative container.
+    *   Appends example content to the specified container.
     *
-    *   @param relativeContainer The relative container to append the content to.
+    *   @param container The container to append the content to.
     ***************************************************************************************************************/
-    SiteContent.appendExampleContent = function (relativeContainer) {
-        // example text
-        var exampleText = document.createElement("p");
-        exampleText.innerHTML = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
-        exampleText.style.width = "parent";
-        exampleText.style.padding = "20px";
-        exampleText.style.margin = "0";
-        var exampleBlock = document.createElement("div");
-        exampleBlock.style.width = "parent";
-        exampleBlock.style.padding = "20px";
-        exampleBlock.style.margin = "0";
-        exampleBlock.style.background = "#fffc9e";
-        var exampleImage = document.createElement("img");
-        exampleImage.src = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
-        exampleImage.style.width = "100%";
-        exampleImage.style.height = "auto";
-        exampleBlock.appendChild(exampleImage);
+    SiteContent.appendExampleContent = function (container) {
+        var text = document.createElement("p");
+        text.className = "sitePanel defaultText";
+        text.innerHTML = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
+        var imageContainer = document.createElement("div");
+        imageContainer.className = "sitePanel imageContainer";
+        var image = document.createElement("img");
+        image.className = "sitePanel defaultImage";
+        image.src = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
+        imageContainer.appendChild(image);
         // append to relative container
-        relativeContainer.appendChild(exampleBlock);
-        relativeContainer.appendChild(exampleText);
+        container.appendChild(imageContainer);
+        container.appendChild(text);
     };
     return SiteContent;
 }());
@@ -33306,91 +33384,6 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = 181;
-
-/***/ }),
-/* 182 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Represents one game sprite.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var Sprite = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Creates a new sprite.
-    *
-    *   @param template The template for this sprite.
-    ***************************************************************************************************************/
-    function Sprite(template) {
-        /** The sprite template for this sprite. */
-        this.template = null;
-        /** The id of the current frame for this sprite. */
-        this.currentFrame = 0;
-        /** The current tick since last frame change. */
-        this.currentTick = 0;
-        this.template = template;
-    }
-    /***************************************************************************************************************
-    *   Resets this sprite to the first frame and resets tick counter.
-    ***************************************************************************************************************/
-    Sprite.prototype.reset = function () {
-        this.currentFrame = 0;
-        this.currentTick = 0;
-    };
-    /***************************************************************************************************************
-    *   Sets the next frame for this sprite.
-    *
-    *   @return If the frame actually changed.
-    ***************************************************************************************************************/
-    Sprite.prototype.render = function () {
-        // no changes for single framed sprites
-        if (this.template.singleFramed) {
-            return false;
-        }
-        // non-looped sprites end on the last frame
-        if (this.template.loop == ninjas.LoopSprite.NO && this.currentFrame == this.template.imageIds.length - 1) {
-            return false;
-        }
-        // increase tick
-        ++this.currentTick;
-        // check if the delay is reached
-        if (this.currentTick >= this.template.ticksBetweenFrames) {
-            // reset tick count
-            this.currentTick = 0;
-            // next frame
-            ++this.currentFrame;
-            // reset frame on reaching upper bound
-            if (this.currentFrame >= this.template.imageIds.length) {
-                this.currentFrame = 0;
-            }
-            return true;
-        }
-        return false;
-    };
-    /***************************************************************************************************************
-    *   Returns the image url ( or data url for flipped images ) of the current frame.
-    *
-    *   @return The image url of the currently active frame.
-    ***************************************************************************************************************/
-    Sprite.prototype.getCurrentFrameImageUrl = function () {
-        var imageId = this.template.imageIds[this.currentFrame];
-        if (this.template.mirrored == ninjas.MirrorImage.YES) {
-            return ninjas.Main.game.engine.imageSystem.getMirroredImage(imageId).src;
-        }
-        else {
-            return ninjas.Main.game.engine.imageSystem.getImage(imageId).src;
-        }
-    };
-    return Sprite;
-}());
-exports.Sprite = Sprite;
-
 
 /***/ })
 /******/ ]);

@@ -21,3 +21,22 @@
         position:           relative;
         background:         #c7d9f5;
     }
+
+    p.sitePanel.defaultText
+    {
+        padding:            20px;
+        margin:             0;
+    }
+
+    div.sitePanel.imageContainer
+    {
+        padding:            20px;
+        margin:             0;
+        background:         #fffc9e;
+    }
+
+    img.sitePanel.defaultImage
+    {
+        width:              100%;
+        height:             auto;
+    }

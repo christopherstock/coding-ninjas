@@ -17,6 +17,7 @@
     *
     *   TODO Complete the MVP!
     *
+    *   TODO Flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
     *   TODO Add translucent overlay for blend effects.
     *   TODO Ability to smash crates or destroyables etc.
     *   TODO Particle fx smashed crates, startup window etc.
