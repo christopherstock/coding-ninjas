@@ -1,7 +1,7 @@
 
     require( "animate.css" );
 
-    import * as ninjas from '../ninjas';
+    import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
     *   Contains all possible positions for the site panel.

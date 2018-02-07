@@ -12,6 +12,7 @@
     export * from './game/engine/ImageSystem';
     export * from './game/engine/KeySystem';
     export * from './game/engine/MatterJsSystem';
+    export * from './game/engine/SitePanel';
     export * from './game/engine/SiteSystem';
     export * from './game/engine/SoundSystem';
     export * from './game/engine/Sprite';
@@ -54,7 +55,7 @@
     export * from './io/SpriteTemplate';
 
     export * from './site/SiteContent';
-    export * from './site/SitePanel';
+    export * from './site/SiteContentFactory';
 
     export * from './ui/Camera';
     export * from './ui/Drawing';

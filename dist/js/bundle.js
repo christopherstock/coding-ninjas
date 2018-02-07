@@ -4626,6 +4626,7 @@ __export(__webpack_require__(136));
 __export(__webpack_require__(137));
 __export(__webpack_require__(138));
 __export(__webpack_require__(139));
+__export(__webpack_require__(182));
 __export(__webpack_require__(141));
 __export(__webpack_require__(144));
 __export(__webpack_require__(145));
@@ -4656,7 +4657,7 @@ __export(__webpack_require__(170));
 __export(__webpack_require__(171));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
-__export(__webpack_require__(174));
+__export(__webpack_require__(183));
 __export(__webpack_require__(175));
 __export(__webpack_require__(176));
 __export(__webpack_require__(177));
@@ -32502,17 +32503,9 @@ var SiteContent = /** @class */ (function () {
     *   @param container The container to append the content to.
     ***************************************************************************************************************/
     SiteContent.appendExampleContent = function (container) {
-        var text = document.createElement("p");
-        text.className = "sitePanel defaultText";
-        text.innerHTML = "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.";
-        var imageContainer = document.createElement("div");
-        imageContainer.className = "sitePanel imageContainer";
-        var image = document.createElement("img");
-        image.className = "sitePanel defaultImage";
-        image.src = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
-        imageContainer.appendChild(image);
-        // append to relative container
-        container.appendChild(imageContainer);
+        var text = ninjas.SiteContentFactory.createParagraph("Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und. Nix Gwiass woass ma ned Blosmusi bittschön, oans, zwoa, gsuffa hod gelbe Rüam gscheit: Mim Radl foahn Gaudi no a Maß Schmankal, Spuiratz? Wia pfiad de Zwedschgndadschi Brodzeid i Weißwiaschd gwihss hallelujah sog i, luja Auffisteign, geh aba. Do legst di nieda des is a gmahde Wiesn ned oba Ledahosn Charivari allerweil i umma greaßt eich nachad, Ohrwaschl. Boarischer ja, wo samma denn gar nia need gwiss hogg di hera a bissal da i daad is des liab. Am acht’n Tag schuf Gott des Bia Schdeckalfisch Bladl geh da.");
+        var image = ninjas.SiteContentFactory.createImage(ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png");
+        container.appendChild(image);
         container.appendChild(text);
     };
     return SiteContent;
@@ -32521,160 +32514,7 @@ exports.SiteContent = SiteContent;
 
 
 /***/ }),
-/* 174 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(3);
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Contains all possible positions for the site panel.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SitePanelPosition;
-(function (SitePanelPosition) {
-    SitePanelPosition[SitePanelPosition["LEFT"] = 0] = "LEFT";
-    SitePanelPosition[SitePanelPosition["RIGHT"] = 1] = "RIGHT";
-})(SitePanelPosition = exports.SitePanelPosition || (exports.SitePanelPosition = {}));
-/*******************************************************************************************************************
-*   Represents a site panel that shows a site content.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var SitePanel = /** @class */ (function () {
-    /***************************************************************************************************************
-    *   Creates a new site panel on the specified position.
-    *
-    *   @param position The position for this panel to show up.
-    ***************************************************************************************************************/
-    function SitePanel(position) {
-        /** The outer container div. */
-        this.outerAbsoluteContainer = null;
-        /** The inner container div. */
-        this.innerRelativeContainer = null;
-        /** The position for this panel to show up. */
-        this.position = null;
-        this.position = position;
-        this.createOuterAbsoluteContainer();
-        this.createInnerRelativeContainer();
-        // add content
-        ninjas.SiteContent.appendExampleContent(this.innerRelativeContainer);
-        // add inner to outer container
-        this.outerAbsoluteContainer.appendChild(this.innerRelativeContainer);
-    }
-    /***************************************************************************************************************
-    *   Appends the outer container to the DOM.
-    ***************************************************************************************************************/
-    SitePanel.prototype.addToDom = function () {
-        document.body.appendChild(this.outerAbsoluteContainer);
-    };
-    /***************************************************************************************************************
-    *   Removed the outer container from the DOM.
-    ***************************************************************************************************************/
-    SitePanel.prototype.removeFromDom = function () {
-        this.outerAbsoluteContainer.remove();
-    };
-    /***************************************************************************************************************
-    *   Updates the position and the location of this site panel.
-    *
-    *   @param width  The new panel width.
-    *   @param height The new panel height.
-    ***************************************************************************************************************/
-    SitePanel.prototype.updateSizeAndPosition = function (width, height) {
-        // outer container size
-        this.outerAbsoluteContainer.style.width = width + "px";
-        this.outerAbsoluteContainer.style.height = height + "px";
-        // outer container position
-        switch (this.position) {
-            case ninjas.SitePanelPosition.LEFT:
-                {
-                    this.outerAbsoluteContainer.style.left = ninjas.SettingGame.BORDER_SIZE + "px";
-                    break;
-                }
-            case ninjas.SitePanelPosition.RIGHT:
-                {
-                    this.outerAbsoluteContainer.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - width - ninjas.SettingGame.BORDER_SIZE) + "px";
-                    break;
-                }
-        }
-        this.outerAbsoluteContainer.style.top = ninjas.SettingGame.BORDER_SIZE + "px";
-        // inner container size
-        this.innerRelativeContainer.style.width = (width - 2 * ninjas.SettingGame.BORDER_SIZE) + "px";
-        // inner container position
-        this.innerRelativeContainer.style.top = ninjas.SettingGame.BORDER_SIZE + "px";
-        this.innerRelativeContainer.style.left = ninjas.SettingGame.BORDER_SIZE + "px";
-    };
-    /***************************************************************************************************************
-    *   Returns the current panel position.
-    *
-    *   @return The current position of this panel.
-    ***************************************************************************************************************/
-    SitePanel.prototype.getPosition = function () {
-        return this.position;
-    };
-    /***************************************************************************************************************
-    *   Sets WOW classes for animating the panel in.
-    ***************************************************************************************************************/
-    SitePanel.prototype.animateIn = function () {
-        // set animation class
-        switch (this.position) {
-            case ninjas.SitePanelPosition.LEFT:
-                {
-                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceInLeft";
-                    break;
-                }
-            case ninjas.SitePanelPosition.RIGHT:
-                {
-                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceInRight";
-                    break;
-                }
-        }
-    };
-    /***************************************************************************************************************
-    *   Sets WOW classes for animating the panel out.
-    ***************************************************************************************************************/
-    SitePanel.prototype.animateOut = function () {
-        // set animation class
-        switch (this.position) {
-            case ninjas.SitePanelPosition.LEFT:
-                {
-                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceOutLeft";
-                    break;
-                }
-            case ninjas.SitePanelPosition.RIGHT:
-                {
-                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceOutRight";
-                    break;
-                }
-        }
-    };
-    /***************************************************************************************************************
-    *   Creates the outer container with absolute position.
-    ***************************************************************************************************************/
-    SitePanel.prototype.createOuterAbsoluteContainer = function () {
-        this.outerAbsoluteContainer = document.createElement("div");
-        this.outerAbsoluteContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION + "ms");
-        this.outerAbsoluteContainer.setAttribute("data-wow-delay", "0ms");
-    };
-    /***************************************************************************************************************
-    *   Creates the inner container with relative position.
-    ***************************************************************************************************************/
-    SitePanel.prototype.createInnerRelativeContainer = function () {
-        this.innerRelativeContainer = document.createElement("div");
-        this.innerRelativeContainer.className = "sitePanel innerRelativeContainer";
-        this.innerRelativeContainer.setAttribute("data-wow-delay", ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION + "ms");
-    };
-    return SitePanel;
-}());
-exports.SitePanel = SitePanel;
-
-
-/***/ }),
+/* 174 */,
 /* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33384,6 +33224,207 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = 181;
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(3);
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Contains all possible positions for the site panel.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SitePanelPosition;
+(function (SitePanelPosition) {
+    SitePanelPosition[SitePanelPosition["LEFT"] = 0] = "LEFT";
+    SitePanelPosition[SitePanelPosition["RIGHT"] = 1] = "RIGHT";
+})(SitePanelPosition = exports.SitePanelPosition || (exports.SitePanelPosition = {}));
+/*******************************************************************************************************************
+*   Represents a site panel that shows a site content.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SitePanel = /** @class */ (function () {
+    /***************************************************************************************************************
+    *   Creates a new site panel on the specified position.
+    *
+    *   @param position The position for this panel to show up.
+    ***************************************************************************************************************/
+    function SitePanel(position) {
+        /** The outer container div. */
+        this.outerAbsoluteContainer = null;
+        /** The inner container div. */
+        this.innerRelativeContainer = null;
+        /** The position for this panel to show up. */
+        this.position = null;
+        this.position = position;
+        this.createOuterAbsoluteContainer();
+        this.createInnerRelativeContainer();
+        // add content
+        ninjas.SiteContent.appendExampleContent(this.innerRelativeContainer);
+        // add inner to outer container
+        this.outerAbsoluteContainer.appendChild(this.innerRelativeContainer);
+    }
+    /***************************************************************************************************************
+    *   Appends the outer container to the DOM.
+    ***************************************************************************************************************/
+    SitePanel.prototype.addToDom = function () {
+        document.body.appendChild(this.outerAbsoluteContainer);
+    };
+    /***************************************************************************************************************
+    *   Removed the outer container from the DOM.
+    ***************************************************************************************************************/
+    SitePanel.prototype.removeFromDom = function () {
+        this.outerAbsoluteContainer.remove();
+    };
+    /***************************************************************************************************************
+    *   Updates the position and the location of this site panel.
+    *
+    *   @param width  The new panel width.
+    *   @param height The new panel height.
+    ***************************************************************************************************************/
+    SitePanel.prototype.updateSizeAndPosition = function (width, height) {
+        // outer container size
+        this.outerAbsoluteContainer.style.width = width + "px";
+        this.outerAbsoluteContainer.style.height = height + "px";
+        // outer container position
+        switch (this.position) {
+            case ninjas.SitePanelPosition.LEFT:
+                {
+                    this.outerAbsoluteContainer.style.left = ninjas.SettingGame.BORDER_SIZE + "px";
+                    break;
+                }
+            case ninjas.SitePanelPosition.RIGHT:
+                {
+                    this.outerAbsoluteContainer.style.left = (ninjas.Main.game.engine.canvasSystem.getWidth() - width - ninjas.SettingGame.BORDER_SIZE) + "px";
+                    break;
+                }
+        }
+        this.outerAbsoluteContainer.style.top = ninjas.SettingGame.BORDER_SIZE + "px";
+        // inner container size
+        this.innerRelativeContainer.style.width = (width - 2 * ninjas.SettingGame.BORDER_SIZE) + "px";
+        // inner container position
+        this.innerRelativeContainer.style.top = ninjas.SettingGame.BORDER_SIZE + "px";
+        this.innerRelativeContainer.style.left = ninjas.SettingGame.BORDER_SIZE + "px";
+    };
+    /***************************************************************************************************************
+    *   Returns the current panel position.
+    *
+    *   @return The current position of this panel.
+    ***************************************************************************************************************/
+    SitePanel.prototype.getPosition = function () {
+        return this.position;
+    };
+    /***************************************************************************************************************
+    *   Sets WOW classes for animating the panel in.
+    ***************************************************************************************************************/
+    SitePanel.prototype.animateIn = function () {
+        // set animation class
+        switch (this.position) {
+            case ninjas.SitePanelPosition.LEFT:
+                {
+                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceInLeft";
+                    break;
+                }
+            case ninjas.SitePanelPosition.RIGHT:
+                {
+                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceInRight";
+                    break;
+                }
+        }
+    };
+    /***************************************************************************************************************
+    *   Sets WOW classes for animating the panel out.
+    ***************************************************************************************************************/
+    SitePanel.prototype.animateOut = function () {
+        // set animation class
+        switch (this.position) {
+            case ninjas.SitePanelPosition.LEFT:
+                {
+                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceOutLeft";
+                    break;
+                }
+            case ninjas.SitePanelPosition.RIGHT:
+                {
+                    this.outerAbsoluteContainer.className = "sitePanel outerAbsoluteContainer wow bounceOutRight";
+                    break;
+                }
+        }
+    };
+    /***************************************************************************************************************
+    *   Creates the outer container with absolute position.
+    ***************************************************************************************************************/
+    SitePanel.prototype.createOuterAbsoluteContainer = function () {
+        this.outerAbsoluteContainer = document.createElement("div");
+        this.outerAbsoluteContainer.setAttribute("data-wow-duration", ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION + "ms");
+        this.outerAbsoluteContainer.setAttribute("data-wow-delay", "0ms");
+    };
+    /***************************************************************************************************************
+    *   Creates the inner container with relative position.
+    ***************************************************************************************************************/
+    SitePanel.prototype.createInnerRelativeContainer = function () {
+        this.innerRelativeContainer = document.createElement("div");
+        this.innerRelativeContainer.className = "sitePanel innerRelativeContainer";
+        this.innerRelativeContainer.setAttribute("data-wow-delay", ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION + "ms");
+    };
+    return SitePanel;
+}());
+exports.SitePanel = SitePanel;
+
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(3);
+/*******************************************************************************************************************
+*   Creates content components for the factory.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var SiteContentFactory = /** @class */ (function () {
+    function SiteContentFactory() {
+    }
+    /***************************************************************************************************************
+    *   Creates a paragraph.
+    *
+    *   @param text The text to be contained in the paragraph.
+    ***************************************************************************************************************/
+    SiteContentFactory.createParagraph = function (text) {
+        var paragraph = document.createElement("p");
+        paragraph.className = "sitePanel defaultText";
+        paragraph.innerHTML = text;
+        return paragraph;
+    };
+    /***************************************************************************************************************
+    *   Creates an image container.
+    *
+    *   @param src The url to the image.
+    ***************************************************************************************************************/
+    SiteContentFactory.createImage = function (src) {
+        var imageContainer = document.createElement("div");
+        imageContainer.className = "sitePanel imageContainer";
+        var image = document.createElement("img");
+        image.className = "sitePanel defaultImage";
+        image.src = src;
+        imageContainer.appendChild(image);
+        return imageContainer;
+    };
+    return SiteContentFactory;
+}());
+exports.SiteContentFactory = SiteContentFactory;
+
 
 /***/ })
 /******/ ]);
