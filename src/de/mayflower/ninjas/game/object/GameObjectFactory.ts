@@ -168,7 +168,7 @@
         *   @param x      Anchor X.
         *   @param y      Anchor Y.
         *   @param width  The ramp width.
-        *   @param height The remp height.
+        *   @param height The ramp height.
         *   @param deltaY Ramp will ascend if <code>true</code> and descend if <code>false</code>.
         *
         *   @return The created obstacle ramp.

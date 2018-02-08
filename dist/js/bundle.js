@@ -27436,14 +27436,17 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO Fix ascending ramp issue! 1. stuck on ground, 2. stuck on top edge! > try rotated obstacles!!
+*   TODO Solve jump-through obstacles!
+*   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
+*   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+*
 *   TODO Group different objects in level class!?
 *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
-*   TODO Try friction, frictionStatic and frictionAir to Shape!
-*   TODO restitution will bounce balls!
-*   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
-*   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+*   TODO Add friction, frictionStatic and frictionAir for Shapes! Solve player non-sliding on ramps!
+*   TODO Adjust densities for game objects.
+*   TODO restitution will bounce balls.
 *   TODO Try sound error handling! (Safari etc.)
-*   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
 *   TODO Revise parallax rendering though different groups in level class.
 *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
 *
@@ -29290,6 +29293,8 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createCrate(300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
+                // ascending ramp
+                ninjas.GameObjectFactory.createElevatedRamp(3500.0, 2500.0, 750.0, 15.0, -200.0),
                 /*
                                 // sigsaws and bounces
                                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
@@ -29328,9 +29333,6 @@ var LevelWebsite = /** @class */ (function (_super) {
                                     ],
                                     0.0
                                 ),
-                
-                                // ascending ramp
-                                ninjas.GameObjectFactory.createElevatedRamp( 4600.0, 730.0, 1000.0, 15.0, -200.0 ),
                 */
                 // player
                 this.player,
@@ -30662,7 +30664,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param x      Anchor X.
     *   @param y      Anchor Y.
     *   @param width  The ramp width.
-    *   @param height The remp height.
+    *   @param height The ramp height.
     *   @param deltaY Ramp will ascend if <code>true</code> and descend if <code>false</code>.
     *
     *   @return The created obstacle ramp.
@@ -30676,7 +30678,7 @@ var GameObjectFactory = /** @class */ (function () {
         if (deltaY <= 0.0) {
             y += deltaY;
         }
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, false);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.SettingMatterJs.FRICTION_CONCRETE, Infinity), x, y, false);
     };
     /***************************************************************************************************************
     *   Creates an enemy.
@@ -30828,6 +30830,7 @@ var Shape = /** @class */ (function () {
             isStatic: isStatic,
             collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,
             friction: friction,
+            //              frictionStatic:  friction,
             angle: ninjas.MathUtil.angleToRad(angle),
             density: density,
         };
@@ -33428,4 +33431,4 @@ webpackContext.id = 182;
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=bundle.js.map                                                                                                            
+//# sourceMappingURL=bundle.js.map

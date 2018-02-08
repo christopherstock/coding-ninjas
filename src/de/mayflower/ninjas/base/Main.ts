@@ -4,14 +4,17 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Fix ascending ramp issue! 1. stuck on ground, 2. stuck on top edge! > try rotated obstacles!!
+    *   TODO Solve jump-through obstacles!
+    *   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
+    *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+    *
     *   TODO Group different objects in level class!?
     *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
-    *   TODO Try friction, frictionStatic and frictionAir to Shape!
-    *   TODO restitution will bounce balls!
-    *   TODO Fix ascending ramp issue! (player getting stuck on same height - check floating point difference)
-    *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+    *   TODO Add friction, frictionStatic and frictionAir for Shapes! Solve player non-sliding on ramps!
+    *   TODO Adjust densities for game objects.
+    *   TODO restitution will bounce balls.
     *   TODO Try sound error handling! (Safari etc.)
-    *   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
     *   TODO Revise parallax rendering though different groups in level class.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *

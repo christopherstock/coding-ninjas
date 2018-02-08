@@ -51,6 +51,8 @@
 
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
 
+                // ascending ramp
+                ninjas.GameObjectFactory.createElevatedRamp( 3500.0, 2500.0, 750.0, 15.0, -200.0 ),
 /*
                 // sigsaws and bounces
                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
@@ -89,9 +91,6 @@
                     ],
                     0.0
                 ),
-
-                // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp( 4600.0, 730.0, 1000.0, 15.0, -200.0 ),
 */
                 // player
                 this.player,

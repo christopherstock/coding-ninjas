@@ -45,6 +45,7 @@
                 isStatic:        isStatic,
                 collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,
                 friction:        friction,
+//              frictionStatic:  friction,
                 angle:           ninjas.MathUtil.angleToRad( angle ),
                 density:         density,
 //              isSensor:        isSensor,
