@@ -27436,16 +27436,18 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Fix ascending ramp issue! 1. stuck on ground, 2. stuck on top edge! > try rotated obstacles!!
+*   TODO create createPlayer in GameObjectFactory.
+*   TODO Fix ascending ramp issue! 1. stuck on ground (try with 1px moving speed!!), 2. stuck on top edge! > try rotated obstacles!!
 *   TODO Solve jump-through obstacles!
 *   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+*   TODO Solve player auto-ascend over edges?
 *
 *   TODO Group different objects in level class!?
 *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
 *   TODO Add friction, frictionStatic and frictionAir for Shapes! Solve player non-sliding on ramps!
 *   TODO Adjust densities for game objects.
-*   TODO restitution will bounce balls.
+*   TODO restitution will bounce balls - set it for all game objects.
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Revise parallax rendering though different groups in level class.
 *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
@@ -27663,6 +27665,8 @@ var SettingMatterJs = /** @class */ (function () {
     SettingMatterJs.PLAYER_JUMP_POWER = -25.0;
     /** The player's speed in world coordinate per tick. */
     SettingMatterJs.PLAYER_SPEED_MOVE = 7.5;
+    /** The player's gap size y of it's physical body corners. */
+    SettingMatterJs.PLAYER_EDGE_GAP_Y = 10.0;
     /** The default vertical gravity for all levels. */
     SettingMatterJs.DEFAULT_GRAVITY_Y = 1.0;
     /** The default collision group for all game objects. */
@@ -29274,7 +29278,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
         // init player
-        this.player = new ninjas.Player(2500, 2500, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(2000, 2500, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         // setup all game objects
         this.gameObjects =
             [
@@ -29283,7 +29287,8 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createParallaxDeco( 0,  2200, 1.0, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BG_TEST ) ),
                 */
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle(0, 2500, 5000, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(0, 2500, 3500, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(4250, 2300, 750, 15, 0.0, false),
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(1200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
@@ -29294,7 +29299,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
                 // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp(3500.0, 2500.0, 750.0, 15.0, -200.0),
+                ninjas.GameObjectFactory.createElevatedRamp(3500, 2500, 750.0, 15.0, -200.0),
                 /*
                                 // sigsaws and bounces
                                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
@@ -29539,9 +29544,9 @@ var Character = /** @class */ (function (_super) {
         _super.prototype.render.call(this);
         this.movesLeft = false;
         this.movesRight = false;
-        this.checkBottomCollision();
         this.resetRotation();
         this.clipToHorizontalLevelBounds();
+        this.checkBottomCollision();
         if (!this.dead) {
             this.checkFallingDead();
         }
@@ -29745,13 +29750,14 @@ var Player = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new player instance.
     *
+    *   @param shape            The shape for the player.
     *   @param x                Startup position X.
-    *   @param yBottom          Startup position bottom Y.
+    *   @param y                Startup position Y.
     *   @param lookingDirection The initial looking direction.
     *   @param spriteTemplate   The initial sprite template to use for the player.
     ***************************************************************************************************************/
-    function Player(x, yBottom, lookingDirection, spriteTemplate) {
-        return _super.call(this, new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.SettingDebug.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, ninjas.SettingMatterJs.DENSITY_HUMAN), spriteTemplate, x, yBottom - spriteTemplate.height, lookingDirection, ninjas.SettingMatterJs.PLAYER_SPEED_MOVE, ninjas.SettingMatterJs.PLAYER_JUMP_POWER) || this;
+    function Player(shape, x, y, lookingDirection, spriteTemplate) {
+        return _super.call(this, shape, spriteTemplate, x, y, lookingDirection, ninjas.SettingMatterJs.PLAYER_SPEED_MOVE, ninjas.SettingMatterJs.PLAYER_JUMP_POWER) || this;
     }
     /***************************************************************************************************************
     *   Renders the current player tick.
@@ -30678,7 +30684,33 @@ var GameObjectFactory = /** @class */ (function () {
         if (deltaY <= 0.0) {
             y += deltaY;
         }
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.SettingMatterJs.FRICTION_CONCRETE, Infinity), x, y, false);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, false);
+    };
+    /***************************************************************************************************************
+    *   Creates the player.
+    *
+    *   @param x                Anchor X.
+    *   @param yBottom          Anchor Y.
+    *   @param lookingDirection The initial looking direction.
+    *   @param spriteTemplate   The sprite template to use for the player.
+    *
+    *   @return The created player.
+    ***************************************************************************************************************/
+    GameObjectFactory.createPlayer = function (x, yBottom, lookingDirection, spriteTemplate) {
+        var gapSizeX = (spriteTemplate.width / 2);
+        var gapSizeY = ninjas.SettingMatterJs.PLAYER_EDGE_GAP_Y;
+        var vertices = [];
+        // draw diamond path
+        vertices.push(matter.Vector.create(gapSizeX, 0.0));
+        vertices.push(matter.Vector.create(spriteTemplate.width - gapSizeX, 0.0));
+        vertices.push(matter.Vector.create(spriteTemplate.width, gapSizeY));
+        vertices.push(matter.Vector.create(spriteTemplate.width, spriteTemplate.height - gapSizeY));
+        vertices.push(matter.Vector.create(spriteTemplate.width - gapSizeX, spriteTemplate.height));
+        vertices.push(matter.Vector.create(gapSizeX, spriteTemplate.height));
+        vertices.push(matter.Vector.create(0.0, spriteTemplate.height - gapSizeY));
+        vertices.push(matter.Vector.create(0.0, gapSizeY));
+        var shape = new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, ninjas.SettingMatterJs.DENSITY_HUMAN);
+        return new ninjas.Player(shape, x, (yBottom - spriteTemplate.height), lookingDirection, spriteTemplate);
     };
     /***************************************************************************************************************
     *   Creates an enemy.

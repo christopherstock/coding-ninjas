@@ -20,9 +20,9 @@
         protected createGameObjects()
         {
             // init player
-            this.player = new ninjas.Player
+            this.player = ninjas.GameObjectFactory.createPlayer
             (
-                2500,
+                2000,
                 2500,
                 ninjas.CharacterLookingDirection.RIGHT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
@@ -36,7 +36,8 @@
                 ninjas.GameObjectFactory.createParallaxDeco( 0,  2200, 1.0, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BG_TEST ) ),
 */
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle( 0, 2500, 5000, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 0,    2500, 3500, 15, 0.0,  false ),
+                ninjas.GameObjectFactory.createObstacle( 4250, 2300, 750,  15, 0.0,  false ),
 
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration( 400,  2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
@@ -52,7 +53,7 @@
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
 
                 // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp( 3500.0, 2500.0, 750.0, 15.0, -200.0 ),
+                ninjas.GameObjectFactory.createElevatedRamp( 3500, 2500, 750.0, 15.0, -200.0 ),
 /*
                 // sigsaws and bounces
                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),

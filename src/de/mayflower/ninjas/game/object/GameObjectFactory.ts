@@ -205,6 +205,60 @@
         }
 
         /***************************************************************************************************************
+        *   Creates the player.
+        *
+        *   @param x                Anchor X.
+        *   @param yBottom          Anchor Y.
+        *   @param lookingDirection The initial looking direction.
+        *   @param spriteTemplate   The sprite template to use for the player.
+        *
+        *   @return The created player.
+        ***************************************************************************************************************/
+        public static createPlayer
+        (
+            x                :number,
+            yBottom          :number,
+            lookingDirection :ninjas.CharacterLookingDirection,
+            spriteTemplate   :ninjas.SpriteTemplate
+        )
+        : ninjas.Player
+        {
+            let gapSizeX:number = ( spriteTemplate.width / 2 );
+            let gapSizeY:number = ninjas.SettingMatterJs.PLAYER_EDGE_GAP_Y;
+
+            let vertices:Array<matter.Vector> = [];
+
+            // draw diamond path
+            vertices.push( matter.Vector.create( gapSizeX,                        0.0                              ) );
+            vertices.push( matter.Vector.create( spriteTemplate.width - gapSizeX, 0.0                              ) );
+            vertices.push( matter.Vector.create( spriteTemplate.width,            gapSizeY                         ) );
+            vertices.push( matter.Vector.create( spriteTemplate.width,            spriteTemplate.height - gapSizeY ) );
+            vertices.push( matter.Vector.create( spriteTemplate.width - gapSizeX, spriteTemplate.height            ) );
+            vertices.push( matter.Vector.create( gapSizeX,                        spriteTemplate.height            ) );
+            vertices.push( matter.Vector.create( 0.0,                             spriteTemplate.height - gapSizeY ) );
+            vertices.push( matter.Vector.create( 0.0,                             gapSizeY                         ) );
+
+            let shape:ninjas.Shape = new ninjas.ShapeFreeForm
+            (
+                vertices,
+                ninjas.SettingDebug.COLOR_DEBUG_PLAYER,
+                false,
+                0.0,
+                ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                ninjas.SettingMatterJs.DENSITY_HUMAN
+            );
+
+            return new ninjas.Player
+            (
+                shape,
+                x,
+                ( yBottom - spriteTemplate.height ),
+                lookingDirection,
+                spriteTemplate
+            );
+        }
+
+        /***************************************************************************************************************
         *   Creates an enemy.
         *
         *   @param x Anchor X.

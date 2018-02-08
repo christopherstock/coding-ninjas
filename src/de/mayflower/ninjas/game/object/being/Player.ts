@@ -13,34 +13,27 @@
         /***************************************************************************************************************
         *   Creates a new player instance.
         *
+        *   @param shape            The shape for the player.
         *   @param x                Startup position X.
-        *   @param yBottom          Startup position bottom Y.
+        *   @param y                Startup position Y.
         *   @param lookingDirection The initial looking direction.
         *   @param spriteTemplate   The initial sprite template to use for the player.
         ***************************************************************************************************************/
         public constructor
         (
+            shape            :ninjas.Shape,
             x                :number,
-            yBottom          :number,
+            y                :number,
             lookingDirection :ninjas.CharacterLookingDirection,
             spriteTemplate   :ninjas.SpriteTemplate
         )
         {
             super
             (
-                new ninjas.ShapeRectangle
-                (
-                    spriteTemplate.width,
-                    spriteTemplate.height,
-                    ninjas.SettingDebug.COLOR_DEBUG_PLAYER,
-                    false,
-                    0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
-                    ninjas.SettingMatterJs.DENSITY_HUMAN
-                ),
+                shape,
                 spriteTemplate,
                 x,
-                yBottom - spriteTemplate.height,
+                y,
                 lookingDirection,
                 ninjas.SettingMatterJs.PLAYER_SPEED_MOVE,
                 ninjas.SettingMatterJs.PLAYER_JUMP_POWER

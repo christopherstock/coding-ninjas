@@ -88,9 +88,9 @@
             this.movesLeft  = false;
             this.movesRight = false;
 
-            this.checkBottomCollision();
             this.resetRotation();
             this.clipToHorizontalLevelBounds();
+            this.checkBottomCollision();
 
             if ( !this.dead )
             {

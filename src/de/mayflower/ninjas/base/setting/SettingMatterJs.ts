@@ -27,6 +27,8 @@
         public  static  readonly    PLAYER_JUMP_POWER                           :number                     = -25.0;
         /** The player's speed in world coordinate per tick. */
         public  static  readonly    PLAYER_SPEED_MOVE                           :number                     = 7.5;
+        /** The player's gap size y of it's physical body corners. */
+        public  static  readonly    PLAYER_EDGE_GAP_Y                           :number                     = 10.0;
 
         /** The default vertical gravity for all levels. */
         public  static  readonly    DEFAULT_GRAVITY_Y                           :number                     = 1.0;
