@@ -4,13 +4,13 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Change all indexed loops to foreach loops!
     *   TODO Solve jump-through obstacles!
-    *   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
-    *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
-    *
     *   TODO Group different objects in level class!?
+    *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
+    *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
     *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
-    *   TODO Add friction, frictionStatic and frictionAir for Shapes! Solve player non-sliding on ramps!
+    *   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
     *   TODO Adjust densities for game objects.
     *   TODO restitution will bounce balls - set it for all game objects.
     *   TODO Try sound error handling! (Safari etc.)

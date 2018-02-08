@@ -27407,7 +27407,7 @@ var Debug = /** @class */ (function () {
     /** Debugs the init system. */
     Debug.init = new Debug(true);
     /** Debugs the image system. */
-    Debug.image = new Debug(false);
+    Debug.image = new Debug(true);
     /** Debugs the sound system. */
     Debug.sound = new Debug(false);
     /** Debugs the key system. */
@@ -27436,16 +27436,13 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO create createPlayer in GameObjectFactory.
-*   TODO Fix ascending ramp issue! 1. stuck on ground (try with 1px moving speed!!), 2. stuck on top edge! > try rotated obstacles!!
+*   TODO Change all indexed loops to foreach loops!
 *   TODO Solve jump-through obstacles!
-*   TODO only mirror images where a mirrored SpriteTemplate exists! Prevent ALL images from being mirrored?
-*   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
-*   TODO Solve player auto-ascend over edges?
-*
 *   TODO Group different objects in level class!?
+*   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
+*   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
 *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
-*   TODO Add friction, frictionStatic and frictionAir for Shapes! Solve player non-sliding on ramps!
+*   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
 *   TODO Adjust densities for game objects.
 *   TODO restitution will bounce balls - set it for all game objects.
 *   TODO Try sound error handling! (Safari etc.)
@@ -27800,6 +27797,8 @@ var ImageSystem = /** @class */ (function () {
     /***************************************************************************************************************
     *   Preloads all images into memory.
     *
+    *   TODO prune fileNames param!
+    *
     *   @param fileNames      The names of all image files to load.
     *   @param onLoadComplete The method to invoke when all image files are loaded.
     ***************************************************************************************************************/
@@ -27807,10 +27806,16 @@ var ImageSystem = /** @class */ (function () {
         var _this = this;
         /** All image file names to load. */
         this.fileNames = null;
+        /** All image file names to mirror. */
+        this.mirroredFileNames = null;
         /** The method to invoke when all images are loaded. */
         this.onLoadComplete = null;
+        /** The number of images to load. */
+        this.imagesToLoad = 0;
         /** The number of currently loaded images. */
         this.loadedImageCount = 0;
+        /** The number of images that need to be mirrored. */
+        this.imagesToMirror = 0;
         /** The number of currently mirrored images. */
         this.mirroredImageCount = 0;
         /** All loaded image objects. */
@@ -27823,8 +27828,8 @@ var ImageSystem = /** @class */ (function () {
         *   @param event The according image event.
         ***************************************************************************************************************/
         this.onLoadImage = function (event) {
-            if (++_this.loadedImageCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images loaded");
+            if (++_this.loadedImageCount == _this.imagesToLoad) {
+                ninjas.Debug.image.log("All [" + _this.imagesToLoad + "] images loaded");
                 _this.mirrorImages();
             }
         };
@@ -27834,12 +27839,13 @@ var ImageSystem = /** @class */ (function () {
         *   @param event The according image event.
         ***************************************************************************************************************/
         this.onMirrorImage = function (event) {
-            if (++_this.mirroredImageCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] images mirrored");
+            if (++_this.mirroredImageCount == _this.imagesToMirror) {
+                ninjas.Debug.image.log("All [" + _this.imagesToMirror + "] images mirrored");
                 _this.onLoadComplete();
             }
         };
         this.fileNames = fileNames;
+        this.mirroredFileNames = ninjas.SpriteTemplate.getAllImagesToMirror();
         this.onLoadComplete = onLoadComplete;
     }
     /***************************************************************************************************************
@@ -27864,6 +27870,7 @@ var ImageSystem = /** @class */ (function () {
     ImageSystem.prototype.loadImages = function () {
         ninjas.Debug.image.log("Loading [" + this.fileNames.length + "] images");
         // load all images
+        this.imagesToLoad = this.fileNames.length;
         for (var i = 0; i < this.fileNames.length; i++) {
             this.originalImages[this.fileNames[i]] = new Image();
             this.originalImages[this.fileNames[i]].src = this.fileNames[i];
@@ -27874,10 +27881,11 @@ var ImageSystem = /** @class */ (function () {
     *   Mirrors all specified image files in system memory.
     ***************************************************************************************************************/
     ImageSystem.prototype.mirrorImages = function () {
-        ninjas.Debug.image.log("Mirroring [" + this.fileNames.length + "] images");
-        // mirror all images
-        for (var i = 0; i < this.fileNames.length; i++) {
-            this.mirroredImages[this.fileNames[i]] = ninjas.IO.flipImageHorizontal(this.originalImages[this.fileNames[i]], this.onMirrorImage);
+        ninjas.Debug.image.log("Mirroring [" + this.mirroredFileNames.length + "] images");
+        // mirror determined images
+        this.imagesToMirror = this.mirroredFileNames.length;
+        for (var i = 0; i < this.mirroredFileNames.length; i++) {
+            this.mirroredImages[this.mirroredFileNames[i]] = ninjas.IO.flipImageHorizontal(this.originalImages[this.mirroredFileNames[i]], this.onMirrorImage);
         }
     };
     /***************************************************************************************************************
@@ -27889,7 +27897,9 @@ var ImageSystem = /** @class */ (function () {
         var ret = [];
         for (var i = 0; i < this.fileNames.length; i++) {
             ret[this.getImage(this.fileNames[i]).src] = this.getImage(this.fileNames[i]);
-            ret[this.getMirroredImage(this.fileNames[i]).src] = this.getMirroredImage(this.fileNames[i]);
+        }
+        for (var i = 0; i < this.mirroredFileNames.length; i++) {
+            ret[this.getMirroredImage(this.mirroredFileNames[i]).src] = this.getMirroredImage(this.mirroredFileNames[i]);
         }
         return ret;
     };
@@ -29013,7 +29023,7 @@ var SoundSystem = /** @class */ (function () {
         ***************************************************************************************************************/
         this.onLoadSound = function () {
             if (++_this.loadedSoundCount == _this.fileNames.length) {
-                ninjas.Debug.image.log("All [" + _this.fileNames.length + "] sounds loaded");
+                ninjas.Debug.sound.log("All [" + _this.fileNames.length + "] sounds loaded");
                 _this.onLoadComplete();
             }
         };
@@ -32495,6 +32505,16 @@ exports.Sound = Sound;
 
 "use strict";
 
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
@@ -32576,6 +32596,43 @@ var SpriteTemplate = /** @class */ (function () {
                 throw new Error("Differing sprite frame size detected in image id [" + this.imageIds[i] + "]");
             }
         }
+    };
+    /***************************************************************************************************************
+    *   Determines and returns an array of filenames for all images that needs to be mirrored.
+    *
+    *   @return An array with all filenames of images needing to be mirrored.
+    ***************************************************************************************************************/
+    SpriteTemplate.getAllImagesToMirror = function () {
+        var ret = [];
+        try {
+            for (var _a = __values(SpriteTemplate.ALL_SPRITE_TEMPLATES), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var spriteTemplate = _b.value;
+                if (spriteTemplate.mirrored == ninjas.MirrorImage.YES) {
+                    try {
+                        for (var _c = __values(spriteTemplate.imageIds), _d = _c.next(); !_d.done; _d = _c.next()) {
+                            var image = _d.value;
+                            ret.push(image);
+                        }
+                    }
+                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                    finally {
+                        try {
+                            if (_d && !_d.done && (_e = _c.return)) _e.call(_c);
+                        }
+                        finally { if (e_1) throw e_1.error; }
+                    }
+                }
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_f = _a.return)) _f.call(_a);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        return ret;
+        var e_2, _f, e_1, _e;
     };
     /** Sprite 'ninja girl standing left'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT = new SpriteTemplate([

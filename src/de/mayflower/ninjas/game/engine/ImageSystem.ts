@@ -20,11 +20,19 @@
     {
         /** All image file names to load. */
         private         fileNames                       :Array<string>                  = null;
+        /** All image file names to mirror. */
+        private         mirroredFileNames               :Array<string>                  = null;
+
         /** The method to invoke when all images are loaded. */
         private         onLoadComplete                  :Function                       = null;
 
+        /** The number of images to load. */
+        private         imagesToLoad                    :number                         = 0;
         /** The number of currently loaded images. */
         private         loadedImageCount                :number                         = 0;
+
+        /** The number of images that need to be mirrored. */
+        private         imagesToMirror                  :number                         = 0;
         /** The number of currently mirrored images. */
         private         mirroredImageCount              :number                         = 0;
 
@@ -36,13 +44,16 @@
         /***************************************************************************************************************
         *   Preloads all images into memory.
         *
+        *   TODO prune fileNames param!
+        *
         *   @param fileNames      The names of all image files to load.
         *   @param onLoadComplete The method to invoke when all image files are loaded.
         ***************************************************************************************************************/
         public constructor( fileNames:Array<string>, onLoadComplete:Function )
         {
-            this.fileNames      = fileNames;
-            this.onLoadComplete = onLoadComplete;
+            this.fileNames         = fileNames;
+            this.mirroredFileNames = ninjas.SpriteTemplate.getAllImagesToMirror();
+            this.onLoadComplete    = onLoadComplete;
         }
 
         /***************************************************************************************************************
@@ -73,6 +84,7 @@
             ninjas.Debug.image.log( "Loading [" + this.fileNames.length + "] images" );
 
             // load all images
+            this.imagesToLoad = this.fileNames.length;
             for ( let i = 0; i < this.fileNames.length; i++ )
             {
                 this.originalImages[ this.fileNames[ i ] ]        = new Image();
@@ -86,13 +98,14 @@
         ***************************************************************************************************************/
         public mirrorImages() : void
         {
-            ninjas.Debug.image.log( "Mirroring [" + this.fileNames.length + "] images" );
+            ninjas.Debug.image.log( "Mirroring [" + this.mirroredFileNames.length + "] images" );
 
-            // mirror all images
-            for ( let i = 0; i < this.fileNames.length; i++ )
+            // mirror determined images
+            this.imagesToMirror = this.mirroredFileNames.length;
+            for ( let i = 0; i < this.mirroredFileNames.length; i++ )
             {
-                this.mirroredImages[ this.fileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
-                    this.originalImages[ this.fileNames[ i ] ],
+                this.mirroredImages[ this.mirroredFileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
+                    this.originalImages[ this.mirroredFileNames[ i ] ],
                     this.onMirrorImage
                 );
             }
@@ -105,9 +118,9 @@
         ***************************************************************************************************************/
         private onLoadImage=( event:Event ) : void =>
         {
-            if ( ++this.loadedImageCount == this.fileNames.length )
+            if ( ++this.loadedImageCount == this.imagesToLoad )
             {
-                ninjas.Debug.image.log( "All [" + this.fileNames.length + "] images loaded" );
+                ninjas.Debug.image.log( "All [" + this.imagesToLoad + "] images loaded" );
 
                 this.mirrorImages();
             }
@@ -120,9 +133,9 @@
         ***************************************************************************************************************/
         private onMirrorImage=( event:Event ) : void =>
         {
-            if ( ++this.mirroredImageCount == this.fileNames.length )
+            if ( ++this.mirroredImageCount == this.imagesToMirror )
             {
-                ninjas.Debug.image.log( "All [" + this.fileNames.length + "] images mirrored" );
+                ninjas.Debug.image.log( "All [" + this.imagesToMirror + "] images mirrored" );
 
                 this.onLoadComplete();
             }
@@ -139,8 +152,12 @@
 
             for ( let i = 0; i < this.fileNames.length; i++ )
             {
-                ret[ this.getImage(         this.fileNames[ i ] ).src ] = this.getImage(         this.fileNames[ i ] );
-                ret[ this.getMirroredImage( this.fileNames[ i ] ).src ] = this.getMirroredImage( this.fileNames[ i ] );
+                ret[ this.getImage( this.fileNames[ i ] ).src ] = this.getImage( this.fileNames[ i ] );
+            }
+
+            for ( let i = 0; i < this.mirroredFileNames.length; i++ )
+            {
+                ret[ this.getMirroredImage( this.mirroredFileNames[ i ] ).src ] = this.getMirroredImage( this.mirroredFileNames[ i ] );
             }
 
             return ret;

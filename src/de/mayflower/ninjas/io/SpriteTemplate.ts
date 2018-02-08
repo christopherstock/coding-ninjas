@@ -254,4 +254,27 @@
                 }
             }
         }
+
+        /***************************************************************************************************************
+        *   Determines and returns an array of filenames for all images that needs to be mirrored.
+        *
+        *   @return An array with all filenames of images needing to be mirrored.
+        ***************************************************************************************************************/
+        public static getAllImagesToMirror() : Array<string>
+        {
+            let ret:Array<string> = [];
+
+            for ( let spriteTemplate of SpriteTemplate.ALL_SPRITE_TEMPLATES )
+            {
+                if ( spriteTemplate.mirrored == ninjas.MirrorImage.YES )
+                {
+                    for ( let image of spriteTemplate.imageIds )
+                    {
+                        ret.push( image );
+                    }
+                }
+            }
+
+            return ret;
+        }
     }
