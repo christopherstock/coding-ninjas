@@ -41,9 +41,6 @@
             // launch initial level
             this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
 
-            // render 1st engine tick
-            this.tick();
-
             // start the renderer
             this.engine.matterJsSystem.startRenderer();
 

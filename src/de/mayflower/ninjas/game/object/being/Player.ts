@@ -95,7 +95,29 @@
         ***************************************************************************************************************/
         private assignCurrentSprite()
         {
-            if ( this.collidesBottom )
+            if ( this.isFalling() )
+            {
+                if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT );
+                }
+                else
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT );
+                }
+            }
+            else if ( this.isJumping() )
+            {
+                if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT );
+                }
+                else
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT );
+                }
+            }
+            else
             {
                 if ( this.movesLeft )
                 {
@@ -114,31 +136,6 @@
                     else
                     {
                         this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT );
-                    }
-                }
-            }
-            else
-            {
-                if ( this.isFalling() )
-                {
-                    if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
-                    {
-                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT );
-                    }
-                    else
-                    {
-                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT );
-                    }
-                }
-                else
-                {
-                    if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
-                    {
-                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT );
-                    }
-                    else
-                    {
-                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT );
                     }
                 }
             }

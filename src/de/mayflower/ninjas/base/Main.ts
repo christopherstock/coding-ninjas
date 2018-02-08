@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Remove timeout and use Engine.events.tick?
     *   TODO Group different objects in level class!?
     *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
     *   TODO Try friction, frictionStatic and frictionAir to Shape!
