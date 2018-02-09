@@ -1,5 +1,6 @@
 
     import * as ninjas from '../../../ninjas';
+    import * as matter from "matter-js";
 
     /*******************************************************************************************************************
     *   Represents a collidable and solid obstacle.
@@ -11,6 +12,8 @@
     {
         /** Specifies if the player shall be allowed to jump through this obstacle. */
         private         jumpPassThrough             :boolean                        = false;
+        /** Specifies if the obstacle currently allows passing through. */
+        private         isPassThrough               :boolean                        = false;
 
         /***************************************************************************************************************
         *   Creates a new obstacle.
@@ -31,6 +34,7 @@
             );
 
             this.jumpPassThrough = jumpPassThrough;
+            this.isPassThrough   = false;
         }
 
         /***************************************************************************************************************
@@ -42,23 +46,45 @@
 
             if ( this.jumpPassThrough )
             {
-/*
+                // check collision release if colliding
                 if
                 (
-                    ninjas.ninjas.game.level.player.body.velocity.y >= 0.0
-
-//                    ninjas.ninjas.game.level.player.body.position.y + ninjas.ninjas.game.level.player.height / 2
-//                    <=  this.body.position.y
-
+                       !this.isPassThrough
+                    && ninjas.Main.game.level.player.isJumping()
                 )
                 {
-                    this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_COLLIDING;
+                    this.isPassThrough = true;
+                    this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
                 }
-                else
+
+                // check collision activation if non-colliding
+                else if
+                (
+                       this.isPassThrough
+                    && ninjas.Main.game.level.player.isFalling()
+                )
                 {
-                    this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_NON_COLLIDING;
+                    let colliding:boolean = false;
+
+                    for ( let i:number = 0; i < this.shape.body.vertices.length; ++i )
+                    {
+                        let vector     :matter.Vector = this.shape.body.vertices[ i     ];
+                        let nextVector :matter.Vector = this.shape.body.vertices[ ( i == this.shape.body.vertices.length - 1 ? 0 : i + 1 ) ];
+
+                        if ( matter.Query.ray( [ ninjas.Main.game.level.player.shape.body ], vector, nextVector ).length > 0 )
+                        {
+                            colliding = true;
+                            break;
+                        }
+                    }
+
+                    // only if player is not currently colliding!
+                    if ( !colliding )
+                    {
+                        this.isPassThrough = false;
+                        this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING;
+                    }
                 }
-*/
             }
         }
     }

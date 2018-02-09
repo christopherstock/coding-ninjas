@@ -144,7 +144,7 @@
         /***************************************************************************************************************
         *   Checks if this character is currently falling.
         ***************************************************************************************************************/
-        protected isFalling()
+        public isFalling()
         {
             return ( this.shape.body.velocity.y > 0.0 && !this.collidesBottom );
         }
@@ -152,7 +152,7 @@
         /***************************************************************************************************************
         *   Checks if this character is currently ascending.
         ***************************************************************************************************************/
-        protected isJumping()
+        public isJumping()
         {
             return ( this.shape.body.velocity.y < 0.0 && !this.collidesBottom );
         }

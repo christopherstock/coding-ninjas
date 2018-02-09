@@ -13,6 +13,9 @@
         /** Disables all sounds. */
         public  static  readonly    MUTE                                    :boolean                    = true;
 
+        /** Disables all sprites. */
+        public  static  readonly    DISABLE_SPRITES                         :boolean                    = true;
+
         /** The opacity for the debug colors. */
         public  static  readonly    COLOR_DEBUG_OPACITY                     :number                     = 1.0;
         /** The line width for debug lines. */

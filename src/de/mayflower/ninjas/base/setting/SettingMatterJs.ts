@@ -36,32 +36,42 @@
         /** The default collision group for all game objects. */
         public  static  readonly    COLLISION_GROUP_COLLIDING                   :matter.ICollisionFilter    =
         {
-                category: 0x0001,
-                mask:     0x0002,
-                group:    0x0003,
+            category: 0x0001,
+            mask:     0x0002,
+            group:    0x0003,
         };
 
         /** The collision group for all non-colliding items. */
         public  static  readonly    COLLISION_GROUP_NON_COLLIDING_ITEM          :matter.ICollisionFilter    =
         {
-                category: 0x0004,
-                mask:     0x0005,
-                group:    0x0006,
+            category: 0x0004,
+            mask:     0x0005,
+            group:    0x0006,
         };
 
         /** The collision group for all non-colliding decos. */
         public  static  readonly    COLLISION_GROUP_NON_COLLIDING_DECO          :matter.ICollisionFilter    =
         {
-                category: 0x0007,
-                mask:     0x0008,
-                group:    0x0009,
+            category: 0x0007,
+            mask:     0x0008,
+            group:    0x0009,
         };
 
         /** The collision group for all non-colliding dead enemies. */
         public  static  readonly    COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY    :matter.ICollisionFilter    =
         {
-                category: 0x0010,
-                mask:     0x0011,
-                group:    0x0012,
+            category: 0x0010,
+            mask:     0x0011,
+            group:    0x0012,
         };
+
+        /** The collision group for all pass-through obstacles. */
+/*
+        public  static  readonly    COLLISION_GROUP_NON_COLLIDING_OBSTACLES     :matter.ICollisionFilter    =
+        {
+            category: 0x0010,
+            mask:     0x0011,
+            group:    0x0012,
+        };
+*/
     }

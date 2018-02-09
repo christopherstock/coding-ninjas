@@ -4,7 +4,8 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Solve jump-through obstacles!
+    *   TODO FINALLY Solve collision groups!! Add collision group for non-colliding obstacles!
+    *   TODO Create enum JumpPassThrough
     *   TODO Group different objects in level class!?
     *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
     *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
@@ -27,7 +28,6 @@
     *   TODO Add translucent overlay for blend effects.
     *   TODO Ability to smash crates or destroyables etc.
     *   TODO Particle fx smashed crates, startup window etc.
-    *
     *   TODO Add react for site content creation.
     *   TODO Step-Flow-Meter (progress, navi etc.) in React.
     *   TODO Try ant design (pro?) in front panel.

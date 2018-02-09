@@ -27436,7 +27436,8 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Solve jump-through obstacles!
+*   TODO FINALLY Solve collision groups!! Add collision group for non-colliding obstacles!
+*   TODO Create enum JumpPassThrough
 *   TODO Group different objects in level class!?
 *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
@@ -27459,7 +27460,6 @@ var ninjas = __webpack_require__(1);
 *   TODO Add translucent overlay for blend effects.
 *   TODO Ability to smash crates or destroyables etc.
 *   TODO Particle fx smashed crates, startup window etc.
-*
 *   TODO Add react for site content creation.
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Try ant design (pro?) in front panel.
@@ -27515,6 +27515,8 @@ var SettingDebug = /** @class */ (function () {
     SettingDebug.DEBUG_MODE = true;
     /** Disables all sounds. */
     SettingDebug.MUTE = true;
+    /** Disables all sprites. */
+    SettingDebug.DISABLE_SPRITES = true;
     /** The opacity for the debug colors. */
     SettingDebug.COLOR_DEBUG_OPACITY = 1.0;
     /** The line width for debug lines. */
@@ -29371,6 +29373,10 @@ var LevelWebsite = /** @class */ (function (_super) {
                 // grounds and walls
                 ninjas.GameObjectFactory.createObstacle(0, 2500, 3500, 15, 0.0, false),
                 ninjas.GameObjectFactory.createObstacle(4250, 2300, 750, 15, 0.0, false),
+                // pass-through obstacles
+                ninjas.GameObjectFactory.createObstacle(1500, 2200, 300, 15, 0.0, true),
+                ninjas.GameObjectFactory.createObstacle(1200, 2100, 300, 15, 0.0, true),
+                ninjas.GameObjectFactory.createElevatedRamp(800, 2200, 350.0, 15.0, -200.0, true),
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(1200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
@@ -29381,7 +29387,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
                 // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp(3500, 2500, 750.0, 15.0, -200.0),
+                ninjas.GameObjectFactory.createElevatedRamp(3500, 2500, 750.0, 15.0, -200.0, false),
                 /*
                                 // sigsaws and bounces
                                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
@@ -29503,8 +29509,9 @@ var GameObject = /** @class */ (function () {
     *   Assigns the current active sprite frame as the game objects image.
     ***************************************************************************************************************/
     GameObject.prototype.setImageFromSprite = function () {
-        this.shape.body.render.sprite.texture = this.sprite.getCurrentFrameImageUrl();
-        this.shape.body.render.sprite.xScale = -1.0;
+        if (!ninjas.SettingDebug.DISABLE_SPRITES) {
+            this.shape.body.render.sprite.texture = this.sprite.getCurrentFrameImageUrl();
+        }
     };
     /***************************************************************************************************************
     *   Avoids this game object from rotating.
@@ -30220,6 +30227,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
+var matter = __webpack_require__(2);
 /*******************************************************************************************************************
 *   Represents a collidable and solid obstacle.
 *
@@ -30240,7 +30248,10 @@ var Obstacle = /** @class */ (function (_super) {
         var _this = _super.call(this, shape, null, x, y) || this;
         /** Specifies if the player shall be allowed to jump through this obstacle. */
         _this.jumpPassThrough = false;
+        /** Specifies if the obstacle currently allows passing through. */
+        _this.isPassThrough = false;
         _this.jumpPassThrough = jumpPassThrough;
+        _this.isPassThrough = false;
         return _this;
     }
     /***************************************************************************************************************
@@ -30249,23 +30260,29 @@ var Obstacle = /** @class */ (function (_super) {
     Obstacle.prototype.render = function () {
         _super.prototype.render.call(this);
         if (this.jumpPassThrough) {
-            /*
-                            if
-                            (
-                                ninjas.ninjas.game.level.player.body.velocity.y >= 0.0
-            
-            //                    ninjas.ninjas.game.level.player.body.position.y + ninjas.ninjas.game.level.player.height / 2
-            //                    <=  this.body.position.y
-            
-                            )
-                            {
-                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_COLLIDING;
-                            }
-                            else
-                            {
-                                this.body.collisionFilter = ninjas.ninjasSettings.COLLISION_GROUP_NON_COLLIDING;
-                            }
-            */
+            // check collision release if colliding
+            if (!this.isPassThrough
+                && ninjas.Main.game.level.player.isJumping()) {
+                this.isPassThrough = true;
+                this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
+            }
+            else if (this.isPassThrough
+                && ninjas.Main.game.level.player.isFalling()) {
+                var colliding = false;
+                for (var i = 0; i < this.shape.body.vertices.length; ++i) {
+                    var vector = this.shape.body.vertices[i];
+                    var nextVector = this.shape.body.vertices[(i == this.shape.body.vertices.length - 1 ? 0 : i + 1)];
+                    if (matter.Query.ray([ninjas.Main.game.level.player.shape.body], vector, nextVector).length > 0) {
+                        colliding = true;
+                        break;
+                    }
+                }
+                // only if player is not currently colliding!
+                if (!colliding) {
+                    this.isPassThrough = false;
+                    this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING;
+                }
+            }
         }
     };
     return Obstacle;
@@ -30749,15 +30766,16 @@ var GameObjectFactory = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates an elevated ramp obstacle.
     *
-    *   @param x      Anchor X.
-    *   @param y      Anchor Y.
-    *   @param width  The ramp width.
-    *   @param height The ramp height.
-    *   @param deltaY Ramp will ascend if <code>true</code> and descend if <code>false</code>.
+    *   @param x               Anchor X.
+    *   @param y               Anchor Y.
+    *   @param width           The ramp width.
+    *   @param height          The ramp height.
+    *   @param deltaY          Ramp will ascend if <code>true</code> and descend if <code>false</code>.
+    *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
     *
     *   @return The created obstacle ramp.
     ***************************************************************************************************************/
-    GameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY) {
+    GameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY, jumpPassThrough) {
         var vertices = [];
         vertices.push(matter.Vector.create(0.0, 0.0));
         vertices.push(matter.Vector.create(width, deltaY));
@@ -30766,7 +30784,7 @@ var GameObjectFactory = /** @class */ (function () {
         if (deltaY <= 0.0) {
             y += deltaY;
         }
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, false);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates the player.

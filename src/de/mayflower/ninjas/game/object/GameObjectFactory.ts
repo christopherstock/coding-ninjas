@@ -113,7 +113,16 @@
         *
         *   @return The created obstacle.
         ***************************************************************************************************************/
-        public static createObstacle( x:number, yTop:number, width:number, height:number, angle:number, jumpPassThrough:boolean ):ninjas.Obstacle
+        public static createObstacle
+        (
+            x               :number,
+            yTop            :number,
+            width           :number,
+            height          :number,
+            angle           :number,
+            jumpPassThrough :boolean
+        )
+        : ninjas.Obstacle
         {
             return new ninjas.Obstacle
             (
@@ -165,15 +174,25 @@
         /***************************************************************************************************************
         *   Creates an elevated ramp obstacle.
         *
-        *   @param x      Anchor X.
-        *   @param y      Anchor Y.
-        *   @param width  The ramp width.
-        *   @param height The ramp height.
-        *   @param deltaY Ramp will ascend if <code>true</code> and descend if <code>false</code>.
+        *   @param x               Anchor X.
+        *   @param y               Anchor Y.
+        *   @param width           The ramp width.
+        *   @param height          The ramp height.
+        *   @param deltaY          Ramp will ascend if <code>true</code> and descend if <code>false</code>.
+        *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
         *
         *   @return The created obstacle ramp.
         ***************************************************************************************************************/
-        public static createElevatedRamp( x:number, y:number, width:number, height:number, deltaY:number ):ninjas.Obstacle
+        public static createElevatedRamp
+        (
+            x               :number,
+            y               :number,
+            width           :number,
+            height          :number,
+            deltaY          :number,
+            jumpPassThrough :boolean
+        )
+        : ninjas.Obstacle
         {
             let vertices:Array<matter.Vector> = [];
 
@@ -200,7 +219,7 @@
                 ),
                 x,
                 y,
-                false
+                jumpPassThrough
             );
         }
 

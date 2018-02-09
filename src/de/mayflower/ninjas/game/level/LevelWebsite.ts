@@ -24,7 +24,7 @@
             (
                 2000,
                 2500,
-                ninjas.CharacterLookingDirection.RIGHT,
+                ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
             );
 
@@ -38,6 +38,13 @@
                 // grounds and walls
                 ninjas.GameObjectFactory.createObstacle( 0,    2500, 3500, 15, 0.0,  false ),
                 ninjas.GameObjectFactory.createObstacle( 4250, 2300, 750,  15, 0.0,  false ),
+
+                // pass-through obstacles
+
+                ninjas.GameObjectFactory.createObstacle( 1500, 2200, 300, 15, 0.0,  true ),
+                ninjas.GameObjectFactory.createObstacle( 1200, 2100, 300, 15, 0.0,  true ),
+
+                ninjas.GameObjectFactory.createElevatedRamp( 800, 2200, 350.0, 15.0, -200.0, true ),
 
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration( 400,  2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
@@ -53,7 +60,7 @@
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
 
                 // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp( 3500, 2500, 750.0, 15.0, -200.0 ),
+                ninjas.GameObjectFactory.createElevatedRamp( 3500, 2500, 750.0, 15.0, -200.0, false ),
 /*
                 // sigsaws and bounces
                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
