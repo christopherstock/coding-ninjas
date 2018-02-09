@@ -208,9 +208,9 @@
         ***************************************************************************************************************/
         public static assignAllImageSizes()
         {
-            for ( let i = 0; i < SpriteTemplate.ALL_SPRITE_TEMPLATES.length; ++i )
+            for ( let spriteTemplate of SpriteTemplate.ALL_SPRITE_TEMPLATES )
             {
-                SpriteTemplate.ALL_SPRITE_TEMPLATES[ i ].assignImageSizes();
+                spriteTemplate.assignImageSizes();
             }
         }
 
@@ -243,14 +243,14 @@
             this.height = ninjas.Main.game.engine.imageSystem.getImage( this.imageIds[ 0 ] ).height;
 
             // browse all frames and alert on differing dimensions
-            for ( let i = 0; i < this.imageIds.length; ++i )
+            for ( let imageId of this.imageIds )
             {
                 if (
-                       this.width  != ninjas.Main.game.engine.imageSystem.getImage( this.imageIds[ i ] ).width
-                    || this.height != ninjas.Main.game.engine.imageSystem.getImage( this.imageIds[ i ] ).height
+                       this.width  != ninjas.Main.game.engine.imageSystem.getImage( imageId ).width
+                    || this.height != ninjas.Main.game.engine.imageSystem.getImage( imageId ).height
                 )
                 {
-                    throw new Error( "Differing sprite frame size detected in image id [" + this.imageIds[ i ] + "]" );
+                    throw new Error( "Differing sprite frame size detected in image id [" + imageId + "]" );
                 }
             }
         }

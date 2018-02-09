@@ -16,6 +16,8 @@
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Revise parallax rendering though different groups in level class.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
+    *   TODO wowjs really required? maybe animate.css suffices .. (console warning..)
+    *   TODO poly-decomp.js required (console warning..)
     *
     *   TODO Complete the MVP!
     *

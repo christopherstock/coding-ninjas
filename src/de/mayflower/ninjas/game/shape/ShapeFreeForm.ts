@@ -104,7 +104,5 @@
 
             this.boundWidth  = maximumX - minimumX;
             this.boundHeight = maximumY - minimumY;
-
-            console.log("bounds: " + this.boundWidth + "   " + this.boundHeight);
         }
     }

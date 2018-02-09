@@ -11,6 +11,8 @@
     {
         /***************************************************************************************************************
         *   Returns an array of all found regular expression matches.
+        *   The subject will need the 'multiple' modifier for this method to work as expected.
+        *   e.g. /[a-z]+/g
         *
         *   @param  subject  The target string to apply the regular expression search on.
         *   @param  regEx    The regular expression.
@@ -19,14 +21,14 @@
         ***************************************************************************************************************/
         public static searchRegEx( subject:string, regEx:RegExp ):Array<string>
         {
-            let results:RegExpMatchArray  = subject.match( regEx );
-            let ret:Array<string>         = [];
+            let results:RegExpMatchArray = subject.match( regEx );
+            let ret:Array<string>        = [];
 
             if ( results != null )
             {
-                for ( let i:number = 0; i < results.length; ++i )
+                for ( let result of results )
                 {
-                    ret[ i ] = results[ i ];
+                    ret.push( result );
                 }
             }
 

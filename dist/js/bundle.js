@@ -27448,6 +27448,8 @@ var ninjas = __webpack_require__(1);
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Revise parallax rendering though different groups in level class.
 *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
+*   TODO wowjs really required? maybe animate.css suffices .. (console warning..)
+*   TODO poly-decomp.js required (console warning..)
 *
 *   TODO Complete the MVP!
 *
@@ -27777,6 +27779,16 @@ exports.CanvasSystem = CanvasSystem;
 
 "use strict";
 
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
@@ -27870,11 +27882,22 @@ var ImageSystem = /** @class */ (function () {
         ninjas.Debug.image.log("Loading [" + this.fileNames.length + "] images");
         // load all images
         this.imagesToLoad = this.fileNames.length;
-        for (var i = 0; i < this.fileNames.length; i++) {
-            this.originalImages[this.fileNames[i]] = new Image();
-            this.originalImages[this.fileNames[i]].src = this.fileNames[i];
-            this.originalImages[this.fileNames[i]].onload = this.onLoadImage;
+        try {
+            for (var _a = __values(this.fileNames), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var fileName = _b.value;
+                this.originalImages[fileName] = new Image();
+                this.originalImages[fileName].src = fileName;
+                this.originalImages[fileName].onload = this.onLoadImage;
+            }
         }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        var e_1, _c;
     };
     /***************************************************************************************************************
     *   Mirrors all specified image files in system memory.
@@ -27883,9 +27906,20 @@ var ImageSystem = /** @class */ (function () {
         ninjas.Debug.image.log("Mirroring [" + this.mirroredFileNames.length + "] images");
         // mirror determined images
         this.imagesToMirror = this.mirroredFileNames.length;
-        for (var i = 0; i < this.mirroredFileNames.length; i++) {
-            this.mirroredImages[this.mirroredFileNames[i]] = ninjas.IO.flipImageHorizontal(this.originalImages[this.mirroredFileNames[i]], this.onMirrorImage);
+        try {
+            for (var _a = __values(this.mirroredFileNames), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var mirroredFileName = _b.value;
+                this.mirroredImages[mirroredFileName] = ninjas.IO.flipImageHorizontal(this.originalImages[mirroredFileName], this.onMirrorImage);
+            }
         }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        var e_2, _c;
     };
     /***************************************************************************************************************
     *   Delivers an associated array with all images where the src is the key.
@@ -27894,13 +27928,34 @@ var ImageSystem = /** @class */ (function () {
     ***************************************************************************************************************/
     ImageSystem.prototype.getAll = function () {
         var ret = [];
-        for (var i = 0; i < this.fileNames.length; i++) {
-            ret[this.getImage(this.fileNames[i]).src] = this.getImage(this.fileNames[i]);
+        try {
+            for (var _a = __values(this.fileNames), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var fileName = _b.value;
+                ret[this.getImage(fileName).src] = this.getImage(fileName);
+            }
         }
-        for (var i = 0; i < this.mirroredFileNames.length; i++) {
-            ret[this.getMirroredImage(this.mirroredFileNames[i]).src] = this.getMirroredImage(this.mirroredFileNames[i]);
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_3) throw e_3.error; }
+        }
+        try {
+            for (var _d = __values(this.mirroredFileNames), _e = _d.next(); !_e.done; _e = _d.next()) {
+                var mirroredFileName = _e.value;
+                ret[this.getMirroredImage(mirroredFileName).src] = this.getMirroredImage(mirroredFileName);
+            }
+        }
+        catch (e_4_1) { e_4 = { error: e_4_1 }; }
+        finally {
+            try {
+                if (_e && !_e.done && (_f = _d.return)) _f.call(_d);
+            }
+            finally { if (e_4) throw e_4.error; }
         }
         return ret;
+        var e_3, _c, e_4, _f;
     };
     return ImageSystem;
 }());
@@ -28992,6 +29047,16 @@ exports.SiteSystem = SiteSystem;
 
 "use strict";
 
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
@@ -29056,17 +29121,28 @@ var SoundSystem = /** @class */ (function () {
     ***************************************************************************************************************/
     SoundSystem.prototype.loadSounds = function () {
         ninjas.Debug.sound.log("Preloading [" + this.fileNames.length + "] sounds");
-        for (var i = 0; i < this.fileNames.length; i++) {
-            try {
-                this.sounds[this.fileNames[i]] = new Audio();
-                this.sounds[this.fileNames[i]].src = this.fileNames[i];
-                this.sounds[this.fileNames[i]].onloadeddata = this.onLoadSound;
-            }
-            catch (e) {
-                ninjas.Debug.sound.log("Error on creating Audio element: " + e.message);
-                this.onLoadSound();
+        try {
+            for (var _a = __values(this.fileNames), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var fileName = _b.value;
+                try {
+                    this.sounds[fileName] = new Audio();
+                    this.sounds[fileName].src = fileName;
+                    this.sounds[fileName].onloadeddata = this.onLoadSound;
+                }
+                catch (e) {
+                    ninjas.Debug.sound.log("Error on creating Audio element: " + e.message);
+                    this.onLoadSound();
+                }
             }
         }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        var e_1, _c;
     };
     return SoundSystem;
 }());
@@ -31147,7 +31223,6 @@ var ShapeFreeForm = /** @class */ (function (_super) {
         }
         this.boundWidth = maximumX - minimumX;
         this.boundHeight = maximumY - minimumY;
-        console.log("bounds: " + this.boundWidth + "   " + this.boundHeight);
         var e_1, _c;
     };
     return ShapeFreeForm;
@@ -32567,9 +32642,20 @@ var SpriteTemplate = /** @class */ (function () {
     *   Assigns the image dimensions of the first frame to all sprite templates.
     ***************************************************************************************************************/
     SpriteTemplate.assignAllImageSizes = function () {
-        for (var i = 0; i < SpriteTemplate.ALL_SPRITE_TEMPLATES.length; ++i) {
-            SpriteTemplate.ALL_SPRITE_TEMPLATES[i].assignImageSizes();
+        try {
+            for (var _a = __values(SpriteTemplate.ALL_SPRITE_TEMPLATES), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var spriteTemplate = _b.value;
+                spriteTemplate.assignImageSizes();
+            }
         }
+        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_1) throw e_1.error; }
+        }
+        var e_1, _c;
     };
     /***************************************************************************************************************
     *   Creates a single framed sprite template of the specified image.
@@ -32588,13 +32674,24 @@ var SpriteTemplate = /** @class */ (function () {
     SpriteTemplate.prototype.assignImageSizes = function () {
         this.width = ninjas.Main.game.engine.imageSystem.getImage(this.imageIds[0]).width;
         this.height = ninjas.Main.game.engine.imageSystem.getImage(this.imageIds[0]).height;
-        // browse all frames and alert on differing dimensions
-        for (var i = 0; i < this.imageIds.length; ++i) {
-            if (this.width != ninjas.Main.game.engine.imageSystem.getImage(this.imageIds[i]).width
-                || this.height != ninjas.Main.game.engine.imageSystem.getImage(this.imageIds[i]).height) {
-                throw new Error("Differing sprite frame size detected in image id [" + this.imageIds[i] + "]");
+        try {
+            // browse all frames and alert on differing dimensions
+            for (var _a = __values(this.imageIds), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var imageId = _b.value;
+                if (this.width != ninjas.Main.game.engine.imageSystem.getImage(imageId).width
+                    || this.height != ninjas.Main.game.engine.imageSystem.getImage(imageId).height) {
+                    throw new Error("Differing sprite frame size detected in image id [" + imageId + "]");
+                }
             }
         }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
+        var e_2, _c;
     };
     /***************************************************************************************************************
     *   Determines and returns an array of filenames for all images that needs to be mirrored.
@@ -32613,25 +32710,25 @@ var SpriteTemplate = /** @class */ (function () {
                             ret.push(image);
                         }
                     }
-                    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                    catch (e_3_1) { e_3 = { error: e_3_1 }; }
                     finally {
                         try {
                             if (_d && !_d.done && (_e = _c.return)) _e.call(_c);
                         }
-                        finally { if (e_1) throw e_1.error; }
+                        finally { if (e_3) throw e_3.error; }
                     }
                 }
             }
         }
-        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        catch (e_4_1) { e_4 = { error: e_4_1 }; }
         finally {
             try {
                 if (_b && !_b.done && (_f = _a.return)) _f.call(_a);
             }
-            finally { if (e_2) throw e_2.error; }
+            finally { if (e_4) throw e_4.error; }
         }
         return ret;
-        var e_2, _f, e_1, _e;
+        var e_4, _f, e_3, _e;
     };
     /** Sprite 'ninja girl standing left'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT = new SpriteTemplate([
@@ -33187,6 +33284,16 @@ exports.MathUtil = MathUtil;
 
 "use strict";
 
+var __values = (this && this.__values) || function (o) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator], i = 0;
+    if (m) return m.call(o);
+    return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var moment = __webpack_require__(0);
 /*******************************************************************************************************************
@@ -33200,6 +33307,8 @@ var String = /** @class */ (function () {
     }
     /***************************************************************************************************************
     *   Returns an array of all found regular expression matches.
+    *   The subject will need the 'multiple' modifier for this method to work as expected.
+    *   e.g. /[a-z]+/g
     *
     *   @param  subject  The target string to apply the regular expression search on.
     *   @param  regEx    The regular expression.
@@ -33210,11 +33319,22 @@ var String = /** @class */ (function () {
         var results = subject.match(regEx);
         var ret = [];
         if (results != null) {
-            for (var i = 0; i < results.length; ++i) {
-                ret[i] = results[i];
+            try {
+                for (var results_1 = __values(results), results_1_1 = results_1.next(); !results_1_1.done; results_1_1 = results_1.next()) {
+                    var result = results_1_1.value;
+                    ret.push(result);
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (results_1_1 && !results_1_1.done && (_a = results_1.return)) _a.call(results_1);
+                }
+                finally { if (e_1) throw e_1.error; }
             }
         }
         return ret;
+        var e_1, _a;
     };
     /***************************************************************************************************************
     *   Returns a formatted timestamp of the current system date and time.

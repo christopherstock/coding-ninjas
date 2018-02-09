@@ -84,11 +84,11 @@
 
             // load all images
             this.imagesToLoad = this.fileNames.length;
-            for ( let i = 0; i < this.fileNames.length; i++ )
+            for ( let fileName of this.fileNames )
             {
-                this.originalImages[ this.fileNames[ i ] ]        = new Image();
-                this.originalImages[ this.fileNames[ i ] ].src    = this.fileNames[ i ];
-                this.originalImages[ this.fileNames[ i ] ].onload = this.onLoadImage;
+                this.originalImages[ fileName ]        = new Image();
+                this.originalImages[ fileName ].src    = fileName;
+                this.originalImages[ fileName ].onload = this.onLoadImage;
             }
         }
 
@@ -101,10 +101,10 @@
 
             // mirror determined images
             this.imagesToMirror = this.mirroredFileNames.length;
-            for ( let i = 0; i < this.mirroredFileNames.length; i++ )
+            for ( let mirroredFileName of this.mirroredFileNames )
             {
-                this.mirroredImages[ this.mirroredFileNames[ i ] ] = ninjas.IO.flipImageHorizontal(
-                    this.originalImages[ this.mirroredFileNames[ i ] ],
+                this.mirroredImages[ mirroredFileName ] = ninjas.IO.flipImageHorizontal(
+                    this.originalImages[ mirroredFileName ],
                     this.onMirrorImage
                 );
             }
@@ -149,14 +149,14 @@
         {
             let ret:Array<HTMLImageElement> = [];
 
-            for ( let i = 0; i < this.fileNames.length; i++ )
+            for ( let fileName of this.fileNames )
             {
-                ret[ this.getImage( this.fileNames[ i ] ).src ] = this.getImage( this.fileNames[ i ] );
+                ret[ this.getImage( fileName ).src ] = this.getImage( fileName );
             }
 
-            for ( let i = 0; i < this.mirroredFileNames.length; i++ )
+            for ( let mirroredFileName of this.mirroredFileNames )
             {
-                ret[ this.getMirroredImage( this.mirroredFileNames[ i ] ).src ] = this.getMirroredImage( this.mirroredFileNames[ i ] );
+                ret[ this.getMirroredImage( mirroredFileName ).src ] = this.getMirroredImage( mirroredFileName );
             }
 
             return ret;

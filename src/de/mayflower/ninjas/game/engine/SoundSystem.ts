@@ -71,13 +71,13 @@
         {
             ninjas.Debug.sound.log( "Preloading [" + this.fileNames.length + "] sounds" );
 
-            for ( let i = 0; i < this.fileNames.length; i++ )
+            for ( let fileName of this.fileNames )
             {
                 try
                 {
-                    this.sounds[ this.fileNames[ i ] ]              = new Audio();
-                    this.sounds[ this.fileNames[ i ] ].src          = this.fileNames[ i ];
-                    this.sounds[ this.fileNames[ i ] ].onloadeddata = this.onLoadSound;
+                    this.sounds[ fileName ]              = new Audio();
+                    this.sounds[ fileName ].src          = fileName;
+                    this.sounds[ fileName ].onloadeddata = this.onLoadSound;
                 }
                 catch ( e )
                 {
