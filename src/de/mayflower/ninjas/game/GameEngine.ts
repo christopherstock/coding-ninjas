@@ -34,7 +34,12 @@
             this.canvasSystem.updateDimensions();
 
             ninjas.Debug.init.log( "Initing image system" );
-            this.imageSystem = new ninjas.ImageSystem( ninjas.Image.FILE_NAMES, this.onImagesLoaded );
+            this.imageSystem = new ninjas.ImageSystem
+            (
+                ninjas.Image.FILE_NAMES,
+                ninjas.SpriteTemplate.getAllImagesToMirror(),
+                this.onImagesLoaded
+            );
             this.imageSystem.loadImages();
         }
 

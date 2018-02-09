@@ -58,12 +58,12 @@
         ***************************************************************************************************************/
         public show( position:ninjas.SitePanelPosition ) : boolean
         {
-            ninjas.Debug.site.log( "Showing site panel" );
-
             if ( this.activePanel != null || this.animationState != ninjas.SitePanelAnimation.NONE )
             {
                 return false;
             }
+
+            ninjas.Debug.site.log( "Showing site panel" );
             this.animationState = ninjas.SitePanelAnimation.SHOW;
 
             this.activePanel = new ninjas.SitePanel( position );
@@ -90,12 +90,12 @@
         ***************************************************************************************************************/
         public hide() : boolean
         {
-            ninjas.Debug.site.log( "Hiding site panel" );
-
             if ( this.activePanel == null || this.animationState != ninjas.SitePanelAnimation.NONE )
             {
                 return false;
             }
+
+            ninjas.Debug.site.log( "Hiding site panel" );
             this.animationState = ninjas.SitePanelAnimation.HIDE;
 
             this.activePanel.animateOut();

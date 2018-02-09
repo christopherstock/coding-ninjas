@@ -27407,7 +27407,7 @@ var Debug = /** @class */ (function () {
     /** Debugs the init system. */
     Debug.init = new Debug(true);
     /** Debugs the image system. */
-    Debug.image = new Debug(true);
+    Debug.image = new Debug(false);
     /** Debugs the sound system. */
     Debug.sound = new Debug(false);
     /** Debugs the key system. */
@@ -27797,12 +27797,11 @@ var ImageSystem = /** @class */ (function () {
     /***************************************************************************************************************
     *   Preloads all images into memory.
     *
-    *   TODO prune fileNames param!
-    *
-    *   @param fileNames      The names of all image files to load.
-    *   @param onLoadComplete The method to invoke when all image files are loaded.
+    *   @param fileNames         The names of all image files to load.
+    *   @param mirroredFileNames The names of all mirrored image files to load.
+    *   @param onLoadComplete    The method to invoke when all image files are loaded.
     ***************************************************************************************************************/
-    function ImageSystem(fileNames, onLoadComplete) {
+    function ImageSystem(fileNames, mirroredFileNames, onLoadComplete) {
         var _this = this;
         /** All image file names to load. */
         this.fileNames = null;
@@ -27845,7 +27844,7 @@ var ImageSystem = /** @class */ (function () {
             }
         };
         this.fileNames = fileNames;
-        this.mirroredFileNames = ninjas.SpriteTemplate.getAllImagesToMirror();
+        this.mirroredFileNames = mirroredFileNames;
         this.onLoadComplete = onLoadComplete;
     }
     /***************************************************************************************************************
@@ -28365,10 +28364,10 @@ var SiteSystem = /** @class */ (function () {
     ***************************************************************************************************************/
     SiteSystem.prototype.show = function (position) {
         var _this = this;
-        ninjas.Debug.site.log("Showing site panel");
         if (this.activePanel != null || this.animationState != ninjas.SitePanelAnimation.NONE) {
             return false;
         }
+        ninjas.Debug.site.log("Showing site panel");
         this.animationState = ninjas.SitePanelAnimation.SHOW;
         this.activePanel = new ninjas.SitePanel(position);
         this.activePanel.addToDom();
@@ -28387,10 +28386,10 @@ var SiteSystem = /** @class */ (function () {
     ***************************************************************************************************************/
     SiteSystem.prototype.hide = function () {
         var _this = this;
-        ninjas.Debug.site.log("Hiding site panel");
         if (this.activePanel == null || this.animationState != ninjas.SitePanelAnimation.NONE) {
             return false;
         }
+        ninjas.Debug.site.log("Hiding site panel");
         this.animationState = ninjas.SitePanelAnimation.HIDE;
         this.activePanel.animateOut();
         this.wowSystem.sync();
@@ -29191,7 +29190,7 @@ var Level = /** @class */ (function () {
         this.height = 0.0;
         /** The player instance. */
         this.player = null;
-        /** ALL game objects for this level, including the player. TODO split! */
+        /** ALL game objects for this level, including the player. */
         this.gameObjects = null;
     }
     /***************************************************************************************************************
@@ -32248,7 +32247,7 @@ var GameEngine = /** @class */ (function () {
         this.canvasSystem = new ninjas.CanvasSystem();
         this.canvasSystem.updateDimensions();
         ninjas.Debug.init.log("Initing image system");
-        this.imageSystem = new ninjas.ImageSystem(ninjas.Image.FILE_NAMES, this.onImagesLoaded);
+        this.imageSystem = new ninjas.ImageSystem(ninjas.Image.FILE_NAMES, ninjas.SpriteTemplate.getAllImagesToMirror(), this.onImagesLoaded);
         this.imageSystem.loadImages();
     };
     /***************************************************************************************************************

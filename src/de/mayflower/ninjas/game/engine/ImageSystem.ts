@@ -44,15 +44,14 @@
         /***************************************************************************************************************
         *   Preloads all images into memory.
         *
-        *   TODO prune fileNames param!
-        *
-        *   @param fileNames      The names of all image files to load.
-        *   @param onLoadComplete The method to invoke when all image files are loaded.
+        *   @param fileNames         The names of all image files to load.
+        *   @param mirroredFileNames The names of all mirrored image files to load.
+        *   @param onLoadComplete    The method to invoke when all image files are loaded.
         ***************************************************************************************************************/
-        public constructor( fileNames:Array<string>, onLoadComplete:Function )
+        public constructor( fileNames:Array<string>, mirroredFileNames:Array<string>, onLoadComplete:Function )
         {
             this.fileNames         = fileNames;
-            this.mirroredFileNames = ninjas.SpriteTemplate.getAllImagesToMirror();
+            this.mirroredFileNames = mirroredFileNames;
             this.onLoadComplete    = onLoadComplete;
         }
 
