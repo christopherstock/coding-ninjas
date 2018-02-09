@@ -132,8 +132,9 @@
             ),
 */
 
-            ninjas.GameObjectBundleFactory.createFlyingGround( 0,    2500, 5, this );
-            ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, this );
-            ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 0,    2500, 5, ninjas.CapEnds.LEFT,  this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapEnds.BOTH,  this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapEnds.RIGHT, this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2500, 6, ninjas.CapEnds.NONE,  this );
         }
     }

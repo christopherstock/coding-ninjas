@@ -29618,9 +29618,10 @@ var LevelWebsite = /** @class */ (function (_super) {
                         0.0
                     ),
         */
-        ninjas.GameObjectBundleFactory.createFlyingGround(0, 2500, 5, this);
-        ninjas.GameObjectBundleFactory.createFlyingGround(1200, 2500, 4, this);
-        ninjas.GameObjectBundleFactory.createFlyingGround(2200, 2500, 6, this);
+        ninjas.GameObjectBundleFactory.createFlyingGround(0, 2500, 5, ninjas.CapEnds.LEFT, this);
+        ninjas.GameObjectBundleFactory.createFlyingGround(1200, 2500, 4, ninjas.CapEnds.BOTH, this);
+        ninjas.GameObjectBundleFactory.createFlyingGround(2200, 2500, 6, ninjas.CapEnds.RIGHT, this);
+        ninjas.GameObjectBundleFactory.createFlyingGround(3600, 2500, 6, ninjas.CapEnds.NONE, this);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -33887,6 +33888,19 @@ webpackContext.id = 182;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
+*   Specifies capping for compound ends.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var CapEnds;
+(function (CapEnds) {
+    CapEnds[CapEnds["NONE"] = 0] = "NONE";
+    CapEnds[CapEnds["LEFT"] = 1] = "LEFT";
+    CapEnds[CapEnds["RIGHT"] = 2] = "RIGHT";
+    CapEnds[CapEnds["BOTH"] = 3] = "BOTH";
+})(CapEnds = exports.CapEnds || (exports.CapEnds = {}));
+/*******************************************************************************************************************
 *   Creates bundled instances of game objects.
 *
 *   @author     Christopher Stock
@@ -33901,19 +33915,24 @@ var GameObjectBundleFactory = /** @class */ (function () {
     *   @param x            Anchor X.
     *   @param yTop         Anchor for top Y.
     *   @param centerLength The number of center elements.
+    *   @param capEnds      Spdcifies end cappings.
     *   @param level        The level to add the flying ground to.
     ***************************************************************************************************************/
-    GameObjectBundleFactory.createFlyingGround = function (x, yTop, centerLength, level) {
+    GameObjectBundleFactory.createFlyingGround = function (x, yTop, centerLength, capEnds, level) {
         var leftTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_LEFT);
         var centerTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_CENTER);
         var rightTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_RIGHT);
-        level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, leftTile, 0.0, ninjas.JumpPassThrough.NO));
-        x += leftTile.width;
+        if (capEnds == CapEnds.LEFT || capEnds == CapEnds.BOTH) {
+            level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, leftTile, 0.0, ninjas.JumpPassThrough.NO));
+            x += leftTile.width;
+        }
         for (var i = 0; i < centerLength; ++i) {
             level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, centerTile, 0.0, ninjas.JumpPassThrough.NO));
             x += centerTile.width;
         }
-        level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, rightTile, 0.0, ninjas.JumpPassThrough.NO));
+        if (capEnds == CapEnds.RIGHT || capEnds == CapEnds.BOTH) {
+            level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, rightTile, 0.0, ninjas.JumpPassThrough.NO));
+        }
     };
     return GameObjectBundleFactory;
 }());
