@@ -66,7 +66,7 @@
                 )
                 {
                     this.isPassThrough = JumpPassThrough.YES;
-                    this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
+                    this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_PASS_THROUGH_OBSTACLES;
                 }
 
                 // check collision activation if non-colliding

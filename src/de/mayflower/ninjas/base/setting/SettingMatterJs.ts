@@ -37,41 +37,39 @@
         public  static  readonly    COLLISION_GROUP_COLLIDING                   :matter.ICollisionFilter    =
         {
             category: 0x0001,
-            mask:     0x0002,
-            group:    0x0003,
+            mask:     0x0001,
+            group:    0x0001,
         };
 
         /** The collision group for all non-colliding items. */
         public  static  readonly    COLLISION_GROUP_NON_COLLIDING_ITEM          :matter.ICollisionFilter    =
         {
-            category: 0x0004,
-            mask:     0x0005,
-            group:    0x0006,
+            category: 0x0002,
+            mask:     0x0002,
+            group:    0x0002,
         };
 
         /** The collision group for all non-colliding decos. */
         public  static  readonly    COLLISION_GROUP_NON_COLLIDING_DECO          :matter.ICollisionFilter    =
         {
-            category: 0x0007,
-            mask:     0x0008,
-            group:    0x0009,
+            category: 0x0004,
+            mask:     0x0004,
+            group:    0x0004,
         };
 
         /** The collision group for all non-colliding dead enemies. */
         public  static  readonly    COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY    :matter.ICollisionFilter    =
         {
-            category: 0x0010,
-            mask:     0x0011,
-            group:    0x0012,
+            category: 0x0008,
+            mask:     0x0008,
+            group:    0x0008,
         };
 
         /** The collision group for all pass-through obstacles. */
-/*
-        public  static  readonly    COLLISION_GROUP_NON_COLLIDING_OBSTACLES     :matter.ICollisionFilter    =
+        public  static  readonly    COLLISION_GROUP_PASS_THROUGH_OBSTACLES      :matter.ICollisionFilter    =
         {
-            category: 0x0010,
-            mask:     0x0011,
-            group:    0x0012,
+            category: 0x0016,
+            mask:     0x0016,
+            group:    0x0016,
         };
-*/
     }

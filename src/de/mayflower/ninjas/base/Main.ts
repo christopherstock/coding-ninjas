@@ -4,14 +4,14 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO FINALLY Solve collision groups!! Add collision group for non-colliding obstacles!
     *   TODO Group different objects in level class!?
     *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
-    *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
-    *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
     *   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
     *   TODO Adjust densities for game objects.
     *   TODO restitution will bounce balls - set it for all game objects.
+    *
+    *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+    *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Revise parallax rendering though different groups in level class.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!

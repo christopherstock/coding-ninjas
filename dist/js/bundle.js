@@ -27436,14 +27436,14 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO FINALLY Solve collision groups!! Add collision group for non-colliding obstacles!
 *   TODO Group different objects in level class!?
 *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
-*   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
-*   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
 *   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
 *   TODO Adjust densities for game objects.
 *   TODO restitution will bounce balls - set it for all game objects.
+*
+*   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+*   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Revise parallax rendering though different groups in level class.
 *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
@@ -27669,26 +27669,32 @@ var SettingMatterJs = /** @class */ (function () {
     /** The default collision group for all game objects. */
     SettingMatterJs.COLLISION_GROUP_COLLIDING = {
         category: 0x0001,
-        mask: 0x0002,
-        group: 0x0003,
+        mask: 0x0001,
+        group: 0x0001,
     };
     /** The collision group for all non-colliding items. */
     SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_ITEM = {
-        category: 0x0004,
-        mask: 0x0005,
-        group: 0x0006,
+        category: 0x0002,
+        mask: 0x0002,
+        group: 0x0002,
     };
     /** The collision group for all non-colliding decos. */
     SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DECO = {
-        category: 0x0007,
-        mask: 0x0008,
-        group: 0x0009,
+        category: 0x0004,
+        mask: 0x0004,
+        group: 0x0004,
     };
     /** The collision group for all non-colliding dead enemies. */
     SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY = {
-        category: 0x0010,
-        mask: 0x0011,
-        group: 0x0012,
+        category: 0x0008,
+        mask: 0x0008,
+        group: 0x0008,
+    };
+    /** The collision group for all pass-through obstacles. */
+    SettingMatterJs.COLLISION_GROUP_PASS_THROUGH_OBSTACLES = {
+        category: 0x0016,
+        mask: 0x0016,
+        group: 0x0016,
     };
     return SettingMatterJs;
 }());
@@ -30280,7 +30286,7 @@ var Obstacle = /** @class */ (function (_super) {
             if (this.isPassThrough == JumpPassThrough.NO
                 && ninjas.Main.game.level.player.isJumping()) {
                 this.isPassThrough = JumpPassThrough.YES;
-                this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
+                this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_PASS_THROUGH_OBSTACLES;
             }
             else if (this.isPassThrough == JumpPassThrough.YES
                 && (ninjas.Main.game.level.player.isFalling()
