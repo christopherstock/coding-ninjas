@@ -142,12 +142,10 @@
             // check character landing on enemies
             if ( this.collidesBottom )
             {
-                for ( let gameObject of ninjas.Main.game.level.gameObjects )
+                for ( let enemy of ninjas.Main.game.level.enemies )
                 {
-                    if ( gameObject instanceof ninjas.Enemy )
+                    if ( enemy instanceof ninjas.Enemy )
                     {
-                        let enemy:ninjas.Enemy = gameObject;
-
                         // check intersection of the player and the enemy
                         if ( matter.Bounds.overlaps( this.shape.body.bounds, enemy.shape.body.bounds ) )
                         {

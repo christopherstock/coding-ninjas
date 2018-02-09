@@ -29269,10 +29269,24 @@ var Level = /** @class */ (function () {
         this.width = 0.0;
         /** The height of this level. */
         this.height = 0.0;
+        /** All parallax bgs. */
+        this.parallaxBgs = null;
+        /** All decos in bg. */
+        this.decosBg = null;
+        /** All site triggers. */
+        this.siteTriggers = null;
+        /** All obstacles. */
+        this.obstacles = null;
+        /** All movables. */
+        this.movables = null;
+        /** All enemies. */
+        this.enemies = null;
         /** The player instance. */
         this.player = null;
-        /** ALL game objects for this level, including the player. */
-        this.gameObjects = null;
+        /** All decos in fg. */
+        this.decosFg = null;
+        /** All parallax fgs. */
+        this.parallaxFgs = null;
     }
     /***************************************************************************************************************
     *   Inits a new level.
@@ -29280,8 +29294,7 @@ var Level = /** @class */ (function () {
     Level.prototype.init = function () {
         this.createGameObjects();
         try {
-            // add all bodies of all game objects to the world
-            for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
+            for (var _a = __values(this.parallaxBgs), _b = _a.next(); !_b.done; _b = _a.next()) {
                 var gameObject = _b.value;
                 ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
             }
@@ -29293,36 +29306,216 @@ var Level = /** @class */ (function () {
             }
             finally { if (e_1) throw e_1.error; }
         }
-        var e_1, _c;
-    };
-    /***************************************************************************************************************
-    *   Renders all level components.
-    *
-    *   @param parallaxObjects Flags if parallax elements should be rendered.
-    ***************************************************************************************************************/
-    Level.prototype.render = function (parallaxObjects) {
         try {
-            // render game objects
-            for (var _a = __values(this.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
-                var gameObject = _b.value;
-                if (gameObject instanceof ninjas.ParallaxDeco) {
-                    if (parallaxObjects)
-                        gameObject.render();
-                }
-                else {
-                    if (!parallaxObjects)
-                        gameObject.render();
-                }
+            for (var _d = __values(this.decosBg), _e = _d.next(); !_e.done; _e = _d.next()) {
+                var gameObject = _e.value;
+                ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }
         finally {
             try {
-                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+                if (_e && !_e.done && (_f = _d.return)) _f.call(_d);
             }
             finally { if (e_2) throw e_2.error; }
         }
-        var e_2, _c;
+        try {
+            for (var _g = __values(this.siteTriggers), _h = _g.next(); !_h.done; _h = _g.next()) {
+                var gameObject = _h.value;
+                ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
+            }
+        }
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+        finally {
+            try {
+                if (_h && !_h.done && (_j = _g.return)) _j.call(_g);
+            }
+            finally { if (e_3) throw e_3.error; }
+        }
+        try {
+            for (var _k = __values(this.obstacles), _l = _k.next(); !_l.done; _l = _k.next()) {
+                var gameObject = _l.value;
+                ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
+            }
+        }
+        catch (e_4_1) { e_4 = { error: e_4_1 }; }
+        finally {
+            try {
+                if (_l && !_l.done && (_m = _k.return)) _m.call(_k);
+            }
+            finally { if (e_4) throw e_4.error; }
+        }
+        try {
+            for (var _o = __values(this.movables), _p = _o.next(); !_p.done; _p = _o.next()) {
+                var gameObject = _p.value;
+                ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
+            }
+        }
+        catch (e_5_1) { e_5 = { error: e_5_1 }; }
+        finally {
+            try {
+                if (_p && !_p.done && (_q = _o.return)) _q.call(_o);
+            }
+            finally { if (e_5) throw e_5.error; }
+        }
+        try {
+            for (var _r = __values(this.enemies), _s = _r.next(); !_s.done; _s = _r.next()) {
+                var gameObject = _s.value;
+                ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
+            }
+        }
+        catch (e_6_1) { e_6 = { error: e_6_1 }; }
+        finally {
+            try {
+                if (_s && !_s.done && (_t = _r.return)) _t.call(_r);
+            }
+            finally { if (e_6) throw e_6.error; }
+        }
+        ninjas.Main.game.engine.matterJsSystem.addToWorld(this.player.shape.body);
+        try {
+            for (var _u = __values(this.decosFg), _v = _u.next(); !_v.done; _v = _u.next()) {
+                var gameObject = _v.value;
+                ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
+            }
+        }
+        catch (e_7_1) { e_7 = { error: e_7_1 }; }
+        finally {
+            try {
+                if (_v && !_v.done && (_w = _u.return)) _w.call(_u);
+            }
+            finally { if (e_7) throw e_7.error; }
+        }
+        try {
+            for (var _x = __values(this.parallaxFgs), _y = _x.next(); !_y.done; _y = _x.next()) {
+                var gameObject = _y.value;
+                ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
+            }
+        }
+        catch (e_8_1) { e_8 = { error: e_8_1 }; }
+        finally {
+            try {
+                if (_y && !_y.done && (_z = _x.return)) _z.call(_x);
+            }
+            finally { if (e_8) throw e_8.error; }
+        }
+        var e_1, _c, e_2, _f, e_3, _j, e_4, _m, e_5, _q, e_6, _t, e_7, _w, e_8, _z;
+    };
+    /***************************************************************************************************************
+    *   Renders all level components (except parallax game objects).
+    ***************************************************************************************************************/
+    Level.prototype.render = function () {
+        try {
+            for (var _a = __values(this.decosBg), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var gameObject = _b.value;
+                gameObject.render();
+            }
+        }
+        catch (e_9_1) { e_9 = { error: e_9_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_9) throw e_9.error; }
+        }
+        try {
+            for (var _d = __values(this.siteTriggers), _e = _d.next(); !_e.done; _e = _d.next()) {
+                var gameObject = _e.value;
+                gameObject.render();
+            }
+        }
+        catch (e_10_1) { e_10 = { error: e_10_1 }; }
+        finally {
+            try {
+                if (_e && !_e.done && (_f = _d.return)) _f.call(_d);
+            }
+            finally { if (e_10) throw e_10.error; }
+        }
+        try {
+            for (var _g = __values(this.obstacles), _h = _g.next(); !_h.done; _h = _g.next()) {
+                var gameObject = _h.value;
+                gameObject.render();
+            }
+        }
+        catch (e_11_1) { e_11 = { error: e_11_1 }; }
+        finally {
+            try {
+                if (_h && !_h.done && (_j = _g.return)) _j.call(_g);
+            }
+            finally { if (e_11) throw e_11.error; }
+        }
+        try {
+            for (var _k = __values(this.movables), _l = _k.next(); !_l.done; _l = _k.next()) {
+                var gameObject = _l.value;
+                gameObject.render();
+            }
+        }
+        catch (e_12_1) { e_12 = { error: e_12_1 }; }
+        finally {
+            try {
+                if (_l && !_l.done && (_m = _k.return)) _m.call(_k);
+            }
+            finally { if (e_12) throw e_12.error; }
+        }
+        try {
+            for (var _o = __values(this.enemies), _p = _o.next(); !_p.done; _p = _o.next()) {
+                var gameObject = _p.value;
+                gameObject.render();
+            }
+        }
+        catch (e_13_1) { e_13 = { error: e_13_1 }; }
+        finally {
+            try {
+                if (_p && !_p.done && (_q = _o.return)) _q.call(_o);
+            }
+            finally { if (e_13) throw e_13.error; }
+        }
+        this.player.render();
+        try {
+            for (var _r = __values(this.decosFg), _s = _r.next(); !_s.done; _s = _r.next()) {
+                var gameObject = _s.value;
+                gameObject.render();
+            }
+        }
+        catch (e_14_1) { e_14 = { error: e_14_1 }; }
+        finally {
+            try {
+                if (_s && !_s.done && (_t = _r.return)) _t.call(_r);
+            }
+            finally { if (e_14) throw e_14.error; }
+        }
+        var e_9, _c, e_10, _f, e_11, _j, e_12, _m, e_13, _q, e_14, _t;
+    };
+    /***************************************************************************************************************
+    *   Renders all parallax game objects.
+    ***************************************************************************************************************/
+    Level.prototype.renderParallaxElements = function () {
+        try {
+            for (var _a = __values(this.parallaxBgs), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var gameObject = _b.value;
+                gameObject.render();
+            }
+        }
+        catch (e_15_1) { e_15 = { error: e_15_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_15) throw e_15.error; }
+        }
+        try {
+            for (var _d = __values(this.parallaxFgs), _e = _d.next(); !_e.done; _e = _d.next()) {
+                var gameObject = _e.value;
+                gameObject.render();
+            }
+        }
+        catch (e_16_1) { e_16 = { error: e_16_1 }; }
+        finally {
+            try {
+                if (_e && !_e.done && (_f = _d.return)) _f.call(_d);
+            }
+            finally { if (e_16) throw e_16.error; }
+        }
+        var e_15, _c, e_16, _f;
     };
     return Level;
 }());
@@ -29367,82 +29560,83 @@ var LevelWebsite = /** @class */ (function (_super) {
     *   Inits a new level.
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
-        // init player
-        this.player = ninjas.GameObjectFactory.createPlayer(2000, 2500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
-        // setup all game objects
-        this.gameObjects =
+        this.parallaxBgs =
+            [];
+        this.decosBg =
             [
-                /*
-                                // parallax background
-                                ninjas.GameObjectFactory.createParallaxDeco( 0,  2200, 1.0, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BG_TEST ) ),
-                */
+                ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(1200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+            ];
+        this.siteTriggers =
+            [
+                ninjas.GameObjectFactory.createSiteTrigger(2800, 2000, 500, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
+            ];
+        this.obstacles =
+            [
                 // grounds and walls
                 ninjas.GameObjectFactory.createObstacle(0, 2500, 3500, 15, 0.0, ninjas.JumpPassThrough.NO),
                 ninjas.GameObjectFactory.createObstacle(4250, 2300, 750, 15, 0.0, ninjas.JumpPassThrough.NO),
+                // ascending ramp
+                ninjas.GameObjectFactory.createElevatedRamp(3500, 2500, 750.0, 15.0, -200.0, ninjas.JumpPassThrough.NO),
                 // pass-through obstacles
                 ninjas.GameObjectFactory.createObstacle(1500, 2200, 300, 15, 0.0, ninjas.JumpPassThrough.YES),
                 ninjas.GameObjectFactory.createObstacle(1200, 2100, 300, 15, 0.0, ninjas.JumpPassThrough.YES),
                 ninjas.GameObjectFactory.createElevatedRamp(800, 2200, 350.0, 15.0, -200.0, ninjas.JumpPassThrough.YES),
-                // bg decoration
-                ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
-                // site trigger
-                ninjas.GameObjectFactory.createSiteTrigger(2800, 2000, 500, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
-                // moveable boxes
+            ];
+        this.movables =
+            [
                 ninjas.GameObjectFactory.createCrate(300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
-                // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
-                // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp(3500, 2500, 750.0, 15.0, -200.0, ninjas.JumpPassThrough.NO),
-                /*
-                                // sigsaws and bounces
-                                ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
-                                ninjas.GameObjectFactory.createBounce( 1900, 830,  400, 25, null ),
-                
-                                // animated platforms
-                                ninjas.GameObjectFactory.createPlatform
-                                (
-                                    200.0,
-                                    15.0,
-                                    null,
-                                    ninjas.Platform.SPEED_NORMAL,
-                                    [
-                                        matter.Vector.create( 2820.0, 830.0 ),
-                                        matter.Vector.create( 3020.0, 830.0 ),
-                                    ]
-                                ),
-                
-                                // items
-                                ninjas.GameObjectFactory.createItem( 900,  620 ),
-                                ninjas.GameObjectFactory.createItem( 950,  620 ),
-                                ninjas.GameObjectFactory.createItem( 1000, 620 ),
-                                ninjas.GameObjectFactory.createItem( 2500, 740 ),
-                                ninjas.GameObjectFactory.createItem( 2550, 740 ),
-                                ninjas.GameObjectFactory.createItem( 2600, 740 ),
-                
-                                // free form
-                                ninjas.GameObjectFactory.createFreeForm(
-                                    3730.0,
-                                    730.0,
-                                    [
-                                        matter.Vector.create( 0.0,   0.0    ),
-                                        matter.Vector.create( 350.0, -100.0 ),
-                                        matter.Vector.create( 350.0, -85.0  ),
-                                        matter.Vector.create( 0.0,   15.0   ),
-                                    ],
-                                    0.0
-                                ),
-                */
-                // player
-                this.player,
-                /*
-                                // enemies (fg)
-                                ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
-                */
-                // fg decoration
+            ];
+        this.enemies =
+            [];
+        this.player = ninjas.GameObjectFactory.createPlayer(2000, 2500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+        this.decosFg =
+            [
                 ninjas.GameObjectFactory.createDecoration(800, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(1600, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
             ];
+        this.parallaxFgs =
+            [];
+        /*
+                    // sigsaws and bounces
+                    ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
+                    ninjas.GameObjectFactory.createBounce( 1900, 830,  400, 25, null ),
+        
+                    // animated platforms
+                    ninjas.GameObjectFactory.createPlatform
+                    (
+                        200.0,
+                        15.0,
+                        null,
+                        ninjas.Platform.SPEED_NORMAL,
+                        [
+                            matter.Vector.create( 2820.0, 830.0 ),
+                            matter.Vector.create( 3020.0, 830.0 ),
+                        ]
+                    ),
+        
+                    // items
+                    ninjas.GameObjectFactory.createItem( 900,  620 ),
+                    ninjas.GameObjectFactory.createItem( 950,  620 ),
+                    ninjas.GameObjectFactory.createItem( 1000, 620 ),
+                    ninjas.GameObjectFactory.createItem( 2500, 740 ),
+                    ninjas.GameObjectFactory.createItem( 2550, 740 ),
+                    ninjas.GameObjectFactory.createItem( 2600, 740 ),
+        
+                    // free form
+                    ninjas.GameObjectFactory.createFreeForm(
+                        3730.0,
+                        730.0,
+                        [
+                            matter.Vector.create( 0.0,   0.0    ),
+                            matter.Vector.create( 350.0, -100.0 ),
+                            matter.Vector.create( 350.0, -85.0  ),
+                            matter.Vector.create( 0.0,   15.0   ),
+                        ],
+                        0.0
+                    ),
+        */
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -29709,18 +29903,10 @@ var Character = /** @class */ (function (_super) {
     *   @return <code>true</code> if a bottom collision is currently active.
     ***************************************************************************************************************/
     Character.prototype.checkBottomCollision = function () {
-        // browse all game objects
         var bodiesToCheck = [];
         try {
-            for (var _a = __values(ninjas.Main.game.level.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
+            for (var _a = __values(ninjas.Main.game.level.movables), _b = _a.next(); !_b.done; _b = _a.next()) {
                 var gameObject = _b.value;
-                // skip own body and non-colliding game objects
-                if (gameObject.shape.body == this.shape.body
-                    || gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_ITEM
-                    || gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DECO
-                    || gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY) {
-                    continue;
-                }
                 bodiesToCheck.push(gameObject.shape.body);
             }
         }
@@ -29731,9 +29917,22 @@ var Character = /** @class */ (function (_super) {
             }
             finally { if (e_1) throw e_1.error; }
         }
+        try {
+            for (var _d = __values(ninjas.Main.game.level.obstacles), _e = _d.next(); !_e.done; _e = _d.next()) {
+                var gameObject = _e.value;
+                bodiesToCheck.push(gameObject.shape.body);
+            }
+        }
+        catch (e_2_1) { e_2 = { error: e_2_1 }; }
+        finally {
+            try {
+                if (_e && !_e.done && (_f = _d.return)) _f.call(_d);
+            }
+            finally { if (e_2) throw e_2.error; }
+        }
         // check colliding bodies
         this.collidesBottom = matter.Query.ray(bodiesToCheck, matter.Vector.create(this.shape.body.position.x - (this.shape.getWidth() / 2), this.shape.body.position.y + (this.shape.getHeight() / 2)), matter.Vector.create(this.shape.body.position.x + (this.shape.getWidth() / 2), this.shape.body.position.y + (this.shape.getHeight() / 2))).length > 0;
-        var e_1, _c;
+        var e_1, _c, e_2, _f;
     };
     return Character;
 }(ninjas.GameObject));
@@ -29933,10 +30132,9 @@ var Player = /** @class */ (function (_super) {
         // check character landing on enemies
         if (this.collidesBottom) {
             try {
-                for (var _a = __values(ninjas.Main.game.level.gameObjects), _b = _a.next(); !_b.done; _b = _a.next()) {
-                    var gameObject = _b.value;
-                    if (gameObject instanceof ninjas.Enemy) {
-                        var enemy = gameObject;
+                for (var _a = __values(ninjas.Main.game.level.enemies), _b = _a.next(); !_b.done; _b = _a.next()) {
+                    var enemy = _b.value;
+                    if (enemy instanceof ninjas.Enemy) {
                         // check intersection of the player and the enemy
                         if (matter.Bounds.overlaps(this.shape.body.bounds, enemy.shape.body.bounds)) {
                             ninjas.Debug.enemy.log("Enemy touched by player");
@@ -31353,12 +31551,12 @@ var Game = /** @class */ (function () {
         // handle menu key
         this.handleMenuKey();
         // render level
-        this.level.render(false);
+        this.level.render();
         // update camera
         var cameraBounds = this.camera.update(this.level.player.shape.body.position.x, this.level.player.shape.body.position.y, this.level.player.collidesBottom, this.engine.siteSystem.getCameraTargetX(), this.engine.canvasSystem.getHeight() * ninjas.SettingEngine.CAMERA_RATIO_Y);
         this.engine.matterJsSystem.setRenderBounds(cameraBounds);
         // render parallax elements
-        this.level.render(true);
+        this.level.renderParallaxElements();
     };
     /***************************************************************************************************************
     *   Paints all overlays after Matter.js completed rendering the scene.

@@ -188,22 +188,14 @@
         ***************************************************************************************************************/
         private checkBottomCollision()
         {
-            // browse all game objects
             let bodiesToCheck:Array<matter.Body> = [];
-            for ( let gameObject of ninjas.Main.game.level.gameObjects )
-            {
-                // skip own body and non-colliding game objects
-                if
-                (
-                        gameObject.shape.body == this.shape.body
-                    ||  gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_ITEM
-                    ||  gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DECO
-                    ||  gameObject.shape.body.collisionFilter == ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY
-                )
-                {
-                    continue;
-                }
 
+            for ( let gameObject of ninjas.Main.game.level.movables )
+            {
+                bodiesToCheck.push( gameObject.shape.body );
+            }
+            for ( let gameObject of ninjas.Main.game.level.obstacles )
+            {
                 bodiesToCheck.push( gameObject.shape.body );
             }
 

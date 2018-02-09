@@ -111,7 +111,7 @@
             this.handleMenuKey();
 
             // render level
-            this.level.render( false );
+            this.level.render();
 
             // update camera
             let cameraBounds:matter.Bounds = this.camera.update(
@@ -124,7 +124,7 @@
             this.engine.matterJsSystem.setRenderBounds( cameraBounds );
 
             // render parallax elements
-            this.level.render( true );
+            this.level.renderParallaxElements();
         }
 
         /***************************************************************************************************************
