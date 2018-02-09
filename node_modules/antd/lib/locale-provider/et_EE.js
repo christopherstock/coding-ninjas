@@ -61,3 +61,4 @@ exports['default'] = {
         previewFile: 'Faili eelvaade'
     }
 };
+module.exports = exports['default'];

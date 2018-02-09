@@ -59,3 +59,4 @@ exports['default'] = {
         previewFile: '파일 미리보기'
     }
 };
+module.exports = exports['default'];

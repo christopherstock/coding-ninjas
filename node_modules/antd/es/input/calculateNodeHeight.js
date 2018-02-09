@@ -75,7 +75,7 @@ export default function calculateNodeHeight(uiTextNode) {
     }
     if (minRows !== null || maxRows !== null) {
         // measure height of a textarea with a single row
-        hiddenTextarea.value = '';
+        hiddenTextarea.value = ' ';
         var singleRowHeight = hiddenTextarea.scrollHeight - paddingSize;
         if (minRows !== null) {
             minHeight = singleRowHeight * minRows;

@@ -81,3 +81,4 @@ exports['default'] = LocaleReceiver;
 LocaleReceiver.contextTypes = {
     antLocale: _propTypes2['default'].object
 };
+module.exports = exports['default'];

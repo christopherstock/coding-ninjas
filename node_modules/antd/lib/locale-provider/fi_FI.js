@@ -61,3 +61,4 @@ exports['default'] = {
         previewFile: 'Esikatsele tiedostoa'
     }
 };
+module.exports = exports['default'];

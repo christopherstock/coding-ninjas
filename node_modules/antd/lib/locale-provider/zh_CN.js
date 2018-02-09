@@ -61,3 +61,4 @@ exports['default'] = {
         previewFile: '预览文件'
     }
 };
+module.exports = exports['default'];

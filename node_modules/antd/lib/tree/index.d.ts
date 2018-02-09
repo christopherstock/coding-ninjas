@@ -6,6 +6,7 @@ export interface AntTreeNodeProps {
     title?: string | React.ReactNode;
     key?: string;
     isLeaf?: boolean;
+    children?: React.ReactNode;
 }
 export interface AntTreeNode extends React.Component<AntTreeNodeProps, {}> {
 }

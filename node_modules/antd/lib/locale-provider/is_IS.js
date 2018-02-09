@@ -61,3 +61,4 @@ exports['default'] = {
         previewFile: 'Forskoða skrá'
     }
 };
+module.exports = exports['default'];

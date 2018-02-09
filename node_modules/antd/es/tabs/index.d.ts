@@ -23,6 +23,7 @@ export interface TabsProps {
         inkBar: boolean;
         tabPane: boolean;
     };
+    tabBarGutter?: number;
 }
 export interface TabPaneProps {
     /** 选项卡头显示文字 */

@@ -111,8 +111,9 @@ var BasicLayout = function (_React$Component3) {
                 prefixCls = _a.prefixCls,
                 className = _a.className,
                 children = _a.children,
-                others = __rest(_a, ["prefixCls", "className", "children"]);
-            var divCls = classNames(className, prefixCls, _defineProperty({}, prefixCls + '-has-sider', this.state.siders.length > 0));
+                hasSider = _a.hasSider,
+                others = __rest(_a, ["prefixCls", "className", "children", "hasSider"]);
+            var divCls = classNames(className, prefixCls, _defineProperty({}, prefixCls + '-has-sider', hasSider || this.state.siders.length > 0));
             return React.createElement(
                 'div',
                 _extends({ className: divCls }, others),

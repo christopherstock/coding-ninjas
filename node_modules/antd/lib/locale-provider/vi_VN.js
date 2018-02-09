@@ -61,3 +61,4 @@ exports['default'] = {
         previewFile: 'Xem thử tập tin'
     }
 };
+module.exports = exports['default'];

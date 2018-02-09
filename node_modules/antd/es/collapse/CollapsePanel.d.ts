@@ -8,6 +8,7 @@ export interface CollapsePanelProps {
     style?: React.CSSProperties;
     showArrow?: boolean;
     prefixCls?: string;
+    forceRender?: boolean;
 }
 export default class CollapsePanel extends React.Component<CollapsePanelProps, {}> {
     render(): JSX.Element;

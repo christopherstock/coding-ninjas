@@ -61,3 +61,4 @@ exports['default'] = {
         previewFile: 'Попередній перегляд файлу'
     }
 };
+module.exports = exports['default'];

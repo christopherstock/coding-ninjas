@@ -149,6 +149,11 @@ var Calendar = function (_React$Component) {
                     value: nextProps.value
                 });
             }
+            if ('mode' in nextProps && nextProps.mode !== this.props.mode) {
+                this.setState({
+                    mode: nextProps.mode
+                });
+            }
         }
     }, {
         key: 'onPanelChange',

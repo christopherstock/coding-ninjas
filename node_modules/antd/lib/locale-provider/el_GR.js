@@ -61,3 +61,4 @@ exports['default'] = {
         previewFile: 'Προεπισκόπηση αρχείου'
     }
 };
+module.exports = exports['default'];

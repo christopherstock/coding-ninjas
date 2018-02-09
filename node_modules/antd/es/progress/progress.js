@@ -47,6 +47,7 @@ var Progress = function (_React$Component) {
                 format = props.format,
                 trailColor = props.trailColor,
                 size = props.size,
+                successPercent = props.successPercent,
                 type = props.type,
                 strokeWidth = props.strokeWidth,
                 width = props.width,
@@ -54,7 +55,7 @@ var Progress = function (_React$Component) {
                 _props$gapDegree = props.gapDegree,
                 gapDegree = _props$gapDegree === undefined ? 0 : _props$gapDegree,
                 gapPosition = props.gapPosition,
-                restProps = __rest(props, ["prefixCls", "className", "percent", "status", "format", "trailColor", "size", "type", "strokeWidth", "width", "showInfo", "gapDegree", "gapPosition"]);
+                restProps = __rest(props, ["prefixCls", "className", "percent", "status", "format", "trailColor", "size", "successPercent", "type", "strokeWidth", "width", "showInfo", "gapDegree", "gapPosition"]);
 
             var progressStatus = parseInt(percent.toString(), 10) >= 100 && !('status' in props) ? 'success' : status || 'normal';
             var progressInfo = void 0;
@@ -83,6 +84,11 @@ var Progress = function (_React$Component) {
                     width: percent + '%',
                     height: strokeWidth || (size === 'small' ? 6 : 8)
                 };
+                var successPercentStyle = {
+                    width: successPercent + '%',
+                    height: strokeWidth || (size === 'small' ? 6 : 8)
+                };
+                var successSegment = successPercent !== undefined ? React.createElement('div', { className: prefixCls + '-success-bg', style: successPercentStyle }) : null;
                 progress = React.createElement(
                     'div',
                     null,
@@ -92,7 +98,8 @@ var Progress = function (_React$Component) {
                         React.createElement(
                             'div',
                             { className: prefixCls + '-inner' },
-                            React.createElement('div', { className: prefixCls + '-bg', style: percentStyle })
+                            React.createElement('div', { className: prefixCls + '-bg', style: percentStyle }),
+                            successSegment
                         )
                     ),
                     progressInfo

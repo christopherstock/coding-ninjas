@@ -17,6 +17,7 @@ export interface AlertProps {
     onClose?: React.MouseEventHandler<HTMLAnchorElement>;
     /** Whether to show icon */
     showIcon?: boolean;
+    iconType?: string;
     style?: React.CSSProperties;
     prefixCls?: string;
     className?: string;

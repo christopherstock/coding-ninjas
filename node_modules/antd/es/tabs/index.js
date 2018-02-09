@@ -79,7 +79,8 @@ var Tabs = function (_React$Component) {
                 onPrevClick = _props.onPrevClick,
                 onNextClick = _props.onNextClick,
                 _props$animated = _props.animated,
-                animated = _props$animated === undefined ? true : _props$animated;
+                animated = _props$animated === undefined ? true : _props$animated,
+                tabBarGutter = _props.tabBarGutter;
 
             var _ref = (typeof animated === 'undefined' ? 'undefined' : _typeof(animated)) === 'object' ? {
                 inkBarAnimated: animated.inkBar, tabPaneAnimated: animated.tabPane
@@ -132,7 +133,7 @@ var Tabs = function (_React$Component) {
                 tabBarExtraContent
             ) : null;
             var renderTabBar = function renderTabBar() {
-                return React.createElement(ScrollableInkTabBar, { inkBarAnimated: inkBarAnimated, extraContent: tabBarExtraContent, onTabClick: onTabClick, onPrevClick: onPrevClick, onNextClick: onNextClick, style: tabBarStyle });
+                return React.createElement(ScrollableInkTabBar, { inkBarAnimated: inkBarAnimated, extraContent: tabBarExtraContent, onTabClick: onTabClick, onPrevClick: onPrevClick, onNextClick: onNextClick, style: tabBarStyle, tabBarGutter: tabBarGutter });
             };
             return React.createElement(
                 RcTabs,

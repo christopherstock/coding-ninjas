@@ -24,12 +24,12 @@ var opts = {
   concatName: 'animate.css',
 
   autoprefixer: {
-    browsers: ['last 2 versions'],
-    cascade: false
+    browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'],
+    cascade: false,
   },
 
   minRename: {
-    suffix: '.min'
+    suffix: '.min',
   },
 
   banner: [
@@ -40,8 +40,8 @@ var opts = {
     ' * Licensed under the MIT license - http://opensource.org/licenses/MIT',
     ' *',
     ' * Copyright (c) <%= new Date().getFullYear() %> <%= author.name %>',
-    ' */\n\n'
-  ].join('\n')
+    ' */\n\n',
+  ].join('\n'),
 };
 
 // ----------------------------
@@ -53,21 +53,19 @@ gulp.task('default', function() {
 });
 
 gulp.task('createCSS', function() {
-  return gulp.src(activatedAnimations)
+  return gulp
+    .src(activatedAnimations)
     .pipe(concat(opts.concatName))
-    .pipe(postcss([
-      autoprefixer(opts.autoprefixer)
-    ]))
+    .pipe(postcss([autoprefixer(opts.autoprefixer)]))
     .pipe(gulp.dest(opts.destPath))
-    .pipe(postcss([
-      cssnano({reduceIdents: {keyframes: false}})
-    ]))
+    .pipe(postcss([cssnano({reduceIdents: {keyframes: false}})]))
     .pipe(rename(opts.minRename))
     .pipe(gulp.dest(opts.destPath));
 });
 
 gulp.task('addHeader', function() {
-  return gulp.src('*.css')
+  return gulp
+    .src('*.css')
     .pipe(header(opts.banner, pkg))
     .pipe(gulp.dest(opts.destPath));
 });
@@ -79,17 +77,22 @@ gulp.task('addHeader', function() {
 // Read the config file and return an array of the animations to be activated
 function activateAnimations() {
   var categories = JSON.parse(fs.readFileSync('animate-config.json')),
-    category, files, file,
-    target = [ 'source/_base.css' ],
+    category,
+    files,
+    file,
+    target = ['source/_base.css'],
     count = 0;
 
   for (category in categories) {
     if (categories.hasOwnProperty(category)) {
       files = categories[category];
 
-      for (var i = 0; i < files.length; ++i) {
-        target.push('source/' + category + '/' + files[i] + '.css');
-        count += 1;
+      for (file in files) {
+        if (files[file]) {
+          // marked as true
+          target.push('source/' + category + '/' + file + '.css');
+          count += 1;
+        }
       }
     }
   }

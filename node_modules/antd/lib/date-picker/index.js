@@ -42,3 +42,4 @@ var MonthPicker = (0, _wrapPicker2['default'])((0, _createPicker2['default'])(_M
     WeekPicker: (0, _wrapPicker2['default'])(_WeekPicker2['default'], 'YYYY-wo')
 });
 exports['default'] = DatePicker;
+module.exports = exports['default'];

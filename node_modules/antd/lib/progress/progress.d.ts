@@ -5,6 +5,7 @@ export interface ProgressProps {
     className?: string;
     type?: 'line' | 'circle' | 'dashboard';
     percent?: number;
+    successPercent?: number;
     format?: (percent: number) => string;
     status?: 'success' | 'active' | 'exception';
     showInfo?: boolean;

@@ -53,3 +53,4 @@ exports['default'] = {
         notFoundContent: 'Pas de résultat'
     }
 };
+module.exports = exports['default'];

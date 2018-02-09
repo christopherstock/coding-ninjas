@@ -178,3 +178,4 @@ function wrapPicker(Picker, defaultFormat) {
     }, _a;
     var _a;
 }
+module.exports = exports['default'];

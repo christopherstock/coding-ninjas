@@ -94,11 +94,7 @@ var Tag = function (_React$Component) {
             var tag = this.state.closed ? null : React.createElement(
                 'div',
                 _extends({ 'data-show': !this.state.closing }, divProps, { className: classString, style: tagStyle }),
-                React.createElement(
-                    'span',
-                    { className: prefixCls + '-text' },
-                    children
-                ),
+                children,
                 closeIcon
             );
             return React.createElement(

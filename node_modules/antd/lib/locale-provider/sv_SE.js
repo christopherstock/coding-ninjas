@@ -53,3 +53,4 @@ exports['default'] = {
         notFoundContent: 'Info saknas'
     }
 };
+module.exports = exports['default'];

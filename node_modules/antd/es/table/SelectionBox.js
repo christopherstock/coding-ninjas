@@ -1,7 +1,16 @@
+import _extends from 'babel-runtime/helpers/extends';
 import _classCallCheck from 'babel-runtime/helpers/classCallCheck';
 import _createClass from 'babel-runtime/helpers/createClass';
 import _possibleConstructorReturn from 'babel-runtime/helpers/possibleConstructorReturn';
 import _inherits from 'babel-runtime/helpers/inherits';
+var __rest = this && this.__rest || function (s, e) {
+    var t = {};
+    for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+    }if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+        if (e.indexOf(p[i]) < 0) t[p[i]] = s[p[i]];
+    }return t;
+};
 import * as React from 'react';
 import Checkbox from '../checkbox';
 import Radio from '../radio';
@@ -62,17 +71,16 @@ var SelectionBox = function (_React$Component) {
     }, {
         key: 'render',
         value: function render() {
-            var _props = this.props,
-                type = _props.type,
-                rowIndex = _props.rowIndex,
-                disabled = _props.disabled,
-                onChange = _props.onChange;
-            var checked = this.state.checked;
+            var _a = this.props,
+                type = _a.type,
+                rowIndex = _a.rowIndex,
+                rest = __rest(_a, ["type", "rowIndex"]);var checked = this.state.checked;
 
             if (type === 'radio') {
-                return React.createElement(Radio, { disabled: disabled, onChange: onChange, value: rowIndex, checked: checked });
+                return React.createElement(Radio, _extends({ checked: checked, value: rowIndex }, rest));
+            } else {
+                return React.createElement(Checkbox, _extends({ checked: checked }, rest));
             }
-            return React.createElement(Checkbox, { checked: checked, disabled: disabled, onChange: onChange });
         }
     }]);
 

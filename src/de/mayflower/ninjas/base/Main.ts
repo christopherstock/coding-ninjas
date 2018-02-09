@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Change all indexed loops to foreach loops!
     *   TODO Solve jump-through obstacles!
     *   TODO Group different objects in level class!?
     *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
@@ -16,8 +15,6 @@
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Revise parallax rendering though different groups in level class.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
-    *   TODO wowjs really required? maybe animate.css suffices .. (console warning..)
-    *   TODO poly-decomp.js required (console warning..)
     *
     *   TODO Complete the MVP!
     *

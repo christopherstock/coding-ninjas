@@ -1,7 +1,7 @@
 import Pagination from 'rc-pagination/es/locale/en_US';
 import DatePicker from '../date-picker/locale/tr_TR';
 import TimePicker from '../time-picker/locale/tr_TR';
-import Calendar from '../calendar/locale/en_US';
+import Calendar from '../calendar/locale/tr_TR';
 export default {
     locale: 'tr',
     Pagination: Pagination,

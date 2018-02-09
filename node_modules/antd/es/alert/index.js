@@ -60,32 +60,34 @@ var Alert = function (_React$Component) {
                 banner = _props.banner,
                 _props$className = _props.className,
                 className = _props$className === undefined ? '' : _props$className,
-                style = _props.style;
+                style = _props.style,
+                iconType = _props.iconType;
             // banner模式默认有 Icon
 
             showIcon = banner && showIcon === undefined ? true : showIcon;
             // banner模式默认为警告
             type = banner && type === undefined ? 'warning' : type || 'info';
-            var iconType = '';
-            switch (type) {
-                case 'success':
-                    iconType = 'check-circle';
-                    break;
-                case 'info':
-                    iconType = 'info-circle';
-                    break;
-                case 'error':
-                    iconType = 'cross-circle';
-                    break;
-                case 'warning':
-                    iconType = 'exclamation-circle';
-                    break;
-                default:
-                    iconType = 'default';
-            }
-            // use outline icon in alert with description
-            if (!!description) {
-                iconType += '-o';
+            if (!iconType) {
+                switch (type) {
+                    case 'success':
+                        iconType = 'check-circle';
+                        break;
+                    case 'info':
+                        iconType = 'info-circle';
+                        break;
+                    case 'error':
+                        iconType = 'cross-circle';
+                        break;
+                    case 'warning':
+                        iconType = 'exclamation-circle';
+                        break;
+                    default:
+                        iconType = 'default';
+                }
+                // use outline icon in alert with description
+                if (!!description) {
+                    iconType += '-o';
+                }
             }
             var alertCls = classNames(prefixCls, (_classNames = {}, _defineProperty(_classNames, prefixCls + '-' + type, true), _defineProperty(_classNames, prefixCls + '-close', !this.state.closing), _defineProperty(_classNames, prefixCls + '-with-description', !!description), _defineProperty(_classNames, prefixCls + '-no-icon', !showIcon), _defineProperty(_classNames, prefixCls + '-banner', !!banner), _classNames), className);
             // closeable when closeText is assigned
