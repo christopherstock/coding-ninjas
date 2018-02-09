@@ -6,11 +6,12 @@
     *
     *   TODO Group different objects in level class!?
     *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
-    *   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
+    *   TODO Create concrete classes and specifiers (density_concrete etc.)
     *   TODO Adjust densities for game objects.
     *   TODO restitution will bounce balls - set it for all game objects.
-    *
+    *   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
     *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+    *
     *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Revise parallax rendering though different groups in level class.
