@@ -42,9 +42,6 @@
 
             this.obstacles =
             [
-                ninjas.GameObjectFactory.createObstacle( 0,   2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_LEFT   ), 0.0, ninjas.JumpPassThrough.NO ),
-                ninjas.GameObjectFactory.createObstacle( 128, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_CENTER ), 0.0, ninjas.JumpPassThrough.NO ),
-                ninjas.GameObjectFactory.createObstacle( 256, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_RIGHT  ), 0.0, ninjas.JumpPassThrough.NO ),
 /*
                 // grounds and walls
                 ninjas.GameObjectFactory.createObstacle( 0,    2500, 3500, 15, 0.0, ninjas.JumpPassThrough.NO ),
@@ -134,5 +131,9 @@
                 0.0
             ),
 */
+
+            ninjas.GameObjectBundleFactory.createFlyingGround( 0,    2500, 5, this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, this );
         }
     }

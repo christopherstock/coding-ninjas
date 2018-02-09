@@ -4633,6 +4633,8 @@ __export(__webpack_require__(146));
 __export(__webpack_require__(147));
 __export(__webpack_require__(148));
 __export(__webpack_require__(149));
+__export(__webpack_require__(183));
+__export(__webpack_require__(162));
 __export(__webpack_require__(150));
 __export(__webpack_require__(151));
 __export(__webpack_require__(152));
@@ -4645,7 +4647,6 @@ __export(__webpack_require__(158));
 __export(__webpack_require__(159));
 __export(__webpack_require__(160));
 __export(__webpack_require__(161));
-__export(__webpack_require__(162));
 __export(__webpack_require__(163));
 __export(__webpack_require__(164));
 __export(__webpack_require__(165));
@@ -29568,11 +29569,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.siteTriggers =
             [];
         this.obstacles =
-            [
-                ninjas.GameObjectFactory.createObstacle(0, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_LEFT), 0.0, ninjas.JumpPassThrough.NO),
-                ninjas.GameObjectFactory.createObstacle(128, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_CENTER), 0.0, ninjas.JumpPassThrough.NO),
-                ninjas.GameObjectFactory.createObstacle(256, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_RIGHT), 0.0, ninjas.JumpPassThrough.NO),
-            ];
+            [];
         this.movables =
             [];
         this.enemies =
@@ -29621,6 +29618,9 @@ var LevelWebsite = /** @class */ (function (_super) {
                         0.0
                     ),
         */
+        ninjas.GameObjectBundleFactory.createFlyingGround(0, 2500, 5, this);
+        ninjas.GameObjectBundleFactory.createFlyingGround(1200, 2500, 4, this);
+        ninjas.GameObjectBundleFactory.createFlyingGround(2200, 2500, 6, this);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -33877,6 +33877,48 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = 182;
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+/*******************************************************************************************************************
+*   Creates bundled instances of game objects.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var GameObjectBundleFactory = /** @class */ (function () {
+    function GameObjectBundleFactory() {
+    }
+    /***************************************************************************************************************
+    *   Creates a flying ground.
+    *
+    *   @param x            Anchor X.
+    *   @param yTop         Anchor for top Y.
+    *   @param centerLength The number of center elements.
+    *   @param level        The level to add the flying ground to.
+    ***************************************************************************************************************/
+    GameObjectBundleFactory.createFlyingGround = function (x, yTop, centerLength, level) {
+        var leftTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_LEFT);
+        var centerTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_CENTER);
+        var rightTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_RIGHT);
+        level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, leftTile, 0.0, ninjas.JumpPassThrough.NO));
+        x += leftTile.width;
+        for (var i = 0; i < centerLength; ++i) {
+            level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, centerTile, 0.0, ninjas.JumpPassThrough.NO));
+            x += centerTile.width;
+        }
+        level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, rightTile, 0.0, ninjas.JumpPassThrough.NO));
+    };
+    return GameObjectBundleFactory;
+}());
+exports.GameObjectBundleFactory = GameObjectBundleFactory;
+
 
 /***/ })
 /******/ ]);

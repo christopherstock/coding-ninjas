@@ -21,6 +21,8 @@
     export * from './game/level/LevelWebsite';
 
     export * from './game/object/GameObject';
+    export * from './game/object/GameObjectBundleFactory';
+    export * from './game/object/GameObjectFactory';
 
     export * from './game/object/being/Character';
     export * from './game/object/being/Enemy';
@@ -38,7 +40,6 @@
     export * from './game/object/special/SigSaw';
     export * from './game/object/special/SiteTrigger';
 
-    export * from './game/object/GameObjectFactory';
 
     export * from './game/shape/Shape';
     export * from './game/shape/ShapeRectangle';
