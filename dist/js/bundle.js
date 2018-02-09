@@ -27514,9 +27514,9 @@ var SettingDebug = /** @class */ (function () {
     /** The global debug switch. */
     SettingDebug.DEBUG_MODE = true;
     /** Disables all sounds. */
-    SettingDebug.MUTE = true;
+    SettingDebug.MUTE = (true && SettingDebug.DEBUG_MODE);
     /** Disables all sprites. */
-    SettingDebug.DISABLE_SPRITES = true;
+    SettingDebug.DISABLE_SPRITES = (false && SettingDebug.DEBUG_MODE);
     /** The opacity for the debug colors. */
     SettingDebug.COLOR_DEBUG_OPACITY = 1.0;
     /** The line width for debug lines. */

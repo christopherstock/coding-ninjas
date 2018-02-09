@@ -11,10 +11,10 @@
         public  static  readonly    DEBUG_MODE                              :boolean                    = true;
 
         /** Disables all sounds. */
-        public  static  readonly    MUTE                                    :boolean                    = true;
+        public  static  readonly    MUTE                                    :boolean                    = ( true && SettingDebug.DEBUG_MODE );
 
         /** Disables all sprites. */
-        public  static  readonly    DISABLE_SPRITES                         :boolean                    = true;
+        public  static  readonly    DISABLE_SPRITES                         :boolean                    = ( false && SettingDebug.DEBUG_MODE );
 
         /** The opacity for the debug colors. */
         public  static  readonly    COLOR_DEBUG_OPACITY                     :number                     = 1.0;
