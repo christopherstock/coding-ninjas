@@ -3,6 +3,18 @@
     import * as matter from "matter-js";
 
     /*******************************************************************************************************************
+    *   Specifies if an obstacle allows jump pass through.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum JumpPassThrough
+    {
+        YES,
+        NO,
+    }
+
+    /*******************************************************************************************************************
     *   Represents a collidable and solid obstacle.
     *
     *   @author     Christopher Stock
@@ -11,9 +23,9 @@
     export class Obstacle extends ninjas.GameObject
     {
         /** Specifies if the player shall be allowed to jump through this obstacle. */
-        private         jumpPassThrough             :boolean                        = false;
+        private         jumpPassThrough             :JumpPassThrough                    = null;
         /** Specifies if the obstacle currently allows passing through. */
-        private         isPassThrough               :boolean                        = false;
+        private         isPassThrough               :JumpPassThrough                    = null;
 
         /***************************************************************************************************************
         *   Creates a new obstacle.
@@ -23,7 +35,7 @@
         *   @param y               Startup position Y.
         *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
         ***************************************************************************************************************/
-        public constructor( shape:ninjas.Shape, x:number, y:number, jumpPassThrough:boolean )
+        public constructor( shape:ninjas.Shape, x:number, y:number, jumpPassThrough:JumpPassThrough )
         {
             super
             (
@@ -34,7 +46,7 @@
             );
 
             this.jumpPassThrough = jumpPassThrough;
-            this.isPassThrough   = false;
+            this.isPassThrough   = JumpPassThrough.NO;
         }
 
         /***************************************************************************************************************
@@ -44,24 +56,27 @@
         {
             super.render();
 
-            if ( this.jumpPassThrough )
+            if ( this.jumpPassThrough == JumpPassThrough.YES )
             {
                 // check collision release if colliding
                 if
                 (
-                       !this.isPassThrough
+                       this.isPassThrough == JumpPassThrough.NO
                     && ninjas.Main.game.level.player.isJumping()
                 )
                 {
-                    this.isPassThrough = true;
+                    this.isPassThrough = JumpPassThrough.YES;
                     this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
                 }
 
                 // check collision activation if non-colliding
                 else if
                 (
-                       this.isPassThrough
-                    && ninjas.Main.game.level.player.isFalling()
+                       this.isPassThrough == JumpPassThrough.YES
+                    && (
+                            ninjas.Main.game.level.player.isFalling()
+                        ||  ninjas.Main.game.level.player.isMoving()
+                    )
                 )
                 {
                     let colliding:boolean = false;
@@ -81,7 +96,7 @@
                     // only if player is not currently colliding!
                     if ( !colliding )
                     {
-                        this.isPassThrough = false;
+                        this.isPassThrough = JumpPassThrough.NO;
                         this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING;
                     }
                 }

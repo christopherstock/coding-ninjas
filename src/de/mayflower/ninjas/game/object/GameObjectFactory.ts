@@ -120,7 +120,7 @@
             width           :number,
             height          :number,
             angle           :number,
-            jumpPassThrough :boolean
+            jumpPassThrough :ninjas.JumpPassThrough
         )
         : ninjas.Obstacle
         {
@@ -167,7 +167,7 @@
                 ),
                 x,
                 y,
-                false
+                ninjas.JumpPassThrough.NO
             );
         }
 
@@ -190,7 +190,7 @@
             width           :number,
             height          :number,
             deltaY          :number,
-            jumpPassThrough :boolean
+            jumpPassThrough :ninjas.JumpPassThrough
         )
         : ninjas.Obstacle
         {

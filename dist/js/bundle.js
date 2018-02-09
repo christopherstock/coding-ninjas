@@ -27437,7 +27437,6 @@ var ninjas = __webpack_require__(1);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO FINALLY Solve collision groups!! Add collision group for non-colliding obstacles!
-*   TODO Create enum JumpPassThrough
 *   TODO Group different objects in level class!?
 *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
 *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
@@ -29371,12 +29370,12 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createParallaxDeco( 0,  2200, 1.0, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BG_TEST ) ),
                 */
                 // grounds and walls
-                ninjas.GameObjectFactory.createObstacle(0, 2500, 3500, 15, 0.0, false),
-                ninjas.GameObjectFactory.createObstacle(4250, 2300, 750, 15, 0.0, false),
+                ninjas.GameObjectFactory.createObstacle(0, 2500, 3500, 15, 0.0, ninjas.JumpPassThrough.NO),
+                ninjas.GameObjectFactory.createObstacle(4250, 2300, 750, 15, 0.0, ninjas.JumpPassThrough.NO),
                 // pass-through obstacles
-                ninjas.GameObjectFactory.createObstacle(1500, 2200, 300, 15, 0.0, true),
-                ninjas.GameObjectFactory.createObstacle(1200, 2100, 300, 15, 0.0, true),
-                ninjas.GameObjectFactory.createElevatedRamp(800, 2200, 350.0, 15.0, -200.0, true),
+                ninjas.GameObjectFactory.createObstacle(1500, 2200, 300, 15, 0.0, ninjas.JumpPassThrough.YES),
+                ninjas.GameObjectFactory.createObstacle(1200, 2100, 300, 15, 0.0, ninjas.JumpPassThrough.YES),
+                ninjas.GameObjectFactory.createElevatedRamp(800, 2200, 350.0, 15.0, -200.0, ninjas.JumpPassThrough.YES),
                 // bg decoration
                 ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
                 ninjas.GameObjectFactory.createDecoration(1200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
@@ -29387,7 +29386,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
                 // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp(3500, 2500, 750.0, 15.0, -200.0, false),
+                ninjas.GameObjectFactory.createElevatedRamp(3500, 2500, 750.0, 15.0, -200.0, ninjas.JumpPassThrough.NO),
                 /*
                                 // sigsaws and bounces
                                 ninjas.GameObjectFactory.createSigsaw( 1490, 830,  400, 25, null ),
@@ -29679,6 +29678,12 @@ var Character = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     Character.prototype.isJumping = function () {
         return (this.shape.body.velocity.y < 0.0 && !this.collidesBottom);
+    };
+    /***************************************************************************************************************
+    *   Checks if this character is currently moving.
+    ***************************************************************************************************************/
+    Character.prototype.isMoving = function () {
+        return (this.movesLeft || this.movesRight);
     };
     /***************************************************************************************************************
     *   Check if the player falls to death by falling out of the level.
@@ -30229,6 +30234,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 var matter = __webpack_require__(2);
 /*******************************************************************************************************************
+*   Specifies if an obstacle allows jump pass through.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var JumpPassThrough;
+(function (JumpPassThrough) {
+    JumpPassThrough[JumpPassThrough["YES"] = 0] = "YES";
+    JumpPassThrough[JumpPassThrough["NO"] = 1] = "NO";
+})(JumpPassThrough = exports.JumpPassThrough || (exports.JumpPassThrough = {}));
+/*******************************************************************************************************************
 *   Represents a collidable and solid obstacle.
 *
 *   @author     Christopher Stock
@@ -30247,11 +30263,11 @@ var Obstacle = /** @class */ (function (_super) {
     function Obstacle(shape, x, y, jumpPassThrough) {
         var _this = _super.call(this, shape, null, x, y) || this;
         /** Specifies if the player shall be allowed to jump through this obstacle. */
-        _this.jumpPassThrough = false;
+        _this.jumpPassThrough = null;
         /** Specifies if the obstacle currently allows passing through. */
-        _this.isPassThrough = false;
+        _this.isPassThrough = null;
         _this.jumpPassThrough = jumpPassThrough;
-        _this.isPassThrough = false;
+        _this.isPassThrough = JumpPassThrough.NO;
         return _this;
     }
     /***************************************************************************************************************
@@ -30259,15 +30275,16 @@ var Obstacle = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     Obstacle.prototype.render = function () {
         _super.prototype.render.call(this);
-        if (this.jumpPassThrough) {
+        if (this.jumpPassThrough == JumpPassThrough.YES) {
             // check collision release if colliding
-            if (!this.isPassThrough
+            if (this.isPassThrough == JumpPassThrough.NO
                 && ninjas.Main.game.level.player.isJumping()) {
-                this.isPassThrough = true;
+                this.isPassThrough = JumpPassThrough.YES;
                 this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
             }
-            else if (this.isPassThrough
-                && ninjas.Main.game.level.player.isFalling()) {
+            else if (this.isPassThrough == JumpPassThrough.YES
+                && (ninjas.Main.game.level.player.isFalling()
+                    || ninjas.Main.game.level.player.isMoving())) {
                 var colliding = false;
                 for (var i = 0; i < this.shape.body.vertices.length; ++i) {
                     var vector = this.shape.body.vertices[i];
@@ -30279,7 +30296,7 @@ var Obstacle = /** @class */ (function (_super) {
                 }
                 // only if player is not currently colliding!
                 if (!colliding) {
-                    this.isPassThrough = false;
+                    this.isPassThrough = JumpPassThrough.NO;
                     this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING;
                 }
             }
@@ -30761,7 +30778,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createFreeForm = function (x, y, vertices, angle) {
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, false);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, ninjas.JumpPassThrough.NO);
     };
     /***************************************************************************************************************
     *   Creates an elevated ramp obstacle.
