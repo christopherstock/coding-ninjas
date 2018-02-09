@@ -40,7 +40,9 @@
 
             this.obstacles =
             [
-                ninjas.GameObjectFactory.createObstacle( 0,    2500, 2000, 15, 0.0, ninjas.JumpPassThrough.NO ),
+                ninjas.GameObjectFactory.createObstacle( 0,   2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_LEFT   ), 0.0, ninjas.JumpPassThrough.NO ),
+                ninjas.GameObjectFactory.createObstacle( 128, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_CENTER ), 0.0, ninjas.JumpPassThrough.NO ),
+                ninjas.GameObjectFactory.createObstacle( 256, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_RIGHT  ), 0.0, ninjas.JumpPassThrough.NO ),
 /*
                 // grounds and walls
                 ninjas.GameObjectFactory.createObstacle( 0,    2500, 3500, 15, 0.0, ninjas.JumpPassThrough.NO ),
@@ -83,7 +85,7 @@
 
             this.decosFg =
             [
-                ninjas.GameObjectFactory.createDecoration( 400, 2550, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_FENCE_1 ) ),
+                ninjas.GameObjectFactory.createDecoration( 400, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_FENCE_1 ) ),
             ];
 
             this.parallaxFgs =

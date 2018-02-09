@@ -27587,6 +27587,8 @@ var SettingEngine = /** @class */ (function () {
     SettingEngine.PATH_IMAGE_PLAYER = "res/image/player/";
     /** The relative path from index.html where all level images reside. */
     SettingEngine.PATH_IMAGE_LEVEL = "res/image/level/";
+    /** The relative path from index.html where all level ground images reside. */
+    SettingEngine.PATH_IMAGE_LEVEL_GROUND = "res/image/level/ground/";
     /** The relative path from index.html where all site images reside. */
     SettingEngine.PATH_IMAGE_SITE = "res/image/site/";
     /** The relative path from index.html where all sounds reside. */
@@ -29571,7 +29573,9 @@ var LevelWebsite = /** @class */ (function (_super) {
             [];
         this.obstacles =
             [
-                ninjas.GameObjectFactory.createObstacle(0, 2500, 2000, 15, 0.0, ninjas.JumpPassThrough.NO),
+                ninjas.GameObjectFactory.createObstacle(0, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_LEFT), 0.0, ninjas.JumpPassThrough.NO),
+                ninjas.GameObjectFactory.createObstacle(128, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_CENTER), 0.0, ninjas.JumpPassThrough.NO),
+                ninjas.GameObjectFactory.createObstacle(256, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_RIGHT), 0.0, ninjas.JumpPassThrough.NO),
             ];
         this.movables =
             [];
@@ -29580,7 +29584,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.player = ninjas.GameObjectFactory.createPlayer(100, 2500, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         this.decosFg =
             [
-                ninjas.GameObjectFactory.createDecoration(400, 2550, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_FENCE_1)),
+                ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_FENCE_1)),
             ];
         this.parallaxFgs =
             [];
@@ -30449,10 +30453,11 @@ var Obstacle = /** @class */ (function (_super) {
     *   @param shape           The shape for this object.
     *   @param x               Startup position X.
     *   @param y               Startup position Y.
+    *   @param spriteTemplate  The sprite template to use for this game object.
     *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
     ***************************************************************************************************************/
-    function Obstacle(shape, x, y, jumpPassThrough) {
-        var _this = _super.call(this, shape, null, x, y) || this;
+    function Obstacle(shape, x, y, spriteTemplate, jumpPassThrough) {
+        var _this = _super.call(this, shape, spriteTemplate, x, y) || this;
         /** Specifies if the player shall be allowed to jump through this obstacle. */
         _this.jumpPassThrough = null;
         /** Specifies if the obstacle currently allows passing through. */
@@ -30948,28 +30953,28 @@ var GameObjectFactory = /** @class */ (function () {
     *
     *   @param x               Anchor X.
     *   @param yTop            Anchor for top Y.
-    *   @param width           Object width.
-    *   @param height          Object height.
+    *   @param spriteTemplate  The sprite template to use for this obstacle.
     *   @param angle           The initial rotation.
     *   @param jumpPassThrough Specifies if the player can jump through this obstacle.
     *
     *   @return The created obstacle.
     ***************************************************************************************************************/
-    GameObjectFactory.createObstacle = function (x, yTop, width, height, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_CONCRETE, Infinity), x, yTop, jumpPassThrough);
+    GameObjectFactory.createObstacle = function (x, yTop, spriteTemplate, angle, jumpPassThrough) {
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_CONCRETE, Infinity), x, yTop, spriteTemplate, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates a free form.
     *
-    *   @param x        Anchor X.
-    *   @param y        Anchor Y.
-    *   @param vertices All vertices that build up the free form.
-    *   @param angle    The initial rotation of the form.
+    *   @param x              Anchor X.
+    *   @param y              Anchor Y.
+    *   @param vertices       All vertices that build up the free form.
+    *   @param angle          The initial rotation of the form.
+    *   @param spriteTemplate The sprite template to use for this game object.
     *
     *   @return The created obstacle.
     ***************************************************************************************************************/
-    GameObjectFactory.createFreeForm = function (x, y, vertices, angle) {
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, ninjas.JumpPassThrough.NO);
+    GameObjectFactory.createFreeForm = function (x, y, vertices, angle, spriteTemplate) {
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, spriteTemplate, ninjas.JumpPassThrough.NO);
     };
     /***************************************************************************************************************
     *   Creates an elevated ramp obstacle.
@@ -30979,11 +30984,12 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param width           The ramp width.
     *   @param height          The ramp height.
     *   @param deltaY          Ramp will ascend if <code>true</code> and descend if <code>false</code>.
+    *   @param spriteTemplate  The sprite template to use for this game object.
     *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
     *
     *   @return The created obstacle ramp.
     ***************************************************************************************************************/
-    GameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY, jumpPassThrough) {
+    GameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY, spriteTemplate, jumpPassThrough) {
         var vertices = [];
         vertices.push(matter.Vector.create(0.0, 0.0));
         vertices.push(matter.Vector.create(width, deltaY));
@@ -30992,7 +30998,7 @@ var GameObjectFactory = /** @class */ (function () {
         if (deltaY <= 0.0) {
             y += deltaY;
         }
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.SettingMatterJs.FRICTION_DEFAULT, Infinity), x, y, spriteTemplate, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates the player.
@@ -32730,6 +32736,12 @@ var Image = /** @class */ (function () {
     Image.IMAGE_BOULDER_3 = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder3.png";
     /** Image resource 'fence 1'. */
     Image.IMAGE_FENCE_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "fence1.png";
+    /** Image tile 'flying left'. */
+    Image.IMAGE_GROUND_FLYING_LEFT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
+    /** Image tile 'flying center'. */
+    Image.IMAGE_GROUND_FLYING_CENTER = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingCenter.png";
+    /** Image tile 'flying right'. */
+    Image.IMAGE_GROUND_FLYING_RIGHT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingRight.png";
     /** A test bg image. */
     Image.IMAGE_BG_TEST = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
     /** An array holding all filenames of all images to load. */
@@ -32767,6 +32779,9 @@ var Image = /** @class */ (function () {
         Image.IMAGE_BOULDER_2,
         Image.IMAGE_BOULDER_3,
         Image.IMAGE_FENCE_1,
+        Image.IMAGE_GROUND_FLYING_LEFT,
+        Image.IMAGE_GROUND_FLYING_CENTER,
+        Image.IMAGE_GROUND_FLYING_RIGHT,
         Image.IMAGE_BG_TEST,
     ];
     return Image;

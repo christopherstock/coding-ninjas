@@ -106,8 +106,7 @@
         *
         *   @param x               Anchor X.
         *   @param yTop            Anchor for top Y.
-        *   @param width           Object width.
-        *   @param height          Object height.
+        *   @param spriteTemplate  The sprite template to use for this obstacle.
         *   @param angle           The initial rotation.
         *   @param jumpPassThrough Specifies if the player can jump through this obstacle.
         *
@@ -117,8 +116,7 @@
         (
             x               :number,
             yTop            :number,
-            width           :number,
-            height          :number,
+            spriteTemplate  :ninjas.SpriteTemplate,
             angle           :number,
             jumpPassThrough :ninjas.JumpPassThrough
         )
@@ -128,8 +126,8 @@
             (
                 new ninjas.ShapeRectangle
                 (
-                    width,
-                    height,
+                    spriteTemplate.width,
+                    spriteTemplate.height,
                     ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE,
                     true,
                     angle,
@@ -138,6 +136,7 @@
                 ),
                 x,
                 yTop,
+                spriteTemplate,
                 jumpPassThrough
             );
         }
@@ -145,14 +144,15 @@
         /***************************************************************************************************************
         *   Creates a free form.
         *
-        *   @param x        Anchor X.
-        *   @param y        Anchor Y.
-        *   @param vertices All vertices that build up the free form.
-        *   @param angle    The initial rotation of the form.
+        *   @param x              Anchor X.
+        *   @param y              Anchor Y.
+        *   @param vertices       All vertices that build up the free form.
+        *   @param angle          The initial rotation of the form.
+        *   @param spriteTemplate The sprite template to use for this game object.
         *
         *   @return The created obstacle.
         ***************************************************************************************************************/
-        public static createFreeForm( x:number, y:number, vertices:Array<matter.Vector>, angle:number ):ninjas.Obstacle
+        public static createFreeForm( x:number, y:number, vertices:Array<matter.Vector>, angle:number, spriteTemplate:ninjas.SpriteTemplate ):ninjas.Obstacle
         {
             return new ninjas.Obstacle
             (
@@ -167,6 +167,7 @@
                 ),
                 x,
                 y,
+                spriteTemplate,
                 ninjas.JumpPassThrough.NO
             );
         }
@@ -179,6 +180,7 @@
         *   @param width           The ramp width.
         *   @param height          The ramp height.
         *   @param deltaY          Ramp will ascend if <code>true</code> and descend if <code>false</code>.
+        *   @param spriteTemplate  The sprite template to use for this game object.
         *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
         *
         *   @return The created obstacle ramp.
@@ -190,6 +192,7 @@
             width           :number,
             height          :number,
             deltaY          :number,
+            spriteTemplate  :ninjas.SpriteTemplate,
             jumpPassThrough :ninjas.JumpPassThrough
         )
         : ninjas.Obstacle
@@ -219,6 +222,7 @@
                 ),
                 x,
                 y,
+                spriteTemplate,
                 jumpPassThrough
             );
         }

@@ -33,14 +33,22 @@
         *   @param shape           The shape for this object.
         *   @param x               Startup position X.
         *   @param y               Startup position Y.
+        *   @param spriteTemplate  The sprite template to use for this game object.
         *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
         ***************************************************************************************************************/
-        public constructor( shape:ninjas.Shape, x:number, y:number, jumpPassThrough:JumpPassThrough )
+        public constructor
+        (
+            shape           :ninjas.Shape,
+            x               :number,
+            y               :number,
+            spriteTemplate  :ninjas.SpriteTemplate,
+            jumpPassThrough :JumpPassThrough
+        )
         {
             super
             (
                 shape,
-                null,
+                spriteTemplate,
                 x,
                 y
             );

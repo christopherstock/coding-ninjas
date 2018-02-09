@@ -83,6 +83,13 @@
         /** Image resource 'fence 1'. */
         public      static      IMAGE_FENCE_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "fence1.png";
 
+        /** Image tile 'flying left'. */
+        public      static      IMAGE_GROUND_FLYING_LEFT                    :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
+        /** Image tile 'flying center'. */
+        public      static      IMAGE_GROUND_FLYING_CENTER                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingCenter.png";
+        /** Image tile 'flying right'. */
+        public      static      IMAGE_GROUND_FLYING_RIGHT                   :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingRight.png";
+
         /** A test bg image. */
         public      static      IMAGE_BG_TEST                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
 
@@ -128,6 +135,10 @@
             Image.IMAGE_BOULDER_3,
 
             Image.IMAGE_FENCE_1,
+
+            Image.IMAGE_GROUND_FLYING_LEFT,
+            Image.IMAGE_GROUND_FLYING_CENTER,
+            Image.IMAGE_GROUND_FLYING_RIGHT,
 
             Image.IMAGE_BG_TEST,
         ];
