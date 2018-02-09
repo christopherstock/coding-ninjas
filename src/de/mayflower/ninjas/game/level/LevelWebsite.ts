@@ -26,35 +26,44 @@
 
             this.decosBg =
             [
-                ninjas.GameObjectFactory.createDecoration( 400,  2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 1200, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 200,  2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOULDER_1 ) ),
+                ninjas.GameObjectFactory.createDecoration( 1000, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOULDER_2 ) ),
+                ninjas.GameObjectFactory.createDecoration( 1250, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOULDER_3 ) ),
             ];
 
             this.siteTriggers =
             [
+/*
                 ninjas.GameObjectFactory.createSiteTrigger( 2800, 2000, 500, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+*/
             ];
 
             this.obstacles =
             [
+                ninjas.GameObjectFactory.createObstacle( 0,    2500, 2000, 15, 0.0, ninjas.JumpPassThrough.NO ),
+/*
                 // grounds and walls
                 ninjas.GameObjectFactory.createObstacle( 0,    2500, 3500, 15, 0.0, ninjas.JumpPassThrough.NO ),
                 ninjas.GameObjectFactory.createObstacle( 4250, 2300, 750,  15, 0.0, ninjas.JumpPassThrough.NO ),
-
+*/
+/*
                 // ascending ramp
                 ninjas.GameObjectFactory.createElevatedRamp( 3500, 2500, 750.0, 15.0, -200.0, ninjas.JumpPassThrough.NO ),
-
+*/
+/*
                 // pass-through obstacles
                 ninjas.GameObjectFactory.createObstacle( 1500, 2200, 300, 15, 0.0, ninjas.JumpPassThrough.YES ),
                 ninjas.GameObjectFactory.createObstacle( 1200, 2100, 300, 15, 0.0, ninjas.JumpPassThrough.YES ),
                 ninjas.GameObjectFactory.createElevatedRamp( 800, 2200, 350.0, 15.0, -200.0, ninjas.JumpPassThrough.YES ),
+*/
             ];
 
             this.movables =
             [
+/*
                 ninjas.GameObjectFactory.createCrate(  300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
                 ninjas.GameObjectFactory.createCrate(  500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
-
+*/
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
             ];
 
@@ -66,16 +75,15 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                2000,
+                100,
                 2500,
-                ninjas.CharacterLookingDirection.LEFT,
+                ninjas.CharacterLookingDirection.RIGHT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
             );
 
             this.decosFg =
             [
-                ninjas.GameObjectFactory.createDecoration( 800,  2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
-                ninjas.GameObjectFactory.createDecoration( 1600, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_TREE ) ),
+                ninjas.GameObjectFactory.createDecoration( 400, 2550, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_FENCE_1 ) ),
             ];
 
             this.parallaxFgs =

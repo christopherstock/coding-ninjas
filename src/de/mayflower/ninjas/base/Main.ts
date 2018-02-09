@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Group different objects in level class!?
     *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
     *   TODO Create concrete classes and specifiers (density_concrete etc.)
     *   TODO Adjust densities for game objects.

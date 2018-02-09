@@ -70,10 +70,18 @@
 
         /** Image resource 'item'. */
         public      static      IMAGE_ITEM                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "item.png";
-        /** Image resource 'tree'. */
-        public      static      IMAGE_TREE                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "tree.png";
         /** Image resource 'sphere'. */
         public      static      IMAGE_SPHERE                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "sphere.png";
+
+        /** Image resource 'boulder 1'. */
+        public      static      IMAGE_BOULDER_1                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder1.png";
+        /** Image resource 'boulder 2'. */
+        public      static      IMAGE_BOULDER_2                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder2.png";
+        /** Image resource 'boulder 3'. */
+        public      static      IMAGE_BOULDER_3                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder3.png";
+
+        /** Image resource 'fence 1'. */
+        public      static      IMAGE_FENCE_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "fence1.png";
 
         /** A test bg image. */
         public      static      IMAGE_BG_TEST                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
@@ -112,10 +120,15 @@
             Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
 
             Image.IMAGE_ITEM,
-            Image.IMAGE_TREE,
             Image.IMAGE_CRATE,
             Image.IMAGE_SPHERE,
 
-            Image.IMAGE_BG_TEST
+            Image.IMAGE_BOULDER_1,
+            Image.IMAGE_BOULDER_2,
+            Image.IMAGE_BOULDER_3,
+
+            Image.IMAGE_FENCE_1,
+
+            Image.IMAGE_BG_TEST,
         ];
     }

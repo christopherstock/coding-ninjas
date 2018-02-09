@@ -27436,7 +27436,6 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Group different objects in level class!?
 *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
 *   TODO Create concrete classes and specifiers (density_concrete etc.)
 *   TODO Adjust densities for game objects.
@@ -29564,37 +29563,24 @@ var LevelWebsite = /** @class */ (function (_super) {
             [];
         this.decosBg =
             [
-                ninjas.GameObjectFactory.createDecoration(400, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(200, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_1)),
+                ninjas.GameObjectFactory.createDecoration(1000, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_2)),
+                ninjas.GameObjectFactory.createDecoration(1250, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_3)),
             ];
         this.siteTriggers =
-            [
-                ninjas.GameObjectFactory.createSiteTrigger(2800, 2000, 500, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
-            ];
+            [];
         this.obstacles =
             [
-                // grounds and walls
-                ninjas.GameObjectFactory.createObstacle(0, 2500, 3500, 15, 0.0, ninjas.JumpPassThrough.NO),
-                ninjas.GameObjectFactory.createObstacle(4250, 2300, 750, 15, 0.0, ninjas.JumpPassThrough.NO),
-                // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp(3500, 2500, 750.0, 15.0, -200.0, ninjas.JumpPassThrough.NO),
-                // pass-through obstacles
-                ninjas.GameObjectFactory.createObstacle(1500, 2200, 300, 15, 0.0, ninjas.JumpPassThrough.YES),
-                ninjas.GameObjectFactory.createObstacle(1200, 2100, 300, 15, 0.0, ninjas.JumpPassThrough.YES),
-                ninjas.GameObjectFactory.createElevatedRamp(800, 2200, 350.0, 15.0, -200.0, ninjas.JumpPassThrough.YES),
+                ninjas.GameObjectFactory.createObstacle(0, 2500, 2000, 15, 0.0, ninjas.JumpPassThrough.NO),
             ];
         this.movables =
-            [
-                ninjas.GameObjectFactory.createCrate(300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
-                ninjas.GameObjectFactory.createCrate(500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT),
-            ];
+            [];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(2000, 2500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(100, 2500, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         this.decosFg =
             [
-                ninjas.GameObjectFactory.createDecoration(800, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
-                ninjas.GameObjectFactory.createDecoration(1600, 2500, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_TREE)),
+                ninjas.GameObjectFactory.createDecoration(400, 2550, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_FENCE_1)),
             ];
         this.parallaxFgs =
             [];
@@ -32734,10 +32720,16 @@ var Image = /** @class */ (function () {
     Image.IMAGE_CRATE = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "crate.jpg";
     /** Image resource 'item'. */
     Image.IMAGE_ITEM = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "item.png";
-    /** Image resource 'tree'. */
-    Image.IMAGE_TREE = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "tree.png";
     /** Image resource 'sphere'. */
     Image.IMAGE_SPHERE = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "sphere.png";
+    /** Image resource 'boulder 1'. */
+    Image.IMAGE_BOULDER_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder1.png";
+    /** Image resource 'boulder 2'. */
+    Image.IMAGE_BOULDER_2 = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder2.png";
+    /** Image resource 'boulder 3'. */
+    Image.IMAGE_BOULDER_3 = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder3.png";
+    /** Image resource 'fence 1'. */
+    Image.IMAGE_FENCE_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "fence1.png";
     /** A test bg image. */
     Image.IMAGE_BG_TEST = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
     /** An array holding all filenames of all images to load. */
@@ -32769,10 +32761,13 @@ var Image = /** @class */ (function () {
         Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
         Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
         Image.IMAGE_ITEM,
-        Image.IMAGE_TREE,
         Image.IMAGE_CRATE,
         Image.IMAGE_SPHERE,
-        Image.IMAGE_BG_TEST
+        Image.IMAGE_BOULDER_1,
+        Image.IMAGE_BOULDER_2,
+        Image.IMAGE_BOULDER_3,
+        Image.IMAGE_FENCE_1,
+        Image.IMAGE_BG_TEST,
     ];
     return Image;
 }());
