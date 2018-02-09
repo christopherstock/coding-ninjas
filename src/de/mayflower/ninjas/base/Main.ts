@@ -4,20 +4,20 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Add bundles GameObject Factory.
     *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
-    *   TODO Create concrete classes and specifiers (density_concrete etc.)
+    *   TODO Create concrete classes and specifiers for physical settings (density_concrete etc.)
     *   TODO Adjust densities for game objects.
     *   TODO restitution will bounce balls - set it for all game objects.
     *   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
     *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
-    *
-    *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
-    *   TODO Try sound error handling! (Safari etc.)
     *   TODO Revise parallax rendering though different groups in level class.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *
     *   TODO Complete the MVP!
     *
+    *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
+    *   TODO Try sound error handling! (Safari etc.)
     *   TODO Create HUD ( for items 1st ).
     *   TODO create class HUD and assign its non-static method paintHud?
     *   TODO Create item pickup HUD effect!
