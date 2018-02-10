@@ -27590,6 +27590,8 @@ var SettingEngine = /** @class */ (function () {
     SettingEngine.PATH_IMAGE_LEVEL = "res/image/level/";
     /** The relative path from index.html where all level ground images reside. */
     SettingEngine.PATH_IMAGE_LEVEL_GROUND = "res/image/level/ground/";
+    /** The relative path from index.html where all level deco images reside. */
+    SettingEngine.PATH_IMAGE_LEVEL_DECO = "res/image/level/deco/";
     /** The relative path from index.html where all site images reside. */
     SettingEngine.PATH_IMAGE_SITE = "res/image/site/";
     /** The relative path from index.html where all sounds reside. */
@@ -30958,6 +30960,21 @@ var GameObjectFactory = /** @class */ (function () {
         return new ninjas.Obstacle(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_CONCRETE, Infinity), x, yTop, spriteTemplate, jumpPassThrough);
     };
     /***************************************************************************************************************
+    *   Creates an rectangular obstacle.
+    *
+    *   @param x               Anchor X.
+    *   @param yTop            Anchor for top Y.
+    *   @param width           Width of the obstacle.
+    *   @param height          Height of the obstacle.
+    *   @param angle           The initial rotation.
+    *   @param jumpPassThrough Specifies if the player can jump through this obstacle.
+    *
+    *   @return The created obstacle.
+    ***************************************************************************************************************/
+    GameObjectFactory.createObstacleSpriteless = function (x, yTop, width, height, angle, jumpPassThrough) {
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_CONCRETE, Infinity), x, yTop, null, jumpPassThrough);
+    };
+    /***************************************************************************************************************
     *   Creates a free form.
     *
     *   @param x              Anchor X.
@@ -32724,19 +32741,37 @@ var Image = /** @class */ (function () {
     /** Image resource 'sphere'. */
     Image.IMAGE_SPHERE = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "sphere.png";
     /** Image resource 'boulder 1'. */
-    Image.IMAGE_BOULDER_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder1.png";
+    Image.IMAGE_BOULDER_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder1.png";
     /** Image resource 'boulder 2'. */
-    Image.IMAGE_BOULDER_2 = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder2.png";
+    Image.IMAGE_BOULDER_2 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder2.png";
     /** Image resource 'boulder 3'. */
-    Image.IMAGE_BOULDER_3 = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder3.png";
+    Image.IMAGE_BOULDER_3 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder3.png";
     /** Image resource 'fence 1'. */
-    Image.IMAGE_FENCE_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "fence1.png";
+    Image.IMAGE_FENCE_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "fence1.png";
     /** Image tile 'flying left'. */
     Image.IMAGE_GROUND_FLYING_LEFT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
     /** Image tile 'flying center'. */
     Image.IMAGE_GROUND_FLYING_CENTER = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingCenter.png";
     /** Image tile 'flying right'. */
     Image.IMAGE_GROUND_FLYING_RIGHT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingRight.png";
+    /** Image tile 'solid left'. */
+    Image.IMAGE_GROUND_SOLID_LEFT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidLeft.png";
+    /** Image tile 'solid right'. */
+    Image.IMAGE_GROUND_SOLID_RIGHT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidRight.png";
+    /** Image tile 'solid top'. */
+    Image.IMAGE_GROUND_SOLID_TOP = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidTop.png";
+    /** Image tile 'solid bottom'. */
+    Image.IMAGE_GROUND_SOLID_BOTTOM = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidBottom.png";
+    /** Image tile 'solid left top'. */
+    Image.IMAGE_GROUND_SOLID_LEFT_TOP = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidLeftTop.png";
+    /** Image tile 'solid right top'. */
+    Image.IMAGE_GROUND_SOLID_RIGHT_TOP = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidRightTop.png";
+    /** Image tile 'solid left bottom'. */
+    Image.IMAGE_GROUND_SOLID_LEFT_BOTTOM = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidLeftBottom.png";
+    /** Image tile 'solid right bottom'. */
+    Image.IMAGE_GROUND_SOLID_RIGHT_BOTTOM = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidRightBottom.png";
+    /** Image tile 'solid center'. */
+    Image.IMAGE_GROUND_SOLID_CENTER = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidCenter.png";
     /** A test bg image. */
     Image.IMAGE_BG_TEST = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
     /** An array holding all filenames of all images to load. */
@@ -32777,6 +32812,15 @@ var Image = /** @class */ (function () {
         Image.IMAGE_GROUND_FLYING_LEFT,
         Image.IMAGE_GROUND_FLYING_CENTER,
         Image.IMAGE_GROUND_FLYING_RIGHT,
+        Image.IMAGE_GROUND_SOLID_LEFT,
+        Image.IMAGE_GROUND_SOLID_RIGHT,
+        Image.IMAGE_GROUND_SOLID_TOP,
+        Image.IMAGE_GROUND_SOLID_BOTTOM,
+        Image.IMAGE_GROUND_SOLID_LEFT_TOP,
+        Image.IMAGE_GROUND_SOLID_RIGHT_TOP,
+        Image.IMAGE_GROUND_SOLID_LEFT_BOTTOM,
+        Image.IMAGE_GROUND_SOLID_RIGHT_BOTTOM,
+        Image.IMAGE_GROUND_SOLID_CENTER,
         Image.IMAGE_BG_TEST,
     ];
     return Image;
@@ -33912,27 +33956,36 @@ var GameObjectBundleFactory = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a flying ground.
     *
-    *   @param x            Anchor X.
+    *   @param xLeft        Anchor for left X.
     *   @param yTop         Anchor for top Y.
     *   @param centerLength The number of center elements.
     *   @param capEnds      Spdcifies end cappings.
     *   @param level        The level to add the flying ground to.
     ***************************************************************************************************************/
-    GameObjectBundleFactory.createFlyingGround = function (x, yTop, centerLength, capEnds, level) {
+    GameObjectBundleFactory.createFlyingGround = function (xLeft, yTop, centerLength, capEnds, level) {
         var leftTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_LEFT);
         var centerTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_CENTER);
         var rightTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_RIGHT);
+        var drawX = xLeft;
+        var totalWidth = 0.0;
+        var ACTUAL_HEIGHT = 90;
+        // add decoration objects
         if (capEnds == CapEnds.LEFT || capEnds == CapEnds.BOTH) {
-            level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, leftTile, 0.0, ninjas.JumpPassThrough.NO));
-            x += leftTile.width;
+            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, yTop + leftTile.height, leftTile));
+            drawX += leftTile.width;
+            totalWidth += leftTile.width;
         }
         for (var i = 0; i < centerLength; ++i) {
-            level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, centerTile, 0.0, ninjas.JumpPassThrough.NO));
-            x += centerTile.width;
+            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, yTop + centerTile.height, centerTile));
+            drawX += centerTile.width;
+            totalWidth += centerTile.width;
         }
         if (capEnds == CapEnds.RIGHT || capEnds == CapEnds.BOTH) {
-            level.obstacles.push(ninjas.GameObjectFactory.createObstacle(x, yTop, rightTile, 0.0, ninjas.JumpPassThrough.NO));
+            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, yTop + rightTile.height, rightTile));
+            totalWidth += rightTile.width;
         }
+        // add single obstacle object
+        level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, totalWidth, ACTUAL_HEIGHT, 0.0, ninjas.JumpPassThrough.NO));
     };
     return GameObjectBundleFactory;
 }());

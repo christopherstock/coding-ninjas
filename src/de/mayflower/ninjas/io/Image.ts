@@ -74,14 +74,14 @@
         public      static      IMAGE_SPHERE                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "sphere.png";
 
         /** Image resource 'boulder 1'. */
-        public      static      IMAGE_BOULDER_1                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder1.png";
+        public      static      IMAGE_BOULDER_1                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder1.png";
         /** Image resource 'boulder 2'. */
-        public      static      IMAGE_BOULDER_2                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder2.png";
+        public      static      IMAGE_BOULDER_2                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder2.png";
         /** Image resource 'boulder 3'. */
-        public      static      IMAGE_BOULDER_3                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "boulder3.png";
+        public      static      IMAGE_BOULDER_3                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder3.png";
 
         /** Image resource 'fence 1'. */
-        public      static      IMAGE_FENCE_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "fence1.png";
+        public      static      IMAGE_FENCE_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "fence1.png";
 
         /** Image tile 'flying left'. */
         public      static      IMAGE_GROUND_FLYING_LEFT                    :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
@@ -89,6 +89,25 @@
         public      static      IMAGE_GROUND_FLYING_CENTER                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingCenter.png";
         /** Image tile 'flying right'. */
         public      static      IMAGE_GROUND_FLYING_RIGHT                   :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingRight.png";
+
+        /** Image tile 'solid left'. */
+        public      static      IMAGE_GROUND_SOLID_LEFT                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidLeft.png";
+        /** Image tile 'solid right'. */
+        public      static      IMAGE_GROUND_SOLID_RIGHT                    :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidRight.png";
+        /** Image tile 'solid top'. */
+        public      static      IMAGE_GROUND_SOLID_TOP                      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidTop.png";
+        /** Image tile 'solid bottom'. */
+        public      static      IMAGE_GROUND_SOLID_BOTTOM                   :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidBottom.png";
+        /** Image tile 'solid left top'. */
+        public      static      IMAGE_GROUND_SOLID_LEFT_TOP                 :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidLeftTop.png";
+        /** Image tile 'solid right top'. */
+        public      static      IMAGE_GROUND_SOLID_RIGHT_TOP                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidRightTop.png";
+        /** Image tile 'solid left bottom'. */
+        public      static      IMAGE_GROUND_SOLID_LEFT_BOTTOM              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidLeftBottom.png";
+        /** Image tile 'solid right bottom'. */
+        public      static      IMAGE_GROUND_SOLID_RIGHT_BOTTOM             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidRightBottom.png";
+        /** Image tile 'solid center'. */
+        public      static      IMAGE_GROUND_SOLID_CENTER                   :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidCenter.png";
 
         /** A test bg image. */
         public      static      IMAGE_BG_TEST                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
@@ -139,6 +158,16 @@
             Image.IMAGE_GROUND_FLYING_LEFT,
             Image.IMAGE_GROUND_FLYING_CENTER,
             Image.IMAGE_GROUND_FLYING_RIGHT,
+
+            Image.IMAGE_GROUND_SOLID_LEFT,
+            Image.IMAGE_GROUND_SOLID_RIGHT,
+            Image.IMAGE_GROUND_SOLID_TOP,
+            Image.IMAGE_GROUND_SOLID_BOTTOM,
+            Image.IMAGE_GROUND_SOLID_LEFT_TOP,
+            Image.IMAGE_GROUND_SOLID_RIGHT_TOP,
+            Image.IMAGE_GROUND_SOLID_LEFT_BOTTOM,
+            Image.IMAGE_GROUND_SOLID_RIGHT_BOTTOM,
+            Image.IMAGE_GROUND_SOLID_CENTER,
 
             Image.IMAGE_BG_TEST,
         ];

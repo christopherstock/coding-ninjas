@@ -31,6 +31,8 @@
         public  static  readonly    PATH_IMAGE_LEVEL                        :string             = "res/image/level/";
         /** The relative path from index.html where all level ground images reside. */
         public  static  readonly    PATH_IMAGE_LEVEL_GROUND                 :string             = "res/image/level/ground/";
+        /** The relative path from index.html where all level deco images reside. */
+        public  static  readonly    PATH_IMAGE_LEVEL_DECO                   :string             = "res/image/level/deco/";
         /** The relative path from index.html where all site images reside. */
         public  static  readonly    PATH_IMAGE_SITE                         :string             = "res/image/site/";
         /** The relative path from index.html where all sounds reside. */

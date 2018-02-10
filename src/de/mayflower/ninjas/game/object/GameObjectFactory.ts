@@ -142,6 +142,48 @@
         }
 
         /***************************************************************************************************************
+        *   Creates an rectangular obstacle.
+        *
+        *   @param x               Anchor X.
+        *   @param yTop            Anchor for top Y.
+        *   @param width           Width of the obstacle.
+        *   @param height          Height of the obstacle.
+        *   @param angle           The initial rotation.
+        *   @param jumpPassThrough Specifies if the player can jump through this obstacle.
+        *
+        *   @return The created obstacle.
+        ***************************************************************************************************************/
+        public static createObstacleSpriteless
+        (
+            x               :number,
+            yTop            :number,
+            width           :number,
+            height          :number,
+            angle           :number,
+            jumpPassThrough :ninjas.JumpPassThrough
+        )
+        : ninjas.Obstacle
+        {
+            return new ninjas.Obstacle
+            (
+                new ninjas.ShapeRectangle
+                (
+                    width,
+                    height,
+                    ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE,
+                    true,
+                    angle,
+                    ninjas.SettingMatterJs.FRICTION_CONCRETE,
+                    Infinity
+                ),
+                x,
+                yTop,
+                null,
+                jumpPassThrough
+            );
+        }
+
+        /***************************************************************************************************************
         *   Creates a free form.
         *
         *   @param x              Anchor X.
