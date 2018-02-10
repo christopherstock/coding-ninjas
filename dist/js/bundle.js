@@ -27439,11 +27439,11 @@ var ninjas = __webpack_require__(1);
 *
 *   TODO Add bundles GameObject Factory.
 *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
-*   TODO Create concrete classes and specifiers for physical settings (density_concrete etc.)
-*   TODO Adjust densities for game objects.
-*   TODO restitution will bounce balls - set it for all game objects.
+*   TODO Create concrete specifiers (or classes) for physical settings (density_concrete etc.)
+*   TODO Adjust densities for all game objects.
+*   TODO Adjust restitution for all game objects - will bounce balls.
 *   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
-*   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+*   TODO Character.isFalling(): consider bottomContact ? try this on ramps??
 *   TODO Revise parallax rendering though different groups in level class.
 *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
 *
@@ -29620,10 +29620,13 @@ var LevelWebsite = /** @class */ (function (_super) {
                         0.0
                     ),
         */
-        ninjas.GameObjectBundleFactory.createFlyingGround(0, 2500, 5, ninjas.CapEnds.LEFT, this);
-        ninjas.GameObjectBundleFactory.createFlyingGround(1200, 2500, 4, ninjas.CapEnds.BOTH, this);
-        ninjas.GameObjectBundleFactory.createFlyingGround(2200, 2500, 6, ninjas.CapEnds.RIGHT, this);
-        ninjas.GameObjectBundleFactory.createFlyingGround(3600, 2500, 6, ninjas.CapEnds.NONE, this);
+        /*
+                    ninjas.GameObjectBundleFactory.createFlyingGround( 0,    2500, 5, ninjas.CapEnds.LEFT,  this );
+                    ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapEnds.BOTH,  this );
+                    ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapEnds.RIGHT, this );
+                    ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2500, 6, ninjas.CapEnds.NONE,  this );
+        */
+        ninjas.GameObjectBundleFactory.createSolidGround(0, 2500, 5, 3, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -33932,18 +33935,31 @@ webpackContext.id = 182;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
-*   Specifies capping for compound ends.
+*   Specifies capping for horizontal compound ends.
 *
 *   @author     Christopher Stock
 *   @version    0.0.1
 *******************************************************************************************************************/
-var CapEnds;
-(function (CapEnds) {
-    CapEnds[CapEnds["NONE"] = 0] = "NONE";
-    CapEnds[CapEnds["LEFT"] = 1] = "LEFT";
-    CapEnds[CapEnds["RIGHT"] = 2] = "RIGHT";
-    CapEnds[CapEnds["BOTH"] = 3] = "BOTH";
-})(CapEnds = exports.CapEnds || (exports.CapEnds = {}));
+var CapHorz;
+(function (CapHorz) {
+    CapHorz[CapHorz["NONE"] = 0] = "NONE";
+    CapHorz[CapHorz["LEFT"] = 1] = "LEFT";
+    CapHorz[CapHorz["RIGHT"] = 2] = "RIGHT";
+    CapHorz[CapHorz["BOTH"] = 3] = "BOTH";
+})(CapHorz = exports.CapHorz || (exports.CapHorz = {}));
+/*******************************************************************************************************************
+*   Specifies capping for vertical compound ends.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var CapVert;
+(function (CapVert) {
+    CapVert[CapVert["NONE"] = 0] = "NONE";
+    CapVert[CapVert["TOP"] = 1] = "TOP";
+    CapVert[CapVert["BOTTOM"] = 2] = "BOTTOM";
+    CapVert[CapVert["BOTH"] = 3] = "BOTH";
+})(CapVert = exports.CapVert || (exports.CapVert = {}));
 /*******************************************************************************************************************
 *   Creates bundled instances of game objects.
 *
@@ -33970,7 +33986,7 @@ var GameObjectBundleFactory = /** @class */ (function () {
         var totalWidth = 0.0;
         var ACTUAL_HEIGHT = 90;
         // add decoration objects
-        if (capEnds == CapEnds.LEFT || capEnds == CapEnds.BOTH) {
+        if (capEnds == CapHorz.LEFT || capEnds == CapHorz.BOTH) {
             level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, yTop + leftTile.height, leftTile));
             drawX += leftTile.width;
             totalWidth += leftTile.width;
@@ -33980,12 +33996,64 @@ var GameObjectBundleFactory = /** @class */ (function () {
             drawX += centerTile.width;
             totalWidth += centerTile.width;
         }
-        if (capEnds == CapEnds.RIGHT || capEnds == CapEnds.BOTH) {
+        if (capEnds == CapHorz.RIGHT || capEnds == CapHorz.BOTH) {
             level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, yTop + rightTile.height, rightTile));
             totalWidth += rightTile.width;
         }
         // add single obstacle object
         level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, totalWidth, ACTUAL_HEIGHT, 0.0, ninjas.JumpPassThrough.NO));
+    };
+    /***************************************************************************************************************
+    *   Creates a solid ground.
+    *
+    *   @param xLeft        Anchor for left X.
+    *   @param yTop         Anchor for top Y.
+    *   @param lengthHorz   The number of horizontal elements.
+    *   @param lengthVert   The number of vertical elements.
+    *   @param capHorz      Specifies horizontal end cappings.
+    *   @param capVert      Specifies vertical end cappings.
+    *   @param level        The level to add the flying ground to.
+    ***************************************************************************************************************/
+    GameObjectBundleFactory.createSolidGround = function (xLeft, yTop, lengthHorz, lengthVert, capHorz, capVert, level) {
+        var leftTopTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_LEFT_TOP);
+        var topTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_TOP);
+        var rightTopTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_RIGHT_TOP);
+        var leftTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_LEFT);
+        var centerTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_CENTER);
+        var rightTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_RIGHT);
+        var leftBottomTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_LEFT_BOTTOM);
+        var bottomTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_BOTTOM);
+        var rightBottomTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_RIGHT_BOTTOM);
+        var drawX = xLeft;
+        var drawY = yTop;
+        var totalWidth = 0.0;
+        var totalHeight = 0.0;
+        /*
+                    const ACTUAL_HEIGHT :number = 90;
+        */
+        /*
+                    // add decoration objects
+                    if ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH )
+                    {
+                        level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, yTop + leftTile.height, leftTile ) );
+                        drawX      += leftTile.width;
+                        totalWidth += leftTile.width;
+                    }
+                    for ( let i:number = 0; i < lengthHorz; ++i )
+                    {
+                        level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, yTop + centerTile.height, centerTile ) );
+                        drawX      += centerTile.width;
+                        totalWidth += centerTile.width;
+                    }
+                    if ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH )
+                    {
+                        level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, yTop + rightTile.height, rightTile ) );
+                        totalWidth += rightTile.width;
+                    }
+        
+                    // add single obstacle object
+                    level.obstacles.push( ninjas.GameObjectFactory.createObstacleSpriteless( xLeft, yTop, totalWidth, ACTUAL_HEIGHT, 0.0, ninjas.JumpPassThrough.NO ) );
+        */
     };
     return GameObjectBundleFactory;
 }());

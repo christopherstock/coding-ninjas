@@ -6,11 +6,11 @@
     *
     *   TODO Add bundles GameObject Factory.
     *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
-    *   TODO Create concrete classes and specifiers for physical settings (density_concrete etc.)
-    *   TODO Adjust densities for game objects.
-    *   TODO restitution will bounce balls - set it for all game objects.
+    *   TODO Create concrete specifiers (or classes) for physical settings (density_concrete etc.)
+    *   TODO Adjust densities for all game objects.
+    *   TODO Adjust restitution for all game objects - will bounce balls.
     *   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
-    *   TODO Character.isFalling(): consider bottomContact ? try this on ramps.
+    *   TODO Character.isFalling(): consider bottomContact ? try this on ramps??
     *   TODO Revise parallax rendering though different groups in level class.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *
