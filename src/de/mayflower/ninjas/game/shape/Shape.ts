@@ -38,9 +38,9 @@
                 render:
                 {
                     fillStyle:   debugColor,
-                    strokeStyle: ninjas.SettingDebug.COLOR_DEBUG_BORDER,
-                    opacity:     ninjas.SettingDebug.COLOR_DEBUG_OPACITY,
-                    lineWidth:   ninjas.SettingDebug.COLOR_DEBUG_LINE_WIDTH,
+                    strokeStyle: debugColor,
+                    opacity:     1.0,
+                    lineWidth:   1.0,
                 },
                 isStatic:        isStatic,
                 collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,

@@ -16,20 +16,16 @@
         /** Disables all sprites. */
         public  static  readonly    DISABLE_SPRITES                         :boolean                    = ( false && SettingDebug.DEBUG_MODE );
 
-        /** The opacity for the debug colors. */
-        public  static  readonly    COLOR_DEBUG_OPACITY                     :number                     = 1.0;
-        /** The line width for debug lines. */
-        public  static  readonly    COLOR_DEBUG_LINE_WIDTH                  :number                     = 1.0;
-        /** The debug color for the player block. */
-        public  static  readonly    COLOR_DEBUG_BORDER                      :string                     = "#ffffff";
         /** The debug color for the player block. */
         public  static  readonly    COLOR_DEBUG_PLAYER                      :string                     = "#7cd1ee";
         /** The debug color for the enemy block. */
         public  static  readonly    COLOR_DEBUG_ENEMY                       :string                     = "#ff7e68";
         /** The debug color for a box. */
-        public  static  readonly    COLOR_DEBUG_MOVABLE                         :string                     = "#ffbf54";
+        public  static  readonly    COLOR_DEBUG_MOVABLE                     :string                     = "#ffbf54";
         /** The debug color for an obstacle. */
         public  static  readonly    COLOR_DEBUG_OBSTACLE                    :string                     = "#a6a6a6";
+        /** The debug color for a spriteless obstacle. */
+        public  static  readonly    COLOR_DEBUG_OBSTACLE_SPRITELESS         :string                     = "transparent";
         /** The debug color for a sigsaw. */
         public  static  readonly    COLOR_DEBUG_SIGSAW                      :string                     = "#c46c9c";
         /** The debug color for a sigsaw joint. */

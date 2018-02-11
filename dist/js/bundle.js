@@ -27516,12 +27516,6 @@ var SettingDebug = /** @class */ (function () {
     SettingDebug.MUTE = (true && SettingDebug.DEBUG_MODE);
     /** Disables all sprites. */
     SettingDebug.DISABLE_SPRITES = (false && SettingDebug.DEBUG_MODE);
-    /** The opacity for the debug colors. */
-    SettingDebug.COLOR_DEBUG_OPACITY = 1.0;
-    /** The line width for debug lines. */
-    SettingDebug.COLOR_DEBUG_LINE_WIDTH = 1.0;
-    /** The debug color for the player block. */
-    SettingDebug.COLOR_DEBUG_BORDER = "#ffffff";
     /** The debug color for the player block. */
     SettingDebug.COLOR_DEBUG_PLAYER = "#7cd1ee";
     /** The debug color for the enemy block. */
@@ -27530,6 +27524,8 @@ var SettingDebug = /** @class */ (function () {
     SettingDebug.COLOR_DEBUG_MOVABLE = "#ffbf54";
     /** The debug color for an obstacle. */
     SettingDebug.COLOR_DEBUG_OBSTACLE = "#a6a6a6";
+    /** The debug color for a spriteless obstacle. */
+    SettingDebug.COLOR_DEBUG_OBSTACLE_SPRITELESS = "transparent";
     /** The debug color for a sigsaw. */
     SettingDebug.COLOR_DEBUG_SIGSAW = "#c46c9c";
     /** The debug color for a sigsaw joint. */
@@ -30974,7 +30970,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createObstacleSpriteless = function (xLeft, yTop, width, height, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.SettingMatterJs.FRICTION_CONCRETE, Infinity), xLeft, yTop, null, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE_SPRITELESS, true, angle, ninjas.SettingMatterJs.FRICTION_CONCRETE, Infinity), xLeft, yTop, null, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates a free form.
@@ -31183,9 +31179,9 @@ var Shape = /** @class */ (function () {
         this.options = {
             render: {
                 fillStyle: debugColor,
-                strokeStyle: ninjas.SettingDebug.COLOR_DEBUG_BORDER,
-                opacity: ninjas.SettingDebug.COLOR_DEBUG_OPACITY,
-                lineWidth: ninjas.SettingDebug.COLOR_DEBUG_LINE_WIDTH,
+                strokeStyle: debugColor,
+                opacity: 1.0,
+                lineWidth: 1.0,
             },
             isStatic: isStatic,
             collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,

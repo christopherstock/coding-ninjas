@@ -170,7 +170,7 @@
                 (
                     width,
                     height,
-                    ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE,
+                    ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE_SPRITELESS,
                     true,
                     angle,
                     ninjas.SettingMatterJs.FRICTION_CONCRETE,
