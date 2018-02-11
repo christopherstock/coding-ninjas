@@ -104,7 +104,7 @@
         /***************************************************************************************************************
         *   Creates an rectangular obstacle.
         *
-        *   @param x               Anchor X.
+        *   @param xLeft           Anchor for left X.
         *   @param yTop            Anchor for top Y.
         *   @param spriteTemplate  The sprite template to use for this obstacle.
         *   @param angle           The initial rotation.
@@ -114,7 +114,7 @@
         ***************************************************************************************************************/
         public static createObstacle
         (
-            x               :number,
+            xLeft           :number,
             yTop            :number,
             spriteTemplate  :ninjas.SpriteTemplate,
             angle           :number,
@@ -134,7 +134,7 @@
                     ninjas.SettingMatterJs.FRICTION_CONCRETE,
                     Infinity
                 ),
-                x,
+                xLeft,
                 yTop,
                 spriteTemplate,
                 jumpPassThrough
@@ -144,7 +144,7 @@
         /***************************************************************************************************************
         *   Creates an rectangular obstacle.
         *
-        *   @param x               Anchor X.
+        *   @param xLeft           Anchor for left X.
         *   @param yTop            Anchor for top Y.
         *   @param width           Width of the obstacle.
         *   @param height          Height of the obstacle.
@@ -155,7 +155,7 @@
         ***************************************************************************************************************/
         public static createObstacleSpriteless
         (
-            x               :number,
+            xLeft           :number,
             yTop            :number,
             width           :number,
             height          :number,
@@ -176,7 +176,7 @@
                     ninjas.SettingMatterJs.FRICTION_CONCRETE,
                     Infinity
                 ),
-                x,
+                xLeft,
                 yTop,
                 null,
                 jumpPassThrough
@@ -354,13 +354,13 @@
         /***************************************************************************************************************
         *   Creates a decoration.
         *
-        *   @param x              Anchor X.
-        *   @param yBottom        Anchor of bottom Y.
+        *   @param xLeft          Anchor for left X.
+        *   @param yBottom        Anchor for bottom Y.
         *   @param spriteTemplate The sprite template to use for this decoration.
         *
         *   @return The created decoration.
         ***************************************************************************************************************/
-        public static createDecoration( x:number, yBottom:number, spriteTemplate:ninjas.SpriteTemplate ) : ninjas.Decoration
+        public static createDecoration( xLeft:number, yBottom:number, spriteTemplate:ninjas.SpriteTemplate ) : ninjas.Decoration
         {
             return new ninjas.Decoration
             (
@@ -375,7 +375,7 @@
                     Infinity
                 ),
                 spriteTemplate,
-                x,
+                xLeft,
                 ( yBottom - spriteTemplate.height )
             );
         }
