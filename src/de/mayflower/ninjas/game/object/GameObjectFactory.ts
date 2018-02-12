@@ -31,7 +31,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
                     false,
                     0.0,
-                    ninjas.BodyFriction.DEFAULT,
+                    ninjas.BodyFriction.WOOD,
                     ninjas.BodyDensity.WOOD
                 ),
                 sprtiteTemplate,
@@ -337,7 +337,7 @@
                 ninjas.DebugColor.COLOR_DEBUG_PLAYER,
                 false,
                 0.0,
-                ninjas.BodyFriction.DEFAULT,
+                ninjas.BodyFriction.PLAYER,
                 ninjas.BodyDensity.PLAYER
             );
 

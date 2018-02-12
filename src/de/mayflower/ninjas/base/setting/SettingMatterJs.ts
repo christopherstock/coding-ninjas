@@ -14,7 +14,7 @@
         /** The player's speed in world coordinate per tick. */
         public  static  readonly    PLAYER_SPEED_MOVE                           :number                     = 7.5;
         /** The player's gap size y of it's physical body corners. */
-        public  static  readonly    PLAYER_EDGE_GAP_Y                           :number                     = 10.0;
+        public  static  readonly    PLAYER_EDGE_GAP_Y                           :number                     = 5.0;
 
         /** The default vertical gravity for all levels. */
         public  static  readonly    DEFAULT_GRAVITY_Y                           :number                     = 1.0;
@@ -69,13 +69,21 @@
     export enum BodyFriction
     {
         /** Highest surface friction. */
-        CONCRETE = 1.0,
+        CONCRETE    = 1.0,
         /** Default surface friction. */
-        DEFAULT  = 0.1,
+        DEFAULT     = 0.1,
+
+
+        /** Player friction. */
+        PLAYER      = BodyFriction.DEFAULT,
+        /** Player friction. */
+        WOOD        = BodyFriction.DEFAULT,
+
+
         /** Low surface friction. */
-        GLASS    = 0.01,
+        GLASS       = 0.01,
         /** Lowest surface friction. */
-        ICE      = 0.0,
+        ICE         = 0.0,
     }
 
     /*******************************************************************************************************************
@@ -87,11 +95,11 @@
     export enum BodyDensity
     {
         /** Default density. */
-        DEFAULT = 0.001,
+        DEFAULT     = 0.001,
         /** Player */
-        PLAYER  = BodyDensity.DEFAULT,
+        PLAYER      = BodyDensity.DEFAULT,
         /** Wood */
-        WOOD    = ( BodyDensity.DEFAULT * 4 ),
+        WOOD        = ( BodyDensity.DEFAULT * 4 ),
         /** Metal */
-        METAL   = ( BodyDensity.DEFAULT * 12 ),
+        METAL       = ( BodyDensity.DEFAULT * 12 ),
     }

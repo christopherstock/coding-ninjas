@@ -47,10 +47,10 @@
                 ninjas.GameObjectFactory.createObstacle( 0,    2500, 3500, 15, 0.0, ninjas.JumpPassThrough.NO ),
                 ninjas.GameObjectFactory.createObstacle( 4250, 2300, 750,  15, 0.0, ninjas.JumpPassThrough.NO ),
 */
-/*
+
                 // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp( 3500, 2500, 750.0, 15.0, -200.0, ninjas.JumpPassThrough.NO ),
-*/
+                ninjas.GameObjectFactory.createElevatedRamp( 1608, 2500, 750.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO ),
+
 /*
                 // pass-through obstacles
                 ninjas.GameObjectFactory.createObstacle( 1500, 2200, 300, 15, 0.0, ninjas.JumpPassThrough.YES ),
@@ -139,6 +139,6 @@
             ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapEnds.RIGHT, this );
             ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2500, 6, ninjas.CapEnds.NONE,  this );
 */
-            ninjas.GameObjectBundleFactory.createSolidGround( 200,   2500, 10, 4, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
+            ninjas.GameObjectBundleFactory.createSolidGround( 200,   2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
         }
     }

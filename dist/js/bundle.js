@@ -27664,7 +27664,7 @@ var SettingMatterJs = /** @class */ (function () {
     /** The player's speed in world coordinate per tick. */
     SettingMatterJs.PLAYER_SPEED_MOVE = 7.5;
     /** The player's gap size y of it's physical body corners. */
-    SettingMatterJs.PLAYER_EDGE_GAP_Y = 10.0;
+    SettingMatterJs.PLAYER_EDGE_GAP_Y = 5.0;
     /** The default vertical gravity for all levels. */
     SettingMatterJs.DEFAULT_GRAVITY_Y = 1.0;
     /** The default collision group for all game objects. */
@@ -27712,6 +27712,10 @@ var BodyFriction;
     BodyFriction[BodyFriction["CONCRETE"] = 1] = "CONCRETE";
     /** Default surface friction. */
     BodyFriction[BodyFriction["DEFAULT"] = 0.1] = "DEFAULT";
+    /** Player friction. */
+    BodyFriction[BodyFriction["PLAYER"] = 0.1] = "PLAYER";
+    /** Player friction. */
+    BodyFriction[BodyFriction["WOOD"] = 0.1] = "WOOD";
     /** Low surface friction. */
     BodyFriction[BodyFriction["GLASS"] = 0.01] = "GLASS";
     /** Lowest surface friction. */
@@ -29601,7 +29605,15 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.siteTriggers =
             [];
         this.obstacles =
-            [];
+            [
+                /*
+                                // grounds and walls
+                                ninjas.GameObjectFactory.createObstacle( 0,    2500, 3500, 15, 0.0, ninjas.JumpPassThrough.NO ),
+                                ninjas.GameObjectFactory.createObstacle( 4250, 2300, 750,  15, 0.0, ninjas.JumpPassThrough.NO ),
+                */
+                // ascending ramp
+                ninjas.GameObjectFactory.createElevatedRamp(1608, 2500, 750.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO),
+            ];
         this.movables =
             [
                 ninjas.GameObjectFactory.createWoodenCrate(750, 2100),
@@ -29661,7 +29673,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                     ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapEnds.RIGHT, this );
                     ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2500, 6, ninjas.CapEnds.NONE,  this );
         */
-        ninjas.GameObjectBundleFactory.createSolidGround(200, 2500, 10, 4, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
+        ninjas.GameObjectBundleFactory.createSolidGround(200, 2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -29969,7 +29981,7 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createWoodenCrate = function (x, yBottom) {
         var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE_WOOD);
-        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.WOOD), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
+        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, ninjas.BodyFriction.WOOD, ninjas.BodyDensity.WOOD), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a metal crate.
@@ -30098,7 +30110,7 @@ var GameObjectFactory = /** @class */ (function () {
         vertices.push(matter.Vector.create(gapSizeX, spriteTemplate.height));
         vertices.push(matter.Vector.create(0.0, spriteTemplate.height - gapSizeY));
         vertices.push(matter.Vector.create(0.0, gapSizeY));
-        var shape = new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.PLAYER);
+        var shape = new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.BodyFriction.PLAYER, ninjas.BodyDensity.PLAYER);
         return new ninjas.Player(shape, x, (yBottom - spriteTemplate.height), lookingDirection, spriteTemplate);
     };
     /***************************************************************************************************************
