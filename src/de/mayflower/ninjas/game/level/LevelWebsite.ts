@@ -77,8 +77,8 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                300,
-                2500,
+                2000,
+                2000,
                 ninjas.CharacterLookingDirection.RIGHT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
             );

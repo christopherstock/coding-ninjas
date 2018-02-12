@@ -27662,7 +27662,7 @@ var SettingMatterJs = /** @class */ (function () {
     /** The default jump power. */
     SettingMatterJs.PLAYER_JUMP_POWER = -2.5;
     /** The player's speed in world coordinate per tick. */
-    SettingMatterJs.PLAYER_SPEED_MOVE = 7.5;
+    SettingMatterJs.PLAYER_SPEED_MOVE = 2.5;
     /** The player's gap size y of it's physical body corners. */
     SettingMatterJs.PLAYER_EDGE_GAP_Y = 5.0;
     /** The default vertical gravity for all levels. */
@@ -29623,7 +29623,7 @@ var LevelWebsite = /** @class */ (function (_super) {
             ];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(300, 2500, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(2000, 2000, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         this.decosFg =
             [];
         this.parallaxFgs =
