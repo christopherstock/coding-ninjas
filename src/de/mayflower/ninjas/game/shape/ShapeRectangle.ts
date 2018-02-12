@@ -30,7 +30,7 @@
         (
             width      :number,
             height     :number,
-            debugColor :string,
+            debugColor :ninjas.DebugColor,
             isStatic   :boolean,
             angle      :number,
             friction   :number,

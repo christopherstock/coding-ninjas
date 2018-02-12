@@ -26,7 +26,7 @@
         public constructor
         (
             diameter   :number,
-            debugColor :string,
+            debugColor :ninjas.DebugColor,
             isStatic   :boolean,
             angle      :number,
             friction   :number,

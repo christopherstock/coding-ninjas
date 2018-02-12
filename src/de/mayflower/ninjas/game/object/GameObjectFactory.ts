@@ -30,7 +30,7 @@
                 (
                     sprtiteTemplate.width,
                     sprtiteTemplate.height,
-                    ninjas.SettingDebug.COLOR_DEBUG_MOVABLE,
+                    ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
                     false,
                     0.0,
                     friction,
@@ -61,7 +61,7 @@
                 new ninjas.ShapeCircle
                 (
                     sprtiteTemplate.height,
-                    ninjas.SettingDebug.COLOR_DEBUG_MOVABLE,
+                    ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
                     false,
                     0.0,
                     friction,
@@ -89,7 +89,7 @@
                 (
                     30.0,
                     52.0,
-                    ninjas.SettingDebug.COLOR_DEBUG_ITEM,
+                    ninjas.DebugColor.COLOR_DEBUG_ITEM,
                     true,
                     0.0,
                     ninjas.SettingMatterJs.FRICTION_DEFAULT,
@@ -128,7 +128,7 @@
                 (
                     spriteTemplate.width,
                     spriteTemplate.height,
-                    ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE,
+                    ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
                     true,
                     angle,
                     ninjas.SettingMatterJs.FRICTION_CONCRETE,
@@ -170,7 +170,7 @@
                 (
                     width,
                     height,
-                    ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE_SPRITELESS,
+                    ninjas.DebugColor.COLOR_DEBUG_OBSTACLE_SPRITELESS,
                     true,
                     angle,
                     ninjas.SettingMatterJs.FRICTION_CONCRETE,
@@ -201,7 +201,7 @@
                 new ninjas.ShapeFreeForm
                 (
                     vertices,
-                    ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE,
+                    ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
                     true,
                     angle,
                     ninjas.SettingMatterJs.FRICTION_DEFAULT,
@@ -256,7 +256,7 @@
                 new ninjas.ShapeFreeForm
                 (
                     vertices,
-                    ninjas.SettingDebug.COLOR_DEBUG_OBSTACLE,
+                    ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
                     true,
                     0.0,
                     ninjas.SettingMatterJs.FRICTION_DEFAULT,
@@ -306,7 +306,7 @@
             let shape:ninjas.Shape = new ninjas.ShapeFreeForm
             (
                 vertices,
-                ninjas.SettingDebug.COLOR_DEBUG_PLAYER,
+                ninjas.DebugColor.COLOR_DEBUG_PLAYER,
                 false,
                 0.0,
                 ninjas.SettingMatterJs.FRICTION_DEFAULT,
@@ -339,7 +339,7 @@
                 (
                     50.0,
                     50.0,
-                    ninjas.SettingDebug.COLOR_DEBUG_ENEMY,
+                    ninjas.DebugColor.COLOR_DEBUG_ENEMY,
                     false,
                     0.0,
                     ninjas.SettingMatterJs.FRICTION_DEFAULT,
@@ -368,7 +368,7 @@
                 (
                     spriteTemplate.width,
                     spriteTemplate.height,
-                    ninjas.SettingDebug.COLOR_DEBUG_DECORATION,
+                    ninjas.DebugColor.COLOR_DEBUG_DECORATION,
                     true,
                     0.0,
                     ninjas.SettingMatterJs.FRICTION_DEFAULT,
@@ -405,7 +405,7 @@
                 (
                     spriteTemplate.width,
                     spriteTemplate.height,
-                    ninjas.SettingDebug.COLOR_DEBUG_DECORATION,
+                    ninjas.DebugColor.COLOR_DEBUG_DECORATION,
                     true,
                     0.0,
                     ninjas.SettingMatterJs.FRICTION_DEFAULT,
@@ -445,7 +445,7 @@
                 (
                     width,
                     height,
-                    ninjas.SettingDebug.COLOR_DEBUG_SITE_TRIGGER,
+                    ninjas.DebugColor.COLOR_DEBUG_SITE_TRIGGER,
                     true,
                     0.0,
                     ninjas.SettingMatterJs.FRICTION_DEFAULT,
@@ -455,37 +455,6 @@
                 x,
                 y,
                 sitePanelAppearance
-            );
-        }
-
-        /***************************************************************************************************************
-        *   Creates a non-collidable background.
-        *
-        *   @param x      Anchor X.
-        *   @param y      Anchor Y.
-        *   @param width  Object width.
-        *   @param height Object height.
-        *   @param color  The color of this background.
-        *
-        *   @return The created decoration.
-        ***************************************************************************************************************/
-        public static createBackground( x:number, y:number, width:number, height:number, color:string ) : ninjas.Decoration
-        {
-            return new ninjas.Decoration
-            (
-                new ninjas.ShapeRectangle
-                (
-                    width,
-                    height,
-                    color,
-                    true,
-                    0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
-                    Infinity
-                ),
-                null,
-                x,
-                y
             );
         }
 
@@ -508,7 +477,7 @@
                 (
                     width,
                     height,
-                    ninjas.SettingDebug.COLOR_DEBUG_SIGSAW,
+                    ninjas.DebugColor.COLOR_DEBUG_SIGSAW,
                     false,
                     0.0,
                     ninjas.SettingMatterJs.FRICTION_DEFAULT,
@@ -547,7 +516,7 @@
                 (
                     width,
                     height,
-                    ninjas.SettingDebug.COLOR_DEBUG_PLATFORM,
+                    ninjas.DebugColor.COLOR_DEBUG_PLATFORM,
                     true,
                     0.0,
                     ninjas.SettingMatterJs.FRICTION_DEFAULT,
@@ -578,7 +547,7 @@
                 (
                     width,
                     height,
-                    ninjas.SettingDebug.COLOR_DEBUG_BOUNCE,
+                    ninjas.DebugColor.COLOR_DEBUG_BOUNCE,
                     false,
                     0.0,
                     ninjas.SettingMatterJs.FRICTION_DEFAULT,

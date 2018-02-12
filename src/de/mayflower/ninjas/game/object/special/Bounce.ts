@@ -39,7 +39,7 @@
                     stiffness: 0.01,
                     length: 0,
                     render: {
-                        strokeStyle: ninjas.SettingDebug.COLOR_DEBUG_BOUNCE_JOINT,
+                        strokeStyle: ninjas.DebugColor.COLOR_DEBUG_BOUNCE_JOINT,
                         lineWidth: 1.0,
                         visible:   true,
                     }

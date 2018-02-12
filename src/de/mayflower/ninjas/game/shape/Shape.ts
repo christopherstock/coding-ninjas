@@ -27,7 +27,7 @@
         ***************************************************************************************************************/
         public constructor
         (
-            debugColor :string,
+            debugColor :ninjas.DebugColor,
             isStatic   :boolean,
             angle      :number,
             friction   :number,

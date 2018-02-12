@@ -2,6 +2,20 @@
     import * as matter from 'matter-js';
 
     /*******************************************************************************************************************
+    *   Possible frictions for Matter.js bodies.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum BodyFriction
+    {
+
+
+
+
+    }
+
+    /*******************************************************************************************************************
     *   All adjustments and balancings for the Matter.js engine.
     *
     *   @author     Christopher Stock

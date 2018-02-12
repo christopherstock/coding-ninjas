@@ -30,12 +30,12 @@
         ***************************************************************************************************************/
         public constructor
         (
-            vertices:Array<matter.Vector>,
-            debugColor:string,
-            isStatic:boolean,
-            angle:number,
-            friction:number,
-            density:number
+            vertices   :Array<matter.Vector>,
+            debugColor :ninjas.DebugColor,
+            isStatic   :boolean,
+            angle      :number,
+            friction   :number,
+            density    :number
         )
         {
             super( debugColor, isStatic, angle, friction, density );

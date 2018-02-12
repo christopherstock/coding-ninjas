@@ -15,31 +15,40 @@
 
         /** Disables all sprites. */
         public  static  readonly    DISABLE_SPRITES                         :boolean                    = ( false && SettingDebug.DEBUG_MODE );
+    }
 
+    /*******************************************************************************************************************
+    *   Colors used for debugging purposes.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum DebugColor
+    {
         /** The debug color for the player block. */
-        public  static  readonly    COLOR_DEBUG_PLAYER                      :string                     = "#7cd1ee";
+        COLOR_DEBUG_PLAYER              = "#7cd1ee",
         /** The debug color for the enemy block. */
-        public  static  readonly    COLOR_DEBUG_ENEMY                       :string                     = "#ff7e68";
+        COLOR_DEBUG_ENEMY               = "#ff7e68",
         /** The debug color for a box. */
-        public  static  readonly    COLOR_DEBUG_MOVABLE                     :string                     = "#ffbf54";
+        COLOR_DEBUG_MOVABLE             = "#ffbf54",
         /** The debug color for an obstacle. */
-        public  static  readonly    COLOR_DEBUG_OBSTACLE                    :string                     = "#a6a6a6";
+        COLOR_DEBUG_OBSTACLE            = "#a6a6a6",
         /** The debug color for a spriteless obstacle. */
-        public  static  readonly    COLOR_DEBUG_OBSTACLE_SPRITELESS         :string                     = "transparent";
+        COLOR_DEBUG_OBSTACLE_SPRITELESS = "transparent",
         /** The debug color for a sigsaw. */
-        public  static  readonly    COLOR_DEBUG_SIGSAW                      :string                     = "#c46c9c";
+        COLOR_DEBUG_SIGSAW              = "#c46c9c",
         /** The debug color for a sigsaw joint. */
-        public  static  readonly    COLOR_DEBUG_SIGSAW_JOINT                :string                     = "#ba3380";
+        COLOR_DEBUG_SIGSAW_JOINT        = "#ba3380",
         /** The debug color for a bounce. */
-        public  static  readonly    COLOR_DEBUG_BOUNCE                      :string                     = "#d815a9";
+        COLOR_DEBUG_BOUNCE              = "#d815a9",
         /** The debug color for a bounce joint. */
-        public  static  readonly    COLOR_DEBUG_BOUNCE_JOINT                :string                     = "#e629a2";
+        COLOR_DEBUG_BOUNCE_JOINT        = "#e629a2",
         /** The debug color for the item. */
-        public  static  readonly    COLOR_DEBUG_ITEM                        :string                     = "#fcff97";
+        COLOR_DEBUG_ITEM                = "#fcff97",
         /** The debug color for a decoration. */
-        public  static  readonly    COLOR_DEBUG_DECORATION                  :string                     = "#b5fffd";
+        COLOR_DEBUG_DECORATION          = "#b5fffd",
         /** The debug color for a site trigger. */
-        public  static  readonly    COLOR_DEBUG_SITE_TRIGGER                :string                     = "#deffd9";
+        COLOR_DEBUG_SITE_TRIGGER        = "#deffd9",
         /** The debug color for a platform. */
-        public  static  readonly    COLOR_DEBUG_PLATFORM                    :string                     = "#d2d2d2";
+        COLOR_DEBUG_PLATFORM            = "#d2d2d2",
     }
