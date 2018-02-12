@@ -61,10 +61,10 @@
 
             this.movables =
             [
-/*
-                ninjas.GameObjectFactory.createCrate(  300, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
-                ninjas.GameObjectFactory.createCrate(  500, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
-*/
+                ninjas.GameObjectFactory.createWoodenCrate(  750, 2100 ),
+                ninjas.GameObjectFactory.createWoodenCrate(  500, 2500 ),
+                ninjas.GameObjectFactory.createWoodenCrate(  700, 2500 ),
+
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
             ];
 
@@ -138,6 +138,6 @@
             ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapEnds.RIGHT, this );
             ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2500, 6, ninjas.CapEnds.NONE,  this );
 */
-            ninjas.GameObjectBundleFactory.createSolidGround( 200,   2500, 5, 3, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
+            ninjas.GameObjectBundleFactory.createSolidGround( 200,   2500, 10, 4, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
         }
     }

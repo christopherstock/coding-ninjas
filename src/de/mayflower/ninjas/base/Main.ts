@@ -5,6 +5,8 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
+    *   TODO Disable moving in air??
+    *   TODO Try horizontal collision check on moving left or right??
     *   TODO Create concrete specifiers (or classes) for physical settings (density_concrete etc.)
     *   TODO Adjust densities for all game objects.
     *   TODO Adjust restitution for all game objects - will bounce balls.

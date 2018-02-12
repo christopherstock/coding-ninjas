@@ -2,20 +2,6 @@
     import * as matter from 'matter-js';
 
     /*******************************************************************************************************************
-    *   Possible frictions for Matter.js bodies.
-    *
-    *   @author     Christopher Stock
-    *   @version    0.0.1
-    *******************************************************************************************************************/
-    export enum BodyFriction
-    {
-
-
-
-
-    }
-
-    /*******************************************************************************************************************
     *   All adjustments and balancings for the Matter.js engine.
     *
     *   @author     Christopher Stock
@@ -23,22 +9,8 @@
     *******************************************************************************************************************/
     export class SettingMatterJs
     {
-        /** Highest surface friction. */
-        public  static  readonly    FRICTION_CONCRETE                           :number                     = 1.0;
-        /** Default surface friction. */
-        public  static  readonly    FRICTION_DEFAULT                            :number                     = 0.1;
-        /** Low surface friction. */
-        public  static  readonly    FRICTION_GLASS                              :number                     = 0.01;
-        /** Lowest surface friction. */
-        public  static  readonly    FRICTION_ICE                                :number                     = 0.0;
-
-        /** Character density. */
-        public  static  readonly    DENSITY_HUMAN                               :number                     = 0.01;
-        /** Default density. */
-        public  static  readonly    DENSITY_DEFAULT                             :number                     = 0.001;
-
         /** The default jump power. */
-        public  static  readonly    PLAYER_JUMP_POWER                           :number                     = -25.0;
+        public  static  readonly    PLAYER_JUMP_POWER                           :number                     = -2.5;
         /** The player's speed in world coordinate per tick. */
         public  static  readonly    PLAYER_SPEED_MOVE                           :number                     = 7.5;
         /** The player's gap size y of it's physical body corners. */
@@ -86,4 +58,38 @@
             mask:     0x0016,
             group:    0x0016,
         };
+    }
+
+    /*******************************************************************************************************************
+    *   Possible frictions for Matter.js bodies.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum BodyFriction
+    {
+        /** Highest surface friction. */
+        CONCRETE = 1.0,
+        /** Default surface friction. */
+        DEFAULT  = 0.1,
+        /** Low surface friction. */
+        GLASS    = 0.01,
+        /** Lowest surface friction. */
+        ICE      = 0.0,
+    }
+
+    /*******************************************************************************************************************
+    *   Possible densities for Matter.js bodies.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum BodyDensity
+    {
+        /** Default density. */
+        DEFAULT = 0.001,
+        /** Player */
+        PLAYER  = BodyDensity.DEFAULT,
+        /** Wood */
+        WOOD    = ( BodyDensity.DEFAULT * 4 ),
     }

@@ -11,16 +11,14 @@
     export abstract class GameObjectFactory
     {
         /***************************************************************************************************************
-        *   Creates a crate.
+        *   Creates a wooden crate.
         *
         *   @param x        Anchor X.
         *   @param yBottom  Anchor for bottom Y.
-        *   @param friction The surface friction for this box.
-        *   @param density  The density for this box.
         *
         *   @return The created box.
         ***************************************************************************************************************/
-        public static createCrate( x:number, yBottom:number, friction:number, density:number ):ninjas.Movable
+        public static createWoodenCrate( x:number, yBottom:number ):ninjas.Movable
         {
             let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_CRATE );
 
@@ -33,8 +31,8 @@
                     ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
                     false,
                     0.0,
-                    friction,
-                    density
+                    ninjas.BodyFriction.DEFAULT,
+                    ninjas.BodyDensity.WOOD
                 ),
                 sprtiteTemplate,
                 x,
@@ -92,7 +90,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_ITEM,
                     true,
                     0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.BodyFriction.DEFAULT,
                     Infinity
                 ),
                 ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_ITEM ),
@@ -131,7 +129,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
                     true,
                     angle,
-                    ninjas.SettingMatterJs.FRICTION_CONCRETE,
+                    ninjas.BodyFriction.CONCRETE,
                     Infinity
                 ),
                 xLeft,
@@ -173,7 +171,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE_SPRITELESS,
                     true,
                     angle,
-                    ninjas.SettingMatterJs.FRICTION_CONCRETE,
+                    ninjas.BodyFriction.CONCRETE,
                     Infinity
                 ),
                 xLeft,
@@ -204,7 +202,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
                     true,
                     angle,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.BodyFriction.DEFAULT,
                     Infinity
                 ),
                 x,
@@ -259,7 +257,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
                     true,
                     0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.BodyFriction.DEFAULT,
                     Infinity
                 ),
                 x,
@@ -309,8 +307,8 @@
                 ninjas.DebugColor.COLOR_DEBUG_PLAYER,
                 false,
                 0.0,
-                ninjas.SettingMatterJs.FRICTION_DEFAULT,
-                ninjas.SettingMatterJs.DENSITY_HUMAN
+                ninjas.BodyFriction.DEFAULT,
+                ninjas.BodyDensity.PLAYER
             );
 
             return new ninjas.Player
@@ -342,8 +340,8 @@
                     ninjas.DebugColor.COLOR_DEBUG_ENEMY,
                     false,
                     0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
-                    ninjas.SettingMatterJs.DENSITY_HUMAN
+                    ninjas.BodyFriction.DEFAULT,
+                    ninjas.BodyDensity.DEFAULT
                 ),
                 x,
                 y,
@@ -371,7 +369,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_DECORATION,
                     true,
                     0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.BodyFriction.DEFAULT,
                     Infinity
                 ),
                 spriteTemplate,
@@ -408,7 +406,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_DECORATION,
                     true,
                     0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.BodyFriction.DEFAULT,
                     Infinity
                 ),
                 spriteTemplate,
@@ -448,7 +446,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_SITE_TRIGGER,
                     true,
                     0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.BodyFriction.DEFAULT,
                     Infinity
                 ),
                 null,
@@ -480,8 +478,8 @@
                     ninjas.DebugColor.COLOR_DEBUG_SIGSAW,
                     false,
                     0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
-                    ninjas.SettingMatterJs.DENSITY_DEFAULT
+                    ninjas.BodyFriction.DEFAULT,
+                    ninjas.BodyDensity.DEFAULT
                 ),
                 spriteTemplate,
                 x,
@@ -519,7 +517,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_PLATFORM,
                     true,
                     0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
+                    ninjas.BodyFriction.DEFAULT,
                     Infinity
                 ),
                 spriteTemplate,
@@ -550,8 +548,8 @@
                     ninjas.DebugColor.COLOR_DEBUG_BOUNCE,
                     false,
                     0.0,
-                    ninjas.SettingMatterJs.FRICTION_DEFAULT,
-                    ninjas.SettingMatterJs.DENSITY_DEFAULT
+                    ninjas.BodyFriction.DEFAULT,
+                    ninjas.BodyDensity.DEFAULT
                 ),
                 spriteTemplate,
                 x,

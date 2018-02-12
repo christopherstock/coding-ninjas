@@ -33,8 +33,8 @@
             debugColor :ninjas.DebugColor,
             isStatic   :boolean,
             angle      :number,
-            friction   :number,
-            density    :number
+            friction   :ninjas.BodyFriction,
+            density    :ninjas.BodyDensity
         )
         {
             super( debugColor, isStatic, angle, friction, density );
