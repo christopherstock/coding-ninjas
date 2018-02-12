@@ -81,6 +81,16 @@
                     this.jump();
                 }
             }
+
+            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_SPACE ) )
+            {
+                ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_SPACE );
+
+                if ( this.isFalling() && !this.gliding )
+                {
+                    this.openParachute();
+                }
+            }
         }
 
         /***************************************************************************************************************
@@ -144,31 +154,28 @@
             {
                 for ( let enemy of ninjas.Main.game.level.enemies )
                 {
-                    if ( enemy instanceof ninjas.Enemy )
+                    // check intersection of the player and the enemy
+                    if ( matter.Bounds.overlaps( this.shape.body.bounds, enemy.shape.body.bounds ) )
                     {
-                        // check intersection of the player and the enemy
-                        if ( matter.Bounds.overlaps( this.shape.body.bounds, enemy.shape.body.bounds ) )
+                        ninjas.Debug.enemy.log( "Enemy touched by player" );
+
+                        let playerBottom:number = Math.floor( this.shape.body.position.y  + this.shape.getHeight() / 2 );
+                        let enemyTop:number     = Math.floor( enemy.shape.body.position.y - enemy.shape.getHeight() / 2 );
+
+                        ninjas.Debug.enemy.log( " playerBottom [" + playerBottom + "] enemyTop [" + enemyTop + "]" );
+
+                        if ( playerBottom == enemyTop )
                         {
-                            ninjas.Debug.enemy.log( "Enemy touched by player" );
+                            ninjas.Debug.enemy.log( " Enemy killed" );
 
-                            let playerBottom:number = Math.floor( this.shape.body.position.y  + this.shape.getHeight() / 2 );
-                            let enemyTop:number     = Math.floor( enemy.shape.body.position.y - enemy.shape.getHeight() / 2 );
+                            // flag enemy as dead
+                            enemy.kill();
 
-                            ninjas.Debug.enemy.log( " playerBottom [" + playerBottom + "] enemyTop [" + enemyTop + "]" );
+                            // let enemy fall out of the screen
+                            enemy.punchOut();
 
-                            if ( playerBottom == enemyTop )
-                            {
-                                ninjas.Debug.enemy.log( " Enemy killed" );
-
-                                // flag enemy as dead
-                                enemy.kill();
-
-                                // let enemy fall out of the screen
-                                enemy.punchOut();
-
-                                // disable enemy collisions
-                                enemy.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
-                            }
+                            // disable enemy collisions
+                            enemy.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
                         }
                     }
                 }

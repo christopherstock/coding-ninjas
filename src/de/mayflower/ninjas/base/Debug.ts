@@ -21,6 +21,8 @@
         public      static      key             :Debug              = new Debug( false );
         /** Debugs the pickable game items. */
         public      static      item            :Debug              = new Debug( true  );
+        /** Debugs character events. */
+        public      static      character       :Debug              = new Debug( true  );
         /** Debugs enemy events. */
         public      static      enemy           :Debug              = new Debug( true  );
         /** Debugs site events. */

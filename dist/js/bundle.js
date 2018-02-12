@@ -27415,6 +27415,8 @@ var Debug = /** @class */ (function () {
     Debug.key = new Debug(false);
     /** Debugs the pickable game items. */
     Debug.item = new Debug(true);
+    /** Debugs character events. */
+    Debug.character = new Debug(true);
     /** Debugs enemy events. */
     Debug.enemy = new Debug(true);
     /** Debugs site events. */
@@ -27438,6 +27440,8 @@ var ninjas = __webpack_require__(1);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
+*   TODO Increase Friction (static?) for heaviery boxes?
+*
 *   TODO Disable moving in air??
 *   TODO Try horizontal collision check on moving left or right??
 *   TODO Create concrete specifiers (or classes) for physical settings (density_concrete etc.)
@@ -27665,7 +27669,7 @@ var SettingMatterJs = /** @class */ (function () {
     SettingMatterJs.PLAYER_SPEED_MOVE = 7.5;
     /** The player's gap size y of it's physical body corners. */
     SettingMatterJs.PLAYER_EDGE_GAP_Y = 5.0;
-    /** The default vertical gravity for all levels. */
+    /** The default vertical gravity for all objects. */
     SettingMatterJs.DEFAULT_GRAVITY_Y = 1.0;
     /** The default collision group for all game objects. */
     SettingMatterJs.COLLISION_GROUP_COLLIDING = {
@@ -27721,6 +27725,19 @@ var BodyFriction;
     /** Lowest surface friction. */
     BodyFriction[BodyFriction["ICE"] = 0] = "ICE";
 })(BodyFriction = exports.BodyFriction || (exports.BodyFriction = {}));
+/*******************************************************************************************************************
+*   Possible air frictions for Matter.js bodies.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var BodyFrictionAir;
+(function (BodyFrictionAir) {
+    /** Default air friction. */
+    BodyFrictionAir[BodyFrictionAir["DEFAULT"] = 0.01] = "DEFAULT";
+    /** Air friction using a parachute. */
+    BodyFrictionAir[BodyFrictionAir["GLIDING"] = 0.05] = "GLIDING";
+})(BodyFrictionAir = exports.BodyFrictionAir || (exports.BodyFrictionAir = {}));
 /*******************************************************************************************************************
 *   Possible densities for Matter.js bodies.
 *
@@ -29617,7 +29634,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.movables =
             [
                 ninjas.GameObjectFactory.createWoodenCrate(750, 2100),
-                ninjas.GameObjectFactory.createWoodenCrate(500, 2500),
+                ninjas.GameObjectFactory.createWoodenCrate(250, 2500),
                 ninjas.GameObjectFactory.createWoodenCrate(700, 2500),
                 ninjas.GameObjectFactory.createMetalCrate(1000, 2100),
             ];
@@ -30277,6 +30294,8 @@ var Character = /** @class */ (function (_super) {
         _this.lookingDirection = null;
         /** Flags if this character is dead. */
         _this.dead = false;
+        /** Flags if this character is gliding. */
+        _this.gliding = false;
         /** Flags if the character currently collides with the bottom sensor. */
         _this.collidesBottom = false;
         /** Flags if the character is currently moving left. */
@@ -30302,6 +30321,9 @@ var Character = /** @class */ (function (_super) {
         this.resetRotation();
         this.clipToHorizontalLevelBounds();
         this.checkBottomCollision();
+        if (this.collidesBottom && this.gliding) {
+            this.closeParachute();
+        }
         if (!this.dead) {
             this.checkFallingDead();
         }
@@ -30317,6 +30339,22 @@ var Character = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     Character.prototype.jump = function () {
         matter.Body.applyForce(this.shape.body, this.shape.body.position, matter.Vector.create(0.0, this.jumpPower));
+    };
+    /***************************************************************************************************************
+    *   Open character's parachute.
+    ***************************************************************************************************************/
+    Character.prototype.openParachute = function () {
+        ninjas.Debug.character.log("Open parachute..");
+        this.shape.body.frictionAir = ninjas.BodyFrictionAir.GLIDING;
+        this.gliding = true;
+    };
+    /***************************************************************************************************************
+    *   Closes character's parachute.
+    ***************************************************************************************************************/
+    Character.prototype.closeParachute = function () {
+        ninjas.Debug.character.log("Close parachute..");
+        this.shape.body.frictionAir = ninjas.BodyFrictionAir.DEFAULT;
+        this.gliding = false;
     };
     /***************************************************************************************************************
     *   Moves this character left.
@@ -30357,7 +30395,7 @@ var Character = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     Character.prototype.checkFallingDead = function () {
         if (this.shape.body.position.y - this.shape.getHeight() / 2 > ninjas.Main.game.level.height) {
-            ninjas.Debug.bugfix.log("Character has fallen to dead");
+            ninjas.Debug.character.log("Character has fallen to dead");
             // remove character body
             ninjas.Main.game.engine.matterJsSystem.removeFromWorld(this.shape.body);
             this.kill();
@@ -30553,6 +30591,12 @@ var Player = /** @class */ (function (_super) {
                 this.jump();
             }
         }
+        if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_SPACE)) {
+            ninjas.Main.game.engine.keySystem.setNeedsRelease(ninjas.Key.KEY_SPACE);
+            if (this.isFalling() && !this.gliding) {
+                this.openParachute();
+            }
+        }
     };
     /***************************************************************************************************************
     *   Assigns the current sprite to the player according to his current state.
@@ -30600,22 +30644,20 @@ var Player = /** @class */ (function (_super) {
             try {
                 for (var _a = __values(ninjas.Main.game.level.enemies), _b = _a.next(); !_b.done; _b = _a.next()) {
                     var enemy = _b.value;
-                    if (enemy instanceof ninjas.Enemy) {
-                        // check intersection of the player and the enemy
-                        if (matter.Bounds.overlaps(this.shape.body.bounds, enemy.shape.body.bounds)) {
-                            ninjas.Debug.enemy.log("Enemy touched by player");
-                            var playerBottom = Math.floor(this.shape.body.position.y + this.shape.getHeight() / 2);
-                            var enemyTop = Math.floor(enemy.shape.body.position.y - enemy.shape.getHeight() / 2);
-                            ninjas.Debug.enemy.log(" playerBottom [" + playerBottom + "] enemyTop [" + enemyTop + "]");
-                            if (playerBottom == enemyTop) {
-                                ninjas.Debug.enemy.log(" Enemy killed");
-                                // flag enemy as dead
-                                enemy.kill();
-                                // let enemy fall out of the screen
-                                enemy.punchOut();
-                                // disable enemy collisions
-                                enemy.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
-                            }
+                    // check intersection of the player and the enemy
+                    if (matter.Bounds.overlaps(this.shape.body.bounds, enemy.shape.body.bounds)) {
+                        ninjas.Debug.enemy.log("Enemy touched by player");
+                        var playerBottom = Math.floor(this.shape.body.position.y + this.shape.getHeight() / 2);
+                        var enemyTop = Math.floor(enemy.shape.body.position.y - enemy.shape.getHeight() / 2);
+                        ninjas.Debug.enemy.log(" playerBottom [" + playerBottom + "] enemyTop [" + enemyTop + "]");
+                        if (playerBottom == enemyTop) {
+                            ninjas.Debug.enemy.log(" Enemy killed");
+                            // flag enemy as dead
+                            enemy.kill();
+                            // let enemy fall out of the screen
+                            enemy.punchOut();
+                            // disable enemy collisions
+                            enemy.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
                         }
                     }
                 }
@@ -31406,9 +31448,9 @@ var Shape = /** @class */ (function () {
             isStatic: isStatic,
             collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,
             friction: friction,
-            //              frictionStatic:  friction,
             angle: ninjas.MathUtil.angleToRad(angle),
             density: density,
+            frictionAir: ninjas.BodyFrictionAir.DEFAULT,
         };
     }
     return Shape;

@@ -45,9 +45,13 @@
                 isStatic:        isStatic,
                 collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,
                 friction:        friction,
-//              frictionStatic:  friction,
+
                 angle:           ninjas.MathUtil.angleToRad( angle ),
                 density:         density,
+
+                frictionAir:     ninjas.BodyFrictionAir.DEFAULT,
+
+//              frictionStatic:  1,
 //              isSensor:        isSensor,
 //              chamfer:         { radius: [ 5.0, 5.0, 5.0, 5.0 ] },
             };

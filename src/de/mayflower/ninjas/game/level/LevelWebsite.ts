@@ -62,7 +62,7 @@
             this.movables =
             [
                 ninjas.GameObjectFactory.createWoodenCrate(  750,  2100 ),
-                ninjas.GameObjectFactory.createWoodenCrate(  500,  2500 ),
+                ninjas.GameObjectFactory.createWoodenCrate(  250,  2500 ),
                 ninjas.GameObjectFactory.createWoodenCrate(  700,  2500 ),
                 ninjas.GameObjectFactory.createMetalCrate(   1000, 2100 ),
 

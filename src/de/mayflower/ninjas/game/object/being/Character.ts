@@ -30,6 +30,8 @@
 
         /** Flags if this character is dead. */
         protected                       dead                                :boolean                            = false;
+        /** Flags if this character is gliding. */
+        protected                       gliding                             :boolean                            = false;
 
         /** Flags if the character currently collides with the bottom sensor. */
         public                          collidesBottom                      :boolean                            = false;
@@ -92,6 +94,11 @@
             this.clipToHorizontalLevelBounds();
             this.checkBottomCollision();
 
+            if ( this.collidesBottom && this.gliding )
+            {
+                this.closeParachute();
+            }
+
             if ( !this.dead )
             {
                 this.checkFallingDead();
@@ -117,6 +124,28 @@
                 this.shape.body.position,
                 matter.Vector.create( 0.0, this.jumpPower )
             );
+        }
+
+        /***************************************************************************************************************
+        *   Open character's parachute.
+        ***************************************************************************************************************/
+        protected openParachute()
+        {
+            ninjas.Debug.character.log( "Open parachute.." );
+
+            this.shape.body.frictionAir = ninjas.BodyFrictionAir.GLIDING;
+            this.gliding = true;
+        }
+
+        /***************************************************************************************************************
+        *   Closes character's parachute.
+        ***************************************************************************************************************/
+        protected closeParachute()
+        {
+            ninjas.Debug.character.log( "Close parachute.." );
+
+            this.shape.body.frictionAir = ninjas.BodyFrictionAir.DEFAULT;
+            this.gliding = false;
         }
 
         /***************************************************************************************************************
@@ -172,7 +201,7 @@
         {
             if ( this.shape.body.position.y - this.shape.getHeight() / 2 > ninjas.Main.game.level.height )
             {
-                ninjas.Debug.bugfix.log( "Character has fallen to dead" );
+                ninjas.Debug.character.log( "Character has fallen to dead" );
 
                 // remove character body
                 ninjas.Main.game.engine.matterJsSystem.removeFromWorld( this.shape.body );

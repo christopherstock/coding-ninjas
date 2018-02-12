@@ -16,7 +16,7 @@
         /** The player's gap size y of it's physical body corners. */
         public  static  readonly    PLAYER_EDGE_GAP_Y                           :number                     = 5.0;
 
-        /** The default vertical gravity for all levels. */
+        /** The default vertical gravity for all objects. */
         public  static  readonly    DEFAULT_GRAVITY_Y                           :number                     = 1.0;
 
         /** The default collision group for all game objects. */
@@ -84,6 +84,21 @@
         GLASS       = 0.01,
         /** Lowest surface friction. */
         ICE         = 0.0,
+    }
+
+    /*******************************************************************************************************************
+    *   Possible air frictions for Matter.js bodies.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum BodyFrictionAir
+    {
+        /** Default air friction. */
+        DEFAULT     = 0.01,
+
+        /** Air friction using a parachute. */
+        GLIDING     = 0.05,
     }
 
     /*******************************************************************************************************************
