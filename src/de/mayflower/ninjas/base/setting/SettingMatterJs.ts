@@ -68,17 +68,15 @@
     *******************************************************************************************************************/
     export enum BodyFriction
     {
-        /** Highest surface friction. */
-        CONCRETE    = 1.0,
         /** Default surface friction. */
         DEFAULT     = 0.1,
 
-
+        /** Friction for obstacles. */
+        OBSTACLE    = BodyFriction.DEFAULT,
         /** Player friction. */
         PLAYER      = BodyFriction.DEFAULT,
         /** Player friction. */
         WOOD        = BodyFriction.DEFAULT,
-
 
         /** Low surface friction. */
         GLASS       = 0.01,

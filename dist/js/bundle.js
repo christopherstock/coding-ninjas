@@ -27439,8 +27439,8 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Fix physics and turn to feelgood experiences (gounds, boxes, player, ramps)
 *   TODO Increase Friction (static?) for heaviery boxes?
+*   TODO Add gliding sprite.
 *
 *   TODO Disable moving in air??
 *   TODO Try horizontal collision check on moving left or right??
@@ -27712,10 +27712,10 @@ exports.SettingMatterJs = SettingMatterJs;
 *******************************************************************************************************************/
 var BodyFriction;
 (function (BodyFriction) {
-    /** Highest surface friction. */
-    BodyFriction[BodyFriction["CONCRETE"] = 1] = "CONCRETE";
     /** Default surface friction. */
     BodyFriction[BodyFriction["DEFAULT"] = 0.1] = "DEFAULT";
+    /** Friction for obstacles. */
+    BodyFriction[BodyFriction["OBSTACLE"] = 0.1] = "OBSTACLE";
     /** Player friction. */
     BodyFriction[BodyFriction["PLAYER"] = 0.1] = "PLAYER";
     /** Player friction. */
@@ -29636,7 +29636,6 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createWoodenCrate(750, 2100),
                 ninjas.GameObjectFactory.createWoodenCrate(250, 2500),
                 ninjas.GameObjectFactory.createWoodenCrate(700, 2500),
-                ninjas.GameObjectFactory.createMetalCrate(1000, 2100),
             ];
         this.enemies =
             [];
@@ -30049,7 +30048,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createObstacle = function (xLeft, yTop, spriteTemplate, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.BodyFriction.CONCRETE, Infinity), xLeft, yTop, spriteTemplate, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.BodyFriction.OBSTACLE, Infinity), xLeft, yTop, spriteTemplate, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates an rectangular obstacle.
@@ -30064,7 +30063,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createObstacleSpriteless = function (xLeft, yTop, width, height, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE_SPRITELESS, true, angle, ninjas.BodyFriction.CONCRETE, Infinity), xLeft, yTop, null, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE_SPRITELESS, true, angle, ninjas.BodyFriction.OBSTACLE, Infinity), xLeft, yTop, null, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates a free form.
@@ -30344,7 +30343,7 @@ var Character = /** @class */ (function (_super) {
     *   Open character's parachute.
     ***************************************************************************************************************/
     Character.prototype.openParachute = function () {
-        ninjas.Debug.character.log("Open parachute..");
+        ninjas.Debug.character.log("Character opens parachute");
         this.shape.body.frictionAir = ninjas.BodyFrictionAir.GLIDING;
         this.gliding = true;
     };
@@ -30352,7 +30351,7 @@ var Character = /** @class */ (function (_super) {
     *   Closes character's parachute.
     ***************************************************************************************************************/
     Character.prototype.closeParachute = function () {
-        ninjas.Debug.character.log("Close parachute..");
+        ninjas.Debug.character.log("Character closes parachute");
         this.shape.body.frictionAir = ninjas.BodyFrictionAir.DEFAULT;
         this.gliding = false;
     };
@@ -31448,9 +31447,9 @@ var Shape = /** @class */ (function () {
             isStatic: isStatic,
             collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,
             friction: friction,
+            frictionAir: ninjas.BodyFrictionAir.DEFAULT,
             angle: ninjas.MathUtil.angleToRad(angle),
             density: density,
-            frictionAir: ninjas.BodyFrictionAir.DEFAULT,
         };
     }
     return Shape;

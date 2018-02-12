@@ -131,7 +131,7 @@
         ***************************************************************************************************************/
         protected openParachute()
         {
-            ninjas.Debug.character.log( "Open parachute.." );
+            ninjas.Debug.character.log( "Character opens parachute" );
 
             this.shape.body.frictionAir = ninjas.BodyFrictionAir.GLIDING;
             this.gliding = true;
@@ -142,7 +142,7 @@
         ***************************************************************************************************************/
         protected closeParachute()
         {
-            ninjas.Debug.character.log( "Close parachute.." );
+            ninjas.Debug.character.log( "Character closes parachute" );
 
             this.shape.body.frictionAir = ninjas.BodyFrictionAir.DEFAULT;
             this.gliding = false;

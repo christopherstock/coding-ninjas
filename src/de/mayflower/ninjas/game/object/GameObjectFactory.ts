@@ -159,7 +159,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
                     true,
                     angle,
-                    ninjas.BodyFriction.CONCRETE,
+                    ninjas.BodyFriction.OBSTACLE,
                     Infinity
                 ),
                 xLeft,
@@ -201,7 +201,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE_SPRITELESS,
                     true,
                     angle,
-                    ninjas.BodyFriction.CONCRETE,
+                    ninjas.BodyFriction.OBSTACLE,
                     Infinity
                 ),
                 xLeft,
