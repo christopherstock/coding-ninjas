@@ -27596,6 +27596,8 @@ var SettingEngine = /** @class */ (function () {
     SettingEngine.PATH_IMAGE_LEVEL = "res/image/level/";
     /** The relative path from index.html where all level ground images reside. */
     SettingEngine.PATH_IMAGE_LEVEL_GROUND = "res/image/level/ground/";
+    /** The relative path from index.html where all level movable images reside. */
+    SettingEngine.PATH_IMAGE_LEVEL_MOVABLE = "res/image/level/movable/";
     /** The relative path from index.html where all level deco images reside. */
     SettingEngine.PATH_IMAGE_LEVEL_DECO = "res/image/level/deco/";
     /** The relative path from index.html where all site images reside. */
@@ -27729,6 +27731,8 @@ var BodyDensity;
     BodyDensity[BodyDensity["PLAYER"] = 0.001] = "PLAYER";
     /** Wood */
     BodyDensity[BodyDensity["WOOD"] = 0.004] = "WOOD";
+    /** Metal */
+    BodyDensity[BodyDensity["METAL"] = 0.012] = "METAL";
 })(BodyDensity = exports.BodyDensity || (exports.BodyDensity = {}));
 
 
@@ -29603,6 +29607,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createWoodenCrate(750, 2100),
                 ninjas.GameObjectFactory.createWoodenCrate(500, 2500),
                 ninjas.GameObjectFactory.createWoodenCrate(700, 2500),
+                ninjas.GameObjectFactory.createMetalCrate(1000, 2100),
             ];
         this.enemies =
             [];
@@ -29963,8 +29968,20 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created box.
     ***************************************************************************************************************/
     GameObjectFactory.createWoodenCrate = function (x, yBottom) {
-        var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE);
+        var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE_WOOD);
         return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.WOOD), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
+    };
+    /***************************************************************************************************************
+    *   Creates a metal crate.
+    *
+    *   @param x        Anchor X.
+    *   @param yBottom  Anchor for bottom Y.
+    *
+    *   @return The created box.
+    ***************************************************************************************************************/
+    GameObjectFactory.createMetalCrate = function (x, yBottom) {
+        var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE_METAL);
+        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.METAL), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -32923,8 +32940,10 @@ var Image = /** @class */ (function () {
     Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallingRight/02.png";
     /** Image resource 'ninja girl falling right frame 3'. */
     Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3 = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallingRight/03.png";
-    /** Image resource 'crate'. */
-    Image.IMAGE_CRATE = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "crate.jpg";
+    /** Image resource 'wooden crate'. */
+    Image.IMAGE_CRATE_WOOD = ninjas.SettingEngine.PATH_IMAGE_LEVEL_MOVABLE + "crateWood.jpg";
+    /** Image resource 'metal crate'. */
+    Image.IMAGE_CRATE_METAL = ninjas.SettingEngine.PATH_IMAGE_LEVEL_MOVABLE + "crateMetal.jpg";
     /** Image resource 'item'. */
     Image.IMAGE_ITEM = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "item.png";
     /** Image resource 'sphere'. */
@@ -32992,7 +33011,8 @@ var Image = /** @class */ (function () {
         Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
         Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
         Image.IMAGE_ITEM,
-        Image.IMAGE_CRATE,
+        Image.IMAGE_CRATE_WOOD,
+        Image.IMAGE_CRATE_METAL,
         Image.IMAGE_SPHERE,
         Image.IMAGE_BOULDER_1,
         Image.IMAGE_BOULDER_2,

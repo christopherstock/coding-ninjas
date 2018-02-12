@@ -20,7 +20,7 @@
         ***************************************************************************************************************/
         public static createWoodenCrate( x:number, yBottom:number ):ninjas.Movable
         {
-            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_CRATE );
+            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_CRATE_WOOD );
 
             return new ninjas.Movable
             (
@@ -33,6 +33,36 @@
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.WOOD
+                ),
+                sprtiteTemplate,
+                x,
+                ( yBottom - sprtiteTemplate.height )
+            );
+        }
+
+        /***************************************************************************************************************
+        *   Creates a metal crate.
+        *
+        *   @param x        Anchor X.
+        *   @param yBottom  Anchor for bottom Y.
+        *
+        *   @return The created box.
+        ***************************************************************************************************************/
+        public static createMetalCrate( x:number, yBottom:number ):ninjas.Movable
+        {
+            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_CRATE_METAL );
+
+            return new ninjas.Movable
+            (
+                new ninjas.ShapeRectangle
+                (
+                    sprtiteTemplate.width,
+                    sprtiteTemplate.height,
+                    ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
+                    false,
+                    0.0,
+                    ninjas.BodyFriction.DEFAULT,
+                    ninjas.BodyDensity.METAL
                 ),
                 sprtiteTemplate,
                 x,

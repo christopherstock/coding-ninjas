@@ -65,8 +65,10 @@
         /** Image resource 'ninja girl falling right frame 3'. */
         public      static      IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallingRight/03.png";
 
-        /** Image resource 'crate'. */
-        public      static      IMAGE_CRATE                                 :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "crate.jpg";
+        /** Image resource 'wooden crate'. */
+        public      static      IMAGE_CRATE_WOOD                            :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_MOVABLE + "crateWood.jpg";
+        /** Image resource 'metal crate'. */
+        public      static      IMAGE_CRATE_METAL                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_MOVABLE + "crateMetal.jpg";
 
         /** Image resource 'item'. */
         public      static      IMAGE_ITEM                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "item.png";
@@ -146,7 +148,8 @@
             Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
 
             Image.IMAGE_ITEM,
-            Image.IMAGE_CRATE,
+            Image.IMAGE_CRATE_WOOD,
+            Image.IMAGE_CRATE_METAL,
             Image.IMAGE_SPHERE,
 
             Image.IMAGE_BOULDER_1,

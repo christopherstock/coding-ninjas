@@ -61,9 +61,10 @@
 
             this.movables =
             [
-                ninjas.GameObjectFactory.createWoodenCrate(  750, 2100 ),
-                ninjas.GameObjectFactory.createWoodenCrate(  500, 2500 ),
-                ninjas.GameObjectFactory.createWoodenCrate(  700, 2500 ),
+                ninjas.GameObjectFactory.createWoodenCrate(  750,  2100 ),
+                ninjas.GameObjectFactory.createWoodenCrate(  500,  2500 ),
+                ninjas.GameObjectFactory.createWoodenCrate(  700,  2500 ),
+                ninjas.GameObjectFactory.createMetalCrate(   1000, 2100 ),
 
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
             ];

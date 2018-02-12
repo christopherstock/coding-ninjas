@@ -92,4 +92,6 @@
         PLAYER  = BodyDensity.DEFAULT,
         /** Wood */
         WOOD    = ( BodyDensity.DEFAULT * 4 ),
+        /** Metal */
+        METAL   = ( BodyDensity.DEFAULT * 12 ),
     }
