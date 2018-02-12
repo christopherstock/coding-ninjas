@@ -49,7 +49,7 @@
 */
 
                 // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp( 1608, 2500, 750.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO ),
+                ninjas.GameObjectFactory.createElevatedRamp( 1608, 2500, 1250.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO ),
 
 /*
                 // pass-through obstacles
@@ -77,8 +77,8 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                2000,
-                2000,
+                500,
+                2500,
                 ninjas.CharacterLookingDirection.RIGHT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
             );

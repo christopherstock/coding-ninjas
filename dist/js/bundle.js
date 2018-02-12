@@ -27660,9 +27660,9 @@ var SettingMatterJs = /** @class */ (function () {
     function SettingMatterJs() {
     }
     /** The default jump power. */
-    SettingMatterJs.PLAYER_JUMP_POWER = -2.5;
+    SettingMatterJs.PLAYER_JUMP_POWER = -2.75;
     /** The player's speed in world coordinate per tick. */
-    SettingMatterJs.PLAYER_SPEED_MOVE = 2.5;
+    SettingMatterJs.PLAYER_SPEED_MOVE = 7.5;
     /** The player's gap size y of it's physical body corners. */
     SettingMatterJs.PLAYER_EDGE_GAP_Y = 5.0;
     /** The default vertical gravity for all levels. */
@@ -27736,7 +27736,7 @@ var BodyDensity;
     /** Wood */
     BodyDensity[BodyDensity["WOOD"] = 0.004] = "WOOD";
     /** Metal */
-    BodyDensity[BodyDensity["METAL"] = 0.012] = "METAL";
+    BodyDensity[BodyDensity["METAL"] = 0.01] = "METAL";
 })(BodyDensity = exports.BodyDensity || (exports.BodyDensity = {}));
 
 
@@ -29612,7 +29612,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createObstacle( 4250, 2300, 750,  15, 0.0, ninjas.JumpPassThrough.NO ),
                 */
                 // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp(1608, 2500, 750.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO),
+                ninjas.GameObjectFactory.createElevatedRamp(1608, 2500, 1250.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO),
             ];
         this.movables =
             [
@@ -29623,7 +29623,7 @@ var LevelWebsite = /** @class */ (function (_super) {
             ];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(2000, 2000, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(500, 2500, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT);
         this.decosFg =
             [];
         this.parallaxFgs =

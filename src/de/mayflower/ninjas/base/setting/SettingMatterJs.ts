@@ -10,9 +10,9 @@
     export class SettingMatterJs
     {
         /** The default jump power. */
-        public  static  readonly    PLAYER_JUMP_POWER                           :number                     = -2.5;
+        public  static  readonly    PLAYER_JUMP_POWER                           :number                     = -2.75;
         /** The player's speed in world coordinate per tick. */
-        public  static  readonly    PLAYER_SPEED_MOVE                           :number                     = 2.5;
+        public  static  readonly    PLAYER_SPEED_MOVE                           :number                     = 7.5;
         /** The player's gap size y of it's physical body corners. */
         public  static  readonly    PLAYER_EDGE_GAP_Y                           :number                     = 5.0;
 
@@ -101,5 +101,5 @@
         /** Wood */
         WOOD        = ( BodyDensity.DEFAULT * 4 ),
         /** Metal */
-        METAL       = ( BodyDensity.DEFAULT * 12 ),
+        METAL       = ( BodyDensity.DEFAULT * 10 ),
     }
