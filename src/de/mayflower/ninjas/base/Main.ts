@@ -4,8 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Add gliding sprite.
-    *
     *   TODO Disable moving in air??
     *   TODO Try horizontal collision check on moving left or right??
     *   TODO Create concrete specifiers (or classes) for physical settings (density_concrete etc.)

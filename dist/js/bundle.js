@@ -27439,8 +27439,6 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Add gliding sprite.
-*
 *   TODO Disable moving in air??
 *   TODO Try horizontal collision check on moving left or right??
 *   TODO Create concrete specifiers (or classes) for physical settings (density_concrete etc.)
@@ -33429,7 +33427,7 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_10,
-    ], 8, ninjas.MirrorImage.YES, LoopSprite.NO);
+    ], 8, ninjas.MirrorImage.YES, LoopSprite.YES);
     /** Sprite 'ninja girl glide right'. */
     SpriteTemplate.SPRITE_NINJA_GIRL_GLIDE_RIGHT = new SpriteTemplate([
         ninjas.Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_1,
@@ -33442,7 +33440,7 @@ var SpriteTemplate = /** @class */ (function () {
         ninjas.Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_8,
         ninjas.Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_9,
         ninjas.Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_10,
-    ], 8, ninjas.MirrorImage.NO, LoopSprite.NO);
+    ], 8, ninjas.MirrorImage.NO, LoopSprite.YES);
     /** A reference over all sprite templates. */
     SpriteTemplate.ALL_SPRITE_TEMPLATES = [
         SpriteTemplate.SPRITE_NINJA_GIRL_STAND_LEFT,

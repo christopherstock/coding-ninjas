@@ -37,7 +37,7 @@
         {
             let keyCode = ( event as KeyboardEvent ).which;
 
-            if (!this.keysNeedRelease[ keyCode ]) {
+            if ( !this.keysNeedRelease[ keyCode ] ) {
                 this.keysPressed[ keyCode ] = true;
 
                 ninjas.Debug.key.log( "key pressed ["  + keyCode + "]" );

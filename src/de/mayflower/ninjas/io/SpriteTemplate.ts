@@ -167,7 +167,7 @@
             ],
             8,
             ninjas.MirrorImage.YES,
-            LoopSprite.NO
+            LoopSprite.YES
         );
 
         /** Sprite 'ninja girl glide right'. */
@@ -187,7 +187,7 @@
             ],
             8,
             ninjas.MirrorImage.NO,
-            LoopSprite.NO
+            LoopSprite.YES
         );
 
         /** A reference over all sprite templates. */
