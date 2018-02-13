@@ -16,24 +16,26 @@
         /***************************************************************************************************************
         *   Creates a new circle shape.
         *
-        *   @param diameter   The circle's diameter.
-        *   @param debugColor The color for the debug object.
-        *   @param isStatic   Specifies that this object has a fixed position.
-        *   @param angle      The rotation of this body in degrees.
-        *   @param friction   The object's body friction.
-        *   @param density    The object's body density.
+        *   @param diameter    The circle's diameter.
+        *   @param debugColor  The color for the debug object.
+        *   @param isStatic    Specifies that this object has a fixed position.
+        *   @param angle       The rotation of this body in degrees.
+        *   @param friction    The object's body friction.
+        *   @param density     The object's body density.
+        *   @param restitution The object's body restitution.
         ***************************************************************************************************************/
         public constructor
         (
-            diameter   :number,
-            debugColor :ninjas.DebugColor,
-            isStatic   :boolean,
-            angle      :number,
-            friction   :ninjas.BodyFriction,
-            density    :ninjas.BodyDensity
+            diameter    :number,
+            debugColor  :ninjas.DebugColor,
+            isStatic    :boolean,
+            angle       :number,
+            friction    :ninjas.BodyFriction,
+            density     :ninjas.BodyDensity,
+            restitution :ninjas.BodyRestitution
         )
         {
-            super( debugColor, isStatic, angle, friction, density );
+            super( debugColor, isStatic, angle, friction, density, restitution );
 
             this.diameter = diameter;
 

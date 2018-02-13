@@ -21,24 +21,26 @@
         /***************************************************************************************************************
         *   Creates a new free formed shape.
         *
-        *   @param vertices   All vertices that make up the entire free form shape.
-        *   @param debugColor The color for the debug object.
-        *   @param isStatic   Specifies that this object has a fixed position.
-        *   @param angle      The rotation of this body in degrees.
-        *   @param friction   The object's body friction.
-        *   @param density    The object's body density.
+        *   @param vertices    All vertices that make up the entire free form shape.
+        *   @param debugColor  The color for the debug object.
+        *   @param isStatic    Specifies that this object has a fixed position.
+        *   @param angle       The rotation of this body in degrees.
+        *   @param friction    The object's body friction.
+        *   @param density     The object's body density.
+        *   @param restitution The object's body restitution.
         ***************************************************************************************************************/
         public constructor
         (
-            vertices   :Array<matter.Vector>,
-            debugColor :ninjas.DebugColor,
-            isStatic   :boolean,
-            angle      :number,
-            friction   :ninjas.BodyFriction,
-            density    :ninjas.BodyDensity
+            vertices    :Array<matter.Vector>,
+            debugColor  :ninjas.DebugColor,
+            isStatic    :boolean,
+            angle       :number,
+            friction    :ninjas.BodyFriction,
+            density     :ninjas.BodyDensity,
+            restitution :ninjas.BodyRestitution
         )
         {
-            super( debugColor, isStatic, angle, friction, density );
+            super( debugColor, isStatic, angle, friction, density, restitution );
 
             this.vertices = vertices;
 

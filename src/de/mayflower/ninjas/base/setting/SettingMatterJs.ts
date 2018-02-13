@@ -115,4 +115,22 @@
         WOOD        = ( BodyDensity.DEFAULT * 4 ),
         /** Metal */
         METAL       = ( BodyDensity.DEFAULT * 10 ),
+
+        /** Static objects */
+        INFINITE    = Infinity,
+    }
+
+    /*******************************************************************************************************************
+    *   Possible restitutions for Matter.js bodies.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum BodyRestitution
+    {
+        /** Default restitution (none). */
+        DEFAULT     = 0.0,
+
+        /** Wood. */
+        WOOD        = 0.75,
     }

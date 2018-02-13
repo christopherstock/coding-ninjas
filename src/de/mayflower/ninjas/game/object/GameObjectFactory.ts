@@ -32,7 +32,8 @@
                     false,
                     0.0,
                     ninjas.BodyFriction.WOOD,
-                    ninjas.BodyDensity.WOOD
+                    ninjas.BodyDensity.WOOD,
+                    ninjas.BodyRestitution.WOOD
                 ),
                 sprtiteTemplate,
                 x,
@@ -62,7 +63,8 @@
                     false,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    ninjas.BodyDensity.METAL
+                    ninjas.BodyDensity.METAL,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 sprtiteTemplate,
                 x,
@@ -73,14 +75,23 @@
         /***************************************************************************************************************
         *   Creates a sphere.
         *
-        *   @param x        Anchor X.
-        *   @param yBottom  Anchor of bottom Y.
-        *   @param friction The surface friction for this object.
-        *   @param density  The density for this object.
+        *   @param x           Anchor X.
+        *   @param yBottom     Anchor of bottom Y.
+        *   @param friction    The surface friction for this object.
+        *   @param density     The density for this object.
+        *   @param restitution The restitution for this object.
         *
         *   @return The created sphere.
         ***************************************************************************************************************/
-        public static createSphere( x:number, yBottom:number, friction:number, density:number ):ninjas.Movable
+        public static createSphere
+        (
+            x           :number,
+            yBottom     :number,
+            friction    :ninjas.BodyFriction,
+            density     :ninjas.BodyDensity,
+            restitution :ninjas.BodyRestitution
+        )
+        : ninjas.Movable
         {
             let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_SPHERE );
 
@@ -93,7 +104,8 @@
                     false,
                     0.0,
                     friction,
-                    density
+                    density,
+                    restitution
                 ),
                 sprtiteTemplate,
                 x,
@@ -121,7 +133,8 @@
                     true,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    Infinity
+                    ninjas.BodyDensity.INFINITE,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_ITEM ),
                 x,
@@ -160,7 +173,8 @@
                     true,
                     angle,
                     ninjas.BodyFriction.OBSTACLE,
-                    Infinity
+                    ninjas.BodyDensity.INFINITE,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 xLeft,
                 yTop,
@@ -202,7 +216,8 @@
                     true,
                     angle,
                     ninjas.BodyFriction.OBSTACLE,
-                    Infinity
+                    ninjas.BodyDensity.INFINITE,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 xLeft,
                 yTop,
@@ -233,7 +248,8 @@
                     true,
                     angle,
                     ninjas.BodyFriction.DEFAULT,
-                    Infinity
+                    ninjas.BodyDensity.INFINITE,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 x,
                 y,
@@ -288,7 +304,8 @@
                     true,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    Infinity
+                    ninjas.BodyDensity.INFINITE,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 x,
                 y,
@@ -338,7 +355,8 @@
                 false,
                 0.0,
                 ninjas.BodyFriction.PLAYER,
-                ninjas.BodyDensity.PLAYER
+                ninjas.BodyDensity.PLAYER,
+                ninjas.BodyRestitution.DEFAULT
             );
 
             return new ninjas.Player
@@ -371,7 +389,8 @@
                     false,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    ninjas.BodyDensity.DEFAULT
+                    ninjas.BodyDensity.DEFAULT,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 x,
                 y,
@@ -400,7 +419,8 @@
                     true,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    Infinity
+                    ninjas.BodyDensity.INFINITE,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 spriteTemplate,
                 xLeft,
@@ -437,7 +457,8 @@
                     true,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    Infinity
+                    ninjas.BodyDensity.INFINITE,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 spriteTemplate,
                 x,
@@ -477,7 +498,8 @@
                     true,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    Infinity
+                    ninjas.BodyDensity.INFINITE,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 null,
                 x,
@@ -509,7 +531,8 @@
                     false,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    ninjas.BodyDensity.DEFAULT
+                    ninjas.BodyDensity.DEFAULT,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 spriteTemplate,
                 x,
@@ -548,7 +571,8 @@
                     true,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    Infinity
+                    ninjas.BodyDensity.INFINITE,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 spriteTemplate,
                 speed,
@@ -579,7 +603,8 @@
                     false,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    ninjas.BodyDensity.DEFAULT
+                    ninjas.BodyDensity.DEFAULT,
+                    ninjas.BodyRestitution.DEFAULT
                 ),
                 spriteTemplate,
                 x,

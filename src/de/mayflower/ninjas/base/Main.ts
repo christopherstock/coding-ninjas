@@ -4,14 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Disable moving in air??
-    *   TODO Try horizontal collision check on moving left or right??
-    *   TODO Create concrete specifiers (or classes) for physical settings (density_concrete etc.)
-    *   TODO Adjust densities for all game objects.
-    *   TODO Adjust restitution for all game objects - will bounce balls.
-    *   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
-    *   TODO Character.isFalling(): consider bottomContact ? try this on ramps??
-    *   TODO Revise parallax rendering though different groups in level class.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *
     *   TODO Complete the MVP!

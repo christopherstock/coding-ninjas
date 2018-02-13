@@ -27439,14 +27439,6 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Disable moving in air??
-*   TODO Try horizontal collision check on moving left or right??
-*   TODO Create concrete specifiers (or classes) for physical settings (density_concrete etc.)
-*   TODO Adjust densities for all game objects.
-*   TODO Adjust restitution for all game objects - will bounce balls.
-*   TODO Solve player non-sliding on ramps - Add friction, frictionStatic and frictionAir for Shapes!
-*   TODO Character.isFalling(): consider bottomContact ? try this on ramps??
-*   TODO Revise parallax rendering though different groups in level class.
 *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
 *
 *   TODO Complete the MVP!
@@ -27751,7 +27743,22 @@ var BodyDensity;
     BodyDensity[BodyDensity["WOOD"] = 0.004] = "WOOD";
     /** Metal */
     BodyDensity[BodyDensity["METAL"] = 0.01] = "METAL";
+    /** Static objects */
+    BodyDensity[BodyDensity["INFINITE"] = Infinity] = "INFINITE";
 })(BodyDensity = exports.BodyDensity || (exports.BodyDensity = {}));
+/*******************************************************************************************************************
+*   Possible restitutions for Matter.js bodies.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var BodyRestitution;
+(function (BodyRestitution) {
+    /** Default restitution (none). */
+    BodyRestitution[BodyRestitution["DEFAULT"] = 0] = "DEFAULT";
+    /** Wood. */
+    BodyRestitution[BodyRestitution["WOOD"] = 0.75] = "WOOD";
+})(BodyRestitution = exports.BodyRestitution || (exports.BodyRestitution = {}));
 
 
 /***/ }),
@@ -29994,7 +30001,7 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createWoodenCrate = function (x, yBottom) {
         var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE_WOOD);
-        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, ninjas.BodyFriction.WOOD, ninjas.BodyDensity.WOOD), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
+        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, ninjas.BodyFriction.WOOD, ninjas.BodyDensity.WOOD, ninjas.BodyRestitution.WOOD), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a metal crate.
@@ -30006,21 +30013,22 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createMetalCrate = function (x, yBottom) {
         var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE_METAL);
-        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.METAL), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
+        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.METAL, ninjas.BodyRestitution.DEFAULT), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a sphere.
     *
-    *   @param x        Anchor X.
-    *   @param yBottom  Anchor of bottom Y.
-    *   @param friction The surface friction for this object.
-    *   @param density  The density for this object.
+    *   @param x           Anchor X.
+    *   @param yBottom     Anchor of bottom Y.
+    *   @param friction    The surface friction for this object.
+    *   @param density     The density for this object.
+    *   @param restitution The restitution for this object.
     *
     *   @return The created sphere.
     ***************************************************************************************************************/
-    GameObjectFactory.createSphere = function (x, yBottom, friction, density) {
+    GameObjectFactory.createSphere = function (x, yBottom, friction, density, restitution) {
         var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_SPHERE);
-        return new ninjas.Movable(new ninjas.ShapeCircle(sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, friction, density), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
+        return new ninjas.Movable(new ninjas.ShapeCircle(sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, friction, density, restitution), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates an item.
@@ -30031,7 +30039,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created item.
     ***************************************************************************************************************/
     GameObjectFactory.createItem = function (x, y) {
-        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.DebugColor.COLOR_DEBUG_ITEM, true, 0.0, ninjas.BodyFriction.DEFAULT, Infinity), ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_ITEM), x, y);
+        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.DebugColor.COLOR_DEBUG_ITEM, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_ITEM), x, y);
     };
     /***************************************************************************************************************
     *   Creates an rectangular obstacle.
@@ -30045,7 +30053,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createObstacle = function (xLeft, yTop, spriteTemplate, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.BodyFriction.OBSTACLE, Infinity), xLeft, yTop, spriteTemplate, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.BodyFriction.OBSTACLE, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), xLeft, yTop, spriteTemplate, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates an rectangular obstacle.
@@ -30060,7 +30068,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createObstacleSpriteless = function (xLeft, yTop, width, height, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE_SPRITELESS, true, angle, ninjas.BodyFriction.OBSTACLE, Infinity), xLeft, yTop, null, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE_SPRITELESS, true, angle, ninjas.BodyFriction.OBSTACLE, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), xLeft, yTop, null, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates a free form.
@@ -30074,7 +30082,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createFreeForm = function (x, y, vertices, angle, spriteTemplate) {
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.BodyFriction.DEFAULT, Infinity), x, y, spriteTemplate, ninjas.JumpPassThrough.NO);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), x, y, spriteTemplate, ninjas.JumpPassThrough.NO);
     };
     /***************************************************************************************************************
     *   Creates an elevated ramp obstacle.
@@ -30098,7 +30106,7 @@ var GameObjectFactory = /** @class */ (function () {
         if (deltaY <= 0.0) {
             y += deltaY;
         }
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.BodyFriction.DEFAULT, Infinity), x, y, spriteTemplate, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), x, y, spriteTemplate, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates the player.
@@ -30123,7 +30131,7 @@ var GameObjectFactory = /** @class */ (function () {
         vertices.push(matter.Vector.create(gapSizeX, spriteTemplate.height));
         vertices.push(matter.Vector.create(0.0, spriteTemplate.height - gapSizeY));
         vertices.push(matter.Vector.create(0.0, gapSizeY));
-        var shape = new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.BodyFriction.PLAYER, ninjas.BodyDensity.PLAYER);
+        var shape = new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.BodyFriction.PLAYER, ninjas.BodyDensity.PLAYER, ninjas.BodyRestitution.DEFAULT);
         return new ninjas.Player(shape, x, (yBottom - spriteTemplate.height), lookingDirection, spriteTemplate);
     };
     /***************************************************************************************************************
@@ -30135,7 +30143,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created enemy.
     ***************************************************************************************************************/
     GameObjectFactory.createEnemy = function (x, y) {
-        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.DebugColor.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT), x, y, null);
+        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.DebugColor.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT, ninjas.BodyRestitution.DEFAULT), x, y, null);
     };
     /***************************************************************************************************************
     *   Creates a decoration.
@@ -30147,7 +30155,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createDecoration = function (xLeft, yBottom, spriteTemplate) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.BodyFriction.DEFAULT, Infinity), spriteTemplate, xLeft, (yBottom - spriteTemplate.height));
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), spriteTemplate, xLeft, (yBottom - spriteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a parallax scrolling decoration.
@@ -30160,7 +30168,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createParallaxDeco = function (x, y, parallaxRatio, spriteTemplate) {
-        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.BodyFriction.DEFAULT, Infinity), spriteTemplate, x, y, parallaxRatio);
+        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), spriteTemplate, x, y, parallaxRatio);
     };
     /***************************************************************************************************************
     *   Creates a site trigger.
@@ -30174,7 +30182,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created site trigger.
     ***************************************************************************************************************/
     GameObjectFactory.createSiteTrigger = function (x, y, width, height, sitePanelAppearance) {
-        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_SITE_TRIGGER, true, 0.0, ninjas.BodyFriction.DEFAULT, Infinity), null, x, y, sitePanelAppearance);
+        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_SITE_TRIGGER, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), null, x, y, sitePanelAppearance);
     };
     /***************************************************************************************************************
     *   Creates a sigsaw.
@@ -30188,7 +30196,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createSigsaw = function (x, y, width, height, spriteTemplate) {
-        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT), spriteTemplate, x, y);
+        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT, ninjas.BodyRestitution.DEFAULT), spriteTemplate, x, y);
     };
     /***************************************************************************************************************
     *   Creates a platform.
@@ -30202,7 +30210,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createPlatform = function (width, height, spriteTemplate, speed, waypoints) {
-        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.BodyFriction.DEFAULT, Infinity), spriteTemplate, speed, waypoints);
+        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), spriteTemplate, speed, waypoints);
     };
     /***************************************************************************************************************
      *   Creates a bounce.
@@ -30216,7 +30224,7 @@ var GameObjectFactory = /** @class */ (function () {
      *   @return The created decoration.
      ***************************************************************************************************************/
     GameObjectFactory.createBounce = function (x, y, width, height, spriteTemplate) {
-        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT), spriteTemplate, x, y);
+        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT, ninjas.BodyRestitution.DEFAULT), spriteTemplate, x, y);
     };
     return GameObjectFactory;
 }());
@@ -31457,13 +31465,14 @@ var Shape = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a new game object shape.
     *
-    *   @param debugColor The color for the debug object.
-    *   @param isStatic   Specifies that this object has a fixed position.
-    *   @param angle      The rotation of this body in degrees.
-    *   @param friction   The object's body friction.
-    *   @param density    The object's body density.
+    *   @param debugColor  The color for the debug object.
+    *   @param isStatic    Specifies that this object has a fixed position.
+    *   @param angle       The rotation of this body in degrees.
+    *   @param friction    The object's body friction.
+    *   @param density     The object's body density.
+    *   @param restitution The object's body restitution.
     ***************************************************************************************************************/
-    function Shape(debugColor, isStatic, angle, friction, density) {
+    function Shape(debugColor, isStatic, angle, friction, density, restitution) {
         /** The body rendering options for this shape. */
         this.options = null;
         /** The shape's body. */
@@ -31479,8 +31488,10 @@ var Shape = /** @class */ (function () {
             collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,
             friction: friction,
             frictionAir: ninjas.BodyFrictionAir.DEFAULT,
+            //              frictionStatic:  0.5,
             angle: ninjas.MathUtil.angleToRad(angle),
             density: density,
+            restitution: restitution,
         };
     }
     return Shape;
@@ -31518,16 +31529,17 @@ var ShapeRectangle = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new rectangle shape.
     *
-    *   @param width      The rectangle's width.
-    *   @param height     The rectangle's height.
-    *   @param debugColor The color for the debug object.
-    *   @param isStatic   Specifies that this object has a fixed position.
-    *   @param angle      The rotation of this body in degrees.
-    *   @param friction   The object's body friction.
-    *   @param density    The object's body density.
+    *   @param width       The rectangle's width.
+    *   @param height      The rectangle's height.
+    *   @param debugColor  The color for the debug object.
+    *   @param isStatic    Specifies that this object has a fixed position.
+    *   @param angle       The rotation of this body in degrees.
+    *   @param friction    The object's body friction.
+    *   @param density     The object's body density.
+    *   @param restitution The object's body restitution.
     ***************************************************************************************************************/
-    function ShapeRectangle(width, height, debugColor, isStatic, angle, friction, density) {
-        var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
+    function ShapeRectangle(width, height, debugColor, isStatic, angle, friction, density, restitution) {
+        var _this = _super.call(this, debugColor, isStatic, angle, friction, density, restitution) || this;
         /** The rectangle's width. */
         _this.width = 0.0;
         /** The rectangle's height. */
@@ -31596,15 +31608,16 @@ var ShapeCircle = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new circle shape.
     *
-    *   @param diameter   The circle's diameter.
-    *   @param debugColor The color for the debug object.
-    *   @param isStatic   Specifies that this object has a fixed position.
-    *   @param angle      The rotation of this body in degrees.
-    *   @param friction   The object's body friction.
-    *   @param density    The object's body density.
+    *   @param diameter    The circle's diameter.
+    *   @param debugColor  The color for the debug object.
+    *   @param isStatic    Specifies that this object has a fixed position.
+    *   @param angle       The rotation of this body in degrees.
+    *   @param friction    The object's body friction.
+    *   @param density     The object's body density.
+    *   @param restitution The object's body restitution.
     ***************************************************************************************************************/
-    function ShapeCircle(diameter, debugColor, isStatic, angle, friction, density) {
-        var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
+    function ShapeCircle(diameter, debugColor, isStatic, angle, friction, density, restitution) {
+        var _this = _super.call(this, debugColor, isStatic, angle, friction, density, restitution) || this;
         /** The circle's diameter. */
         _this.diameter = 0.0;
         _this.diameter = diameter;
@@ -31680,15 +31693,16 @@ var ShapeFreeForm = /** @class */ (function (_super) {
     /***************************************************************************************************************
     *   Creates a new free formed shape.
     *
-    *   @param vertices   All vertices that make up the entire free form shape.
-    *   @param debugColor The color for the debug object.
-    *   @param isStatic   Specifies that this object has a fixed position.
-    *   @param angle      The rotation of this body in degrees.
-    *   @param friction   The object's body friction.
-    *   @param density    The object's body density.
+    *   @param vertices    All vertices that make up the entire free form shape.
+    *   @param debugColor  The color for the debug object.
+    *   @param isStatic    Specifies that this object has a fixed position.
+    *   @param angle       The rotation of this body in degrees.
+    *   @param friction    The object's body friction.
+    *   @param density     The object's body density.
+    *   @param restitution The object's body restitution.
     ***************************************************************************************************************/
-    function ShapeFreeForm(vertices, debugColor, isStatic, angle, friction, density) {
-        var _this = _super.call(this, debugColor, isStatic, angle, friction, density) || this;
+    function ShapeFreeForm(vertices, debugColor, isStatic, angle, friction, density, restitution) {
+        var _this = _super.call(this, debugColor, isStatic, angle, friction, density, restitution) || this;
         /** All vertices that build the free form. */
         _this.vertices = null;
         /** The boundary width. */

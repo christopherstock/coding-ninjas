@@ -19,19 +19,21 @@
         /***************************************************************************************************************
         *   Creates a new game object shape.
         *
-        *   @param debugColor The color for the debug object.
-        *   @param isStatic   Specifies that this object has a fixed position.
-        *   @param angle      The rotation of this body in degrees.
-        *   @param friction   The object's body friction.
-        *   @param density    The object's body density.
+        *   @param debugColor  The color for the debug object.
+        *   @param isStatic    Specifies that this object has a fixed position.
+        *   @param angle       The rotation of this body in degrees.
+        *   @param friction    The object's body friction.
+        *   @param density     The object's body density.
+        *   @param restitution The object's body restitution.
         ***************************************************************************************************************/
         public constructor
         (
-            debugColor :ninjas.DebugColor,
-            isStatic   :boolean,
-            angle      :number,
-            friction   :ninjas.BodyFriction,
-            density    :ninjas.BodyDensity
+            debugColor  :ninjas.DebugColor,
+            isStatic    :boolean,
+            angle       :number,
+            friction    :ninjas.BodyFriction,
+            density     :ninjas.BodyDensity,
+            restitution :ninjas.BodyRestitution
         )
         {
             this.options = {
@@ -47,11 +49,14 @@
 
                 friction:        friction,
                 frictionAir:     ninjas.BodyFrictionAir.DEFAULT,
+//              frictionStatic:  0.5,
 
                 angle:           ninjas.MathUtil.angleToRad( angle ),
                 density:         density,
 
-//              frictionStatic:  0.5,
+                restitution:     restitution,
+
+//              slop:            0.0,
 //              isSensor:        isSensor,
 //              chamfer:         { radius: [ 5.0, 5.0, 5.0, 5.0 ] },
             };
