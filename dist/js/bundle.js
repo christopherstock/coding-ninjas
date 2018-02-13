@@ -27445,20 +27445,22 @@ var ninjas = __webpack_require__(1);
 *
 *   TODO Complete the MVP!
 *
+*   TODO Add react for site content creation.
+*   TODO Step-Flow-Meter (progress, navi etc.) in React.
+*   TODO Try ant design (pro?) in front panel.
+*   TODO Fixed positioning for camera on first scene (player floating in).
+*   TODO Add decoration particle effects.
 *   TODO Add and assign actions and sprites for 'attack', 'jump attack' and 'slide'sprites?
 *   TODO Try sound error handling! (Safari etc.)
+*   TODO Add items and item sprites.
 *   TODO Create HUD ( for items 1st ).
 *   TODO create class HUD and assign its non-static method paintHud?
 *   TODO Create item pickup HUD effect!
-*   TODO Fixed positioning for camera on first scene (player floating in).
 *   TODO Add tutorial notifiers?
 *   TODO Flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
 *   TODO Add translucent overlay for blend effects.
 *   TODO Ability to smash crates or destroyables etc.
 *   TODO Particle fx smashed crates, startup window etc.
-*   TODO Add react for site content creation.
-*   TODO Step-Flow-Meter (progress, navi etc.) in React.
-*   TODO Try ant design (pro?) in front panel.
 *   TODO Add jest tests.
 *   TODO Add cucumber tests.
 *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
@@ -29621,6 +29623,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     *   Inits a new level.
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
+        // just some preliminary tryouts ...
         this.parallaxBgs =
             [];
         this.decosBg =
@@ -29689,13 +29692,14 @@ var LevelWebsite = /** @class */ (function (_super) {
                         0.0
                     ),
         */
+        // crafting the level!
         /*
-                    ninjas.GameObjectBundleFactory.createFlyingGround( 0,    2500, 5, ninjas.CapEnds.LEFT,  this );
-                    ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapEnds.BOTH,  this );
-                    ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapEnds.RIGHT, this );
-                    ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2500, 6, ninjas.CapEnds.NONE,  this );
+                    ninjas.GameObjectBundleFactory.createFlyingGround( 0,    2500, 5, ninjas.CapHorz.LEFT,  this );
+                    ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapHorz.BOTH,  this );
+                    ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapHorz.RIGHT, this );
         */
         ninjas.GameObjectBundleFactory.createSolidGround(200, 2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this);
+        ninjas.GameObjectBundleFactory.createFlyingGround(3100, 2300, 6, ninjas.CapHorz.NONE, this);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -33082,6 +33086,12 @@ var Image = /** @class */ (function () {
     Image.IMAGE_GROUND_FLYING_CENTER = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingCenter.png";
     /** Image tile 'flying right'. */
     Image.IMAGE_GROUND_FLYING_RIGHT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingRight.png";
+    /** Image tile 'flying ascending left'. */
+    Image.IMAGE_GROUND_FLYING_ASCENDING_LEFT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingAscendingLeft.png";
+    /** Image tile 'flying ascending center'. */
+    Image.IMAGE_GROUND_FLYING_ASCENDING_CENTER = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingAscendingCenter.png";
+    /** Image tile 'flying ascending right'. */
+    Image.IMAGE_GROUND_FLYING_ASCENDING_RIGHT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingAscendingRight.png";
     /** Image tile 'solid left'. */
     Image.IMAGE_GROUND_SOLID_LEFT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidLeft.png";
     /** Image tile 'solid right'. */
@@ -33151,6 +33161,9 @@ var Image = /** @class */ (function () {
         Image.IMAGE_GROUND_FLYING_LEFT,
         Image.IMAGE_GROUND_FLYING_CENTER,
         Image.IMAGE_GROUND_FLYING_RIGHT,
+        Image.IMAGE_GROUND_FLYING_ASCENDING_LEFT,
+        Image.IMAGE_GROUND_FLYING_ASCENDING_CENTER,
+        Image.IMAGE_GROUND_FLYING_ASCENDING_RIGHT,
         Image.IMAGE_GROUND_SOLID_LEFT,
         Image.IMAGE_GROUND_SOLID_RIGHT,
         Image.IMAGE_GROUND_SOLID_TOP,
