@@ -49,7 +49,7 @@
 */
 
                 // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp( 1608, 2500, 1250.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO ),
+                ninjas.GameObjectFactory.createElevatedRamp( 1608, 2500, 1280.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO ),
 
 /*
                 // pass-through obstacles

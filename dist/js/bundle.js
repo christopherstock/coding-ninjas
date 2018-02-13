@@ -27439,11 +27439,13 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO Create sprite for elevated ramps.
 *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
+*   TODO Try to remove player gap Y.
 *
 *   TODO Complete the MVP!
 *
-*   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
+*   TODO Add and assign actions and sprites for 'attack', 'jump attack' and 'slide'sprites?
 *   TODO Try sound error handling! (Safari etc.)
 *   TODO Create HUD ( for items 1st ).
 *   TODO create class HUD and assign its non-static method paintHud?
@@ -27531,7 +27533,7 @@ var DebugColor;
     /** The debug color for an obstacle. */
     DebugColor["COLOR_DEBUG_OBSTACLE"] = "#a6a6a6";
     /** The debug color for a spriteless obstacle. */
-    DebugColor["COLOR_DEBUG_OBSTACLE_SPRITELESS"] = "transparent";
+    DebugColor["COLOR_DEBUG_OBSTACLE_SPRITELESS"] = "#d9d9d9";
     /** The debug color for a sigsaw. */
     DebugColor["COLOR_DEBUG_SIGSAW"] = "#c46c9c";
     /** The debug color for a sigsaw joint. */
@@ -29633,7 +29635,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                                 ninjas.GameObjectFactory.createObstacle( 4250, 2300, 750,  15, 0.0, ninjas.JumpPassThrough.NO ),
                 */
                 // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp(1608, 2500, 1250.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO),
+                ninjas.GameObjectFactory.createElevatedRamp(1608, 2500, 1280.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO),
             ];
         this.movables =
             [

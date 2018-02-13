@@ -34,7 +34,7 @@
         /** The debug color for an obstacle. */
         COLOR_DEBUG_OBSTACLE            = "#a6a6a6",
         /** The debug color for a spriteless obstacle. */
-        COLOR_DEBUG_OBSTACLE_SPRITELESS = "transparent",
+        COLOR_DEBUG_OBSTACLE_SPRITELESS = "#d9d9d9",
         /** The debug color for a sigsaw. */
         COLOR_DEBUG_SIGSAW              = "#c46c9c",
         /** The debug color for a sigsaw joint. */

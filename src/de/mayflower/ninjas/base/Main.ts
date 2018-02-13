@@ -4,11 +4,13 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Create sprite for elevated ramps.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
+    *   TODO Try to remove player gap Y.
     *
     *   TODO Complete the MVP!
     *
-    *   TODO Add and assign actions and sprites for 'attack', 'jump attack', 'slide' and 'float' sprites.
+    *   TODO Add and assign actions and sprites for 'attack', 'jump attack' and 'slide'sprites?
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Create HUD ( for items 1st ).
     *   TODO create class HUD and assign its non-static method paintHud?
