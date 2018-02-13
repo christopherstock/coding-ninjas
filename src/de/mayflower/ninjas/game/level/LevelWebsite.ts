@@ -19,6 +19,8 @@
         ***************************************************************************************************************/
         protected createGameObjects()
         {
+            // just some preliminary tryouts ...
+
             this.parallaxBgs =
             [
                 // ninjas.GameObjectFactory.createParallaxDeco( 0,  2200, 1.0, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BG_TEST ) ),
@@ -133,12 +135,16 @@
             ),
 */
 
+            // crafting the level!
 /*
-            ninjas.GameObjectBundleFactory.createFlyingGround( 0,    2500, 5, ninjas.CapEnds.LEFT,  this );
-            ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapEnds.BOTH,  this );
-            ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapEnds.RIGHT, this );
-            ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2500, 6, ninjas.CapEnds.NONE,  this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 0,    2500, 5, ninjas.CapHorz.LEFT,  this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapHorz.BOTH,  this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapHorz.RIGHT, this );
 */
             ninjas.GameObjectBundleFactory.createSolidGround( 200,   2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
+
+            ninjas.GameObjectBundleFactory.createFlyingGround( 3100, 2300, 6, ninjas.CapHorz.NONE,  this );
+
+
         }
     }

@@ -10,20 +10,22 @@
     *
     *   TODO Complete the MVP!
     *
+    *   TODO Add react for site content creation.
+    *   TODO Step-Flow-Meter (progress, navi etc.) in React.
+    *   TODO Try ant design (pro?) in front panel.
+    *   TODO Fixed positioning for camera on first scene (player floating in).
+    *   TODO Add decoration particle effects.
     *   TODO Add and assign actions and sprites for 'attack', 'jump attack' and 'slide'sprites?
     *   TODO Try sound error handling! (Safari etc.)
+    *   TODO Add items and item sprites.
     *   TODO Create HUD ( for items 1st ).
     *   TODO create class HUD and assign its non-static method paintHud?
     *   TODO Create item pickup HUD effect!
-    *   TODO Fixed positioning for camera on first scene (player floating in).
     *   TODO Add tutorial notifiers?
     *   TODO Flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
     *   TODO Add translucent overlay for blend effects.
     *   TODO Ability to smash crates or destroyables etc.
     *   TODO Particle fx smashed crates, startup window etc.
-    *   TODO Add react for site content creation.
-    *   TODO Step-Flow-Meter (progress, navi etc.) in React.
-    *   TODO Try ant design (pro?) in front panel.
     *   TODO Add jest tests.
     *   TODO Add cucumber tests.
     *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,

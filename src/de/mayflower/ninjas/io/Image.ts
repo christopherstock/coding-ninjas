@@ -113,6 +113,13 @@
         /** Image tile 'flying right'. */
         public      static      IMAGE_GROUND_FLYING_RIGHT                   :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingRight.png";
 
+        /** Image tile 'flying ascending left'. */
+        public      static      IMAGE_GROUND_FLYING_ASCENDING_LEFT          :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingAscendingLeft.png";
+        /** Image tile 'flying ascending center'. */
+        public      static      IMAGE_GROUND_FLYING_ASCENDING_CENTER        :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingAscendingCenter.png";
+        /** Image tile 'flying ascending right'. */
+        public      static      IMAGE_GROUND_FLYING_ASCENDING_RIGHT         :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingAscendingRight.png";
+
         /** Image tile 'solid left'. */
         public      static      IMAGE_GROUND_SOLID_LEFT                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidLeft.png";
         /** Image tile 'solid right'. */
@@ -193,6 +200,10 @@
             Image.IMAGE_GROUND_FLYING_LEFT,
             Image.IMAGE_GROUND_FLYING_CENTER,
             Image.IMAGE_GROUND_FLYING_RIGHT,
+
+            Image.IMAGE_GROUND_FLYING_ASCENDING_LEFT,
+            Image.IMAGE_GROUND_FLYING_ASCENDING_CENTER,
+            Image.IMAGE_GROUND_FLYING_ASCENDING_RIGHT,
 
             Image.IMAGE_GROUND_SOLID_LEFT,
             Image.IMAGE_GROUND_SOLID_RIGHT,
