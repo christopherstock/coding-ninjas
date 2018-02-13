@@ -86,9 +86,9 @@
             {
                 ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_SPACE );
 
-                if ( this.isFalling() && !this.gliding )
+                if ( !this.gliding && !this.glidingRequest && !this.collidesBottom )
                 {
-                    this.openParachute();
+                    this.requestGliding();
                 }
             }
         }
@@ -100,45 +100,59 @@
         {
             if ( this.isFalling() )
             {
-                if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                if ( this.gliding )
                 {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_LEFT );
+                    if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_GLIDE_LEFT );
+                    }
+                    else
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_GLIDE_RIGHT );
+                    }
                 }
                 else
                 {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALLING_RIGHT );
+                    if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALL_LEFT );
+                    }
+                    else
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_FALL_RIGHT );
+                    }
                 }
             }
             else if ( this.isJumping() )
             {
                 if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
                 {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_LEFT );
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMP_LEFT );
                 }
                 else
                 {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMPING_RIGHT );
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_JUMP_RIGHT );
                 }
             }
             else
             {
                 if ( this.movesLeft )
                 {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_LEFT );
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALK_LEFT );
                 }
                 else if ( this.movesRight )
                 {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALKING_RIGHT );
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALK_RIGHT );
                 }
                 else
                 {
                     if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
                     {
-                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_LEFT );
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_LEFT );
                     }
                     else
                     {
-                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT );
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT );
                     }
                 }
             }

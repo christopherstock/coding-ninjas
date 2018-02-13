@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Increase Friction (static?) for heaviery boxes?
     *   TODO Add gliding sprite.
     *
     *   TODO Disable moving in air??

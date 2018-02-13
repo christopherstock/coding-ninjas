@@ -9,61 +9,82 @@
     *******************************************************************************************************************/
     export class Image
     {
-        /** Image resource 'ninja girl standing right frame 1'. */
-        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1     :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/01.png";
-        /** Image resource 'ninja girl standing right frame 2'. */
-        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2     :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/02.png";
-        /** Image resource 'ninja girl standing right frame 3'. */
-        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3     :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/03.png";
-        /** Image resource 'ninja girl standing right frame 4'. */
-        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4     :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/04.png";
-        /** Image resource 'ninja girl standing right frame 5'. */
-        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5     :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/05.png";
-        /** Image resource 'ninja girl standing right frame 6'. */
-        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6     :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/06.png";
-        /** Image resource 'ninja girl standing right frame 7'. */
-        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7     :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/07.png";
-        /** Image resource 'ninja girl standing right frame 8'. */
-        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8     :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/08.png";
-        /** Image resource 'ninja girl standing right frame 9'. */
-        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9     :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/09.png";
-        /** Image resource 'ninja girl standing right frame 10'. */
-        public      static      IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10    :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/10.png";
+        /** Image resource 'ninja girl stand right frame 1'. */
+        public      static      IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_1        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/01.png";
+        /** Image resource 'ninja girl stand right frame 2'. */
+        public      static      IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_2        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/02.png";
+        /** Image resource 'ninja girl stand right frame 3'. */
+        public      static      IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_3        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/03.png";
+        /** Image resource 'ninja girl stand right frame 4'. */
+        public      static      IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_4        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/04.png";
+        /** Image resource 'ninja girl stand right frame 5'. */
+        public      static      IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_5        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/05.png";
+        /** Image resource 'ninja girl stand right frame 6'. */
+        public      static      IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_6        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/06.png";
+        /** Image resource 'ninja girl stand right frame 7'. */
+        public      static      IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_7        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/07.png";
+        /** Image resource 'ninja girl stand right frame 8'. */
+        public      static      IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_8        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/08.png";
+        /** Image resource 'ninja girl stand right frame 9'. */
+        public      static      IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_9        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/09.png";
+        /** Image resource 'ninja girl stand right frame 10'. */
+        public      static      IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_10       :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "standRight/10.png";
 
-        /** Image resource 'ninja girl walking right frame 1'. */
-        public      static      IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/01.png";
-        /** Image resource 'ninja girl walking right frame 2'. */
-        public      static      IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_2     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/02.png";
-        /** Image resource 'ninja girl walking right frame 3'. */
-        public      static      IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_3     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/03.png";
-        /** Image resource 'ninja girl walking right frame 4'. */
-        public      static      IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_4     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/04.png";
-        /** Image resource 'ninja girl walking right frame 5'. */
-        public      static      IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_5     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/05.png";
-        /** Image resource 'ninja girl walking right frame 6'. */
-        public      static      IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_6     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/06.png";
-        /** Image resource 'ninja girl walking right frame 7'. */
-        public      static      IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_7     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/07.png";
-        /** Image resource 'ninja girl walking right frame 8'. */
-        public      static      IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/08.png";
-        /** Image resource 'ninja girl walking right frame 9'. */
-        public      static      IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/09.png";
-        /** Image resource 'ninja girl walking right frame 10'. */
-        public      static      IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10    :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/10.png";
+        /** Image resource 'ninja girl walk right frame 1'. */
+        public      static      IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_1         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/01.png";
+        /** Image resource 'ninja girl walk right frame 2'. */
+        public      static      IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_2         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/02.png";
+        /** Image resource 'ninja girl walk right frame 3'. */
+        public      static      IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_3         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/03.png";
+        /** Image resource 'ninja girl walk right frame 4'. */
+        public      static      IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_4         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/04.png";
+        /** Image resource 'ninja girl walk right frame 5'. */
+        public      static      IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_5         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/05.png";
+        /** Image resource 'ninja girl walk right frame 6'. */
+        public      static      IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_6         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/06.png";
+        /** Image resource 'ninja girl walk right frame 7'. */
+        public      static      IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_7         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/07.png";
+        /** Image resource 'ninja girl walk right frame 8'. */
+        public      static      IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_8         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/08.png";
+        /** Image resource 'ninja girl walk right frame 9'. */
+        public      static      IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_9         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/09.png";
+        /** Image resource 'ninja girl walk right frame 10'. */
+        public      static      IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_10        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "walkRight/10.png";
 
-        /** Image resource 'ninja girl jumping right frame 1'. */
-        public      static      IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "jumpRight/01.png";
-        /** Image resource 'ninja girl jumping right frame 2'. */
-        public      static      IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "jumpRight/02.png";
-        /** Image resource 'ninja girl jumping right frame 3'. */
-        public      static      IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "jumpRight/03.png";
+        /** Image resource 'ninja girl jump right frame 1'. */
+        public      static      IMAGE_NINJA_GIRL_JUMP_RIGHT_FRAME_1         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "jumpRight/01.png";
+        /** Image resource 'ninja girl jump right frame 2'. */
+        public      static      IMAGE_NINJA_GIRL_JUMP_RIGHT_FRAME_2         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "jumpRight/02.png";
+        /** Image resource 'ninja girl jump right frame 3'. */
+        public      static      IMAGE_NINJA_GIRL_JUMP_RIGHT_FRAME_3         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "jumpRight/03.png";
 
-        /** Image resource 'ninja girl falling right frame 1'. */
-        public      static      IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallingRight/01.png";
-        /** Image resource 'ninja girl falling right frame 2'. */
-        public      static      IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallingRight/02.png";
-        /** Image resource 'ninja girl falling right frame 3'. */
-        public      static      IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3     :string          = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallingRight/03.png";
+        /** Image resource 'ninja girl fall right frame 1'. */
+        public      static      IMAGE_NINJA_GIRL_FALL_RIGHT_FRAME_1         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallRight/01.png";
+        /** Image resource 'ninja girl fall right frame 2'. */
+        public      static      IMAGE_NINJA_GIRL_FALL_RIGHT_FRAME_2         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallRight/02.png";
+        /** Image resource 'ninja girl fall right frame 3'. */
+        public      static      IMAGE_NINJA_GIRL_FALL_RIGHT_FRAME_3         :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "fallRight/03.png";
+
+        /** Image resource 'ninja girl glid right frame 1'. */
+        public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_1        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/01.png";
+        /** Image resource 'ninja girl glid right frame 2'. */
+        public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_2        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/02.png";
+        /** Image resource 'ninja girl glid right frame 3'. */
+        public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_3        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/03.png";
+        /** Image resource 'ninja girl glid right frame 4'. */
+        public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_4        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/04.png";
+        /** Image resource 'ninja girl glid right frame 5'. */
+        public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_5        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/05.png";
+        /** Image resource 'ninja girl glid right frame 6'. */
+        public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_6        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/06.png";
+        /** Image resource 'ninja girl glid right frame 7'. */
+        public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_7        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/07.png";
+        /** Image resource 'ninja girl glid right frame 8'. */
+        public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_8        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/08.png";
+        /** Image resource 'ninja girl glid right frame 9'. */
+        public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_9        :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/09.png";
+        /** Image resource 'ninja girl glid right frame 10'. */
+        public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_10       :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/10.png";
 
         /** Image resource 'wooden crate'. */
         public      static      IMAGE_CRATE_WOOD                            :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_MOVABLE + "crateWood.jpg";
@@ -117,35 +138,46 @@
         /** An array holding all filenames of all images to load. */
         public      static      FILE_NAMES                                  :Array<string>  =
         [
-            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_1,
-            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_2,
-            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_3,
-            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_4,
-            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_5,
-            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_6,
-            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_7,
-            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_8,
-            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_9,
-            Image.IMAGE_NINJA_GIRL_STANDING_RIGHT_FRAME_10,
+            Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_1,
+            Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_2,
+            Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_3,
+            Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_4,
+            Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_5,
+            Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_6,
+            Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_7,
+            Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_8,
+            Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_9,
+            Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_10,
 
-            Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_1,
-            Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_2,
-            Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_3,
-            Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_4,
-            Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_5,
-            Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_6,
-            Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_7,
-            Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_8,
-            Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_9,
-            Image.IMAGE_NINJA_GIRL_WALKING_RIGHT_FRAME_10,
+            Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_1,
+            Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_2,
+            Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_3,
+            Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_4,
+            Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_5,
+            Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_6,
+            Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_7,
+            Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_8,
+            Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_9,
+            Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_10,
 
-            Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_1,
-            Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_2,
-            Image.IMAGE_NINJA_GIRL_JUMPING_RIGHT_FRAME_3,
+            Image.IMAGE_NINJA_GIRL_JUMP_RIGHT_FRAME_1,
+            Image.IMAGE_NINJA_GIRL_JUMP_RIGHT_FRAME_2,
+            Image.IMAGE_NINJA_GIRL_JUMP_RIGHT_FRAME_3,
 
-            Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_1,
-            Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_2,
-            Image.IMAGE_NINJA_GIRL_FALLING_RIGHT_FRAME_3,
+            Image.IMAGE_NINJA_GIRL_FALL_RIGHT_FRAME_1,
+            Image.IMAGE_NINJA_GIRL_FALL_RIGHT_FRAME_2,
+            Image.IMAGE_NINJA_GIRL_FALL_RIGHT_FRAME_3,
+
+            Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_1,
+            Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_2,
+            Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_3,
+            Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_4,
+            Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_5,
+            Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_6,
+            Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_7,
+            Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_8,
+            Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_9,
+            Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_10,
 
             Image.IMAGE_ITEM,
             Image.IMAGE_CRATE_WOOD,

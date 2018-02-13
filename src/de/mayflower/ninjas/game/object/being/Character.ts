@@ -32,6 +32,8 @@
         protected                       dead                                :boolean                            = false;
         /** Flags if this character is gliding. */
         protected                       gliding                             :boolean                            = false;
+        /** Flags if this character is requesting gliding while ascending etc. */
+        protected                       glidingRequest                      :boolean                            = false;
 
         /** Flags if the character currently collides with the bottom sensor. */
         public                          collidesBottom                      :boolean                            = false;
@@ -93,11 +95,7 @@
             this.resetRotation();
             this.clipToHorizontalLevelBounds();
             this.checkBottomCollision();
-
-            if ( this.collidesBottom && this.gliding )
-            {
-                this.closeParachute();
-            }
+            this.checkParachuteState();
 
             if ( !this.dead )
             {
@@ -127,9 +125,43 @@
         }
 
         /***************************************************************************************************************
+        *   Requests gliding for the player so the parachute will open on next descending phase.
+        ***************************************************************************************************************/
+        protected requestGliding()
+        {
+            ninjas.Debug.character.log( "Character requests gliding" );
+
+            this.glidingRequest = true;
+        }
+
+        /***************************************************************************************************************
+        *   Checks the state for the parachute and opens or closes it.
+        ***************************************************************************************************************/
+        protected checkParachuteState()
+        {
+            if ( this.collidesBottom )
+            {
+                if ( this.gliding )
+                {
+                    this.closeParachute();
+                }
+
+                this.glidingRequest = false;
+            }
+            else
+            {
+                if ( this.glidingRequest && this.isFalling() )
+                {
+                    this.openParachute();
+                    this.glidingRequest = false;
+                }
+            }
+        }
+
+        /***************************************************************************************************************
         *   Open character's parachute.
         ***************************************************************************************************************/
-        protected openParachute()
+        private openParachute()
         {
             ninjas.Debug.character.log( "Character opens parachute" );
 
@@ -140,7 +172,7 @@
         /***************************************************************************************************************
         *   Closes character's parachute.
         ***************************************************************************************************************/
-        protected closeParachute()
+        private closeParachute()
         {
             ninjas.Debug.character.log( "Character closes parachute" );
 

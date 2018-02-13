@@ -80,7 +80,7 @@
                 500,
                 2500,
                 ninjas.CharacterLookingDirection.RIGHT,
-                ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STANDING_RIGHT
+                ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );
 
             this.decosFg =
