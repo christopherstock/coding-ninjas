@@ -39,8 +39,8 @@
             this.options = {
                 render:
                 {
-                    fillStyle:   debugColor,
-                    strokeStyle: debugColor,
+                    fillStyle:   ( ninjas.SettingDebug.DEBUG_MODE ? debugColor : "transparent" ),
+                    strokeStyle: ( ninjas.SettingDebug.DEBUG_MODE ? debugColor : "transparent" ),
                     opacity:     1.0,
                     lineWidth:   1.0,
                 },

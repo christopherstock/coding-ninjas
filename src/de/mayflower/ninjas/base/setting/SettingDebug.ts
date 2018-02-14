@@ -11,7 +11,7 @@
         public  static  readonly    DEBUG_MODE                              :boolean                    = true;
 
         /** Disables all sounds. */
-        public  static  readonly    MUTE                                    :boolean                    = ( true && SettingDebug.DEBUG_MODE );
+        public  static  readonly    DISABLE_SOUNDS                          :boolean                    = ( true && SettingDebug.DEBUG_MODE );
 
         /** Disables all sprites. */
         public  static  readonly    DISABLE_SPRITES                         :boolean                    = ( false && SettingDebug.DEBUG_MODE );
@@ -33,8 +33,6 @@
         COLOR_DEBUG_MOVABLE             = "#ffbf54",
         /** The debug color for an obstacle. */
         COLOR_DEBUG_OBSTACLE            = "#a6a6a6",
-        /** The debug color for a spriteless obstacle. */
-        COLOR_DEBUG_OBSTACLE_SPRITELESS = "#d9d9d9",
         /** The debug color for a sigsaw. */
         COLOR_DEBUG_SIGSAW              = "#c46c9c",
         /** The debug color for a sigsaw joint. */

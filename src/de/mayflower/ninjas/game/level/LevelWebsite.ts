@@ -79,8 +79,8 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                500,
-                2500,
+                3200,
+                2000,
                 ninjas.CharacterLookingDirection.RIGHT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );
@@ -141,9 +141,10 @@
             ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapHorz.BOTH,  this );
             ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapHorz.RIGHT, this );
 */
-            ninjas.GameObjectBundleFactory.createSolidGround( 200,   2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
+            // ninjas.GameObjectBundleFactory.createSolidGround( 200,   2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
 
-            ninjas.GameObjectBundleFactory.createFlyingGround( 3100, 2300, 6, ninjas.CapHorz.NONE,  this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 3100, 2300, 3, ninjas.Slope.NONE,      ninjas.CapHorz.BOTH, this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2300, 3, ninjas.Slope.ASCENDING, ninjas.CapHorz.BOTH, this );
 
 
         }

@@ -134,11 +134,13 @@
         ***************************************************************************************************************/
         public paintHUD( context:CanvasRenderingContext2D )
         {
+/*
             let testHudWidth:number  = 150;
             let testHudHeight:number = 50;
 
             context.fillStyle = "#ff0000";
             context.fillRect( this.engine.canvasSystem.getWidth() - ninjas.SettingGame.BORDER_SIZE - testHudWidth, ninjas.SettingGame.BORDER_SIZE, testHudWidth, testHudHeight );
+*/
         }
 
         /***************************************************************************************************************

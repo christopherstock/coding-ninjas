@@ -212,7 +212,7 @@
                 (
                     width,
                     height,
-                    ninjas.DebugColor.COLOR_DEBUG_OBSTACLE_SPRITELESS,
+                    ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
                     true,
                     angle,
                     ninjas.BodyFriction.OBSTACLE,

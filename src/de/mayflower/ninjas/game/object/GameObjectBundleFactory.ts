@@ -2,6 +2,19 @@
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
+    *   Specifies vertical direction.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum Slope
+    {
+        NONE,
+        ASCENDING,
+        DESCENDING,
+    }
+
+    /*******************************************************************************************************************
     *   Specifies capping for horizontal compound ends.
     *
     *   @author     Christopher Stock
@@ -40,43 +53,113 @@
         /***************************************************************************************************************
         *   Creates a flying ground.
         *
-        *   @param xLeft        Anchor for left X.
-        *   @param yTop         Anchor for top Y.
-        *   @param centerLength The number of center elements.
-        *   @param capEnds      Spdcifies end cappings.
-        *   @param level        The level to add the flying ground to.
+        *   @param xLeft   Anchor for left X.
+        *   @param yTop    Anchor for top Y.
+        *   @param length  The length of the ground.
+        *   @param slope   Specifies slope for this ground.
+        *   @param capEnds Specifies end cappings.
+        *   @param level   The level to add the flying ground to.
         ***************************************************************************************************************/
-        public static createFlyingGround( xLeft:number, yTop:number, centerLength:number, capEnds:CapHorz, level:ninjas.Level ) : void
+        public static createFlyingGround
+        (
+            xLeft   :number,
+            yTop    :number,
+            length  :number,
+            slope   :Slope,
+            capEnds :CapHorz,
+            level   :ninjas.Level
+        )
+        : void
         {
-            let leftTile   :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_LEFT   );
-            let centerTile :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_CENTER );
-            let rightTile  :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_RIGHT  );
+            const OBSTACLE_HEIGHT :number = 90;
+            const ALTITUDE        :number = 20;
 
-            let   drawX         :number = xLeft;
-            let   totalWidth    :number = 0.0;
-            const ACTUAL_HEIGHT :number = 90;
+            let leftTile   :ninjas.SpriteTemplate = null;
+            let centerTile :ninjas.SpriteTemplate = null;
+            let rightTile  :ninjas.SpriteTemplate = null;
 
-            // add decoration objects
-            if ( capEnds == CapHorz.LEFT || capEnds == CapHorz.BOTH )
+            let drawX      :number = xLeft;
+            let drawY      :number = 0;
+            let totalWidth :number = 0;
+            let alt        :number = 0;
+
+            switch ( slope )
             {
-                level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, yTop + leftTile.height, leftTile ) );
-                drawX      += leftTile.width;
-                totalWidth += leftTile.width;
-            }
-            for ( let i:number = 0; i < centerLength; ++i )
-            {
-                level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, yTop + centerTile.height, centerTile ) );
-                drawX      += centerTile.width;
-                totalWidth += centerTile.width;
-            }
-            if ( capEnds == CapHorz.RIGHT || capEnds == CapHorz.BOTH )
-            {
-                level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, yTop + rightTile.height, rightTile ) );
-                totalWidth += rightTile.width;
+                case Slope.NONE:
+                {
+                    leftTile   = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_LEFT   );
+                    centerTile = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_CENTER );
+                    rightTile  = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_RIGHT  );
+                    drawY      = yTop;
+                    alt        = 0;
+                    break;
+                }
+
+                case Slope.ASCENDING:
+                {
+                    leftTile   = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_ASCENDING_LEFT   );
+                    centerTile = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_ASCENDING_CENTER );
+                    rightTile  = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_ASCENDING_RIGHT  );
+                    drawY      = yTop - ALTITUDE;
+                    alt        = -ALTITUDE;
+                    break;
+                }
+
+                case Slope.DESCENDING:
+                {
+/*
+                    leftTile   = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_LEFT   );
+                    centerTile = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_CENTER );
+                    rightTile  = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_RIGHT  );
+*/
+                    drawY      = yTop + ALTITUDE;
+                    alt        = ALTITUDE;
+                    break;
+                }
             }
 
-            // add single obstacle object
-            level.obstacles.push( ninjas.GameObjectFactory.createObstacleSpriteless( xLeft, yTop, totalWidth, ACTUAL_HEIGHT, 0.0, ninjas.JumpPassThrough.NO ) );
+            // draw decoration
+            for ( let i:number = 0; i < length; ++i )
+            {
+                if ( i == 0 && ( capEnds == CapHorz.LEFT || capEnds == CapHorz.BOTH ) )
+                {
+                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + leftTile.height, leftTile ) );
+                    drawX      += leftTile.width;
+                    totalWidth += leftTile.width;
+                }
+                else if ( i == length - 1 && ( capEnds == CapHorz.RIGHT || capEnds == CapHorz.BOTH ) )
+                {
+                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + rightTile.height, rightTile ) );
+                    drawX      += rightTile.width;
+                    totalWidth += rightTile.width;
+                }
+                else
+                {
+                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + centerTile.height, centerTile ) );
+                    drawX      += centerTile.width;
+                    totalWidth += centerTile.width;
+                }
+
+                drawY += alt;
+            }
+
+            // add obstacle
+            switch ( slope )
+            {
+                case Slope.NONE:
+                {
+                    level.obstacles.push( ninjas.GameObjectFactory.createObstacleSpriteless( xLeft, yTop, totalWidth, OBSTACLE_HEIGHT, 0.0, ninjas.JumpPassThrough.NO ) );
+                    break;
+                }
+
+                case Slope.ASCENDING:
+                case Slope.DESCENDING:
+                {
+                    let deltaY:number = ( alt * length );
+                    level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yTop, totalWidth, OBSTACLE_HEIGHT, deltaY, null, ninjas.JumpPassThrough.NO ) );
+                    break;
+                }
+            }
         }
 
         /***************************************************************************************************************
