@@ -65,11 +65,19 @@
         {
             if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_LEFT ) )
             {
-                this.moveLeft();
+                // prevents the moonwalk ..
+                // if ( this.collidesBottom )
+                {
+                    this.moveLeft();
+                }
             }
             else if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_RIGHT ) )
             {
-                this.moveRight();
+                // prevents the moonwalk ..
+                // if ( this.collidesBottom )
+                {
+                    this.moveRight();
+                }
             }
 
             if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_UP ) )

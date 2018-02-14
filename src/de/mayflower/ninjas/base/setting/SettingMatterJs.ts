@@ -14,7 +14,7 @@
         /** The player's speed in world coordinate per tick. */
         public  static  readonly    PLAYER_SPEED_MOVE                           :number                     = 7.5;
         /** The player's gap size y of it's physical body corners. */
-        public  static  readonly    PLAYER_EDGE_GAP_Y                           :number                     = 5.0;
+        public  static  readonly    PLAYER_EDGE_GAP_Y                           :number                     = 2.5;
 
         /** The default vertical gravity for all objects. */
         public  static  readonly    DEFAULT_GRAVITY_Y                           :number                     = 1.0;

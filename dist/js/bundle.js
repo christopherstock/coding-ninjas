@@ -27439,16 +27439,16 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Try to solve the moonwalk prevention? try bottomCollision assignment BEFORE key left/right assignment??
-*   TODO Try to remove player gap Y.
 *   TODO Create sprite for elevated solid ramps.
+*   TODO Create decoration with circular body. (for non-static decos)
 *   TODO Add react for site content creation.
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Try ant design (pro?) in front panel.
-*   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
 *
 *   TODO Complete the MVP!
 *
+*   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
+*   TODO Try to solve the moonwalk prevention? try bottomCollision assignment BEFORE key left/right assignment??
 *   TODO Fixed positioning for camera on first scene (player floating in).
 *   TODO Add decoration particle effects.
 *   TODO Add and assign actions and sprites for 'attack', 'jump attack' and 'slide'sprites?
@@ -27660,7 +27660,7 @@ var SettingMatterJs = /** @class */ (function () {
     /** The player's speed in world coordinate per tick. */
     SettingMatterJs.PLAYER_SPEED_MOVE = 7.5;
     /** The player's gap size y of it's physical body corners. */
-    SettingMatterJs.PLAYER_EDGE_GAP_Y = 5.0;
+    SettingMatterJs.PLAYER_EDGE_GAP_Y = 2.5;
     /** The default vertical gravity for all objects. */
     SettingMatterJs.DEFAULT_GRAVITY_Y = 1.0;
     /** The default collision group for all game objects. */
@@ -30705,10 +30705,18 @@ var Player = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     Player.prototype.handleKeys = function () {
         if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_LEFT)) {
-            this.moveLeft();
+            // prevents the moonwalk ..
+            // if ( this.collidesBottom )
+            {
+                this.moveLeft();
+            }
         }
         else if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_RIGHT)) {
-            this.moveRight();
+            // prevents the moonwalk ..
+            // if ( this.collidesBottom )
+            {
+                this.moveRight();
+            }
         }
         if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_UP)) {
             ninjas.Main.game.engine.keySystem.setNeedsRelease(ninjas.Key.KEY_UP);

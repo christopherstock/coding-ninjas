@@ -4,16 +4,16 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Try to solve the moonwalk prevention? try bottomCollision assignment BEFORE key left/right assignment??
-    *   TODO Try to remove player gap Y.
     *   TODO Create sprite for elevated solid ramps.
+    *   TODO Create decoration with circular body. (for non-static decos)
     *   TODO Add react for site content creation.
     *   TODO Step-Flow-Meter (progress, navi etc.) in React.
     *   TODO Try ant design (pro?) in front panel.
-    *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *
     *   TODO Complete the MVP!
     *
+    *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
+    *   TODO Try to solve the moonwalk prevention? try bottomCollision assignment BEFORE key left/right assignment??
     *   TODO Fixed positioning for camera on first scene (player floating in).
     *   TODO Add decoration particle effects.
     *   TODO Add and assign actions and sprites for 'attack', 'jump attack' and 'slide'sprites?
