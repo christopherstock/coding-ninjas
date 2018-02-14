@@ -29700,6 +29700,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         // ninjas.GameObjectBundleFactory.createSolidGround( 200,   2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
         ninjas.GameObjectBundleFactory.createFlyingGround(3100, 2300, 3, ninjas.Slope.NONE, ninjas.CapHorz.BOTH, this);
         ninjas.GameObjectBundleFactory.createFlyingGround(3600, 2300, 3, ninjas.Slope.ASCENDING, ninjas.CapHorz.BOTH, this);
+        ninjas.GameObjectBundleFactory.createFlyingGround(4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -29903,12 +29904,10 @@ var GameObjectBundleFactory = /** @class */ (function () {
                 }
             case Slope.DESCENDING:
                 {
-                    /*
-                                        leftTile   = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_LEFT   );
-                                        centerTile = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_CENTER );
-                                        rightTile  = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_FLYING_RIGHT  );
-                    */
-                    drawY = yTop + ALTITUDE;
+                    leftTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_DESCENDING_LEFT);
+                    centerTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_DESCENDING_CENTER);
+                    rightTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_FLYING_DESCENDING_RIGHT);
+                    drawY = yTop;
                     alt = ALTITUDE;
                     break;
                 }
@@ -33159,6 +33158,12 @@ var Image = /** @class */ (function () {
     Image.IMAGE_GROUND_FLYING_ASCENDING_CENTER = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingAscendingCenter.png";
     /** Image tile 'flying ascending right'. */
     Image.IMAGE_GROUND_FLYING_ASCENDING_RIGHT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingAscendingRight.png";
+    /** Image tile 'flying descending left'. */
+    Image.IMAGE_GROUND_FLYING_DESCENDING_LEFT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingDescendingLeft.png";
+    /** Image tile 'flying descending center'. */
+    Image.IMAGE_GROUND_FLYING_DESCENDING_CENTER = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingDescendingCenter.png";
+    /** Image tile 'flying descending right'. */
+    Image.IMAGE_GROUND_FLYING_DESCENDING_RIGHT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingDescendingRight.png";
     /** Image tile 'solid left'. */
     Image.IMAGE_GROUND_SOLID_LEFT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidLeft.png";
     /** Image tile 'solid right'. */
@@ -33231,6 +33236,9 @@ var Image = /** @class */ (function () {
         Image.IMAGE_GROUND_FLYING_ASCENDING_LEFT,
         Image.IMAGE_GROUND_FLYING_ASCENDING_CENTER,
         Image.IMAGE_GROUND_FLYING_ASCENDING_RIGHT,
+        Image.IMAGE_GROUND_FLYING_DESCENDING_LEFT,
+        Image.IMAGE_GROUND_FLYING_DESCENDING_CENTER,
+        Image.IMAGE_GROUND_FLYING_DESCENDING_RIGHT,
         Image.IMAGE_GROUND_SOLID_LEFT,
         Image.IMAGE_GROUND_SOLID_RIGHT,
         Image.IMAGE_GROUND_SOLID_TOP,
