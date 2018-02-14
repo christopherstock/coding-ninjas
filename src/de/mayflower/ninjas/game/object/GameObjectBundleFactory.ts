@@ -209,81 +209,102 @@
             let   totalWidth    :number = 0.0;
             let   totalHeight   :number = 0.0;
 
-            // add top line
-            if ( capVert == CapVert.TOP  || capVert == CapVert.BOTH )
-            {
-                drawX      = xLeft;
-                totalWidth = 0.0;
-                if ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH )
-                {
-                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + leftTopTile.height, ninjas.StaticShape.YES, leftTopTile ) );
-                    drawX      += leftTopTile.width;
-                    totalWidth += leftTopTile.width;
-                }
-                for ( let i:number = 0; i < lengthHorz; ++i )
-                {
-                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + topTile.height, ninjas.StaticShape.YES, topTile ) );
-                    drawX      += topTile.width;
-                    totalWidth += leftTopTile.width;
-                }
-                if ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH )
-                {
-                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + rightTopTile.height, ninjas.StaticShape.YES, rightTopTile ) );
-                    totalWidth += rightTopTile.width;
-                }
-                drawY       += topTile.height;
-                totalHeight += topTile.height;
-            }
-
-            // add middle lines
             for ( let i:number = 0; i < lengthVert; ++i )
             {
-                drawX      = xLeft;
-                totalWidth = 0.0;
-                if ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH )
+                if ( i == 0 )
                 {
-                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile ) );
-                    drawX      += leftTile.width;
-                    totalWidth += leftTile.width;
-                }
-                for ( let i:number = 0; i < lengthHorz; ++i )
-                {
-                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile ) );
-                    drawX      += centerTile.width;
-                    totalWidth += centerTile.width;
-                }
-                if ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH )
-                {
-                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile ) );
-                    totalWidth += rightTile.width;
-                }
-                drawY       += centerTile.height;
-                totalHeight += centerTile.height;
-            }
+                    // add top line
+                    if ( capVert == CapVert.TOP  || capVert == CapVert.BOTH )
+                    {
+                        drawX      = xLeft;
+                        totalWidth = 0.0;
 
-            // add bottom line
-            if ( capVert == CapVert.BOTTOM  || capVert == CapVert.BOTH )
-            {
-                drawX      = xLeft;
-                totalWidth = 0.0;
-                if ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH )
-                {
-                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + leftBottomTile.height, ninjas.StaticShape.YES, leftBottomTile ) );
-                    drawX      += leftBottomTile.width;
-                    totalWidth += leftBottomTile.width;
+                        for ( let j:number = 0; j < lengthHorz; ++j )
+                        {
+                            if ( j == 0 && ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH ) )
+                            {
+                                level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + leftTopTile.height, ninjas.StaticShape.YES, leftTopTile ) );
+                                drawX      += leftTopTile.width;
+                                totalWidth += leftTopTile.width;
+                            }
+                            else if ( j == lengthHorz - 1 && ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH ) )
+                            {
+                                level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + rightTopTile.height, ninjas.StaticShape.YES, rightTopTile ) );
+                                totalWidth += rightTopTile.width;
+                            }
+                            else
+                            {
+                                level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + topTile.height, ninjas.StaticShape.YES, topTile ) );
+                                drawX      += topTile.width;
+                                totalWidth += leftTopTile.width;
+                            }
+                        }
+                        drawY       += topTile.height;
+                        totalHeight += topTile.height;
+                    }
                 }
-                for ( let i:number = 0; i < lengthHorz; ++i )
+                else if ( i == lengthVert - 1 )
                 {
-                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + bottomTile.height, ninjas.StaticShape.YES, bottomTile ) );
-                    drawX      += bottomTile.width;
-                    totalWidth += bottomTile.width;
+                    // add bottom line
+                    if ( capVert == CapVert.BOTTOM  || capVert == CapVert.BOTH )
+                    {
+                        drawX      = xLeft;
+                        totalWidth = 0.0;
+
+                        for ( let j:number = 0; j < lengthHorz; ++j )
+                        {
+                            if ( j == 0 && ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH ) )
+                            {
+                                level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + leftBottomTile.height, ninjas.StaticShape.YES, leftBottomTile ) );
+                                drawX      += leftBottomTile.width;
+                                totalWidth += leftBottomTile.width;
+                            }
+                            else if ( j == lengthHorz - 1 && ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH ) )
+                            {
+                                level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + rightBottomTile.height, ninjas.StaticShape.YES, rightBottomTile ) );
+                                totalWidth += rightBottomTile.width;
+                            }
+                            else
+                            {
+                                level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + bottomTile.height, ninjas.StaticShape.YES, bottomTile ) );
+                                drawX      += bottomTile.width;
+                                totalWidth += bottomTile.width;
+                            }
+                        }
+
+                        totalHeight += bottomTile.height;
+                    }
                 }
-                if ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH )
+                else
                 {
-                    level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + rightBottomTile.height, ninjas.StaticShape.YES, rightBottomTile ) );
-                    totalWidth += rightBottomTile.width;
+                    // add middle lines
+                    drawX      = xLeft;
+                    totalWidth = 0.0;
+
+                    for ( let j:number = 0; j < lengthHorz; ++j )
+                    {
+                        if ( j == 0 && ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH ) )
+                        {
+                            level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile ) );
+                            drawX      += leftTile.width;
+                            totalWidth += leftTile.width;
+                        }
+                        else if ( j == lengthHorz - 1 && ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH ) )
+                        {
+                            level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile ) );
+                            totalWidth += rightTile.width;
+                        }
+                        else
+                        {
+                            level.decosFg.push( ninjas.GameObjectFactory.createDecoration( drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile ) );
+                            drawX      += centerTile.width;
+                            totalWidth += centerTile.width;
+                        }
+                    }
+
+                    drawY       += centerTile.height;
+                    totalHeight += centerTile.height;
                 }
-                totalHeight += bottomTile.height;
             }
 
             // add single obstacle object

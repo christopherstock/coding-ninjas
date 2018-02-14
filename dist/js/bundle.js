@@ -27439,14 +27439,13 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Change 'centerLength' from creation methods to 'length'.
-*   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
+*   TODO Try to solve the moonwalk prevention? try bottomCollision assignment BEFORE key left/right assignment??
 *   TODO Try to remove player gap Y.
 *   TODO Create sprite for elevated solid ramps.
 *   TODO Add react for site content creation.
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Try ant design (pro?) in front panel.
-*   TODO Add 'unknown' ground tiles.
+*   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
 *
 *   TODO Complete the MVP!
 *
@@ -29631,16 +29630,13 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.parallaxBgs =
             [];
         this.decosBg =
-            [];
+            [
+                ninjas.GameObjectFactory.createDecoration(4400, 1750, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_2)),
+            ];
         this.siteTriggers =
             [];
         this.obstacles =
             [
-                /*
-                                // grounds and walls
-                                ninjas.GameObjectFactory.createObstacle( 0,    2500, 3500, 15, 0.0, ninjas.JumpPassThrough.NO ),
-                                ninjas.GameObjectFactory.createObstacle( 4250, 2300, 750,  15, 0.0, ninjas.JumpPassThrough.NO ),
-                */
                 // ascending ramp
                 ninjas.GameObjectFactory.createElevatedRamp(1608, 2500, 1280.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO),
             ];
@@ -29656,7 +29652,6 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.decosFg =
             [
                 ninjas.GameObjectFactory.createDecoration(4430, 1500, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_1)),
-                ninjas.GameObjectFactory.createDecoration(4400, 1750, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_2)),
             ];
         this.parallaxFgs =
             [];
@@ -29705,11 +29700,11 @@ var LevelWebsite = /** @class */ (function (_super) {
                     ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapHorz.BOTH,  this );
                     ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapHorz.RIGHT, this );
         */
-        ninjas.GameObjectBundleFactory.createFlyingGround(3100, 2300, 3, ninjas.Slope.NONE, ninjas.CapHorz.BOTH, this);
+        ninjas.GameObjectBundleFactory.createFlyingGround(3100, 2300, 2, ninjas.Slope.NONE, ninjas.CapHorz.BOTH, this);
         ninjas.GameObjectBundleFactory.createFlyingGround(3600, 2300, 3, ninjas.Slope.ASCENDING, ninjas.CapHorz.BOTH, this);
         ninjas.GameObjectBundleFactory.createFlyingGround(4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this);
-        ninjas.GameObjectBundleFactory.createSolidGround(4400, 2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this);
-        ninjas.GameObjectBundleFactory.createSolidGround(5680, 2200, 10, 10, ninjas.CapHorz.RIGHT, ninjas.CapVert.BOTH, this);
+        ninjas.GameObjectBundleFactory.createSolidGround(4400, 2500, 4, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this);
+        ninjas.GameObjectBundleFactory.createSolidGround(4912, 2200, 5, 5, ninjas.CapHorz.RIGHT, ninjas.CapVert.BOTH, this);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -29992,67 +29987,79 @@ var GameObjectBundleFactory = /** @class */ (function () {
         var drawY = yTop;
         var totalWidth = 0.0;
         var totalHeight = 0.0;
-        // add top line
-        if (capVert == CapVert.TOP || capVert == CapVert.BOTH) {
-            drawX = xLeft;
-            totalWidth = 0.0;
-            if (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTopTile.height, ninjas.StaticShape.YES, leftTopTile));
-                drawX += leftTopTile.width;
-                totalWidth += leftTopTile.width;
-            }
-            for (var i = 0; i < lengthHorz; ++i) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + topTile.height, ninjas.StaticShape.YES, topTile));
-                drawX += topTile.width;
-                totalWidth += leftTopTile.width;
-            }
-            if (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTopTile.height, ninjas.StaticShape.YES, rightTopTile));
-                totalWidth += rightTopTile.width;
-            }
-            drawY += topTile.height;
-            totalHeight += topTile.height;
-        }
-        // add middle lines
         for (var i = 0; i < lengthVert; ++i) {
-            drawX = xLeft;
-            totalWidth = 0.0;
-            if (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile));
-                drawX += leftTile.width;
-                totalWidth += leftTile.width;
+            if (i == 0) {
+                // add top line
+                if (capVert == CapVert.TOP || capVert == CapVert.BOTH) {
+                    drawX = xLeft;
+                    totalWidth = 0.0;
+                    for (var j = 0; j < lengthHorz; ++j) {
+                        if (j == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTopTile.height, ninjas.StaticShape.YES, leftTopTile));
+                            drawX += leftTopTile.width;
+                            totalWidth += leftTopTile.width;
+                        }
+                        else if (j == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTopTile.height, ninjas.StaticShape.YES, rightTopTile));
+                            totalWidth += rightTopTile.width;
+                        }
+                        else {
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + topTile.height, ninjas.StaticShape.YES, topTile));
+                            drawX += topTile.width;
+                            totalWidth += leftTopTile.width;
+                        }
+                    }
+                    drawY += topTile.height;
+                    totalHeight += topTile.height;
+                }
             }
-            for (var i_1 = 0; i_1 < lengthHorz; ++i_1) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile));
-                drawX += centerTile.width;
-                totalWidth += centerTile.width;
+            else if (i == lengthVert - 1) {
+                // add bottom line
+                if (capVert == CapVert.BOTTOM || capVert == CapVert.BOTH) {
+                    drawX = xLeft;
+                    totalWidth = 0.0;
+                    for (var j = 0; j < lengthHorz; ++j) {
+                        if (j == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftBottomTile.height, ninjas.StaticShape.YES, leftBottomTile));
+                            drawX += leftBottomTile.width;
+                            totalWidth += leftBottomTile.width;
+                        }
+                        else if (j == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightBottomTile.height, ninjas.StaticShape.YES, rightBottomTile));
+                            totalWidth += rightBottomTile.width;
+                        }
+                        else {
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + bottomTile.height, ninjas.StaticShape.YES, bottomTile));
+                            drawX += bottomTile.width;
+                            totalWidth += bottomTile.width;
+                        }
+                    }
+                    totalHeight += bottomTile.height;
+                }
             }
-            if (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile));
-                totalWidth += rightTile.width;
+            else {
+                // add middle lines
+                drawX = xLeft;
+                totalWidth = 0.0;
+                for (var j = 0; j < lengthHorz; ++j) {
+                    if (j == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile));
+                        drawX += leftTile.width;
+                        totalWidth += leftTile.width;
+                    }
+                    else if (j == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile));
+                        totalWidth += rightTile.width;
+                    }
+                    else {
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile));
+                        drawX += centerTile.width;
+                        totalWidth += centerTile.width;
+                    }
+                }
+                drawY += centerTile.height;
+                totalHeight += centerTile.height;
             }
-            drawY += centerTile.height;
-            totalHeight += centerTile.height;
-        }
-        // add bottom line
-        if (capVert == CapVert.BOTTOM || capVert == CapVert.BOTH) {
-            drawX = xLeft;
-            totalWidth = 0.0;
-            if (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftBottomTile.height, ninjas.StaticShape.YES, leftBottomTile));
-                drawX += leftBottomTile.width;
-                totalWidth += leftBottomTile.width;
-            }
-            for (var i = 0; i < lengthHorz; ++i) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + bottomTile.height, ninjas.StaticShape.YES, bottomTile));
-                drawX += bottomTile.width;
-                totalWidth += bottomTile.width;
-            }
-            if (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightBottomTile.height, ninjas.StaticShape.YES, rightBottomTile));
-                totalWidth += rightBottomTile.width;
-            }
-            totalHeight += bottomTile.height;
         }
         // add single obstacle object
         level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, totalWidth, totalHeight, 0.0, ninjas.JumpPassThrough.NO));
@@ -30239,8 +30246,8 @@ var GameObjectFactory = /** @class */ (function () {
     *
     *   @param xLeft          Anchor for left X.
     *   @param yBottom        Anchor for bottom Y.
-    *   @param spriteTemplate The sprite template to use for this decoration.
     *   @param isStatic       Specifies if the decoration is static.
+    *   @param spriteTemplate The sprite template to use for this decoration.
     *
     *   @return The created decoration.
     ***************************************************************************************************************/
