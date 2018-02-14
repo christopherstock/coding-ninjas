@@ -10,9 +10,9 @@
     export class LevelWebsite extends ninjas.Level
     {
         /** The width of this level. */
-        public      width                   :number                     = 5000.0;
+        public      width                   :number                     = 10000.0;
         /** The height of this level. */
-        public      height                  :number                     = 5000.0;
+        public      height                  :number                     = 10000.0;
 
         /***************************************************************************************************************
         *   Inits a new level.
@@ -79,7 +79,7 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                3200,
+                4200,
                 2000,
                 ninjas.CharacterLookingDirection.RIGHT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
@@ -87,9 +87,11 @@
 
             this.decosFg =
             [
-/*
-                ninjas.GameObjectFactory.createDecoration( 400, 2500, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_FENCE_1 ) ),
-*/
+
+                ninjas.GameObjectFactory.createDecoration( 4430, 1500, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOULDER_1 ) ),
+                ninjas.GameObjectFactory.createDecoration( 4400, 1750, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOULDER_2 ) ),
+
+
             ];
 
             this.parallaxFgs =
@@ -141,11 +143,12 @@
             ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapHorz.BOTH,  this );
             ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapHorz.RIGHT, this );
 */
-            // ninjas.GameObjectBundleFactory.createSolidGround( 200,   2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
-
             ninjas.GameObjectBundleFactory.createFlyingGround( 3100, 2300, 3, ninjas.Slope.NONE,       ninjas.CapHorz.BOTH, this );
             ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2300, 3, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, this );
             ninjas.GameObjectBundleFactory.createFlyingGround( 4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this );
+
+            ninjas.GameObjectBundleFactory.createSolidGround(  4400, 2500, 10, 4,  ninjas.CapHorz.LEFT,  ninjas.CapVert.BOTH, this );
+            ninjas.GameObjectBundleFactory.createSolidGround(  5680, 2200, 10, 10, ninjas.CapHorz.RIGHT, ninjas.CapVert.BOTH, this );
 
 
         }

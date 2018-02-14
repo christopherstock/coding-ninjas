@@ -3,6 +3,21 @@
     import * as ninjas from '../../ninjas';
 
     /*******************************************************************************************************************
+    *   Specifies if a shape is static or not.
+    *   Static shapes have a fixed position and are not affected by gravity or forces.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum StaticShape
+    {
+        /** Specifies a static shape. */
+        YES,
+        /** Specifies a non-static shape. */
+        NO,
+    }
+
+    /*******************************************************************************************************************
     *   Represents the shape of a game object.
     *
     *   @author     Christopher Stock
@@ -29,7 +44,7 @@
         public constructor
         (
             debugColor  :ninjas.DebugColor,
-            isStatic    :boolean,
+            isStatic    :ninjas.StaticShape,
             angle       :number,
             friction    :ninjas.BodyFriction,
             density     :ninjas.BodyDensity,
@@ -44,7 +59,7 @@
                     opacity:     1.0,
                     lineWidth:   1.0,
                 },
-                isStatic:        isStatic,
+                isStatic:        ( isStatic == ninjas.StaticShape.YES ),
                 collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,
 
                 friction:        friction,

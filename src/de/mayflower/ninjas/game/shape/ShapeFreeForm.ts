@@ -33,7 +33,7 @@
         (
             vertices    :Array<matter.Vector>,
             debugColor  :ninjas.DebugColor,
-            isStatic    :boolean,
+            isStatic    :ninjas.StaticShape,
             angle       :number,
             friction    :ninjas.BodyFriction,
             density     :ninjas.BodyDensity,

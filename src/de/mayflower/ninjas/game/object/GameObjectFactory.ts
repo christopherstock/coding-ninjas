@@ -29,7 +29,7 @@
                     sprtiteTemplate.width,
                     sprtiteTemplate.height,
                     ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
-                    false,
+                    ninjas.StaticShape.NO,
                     0.0,
                     ninjas.BodyFriction.WOOD,
                     ninjas.BodyDensity.WOOD,
@@ -60,7 +60,7 @@
                     sprtiteTemplate.width,
                     sprtiteTemplate.height,
                     ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
-                    false,
+                    ninjas.StaticShape.NO,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.METAL,
@@ -101,7 +101,7 @@
                 (
                     sprtiteTemplate.height,
                     ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
-                    false,
+                    ninjas.StaticShape.NO,
                     0.0,
                     friction,
                     density,
@@ -130,7 +130,7 @@
                     30.0,
                     52.0,
                     ninjas.DebugColor.COLOR_DEBUG_ITEM,
-                    true,
+                    ninjas.StaticShape.YES,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.INFINITE,
@@ -170,7 +170,7 @@
                     spriteTemplate.width,
                     spriteTemplate.height,
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
-                    true,
+                    ninjas.StaticShape.YES,
                     angle,
                     ninjas.BodyFriction.OBSTACLE,
                     ninjas.BodyDensity.INFINITE,
@@ -213,7 +213,7 @@
                     width,
                     height,
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
-                    true,
+                    ninjas.StaticShape.YES,
                     angle,
                     ninjas.BodyFriction.OBSTACLE,
                     ninjas.BodyDensity.INFINITE,
@@ -245,7 +245,7 @@
                 (
                     vertices,
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
-                    true,
+                    ninjas.StaticShape.YES,
                     angle,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.INFINITE,
@@ -301,7 +301,7 @@
                 (
                     vertices,
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
-                    true,
+                    ninjas.StaticShape.YES,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.INFINITE,
@@ -352,7 +352,7 @@
             (
                 vertices,
                 ninjas.DebugColor.COLOR_DEBUG_PLAYER,
-                false,
+                ninjas.StaticShape.NO,
                 0.0,
                 ninjas.BodyFriction.PLAYER,
                 ninjas.BodyDensity.PLAYER,
@@ -386,7 +386,7 @@
                     50.0,
                     50.0,
                     ninjas.DebugColor.COLOR_DEBUG_ENEMY,
-                    false,
+                    ninjas.StaticShape.NO,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.DEFAULT,
@@ -403,11 +403,19 @@
         *
         *   @param xLeft          Anchor for left X.
         *   @param yBottom        Anchor for bottom Y.
+        *   @param isStatic       Specifies if the decoration is static.
         *   @param spriteTemplate The sprite template to use for this decoration.
         *
         *   @return The created decoration.
         ***************************************************************************************************************/
-        public static createDecoration( xLeft:number, yBottom:number, spriteTemplate:ninjas.SpriteTemplate ) : ninjas.Decoration
+        public static createDecoration
+        (
+            xLeft          :number,
+            yBottom        :number,
+            isStatic       :ninjas.StaticShape,
+            spriteTemplate :ninjas.SpriteTemplate
+        )
+        : ninjas.Decoration
         {
             return new ninjas.Decoration
             (
@@ -416,11 +424,11 @@
                     spriteTemplate.width,
                     spriteTemplate.height,
                     ninjas.DebugColor.COLOR_DEBUG_DECORATION,
-                    true,
+                    isStatic,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
-                    ninjas.BodyDensity.INFINITE,
-                    ninjas.BodyRestitution.DEFAULT
+                    ninjas.BodyDensity.RUBBER,
+                    ninjas.BodyRestitution.RUBBER
                 ),
                 spriteTemplate,
                 xLeft,
@@ -454,7 +462,7 @@
                     spriteTemplate.width,
                     spriteTemplate.height,
                     ninjas.DebugColor.COLOR_DEBUG_DECORATION,
-                    true,
+                    ninjas.StaticShape.YES,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.INFINITE,
@@ -495,7 +503,7 @@
                     width,
                     height,
                     ninjas.DebugColor.COLOR_DEBUG_SITE_TRIGGER,
-                    true,
+                    ninjas.StaticShape.YES,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.INFINITE,
@@ -528,7 +536,7 @@
                     width,
                     height,
                     ninjas.DebugColor.COLOR_DEBUG_SIGSAW,
-                    false,
+                    ninjas.StaticShape.NO,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.DEFAULT,
@@ -568,7 +576,7 @@
                     width,
                     height,
                     ninjas.DebugColor.COLOR_DEBUG_PLATFORM,
-                    true,
+                    ninjas.StaticShape.YES,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.INFINITE,
@@ -600,7 +608,7 @@
                     width,
                     height,
                     ninjas.DebugColor.COLOR_DEBUG_BOUNCE,
-                    false,
+                    ninjas.StaticShape.NO,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,
                     ninjas.BodyDensity.DEFAULT,

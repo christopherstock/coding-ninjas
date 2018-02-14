@@ -32,7 +32,7 @@
             width       :number,
             height      :number,
             debugColor  :ninjas.DebugColor,
-            isStatic    :boolean,
+            isStatic    :ninjas.StaticShape,
             angle       :number,
             friction    :ninjas.BodyFriction,
             density     :ninjas.BodyDensity,

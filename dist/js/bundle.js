@@ -27439,13 +27439,14 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Create sprite for elevated ramps, flying and solid!
 *   TODO Change 'centerLength' from creation methods to 'length'.
 *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
 *   TODO Try to remove player gap Y.
+*   TODO Create sprite for elevated solid ramps.
 *   TODO Add react for site content creation.
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Try ant design (pro?) in front panel.
+*   TODO Add 'unknown' ground tiles.
 *
 *   TODO Complete the MVP!
 *
@@ -27746,6 +27747,8 @@ var BodyDensity;
     BodyDensity[BodyDensity["WOOD"] = 0.004] = "WOOD";
     /** Metal */
     BodyDensity[BodyDensity["METAL"] = 0.01] = "METAL";
+    /** Rubber */
+    BodyDensity[BodyDensity["RUBBER"] = 0.0005] = "RUBBER";
     /** Static objects */
     BodyDensity[BodyDensity["INFINITE"] = Infinity] = "INFINITE";
 })(BodyDensity = exports.BodyDensity || (exports.BodyDensity = {}));
@@ -27761,6 +27764,8 @@ var BodyRestitution;
     BodyRestitution[BodyRestitution["DEFAULT"] = 0] = "DEFAULT";
     /** Wood. */
     BodyRestitution[BodyRestitution["WOOD"] = 0.75] = "WOOD";
+    /** Rubber. */
+    BodyRestitution[BodyRestitution["RUBBER"] = 0.9] = "RUBBER";
 })(BodyRestitution = exports.BodyRestitution || (exports.BodyRestitution = {}));
 
 
@@ -29613,9 +29618,9 @@ var LevelWebsite = /** @class */ (function (_super) {
     function LevelWebsite() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         /** The width of this level. */
-        _this.width = 5000.0;
+        _this.width = 10000.0;
         /** The height of this level. */
-        _this.height = 5000.0;
+        _this.height = 10000.0;
         return _this;
     }
     /***************************************************************************************************************
@@ -29647,9 +29652,12 @@ var LevelWebsite = /** @class */ (function (_super) {
             ];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(3200, 2000, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(4200, 2000, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.decosFg =
-            [];
+            [
+                ninjas.GameObjectFactory.createDecoration(4430, 1500, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_1)),
+                ninjas.GameObjectFactory.createDecoration(4400, 1750, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_2)),
+            ];
         this.parallaxFgs =
             [];
         /*
@@ -29697,10 +29705,11 @@ var LevelWebsite = /** @class */ (function (_super) {
                     ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapHorz.BOTH,  this );
                     ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapHorz.RIGHT, this );
         */
-        // ninjas.GameObjectBundleFactory.createSolidGround( 200,   2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
         ninjas.GameObjectBundleFactory.createFlyingGround(3100, 2300, 3, ninjas.Slope.NONE, ninjas.CapHorz.BOTH, this);
         ninjas.GameObjectBundleFactory.createFlyingGround(3600, 2300, 3, ninjas.Slope.ASCENDING, ninjas.CapHorz.BOTH, this);
         ninjas.GameObjectBundleFactory.createFlyingGround(4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this);
+        ninjas.GameObjectBundleFactory.createSolidGround(4400, 2500, 10, 4, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this);
+        ninjas.GameObjectBundleFactory.createSolidGround(5680, 2200, 10, 10, ninjas.CapHorz.RIGHT, ninjas.CapVert.BOTH, this);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -29824,8 +29833,11 @@ var ninjas = __webpack_require__(1);
 *******************************************************************************************************************/
 var Slope;
 (function (Slope) {
+    /** Specifies a flat body. */
     Slope[Slope["NONE"] = 0] = "NONE";
+    /** A body with ascending surface. */
     Slope[Slope["ASCENDING"] = 1] = "ASCENDING";
+    /** A body with descending surface. */
     Slope[Slope["DESCENDING"] = 2] = "DESCENDING";
 })(Slope = exports.Slope || (exports.Slope = {}));
 /*******************************************************************************************************************
@@ -29836,9 +29848,13 @@ var Slope;
 *******************************************************************************************************************/
 var CapHorz;
 (function (CapHorz) {
+    /** No horizontal capping. */
     CapHorz[CapHorz["NONE"] = 0] = "NONE";
+    /** Cap left column. */
     CapHorz[CapHorz["LEFT"] = 1] = "LEFT";
+    /** Cap right column. */
     CapHorz[CapHorz["RIGHT"] = 2] = "RIGHT";
+    /** Cap left and right column. */
     CapHorz[CapHorz["BOTH"] = 3] = "BOTH";
 })(CapHorz = exports.CapHorz || (exports.CapHorz = {}));
 /*******************************************************************************************************************
@@ -29849,9 +29865,13 @@ var CapHorz;
 *******************************************************************************************************************/
 var CapVert;
 (function (CapVert) {
+    /** No vertical capping. */
     CapVert[CapVert["NONE"] = 0] = "NONE";
+    /** Cap top line. */
     CapVert[CapVert["TOP"] = 1] = "TOP";
+    /** Cap bottom line. */
     CapVert[CapVert["BOTTOM"] = 2] = "BOTTOM";
+    /** Cap top and bottom line. */
     CapVert[CapVert["BOTH"] = 3] = "BOTH";
 })(CapVert = exports.CapVert || (exports.CapVert = {}));
 /*******************************************************************************************************************
@@ -29915,17 +29935,17 @@ var GameObjectBundleFactory = /** @class */ (function () {
         // draw decoration
         for (var i = 0; i < length; ++i) {
             if (i == 0 && (capEnds == CapHorz.LEFT || capEnds == CapHorz.BOTH)) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTile.height, leftTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile));
                 drawX += leftTile.width;
                 totalWidth += leftTile.width;
             }
             else if (i == length - 1 && (capEnds == CapHorz.RIGHT || capEnds == CapHorz.BOTH)) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTile.height, rightTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile));
                 drawX += rightTile.width;
                 totalWidth += rightTile.width;
             }
             else {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + centerTile.height, centerTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile));
                 drawX += centerTile.width;
                 totalWidth += centerTile.width;
             }
@@ -29977,17 +29997,17 @@ var GameObjectBundleFactory = /** @class */ (function () {
             drawX = xLeft;
             totalWidth = 0.0;
             if (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTopTile.height, leftTopTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTopTile.height, ninjas.StaticShape.YES, leftTopTile));
                 drawX += leftTopTile.width;
                 totalWidth += leftTopTile.width;
             }
             for (var i = 0; i < lengthHorz; ++i) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + topTile.height, topTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + topTile.height, ninjas.StaticShape.YES, topTile));
                 drawX += topTile.width;
                 totalWidth += leftTopTile.width;
             }
             if (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTopTile.height, rightTopTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTopTile.height, ninjas.StaticShape.YES, rightTopTile));
                 totalWidth += rightTopTile.width;
             }
             drawY += topTile.height;
@@ -29998,17 +30018,17 @@ var GameObjectBundleFactory = /** @class */ (function () {
             drawX = xLeft;
             totalWidth = 0.0;
             if (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTile.height, leftTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile));
                 drawX += leftTile.width;
                 totalWidth += leftTile.width;
             }
             for (var i_1 = 0; i_1 < lengthHorz; ++i_1) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + centerTile.height, centerTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile));
                 drawX += centerTile.width;
                 totalWidth += centerTile.width;
             }
             if (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTile.height, rightTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile));
                 totalWidth += rightTile.width;
             }
             drawY += centerTile.height;
@@ -30019,17 +30039,17 @@ var GameObjectBundleFactory = /** @class */ (function () {
             drawX = xLeft;
             totalWidth = 0.0;
             if (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftBottomTile.height, leftBottomTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftBottomTile.height, ninjas.StaticShape.YES, leftBottomTile));
                 drawX += leftBottomTile.width;
                 totalWidth += leftBottomTile.width;
             }
             for (var i = 0; i < lengthHorz; ++i) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + bottomTile.height, bottomTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + bottomTile.height, ninjas.StaticShape.YES, bottomTile));
                 drawX += bottomTile.width;
                 totalWidth += bottomTile.width;
             }
             if (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightBottomTile.height, rightBottomTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightBottomTile.height, ninjas.StaticShape.YES, rightBottomTile));
                 totalWidth += rightBottomTile.width;
             }
             totalHeight += bottomTile.height;
@@ -30070,7 +30090,7 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createWoodenCrate = function (x, yBottom) {
         var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE_WOOD);
-        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, ninjas.BodyFriction.WOOD, ninjas.BodyDensity.WOOD, ninjas.BodyRestitution.WOOD), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
+        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, ninjas.StaticShape.NO, 0.0, ninjas.BodyFriction.WOOD, ninjas.BodyDensity.WOOD, ninjas.BodyRestitution.WOOD), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a metal crate.
@@ -30082,7 +30102,7 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createMetalCrate = function (x, yBottom) {
         var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_CRATE_METAL);
-        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.METAL, ninjas.BodyRestitution.DEFAULT), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
+        return new ninjas.Movable(new ninjas.ShapeRectangle(sprtiteTemplate.width, sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, ninjas.StaticShape.NO, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.METAL, ninjas.BodyRestitution.DEFAULT), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a sphere.
@@ -30097,7 +30117,7 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createSphere = function (x, yBottom, friction, density, restitution) {
         var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_SPHERE);
-        return new ninjas.Movable(new ninjas.ShapeCircle(sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, false, 0.0, friction, density, restitution), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
+        return new ninjas.Movable(new ninjas.ShapeCircle(sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, ninjas.StaticShape.NO, 0.0, friction, density, restitution), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates an item.
@@ -30108,7 +30128,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created item.
     ***************************************************************************************************************/
     GameObjectFactory.createItem = function (x, y) {
-        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.DebugColor.COLOR_DEBUG_ITEM, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_ITEM), x, y);
+        return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.DebugColor.COLOR_DEBUG_ITEM, ninjas.StaticShape.YES, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_ITEM), x, y);
     };
     /***************************************************************************************************************
     *   Creates an rectangular obstacle.
@@ -30122,7 +30142,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createObstacle = function (xLeft, yTop, spriteTemplate, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.BodyFriction.OBSTACLE, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), xLeft, yTop, spriteTemplate, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, ninjas.StaticShape.YES, angle, ninjas.BodyFriction.OBSTACLE, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), xLeft, yTop, spriteTemplate, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates an rectangular obstacle.
@@ -30137,7 +30157,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createObstacleSpriteless = function (xLeft, yTop, width, height, angle, jumpPassThrough) {
-        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.BodyFriction.OBSTACLE, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), xLeft, yTop, null, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, ninjas.StaticShape.YES, angle, ninjas.BodyFriction.OBSTACLE, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), xLeft, yTop, null, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates a free form.
@@ -30151,7 +30171,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created obstacle.
     ***************************************************************************************************************/
     GameObjectFactory.createFreeForm = function (x, y, vertices, angle, spriteTemplate) {
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, angle, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), x, y, spriteTemplate, ninjas.JumpPassThrough.NO);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, ninjas.StaticShape.YES, angle, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), x, y, spriteTemplate, ninjas.JumpPassThrough.NO);
     };
     /***************************************************************************************************************
     *   Creates an elevated ramp obstacle.
@@ -30175,7 +30195,7 @@ var GameObjectFactory = /** @class */ (function () {
         if (deltaY <= 0.0) {
             y += deltaY;
         }
-        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), x, y, spriteTemplate, jumpPassThrough);
+        return new ninjas.Obstacle(new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, ninjas.StaticShape.YES, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), x, y, spriteTemplate, jumpPassThrough);
     };
     /***************************************************************************************************************
     *   Creates the player.
@@ -30200,7 +30220,7 @@ var GameObjectFactory = /** @class */ (function () {
         vertices.push(matter.Vector.create(gapSizeX, spriteTemplate.height));
         vertices.push(matter.Vector.create(0.0, spriteTemplate.height - gapSizeY));
         vertices.push(matter.Vector.create(0.0, gapSizeY));
-        var shape = new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_PLAYER, false, 0.0, ninjas.BodyFriction.PLAYER, ninjas.BodyDensity.PLAYER, ninjas.BodyRestitution.DEFAULT);
+        var shape = new ninjas.ShapeFreeForm(vertices, ninjas.DebugColor.COLOR_DEBUG_PLAYER, ninjas.StaticShape.NO, 0.0, ninjas.BodyFriction.PLAYER, ninjas.BodyDensity.PLAYER, ninjas.BodyRestitution.DEFAULT);
         return new ninjas.Player(shape, x, (yBottom - spriteTemplate.height), lookingDirection, spriteTemplate);
     };
     /***************************************************************************************************************
@@ -30212,7 +30232,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created enemy.
     ***************************************************************************************************************/
     GameObjectFactory.createEnemy = function (x, y) {
-        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.DebugColor.COLOR_DEBUG_ENEMY, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT, ninjas.BodyRestitution.DEFAULT), x, y, null);
+        return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.DebugColor.COLOR_DEBUG_ENEMY, ninjas.StaticShape.NO, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT, ninjas.BodyRestitution.DEFAULT), x, y, null);
     };
     /***************************************************************************************************************
     *   Creates a decoration.
@@ -30220,11 +30240,12 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param xLeft          Anchor for left X.
     *   @param yBottom        Anchor for bottom Y.
     *   @param spriteTemplate The sprite template to use for this decoration.
+    *   @param isStatic       Specifies if the decoration is static.
     *
     *   @return The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createDecoration = function (xLeft, yBottom, spriteTemplate) {
-        return new ninjas.Decoration(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), spriteTemplate, xLeft, (yBottom - spriteTemplate.height));
+    GameObjectFactory.createDecoration = function (xLeft, yBottom, isStatic, spriteTemplate) {
+        return new ninjas.Decoration(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_DECORATION, isStatic, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.RUBBER, ninjas.BodyRestitution.RUBBER), spriteTemplate, xLeft, (yBottom - spriteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a parallax scrolling decoration.
@@ -30237,7 +30258,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createParallaxDeco = function (x, y, parallaxRatio, spriteTemplate) {
-        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_DECORATION, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), spriteTemplate, x, y, parallaxRatio);
+        return new ninjas.ParallaxDeco(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_DECORATION, ninjas.StaticShape.YES, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), spriteTemplate, x, y, parallaxRatio);
     };
     /***************************************************************************************************************
     *   Creates a site trigger.
@@ -30251,7 +30272,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created site trigger.
     ***************************************************************************************************************/
     GameObjectFactory.createSiteTrigger = function (x, y, width, height, sitePanelAppearance) {
-        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_SITE_TRIGGER, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), null, x, y, sitePanelAppearance);
+        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_SITE_TRIGGER, ninjas.StaticShape.YES, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), null, x, y, sitePanelAppearance);
     };
     /***************************************************************************************************************
     *   Creates a sigsaw.
@@ -30265,7 +30286,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createSigsaw = function (x, y, width, height, spriteTemplate) {
-        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_SIGSAW, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT, ninjas.BodyRestitution.DEFAULT), spriteTemplate, x, y);
+        return new ninjas.SigSaw(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_SIGSAW, ninjas.StaticShape.NO, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT, ninjas.BodyRestitution.DEFAULT), spriteTemplate, x, y);
     };
     /***************************************************************************************************************
     *   Creates a platform.
@@ -30279,7 +30300,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @return The created decoration.
     ***************************************************************************************************************/
     GameObjectFactory.createPlatform = function (width, height, spriteTemplate, speed, waypoints) {
-        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_PLATFORM, true, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), spriteTemplate, speed, waypoints);
+        return new ninjas.Platform(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_PLATFORM, ninjas.StaticShape.YES, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), spriteTemplate, speed, waypoints);
     };
     /***************************************************************************************************************
      *   Creates a bounce.
@@ -30293,7 +30314,7 @@ var GameObjectFactory = /** @class */ (function () {
      *   @return The created decoration.
      ***************************************************************************************************************/
     GameObjectFactory.createBounce = function (x, y, width, height, spriteTemplate) {
-        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_BOUNCE, false, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT, ninjas.BodyRestitution.DEFAULT), spriteTemplate, x, y);
+        return new ninjas.Bounce(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_BOUNCE, ninjas.StaticShape.NO, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT, ninjas.BodyRestitution.DEFAULT), spriteTemplate, x, y);
     };
     return GameObjectFactory;
 }());
@@ -31525,6 +31546,20 @@ exports.SiteTrigger = SiteTrigger;
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
+*   Specifies if a shape is static or not.
+*   Static shapes have a fixed position and are not affected by gravity or forces.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var StaticShape;
+(function (StaticShape) {
+    /** Specifies a static shape. */
+    StaticShape[StaticShape["YES"] = 0] = "YES";
+    /** Specifies a non-static shape. */
+    StaticShape[StaticShape["NO"] = 1] = "NO";
+})(StaticShape = exports.StaticShape || (exports.StaticShape = {}));
+/*******************************************************************************************************************
 *   Represents the shape of a game object.
 *
 *   @author     Christopher Stock
@@ -31553,7 +31588,7 @@ var Shape = /** @class */ (function () {
                 opacity: 1.0,
                 lineWidth: 1.0,
             },
-            isStatic: isStatic,
+            isStatic: (isStatic == ninjas.StaticShape.YES),
             collisionFilter: ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING,
             friction: friction,
             frictionAir: ninjas.BodyFrictionAir.DEFAULT,

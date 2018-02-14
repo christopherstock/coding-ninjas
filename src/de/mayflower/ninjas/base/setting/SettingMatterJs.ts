@@ -115,6 +115,8 @@
         WOOD        = ( BodyDensity.DEFAULT * 4 ),
         /** Metal */
         METAL       = ( BodyDensity.DEFAULT * 10 ),
+        /** Rubber */
+        RUBBER      = ( BodyDensity.DEFAULT / 2 ),
 
         /** Static objects */
         INFINITE    = Infinity,
@@ -133,4 +135,7 @@
 
         /** Wood. */
         WOOD        = 0.75,
+
+        /** Rubber. */
+        RUBBER      = 0.9,
     }
