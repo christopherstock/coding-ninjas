@@ -27448,7 +27448,6 @@ var ninjas = __webpack_require__(1);
 *   TODO Complete the MVP!
 *
 *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
-*   TODO Try to solve the moonwalk prevention? try bottomCollision assignment BEFORE key left/right assignment??
 *   TODO Fixed positioning for camera on first scene (player floating in).
 *   TODO Add decoration particle effects.
 *   TODO Add and assign actions and sprites for 'attack', 'jump attack' and 'slide'sprites?
@@ -30488,6 +30487,14 @@ var Character = /** @class */ (function (_super) {
         matter.Body.translate(this.shape.body, matter.Vector.create(-this.speedMove, 0));
         this.movesLeft = true;
         this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
+        /*
+                    // check collision on falling
+                    if ( this.isFalling() && this.isCollidingObstacle() )
+                    {
+                        // take back movement
+                        matter.Body.translate( this.shape.body, matter.Vector.create( this.speedMove, 0 ) );
+                    }
+        */
     };
     /***************************************************************************************************************
     *   Moves this character left.
@@ -30496,6 +30503,14 @@ var Character = /** @class */ (function (_super) {
         matter.Body.translate(this.shape.body, matter.Vector.create(this.speedMove, 0));
         this.movesRight = true;
         this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
+        /*
+                    // check collision on falling
+                    if ( this.isFalling() && this.isCollidingObstacle() )
+                    {
+                        // take back movement
+                        matter.Body.translate( this.shape.body, matter.Vector.create( -this.speedMove, 0 ) );
+                    }
+        */
     };
     /***************************************************************************************************************
     *   Checks if this character is currently falling.
@@ -30562,6 +30577,30 @@ var Character = /** @class */ (function (_super) {
         // check colliding bodies
         this.collidesBottom = matter.Query.ray(bodiesToCheck, matter.Vector.create(this.shape.body.position.x - (this.shape.getWidth() / 2), this.shape.body.position.y + (this.shape.getHeight() / 2)), matter.Vector.create(this.shape.body.position.x + (this.shape.getWidth() / 2), this.shape.body.position.y + (this.shape.getHeight() / 2))).length > 0;
         var e_1, _c, e_2, _f;
+    };
+    /***************************************************************************************************************
+    *   Checks if the requested move for this character is collision free.
+    *
+    *   @return If this character is currently colliding with an obstacle.
+    ***************************************************************************************************************/
+    Character.prototype.isCollidingObstacle = function () {
+        var bodiesToCheck = [];
+        try {
+            for (var _a = __values(ninjas.Main.game.level.obstacles), _b = _a.next(); !_b.done; _b = _a.next()) {
+                var gameObject = _b.value;
+                bodiesToCheck.push(gameObject.shape.body);
+            }
+        }
+        catch (e_3_1) { e_3 = { error: e_3_1 }; }
+        finally {
+            try {
+                if (_b && !_b.done && (_c = _a.return)) _c.call(_a);
+            }
+            finally { if (e_3) throw e_3.error; }
+        }
+        // check colliding bodies
+        return matter.Query.region(bodiesToCheck, this.shape.body.bounds).length > 0;
+        var e_3, _c;
     };
     return Character;
 }(ninjas.GameObject));
@@ -30705,18 +30744,10 @@ var Player = /** @class */ (function (_super) {
     ***************************************************************************************************************/
     Player.prototype.handleKeys = function () {
         if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_LEFT)) {
-            // prevents the moonwalk ..
-            // if ( this.collidesBottom )
-            {
-                this.moveLeft();
-            }
+            this.moveLeft();
         }
         else if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_RIGHT)) {
-            // prevents the moonwalk ..
-            // if ( this.collidesBottom )
-            {
-                this.moveRight();
-            }
+            this.moveRight();
         }
         if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_UP)) {
             ninjas.Main.game.engine.keySystem.setNeedsRelease(ninjas.Key.KEY_UP);

@@ -186,9 +186,16 @@
         protected moveLeft()
         {
             matter.Body.translate( this.shape.body, matter.Vector.create( -this.speedMove, 0 ) );
-
-            this.movesLeft        = true;
+            this.movesLeft = true;
             this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
+/*
+            // check collision on falling
+            if ( this.isFalling() && this.isCollidingObstacle() )
+            {
+                // take back movement
+                matter.Body.translate( this.shape.body, matter.Vector.create( this.speedMove, 0 ) );
+            }
+*/
         }
 
         /***************************************************************************************************************
@@ -197,9 +204,16 @@
         protected moveRight()
         {
             matter.Body.translate( this.shape.body, matter.Vector.create( this.speedMove, 0 ) );
-
-            this.movesRight       = true;
+            this.movesRight = true;
             this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
+/*
+            // check collision on falling
+            if ( this.isFalling() && this.isCollidingObstacle() )
+            {
+                // take back movement
+                matter.Body.translate( this.shape.body, matter.Vector.create( -this.speedMove, 0 ) );
+            }
+*/
         }
 
         /***************************************************************************************************************
@@ -266,6 +280,28 @@
                 bodiesToCheck,
                 matter.Vector.create( this.shape.body.position.x - ( this.shape.getWidth() / 2 ), this.shape.body.position.y + ( this.shape.getHeight() / 2 ) ),
                 matter.Vector.create( this.shape.body.position.x + ( this.shape.getWidth() / 2 ), this.shape.body.position.y + ( this.shape.getHeight() / 2 ) )
+            ).length > 0;
+        }
+
+        /***************************************************************************************************************
+        *   Checks if the requested move for this character is collision free.
+        *
+        *   @return If this character is currently colliding with an obstacle.
+        ***************************************************************************************************************/
+        private isCollidingObstacle()
+        {
+            let bodiesToCheck:Array<matter.Body> = [];
+
+            for ( let gameObject of ninjas.Main.game.level.obstacles )
+            {
+                bodiesToCheck.push( gameObject.shape.body );
+            }
+
+            // check colliding bodies
+            return matter.Query.region
+            (
+                bodiesToCheck,
+                this.shape.body.bounds
             ).length > 0;
         }
     }
