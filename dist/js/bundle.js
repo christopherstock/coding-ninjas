@@ -27440,7 +27440,6 @@ var ninjas = __webpack_require__(1);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO Create sprite for elevated solid ramps.
-*   TODO Create decoration with circular body. (for non-static decos)
 *   TODO Add react for site content creation.
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Try ant design (pro?) in front panel.
@@ -29630,7 +29629,7 @@ var LevelWebsite = /** @class */ (function (_super) {
             [];
         this.decosBg =
             [
-                ninjas.GameObjectFactory.createDecoration(4400, 1750, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_2)),
+                ninjas.GameObjectFactory.createDecorationCircular(4400, 1750, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_2)),
             ];
         this.siteTriggers =
             [];
@@ -29650,7 +29649,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.player = ninjas.GameObjectFactory.createPlayer(4200, 2000, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.decosFg =
             [
-                ninjas.GameObjectFactory.createDecoration(4430, 1500, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_1)),
+                ninjas.GameObjectFactory.createDecorationCircular(4430, 1500, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_1)),
             ];
         this.parallaxFgs =
             [];
@@ -29929,17 +29928,17 @@ var GameObjectBundleFactory = /** @class */ (function () {
         // draw decoration
         for (var i = 0; i < length; ++i) {
             if (i == 0 && (capEnds == CapHorz.LEFT || capEnds == CapHorz.BOTH)) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile));
                 drawX += leftTile.width;
                 totalWidth += leftTile.width;
             }
             else if (i == length - 1 && (capEnds == CapHorz.RIGHT || capEnds == CapHorz.BOTH)) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile));
                 drawX += rightTile.width;
                 totalWidth += rightTile.width;
             }
             else {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile));
+                level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile));
                 drawX += centerTile.width;
                 totalWidth += centerTile.width;
             }
@@ -29994,16 +29993,16 @@ var GameObjectBundleFactory = /** @class */ (function () {
                     totalWidth = 0.0;
                     for (var j = 0; j < lengthHorz; ++j) {
                         if (j == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTopTile.height, ninjas.StaticShape.YES, leftTopTile));
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + leftTopTile.height, ninjas.StaticShape.YES, leftTopTile));
                             drawX += leftTopTile.width;
                             totalWidth += leftTopTile.width;
                         }
                         else if (j == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTopTile.height, ninjas.StaticShape.YES, rightTopTile));
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + rightTopTile.height, ninjas.StaticShape.YES, rightTopTile));
                             totalWidth += rightTopTile.width;
                         }
                         else {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + topTile.height, ninjas.StaticShape.YES, topTile));
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + topTile.height, ninjas.StaticShape.YES, topTile));
                             drawX += topTile.width;
                             totalWidth += leftTopTile.width;
                         }
@@ -30019,16 +30018,16 @@ var GameObjectBundleFactory = /** @class */ (function () {
                     totalWidth = 0.0;
                     for (var j = 0; j < lengthHorz; ++j) {
                         if (j == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftBottomTile.height, ninjas.StaticShape.YES, leftBottomTile));
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + leftBottomTile.height, ninjas.StaticShape.YES, leftBottomTile));
                             drawX += leftBottomTile.width;
                             totalWidth += leftBottomTile.width;
                         }
                         else if (j == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightBottomTile.height, ninjas.StaticShape.YES, rightBottomTile));
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + rightBottomTile.height, ninjas.StaticShape.YES, rightBottomTile));
                             totalWidth += rightBottomTile.width;
                         }
                         else {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + bottomTile.height, ninjas.StaticShape.YES, bottomTile));
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + bottomTile.height, ninjas.StaticShape.YES, bottomTile));
                             drawX += bottomTile.width;
                             totalWidth += bottomTile.width;
                         }
@@ -30042,16 +30041,16 @@ var GameObjectBundleFactory = /** @class */ (function () {
                 totalWidth = 0.0;
                 for (var j = 0; j < lengthHorz; ++j) {
                     if (j == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
-                        level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile));
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile));
                         drawX += leftTile.width;
                         totalWidth += leftTile.width;
                     }
                     else if (j == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
-                        level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile));
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile));
                         totalWidth += rightTile.width;
                     }
                     else {
-                        level.decosFg.push(ninjas.GameObjectFactory.createDecoration(drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile));
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile));
                         drawX += centerTile.width;
                         totalWidth += centerTile.width;
                     }
@@ -30120,10 +30119,15 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param restitution The restitution for this object.
     *
     *   @return The created sphere.
+    *
+    *   @throws An error if the dimensions of the assigned sprite are not square.
     ***************************************************************************************************************/
     GameObjectFactory.createSphere = function (x, yBottom, friction, density, restitution) {
-        var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_SPHERE);
-        return new ninjas.Movable(new ninjas.ShapeCircle(sprtiteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, ninjas.StaticShape.NO, 0.0, friction, density, restitution), sprtiteTemplate, x, (yBottom - sprtiteTemplate.height));
+        var spriteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_SPHERE);
+        if (spriteTemplate.width != spriteTemplate.height) {
+            throw "Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[0] + "]";
+        }
+        return new ninjas.Movable(new ninjas.ShapeCircle(spriteTemplate.width, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, ninjas.StaticShape.NO, 0.0, friction, density, restitution), spriteTemplate, x, (yBottom - spriteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates an item.
@@ -30137,7 +30141,7 @@ var GameObjectFactory = /** @class */ (function () {
         return new ninjas.Item(new ninjas.ShapeRectangle(30.0, 52.0, ninjas.DebugColor.COLOR_DEBUG_ITEM, ninjas.StaticShape.YES, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_ITEM), x, y);
     };
     /***************************************************************************************************************
-    *   Creates an rectangular obstacle.
+    *   Creates an rectangular obstacle with a specified sprite.
     *
     *   @param xLeft           Anchor for left X.
     *   @param yTop            Anchor for top Y.
@@ -30147,11 +30151,11 @@ var GameObjectFactory = /** @class */ (function () {
     *
     *   @return The created obstacle.
     ***************************************************************************************************************/
-    GameObjectFactory.createObstacle = function (xLeft, yTop, spriteTemplate, angle, jumpPassThrough) {
+    GameObjectFactory.createObstacleSpriteful = function (xLeft, yTop, spriteTemplate, angle, jumpPassThrough) {
         return new ninjas.Obstacle(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_OBSTACLE, ninjas.StaticShape.YES, angle, ninjas.BodyFriction.OBSTACLE, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), xLeft, yTop, spriteTemplate, jumpPassThrough);
     };
     /***************************************************************************************************************
-    *   Creates an rectangular obstacle.
+    *   Creates an rectangular obstacle without an assigned sprite.
     *
     *   @param xLeft           Anchor for left X.
     *   @param yTop            Anchor for top Y.
@@ -30241,7 +30245,7 @@ var GameObjectFactory = /** @class */ (function () {
         return new ninjas.Enemy(new ninjas.ShapeRectangle(50.0, 50.0, ninjas.DebugColor.COLOR_DEBUG_ENEMY, ninjas.StaticShape.NO, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.DEFAULT, ninjas.BodyRestitution.DEFAULT), x, y, null);
     };
     /***************************************************************************************************************
-    *   Creates a decoration.
+    *   Creates a rectangular decoration with dimensions from the assigned sprite.
     *
     *   @param xLeft          Anchor for left X.
     *   @param yBottom        Anchor for bottom Y.
@@ -30250,8 +30254,26 @@ var GameObjectFactory = /** @class */ (function () {
     *
     *   @return The created decoration.
     ***************************************************************************************************************/
-    GameObjectFactory.createDecoration = function (xLeft, yBottom, isStatic, spriteTemplate) {
+    GameObjectFactory.createDecorationRect = function (xLeft, yBottom, isStatic, spriteTemplate) {
         return new ninjas.Decoration(new ninjas.ShapeRectangle(spriteTemplate.width, spriteTemplate.height, ninjas.DebugColor.COLOR_DEBUG_DECORATION, isStatic, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.RUBBER, ninjas.BodyRestitution.RUBBER), spriteTemplate, xLeft, (yBottom - spriteTemplate.height));
+    };
+    /***************************************************************************************************************
+    *   Creates a circular decoration with dimensions from the assigned sprite.
+    *
+    *   @param xLeft          Anchor for left X.
+    *   @param yBottom        Anchor for bottom Y.
+    *   @param isStatic       Specifies if the decoration is static.
+    *   @param spriteTemplate The sprite template to use for this decoration.
+    *
+    *   @return The created decoration.
+    *
+    *   @throws An error if the dimensions of the assigned sprite are not square.
+    ***************************************************************************************************************/
+    GameObjectFactory.createDecorationCircular = function (xLeft, yBottom, isStatic, spriteTemplate) {
+        if (spriteTemplate.width != spriteTemplate.height) {
+            throw "Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[0] + "]";
+        }
+        return new ninjas.Decoration(new ninjas.ShapeCircle(spriteTemplate.width, ninjas.DebugColor.COLOR_DEBUG_DECORATION, isStatic, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.RUBBER, ninjas.BodyRestitution.RUBBER), spriteTemplate, xLeft, (yBottom - spriteTemplate.height));
     };
     /***************************************************************************************************************
     *   Creates a parallax scrolling decoration.

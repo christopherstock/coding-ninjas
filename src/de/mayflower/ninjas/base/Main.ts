@@ -5,7 +5,6 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Create sprite for elevated solid ramps.
-    *   TODO Create decoration with circular body. (for non-static decos)
     *   TODO Add react for site content creation.
     *   TODO Step-Flow-Meter (progress, navi etc.) in React.
     *   TODO Try ant design (pro?) in front panel.

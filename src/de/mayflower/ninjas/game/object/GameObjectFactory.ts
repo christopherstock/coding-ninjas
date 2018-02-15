@@ -82,6 +82,8 @@
         *   @param restitution The restitution for this object.
         *
         *   @return The created sphere.
+        *
+        *   @throws An error if the dimensions of the assigned sprite are not square.
         ***************************************************************************************************************/
         public static createSphere
         (
@@ -93,13 +95,18 @@
         )
         : ninjas.Movable
         {
-            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_SPHERE );
+            let spriteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_SPHERE );
+
+            if ( spriteTemplate.width != spriteTemplate.height )
+            {
+                throw "Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[ 0 ] + "]";
+            }
 
             return new ninjas.Movable
             (
                 new ninjas.ShapeCircle
                 (
-                    sprtiteTemplate.height,
+                    spriteTemplate.width,
                     ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
                     ninjas.StaticShape.NO,
                     0.0,
@@ -107,9 +114,9 @@
                     density,
                     restitution
                 ),
-                sprtiteTemplate,
+                spriteTemplate,
                 x,
-                ( yBottom - sprtiteTemplate.height )
+                ( yBottom - spriteTemplate.height )
             );
         }
 
@@ -143,7 +150,7 @@
         }
 
         /***************************************************************************************************************
-        *   Creates an rectangular obstacle.
+        *   Creates an rectangular obstacle with a specified sprite.
         *
         *   @param xLeft           Anchor for left X.
         *   @param yTop            Anchor for top Y.
@@ -153,7 +160,7 @@
         *
         *   @return The created obstacle.
         ***************************************************************************************************************/
-        public static createObstacle
+        public static createObstacleSpriteful
         (
             xLeft           :number,
             yTop            :number,
@@ -184,7 +191,7 @@
         }
 
         /***************************************************************************************************************
-        *   Creates an rectangular obstacle.
+        *   Creates an rectangular obstacle without an assigned sprite.
         *
         *   @param xLeft           Anchor for left X.
         *   @param yTop            Anchor for top Y.
@@ -399,7 +406,7 @@
         }
 
         /***************************************************************************************************************
-        *   Creates a decoration.
+        *   Creates a rectangular decoration with dimensions from the assigned sprite.
         *
         *   @param xLeft          Anchor for left X.
         *   @param yBottom        Anchor for bottom Y.
@@ -408,7 +415,7 @@
         *
         *   @return The created decoration.
         ***************************************************************************************************************/
-        public static createDecoration
+        public static createDecorationRect
         (
             xLeft          :number,
             yBottom        :number,
@@ -423,6 +430,50 @@
                 (
                     spriteTemplate.width,
                     spriteTemplate.height,
+                    ninjas.DebugColor.COLOR_DEBUG_DECORATION,
+                    isStatic,
+                    0.0,
+                    ninjas.BodyFriction.DEFAULT,
+                    ninjas.BodyDensity.RUBBER,
+                    ninjas.BodyRestitution.RUBBER
+                ),
+                spriteTemplate,
+                xLeft,
+                ( yBottom - spriteTemplate.height )
+            );
+        }
+
+        /***************************************************************************************************************
+        *   Creates a circular decoration with dimensions from the assigned sprite.
+        *
+        *   @param xLeft          Anchor for left X.
+        *   @param yBottom        Anchor for bottom Y.
+        *   @param isStatic       Specifies if the decoration is static.
+        *   @param spriteTemplate The sprite template to use for this decoration.
+        *
+        *   @return The created decoration.
+        *
+        *   @throws An error if the dimensions of the assigned sprite are not square.
+        ***************************************************************************************************************/
+        public static createDecorationCircular
+        (
+            xLeft          :number,
+            yBottom        :number,
+            isStatic       :ninjas.StaticShape,
+            spriteTemplate :ninjas.SpriteTemplate
+        )
+        : ninjas.Decoration
+        {
+            if ( spriteTemplate.width != spriteTemplate.height )
+            {
+                throw "Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[ 0 ] + "]";
+            }
+
+            return new ninjas.Decoration
+            (
+                new ninjas.ShapeCircle
+                (
+                    spriteTemplate.width,
                     ninjas.DebugColor.COLOR_DEBUG_DECORATION,
                     isStatic,
                     0.0,

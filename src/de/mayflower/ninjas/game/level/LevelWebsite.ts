@@ -28,7 +28,7 @@
 
             this.decosBg =
             [
-                ninjas.GameObjectFactory.createDecoration( 4400, 1750, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOULDER_2 ) ),
+                ninjas.GameObjectFactory.createDecorationCircular( 4400, 1750, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOULDER_2 ) ),
             ];
 
             this.siteTriggers =
@@ -76,7 +76,7 @@
 
             this.decosFg =
             [
-                ninjas.GameObjectFactory.createDecoration( 4430, 1500, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOULDER_1 ) ),
+                ninjas.GameObjectFactory.createDecorationCircular( 4430, 1500, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOULDER_1 ) ),
             ];
 
             this.parallaxFgs =
