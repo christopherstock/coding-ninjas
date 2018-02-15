@@ -78,6 +78,9 @@
         /** Player friction. */
         WOOD        = BodyFriction.DEFAULT,
 
+        /** Rubber friction. */
+        RUBBER      = 0.001,
+
         /** Low surface friction. */
         GLASS       = 0.01,
         /** Lowest surface friction. */
@@ -116,7 +119,7 @@
         /** Metal */
         METAL       = ( BodyDensity.DEFAULT * 10 ),
         /** Rubber */
-        RUBBER      = ( BodyDensity.DEFAULT / 2 ),
+        RUBBER      = ( BodyDensity.DEFAULT / 10 ),
 
         /** Static objects */
         INFINITE    = Infinity,

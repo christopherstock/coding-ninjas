@@ -477,7 +477,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_DECORATION,
                     isStatic,
                     0.0,
-                    ninjas.BodyFriction.DEFAULT,
+                    ninjas.BodyFriction.RUBBER,
                     ninjas.BodyDensity.RUBBER,
                     ninjas.BodyRestitution.RUBBER
                 ),
