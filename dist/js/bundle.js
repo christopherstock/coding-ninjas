@@ -27439,7 +27439,7 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Create sprite for elevated solid ramps.
+*   TODO Create elevated solid ramps.
 *   TODO Add react for site content creation.
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Try ant design (pro?) in front panel.
@@ -27658,7 +27658,7 @@ var SettingMatterJs = /** @class */ (function () {
     /** The player's speed in world coordinate per tick. */
     SettingMatterJs.PLAYER_SPEED_MOVE = 7.5;
     /** The player's gap size y of it's physical body corners. */
-    SettingMatterJs.PLAYER_EDGE_GAP_Y = 2.5;
+    SettingMatterJs.PLAYER_EDGE_GAP_Y = 10.0;
     /** The default vertical gravity for all objects. */
     SettingMatterJs.DEFAULT_GRAVITY_Y = 1.0;
     /** The default collision group for all game objects. */
@@ -31794,6 +31794,7 @@ var ShapeCircle = /** @class */ (function (_super) {
         _this.diameter = 0.0;
         _this.diameter = diameter;
         _this.body = _this.createBody();
+        _this.body.torque = 360.0;
         return _this;
     }
     /***************************************************************************************************************
