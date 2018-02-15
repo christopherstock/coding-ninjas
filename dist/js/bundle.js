@@ -33263,6 +33263,18 @@ var Image = /** @class */ (function () {
     Image.IMAGE_GROUND_SOLID_RIGHT_BOTTOM = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidRightBottom.png";
     /** Image tile 'solid center'. */
     Image.IMAGE_GROUND_SOLID_CENTER = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidCenter.png";
+    /** Image tile 'solid ascending top'. */
+    Image.IMAGE_GROUND_SOLID_ASCENDING_TOP = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidAscendingTop.png";
+    /** Image tile 'solid descending top'. */
+    Image.IMAGE_GROUND_SOLID_DESCENDING_TOP = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidDescendingTop.png";
+    /** Image tile 'solid ascending left top'. */
+    Image.IMAGE_GROUND_SOLID_ASCENDING_LEFT_TOP = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidAscendingLeftTop.png";
+    /** Image tile 'solid descending left top'. */
+    Image.IMAGE_GROUND_SOLID_DESCENDING_LEFT_TOP = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidDescendingLeftTop.png";
+    /** Image tile 'solid ascending right top'. */
+    Image.IMAGE_GROUND_SOLID_ASCENDING_RIGHT_TOP = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidAscendingRightTop.png";
+    /** Image tile 'solid descending right top'. */
+    Image.IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidDescendingRightTop.png";
     /** A test bg image. */
     Image.IMAGE_BG_TEST = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
     /** An array holding all filenames of all images to load. */
@@ -33329,6 +33341,12 @@ var Image = /** @class */ (function () {
         Image.IMAGE_GROUND_SOLID_LEFT_BOTTOM,
         Image.IMAGE_GROUND_SOLID_RIGHT_BOTTOM,
         Image.IMAGE_GROUND_SOLID_CENTER,
+        Image.IMAGE_GROUND_SOLID_ASCENDING_TOP,
+        Image.IMAGE_GROUND_SOLID_DESCENDING_TOP,
+        Image.IMAGE_GROUND_SOLID_ASCENDING_LEFT_TOP,
+        Image.IMAGE_GROUND_SOLID_DESCENDING_LEFT_TOP,
+        Image.IMAGE_GROUND_SOLID_ASCENDING_RIGHT_TOP,
+        Image.IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP,
         Image.IMAGE_BG_TEST,
     ];
     return Image;

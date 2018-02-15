@@ -146,6 +146,19 @@
         /** Image tile 'solid center'. */
         public      static      IMAGE_GROUND_SOLID_CENTER                   :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidCenter.png";
 
+        /** Image tile 'solid ascending top'. */
+        public      static      IMAGE_GROUND_SOLID_ASCENDING_TOP            :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidAscendingTop.png";
+        /** Image tile 'solid descending top'. */
+        public      static      IMAGE_GROUND_SOLID_DESCENDING_TOP           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidDescendingTop.png";
+        /** Image tile 'solid ascending left top'. */
+        public      static      IMAGE_GROUND_SOLID_ASCENDING_LEFT_TOP       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidAscendingLeftTop.png";
+        /** Image tile 'solid descending left top'. */
+        public      static      IMAGE_GROUND_SOLID_DESCENDING_LEFT_TOP      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidDescendingLeftTop.png";
+        /** Image tile 'solid ascending right top'. */
+        public      static      IMAGE_GROUND_SOLID_ASCENDING_RIGHT_TOP      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidAscendingRightTop.png";
+        /** Image tile 'solid descending right top'. */
+        public      static      IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidDescendingRightTop.png";
+
         /** A test bg image. */
         public      static      IMAGE_BG_TEST                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
 
@@ -225,6 +238,13 @@
             Image.IMAGE_GROUND_SOLID_LEFT_BOTTOM,
             Image.IMAGE_GROUND_SOLID_RIGHT_BOTTOM,
             Image.IMAGE_GROUND_SOLID_CENTER,
+
+            Image.IMAGE_GROUND_SOLID_ASCENDING_TOP,
+            Image.IMAGE_GROUND_SOLID_DESCENDING_TOP,
+            Image.IMAGE_GROUND_SOLID_ASCENDING_LEFT_TOP,
+            Image.IMAGE_GROUND_SOLID_DESCENDING_LEFT_TOP,
+            Image.IMAGE_GROUND_SOLID_ASCENDING_RIGHT_TOP,
+            Image.IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP,
 
             Image.IMAGE_BG_TEST,
         ];
