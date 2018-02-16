@@ -272,7 +272,7 @@
         *   @param y               Anchor Y.
         *   @param width           The ramp width.
         *   @param height          The ramp height.
-        *   @param deltaY          Ramp will ascend if <code>true</code> and descend if <code>false</code>.
+        *   @param deltaY          The slope of the ramp. Can be positive (descending) or negative (ascending).
         *   @param spriteTemplate  The sprite template to use for this game object.
         *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
         *
@@ -292,6 +292,7 @@
         {
             let vertices:Array<matter.Vector> = [];
 
+            // shape ramp
             vertices.push( matter.Vector.create( 0.0,   0.0             ) );
             vertices.push( matter.Vector.create( width, deltaY          ) );
             vertices.push( matter.Vector.create( width, height + deltaY ) );

@@ -46,7 +46,7 @@
 
             this.determineBoundDimensions();
 
-            this.body   = this.createBody();
+            this.body = this.createBody();
         }
 
         /***************************************************************************************************************

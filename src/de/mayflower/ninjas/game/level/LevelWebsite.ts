@@ -41,7 +41,9 @@
             this.obstacles =
             [
                 // ascending ramp
+/*
                 ninjas.GameObjectFactory.createElevatedRamp( 1608, 2500, 1280.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO ),
+*/
 /*
                 // pass-through obstacles
                 ninjas.GameObjectFactory.createObstacle( 1500, 2200, 300, 15, 0.0, ninjas.JumpPassThrough.YES ),
@@ -68,8 +70,8 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                4200,
-                2000,
+                0,
+                1000,
                 ninjas.CharacterLookingDirection.RIGHT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );
@@ -128,12 +130,16 @@
             ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapHorz.BOTH,  this );
             ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapHorz.RIGHT, this );
 */
+
+
+
+/*
             ninjas.GameObjectBundleFactory.createFlyingGround( 3100, 2300, 2, ninjas.Slope.NONE,       ninjas.CapHorz.BOTH, this );
             ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2300, 3, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, this );
             ninjas.GameObjectBundleFactory.createFlyingGround( 4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this );
-
-            ninjas.GameObjectBundleFactory.createSolidGround(  4400, 2500, 4,  4, ninjas.Slope.NONE,       ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
-            ninjas.GameObjectBundleFactory.createSolidGround(  5000, 2200, 5,  5, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
-            ninjas.GameObjectBundleFactory.createSolidGround(  6000, 2200, 10, 5, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
+*/
+            ninjas.GameObjectBundleFactory.createSolidGround(  0,    1000, 5,  5,  ninjas.Slope.NONE,       ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
+            ninjas.GameObjectBundleFactory.createSolidGround(  800,  1000, 20, 10, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
+            ninjas.GameObjectBundleFactory.createSolidGround(  3600, 1000, 10, 10, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
         }
     }

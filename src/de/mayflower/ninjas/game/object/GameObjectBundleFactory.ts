@@ -340,13 +340,13 @@
 
                 case Slope.ASCENDING:
                 {
-                    level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, 20, lengthHorz * -GameObjectBundleFactory.ALTITUDE, null, ninjas.JumpPassThrough.NO ) );
+                    level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, lengthVert * GameObjectBundleFactory.GROUND_TILE_HEIGHT, lengthHorz * -GameObjectBundleFactory.ALTITUDE, null, ninjas.JumpPassThrough.NO ) );
                     break;
                 }
 
                 case Slope.DESCENDING:
                 {
-                    level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, 20, lengthHorz * GameObjectBundleFactory.ALTITUDE, null, ninjas.JumpPassThrough.NO ) );
+                    level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, lengthVert * GameObjectBundleFactory.GROUND_TILE_HEIGHT, lengthHorz * GameObjectBundleFactory.ALTITUDE, null, ninjas.JumpPassThrough.NO ) );
                     break;
                 }
             }

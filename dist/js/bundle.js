@@ -29636,10 +29636,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.siteTriggers =
             [];
         this.obstacles =
-            [
-                // ascending ramp
-                ninjas.GameObjectFactory.createElevatedRamp(1608, 2500, 1280.0, 15.0, -200.0, null, ninjas.JumpPassThrough.NO),
-            ];
+            [];
         this.movables =
             [
                 ninjas.GameObjectFactory.createWoodenCrate(750, 2100),
@@ -29648,7 +29645,7 @@ var LevelWebsite = /** @class */ (function (_super) {
             ];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(4200, 2000, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(0, 1000, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.decosFg =
             [
                 ninjas.GameObjectFactory.createDecorationCircular(4430, 1500, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_1)),
@@ -29700,12 +29697,14 @@ var LevelWebsite = /** @class */ (function (_super) {
                     ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapHorz.BOTH,  this );
                     ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapHorz.RIGHT, this );
         */
-        ninjas.GameObjectBundleFactory.createFlyingGround(3100, 2300, 2, ninjas.Slope.NONE, ninjas.CapHorz.BOTH, this);
-        ninjas.GameObjectBundleFactory.createFlyingGround(3600, 2300, 3, ninjas.Slope.ASCENDING, ninjas.CapHorz.BOTH, this);
-        ninjas.GameObjectBundleFactory.createFlyingGround(4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this);
-        ninjas.GameObjectBundleFactory.createSolidGround(4400, 2500, 4, 4, ninjas.Slope.NONE, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this);
-        ninjas.GameObjectBundleFactory.createSolidGround(5000, 2200, 5, 5, ninjas.Slope.ASCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
-        ninjas.GameObjectBundleFactory.createSolidGround(6000, 2200, 10, 5, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
+        /*
+                    ninjas.GameObjectBundleFactory.createFlyingGround( 3100, 2300, 2, ninjas.Slope.NONE,       ninjas.CapHorz.BOTH, this );
+                    ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2300, 3, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, this );
+                    ninjas.GameObjectBundleFactory.createFlyingGround( 4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this );
+        */
+        ninjas.GameObjectBundleFactory.createSolidGround(0, 1000, 5, 5, ninjas.Slope.NONE, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this);
+        ninjas.GameObjectBundleFactory.createSolidGround(800, 1000, 20, 10, ninjas.Slope.ASCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
+        ninjas.GameObjectBundleFactory.createSolidGround(3600, 1000, 10, 10, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -30071,12 +30070,12 @@ var GameObjectBundleFactory = /** @class */ (function () {
                 }
             case Slope.ASCENDING:
                 {
-                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, 20, lengthHorz * -GameObjectBundleFactory.ALTITUDE, null, ninjas.JumpPassThrough.NO));
+                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, lengthVert * GameObjectBundleFactory.GROUND_TILE_HEIGHT, lengthHorz * -GameObjectBundleFactory.ALTITUDE, null, ninjas.JumpPassThrough.NO));
                     break;
                 }
             case Slope.DESCENDING:
                 {
-                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, 20, lengthHorz * GameObjectBundleFactory.ALTITUDE, null, ninjas.JumpPassThrough.NO));
+                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, lengthVert * GameObjectBundleFactory.GROUND_TILE_HEIGHT, lengthHorz * GameObjectBundleFactory.ALTITUDE, null, ninjas.JumpPassThrough.NO));
                     break;
                 }
         }
@@ -30215,7 +30214,7 @@ var GameObjectFactory = /** @class */ (function () {
     *   @param y               Anchor Y.
     *   @param width           The ramp width.
     *   @param height          The ramp height.
-    *   @param deltaY          Ramp will ascend if <code>true</code> and descend if <code>false</code>.
+    *   @param deltaY          The slope of the ramp. Can be positive (descending) or negative (ascending).
     *   @param spriteTemplate  The sprite template to use for this game object.
     *   @param jumpPassThrough Specifies if the player may jump through this obstacle.
     *
@@ -30223,6 +30222,7 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createElevatedRamp = function (x, y, width, height, deltaY, spriteTemplate, jumpPassThrough) {
         var vertices = [];
+        // shape ramp
         vertices.push(matter.Vector.create(0.0, 0.0));
         vertices.push(matter.Vector.create(width, deltaY));
         vertices.push(matter.Vector.create(width, height + deltaY));
