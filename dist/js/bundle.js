@@ -29890,13 +29890,11 @@ var GameObjectBundleFactory = /** @class */ (function () {
     *   @param level   The level to add the flying ground to.
     ***************************************************************************************************************/
     GameObjectBundleFactory.createFlyingGround = function (xLeft, yTop, length, slope, capEnds, level) {
-        var OBSTACLE_HEIGHT = 90;
+        var HEIGHT_FLYING_GROUND = 90;
         var leftTile = null;
         var centerTile = null;
         var rightTile = null;
-        var drawX = xLeft;
         var drawY = 0;
-        var totalWidth = length * GameObjectBundleFactory.GROUND_TILE_WIDTH;
         var alt = 0;
         switch (slope) {
             case Slope.NONE:
@@ -29930,16 +29928,13 @@ var GameObjectBundleFactory = /** @class */ (function () {
         // draw decoration
         for (var i = 0; i < length; ++i) {
             if (i == 0 && (capEnds == CapHorz.LEFT || capEnds == CapHorz.BOTH)) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile));
-                drawX += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + i * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + leftTile.height, ninjas.StaticShape.YES, leftTile));
             }
             else if (i == length - 1 && (capEnds == CapHorz.RIGHT || capEnds == CapHorz.BOTH)) {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile));
-                drawX += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + i * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + rightTile.height, ninjas.StaticShape.YES, rightTile));
             }
             else {
-                level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile));
-                drawX += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + i * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + centerTile.height, ninjas.StaticShape.YES, centerTile));
             }
             drawY += alt;
         }
@@ -29947,14 +29942,14 @@ var GameObjectBundleFactory = /** @class */ (function () {
         switch (slope) {
             case Slope.NONE:
                 {
-                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, totalWidth, OBSTACLE_HEIGHT, 0.0, ninjas.JumpPassThrough.NO));
+                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, 0.0, ninjas.JumpPassThrough.NO));
                     break;
                 }
             case Slope.ASCENDING:
             case Slope.DESCENDING:
                 {
                     var deltaY = (alt * length);
-                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, totalWidth, OBSTACLE_HEIGHT, deltaY, null, ninjas.JumpPassThrough.NO));
+                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, deltaY, null, ninjas.JumpPassThrough.NO));
                     break;
                 }
         }
@@ -29981,19 +29976,15 @@ var GameObjectBundleFactory = /** @class */ (function () {
         var leftBottomTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_LEFT_BOTTOM);
         var bottomTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_BOTTOM);
         var rightBottomTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_RIGHT_BOTTOM);
-        var drawX = xLeft;
         var drawY = yTop;
-        var drawYfirstLine = 0.0;
+        var drawYfirstLine = yTop;
         var firstLineAlt = 0.0;
-        var totalWidth = 0.0;
-        var totalHeight = 0.0;
         switch (slope) {
             case Slope.NONE:
                 {
                     leftTopTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_LEFT_TOP);
                     topTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_TOP);
                     rightTopTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_RIGHT_TOP);
-                    drawYfirstLine = yTop;
                     firstLineAlt = 0.0;
                     break;
                 }
@@ -30002,7 +29993,6 @@ var GameObjectBundleFactory = /** @class */ (function () {
                     leftTopTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_ASCENDING_LEFT_TOP);
                     topTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_ASCENDING_TOP);
                     rightTopTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_ASCENDING_RIGHT_TOP);
-                    drawYfirstLine = yTop;
                     firstLineAlt = -GameObjectBundleFactory.ALTITUDE;
                     break;
                 }
@@ -30011,7 +30001,6 @@ var GameObjectBundleFactory = /** @class */ (function () {
                     leftTopTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_DESCENDING_LEFT_TOP);
                     topTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_DESCENDING_TOP);
                     rightTopTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP);
-                    drawYfirstLine = yTop;
                     firstLineAlt = GameObjectBundleFactory.ALTITUDE;
                     break;
                 }
@@ -30021,22 +30010,15 @@ var GameObjectBundleFactory = /** @class */ (function () {
             if (i == 0) {
                 // add top line
                 if (capVert == CapVert.TOP || capVert == CapVert.BOTH) {
-                    drawX = xLeft;
-                    totalWidth = 0.0;
                     for (var j = 0; j < lengthHorz; ++j) {
                         if (j == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawYfirstLine + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftTopTile));
-                            drawX += GameObjectBundleFactory.GROUND_TILE_WIDTH;
-                            totalWidth += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + j * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawYfirstLine + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftTopTile));
                         }
                         else if (j == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawYfirstLine + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightTopTile));
-                            totalWidth += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + j * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawYfirstLine + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightTopTile));
                         }
                         else {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawYfirstLine + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, topTile));
-                            drawX += GameObjectBundleFactory.GROUND_TILE_WIDTH;
-                            totalWidth += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + j * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawYfirstLine + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, topTile));
                         }
                         drawYfirstLine += firstLineAlt;
                         if (j == 0 && slope == Slope.DESCENDING) {
@@ -30044,62 +30026,56 @@ var GameObjectBundleFactory = /** @class */ (function () {
                         }
                     }
                     drawY += GameObjectBundleFactory.GROUND_TILE_HEIGHT;
-                    totalHeight += GameObjectBundleFactory.GROUND_TILE_HEIGHT;
                 }
             }
             else if (i == lengthVert - 1) {
                 // add bottom line
                 if (capVert == CapVert.BOTTOM || capVert == CapVert.BOTH) {
-                    drawX = xLeft;
-                    totalWidth = 0.0;
                     for (var j = 0; j < lengthHorz; ++j) {
                         if (j == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftBottomTile));
-                            drawX += GameObjectBundleFactory.GROUND_TILE_WIDTH;
-                            totalWidth += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + j * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftBottomTile));
                         }
                         else if (j == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightBottomTile));
-                            totalWidth += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + j * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightBottomTile));
                         }
                         else {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, bottomTile));
-                            drawX += GameObjectBundleFactory.GROUND_TILE_WIDTH;
-                            totalWidth += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + j * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, bottomTile));
                         }
                     }
-                    totalHeight += GameObjectBundleFactory.GROUND_TILE_HEIGHT;
                 }
             }
             else {
                 // add middle lines
-                drawX = xLeft;
-                totalWidth = 0.0;
                 for (var j = 0; j < lengthHorz; ++j) {
                     if (j == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
-                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftTile));
-                        drawX += GameObjectBundleFactory.GROUND_TILE_WIDTH;
-                        totalWidth += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + j * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftTile));
                     }
                     else if (j == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
-                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightTile));
-                        totalWidth += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + j * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightTile));
                     }
                     else {
-                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(drawX, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, centerTile));
-                        drawX += GameObjectBundleFactory.GROUND_TILE_WIDTH;
-                        totalWidth += GameObjectBundleFactory.GROUND_TILE_WIDTH;
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + j * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, centerTile));
                     }
                 }
                 drawY += GameObjectBundleFactory.GROUND_TILE_HEIGHT;
-                totalHeight += GameObjectBundleFactory.GROUND_TILE_HEIGHT;
             }
         }
         // add single obstacle object
         switch (slope) {
             case Slope.NONE:
                 {
-                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, totalWidth, totalHeight, 0.0, ninjas.JumpPassThrough.NO));
+                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, lengthVert * GameObjectBundleFactory.GROUND_TILE_HEIGHT, 0.0, ninjas.JumpPassThrough.NO));
+                    break;
+                }
+            case Slope.ASCENDING:
+                {
+                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, lengthVert * GameObjectBundleFactory.GROUND_TILE_HEIGHT, 0.0, ninjas.JumpPassThrough.NO));
+                    break;
+                }
+            case Slope.DESCENDING:
+                {
+                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, lengthVert * GameObjectBundleFactory.GROUND_TILE_HEIGHT, 0.0, ninjas.JumpPassThrough.NO));
+                    break;
                 }
         }
     };
