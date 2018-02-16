@@ -20,6 +20,11 @@
         /** The border size for the site panel and all HUD elements in px. */
         public      static  readonly    BORDER_SIZE                                 :number                     = 20;
 
+        /** The player's start position X. */
+        public  static  readonly    PLAYER_START_POSITION_X                         :number                     = 942;
+        /** The player's start position Y. */
+        public  static  readonly    PLAYER_START_POSITION_Y                         :number                     = 4000;
+
         /** The maximum width for the site panel. */
         public      static  readonly    SITE_PANEL_MAX_WIDTH                        :number                     = 600;
         /** The duration for showing and hiding the site panel in ms. */

@@ -531,7 +531,7 @@
         *   Creates a site trigger.
         *
         *   @param x                   Anchor X.
-        *   @param y                   Anchor Y.
+        *   @param yBottom             Anchor of bottom Y.
         *   @param width               Object width.
         *   @param height              Object height.
         *   @param sitePanelAppearance The position for the site panel to appear.
@@ -541,7 +541,7 @@
         public static createSiteTrigger
         (
             x                   :number,
-            y                   :number,
+            yBottom             :number,
             width               :number,
             height              :number,
             sitePanelAppearance :ninjas.SitePanelAppearance
@@ -563,7 +563,7 @@
                 ),
                 null,
                 x,
-                y,
+                yBottom - height,
                 sitePanelAppearance
             );
         }

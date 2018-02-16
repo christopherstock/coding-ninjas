@@ -27631,6 +27631,10 @@ var SettingGame = /** @class */ (function () {
     SettingGame.RENDER_DELTA = 10.0;
     /** The border size for the site panel and all HUD elements in px. */
     SettingGame.BORDER_SIZE = 20;
+    /** The player's start position X. */
+    SettingGame.PLAYER_START_POSITION_X = 942;
+    /** The player's start position Y. */
+    SettingGame.PLAYER_START_POSITION_Y = 4000;
     /** The maximum width for the site panel. */
     SettingGame.SITE_PANEL_MAX_WIDTH = 600;
     /** The duration for showing and hiding the site panel in ms. */
@@ -29620,7 +29624,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     function LevelWebsite() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         /** The width of this level. */
-        _this.width = 13884.0;
+        _this.width = 16444.0;
         /** The height of this level. */
         _this.height = 10000.0;
         return _this;
@@ -29633,22 +29637,21 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.parallaxBgs =
             [];
         this.decosBg =
-            [
-                ninjas.GameObjectFactory.createDecorationCircular(4400, 1750, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_2)),
-            ];
-        this.siteTriggers =
             [];
+        this.siteTriggers =
+            [
+                ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 600, 500, ninjas.SitePanelAppearance.LEFT),
+                ninjas.GameObjectFactory.createSiteTrigger(15144, 5100, 600, 500, ninjas.SitePanelAppearance.RIGHT),
+            ];
         this.obstacles =
             [];
         this.movables =
             [];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(8000, 4500, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(15000, 4000, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.decosFg =
-            [
-                ninjas.GameObjectFactory.createDecorationCircular(4430, 1500, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_1)),
-            ];
+            [];
         this.parallaxFgs =
             [];
         /*
@@ -29696,7 +29699,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createSolidGround(this, 3584, 4800, 20, 10, ninjas.Slope.NONE, ninjas.CapHorz.RIGHT);
         ninjas.GameObjectBundleFactory.createSolidGround(this, 6844, 4800, 15, 10, ninjas.Slope.NONE, ninjas.CapHorz.LEFT);
         ninjas.GameObjectBundleFactory.createSolidGround(this, 8764, 4800, 15, 10, ninjas.Slope.DESCENDING, ninjas.CapHorz.NONE);
-        ninjas.GameObjectBundleFactory.createSolidGround(this, 10684, 5100, 25, 10, ninjas.Slope.NONE, ninjas.CapHorz.NONE);
+        ninjas.GameObjectBundleFactory.createSolidGround(this, 10684, 5100, 45, 10, ninjas.Slope.NONE, ninjas.CapHorz.NONE);
         ninjas.GameObjectBundleFactory.createSolidGround(this, 12000, 4200, 12, 2, ninjas.Slope.NONE, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 5062, 4430, 3, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 4038, 4060, 7, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
@@ -30292,15 +30295,15 @@ var GameObjectFactory = /** @class */ (function () {
     *   Creates a site trigger.
     *
     *   @param x                   Anchor X.
-    *   @param y                   Anchor Y.
+    *   @param yBottom             Anchor of bottom Y.
     *   @param width               Object width.
     *   @param height              Object height.
     *   @param sitePanelAppearance The position for the site panel to appear.
     *
     *   @return The created site trigger.
     ***************************************************************************************************************/
-    GameObjectFactory.createSiteTrigger = function (x, y, width, height, sitePanelAppearance) {
-        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_SITE_TRIGGER, ninjas.StaticShape.YES, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), null, x, y, sitePanelAppearance);
+    GameObjectFactory.createSiteTrigger = function (x, yBottom, width, height, sitePanelAppearance) {
+        return new ninjas.SiteTrigger(new ninjas.ShapeRectangle(width, height, ninjas.DebugColor.COLOR_DEBUG_SITE_TRIGGER, ninjas.StaticShape.YES, 0.0, ninjas.BodyFriction.DEFAULT, ninjas.BodyDensity.INFINITE, ninjas.BodyRestitution.DEFAULT), null, x, yBottom - height, sitePanelAppearance);
     };
     /***************************************************************************************************************
     *   Creates a sigsaw.
