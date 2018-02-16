@@ -10,7 +10,7 @@
     export class LevelWebsite extends ninjas.Level
     {
         /** The width of this level. */
-        public      width                   :number                     = 10000.0;
+        public      width                   :number                     = 13884.0;
         /** The height of this level. */
         public      height                  :number                     = 10000.0;
 
@@ -54,10 +54,11 @@
 
             this.movables =
             [
+/*
                 ninjas.GameObjectFactory.createWoodenCrate(  750,  2100 ),
                 ninjas.GameObjectFactory.createWoodenCrate(  250,  2500 ),
                 ninjas.GameObjectFactory.createWoodenCrate(  700,  2500 ),
-
+*/
                 // ninjas.GameObjectFactory.createMetalCrate(   1000, 2100 ),
                 // ninjas.GameObjectFactory.createSphere( 1200, 2500, ninjas.SettingMatterJs.FRICTION_ICE, ninjas.SettingMatterJs.DENSITY_DEFAULT ),
             ];
@@ -70,8 +71,8 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                0,
-                1000,
+                8000,
+                4500,
                 ninjas.CharacterLookingDirection.RIGHT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );
@@ -125,21 +126,17 @@
 */
 
             // crafting the level!
-/*
-            ninjas.GameObjectBundleFactory.createFlyingGround( 0,    2500, 5, ninjas.CapHorz.LEFT,  this );
-            ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapHorz.BOTH,  this );
-            ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapHorz.RIGHT, this );
-*/
+            ninjas.GameObjectBundleFactory.createSolidGround( this, 0,     5000, 18, 10, ninjas.Slope.NONE,       ninjas.CapHorz.NONE  );
+            ninjas.GameObjectBundleFactory.createSolidGround( this, 2304,  5000, 10, 10, ninjas.Slope.ASCENDING,  ninjas.CapHorz.NONE  );
+            ninjas.GameObjectBundleFactory.createSolidGround( this, 3584,  4800, 20, 10, ninjas.Slope.NONE,       ninjas.CapHorz.RIGHT );
+            ninjas.GameObjectBundleFactory.createSolidGround( this, 6844,  4800, 15, 10, ninjas.Slope.NONE,       ninjas.CapHorz.LEFT  );
+            ninjas.GameObjectBundleFactory.createSolidGround( this, 8764,  4800, 15, 10, ninjas.Slope.DESCENDING, ninjas.CapHorz.NONE  );
+            ninjas.GameObjectBundleFactory.createSolidGround( this, 10684, 5100, 25, 10, ninjas.Slope.NONE,       ninjas.CapHorz.NONE  );
+            ninjas.GameObjectBundleFactory.createSolidGround( this, 12000, 4200, 12,  2, ninjas.Slope.NONE,       ninjas.CapHorz.BOTH  );
 
-
-
-/*
-            ninjas.GameObjectBundleFactory.createFlyingGround( 3100, 2300, 2, ninjas.Slope.NONE,       ninjas.CapHorz.BOTH, this );
-            ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2300, 3, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, this );
-            ninjas.GameObjectBundleFactory.createFlyingGround( 4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this );
-*/
-            ninjas.GameObjectBundleFactory.createSolidGround(  0,    1000, 5,  5,  ninjas.Slope.NONE,       ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
-            ninjas.GameObjectBundleFactory.createSolidGround(  800,  1000, 20, 10, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
-            ninjas.GameObjectBundleFactory.createSolidGround(  3600, 1000, 10, 10, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 5062,  4430, 3, ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 4038,  4060, 7, ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 9800,  4600, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 10800, 4400, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
         }
     }

@@ -36,24 +36,6 @@
     }
 
     /*******************************************************************************************************************
-    *   Specifies capping for vertical compound ends.
-    *
-    *   @author     Christopher Stock
-    *   @version    0.0.1
-    *******************************************************************************************************************/
-    export enum CapVert
-    {
-        /** No vertical capping. */
-        NONE,
-        /** Cap top line. */
-        TOP,
-        /** Cap bottom line. */
-        BOTTOM,
-        /** Cap top and bottom line. */
-        BOTH,
-    }
-
-    /*******************************************************************************************************************
     *   Creates bundled instances of game objects.
     *
     *   @author     Christopher Stock
@@ -71,21 +53,23 @@
         /***************************************************************************************************************
         *   Creates a flying ground.
         *
-        *   @param xLeft   Anchor for left X.
-        *   @param yTop    Anchor for top Y.
-        *   @param length  The length of the ground.
-        *   @param slope   Specifies the slope for this ground.
-        *   @param capEnds Specifies end cappings.
-        *   @param level   The level to add the flying ground to.
+        *   @param level       The level to add the flying ground to.
+        *   @param xLeft       Anchor for left X.
+        *   @param yTop        Anchor for top Y.
+        *   @param length      The length of the ground.
+        *   @param slope       Specifies the slope for this ground.
+        *   @param jumpThrough Specified if the player may jump through this ground.
+        *   @param capEnds     Specifies end cappings.
         ***************************************************************************************************************/
         public static createFlyingGround
         (
-            xLeft   :number,
-            yTop    :number,
-            length  :number,
-            slope   :Slope,
-            capEnds :CapHorz,
-            level   :ninjas.Level
+            level       :ninjas.Level,
+            xLeft       :number,
+            yTop        :number,
+            length      :number,
+            slope       :Slope,
+            jumpThrough :ninjas.JumpPassThrough,
+            capEnds     :CapHorz
         )
         : void
         {
@@ -161,14 +145,14 @@
             {
                 case Slope.NONE:
                 {
-                    level.obstacles.push( ninjas.GameObjectFactory.createObstacleSpriteless( xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, 0.0, ninjas.JumpPassThrough.NO ) );
+                    level.obstacles.push( ninjas.GameObjectFactory.createObstacleSpriteless( xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, 0.0, jumpThrough ) );
                     break;
                 }
 
                 case Slope.ASCENDING:
                 case Slope.DESCENDING:
                 {
-                    level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, ( alt * length ), null, ninjas.JumpPassThrough.NO ) );
+                    level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, ( alt * length ), null, jumpThrough ) );
                     break;
                 }
             }
@@ -177,25 +161,23 @@
         /***************************************************************************************************************
         *   Creates a solid ground.
         *
+        *   @param level        The level to add the solid ground to.
         *   @param xLeft        Anchor for left X.
         *   @param yTop         Anchor for top Y.
         *   @param lengthHorz   The number of horizontal elements.
         *   @param lengthVert   The number of vertical elements.
         *   @param slope        Specifies the slope for this ground.
         *   @param capHorz      Specifies horizontal end cappings.
-        *   @param capVert      Specifies vertical end cappings.
-        *   @param level        The level to add the flying ground to.
         ***************************************************************************************************************/
         public static createSolidGround
         (
+            level      :ninjas.Level,
             xLeft      :number,
             yTop       :number,
             lengthHorz :number,
             lengthVert :number,
             slope      :Slope,
-            capHorz    :CapHorz,
-            capVert    :CapVert,
-            level      :ninjas.Level
+            capHorz    :CapHorz
         )
         : void
         {
@@ -259,53 +241,47 @@
                 if ( tileY == 0 )
                 {
                     // add top line
-                    if ( capVert == CapVert.TOP  || capVert == CapVert.BOTH )
+                    let drawY:number = firstLineDrawY;
+
+                    for ( let tileX:number = 0; tileX < lengthHorz; ++tileX )
                     {
-                        let drawY:number = firstLineDrawY;
-
-                        for ( let tileX:number = 0; tileX < lengthHorz; ++tileX )
+                        if ( tileX == 0 && ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH ) )
                         {
-                            if ( tileX == 0 && ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH ) )
-                            {
-                                level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftTopTile ) );
-                            }
-                            else if ( tileX == lengthHorz - 1 && ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH ) )
-                            {
-                                level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightTopTile ) );
-                            }
-                            else
-                            {
-                                level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, topTile ) );
-                            }
-
-                            drawY += firstLineAlt;
+                            level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftTopTile ) );
                         }
+                        else if ( tileX == lengthHorz - 1 && ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH ) )
+                        {
+                            level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightTopTile ) );
+                        }
+                        else
+                        {
+                            level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, topTile ) );
+                        }
+
+                        drawY += firstLineAlt;
                     }
                 }
                 else if ( tileY == lengthVert - 1 )
                 {
                     // add bottom line
-                    if ( capVert == CapVert.BOTTOM  || capVert == CapVert.BOTH )
+                    let drawY:number = firstLineDrawY + tileY * GameObjectBundleFactory.GROUND_TILE_HEIGHT;
+
+                    for ( let tileX:number = 0; tileX < lengthHorz; ++tileX )
                     {
-                        let drawY:number = firstLineDrawY + tileY * GameObjectBundleFactory.GROUND_TILE_HEIGHT;
-
-                        for ( let tileX:number = 0; tileX < lengthHorz; ++tileX )
+                        if ( tileX == 0 && ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH ) )
                         {
-                            if ( tileX == 0 && ( capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH ) )
-                            {
-                                level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftBottomTile ) );
-                            }
-                            else if ( tileX == lengthHorz - 1 && ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH ) )
-                            {
-                                level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightBottomTile ) );
-                            }
-                            else
-                            {
-                                level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, bottomTile ) );
-                            }
-
-                            drawY += firstLineAlt;
+                            level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftBottomTile ) );
                         }
+                        else if ( tileX == lengthHorz - 1 && ( capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH ) )
+                        {
+                            level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightBottomTile ) );
+                        }
+                        else
+                        {
+                            level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, bottomTile ) );
+                        }
+
+                        drawY += firstLineAlt;
                     }
                 }
                 else

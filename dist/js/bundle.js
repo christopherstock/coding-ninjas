@@ -27439,7 +27439,9 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
+*   TODO Create all site triggers for level 'website'.
 *   TODO Add react for site content creation.
+*   TODO Create bridge obstacle, sprite and water deco sprite.
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Try ant design (pro?) in front panel.
 *
@@ -27461,6 +27463,7 @@ var ninjas = __webpack_require__(1);
 *   TODO Ability to smash crates or destroyables etc.
 *   TODO Particle fx smashed crates, startup window etc.
 *   TODO Add jest tests.
+*   TODO Add event triggers (obstacle falling down on touching trigger etc.)
 *   TODO Add cucumber tests.
 *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
 *   TODO Test in all browsers.
@@ -29617,7 +29620,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     function LevelWebsite() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         /** The width of this level. */
-        _this.width = 10000.0;
+        _this.width = 13884.0;
         /** The height of this level. */
         _this.height = 10000.0;
         return _this;
@@ -29638,14 +29641,10 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.obstacles =
             [];
         this.movables =
-            [
-                ninjas.GameObjectFactory.createWoodenCrate(750, 2100),
-                ninjas.GameObjectFactory.createWoodenCrate(250, 2500),
-                ninjas.GameObjectFactory.createWoodenCrate(700, 2500),
-            ];
+            [];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(0, 1000, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(8000, 4500, ninjas.CharacterLookingDirection.RIGHT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.decosFg =
             [
                 ninjas.GameObjectFactory.createDecorationCircular(4430, 1500, ninjas.StaticShape.NO, ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BOULDER_1)),
@@ -29692,19 +29691,17 @@ var LevelWebsite = /** @class */ (function (_super) {
                     ),
         */
         // crafting the level!
-        /*
-                    ninjas.GameObjectBundleFactory.createFlyingGround( 0,    2500, 5, ninjas.CapHorz.LEFT,  this );
-                    ninjas.GameObjectBundleFactory.createFlyingGround( 1200, 2500, 4, ninjas.CapHorz.BOTH,  this );
-                    ninjas.GameObjectBundleFactory.createFlyingGround( 2200, 2500, 6, ninjas.CapHorz.RIGHT, this );
-        */
-        /*
-                    ninjas.GameObjectBundleFactory.createFlyingGround( 3100, 2300, 2, ninjas.Slope.NONE,       ninjas.CapHorz.BOTH, this );
-                    ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2300, 3, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, this );
-                    ninjas.GameObjectBundleFactory.createFlyingGround( 4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this );
-        */
-        ninjas.GameObjectBundleFactory.createSolidGround(0, 1000, 5, 5, ninjas.Slope.NONE, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this);
-        ninjas.GameObjectBundleFactory.createSolidGround(800, 1000, 20, 10, ninjas.Slope.ASCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
-        ninjas.GameObjectBundleFactory.createSolidGround(3600, 1000, 10, 10, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
+        ninjas.GameObjectBundleFactory.createSolidGround(this, 0, 5000, 18, 10, ninjas.Slope.NONE, ninjas.CapHorz.NONE);
+        ninjas.GameObjectBundleFactory.createSolidGround(this, 2304, 5000, 10, 10, ninjas.Slope.ASCENDING, ninjas.CapHorz.NONE);
+        ninjas.GameObjectBundleFactory.createSolidGround(this, 3584, 4800, 20, 10, ninjas.Slope.NONE, ninjas.CapHorz.RIGHT);
+        ninjas.GameObjectBundleFactory.createSolidGround(this, 6844, 4800, 15, 10, ninjas.Slope.NONE, ninjas.CapHorz.LEFT);
+        ninjas.GameObjectBundleFactory.createSolidGround(this, 8764, 4800, 15, 10, ninjas.Slope.DESCENDING, ninjas.CapHorz.NONE);
+        ninjas.GameObjectBundleFactory.createSolidGround(this, 10684, 5100, 25, 10, ninjas.Slope.NONE, ninjas.CapHorz.NONE);
+        ninjas.GameObjectBundleFactory.createSolidGround(this, 12000, 4200, 12, 2, ninjas.Slope.NONE, ninjas.CapHorz.BOTH);
+        ninjas.GameObjectBundleFactory.createFlyingGround(this, 5062, 4430, 3, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
+        ninjas.GameObjectBundleFactory.createFlyingGround(this, 4038, 4060, 7, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
+        ninjas.GameObjectBundleFactory.createFlyingGround(this, 9800, 4600, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
+        ninjas.GameObjectBundleFactory.createFlyingGround(this, 10800, 4400, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -29853,23 +29850,6 @@ var CapHorz;
     CapHorz[CapHorz["BOTH"] = 3] = "BOTH";
 })(CapHorz = exports.CapHorz || (exports.CapHorz = {}));
 /*******************************************************************************************************************
-*   Specifies capping for vertical compound ends.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var CapVert;
-(function (CapVert) {
-    /** No vertical capping. */
-    CapVert[CapVert["NONE"] = 0] = "NONE";
-    /** Cap top line. */
-    CapVert[CapVert["TOP"] = 1] = "TOP";
-    /** Cap bottom line. */
-    CapVert[CapVert["BOTTOM"] = 2] = "BOTTOM";
-    /** Cap top and bottom line. */
-    CapVert[CapVert["BOTH"] = 3] = "BOTH";
-})(CapVert = exports.CapVert || (exports.CapVert = {}));
-/*******************************************************************************************************************
 *   Creates bundled instances of game objects.
 *
 *   @author     Christopher Stock
@@ -29881,14 +29861,15 @@ var GameObjectBundleFactory = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a flying ground.
     *
-    *   @param xLeft   Anchor for left X.
-    *   @param yTop    Anchor for top Y.
-    *   @param length  The length of the ground.
-    *   @param slope   Specifies the slope for this ground.
-    *   @param capEnds Specifies end cappings.
-    *   @param level   The level to add the flying ground to.
+    *   @param level       The level to add the flying ground to.
+    *   @param xLeft       Anchor for left X.
+    *   @param yTop        Anchor for top Y.
+    *   @param length      The length of the ground.
+    *   @param slope       Specifies the slope for this ground.
+    *   @param jumpThrough Specified if the player may jump through this ground.
+    *   @param capEnds     Specifies end cappings.
     ***************************************************************************************************************/
-    GameObjectBundleFactory.createFlyingGround = function (xLeft, yTop, length, slope, capEnds, level) {
+    GameObjectBundleFactory.createFlyingGround = function (level, xLeft, yTop, length, slope, jumpThrough, capEnds) {
         var HEIGHT_FLYING_GROUND = 90;
         var leftTile = null;
         var centerTile = null;
@@ -29941,13 +29922,13 @@ var GameObjectBundleFactory = /** @class */ (function () {
         switch (slope) {
             case Slope.NONE:
                 {
-                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, 0.0, ninjas.JumpPassThrough.NO));
+                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, 0.0, jumpThrough));
                     break;
                 }
             case Slope.ASCENDING:
             case Slope.DESCENDING:
                 {
-                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, (alt * length), null, ninjas.JumpPassThrough.NO));
+                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, (alt * length), null, jumpThrough));
                     break;
                 }
         }
@@ -29955,16 +29936,15 @@ var GameObjectBundleFactory = /** @class */ (function () {
     /***************************************************************************************************************
     *   Creates a solid ground.
     *
+    *   @param level        The level to add the solid ground to.
     *   @param xLeft        Anchor for left X.
     *   @param yTop         Anchor for top Y.
     *   @param lengthHorz   The number of horizontal elements.
     *   @param lengthVert   The number of vertical elements.
     *   @param slope        Specifies the slope for this ground.
     *   @param capHorz      Specifies horizontal end cappings.
-    *   @param capVert      Specifies vertical end cappings.
-    *   @param level        The level to add the flying ground to.
     ***************************************************************************************************************/
-    GameObjectBundleFactory.createSolidGround = function (xLeft, yTop, lengthHorz, lengthVert, slope, capHorz, capVert, level) {
+    GameObjectBundleFactory.createSolidGround = function (level, xLeft, yTop, lengthHorz, lengthVert, slope, capHorz) {
         var leftTopTile = null;
         var topTile = null;
         var rightTopTile = null;
@@ -30009,38 +29989,34 @@ var GameObjectBundleFactory = /** @class */ (function () {
         for (var tileY = 0; tileY < lengthVert; ++tileY) {
             if (tileY == 0) {
                 // add top line
-                if (capVert == CapVert.TOP || capVert == CapVert.BOTH) {
-                    var drawY = firstLineDrawY;
-                    for (var tileX = 0; tileX < lengthHorz; ++tileX) {
-                        if (tileX == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftTopTile));
-                        }
-                        else if (tileX == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightTopTile));
-                        }
-                        else {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, topTile));
-                        }
-                        drawY += firstLineAlt;
+                var drawY = firstLineDrawY;
+                for (var tileX = 0; tileX < lengthHorz; ++tileX) {
+                    if (tileX == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftTopTile));
                     }
+                    else if (tileX == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightTopTile));
+                    }
+                    else {
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, topTile));
+                    }
+                    drawY += firstLineAlt;
                 }
             }
             else if (tileY == lengthVert - 1) {
                 // add bottom line
-                if (capVert == CapVert.BOTTOM || capVert == CapVert.BOTH) {
-                    var drawY = firstLineDrawY + tileY * GameObjectBundleFactory.GROUND_TILE_HEIGHT;
-                    for (var tileX = 0; tileX < lengthHorz; ++tileX) {
-                        if (tileX == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftBottomTile));
-                        }
-                        else if (tileX == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightBottomTile));
-                        }
-                        else {
-                            level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, bottomTile));
-                        }
-                        drawY += firstLineAlt;
+                var drawY = firstLineDrawY + tileY * GameObjectBundleFactory.GROUND_TILE_HEIGHT;
+                for (var tileX = 0; tileX < lengthHorz; ++tileX) {
+                    if (tileX == 0 && (capHorz == CapHorz.LEFT || capHorz == CapHorz.BOTH)) {
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, leftBottomTile));
                     }
+                    else if (tileX == lengthHorz - 1 && (capHorz == CapHorz.RIGHT || capHorz == CapHorz.BOTH)) {
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, rightBottomTile));
+                    }
+                    else {
+                        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, drawY + GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, bottomTile));
+                    }
+                    drawY += firstLineAlt;
                 }
             }
             else {

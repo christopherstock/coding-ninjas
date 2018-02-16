@@ -4,7 +4,9 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Create all site triggers for level 'website'.
     *   TODO Add react for site content creation.
+    *   TODO Create bridge obstacle, sprite and water deco sprite.
     *   TODO Step-Flow-Meter (progress, navi etc.) in React.
     *   TODO Try ant design (pro?) in front panel.
     *
@@ -26,6 +28,7 @@
     *   TODO Ability to smash crates or destroyables etc.
     *   TODO Particle fx smashed crates, startup window etc.
     *   TODO Add jest tests.
+    *   TODO Add event triggers (obstacle falling down on touching trigger etc.)
     *   TODO Add cucumber tests.
     *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
     *   TODO Test in all browsers.
