@@ -250,12 +250,14 @@
                     topTile      = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_SOLID_DESCENDING_TOP       );
                     rightTopTile = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP );
 
-
+                    drawYfirstLine = yTop;
+                    firstLineAlt   = GameObjectBundleFactory.ALTITUDE;
 
                     break;
                 }
             }
 
+            // draw lines bottom up
             for ( let i:number = 0; i < lengthVert; ++i )
             {
                 if ( i == 0 )
@@ -287,6 +289,11 @@
                             }
 
                             drawYfirstLine += firstLineAlt;
+
+                            if ( j == 0 && slope == Slope.DESCENDING )
+                            {
+                                drawYfirstLine += firstLineAlt;
+                            }
                         }
                         drawY       += GameObjectBundleFactory.GROUND_TILE_HEIGHT;
                         totalHeight += GameObjectBundleFactory.GROUND_TILE_HEIGHT;
@@ -357,6 +364,16 @@
             }
 
             // add single obstacle object
-            level.obstacles.push( ninjas.GameObjectFactory.createObstacleSpriteless( xLeft, yTop, totalWidth, totalHeight, 0.0, ninjas.JumpPassThrough.NO ) );
+            switch ( slope )
+            {
+                case Slope.NONE:
+                {
+                    level.obstacles.push( ninjas.GameObjectFactory.createObstacleSpriteless( xLeft, yTop, totalWidth, totalHeight, 0.0, ninjas.JumpPassThrough.NO ) );
+                }
+
+
+
+            }
+
         }
     }

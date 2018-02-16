@@ -29705,7 +29705,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createFlyingGround(4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this);
         ninjas.GameObjectBundleFactory.createSolidGround(4400, 2500, 4, 4, ninjas.Slope.NONE, ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this);
         ninjas.GameObjectBundleFactory.createSolidGround(5000, 2200, 5, 5, ninjas.Slope.ASCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
-        ninjas.GameObjectBundleFactory.createSolidGround(6000, 2200, 5, 5, ninjas.Slope.ASCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
+        ninjas.GameObjectBundleFactory.createSolidGround(6000, 2200, 5, 5, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -30011,9 +30011,12 @@ var GameObjectBundleFactory = /** @class */ (function () {
                     leftTopTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_DESCENDING_LEFT_TOP);
                     topTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_DESCENDING_TOP);
                     rightTopTile = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP);
+                    drawYfirstLine = yTop;
+                    firstLineAlt = GameObjectBundleFactory.ALTITUDE;
                     break;
                 }
         }
+        // draw lines bottom up
         for (var i = 0; i < lengthVert; ++i) {
             if (i == 0) {
                 // add top line
@@ -30036,6 +30039,9 @@ var GameObjectBundleFactory = /** @class */ (function () {
                             totalWidth += GameObjectBundleFactory.GROUND_TILE_WIDTH;
                         }
                         drawYfirstLine += firstLineAlt;
+                        if (j == 0 && slope == Slope.DESCENDING) {
+                            drawYfirstLine += firstLineAlt;
+                        }
                     }
                     drawY += GameObjectBundleFactory.GROUND_TILE_HEIGHT;
                     totalHeight += GameObjectBundleFactory.GROUND_TILE_HEIGHT;
@@ -30090,7 +30096,12 @@ var GameObjectBundleFactory = /** @class */ (function () {
             }
         }
         // add single obstacle object
-        level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, totalWidth, totalHeight, 0.0, ninjas.JumpPassThrough.NO));
+        switch (slope) {
+            case Slope.NONE:
+                {
+                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, totalWidth, totalHeight, 0.0, ninjas.JumpPassThrough.NO));
+                }
+        }
     };
     /** The altitude of elevated grounds. */
     GameObjectBundleFactory.ALTITUDE = 20;
