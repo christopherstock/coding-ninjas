@@ -27439,7 +27439,8 @@ var ninjas = __webpack_require__(1);
 /*******************************************************************************************************************
 *   The main class contains the application's points of entry and termination.
 *
-*   TODO Create all site triggers for level 'website'.
+*   TODO Add different contents for site panels.
+*   TODO Only create site panel contents once. Create initializer method for this.
 *   TODO Add react for site content creation.
 *   TODO Create bridge obstacle, sprite and water deco sprite.
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
@@ -29638,18 +29639,22 @@ var LevelWebsite = /** @class */ (function (_super) {
             [];
         this.decosBg =
             [];
-        this.siteTriggers =
-            [
-                ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 600, 500, ninjas.SitePanelAppearance.LEFT),
-                ninjas.GameObjectFactory.createSiteTrigger(15144, 5100, 600, 500, ninjas.SitePanelAppearance.RIGHT),
-            ];
         this.obstacles =
             [];
         this.movables =
             [];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(15000, 4000, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(10000, 4500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.siteTriggers =
+            [
+                ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 600, 500, ninjas.SitePanelAppearance.LEFT),
+                ninjas.GameObjectFactory.createSiteTrigger(3800, 4800, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
+                ninjas.GameObjectFactory.createSiteTrigger(3782, 4060, 600, 500, ninjas.SitePanelAppearance.LEFT),
+                ninjas.GameObjectFactory.createSiteTrigger(7564, 4800, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
+                ninjas.GameObjectFactory.createSiteTrigger(12536, 4200, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
+                ninjas.GameObjectFactory.createSiteTrigger(14744, 5100, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
+            ];
         this.decosFg =
             [];
         this.parallaxFgs =
@@ -29702,7 +29707,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createSolidGround(this, 10684, 5100, 45, 10, ninjas.Slope.NONE, ninjas.CapHorz.NONE);
         ninjas.GameObjectBundleFactory.createSolidGround(this, 12000, 4200, 12, 2, ninjas.Slope.NONE, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 5062, 4430, 3, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
-        ninjas.GameObjectBundleFactory.createFlyingGround(this, 4038, 4060, 7, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
+        ninjas.GameObjectBundleFactory.createFlyingGround(this, 3782, 4060, 9, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 9800, 4600, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 10800, 4400, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
     };

@@ -4,7 +4,8 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Create all site triggers for level 'website'.
+    *   TODO Add different contents for site panels.
+    *   TODO Only create site panel contents once. Create initializer method for this.
     *   TODO Add react for site content creation.
     *   TODO Create bridge obstacle, sprite and water deco sprite.
     *   TODO Step-Flow-Meter (progress, navi etc.) in React.
