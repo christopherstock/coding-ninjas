@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Create elevated solid ramps.
     *   TODO Add react for site content creation.
     *   TODO Step-Flow-Meter (progress, navi etc.) in React.
     *   TODO Try ant design (pro?) in front panel.
@@ -14,7 +13,8 @@
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Fixed positioning for camera on first scene (player floating in).
     *   TODO Add decoration particle effects.
-    *   TODO Add and assign actions and sprites for 'attack', 'jump attack' and 'slide'sprites?
+    *   TODO Add 'slide' sprite.
+    *   TODO Add and assign actions and sprites for 'attack' and 'jump attack'?
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Add items and item sprites.
     *   TODO Create HUD ( for items 1st ).
