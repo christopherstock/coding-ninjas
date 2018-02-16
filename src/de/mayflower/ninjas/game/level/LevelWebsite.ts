@@ -132,8 +132,8 @@
             ninjas.GameObjectBundleFactory.createFlyingGround( 3600, 2300, 3, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, this );
             ninjas.GameObjectBundleFactory.createFlyingGround( 4100, 2300, 3, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, this );
 
-            ninjas.GameObjectBundleFactory.createSolidGround(  4400, 2500, 4, 4, ninjas.Slope.NONE,       ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
-            ninjas.GameObjectBundleFactory.createSolidGround(  5000, 2200, 5, 5, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
-            ninjas.GameObjectBundleFactory.createSolidGround(  6000, 2200, 5, 5, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
+            ninjas.GameObjectBundleFactory.createSolidGround(  4400, 2500, 4,  4, ninjas.Slope.NONE,       ninjas.CapHorz.LEFT, ninjas.CapVert.BOTH, this );
+            ninjas.GameObjectBundleFactory.createSolidGround(  5000, 2200, 5,  5, ninjas.Slope.ASCENDING,  ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
+            ninjas.GameObjectBundleFactory.createSolidGround(  6000, 2200, 10, 5, ninjas.Slope.DESCENDING, ninjas.CapHorz.BOTH, ninjas.CapVert.BOTH, this );
         }
     }
