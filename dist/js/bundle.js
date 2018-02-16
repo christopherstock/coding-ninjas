@@ -29948,8 +29948,7 @@ var GameObjectBundleFactory = /** @class */ (function () {
             case Slope.ASCENDING:
             case Slope.DESCENDING:
                 {
-                    var deltaY = (alt * length);
-                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, deltaY, null, ninjas.JumpPassThrough.NO));
+                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, (alt * length), null, ninjas.JumpPassThrough.NO));
                     break;
                 }
         }
@@ -30072,12 +30071,12 @@ var GameObjectBundleFactory = /** @class */ (function () {
                 }
             case Slope.ASCENDING:
                 {
-                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, lengthVert * GameObjectBundleFactory.GROUND_TILE_HEIGHT, 0.0, ninjas.JumpPassThrough.NO));
+                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, 20, lengthHorz * -GameObjectBundleFactory.ALTITUDE, null, ninjas.JumpPassThrough.NO));
                     break;
                 }
             case Slope.DESCENDING:
                 {
-                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, lengthVert * GameObjectBundleFactory.GROUND_TILE_HEIGHT, 0.0, ninjas.JumpPassThrough.NO));
+                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, lengthHorz * GameObjectBundleFactory.GROUND_TILE_WIDTH, 20, lengthHorz * GameObjectBundleFactory.ALTITUDE, null, ninjas.JumpPassThrough.NO));
                     break;
                 }
         }
