@@ -66,8 +66,8 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                ninjas.SettingGame.PLAYER_START_POSITION_X,
-                5000,
+                3700,
+                4500,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );
@@ -148,12 +148,16 @@
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 9800,  4600, 3,  ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 10800, 4400, 3,  ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
 
+            // boxes
             ninjas.GameObjectBundleFactory.createCrate( this, 7500, 4800, ninjas.CrateType.WOODEN );
 
+            // bridge
             ninjas.GameObjectBundleFactory.createBridge( this, 6144, 4800 );
 
+            // nature
             ninjas.GameObjectBundleFactory.createDeco( this, 70,    5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1 );
             ninjas.GameObjectBundleFactory.createDeco( this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2 );
+            ninjas.GameObjectBundleFactory.createDeco( this, 1500,  5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BUSH_2 );
 
             // shrine 1
             ninjas.GameObjectBundleFactory.createDeco( this, 720,  5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_3 );
@@ -162,11 +166,9 @@
 
             // shrine 2
             ninjas.GameObjectBundleFactory.createDeco( this, 4230,  4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_1 );
-            ninjas.GameObjectBundleFactory.createShrine( this, 3770, 4800, true, true );
+            ninjas.GameObjectBundleFactory.createShrine( this, 3770, 4800, true, false );
+            ninjas.GameObjectBundleFactory.createDeco( this, 3920,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET );
 
-
-
-            ninjas.GameObjectBundleFactory.createDeco( this, 1500,  5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_2 );
 
         }
     }

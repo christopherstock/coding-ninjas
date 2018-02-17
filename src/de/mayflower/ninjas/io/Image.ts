@@ -142,6 +142,9 @@
         /** Image resource 'bush 4'. */
         public      static      IMAGE_BUSH_4                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush4.png";
 
+        /** Image resource 'goblet'. */
+        public      static      IMAGE_GOBLET                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "goblet.png";
+
         /** Image tile 'flying left'. */
         public      static      IMAGE_GROUND_FLYING_LEFT                    :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
         /** Image tile 'flying center'. */
@@ -273,6 +276,8 @@
             Image.IMAGE_BUSH_2,
             Image.IMAGE_BUSH_3,
             Image.IMAGE_BUSH_4,
+
+            Image.IMAGE_GOBLET,
 
             Image.IMAGE_GROUND_FLYING_LEFT,
             Image.IMAGE_GROUND_FLYING_CENTER,

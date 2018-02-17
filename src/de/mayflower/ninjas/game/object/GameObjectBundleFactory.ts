@@ -478,7 +478,7 @@
             GameObjectBundleFactory.createDeco( level, xLeft + 30, yBottom - 110, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BOOK_CLOSED );
             GameObjectBundleFactory.createDeco( level, xLeft - 5,  yBottom - 118, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BOOK_OPEN   );
 
-            GameObjectBundleFactory.createDeco( level, xLeft - 80,  yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
-            GameObjectBundleFactory.createDeco( level, xLeft + 160, yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
+            if ( candleLeft  ) GameObjectBundleFactory.createDeco( level, xLeft - 80,  yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
+            if ( candleRight ) GameObjectBundleFactory.createDeco( level, xLeft + 160, yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
         }
     }
