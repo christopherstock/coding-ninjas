@@ -10,6 +10,7 @@
     *   TODO Create bridge obstacle, sprite and water deco sprite.
     *   TODO Step-Flow-Meter (progress, navi etc.) in React.
     *   TODO Try ant design (pro?) in front panel.
+    *   TODO Preload site images via image system ( or assign images via JavaScript ).
     *
     *   TODO Complete the MVP!
     *

@@ -48,6 +48,20 @@
     }
 
     /*******************************************************************************************************************
+    *   Position for decoration.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum DecoPosition
+    {
+        /** Foreground. */
+        FG,
+        /** Background. */
+        BG,
+    }
+
+    /*******************************************************************************************************************
     *   Creates bundled instances of game objects.
     *
     *   @author     Christopher Stock
@@ -373,5 +387,58 @@
             }
 
             level.movables.push( crate );
+        }
+
+        /***************************************************************************************************************
+        *   Creates a bridge.
+        *
+        *   @param level   The level to add the solid ground to.
+        *   @param xLeft   Anchor for left X.
+        *   @param yBottom Anchor for bottom Y.
+        ***************************************************************************************************************/
+        public static createBridge
+        (
+            level   :ninjas.Level,
+            xLeft   :number,
+            yBottom :number
+        )
+        : void
+        {
+            let WIDTH_TOTAL :number = 700;
+            // let WIDTH_SLOPE :number = 128;
+            // let ALTITUDE    :number = 30;
+
+            // add obctacles
+            level.obstacles.push( ninjas.GameObjectFactory.createObstacleSpriteless( xLeft, yBottom, WIDTH_TOTAL, 10, null, ninjas.JumpPassThrough.NO ) );
+            // level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yBottom, WIDTH_SLOPE, 10, -ALTITUDE, null, ninjas.JumpPassThrough.NO ) );
+            // level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft + WIDTH_TOTAL - WIDTH_SLOPE, yBottom - ALTITUDE, WIDTH_SLOPE, 10, ALTITUDE, null, ninjas.JumpPassThrough.NO ) );
+
+            // add deco
+            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BRIDGE_1 );
+            level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft - 115, yBottom + 121, ninjas.StaticShape.YES, sprtiteTemplate ) );
+        }
+
+        /***************************************************************************************************************
+        *   Creates a decoration.
+        *
+        *   @param level    The level to add the decoration to.
+        *   @param xLeft    Anchor for left X.
+        *   @param yBottom  Anchor for bottom Y.
+        *   @param position The position for the decoration.
+        *   @param imageId  The id of the image.
+        ***************************************************************************************************************/
+        public static createDeco
+        (
+            level    :ninjas.Level,
+            xLeft    :number,
+            yBottom  :number,
+            position :DecoPosition,
+            imageId  :string
+        )
+        : void
+        {
+            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
+
+            level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate ) );
         }
     }

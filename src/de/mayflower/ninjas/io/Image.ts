@@ -105,6 +105,13 @@
 
         /** Image resource 'fence 1'. */
         public      static      IMAGE_FENCE_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "fence1.png";
+        /** Image resource 'bridge 1'. */
+        public      static      IMAGE_BRIDGE_1                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bridge.png";
+
+        /** Image resource 'tree 1'. */
+        public      static      IMAGE_TREE_1                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "tree1.png";
+        /** Image resource 'tree 2'. */
+        public      static      IMAGE_TREE_2                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "tree2.png";
 
         /** Image tile 'flying left'. */
         public      static      IMAGE_GROUND_FLYING_LEFT                    :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
@@ -216,6 +223,10 @@
             Image.IMAGE_BOULDER_3,
 
             Image.IMAGE_FENCE_1,
+            Image.IMAGE_BRIDGE_1,
+
+            Image.IMAGE_TREE_1,
+            Image.IMAGE_TREE_2,
 
             Image.IMAGE_GROUND_FLYING_LEFT,
             Image.IMAGE_GROUND_FLYING_CENTER,

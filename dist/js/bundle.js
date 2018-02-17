@@ -27445,6 +27445,7 @@ var ninjas = __webpack_require__(1);
 *   TODO Create bridge obstacle, sprite and water deco sprite.
 *   TODO Step-Flow-Meter (progress, navi etc.) in React.
 *   TODO Try ant design (pro?) in front panel.
+*   TODO Preload site images via image system ( or assign images via JavaScript ).
 *
 *   TODO Complete the MVP!
 *
@@ -27666,7 +27667,7 @@ var SettingMatterJs = /** @class */ (function () {
     /** The player's speed in world coordinate per tick. */
     SettingMatterJs.PLAYER_SPEED_MOVE = 7.5;
     /** The player's gap size y of it's physical body corners. */
-    SettingMatterJs.PLAYER_EDGE_GAP_Y = 10.0;
+    SettingMatterJs.PLAYER_EDGE_GAP_Y = 12.5;
     /** The default vertical gravity for all objects. */
     SettingMatterJs.DEFAULT_GRAVITY_Y = 1.0;
     /** The default collision group for all game objects. */
@@ -29646,14 +29647,14 @@ var LevelWebsite = /** @class */ (function (_super) {
             [];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(7500, 4500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(0, 4500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.siteTriggers =
             [
                 ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 600, 500, ninjas.SitePanelAppearance.LEFT),
                 ninjas.GameObjectFactory.createSiteTrigger(3800, 4800, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
-                ninjas.GameObjectFactory.createSiteTrigger(3782, 4060, 600, 500, ninjas.SitePanelAppearance.LEFT),
-                ninjas.GameObjectFactory.createSiteTrigger(7350, 4280, 640, 500, ninjas.SitePanelAppearance.LEFT),
-                ninjas.GameObjectFactory.createSiteTrigger(12536, 4200, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
+                ninjas.GameObjectFactory.createSiteTrigger(3782, 4060, 600, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
+                ninjas.GameObjectFactory.createSiteTrigger(7350, 4280, 640, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
+                ninjas.GameObjectFactory.createSiteTrigger(12536, 4200, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(14744, 5100, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
             ];
         this.decosFg =
@@ -29713,7 +29714,9 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 9800, 4600, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 10800, 4400, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         GameObjectBundleFactory_1.GameObjectBundleFactory.createCrate(this, 7500, 4800, ninjas.CrateType.WOODEN);
-        //            GameObjectBundleFactory.createBridge( this, 6144, 4800 );
+        GameObjectBundleFactory_1.GameObjectBundleFactory.createBridge(this, 6144, 4800);
+        GameObjectBundleFactory_1.GameObjectBundleFactory.createDeco(this, 70, 5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1);
+        GameObjectBundleFactory_1.GameObjectBundleFactory.createDeco(this, 14000, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -29872,6 +29875,19 @@ var CrateType;
     /** A wooden crate. */
     CrateType[CrateType["WOODEN"] = 0] = "WOODEN";
 })(CrateType = exports.CrateType || (exports.CrateType = {}));
+/*******************************************************************************************************************
+*   Position for decoration.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var DecoPosition;
+(function (DecoPosition) {
+    /** Foreground. */
+    DecoPosition[DecoPosition["FG"] = 0] = "FG";
+    /** Background. */
+    DecoPosition[DecoPosition["BG"] = 1] = "BG";
+})(DecoPosition = exports.DecoPosition || (exports.DecoPosition = {}));
 /*******************************************************************************************************************
 *   Creates bundled instances of game objects.
 *
@@ -30095,6 +30111,38 @@ var GameObjectBundleFactory = /** @class */ (function () {
                 }
         }
         level.movables.push(crate);
+    };
+    /***************************************************************************************************************
+    *   Creates a bridge.
+    *
+    *   @param level   The level to add the solid ground to.
+    *   @param xLeft   Anchor for left X.
+    *   @param yBottom Anchor for bottom Y.
+    ***************************************************************************************************************/
+    GameObjectBundleFactory.createBridge = function (level, xLeft, yBottom) {
+        var WIDTH_TOTAL = 700;
+        // let WIDTH_SLOPE :number = 128;
+        // let ALTITUDE    :number = 30;
+        // add obctacles
+        level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yBottom, WIDTH_TOTAL, 10, null, ninjas.JumpPassThrough.NO));
+        // level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yBottom, WIDTH_SLOPE, 10, -ALTITUDE, null, ninjas.JumpPassThrough.NO ) );
+        // level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft + WIDTH_TOTAL - WIDTH_SLOPE, yBottom - ALTITUDE, WIDTH_SLOPE, 10, ALTITUDE, null, ninjas.JumpPassThrough.NO ) );
+        // add deco
+        var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_BRIDGE_1);
+        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft - 115, yBottom + 121, ninjas.StaticShape.YES, sprtiteTemplate));
+    };
+    /***************************************************************************************************************
+    *   Creates a decoration.
+    *
+    *   @param level    The level to add the decoration to.
+    *   @param xLeft    Anchor for left X.
+    *   @param yBottom  Anchor for bottom Y.
+    *   @param position The position for the decoration.
+    *   @param imageId  The id of the image.
+    ***************************************************************************************************************/
+    GameObjectBundleFactory.createDeco = function (level, xLeft, yBottom, position, imageId) {
+        var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(imageId);
+        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate));
     };
     /** The collision height of the flying ground. */
     GameObjectBundleFactory.HEIGHT_FLYING_GROUND = 90;
@@ -33295,6 +33343,12 @@ var Image = /** @class */ (function () {
     Image.IMAGE_BOULDER_3 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder3.png";
     /** Image resource 'fence 1'. */
     Image.IMAGE_FENCE_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "fence1.png";
+    /** Image resource 'bridge 1'. */
+    Image.IMAGE_BRIDGE_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bridge.png";
+    /** Image resource 'tree 1'. */
+    Image.IMAGE_TREE_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "tree1.png";
+    /** Image resource 'tree 2'. */
+    Image.IMAGE_TREE_2 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "tree2.png";
     /** Image tile 'flying left'. */
     Image.IMAGE_GROUND_FLYING_LEFT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
     /** Image tile 'flying center'. */
@@ -33391,6 +33445,9 @@ var Image = /** @class */ (function () {
         Image.IMAGE_BOULDER_2,
         Image.IMAGE_BOULDER_3,
         Image.IMAGE_FENCE_1,
+        Image.IMAGE_BRIDGE_1,
+        Image.IMAGE_TREE_1,
+        Image.IMAGE_TREE_2,
         Image.IMAGE_GROUND_FLYING_LEFT,
         Image.IMAGE_GROUND_FLYING_CENTER,
         Image.IMAGE_GROUND_FLYING_RIGHT,

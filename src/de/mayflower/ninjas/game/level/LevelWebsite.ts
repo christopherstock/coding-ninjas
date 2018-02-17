@@ -67,7 +67,7 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                7500,
+                0,
                 4500,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
@@ -77,9 +77,9 @@
             [
                 ninjas.GameObjectFactory.createSiteTrigger( 700,   5000, 600,  500, ninjas.SitePanelAppearance.LEFT           ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3800,  4800, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 3782,  4060, 600,  500, ninjas.SitePanelAppearance.LEFT           ),
-                ninjas.GameObjectFactory.createSiteTrigger( 7350,  4280, 640,  500, ninjas.SitePanelAppearance.LEFT           ),
-                ninjas.GameObjectFactory.createSiteTrigger( 12536, 4200, 1000, 500, ninjas.SitePanelAppearance.RIGHT          ),
+                ninjas.GameObjectFactory.createSiteTrigger( 3782,  4060, 600,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 7350,  4280, 640,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 12536, 4200, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 14744, 5100, 1000, 500, ninjas.SitePanelAppearance.RIGHT          ),
             ];
 
@@ -150,6 +150,9 @@
 
             GameObjectBundleFactory.createCrate( this, 7500, 4800, ninjas.CrateType.WOODEN );
 
-//            GameObjectBundleFactory.createBridge( this, 6144, 4800 );
+            GameObjectBundleFactory.createBridge( this, 6144, 4800 );
+
+            GameObjectBundleFactory.createDeco( this, 70,    5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1 );
+            GameObjectBundleFactory.createDeco( this, 14000, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2 );
         }
     }
