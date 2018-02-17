@@ -87,7 +87,7 @@
         public      static      IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_10       :string         = ninjas.SettingEngine.PATH_IMAGE_PLAYER + "glideRight/10.png";
 
         /** Image resource 'wooden crate'. */
-        public      static      IMAGE_CRATE_WOOD                            :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_MOVABLE + "crateWood.jpg";
+        public      static      IMAGE_CRATE_WOOD                            :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_MOVABLE + "crateWood.png";
         /** Image resource 'metal crate'. */
         public      static      IMAGE_CRATE_METAL                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_MOVABLE + "crateMetal.jpg";
 
@@ -122,6 +122,25 @@
         public      static      IMAGE_STATUE_2                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue2.png";
         /** Image resource 'statue 3'. */
         public      static      IMAGE_STATUE_3                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue3.png";
+
+        /** Image resource 'book closed'. */
+        public      static      IMAGE_BOOK_CLOSED                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bookClosed.png";
+        /** Image resource 'book open'. */
+        public      static      IMAGE_BOOK_OPEN                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bookOpen.png";
+
+        /** Image resource 'candelabra'. */
+        public      static      IMAGE_CANDELABRA                            :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "candelabra.png";
+        /** Image resource 'candle'. */
+        public      static      IMAGE_CANDLE                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "candle.png";
+
+        /** Image resource 'bush 1'. */
+        public      static      IMAGE_BUSH_1                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush1.png";
+        /** Image resource 'bush 2'. */
+        public      static      IMAGE_BUSH_2                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush2.png";
+        /** Image resource 'bush 3'. */
+        public      static      IMAGE_BUSH_3                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush3.png";
+        /** Image resource 'bush 4'. */
+        public      static      IMAGE_BUSH_4                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush4.png";
 
         /** Image tile 'flying left'. */
         public      static      IMAGE_GROUND_FLYING_LEFT                    :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
@@ -243,6 +262,17 @@
             Image.IMAGE_STATUE_1,
             Image.IMAGE_STATUE_2,
             Image.IMAGE_STATUE_3,
+
+            Image.IMAGE_BOOK_CLOSED,
+            Image.IMAGE_BOOK_OPEN,
+
+            Image.IMAGE_CANDELABRA,
+            Image.IMAGE_CANDLE,
+
+            Image.IMAGE_BUSH_1,
+            Image.IMAGE_BUSH_2,
+            Image.IMAGE_BUSH_3,
+            Image.IMAGE_BUSH_4,
 
             Image.IMAGE_GROUND_FLYING_LEFT,
             Image.IMAGE_GROUND_FLYING_CENTER,

@@ -21,7 +21,7 @@
         public      static  readonly    BORDER_SIZE                                 :number                     = 20;
 
         /** The player's start position X. */
-        public  static  readonly    PLAYER_START_POSITION_X                         :number                     = 942;
+        public  static  readonly    PLAYER_START_POSITION_X                         :number                     = 885;
         /** The player's start position Y. */
         public  static  readonly    PLAYER_START_POSITION_Y                         :number                     = 4000;
 

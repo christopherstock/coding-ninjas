@@ -454,4 +454,31 @@
                 }
             }
         }
+
+        /***************************************************************************************************************
+        *   Creates a shrine.
+        *
+        *   @param level       The level to add the decoration to.
+        *   @param xLeft       Anchor for left X.
+        *   @param yBottom     Anchor for bottom Y.
+        *   @param candleLeft  Specifies if the left  candle shall be drawn.
+        *   @param candleRight Specifies if the right candle shall be drawn.
+        ***************************************************************************************************************/
+        public static createShrine
+        (
+            level       :ninjas.Level,
+            xLeft       :number,
+            yBottom     :number,
+            candleLeft  :boolean,
+            candleRight :boolean,
+        )
+        : void
+        {
+            GameObjectBundleFactory.createDeco( level, xLeft,      yBottom,       ninjas.DecoPosition.BG, ninjas.Image.IMAGE_CONSOLE     );
+            GameObjectBundleFactory.createDeco( level, xLeft + 30, yBottom - 110, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BOOK_CLOSED );
+            GameObjectBundleFactory.createDeco( level, xLeft - 5,  yBottom - 118, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BOOK_OPEN   );
+
+            GameObjectBundleFactory.createDeco( level, xLeft - 80,  yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
+            GameObjectBundleFactory.createDeco( level, xLeft + 160, yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
+        }
     }
