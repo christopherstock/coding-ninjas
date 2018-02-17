@@ -36,6 +36,18 @@
     }
 
     /*******************************************************************************************************************
+    *   All different crate types.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum CrateType
+    {
+        /** A wooden crate. */
+        WOODEN,
+    }
+
+    /*******************************************************************************************************************
     *   Creates bundled instances of game objects.
     *
     *   @author     Christopher Stock
@@ -330,5 +342,36 @@
                     break;
                 }
             }
+        }
+
+        /***************************************************************************************************************
+        *   Creates a crate.
+        *
+        *   @param level        The level to add the solid ground to.
+        *   @param xLeft        Anchor for left X.
+        *   @param yBottom      Anchor for bottom Y.
+        *   @param type         The type of crate to create.
+        ***************************************************************************************************************/
+        public static createCrate
+        (
+            level      :ninjas.Level,
+            xLeft      :number,
+            yBottom    :number,
+            type       :CrateType
+        )
+        : void
+        {
+            let crate:ninjas.Movable = null;
+
+            switch ( type )
+            {
+                case CrateType.WOODEN:
+                {
+                    crate = ninjas.GameObjectFactory.createWoodenCrate( 7500, 4800 );
+                    break;
+                }
+            }
+
+            level.movables.push( crate );
         }
     }

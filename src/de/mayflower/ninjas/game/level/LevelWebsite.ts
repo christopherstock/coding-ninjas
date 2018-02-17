@@ -1,5 +1,6 @@
 
     import * as ninjas from '../../ninjas';
+    import {GameObjectBundleFactory} from "../object/GameObjectBundleFactory";
 
     /*******************************************************************************************************************
     *   The level set for the dev level.
@@ -49,7 +50,7 @@
 
             this.movables =
             [
-                ninjas.GameObjectFactory.createWoodenCrate(  7500,  4800 ),
+//              ninjas.GameObjectFactory.createWoodenCrate(  7500,  4800 ),
 /*
                 ninjas.GameObjectFactory.createWoodenCrate(  250,  2500 ),
                 ninjas.GameObjectFactory.createWoodenCrate(  700,  2500 ),
@@ -77,7 +78,7 @@
                 ninjas.GameObjectFactory.createSiteTrigger( 700,   5000, 600,  500, ninjas.SitePanelAppearance.LEFT           ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3800,  4800, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3782,  4060, 600,  500, ninjas.SitePanelAppearance.LEFT           ),
-                ninjas.GameObjectFactory.createSiteTrigger( 7350,  4220, 640,  500, ninjas.SitePanelAppearance.LEFT           ),
+                ninjas.GameObjectFactory.createSiteTrigger( 7350,  4280, 640,  500, ninjas.SitePanelAppearance.LEFT           ),
                 ninjas.GameObjectFactory.createSiteTrigger( 12536, 4200, 1000, 500, ninjas.SitePanelAppearance.RIGHT          ),
                 ninjas.GameObjectFactory.createSiteTrigger( 14744, 5100, 1000, 500, ninjas.SitePanelAppearance.RIGHT          ),
             ];
@@ -143,8 +144,12 @@
 
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 5062,  4430, 3, ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 3782,  4060, 9, ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
-            ninjas.GameObjectBundleFactory.createFlyingGround( this, 7350,  4220, 5, ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 7350,  4280, 5, ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 9800,  4600, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 10800, 4400, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+
+            GameObjectBundleFactory.createCrate( this, 7500, 4800, ninjas.CrateType.WOODEN );
+
+//            GameObjectBundleFactory.createBridge( this, 6144, 4800 );
         }
     }

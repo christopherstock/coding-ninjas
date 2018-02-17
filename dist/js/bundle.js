@@ -29614,6 +29614,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
+var GameObjectBundleFactory_1 = __webpack_require__(150);
 /*******************************************************************************************************************
 *   The level set for the dev level.
 *
@@ -29642,9 +29643,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.obstacles =
             [];
         this.movables =
-            [
-                ninjas.GameObjectFactory.createWoodenCrate(7500, 4800),
-            ];
+            [];
         this.enemies =
             [];
         this.player = ninjas.GameObjectFactory.createPlayer(7500, 4500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
@@ -29653,7 +29652,7 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 600, 500, ninjas.SitePanelAppearance.LEFT),
                 ninjas.GameObjectFactory.createSiteTrigger(3800, 4800, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(3782, 4060, 600, 500, ninjas.SitePanelAppearance.LEFT),
-                ninjas.GameObjectFactory.createSiteTrigger(7350, 4220, 640, 500, ninjas.SitePanelAppearance.LEFT),
+                ninjas.GameObjectFactory.createSiteTrigger(7350, 4280, 640, 500, ninjas.SitePanelAppearance.LEFT),
                 ninjas.GameObjectFactory.createSiteTrigger(12536, 4200, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
                 ninjas.GameObjectFactory.createSiteTrigger(14744, 5100, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
             ];
@@ -29710,9 +29709,11 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createSolidGround(this, 12000, 4200, 12, 2, ninjas.Slope.NONE, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 5062, 4430, 3, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 3782, 4060, 9, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
-        ninjas.GameObjectBundleFactory.createFlyingGround(this, 7350, 4220, 5, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
+        ninjas.GameObjectBundleFactory.createFlyingGround(this, 7350, 4280, 5, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 9800, 4600, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 10800, 4400, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
+        GameObjectBundleFactory_1.GameObjectBundleFactory.createCrate(this, 7500, 4800, ninjas.CrateType.WOODEN);
+        //            GameObjectBundleFactory.createBridge( this, 6144, 4800 );
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -29860,6 +29861,17 @@ var CapHorz;
     /** Cap left and right column. */
     CapHorz[CapHorz["BOTH"] = 3] = "BOTH";
 })(CapHorz = exports.CapHorz || (exports.CapHorz = {}));
+/*******************************************************************************************************************
+*   All different crate types.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var CrateType;
+(function (CrateType) {
+    /** A wooden crate. */
+    CrateType[CrateType["WOODEN"] = 0] = "WOODEN";
+})(CrateType = exports.CrateType || (exports.CrateType = {}));
 /*******************************************************************************************************************
 *   Creates bundled instances of game objects.
 *
@@ -30064,6 +30076,25 @@ var GameObjectBundleFactory = /** @class */ (function () {
                     break;
                 }
         }
+    };
+    /***************************************************************************************************************
+    *   Creates a crate.
+    *
+    *   @param level        The level to add the solid ground to.
+    *   @param xLeft        Anchor for left X.
+    *   @param yBottom      Anchor for bottom Y.
+    *   @param type         The type of crate to create.
+    ***************************************************************************************************************/
+    GameObjectBundleFactory.createCrate = function (level, xLeft, yBottom, type) {
+        var crate = null;
+        switch (type) {
+            case CrateType.WOODEN:
+                {
+                    crate = ninjas.GameObjectFactory.createWoodenCrate(7500, 4800);
+                    break;
+                }
+        }
+        level.movables.push(crate);
     };
     /** The collision height of the flying ground. */
     GameObjectBundleFactory.HEIGHT_FLYING_GROUND = 90;
