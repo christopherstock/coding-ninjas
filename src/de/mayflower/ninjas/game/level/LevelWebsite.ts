@@ -157,7 +157,7 @@
             // nature
             ninjas.GameObjectBundleFactory.createDeco( this, 70,    5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1 );
             ninjas.GameObjectBundleFactory.createDeco( this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2 );
-            ninjas.GameObjectBundleFactory.createDeco( this, 1500,  5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BUSH_2 );
+            ninjas.GameObjectBundleFactory.createDeco( this, 1700,  5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BUSH_2 );
 
             // shrine 1
             ninjas.GameObjectBundleFactory.createDeco( this, 720,  5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_3 );
