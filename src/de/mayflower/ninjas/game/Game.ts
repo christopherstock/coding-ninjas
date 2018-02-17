@@ -2,8 +2,6 @@
     import * as ninjas from '../ninjas';
     import * as matter from 'matter-js';
 
-    require( 'fpsmeter' );
-
     /*******************************************************************************************************************
     *   Specifies the game logic and all primal components of the game.
     *
@@ -148,29 +146,32 @@
         ***************************************************************************************************************/
         private handleMenuKey()
         {
-            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_1 ) )
+            if ( ninjas.SettingDebug.DEBUG_MODE )
             {
-                ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_1 );
+                if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_1 ) )
+                {
+                    ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_1 );
 
-                ninjas.Debug.init.log( "Resetting and switching to level 1" );
-                this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
-            }
+                    ninjas.Debug.init.log( "Resetting and switching to level 1" );
+                    this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
+                }
 /*
-            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_2 ) )
-            {
-                ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_2 );
+                if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_2 ) )
+                {
+                    ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_2 );
 
-                ninjas.Debug.init.log( "Resetting and switching to level 2" );
-                this.resetAndLaunchLevel( new ninjas.LevelAllElements() );
-            }
+                    ninjas.Debug.init.log( "Resetting and switching to level 2" );
+                    this.resetAndLaunchLevel( new ninjas.LevelAllElements() );
+                }
 
-            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_3 ) )
-            {
-                ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_3 );
+                if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_3 ) )
+                {
+                    ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_3 );
 
-                ninjas.Debug.init.log( "Resetting and switching to level 3" );
-                this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );
-            }
+                    ninjas.Debug.init.log( "Resetting and switching to level 3" );
+                    this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );
+                }
 */
+            }
         }
     }

@@ -4652,7 +4652,7 @@ __export(__webpack_require__(165));
 __export(__webpack_require__(166));
 __export(__webpack_require__(167));
 __export(__webpack_require__(168));
-__export(__webpack_require__(170));
+__export(__webpack_require__(169));
 __export(__webpack_require__(171));
 __export(__webpack_require__(172));
 __export(__webpack_require__(173));
@@ -29642,16 +29642,18 @@ var LevelWebsite = /** @class */ (function (_super) {
         this.obstacles =
             [];
         this.movables =
-            [];
+            [
+                ninjas.GameObjectFactory.createWoodenCrate(7500, 4800),
+            ];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(10000, 4500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(7500, 4500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.siteTriggers =
             [
                 ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 600, 500, ninjas.SitePanelAppearance.LEFT),
                 ninjas.GameObjectFactory.createSiteTrigger(3800, 4800, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(3782, 4060, 600, 500, ninjas.SitePanelAppearance.LEFT),
-                ninjas.GameObjectFactory.createSiteTrigger(7564, 4800, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
+                ninjas.GameObjectFactory.createSiteTrigger(7350, 4220, 640, 500, ninjas.SitePanelAppearance.LEFT),
                 ninjas.GameObjectFactory.createSiteTrigger(12536, 4200, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
                 ninjas.GameObjectFactory.createSiteTrigger(14744, 5100, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
             ];
@@ -29708,6 +29710,7 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createSolidGround(this, 12000, 4200, 12, 2, ninjas.Slope.NONE, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 5062, 4430, 3, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 3782, 4060, 9, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
+        ninjas.GameObjectBundleFactory.createFlyingGround(this, 7350, 4220, 5, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 9800, 4600, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 10800, 4400, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
     };
@@ -29878,7 +29881,6 @@ var GameObjectBundleFactory = /** @class */ (function () {
     *   @param capEnds     Specifies end cappings.
     ***************************************************************************************************************/
     GameObjectBundleFactory.createFlyingGround = function (level, xLeft, yTop, length, slope, jumpThrough, capEnds) {
-        var HEIGHT_FLYING_GROUND = 90;
         var leftTile = null;
         var centerTile = null;
         var rightTile = null;
@@ -29930,13 +29932,13 @@ var GameObjectBundleFactory = /** @class */ (function () {
         switch (slope) {
             case Slope.NONE:
                 {
-                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, 0.0, jumpThrough));
+                    level.obstacles.push(ninjas.GameObjectFactory.createObstacleSpriteless(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, GameObjectBundleFactory.HEIGHT_FLYING_GROUND, 0.0, jumpThrough));
                     break;
                 }
             case Slope.ASCENDING:
             case Slope.DESCENDING:
                 {
-                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, (alt * length), null, jumpThrough));
+                    level.obstacles.push(ninjas.GameObjectFactory.createElevatedRamp(xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, GameObjectBundleFactory.HEIGHT_FLYING_GROUND, (alt * length), null, jumpThrough));
                     break;
                 }
         }
@@ -30063,6 +30065,8 @@ var GameObjectBundleFactory = /** @class */ (function () {
                 }
         }
     };
+    /** The collision height of the flying ground. */
+    GameObjectBundleFactory.HEIGHT_FLYING_GROUND = 90;
     /** The altitude of elevated grounds. */
     GameObjectBundleFactory.ALTITUDE = 20;
     /** Ground tile width. */
@@ -31964,7 +31968,6 @@ exports.ShapeFreeForm = ShapeFreeForm;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-__webpack_require__(169);
 /*******************************************************************************************************************
 *   Specifies the game logic and all primal components of the game.
 *
@@ -32065,28 +32068,30 @@ var Game = /** @class */ (function () {
     *   Handles pressed menu keys.
     ***************************************************************************************************************/
     Game.prototype.handleMenuKey = function () {
-        if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_1)) {
-            ninjas.Main.game.engine.keySystem.setNeedsRelease(ninjas.Key.KEY_1);
-            ninjas.Debug.init.log("Resetting and switching to level 1");
-            this.resetAndLaunchLevel(new ninjas.LevelWebsite());
+        if (ninjas.SettingDebug.DEBUG_MODE) {
+            if (ninjas.Main.game.engine.keySystem.isPressed(ninjas.Key.KEY_1)) {
+                ninjas.Main.game.engine.keySystem.setNeedsRelease(ninjas.Key.KEY_1);
+                ninjas.Debug.init.log("Resetting and switching to level 1");
+                this.resetAndLaunchLevel(new ninjas.LevelWebsite());
+            }
+            /*
+                            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_2 ) )
+                            {
+                                ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_2 );
+            
+                                ninjas.Debug.init.log( "Resetting and switching to level 2" );
+                                this.resetAndLaunchLevel( new ninjas.LevelAllElements() );
+                            }
+            
+                            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_3 ) )
+                            {
+                                ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_3 );
+            
+                                ninjas.Debug.init.log( "Resetting and switching to level 3" );
+                                this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );
+                            }
+            */
         }
-        /*
-                    if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_2 ) )
-                    {
-                        ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_2 );
-        
-                        ninjas.Debug.init.log( "Resetting and switching to level 2" );
-                        this.resetAndLaunchLevel( new ninjas.LevelAllElements() );
-                    }
-        
-                    if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_3 ) )
-                    {
-                        ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_3 );
-        
-                        ninjas.Debug.init.log( "Resetting and switching to level 3" );
-                        this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );
-                    }
-        */
     };
     return Game;
 }());
@@ -32095,6 +32100,135 @@ exports.Game = Game;
 
 /***/ }),
 /* 169 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var ninjas = __webpack_require__(1);
+__webpack_require__(170);
+/*******************************************************************************************************************
+*   Specifies the game engine and its systems.
+*
+*   @author     Christopher Stock
+*   @version    0.0.1
+*******************************************************************************************************************/
+var GameEngine = /** @class */ (function () {
+    function GameEngine() {
+        var _this = this;
+        /** The canvas element. */
+        this.canvasSystem = null;
+        /** The image system. */
+        this.imageSystem = null;
+        /** The soundSystem system. */
+        this.soundSystem = null;
+        /** The matterJS engine. */
+        this.matterJsSystem = null;
+        /** The site system. */
+        this.siteSystem = null;
+        /** The custom key system. */
+        this.keySystem = null;
+        /** The FPS counter. */
+        this.fpsMeter = null;
+        /***************************************************************************************************************
+        *   Being invoked when all images are loaded.
+        ***************************************************************************************************************/
+        this.onImagesLoaded = function () {
+            ninjas.SpriteTemplate.assignAllImageSizes();
+            ninjas.Debug.init.log("Initing sound system");
+            _this.soundSystem = new ninjas.SoundSystem(ninjas.Sound.FILE_NAMES, _this.onSoundsLoaded);
+            _this.soundSystem.loadSounds();
+        };
+        /***************************************************************************************************************
+        *   Being invoked when all sounds are loaded.
+        ***************************************************************************************************************/
+        this.onSoundsLoaded = function () {
+            // init matterJS
+            _this.initMatterJS();
+            // init site system
+            ninjas.Debug.init.log("Initing site system");
+            _this.siteSystem = new ninjas.SiteSystem();
+            // init key system
+            ninjas.Debug.init.log("Initing key system");
+            _this.keySystem = new ninjas.KeySystem();
+            // init window resize and blur handler
+            _this.initWindowResizeHandler();
+            _this.initWindowBlurHandler();
+            // init FPS-counter
+            _this.initFpsCounter();
+            // play bg sound
+            _this.soundSystem.playSound(ninjas.Sound.BG_CHINESE, true);
+            ninjas.Debug.init.log("Initing game engine completed");
+            ninjas.Main.game.start();
+        };
+    }
+    /***************************************************************************************************************
+    *   Inits all systems of the game engine.
+    ***************************************************************************************************************/
+    GameEngine.prototype.init = function () {
+        ninjas.Debug.init.log("Initing canvas system");
+        this.canvasSystem = new ninjas.CanvasSystem();
+        this.canvasSystem.updateDimensions();
+        ninjas.Debug.init.log("Initing image system");
+        this.imageSystem = new ninjas.ImageSystem(ninjas.Image.FILE_NAMES, ninjas.SpriteTemplate.getAllImagesToMirror(), this.onImagesLoaded);
+        this.imageSystem.loadImages();
+    };
+    /***************************************************************************************************************
+    *   Inits the 2D engine.
+    ***************************************************************************************************************/
+    GameEngine.prototype.initMatterJS = function () {
+        ninjas.Debug.init.log("Initing 2D physics engine");
+        this.matterJsSystem = new ninjas.MatterJsSystem(this.canvasSystem.getCanvas(), function (renderContext) { ninjas.Main.game.paintHUD(renderContext); }, this.imageSystem.getAll());
+    };
+    /***************************************************************************************************************
+    *   Inits the window resize handler.
+    ***************************************************************************************************************/
+    GameEngine.prototype.initWindowResizeHandler = function () {
+        var _this = this;
+        ninjas.Debug.init.log("Initing window resize handler");
+        window.onresize = function (event) {
+            _this.canvasSystem.updateDimensions();
+            _this.matterJsSystem.updateEngineDimensions(_this.canvasSystem.getWidth(), _this.canvasSystem.getHeight());
+            _this.siteSystem.updatePanelSizeAndPosition();
+            ninjas.Main.game.resetCamera();
+        };
+    };
+    /***************************************************************************************************************
+    *   Inits the window blur handler.
+    ***************************************************************************************************************/
+    GameEngine.prototype.initWindowBlurHandler = function () {
+        var _this = this;
+        ninjas.Debug.init.log("Initing window blur handler");
+        window.onblur = function (event) {
+            ninjas.Debug.canvas.log("Detected window focus lost. Releasing all keys.");
+            _this.keySystem.releaseAllKeys();
+        };
+    };
+    /***************************************************************************************************************
+    *   Inits the FPS counter.
+    ***************************************************************************************************************/
+    GameEngine.prototype.initFpsCounter = function () {
+        ninjas.Debug.init.log("Initing FPS counter");
+        this.fpsMeter = new FPSMeter(null, {
+            graph: 1,
+            decimals: 1,
+            position: "absolute",
+            zIndex: 10,
+            top: "auto",
+            right: ninjas.SettingGame.BORDER_SIZE + "px",
+            bottom: ninjas.SettingGame.BORDER_SIZE + "px",
+            left: "auto",
+            margin: "0",
+            heat: 1,
+        });
+    };
+    return GameEngine;
+}());
+exports.GameEngine = GameEngine;
+
+
+/***/ }),
+/* 170 */
 /***/ (function(module, exports) {
 
 /*!
@@ -32979,134 +33113,6 @@ exports.Game = Game;
 		}
 	});
 }(window, FPSMeter));
-
-/***/ }),
-/* 170 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ninjas = __webpack_require__(1);
-/*******************************************************************************************************************
-*   Specifies the game engine and its systems.
-*
-*   @author     Christopher Stock
-*   @version    0.0.1
-*******************************************************************************************************************/
-var GameEngine = /** @class */ (function () {
-    function GameEngine() {
-        var _this = this;
-        /** The canvas element. */
-        this.canvasSystem = null;
-        /** The image system. */
-        this.imageSystem = null;
-        /** The soundSystem system. */
-        this.soundSystem = null;
-        /** The matterJS engine. */
-        this.matterJsSystem = null;
-        /** The site system. */
-        this.siteSystem = null;
-        /** The custom key system. */
-        this.keySystem = null;
-        /** The FPS counter. */
-        this.fpsMeter = null;
-        /***************************************************************************************************************
-        *   Being invoked when all images are loaded.
-        ***************************************************************************************************************/
-        this.onImagesLoaded = function () {
-            ninjas.SpriteTemplate.assignAllImageSizes();
-            ninjas.Debug.init.log("Initing sound system");
-            _this.soundSystem = new ninjas.SoundSystem(ninjas.Sound.FILE_NAMES, _this.onSoundsLoaded);
-            _this.soundSystem.loadSounds();
-        };
-        /***************************************************************************************************************
-        *   Being invoked when all sounds are loaded.
-        ***************************************************************************************************************/
-        this.onSoundsLoaded = function () {
-            // init matterJS
-            _this.initMatterJS();
-            // init site system
-            ninjas.Debug.init.log("Initing site system");
-            _this.siteSystem = new ninjas.SiteSystem();
-            // init key system
-            ninjas.Debug.init.log("Initing key system");
-            _this.keySystem = new ninjas.KeySystem();
-            // init window resize and blur handler
-            _this.initWindowResizeHandler();
-            _this.initWindowBlurHandler();
-            // init FPS-counter
-            _this.initFpsCounter();
-            // play bg sound
-            _this.soundSystem.playSound(ninjas.Sound.BG_CHINESE, true);
-            ninjas.Debug.init.log("Initing game engine completed");
-            ninjas.Main.game.start();
-        };
-    }
-    /***************************************************************************************************************
-    *   Inits all systems of the game engine.
-    ***************************************************************************************************************/
-    GameEngine.prototype.init = function () {
-        ninjas.Debug.init.log("Initing canvas system");
-        this.canvasSystem = new ninjas.CanvasSystem();
-        this.canvasSystem.updateDimensions();
-        ninjas.Debug.init.log("Initing image system");
-        this.imageSystem = new ninjas.ImageSystem(ninjas.Image.FILE_NAMES, ninjas.SpriteTemplate.getAllImagesToMirror(), this.onImagesLoaded);
-        this.imageSystem.loadImages();
-    };
-    /***************************************************************************************************************
-    *   Inits the 2D engine.
-    ***************************************************************************************************************/
-    GameEngine.prototype.initMatterJS = function () {
-        ninjas.Debug.init.log("Initing 2D physics engine");
-        this.matterJsSystem = new ninjas.MatterJsSystem(this.canvasSystem.getCanvas(), function (renderContext) { ninjas.Main.game.paintHUD(renderContext); }, this.imageSystem.getAll());
-    };
-    /***************************************************************************************************************
-    *   Inits the window resize handler.
-    ***************************************************************************************************************/
-    GameEngine.prototype.initWindowResizeHandler = function () {
-        var _this = this;
-        ninjas.Debug.init.log("Initing window resize handler");
-        window.onresize = function (event) {
-            _this.canvasSystem.updateDimensions();
-            _this.matterJsSystem.updateEngineDimensions(_this.canvasSystem.getWidth(), _this.canvasSystem.getHeight());
-            _this.siteSystem.updatePanelSizeAndPosition();
-            ninjas.Main.game.resetCamera();
-        };
-    };
-    /***************************************************************************************************************
-    *   Inits the window blur handler.
-    ***************************************************************************************************************/
-    GameEngine.prototype.initWindowBlurHandler = function () {
-        var _this = this;
-        ninjas.Debug.init.log("Initing window blur handler");
-        window.onblur = function (event) {
-            ninjas.Debug.canvas.log("Detected window focus lost. Releasing all keys.");
-            _this.keySystem.releaseAllKeys();
-        };
-    };
-    /***************************************************************************************************************
-    *   Inits the FPS counter.
-    ***************************************************************************************************************/
-    GameEngine.prototype.initFpsCounter = function () {
-        ninjas.Debug.init.log("Initing FPS counter");
-        this.fpsMeter = new FPSMeter(null, {
-            graph: 1,
-            decimals: 1,
-            position: "absolute",
-            zIndex: 10,
-            top: "auto",
-            right: ninjas.SettingGame.BORDER_SIZE + "px",
-            bottom: ninjas.SettingGame.BORDER_SIZE + "px",
-            left: "auto",
-            margin: "0",
-            heat: 1,
-        });
-    };
-    return GameEngine;
-}());
-exports.GameEngine = GameEngine;
-
 
 /***/ }),
 /* 171 */

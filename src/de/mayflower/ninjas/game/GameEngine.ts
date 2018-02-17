@@ -1,6 +1,8 @@
 
     import * as ninjas from '../ninjas';
 
+    require( 'fpsmeter' );
+
     /*******************************************************************************************************************
     *   Specifies the game engine and its systems.
     *

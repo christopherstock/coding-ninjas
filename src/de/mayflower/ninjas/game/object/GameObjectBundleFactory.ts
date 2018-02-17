@@ -43,12 +43,14 @@
     *******************************************************************************************************************/
     export abstract class GameObjectBundleFactory
     {
+        /** The collision height of the flying ground. */
+        private             static          readonly        HEIGHT_FLYING_GROUND            :number     = 90;
         /** The altitude of elevated grounds. */
-        private             static          readonly        ALTITUDE                        :number = 20;
+        private             static          readonly        ALTITUDE                        :number     = 20;
         /** Ground tile width. */
-        private             static          readonly        GROUND_TILE_WIDTH               :number = 128;
+        private             static          readonly        GROUND_TILE_WIDTH               :number     = 128;
         /** Ground tile height. */
-        private             static          readonly        GROUND_TILE_HEIGHT              :number = 128;
+        private             static          readonly        GROUND_TILE_HEIGHT              :number     = 128;
 
         /***************************************************************************************************************
         *   Creates a flying ground.
@@ -73,8 +75,6 @@
         )
         : void
         {
-            const HEIGHT_FLYING_GROUND :number = 90;
-
             let leftTile   :ninjas.SpriteTemplate = null;
             let centerTile :ninjas.SpriteTemplate = null;
             let rightTile  :ninjas.SpriteTemplate = null;
@@ -145,14 +145,14 @@
             {
                 case Slope.NONE:
                 {
-                    level.obstacles.push( ninjas.GameObjectFactory.createObstacleSpriteless( xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, 0.0, jumpThrough ) );
+                    level.obstacles.push( ninjas.GameObjectFactory.createObstacleSpriteless( xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, GameObjectBundleFactory.HEIGHT_FLYING_GROUND, 0.0, jumpThrough ) );
                     break;
                 }
 
                 case Slope.ASCENDING:
                 case Slope.DESCENDING:
                 {
-                    level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, HEIGHT_FLYING_GROUND, ( alt * length ), null, jumpThrough ) );
+                    level.obstacles.push( ninjas.GameObjectFactory.createElevatedRamp( xLeft, yTop, length * GameObjectBundleFactory.GROUND_TILE_WIDTH, GameObjectBundleFactory.HEIGHT_FLYING_GROUND, ( alt * length ), null, jumpThrough ) );
                     break;
                 }
             }
