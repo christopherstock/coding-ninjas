@@ -113,6 +113,16 @@
         /** Image resource 'tree 2'. */
         public      static      IMAGE_TREE_2                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "tree2.png";
 
+        /** Image resource 'console'. */
+        public      static      IMAGE_CONSOLE                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "console.png";
+
+        /** Image resource 'statue 1'. */
+        public      static      IMAGE_STATUE_1                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue1.png";
+        /** Image resource 'statue 2'. */
+        public      static      IMAGE_STATUE_2                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue2.png";
+        /** Image resource 'statue 3'. */
+        public      static      IMAGE_STATUE_3                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue3.png";
+
         /** Image tile 'flying left'. */
         public      static      IMAGE_GROUND_FLYING_LEFT                    :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
         /** Image tile 'flying center'. */
@@ -227,6 +237,12 @@
 
             Image.IMAGE_TREE_1,
             Image.IMAGE_TREE_2,
+
+            Image.IMAGE_CONSOLE,
+
+            Image.IMAGE_STATUE_1,
+            Image.IMAGE_STATUE_2,
+            Image.IMAGE_STATUE_3,
 
             Image.IMAGE_GROUND_FLYING_LEFT,
             Image.IMAGE_GROUND_FLYING_CENTER,

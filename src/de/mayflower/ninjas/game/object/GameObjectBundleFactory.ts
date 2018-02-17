@@ -439,6 +439,19 @@
         {
             let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
 
-            level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate ) );
+            switch ( position )
+            {
+                case DecoPosition.FG:
+                {
+                    level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate ) );
+                    break;
+                }
+
+                case DecoPosition.BG:
+                {
+                    level.decosBg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate ) );
+                    break;
+                }
+            }
         }
     }

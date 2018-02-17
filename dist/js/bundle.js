@@ -29369,7 +29369,7 @@ var Level = /** @class */ (function () {
     Level.prototype.init = function () {
         this.createGameObjects();
         try {
-            for (var _a = __values(this.parallaxBgs), _b = _a.next(); !_b.done; _b = _a.next()) {
+            for (var _a = __values(this.siteTriggers), _b = _a.next(); !_b.done; _b = _a.next()) {
                 var gameObject = _b.value;
                 ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
             }
@@ -29382,7 +29382,7 @@ var Level = /** @class */ (function () {
             finally { if (e_1) throw e_1.error; }
         }
         try {
-            for (var _d = __values(this.decosBg), _e = _d.next(); !_e.done; _e = _d.next()) {
+            for (var _d = __values(this.parallaxBgs), _e = _d.next(); !_e.done; _e = _d.next()) {
                 var gameObject = _e.value;
                 ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
             }
@@ -29395,7 +29395,7 @@ var Level = /** @class */ (function () {
             finally { if (e_2) throw e_2.error; }
         }
         try {
-            for (var _g = __values(this.siteTriggers), _h = _g.next(); !_h.done; _h = _g.next()) {
+            for (var _g = __values(this.decosBg), _h = _g.next(); !_h.done; _h = _g.next()) {
                 var gameObject = _h.value;
                 ninjas.Main.game.engine.matterJsSystem.addToWorld(gameObject.shape.body);
             }
@@ -29615,7 +29615,6 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var ninjas = __webpack_require__(1);
-var GameObjectBundleFactory_1 = __webpack_require__(150);
 /*******************************************************************************************************************
 *   The level set for the dev level.
 *
@@ -29653,8 +29652,8 @@ var LevelWebsite = /** @class */ (function (_super) {
                 ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 600, 500, ninjas.SitePanelAppearance.LEFT),
                 ninjas.GameObjectFactory.createSiteTrigger(3800, 4800, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(3782, 4060, 600, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
-                ninjas.GameObjectFactory.createSiteTrigger(7350, 4280, 640, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
-                ninjas.GameObjectFactory.createSiteTrigger(12536, 4200, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
+                ninjas.GameObjectFactory.createSiteTrigger(7360, 4280, 620, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
+                ninjas.GameObjectFactory.createSiteTrigger(12536, 4200, 990, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(14744, 5100, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
             ];
         this.decosFg =
@@ -29713,10 +29712,12 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 7350, 4280, 5, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 9800, 4600, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 10800, 4400, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
-        GameObjectBundleFactory_1.GameObjectBundleFactory.createCrate(this, 7500, 4800, ninjas.CrateType.WOODEN);
-        GameObjectBundleFactory_1.GameObjectBundleFactory.createBridge(this, 6144, 4800);
-        GameObjectBundleFactory_1.GameObjectBundleFactory.createDeco(this, 70, 5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1);
-        GameObjectBundleFactory_1.GameObjectBundleFactory.createDeco(this, 14000, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2);
+        ninjas.GameObjectBundleFactory.createCrate(this, 7500, 4800, ninjas.CrateType.WOODEN);
+        ninjas.GameObjectBundleFactory.createBridge(this, 6144, 4800);
+        ninjas.GameObjectBundleFactory.createDeco(this, 70, 5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1);
+        ninjas.GameObjectBundleFactory.createDeco(this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2);
+        ninjas.GameObjectBundleFactory.createDeco(this, 1125, 5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_CONSOLE);
+        ninjas.GameObjectBundleFactory.createDeco(this, 750, 5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_3);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -30142,7 +30143,18 @@ var GameObjectBundleFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectBundleFactory.createDeco = function (level, xLeft, yBottom, position, imageId) {
         var sprtiteTemplate = ninjas.SpriteTemplate.createFromSingleImage(imageId);
-        level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate));
+        switch (position) {
+            case DecoPosition.FG:
+                {
+                    level.decosFg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate));
+                    break;
+                }
+            case DecoPosition.BG:
+                {
+                    level.decosBg.push(ninjas.GameObjectFactory.createDecorationRect(xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate));
+                    break;
+                }
+        }
     };
     /** The collision height of the flying ground. */
     GameObjectBundleFactory.HEIGHT_FLYING_GROUND = 90;
@@ -33349,6 +33361,14 @@ var Image = /** @class */ (function () {
     Image.IMAGE_TREE_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "tree1.png";
     /** Image resource 'tree 2'. */
     Image.IMAGE_TREE_2 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "tree2.png";
+    /** Image resource 'console'. */
+    Image.IMAGE_CONSOLE = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "console.png";
+    /** Image resource 'statue 1'. */
+    Image.IMAGE_STATUE_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue1.png";
+    /** Image resource 'statue 2'. */
+    Image.IMAGE_STATUE_2 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue2.png";
+    /** Image resource 'statue 3'. */
+    Image.IMAGE_STATUE_3 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue3.png";
     /** Image tile 'flying left'. */
     Image.IMAGE_GROUND_FLYING_LEFT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
     /** Image tile 'flying center'. */
@@ -33448,6 +33468,10 @@ var Image = /** @class */ (function () {
         Image.IMAGE_BRIDGE_1,
         Image.IMAGE_TREE_1,
         Image.IMAGE_TREE_2,
+        Image.IMAGE_CONSOLE,
+        Image.IMAGE_STATUE_1,
+        Image.IMAGE_STATUE_2,
+        Image.IMAGE_STATUE_3,
         Image.IMAGE_GROUND_FLYING_LEFT,
         Image.IMAGE_GROUND_FLYING_CENTER,
         Image.IMAGE_GROUND_FLYING_RIGHT,

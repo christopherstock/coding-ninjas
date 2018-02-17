@@ -1,6 +1,5 @@
 
     import * as ninjas from '../../ninjas';
-    import {GameObjectBundleFactory} from "../object/GameObjectBundleFactory";
 
     /*******************************************************************************************************************
     *   The level set for the dev level.
@@ -78,8 +77,8 @@
                 ninjas.GameObjectFactory.createSiteTrigger( 700,   5000, 600,  500, ninjas.SitePanelAppearance.LEFT           ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3800,  4800, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3782,  4060, 600,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 7350,  4280, 640,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 12536, 4200, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 7360,  4280, 620,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 12536, 4200, 990,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 14744, 5100, 1000, 500, ninjas.SitePanelAppearance.RIGHT          ),
             ];
 
@@ -148,11 +147,14 @@
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 9800,  4600, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 10800, 4400, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
 
-            GameObjectBundleFactory.createCrate( this, 7500, 4800, ninjas.CrateType.WOODEN );
+            ninjas.GameObjectBundleFactory.createCrate( this, 7500, 4800, ninjas.CrateType.WOODEN );
 
-            GameObjectBundleFactory.createBridge( this, 6144, 4800 );
+            ninjas.GameObjectBundleFactory.createBridge( this, 6144, 4800 );
 
-            GameObjectBundleFactory.createDeco( this, 70,    5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1 );
-            GameObjectBundleFactory.createDeco( this, 14000, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2 );
+            ninjas.GameObjectBundleFactory.createDeco( this, 70,    5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1 );
+            ninjas.GameObjectBundleFactory.createDeco( this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2 );
+
+            ninjas.GameObjectBundleFactory.createDeco( this, 1125, 5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_CONSOLE  );
+            ninjas.GameObjectBundleFactory.createDeco( this, 750,  5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_3 );
         }
     }
