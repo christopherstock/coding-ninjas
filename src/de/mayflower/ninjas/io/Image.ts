@@ -152,10 +152,11 @@
         public      static      IMAGE_FLASK_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flask1.png";
         /** Image resource 'flask 2'. */
         public      static      IMAGE_FLASK_2                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flask2.png";
-        /** Image resource 'flask 3'. */
-        public      static      IMAGE_FLASK_3                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flask3.png";
         /** Image resource 'pot'. */
         public      static      IMAGE_POT                                   :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "pot.png";
+
+        /** Image resource 'DoJo'. */
+        public      static      IMAGE_DOJO                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "dojo.jpg";
 
         /** Image tile 'flying left'. */
         public      static      IMAGE_GROUND_FLYING_LEFT                    :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
@@ -295,9 +296,10 @@
 
             Image.IMAGE_FLASK_1,
             Image.IMAGE_FLASK_2,
-            Image.IMAGE_FLASK_3,
 
             Image.IMAGE_POT,
+
+            Image.IMAGE_DOJO,
 
             Image.IMAGE_GROUND_FLYING_LEFT,
             Image.IMAGE_GROUND_FLYING_CENTER,

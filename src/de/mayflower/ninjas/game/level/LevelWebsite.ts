@@ -78,7 +78,7 @@
                 ninjas.GameObjectFactory.createSiteTrigger( 3530,  4060, 800,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 7360,  4280, 620,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 12536, 4200, 990,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 14744, 5100, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 14720, 5100, 1024, 768, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
             ];
 
             this.decosFg =
@@ -192,11 +192,10 @@
             ninjas.GameObjectBundleFactory.createDeco(   this, 13200, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_5 );
 
             // shrine 6
-            ninjas.GameObjectBundleFactory.createShrine( this, 15344, 5100, false, true );
-
-
-
-
-
+            ninjas.GameObjectBundleFactory.createDeco(   this, 14720, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_DOJO     );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 14900, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_2  );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 15020, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET   );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 15120, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT      );
+            ninjas.GameObjectBundleFactory.createShrine( this, 15400, 5100, true, true );
         }
     }
