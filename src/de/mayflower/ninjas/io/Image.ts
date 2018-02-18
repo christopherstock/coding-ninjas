@@ -122,6 +122,10 @@
         public      static      IMAGE_STATUE_2                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue2.png";
         /** Image resource 'statue 3'. */
         public      static      IMAGE_STATUE_3                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue3.png";
+        /** Image resource 'statue 4'. */
+        public      static      IMAGE_STATUE_4                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue4.png";
+        /** Image resource 'statue 5'. */
+        public      static      IMAGE_STATUE_5                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue5.png";
 
         /** Image resource 'book closed'. */
         public      static      IMAGE_BOOK_CLOSED                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bookClosed.png";
@@ -273,6 +277,8 @@
             Image.IMAGE_STATUE_1,
             Image.IMAGE_STATUE_2,
             Image.IMAGE_STATUE_3,
+            Image.IMAGE_STATUE_4,
+            Image.IMAGE_STATUE_5,
 
             Image.IMAGE_BOOK_CLOSED,
             Image.IMAGE_BOOK_OPEN,

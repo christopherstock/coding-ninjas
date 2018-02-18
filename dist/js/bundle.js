@@ -29652,7 +29652,7 @@ var LevelWebsite = /** @class */ (function (_super) {
             [];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(4000, 4000, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(7360, 4280, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.siteTriggers =
             [
                 ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 640, 500, ninjas.SitePanelAppearance.LEFT),
@@ -29732,16 +29732,22 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createDeco(this, 930, 5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1);
         ninjas.GameObjectBundleFactory.createShrine(this, 1110, 5000, true, true);
         // shrine 2
-        ninjas.GameObjectBundleFactory.createDeco(this, 3670, 4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT);
+        ninjas.GameObjectBundleFactory.createDeco(this, 3680, 4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT);
         ninjas.GameObjectBundleFactory.createShrine(this, 3770, 4800, false, true);
         ninjas.GameObjectBundleFactory.createDeco(this, 4230, 4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_3);
         ninjas.GameObjectBundleFactory.createDeco(this, 4150, 4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_1);
         // shrine 3
-        ninjas.GameObjectBundleFactory.createShrine(this, 3650, 4060, true, true);
+        ninjas.GameObjectBundleFactory.createShrine(this, 3650, 4060, true, false);
+        ninjas.GameObjectBundleFactory.createDeco(this, 3815, 4060, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDLE);
         ninjas.GameObjectBundleFactory.createDeco(this, 3900, 4060, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET);
         ninjas.GameObjectBundleFactory.createDeco(this, 3950, 4060, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_1);
         ninjas.GameObjectBundleFactory.createDeco(this, 4170, 4060, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_2);
         ninjas.GameObjectBundleFactory.createDeco(this, 4040, 4060, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_4);
+        // shrine 4
+        ninjas.GameObjectBundleFactory.createDeco(this, 7370, 4280, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_4);
+        ninjas.GameObjectBundleFactory.createDeco(this, 7600, 4280, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_2);
+        ninjas.GameObjectBundleFactory.createDeco(this, 7660, 4280, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_1);
+        ninjas.GameObjectBundleFactory.createShrine(this, 7740, 4280, false, true);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -33411,6 +33417,10 @@ var Image = /** @class */ (function () {
     Image.IMAGE_STATUE_2 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue2.png";
     /** Image resource 'statue 3'. */
     Image.IMAGE_STATUE_3 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue3.png";
+    /** Image resource 'statue 4'. */
+    Image.IMAGE_STATUE_4 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue4.png";
+    /** Image resource 'statue 5'. */
+    Image.IMAGE_STATUE_5 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "statue5.png";
     /** Image resource 'book closed'. */
     Image.IMAGE_BOOK_CLOSED = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bookClosed.png";
     /** Image resource 'book open'. */
@@ -33540,6 +33550,8 @@ var Image = /** @class */ (function () {
         Image.IMAGE_STATUE_1,
         Image.IMAGE_STATUE_2,
         Image.IMAGE_STATUE_3,
+        Image.IMAGE_STATUE_4,
+        Image.IMAGE_STATUE_5,
         Image.IMAGE_BOOK_CLOSED,
         Image.IMAGE_BOOK_OPEN,
         Image.IMAGE_CANDELABRA,
