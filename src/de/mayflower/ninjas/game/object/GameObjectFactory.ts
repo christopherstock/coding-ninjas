@@ -99,7 +99,7 @@
 
             if ( spriteTemplate.width != spriteTemplate.height )
             {
-                throw "Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[ 0 ] + "]";
+                throw new Error( "Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[ 0 ] + "]" );
             }
 
             return new ninjas.Movable
@@ -467,7 +467,7 @@
         {
             if ( spriteTemplate.width != spriteTemplate.height )
             {
-                throw "Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[ 0 ] + "]";
+                throw new Error( "Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[ 0 ] + "]" );
             }
 
             return new ninjas.Decoration

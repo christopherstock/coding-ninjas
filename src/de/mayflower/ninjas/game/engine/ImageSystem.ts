@@ -59,9 +59,16 @@
         *   Returns the image with the specified id.
         *
         *   @param id The id of the image to receive.
+        *
+        *   @throws Error if the id doesn't exist.
         ***************************************************************************************************************/
         public getImage( id:string ) : HTMLImageElement
         {
+            if ( !this.originalImages[ id ] )
+            {
+                throw new Error( "The image id [" + id + "] doesn't exist in the image array stack." );
+            }
+
             return this.originalImages[ id ];
         }
 

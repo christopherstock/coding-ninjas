@@ -27944,8 +27944,13 @@ var ImageSystem = /** @class */ (function () {
     *   Returns the image with the specified id.
     *
     *   @param id The id of the image to receive.
+    *
+    *   @throws Error if the id doesn't exist.
     ***************************************************************************************************************/
     ImageSystem.prototype.getImage = function (id) {
+        if (!this.originalImages[id]) {
+            throw new Error("The image id [" + id + "] doesn't exist in the image array stack.");
+        }
         return this.originalImages[id];
     };
     /***************************************************************************************************************
@@ -29647,12 +29652,12 @@ var LevelWebsite = /** @class */ (function (_super) {
             [];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(3700, 4500, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(4000, 4000, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.siteTriggers =
             [
                 ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 640, 500, ninjas.SitePanelAppearance.LEFT),
-                ninjas.GameObjectFactory.createSiteTrigger(3670, 4800, 750, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
-                ninjas.GameObjectFactory.createSiteTrigger(3782, 4060, 600, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
+                ninjas.GameObjectFactory.createSiteTrigger(3670, 4800, 650, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
+                ninjas.GameObjectFactory.createSiteTrigger(3530, 4060, 800, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(7360, 4280, 620, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(12536, 4200, 990, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(14744, 5100, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
@@ -29710,14 +29715,14 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createSolidGround(this, 12000, 4200, 12, 2, ninjas.Slope.NONE, ninjas.CapHorz.BOTH);
         // flying grounds
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 5062, 4430, 3, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
-        ninjas.GameObjectBundleFactory.createFlyingGround(this, 3526, 4060, 11, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
+        ninjas.GameObjectBundleFactory.createFlyingGround(this, 3525, 4060, 11, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 7350, 4280, 5, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 9800, 4600, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         ninjas.GameObjectBundleFactory.createFlyingGround(this, 10800, 4400, 3, ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH);
         // boxes
         ninjas.GameObjectBundleFactory.createCrate(this, 7500, 4800, ninjas.CrateType.WOODEN);
         // bridge
-        ninjas.GameObjectBundleFactory.createBridge(this, 6144, 4800);
+        ninjas.GameObjectBundleFactory.createBridge(this, 6185, 4800);
         // nature
         ninjas.GameObjectBundleFactory.createDeco(this, 70, 5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1);
         ninjas.GameObjectBundleFactory.createDeco(this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2);
@@ -29727,9 +29732,16 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createDeco(this, 930, 5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1);
         ninjas.GameObjectBundleFactory.createShrine(this, 1110, 5000, true, true);
         // shrine 2
-        ninjas.GameObjectBundleFactory.createDeco(this, 4230, 4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_1);
-        ninjas.GameObjectBundleFactory.createShrine(this, 3770, 4800, true, false);
-        ninjas.GameObjectBundleFactory.createDeco(this, 3920, 4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET);
+        ninjas.GameObjectBundleFactory.createDeco(this, 3670, 4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT);
+        ninjas.GameObjectBundleFactory.createShrine(this, 3770, 4800, false, true);
+        ninjas.GameObjectBundleFactory.createDeco(this, 4230, 4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_3);
+        ninjas.GameObjectBundleFactory.createDeco(this, 4150, 4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_1);
+        // shrine 3
+        ninjas.GameObjectBundleFactory.createShrine(this, 3650, 4060, true, true);
+        ninjas.GameObjectBundleFactory.createDeco(this, 3900, 4060, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET);
+        ninjas.GameObjectBundleFactory.createDeco(this, 3950, 4060, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_1);
+        ninjas.GameObjectBundleFactory.createDeco(this, 4170, 4060, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_2);
+        ninjas.GameObjectBundleFactory.createDeco(this, 4040, 4060, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_4);
     };
     return LevelWebsite;
 }(ninjas.Level));
@@ -30257,7 +30269,7 @@ var GameObjectFactory = /** @class */ (function () {
     GameObjectFactory.createSphere = function (x, yBottom, friction, density, restitution) {
         var spriteTemplate = ninjas.SpriteTemplate.createFromSingleImage(ninjas.Image.IMAGE_SPHERE);
         if (spriteTemplate.width != spriteTemplate.height) {
-            throw "Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[0] + "]";
+            throw new Error("Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[0] + "]");
         }
         return new ninjas.Movable(new ninjas.ShapeCircle(spriteTemplate.width, ninjas.DebugColor.COLOR_DEBUG_MOVABLE, ninjas.StaticShape.NO, 0.0, friction, density, restitution), spriteTemplate, x, (yBottom - spriteTemplate.height));
     };
@@ -30404,7 +30416,7 @@ var GameObjectFactory = /** @class */ (function () {
     ***************************************************************************************************************/
     GameObjectFactory.createDecorationCircular = function (xLeft, yBottom, isStatic, spriteTemplate) {
         if (spriteTemplate.width != spriteTemplate.height) {
-            throw "Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[0] + "]";
+            throw new Error("Non-square sprite template dimensions for circular deco - sprite image [" + spriteTemplate.imageIds[0] + "]");
         }
         return new ninjas.Decoration(new ninjas.ShapeCircle(spriteTemplate.width, ninjas.DebugColor.COLOR_DEBUG_DECORATION, isStatic, 0.0, ninjas.BodyFriction.RUBBER, ninjas.BodyDensity.RUBBER, ninjas.BodyRestitution.RUBBER), spriteTemplate, xLeft, (yBottom - spriteTemplate.height));
     };
@@ -33417,6 +33429,14 @@ var Image = /** @class */ (function () {
     Image.IMAGE_BUSH_4 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush4.png";
     /** Image resource 'goblet'. */
     Image.IMAGE_GOBLET = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "goblet.png";
+    /** Image resource 'flask 1'. */
+    Image.IMAGE_FLASK_1 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flask1.png";
+    /** Image resource 'flask 2'. */
+    Image.IMAGE_FLASK_2 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flask2.png";
+    /** Image resource 'flask 3'. */
+    Image.IMAGE_FLASK_3 = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flask3.png";
+    /** Image resource 'pot'. */
+    Image.IMAGE_POT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "pot.png";
     /** Image tile 'flying left'. */
     Image.IMAGE_GROUND_FLYING_LEFT = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
     /** Image tile 'flying center'. */
@@ -33529,6 +33549,10 @@ var Image = /** @class */ (function () {
         Image.IMAGE_BUSH_3,
         Image.IMAGE_BUSH_4,
         Image.IMAGE_GOBLET,
+        Image.IMAGE_FLASK_1,
+        Image.IMAGE_FLASK_2,
+        Image.IMAGE_FLASK_3,
+        Image.IMAGE_POT,
         Image.IMAGE_GROUND_FLYING_LEFT,
         Image.IMAGE_GROUND_FLYING_CENTER,
         Image.IMAGE_GROUND_FLYING_RIGHT,
