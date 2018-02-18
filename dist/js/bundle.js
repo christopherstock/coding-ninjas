@@ -29352,23 +29352,23 @@ var Level = /** @class */ (function () {
         /** The height of this level. */
         this.height = 0.0;
         /** All parallax bgs. */
-        this.parallaxBgs = null;
+        this.parallaxBgs = [];
         /** All decos in bg. */
-        this.decosBg = null;
+        this.decosBg = [];
         /** All site triggers. */
-        this.siteTriggers = null;
+        this.siteTriggers = [];
         /** All obstacles. */
-        this.obstacles = null;
+        this.obstacles = [];
         /** All movables. */
-        this.movables = null;
+        this.movables = [];
         /** All enemies. */
-        this.enemies = null;
+        this.enemies = [];
         /** The player instance. */
         this.player = null;
         /** All decos in fg. */
-        this.decosFg = null;
+        this.decosFg = [];
         /** All parallax fgs. */
-        this.parallaxFgs = null;
+        this.parallaxFgs = [];
     }
     /***************************************************************************************************************
     *   Inits a new level.
@@ -29642,7 +29642,7 @@ var LevelWebsite = /** @class */ (function (_super) {
     *   Inits a new level.
     ***************************************************************************************************************/
     LevelWebsite.prototype.createGameObjects = function () {
-        // just some preliminary tryouts ...
+        // Prune these preliminary tryouts ...
         this.parallaxBgs =
             [];
         this.decosBg =
@@ -29653,15 +29653,15 @@ var LevelWebsite = /** @class */ (function (_super) {
             [];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(12536, 4200, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(14744, 5100, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.siteTriggers =
             [
-                ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 640, 500, ninjas.SitePanelAppearance.LEFT),
+                ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 640, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(3670, 4800, 650, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(3530, 4060, 800, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(7360, 4280, 620, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
                 ninjas.GameObjectFactory.createSiteTrigger(12536, 4200, 990, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
-                ninjas.GameObjectFactory.createSiteTrigger(14744, 5100, 1000, 500, ninjas.SitePanelAppearance.RIGHT),
+                ninjas.GameObjectFactory.createSiteTrigger(14744, 5100, 1000, 500, ninjas.SitePanelAppearance.PLAYER_LOOKING),
             ];
         this.decosFg =
             [];
@@ -29756,6 +29756,8 @@ var LevelWebsite = /** @class */ (function (_super) {
         ninjas.GameObjectBundleFactory.createDeco(this, 12940, 4200, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET);
         ninjas.GameObjectBundleFactory.createDeco(this, 13065, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1);
         ninjas.GameObjectBundleFactory.createDeco(this, 13200, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_5);
+        // shrine 6
+        ninjas.GameObjectBundleFactory.createShrine(this, 15344, 5100, false, true);
     };
     return LevelWebsite;
 }(ninjas.Level));

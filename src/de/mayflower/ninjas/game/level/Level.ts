@@ -15,23 +15,23 @@
         public      height                  :number                         = 0.0;
 
         /** All parallax bgs. */
-        public      parallaxBgs             :Array<ninjas.ParallaxDeco>     = null;
+        public      parallaxBgs             :Array<ninjas.ParallaxDeco>     = [];
         /** All decos in bg. */
-        public      decosBg                 :Array<ninjas.Decoration>       = null;
+        public      decosBg                 :Array<ninjas.Decoration>       = [];
         /** All site triggers. */
-        public      siteTriggers            :Array<ninjas.SiteTrigger>      = null;
+        public      siteTriggers            :Array<ninjas.SiteTrigger>      = [];
         /** All obstacles. */
-        public      obstacles               :Array<ninjas.Obstacle>         = null;
+        public      obstacles               :Array<ninjas.Obstacle>         = [];
         /** All movables. */
-        public      movables                :Array<ninjas.Movable>          = null;
+        public      movables                :Array<ninjas.Movable>          = [];
         /** All enemies. */
-        public      enemies                 :Array<ninjas.Enemy>            = null;
+        public      enemies                 :Array<ninjas.Enemy>            = [];
         /** The player instance. */
         public      player                  :ninjas.Player                  = null;
         /** All decos in fg. */
-        public      decosFg                 :Array<ninjas.Decoration>       = null;
+        public      decosFg                 :Array<ninjas.Decoration>       = [];
         /** All parallax fgs. */
-        public      parallaxFgs             :Array<ninjas.ParallaxDeco>     = null;
+        public      parallaxFgs             :Array<ninjas.ParallaxDeco>     = [];
 
         /***************************************************************************************************************
         *   Sets the player and the game objects.
