@@ -27440,6 +27440,7 @@ var ninjas = __webpack_require__(1);
 *   The main class contains the application's points of entry and termination.
 *
 *   TODO Add different contents for site panels.
+*   TODO Open shrine books on entering the trigger!
 *   TODO Dojo on level end.
 *   TODO Only create site panel contents once. Create initializer method for this.
 *   TODO Add react for site content creation.
@@ -29652,7 +29653,7 @@ var LevelWebsite = /** @class */ (function (_super) {
             [];
         this.enemies =
             [];
-        this.player = ninjas.GameObjectFactory.createPlayer(7360, 4280, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
+        this.player = ninjas.GameObjectFactory.createPlayer(12536, 4200, ninjas.CharacterLookingDirection.LEFT, ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT);
         this.siteTriggers =
             [
                 ninjas.GameObjectFactory.createSiteTrigger(700, 5000, 640, 500, ninjas.SitePanelAppearance.LEFT),
@@ -29746,8 +29747,15 @@ var LevelWebsite = /** @class */ (function (_super) {
         // shrine 4
         ninjas.GameObjectBundleFactory.createDeco(this, 7370, 4280, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_4);
         ninjas.GameObjectBundleFactory.createDeco(this, 7600, 4280, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_2);
-        ninjas.GameObjectBundleFactory.createDeco(this, 7660, 4280, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_1);
+        ninjas.GameObjectBundleFactory.createDeco(this, 7665, 4280, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_1);
         ninjas.GameObjectBundleFactory.createShrine(this, 7740, 4280, false, true);
+        // shrine 5
+        ninjas.GameObjectBundleFactory.createDeco(this, 12560, 4200, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDLE);
+        ninjas.GameObjectBundleFactory.createShrine(this, 12620, 4200, false, true);
+        ninjas.GameObjectBundleFactory.createDeco(this, 12860, 4200, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT);
+        ninjas.GameObjectBundleFactory.createDeco(this, 12940, 4200, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET);
+        ninjas.GameObjectBundleFactory.createDeco(this, 13065, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1);
+        ninjas.GameObjectBundleFactory.createDeco(this, 13200, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_5);
     };
     return LevelWebsite;
 }(ninjas.Level));

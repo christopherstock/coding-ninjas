@@ -5,6 +5,7 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Add different contents for site panels.
+    *   TODO Open shrine books on entering the trigger!
     *   TODO Dojo on level end.
     *   TODO Only create site panel contents once. Create initializer method for this.
     *   TODO Add react for site content creation.
