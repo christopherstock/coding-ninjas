@@ -4,15 +4,14 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Add different contents for site panels.
-    *   TODO Open shrine books on entering the trigger!
-    *   TODO Dojo on level end.
-    *   TODO Only create site panel contents once. Create initializer method for this.
-    *   TODO Add react for site content creation.
-    *   TODO Create bridge obstacle, sprite and water deco sprite.
+    *   TODO Turn content creations to JSX.
     *   TODO Step-Flow-Meter (progress, navi etc.) in React.
     *   TODO Try ant design (pro?) in front panel.
+    *   TODO Add different contents for site panels.
+    *   TODO Open shrine books on entering the trigger!
+    *   TODO Only create site panel contents once. Create initializer method for this.
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
+    *   TODO Create bridge obstacle, sprite and water deco sprite.
     *
     *   TODO Complete the MVP!
     *

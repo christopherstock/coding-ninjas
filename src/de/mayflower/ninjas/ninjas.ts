@@ -55,6 +55,7 @@
     export * from './io/Sound';
     export * from './io/SpriteTemplate';
 
+    export * from './site/component/ExampleContent';
     export * from './site/SiteContent';
     export * from './site/SiteContentFactory';
 

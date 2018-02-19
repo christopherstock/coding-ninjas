@@ -29,6 +29,8 @@
         public      static      site            :Debug              = new Debug( true  );
         /** Debugs canvas events. */
         public      static      canvas          :Debug              = new Debug( true  );
+        /** Debugs react events. */
+        public      static      react           :Debug              = new Debug( true  );
 
         /** The flag that enables or disables logging for this debug group. */
         private                 debugEnabled    :boolean            = false;

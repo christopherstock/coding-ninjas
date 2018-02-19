@@ -43,11 +43,11 @@
             this.createOuterAbsoluteContainer();
             this.createInnerRelativeContainer();
 
-            // add content
-            ninjas.SiteContent.appendExampleContent( this.innerRelativeContainer );
-
             // add inner to outer container
             this.outerAbsoluteContainer.appendChild( this.innerRelativeContainer );
+
+            // add content to inner container
+            ninjas.SiteContent.appendExampleContent( this.innerRelativeContainer );
         }
 
         /***************************************************************************************************************
