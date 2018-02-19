@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Add grass.
     *   TODO Theme ant design to pink!
     *   TODO Remove flickering of antd components on panel reappearing.
     *   TODO Only create site panel contents once. Create initializer method for this.

@@ -158,6 +158,9 @@
         /** Image resource 'DoJo'. */
         public      static      IMAGE_DOJO                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "dojo.jpg";
 
+        /** Image resource 'grass 1'. */
+        public      static      IMAGE_GRASS_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1.png";
+
         /** Image tile 'flying left'. */
         public      static      IMAGE_GROUND_FLYING_LEFT                    :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "flyingLeft.png";
         /** Image tile 'flying center'. */
@@ -300,6 +303,8 @@
             Image.IMAGE_POT,
 
             Image.IMAGE_DOJO,
+
+            Image.IMAGE_GRASS_1,
 
             Image.IMAGE_GROUND_FLYING_LEFT,
             Image.IMAGE_GROUND_FLYING_CENTER,
