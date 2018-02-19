@@ -1,6 +1,6 @@
 
     import * as ninjas from '../../ninjas';
-    import { Row, Col, Layout, Divider } from 'antd';
+    import { Row, Col, Layout, Divider, Tooltip, Button } from 'antd';
     import * as React from 'react';
 
     /*******************************************************************************************************************
@@ -21,6 +21,24 @@
             ninjas.Debug.react.log( "ExampleContent.render() being invoked" );
 
             return <Layout>
+
+                        <Tooltip
+                            placement="leftBottom"
+                            title="Generate and download a new key pair."
+                        >
+                            <Button
+                                type="primary"
+                                className="backend"
+                                icon="key"
+                                loading={ false }
+                                onClick={ () => { alert( "Fucker!" ); } }
+                                style={ { marginBottom: "35px", } }
+                            >
+                                Generate new RSA 2048 bit key pair
+                            </Button>
+                        </Tooltip>
+
+
 
                 { /* Headline */ }
                 <Row>

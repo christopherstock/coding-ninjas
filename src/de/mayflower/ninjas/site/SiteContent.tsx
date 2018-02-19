@@ -1,6 +1,4 @@
 
-    require( "animate.css" );
-
     import * as ninjas   from '../ninjas';
     import * as React    from 'react';
     import * as ReactDOM from 'react-dom';

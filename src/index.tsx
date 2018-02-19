@@ -1,5 +1,7 @@
 
-    require( './css/index.css' );
+    require( './css/custom.css' );
+    require( "animate.css" );
+    require( 'antd/dist/antd.css' );
 
     import * as ninjas from './de/mayflower/ninjas/ninjas';
 

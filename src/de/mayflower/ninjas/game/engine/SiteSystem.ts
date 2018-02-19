@@ -1,7 +1,6 @@
 
     import * as ninjas from '../../ninjas';
     const wow = require( 'wowjs' );
-    require( "animate.css" );
 
     /*******************************************************************************************************************
     *   Specifies the current site panel animation state.
