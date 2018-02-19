@@ -20,6 +20,7 @@
     {
         position:           relative;
         background:         #c7d9f5;
+        text-align:         left;
     }
 
     p.sitePanel.defaultText

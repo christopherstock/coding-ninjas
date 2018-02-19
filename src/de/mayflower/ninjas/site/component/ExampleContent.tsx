@@ -1,6 +1,6 @@
 
     import * as ninjas from '../../ninjas';
-    import { Row, Col, Layout, Divider, Tooltip, Button } from 'antd';
+    import { Row, Col, Layout, Divider, Tooltip, Button, Steps } from 'antd';
     import * as React from 'react';
 
     /*******************************************************************************************************************
@@ -20,7 +20,20 @@
         {
             ninjas.Debug.react.log( "ExampleContent.render() being invoked" );
 
-            return <Layout>
+            return <div>
+
+                { /* Step indicator */ }
+                <Steps size="small" current={ 0 } status="process">
+                    <Steps.Step title="Welcome" description="" />
+                    <Steps.Step title="" description="" />
+                    <Steps.Step title="" description="" />
+                    <Steps.Step title="" description="" />
+                </Steps>
+
+
+
+
+            <Layout>
 
                 { /* Headline */ }
                 <Row>
@@ -78,5 +91,7 @@
                 </Row>
 
             </Layout>;
+
+            </div>
         }
     }
