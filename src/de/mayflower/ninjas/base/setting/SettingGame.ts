@@ -23,7 +23,7 @@
         /** The player's start position X. */
         public  static  readonly    PLAYER_START_POSITION_X                         :number                     = 885;
         /** The player's start position Y. */
-        public  static  readonly    PLAYER_START_POSITION_Y                         :number                     = 4000;
+        public  static  readonly    PLAYER_START_POSITION_Y                         :number                     = 5000; // 4000;
 
         /** The maximum width for the site panel. */
         public      static  readonly    SITE_PANEL_MAX_WIDTH                        :number                     = 600;

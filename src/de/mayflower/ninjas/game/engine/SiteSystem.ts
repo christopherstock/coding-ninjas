@@ -11,8 +11,11 @@
     *******************************************************************************************************************/
     export enum SitePanelAnimation
     {
+        /** Currently idle. */
         NONE,
+        /** Currently showing. */
         SHOW,
+        /** Currently hiding. */
         HIDE,
     }
 
