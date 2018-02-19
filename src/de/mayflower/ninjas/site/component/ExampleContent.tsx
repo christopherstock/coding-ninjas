@@ -22,24 +22,6 @@
 
             return <Layout>
 
-                        <Tooltip
-                            placement="leftBottom"
-                            title="Generate and download a new key pair."
-                        >
-                            <Button
-                                type="primary"
-                                className="backend"
-                                icon="key"
-                                loading={ false }
-                                onClick={ () => { alert( "Fucker!" ); } }
-                                style={ { marginBottom: "35px", } }
-                            >
-                                Generate new RSA 2048 bit key pair
-                            </Button>
-                        </Tooltip>
-
-
-
                 { /* Headline */ }
                 <Row>
                     <Col span={ 24 }>
@@ -65,6 +47,31 @@
                             <br />
                             Thank you very much for your confidence!
                         </p>
+
+                    </Col>
+                    <Col lg={ 4 } xs={ 0 } />
+                </Row>
+
+                { /* Example button / link? */ }
+                <Row>
+                    <Col lg={ 4 } xs={ 0 } />
+                    <Col lg={ 16 } xs={ 24 }>
+
+                        <Tooltip
+                            placement="leftBottom"
+                            title="Generate and download a new key pair."
+                        >
+                            <Button
+                                type="primary"
+                                className="backend"
+                                icon="key"
+                                loading={ false }
+                                onClick={ () => { alert( "Fucker!" ); } }
+                                style={ { marginBottom: "35px", } }
+                            >
+                                Generate new RSA 2048 bit key pair
+                            </Button>
+                        </Tooltip>
 
                     </Col>
                     <Col lg={ 4 } xs={ 0 } />

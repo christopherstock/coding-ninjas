@@ -4,17 +4,21 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Turn content creations to JSX.
+    *   TODO Add grass.
+    *   TODO Theme ant design to pink!
+    *   TODO Remove flickering of antd components on panel reappearing.
+    *   TODO Only create site panel contents once. Create initializer method for this.
+    *   TODO Turn all (example) content creations to JSX.
     *   TODO Step-Flow-Meter (progress, navi etc.) in React.
     *   TODO Try ant design (pro?) in front panel.
     *   TODO Add different contents for site panels.
     *   TODO Open shrine books on entering the trigger!
-    *   TODO Only create site panel contents once. Create initializer method for this.
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
     *   TODO Create bridge obstacle, sprite and water deco sprite.
     *
     *   TODO Complete the MVP!
     *
+    *   TODO Ask Lenz: packages 'less' and 'less-loader' for less import and antd theme config?
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Fixed positioning for camera on first scene (player floating in).
     *   TODO Add decoration particle effects.

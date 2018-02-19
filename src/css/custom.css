@@ -40,3 +40,17 @@
         width:              100%;
         height:             auto;
     }
+
+    button.ant-btn-primary
+    {
+        background-color:   #ff6666;
+        border-color:       #ff6666;
+    }
+
+    button.ant-btn-primary:hover,
+    button.ant-btn-primary:focus,
+    button.ant-btn-primary:active
+    {
+        background-color:   #ff8a8a;
+        border-color:       #ff8a8a;
+    }
