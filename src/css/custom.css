@@ -26,6 +26,7 @@
     {
         padding:            20px;
         margin:             0;
+        color:              #ffffff;
     }
 
     div.sitePanel.imageContainer
@@ -42,7 +43,7 @@
     }
 
 
-    /** ANT overrides :( */
+    /** ANT overrides :( TODO outsource to separate css file. */
 
     .ant-btn-primary
     {

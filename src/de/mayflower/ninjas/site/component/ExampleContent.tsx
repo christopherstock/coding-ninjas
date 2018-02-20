@@ -38,6 +38,13 @@
 
 
 
+                { ninjas.SiteContentFactory.createParagraph( "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und." ) }
+                { ninjas.SiteContentFactory.createParagraph( "Test paragraph 2" ) }
+
+
+
+
+
             <Layout>
 
                 { /* Headline */ }

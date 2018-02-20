@@ -8,6 +8,7 @@
     *   TODO Remove flickering of antd components on panel reappearing.
     *   TODO Only create site panel contents once. Create initializer method for this.
     *   TODO Turn all (example) content creations to JSX.
+    *   TODO Remove unlinked images in res/image/levek etc.
     *   TODO Add different contents for site panels.
     *   TODO Open shrine books on entering the trigger!
     *   TODO Preload site images via image system ( or assign images via JavaScript ).

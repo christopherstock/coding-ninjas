@@ -1,4 +1,6 @@
 
+    import * as React from 'react';
+
     /*******************************************************************************************************************
     *   Creates content components for the factory.
     *
@@ -8,18 +10,13 @@
     export class SiteContentFactory
     {
         /***************************************************************************************************************
-        *   Creates a paragraph.
+        *   Creates a paragraph JSX element.
         *
         *   @param text The text to be contained in the paragraph.
         ***************************************************************************************************************/
-        public static createParagraph( text:string ) : HTMLParagraphElement
+        public static createParagraph( text:string ) : JSX.Element
         {
-            let paragraph:HTMLParagraphElement = document.createElement( "p" );
-
-            paragraph.className="sitePanel defaultText";
-            paragraph.innerHTML = text;
-
-            return paragraph;
+            return <p className="sitePanel defaultText">{ text }</p>;
         }
 
         /***************************************************************************************************************
