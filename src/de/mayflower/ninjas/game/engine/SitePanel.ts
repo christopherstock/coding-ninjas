@@ -9,7 +9,9 @@
     *******************************************************************************************************************/
     export enum SitePanelPosition
     {
+        /** Site panel appearing left. */
         LEFT,
+        /** Site panel appearing right. */
         RIGHT,
     }
 
@@ -30,14 +32,10 @@
         private                 position                        :ninjas.SitePanelPosition   = null;
 
         /***************************************************************************************************************
-        *   Creates a new site panel on the specified position.
-        *
-        *   @param position The position for this panel to show up.
+        *   Creates a new site panel.
         ***************************************************************************************************************/
-        public constructor( position:ninjas.SitePanelPosition )
+        public constructor()
         {
-            this.position = position;
-
             this.createOuterAbsoluteContainer();
             this.createInnerRelativeContainer();
 
@@ -46,6 +44,14 @@
 
             // add content to inner container
             ninjas.SiteContent.appendExampleContent( this.innerRelativeContainer );
+        }
+
+        /***************************************************************************************************************
+        *   Sets the position of the panel.
+        ***************************************************************************************************************/
+        public setPosition( position:ninjas.SitePanelPosition ) : void
+        {
+            this.position = position;
         }
 
         /***************************************************************************************************************

@@ -10,12 +10,14 @@
     *******************************************************************************************************************/
     export enum SitePanelAnimation
     {
-        /** Currently idle. */
-        NONE,
+        /** Currently offside. */
+        HIDDEN,
         /** Currently showing. */
-        SHOW,
+        SHOWING,
         /** Currently hiding. */
-        HIDE,
+        HIDING,
+        /** Currently present. */
+        PRESENT,
     }
 
     /*******************************************************************************************************************
@@ -27,28 +29,30 @@
     export class SiteSystem
     {
         /** The active site panel. */
-        private             activePanel                     :ninjas.SitePanel               = null;
+        private             activePanel                 :ninjas.SitePanel               = null;
         /** The current animation of the site panel. */
-        private             animationState                  :ninjas.SitePanelAnimation      = ninjas.SitePanelAnimation.NONE;
+        private             animationState              :ninjas.SitePanelAnimation      = SitePanelAnimation.HIDDEN;
 
         /** The current width of the panel. */
-        private             panelWidth                      :number                         = 0;
+        private             panelWidth                  :number                         = 0;
         /** The current width of the panel including border size. */
-        private             panelAndBorderWidth             :number                         = 0;
+        private             panelAndBorderWidth         :number                         = 0;
 
         /** The left camera target X if the border is shown right. */
-        private             leftCameraTargetX               :number                         = 0;
+        private             leftCameraTargetX           :number                         = 0;
         /** The right camera target X if the border is shown left. */
-        private             rightCameraTargetX              :number                         = 0;
+        private             rightCameraTargetX          :number                         = 0;
 
         /** The WOW animation system. */
-        private             wowSystem                       :any                            = null;
+        private             wowSystem                   :any                            = null;
 
         /***************************************************************************************************************
         *   Creates a new site system.
         ***************************************************************************************************************/
         public constructor()
         {
+            this.activePanel = new ninjas.SitePanel();
+
             this.updatePanelSizeAndPosition();
             this.initWowSystem();
         }
@@ -60,24 +64,25 @@
         ***************************************************************************************************************/
         public show( position:ninjas.SitePanelPosition ) : boolean
         {
-            if ( this.activePanel != null || this.animationState != ninjas.SitePanelAnimation.NONE )
+            // only show if hidden
+            if ( this.animationState != ninjas.SitePanelAnimation.HIDDEN )
             {
                 return false;
             }
 
             ninjas.Debug.site.log( "Showing site panel" );
-            this.animationState = ninjas.SitePanelAnimation.SHOW;
+            this.animationState = ninjas.SitePanelAnimation.SHOWING;
 
-            this.activePanel = new ninjas.SitePanel( position );
+            this.activePanel.setPosition( position );
+            this.updatePanelSizeAndPosition();
+
             this.activePanel.addToDom();
             this.activePanel.animateIn();
-            this.updatePanelSizeAndPosition();
             this.wowSystem.sync();
 
             window.setTimeout(
                 () => {
-
-                    this.animationState = ninjas.SitePanelAnimation.NONE;
+                    this.animationState = ninjas.SitePanelAnimation.PRESENT;
                 },
                 ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION
             );
@@ -92,13 +97,13 @@
         ***************************************************************************************************************/
         public hide() : boolean
         {
-            if ( this.activePanel == null || this.animationState != ninjas.SitePanelAnimation.NONE )
+            if ( this.animationState != ninjas.SitePanelAnimation.PRESENT )
             {
                 return false;
             }
 
             ninjas.Debug.site.log( "Hiding site panel" );
-            this.animationState = ninjas.SitePanelAnimation.HIDE;
+            this.animationState = ninjas.SitePanelAnimation.HIDING;
 
             this.activePanel.animateOut();
             this.wowSystem.sync();
@@ -106,9 +111,7 @@
             window.setTimeout(
                 () => {
                     this.activePanel.removeFromDom();
-                    this.activePanel = null;
-
-                    this.animationState = ninjas.SitePanelAnimation.NONE;
+                    this.animationState = ninjas.SitePanelAnimation.HIDDEN;
                 },
                 ( ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION / 2 )
             );
@@ -134,14 +137,11 @@
             this.rightCameraTargetX  = ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 );
 
             // update panel size and position
-            if ( this.activePanel != null )
-            {
-                this.activePanel.updateSizeAndPosition
-                (
-                    this.panelWidth,
-                    ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.BORDER_SIZE )
-                );
-            }
+            this.activePanel.updateSizeAndPosition
+            (
+                this.panelWidth,
+                ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.BORDER_SIZE )
+            );
         }
 
         /***************************************************************************************************************
@@ -151,7 +151,7 @@
         ***************************************************************************************************************/
         public getCameraTargetX() : number
         {
-            if ( this.activePanel == null || this.animationState == ninjas.SitePanelAnimation.HIDE )
+            if ( this.animationState == ninjas.SitePanelAnimation.HIDDEN || this.animationState == ninjas.SitePanelAnimation.HIDING )
             {
                 switch ( ninjas.Main.game.level.player.lookingDirection )
                 {
