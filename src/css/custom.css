@@ -22,18 +22,20 @@
         text-align:         left;
     }
 
-    p.sitePanel.defaultText
+    p.sitePanel.defaultParagraph
     {
         padding:            20px;
         margin:             0;
         color:              #ffffff;
+
+        background:         rgba( 255, 255, 100, 0.25 );
     }
 
     div.sitePanel.defaultImageContainer
     {
         padding:            20px;
         margin:             0;
-        background:         #fffc9e;
+        background:         rgba( 255, 255, 100, 0.25 );
     }
 
     h1.sitePanel.defaultHeadline
@@ -41,6 +43,8 @@
         width:              100%;
         text-align:         center;
         color:              #ff6666;
+
+        background:         rgba( 255, 255, 100, 0.25 );
     }
 
     img.sitePanel.defaultImage

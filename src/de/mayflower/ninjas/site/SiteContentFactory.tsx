@@ -1,5 +1,6 @@
 
     import * as React from 'react';
+    import * as antd  from 'antd';
 
     /*******************************************************************************************************************
     *   Creates content components for the factory.
@@ -9,6 +10,25 @@
     *******************************************************************************************************************/
     export class SiteContentFactory
     {
+        /***************************************************************************************************************
+        *   Creates a step indicator.
+        *
+        *   @param index The index of the currently active step, zero based.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createStepIndicator( index:number ) : JSX.Element
+        {
+            return <antd.Steps size="small" current={ index } status="process">
+                <antd.Steps.Step title="" description="" />
+                <antd.Steps.Step title="" description="" />
+                <antd.Steps.Step title="" description="" />
+                <antd.Steps.Step title="" description="" />
+                <antd.Steps.Step title="" description="" />
+                <antd.Steps.Step title="" description="" />
+            </antd.Steps>;
+        }
+
         /***************************************************************************************************************
         *   Creates an image container as a JSX element.
         *
@@ -47,6 +67,6 @@
         ***************************************************************************************************************/
         public static createParagraph( text:string ) : JSX.Element
         {
-            return <p className="sitePanel defaultText">{ text }</p>;
+            return <p className="sitePanel defaultParagraph">{ text }</p>;
         }
     }
