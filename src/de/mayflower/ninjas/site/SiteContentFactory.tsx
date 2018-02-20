@@ -55,7 +55,9 @@
         ***************************************************************************************************************/
         public static createHeadline( text:string ) : JSX.Element
         {
-            return <h1 className="sitePanel defaultHeadline">{ text }</h1>;
+            return <h1 className="sitePanel defaultHeadline">
+                { text }
+            </h1>;
         }
 
         /***************************************************************************************************************
@@ -67,6 +69,8 @@
         ***************************************************************************************************************/
         public static createParagraph( text:string ) : JSX.Element
         {
-            return <p className="sitePanel defaultParagraph">{ text }</p>;
+            return <p className="sitePanel defaultParagraph">
+                { text }
+            </p>;
         }
     }

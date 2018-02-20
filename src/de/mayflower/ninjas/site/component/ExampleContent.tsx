@@ -22,12 +22,6 @@
 
             return <div>
 
-
-
-
-
-
-
                 { ninjas.SiteContentFactory.createStepIndicator( 2 ) }
 
                 <antd.Divider />
