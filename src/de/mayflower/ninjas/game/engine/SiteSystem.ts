@@ -28,8 +28,10 @@
     *******************************************************************************************************************/
     export class SiteSystem
     {
+        /** The content system. */
+        private             contentSystem               :ninjas.SiteContentSystem       = null;
         /** The active site panel. */
-        private             activePanel                 :ninjas.SitePanel               = null;
+        private             sitePanel                   :ninjas.SitePanel               = null;
         /** The current animation of the site panel. */
         private             animationState              :ninjas.SitePanelAnimation      = SitePanelAnimation.HIDDEN;
 
@@ -51,7 +53,11 @@
         ***************************************************************************************************************/
         public constructor()
         {
-            this.activePanel = new ninjas.SitePanel();
+            this.contentSystem = new ninjas.SiteContentSystem();
+            this.contentSystem.initAllContents();
+
+            this.sitePanel     = new ninjas.SitePanel();
+            this.contentSystem.appendExampleContent( this.sitePanel.getMountPoint() );
 
             this.updatePanelSizeAndPosition();
             this.initWowSystem();
@@ -73,11 +79,11 @@
             ninjas.Debug.site.log( "Showing site panel" );
             this.animationState = ninjas.SitePanelAnimation.SHOWING;
 
-            this.activePanel.setPosition( position );
+            this.sitePanel.setPosition( position );
             this.updatePanelSizeAndPosition();
 
-            this.activePanel.addToDom();
-            this.activePanel.animateIn();
+            this.sitePanel.addToDom();
+            this.sitePanel.animateIn();
             this.wowSystem.sync();
 
             window.setTimeout(
@@ -105,12 +111,12 @@
             ninjas.Debug.site.log( "Hiding site panel" );
             this.animationState = ninjas.SitePanelAnimation.HIDING;
 
-            this.activePanel.animateOut();
+            this.sitePanel.animateOut();
             this.wowSystem.sync();
 
             window.setTimeout(
                 () => {
-                    this.activePanel.removeFromDom();
+                    this.sitePanel.removeFromDom();
                     this.animationState = ninjas.SitePanelAnimation.HIDDEN;
                 },
                 ( ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION / 2 )
@@ -137,7 +143,7 @@
             this.rightCameraTargetX  = ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 );
 
             // update panel size and position
-            this.activePanel.updateSizeAndPosition
+            this.sitePanel.updateSizeAndPosition
             (
                 this.panelWidth,
                 ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.BORDER_SIZE )
@@ -167,7 +173,7 @@
                 }
             }
 
-            switch ( this.activePanel.getPosition() )
+            switch ( this.sitePanel.getPosition() )
             {
                 case ninjas.SitePanelPosition.LEFT:
                 {

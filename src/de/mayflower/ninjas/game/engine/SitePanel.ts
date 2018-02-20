@@ -41,9 +41,6 @@
 
             // add inner to outer container
             this.outerAbsoluteContainer.appendChild( this.innerRelativeContainer );
-
-            // add content to inner container
-            ninjas.SiteContent.appendExampleContent( this.innerRelativeContainer );
         }
 
         /***************************************************************************************************************
@@ -159,6 +156,16 @@
                     break;
                 }
             }
+        }
+
+        /***************************************************************************************************************
+        *   Returns the container to remove and add various contents.
+        *
+        *   @return The inner relative container div.
+        ***************************************************************************************************************/
+        public getMountPoint() : HTMLDivElement
+        {
+            return this.innerRelativeContainer;
         }
 
         /***************************************************************************************************************

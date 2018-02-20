@@ -6,6 +6,7 @@
     *
     *   TODO Only create site panel contents once.
     *   TODO Pre-Create all site panel contents. Create initializer method for this.
+    *
     *   TODO Remove unlinked images in res/image/level etc.
     *   TODO Add different contents for site panels.
     *   TODO Open shrine books on entering the trigger!
