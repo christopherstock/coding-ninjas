@@ -22,8 +22,11 @@
 
             return <div>
 
-                { /* Step indicator */ }
-                <Steps size="small" current={ 0 } status="process">
+
+
+
+                { /* Step indicator TODO wrap to function! */ }
+                <Steps size="small" current={ 2 } status="process">
                     <Steps.Step title="" description="" />
                     <Steps.Step title="" description="" />
                     <Steps.Step title="" description="" />
@@ -81,7 +84,7 @@
                                 className="backend"
                                 icon="key"
                                 loading={ false }
-                                onClick={ () => { alert( "Fucker!" ); } }
+                                onClick={ () => { alert( "Button clicked!" ); } }
                                 style={ { marginBottom: "35px", } }
                             >
                                 Generate new RSA 2048 bit key pair

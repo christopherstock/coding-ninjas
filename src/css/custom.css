@@ -19,7 +19,6 @@
     div.sitePanel.innerRelativeContainer
     {
         position:           relative;
-        background:         #c7d9f5;
         text-align:         left;
     }
 
@@ -42,16 +41,40 @@
         height:             auto;
     }
 
-    button.ant-btn-primary
+
+    /** ANT overrides :( */
+
+    .ant-btn-primary
     {
         background-color:   #ff6666;
         border-color:       #ff6666;
     }
 
-    button.ant-btn-primary:hover,
-    button.ant-btn-primary:focus,
-    button.ant-btn-primary:active
+    .ant-btn-primary:hover,
+    .ant-btn-primary:focus,
+    .ant-btn-primary:active
     {
         background-color:   #ff8a8a;
         border-color:       #ff8a8a;
+    }
+
+    .ant-steps-item-process .ant-steps-item-icon
+    {
+        background:         #ff6666;
+        border-color:       #ff6666;
+    }
+
+    .ant-steps-item-finish > .ant-steps-item-content > .ant-steps-item-title:after
+    {
+        background:         #ff6666;
+    }
+
+    .ant-steps-item-finish .ant-steps-item-icon
+    {
+        border-color:       #ff6666;
+    }
+
+    .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon
+    {
+        color:              #ff6666;
     }
