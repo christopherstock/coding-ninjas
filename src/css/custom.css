@@ -29,11 +29,18 @@
         color:              #ffffff;
     }
 
-    div.sitePanel.imageContainer
+    div.sitePanel.defaultImageContainer
     {
         padding:            20px;
         margin:             0;
         background:         #fffc9e;
+    }
+
+    h1.sitePanel.defaultHeadline
+    {
+        width:              100%;
+        text-align:         center;
+        color:              #ff6666;
     }
 
     img.sitePanel.defaultImage

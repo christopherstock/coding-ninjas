@@ -13,10 +13,10 @@
     *   TODO Open shrine books on entering the trigger!
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
     *   TODO Create bridge obstacle, sprite and water deco sprite.
+    *   TODO Ask Lenz: packages 'less' and 'less-loader' for less import and antd theme config? Add less or sass to own css??
     *
     *   TODO Complete the MVP!
     *
-    *   TODO Ask Lenz: packages 'less' and 'less-loader' for less import and antd theme config?
     *   TODO Theme ant design to pink!
     *   TODO Try ant design (pro?) in front panel.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
