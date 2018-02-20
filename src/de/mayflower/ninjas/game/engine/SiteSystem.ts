@@ -57,7 +57,6 @@
             this.contentSystem.initAllContents();
 
             this.sitePanel     = new ninjas.SitePanel();
-            this.contentSystem.appendExampleContent( this.sitePanel.getMountPoint() );
 
             this.updatePanelSizeAndPosition();
             this.initWowSystem();
@@ -78,6 +77,9 @@
 
             ninjas.Debug.site.log( "Showing site panel" );
             this.animationState = ninjas.SitePanelAnimation.SHOWING;
+
+            // set content for site panel
+            this.contentSystem.appendExampleContent( this.sitePanel.getMountPoint() );
 
             this.sitePanel.setPosition( position );
             this.updatePanelSizeAndPosition();

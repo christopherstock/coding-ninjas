@@ -32,6 +32,12 @@
         ***************************************************************************************************************/
         public appendExampleContent( container:HTMLDivElement ) : void
         {
+            // unmount existent component if any
+            ReactDOM.unmountComponentAtNode(
+                container
+            );
+
+            // mount desired component
             ReactDOM.render(
                 this.contentWelcome,
                 container

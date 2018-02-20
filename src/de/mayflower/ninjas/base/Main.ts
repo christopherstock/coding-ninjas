@@ -4,9 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Only create site panel contents once.
-    *   TODO Pre-Create all site panel contents. Create initializer method for this.
-    *
+    *   TODO Show different contents on each site panel.
     *   TODO Remove unlinked images in res/image/level etc.
     *   TODO Add different contents for site panels.
     *   TODO Open shrine books on entering the trigger!
