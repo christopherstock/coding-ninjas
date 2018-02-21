@@ -23,10 +23,13 @@
     *******************************************************************************************************************/
     export class SiteTrigger extends ninjas.Decoration
     {
-        /** Flags if the according site panel is currently displayed. */
-        private                         sitePanelActive                 :boolean                        = false;
+        /** The site content to show when this trigger is released. */
+        private                         content                         :ninjas.SiteContent             = null;
         /** A fixed position for the panel to popup, if desired. */
         private                         sitePanelAppearance             :ninjas.SitePanelAppearance     = null;
+
+        /** Flags if the according site panel is currently displayed. */
+        private                         sitePanelActive                 :boolean                        = false;
 
         /***************************************************************************************************************
         *   Creates a new site trigger.
@@ -35,6 +38,7 @@
         *   @param spriteTemplate      The sprite template to use.
         *   @param x                   Startup position X.
         *   @param y                   Startup position Y.
+        *   @param content             The site content to display on releasing this trigger.
         *   @param sitePanelAppearance The position for the site panel to appear.
         ***************************************************************************************************************/
         public constructor
@@ -43,6 +47,7 @@
             spriteTemplate      :ninjas.SpriteTemplate,
             x                   :number,
             y                   :number,
+            content             :ninjas.SiteContent,
             sitePanelAppearance :ninjas.SitePanelAppearance
         )
         {
@@ -54,6 +59,7 @@
                 y
             );
 
+            this.content             = content;
             this.sitePanelAppearance = sitePanelAppearance;
         }
 
@@ -72,7 +78,7 @@
                     // get panel popup according to player looking direction
                     let panelPosition:ninjas.SitePanelPosition = this.determinePanelPosition();
 
-                    if ( ninjas.Main.game.engine.siteSystem.show( panelPosition ) )
+                    if ( ninjas.Main.game.engine.siteSystem.show( this.content, panelPosition ) )
                     {
                         this.sitePanelActive = true;
                     }

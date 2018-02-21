@@ -73,12 +73,12 @@
 
             this.siteTriggers =
             [
-                ninjas.GameObjectFactory.createSiteTrigger( 700,   5000, 640,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 3670,  4800, 650,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 3530,  4060, 800,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 7360,  4280, 620,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 12536, 4200, 990,  500, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 14720, 5100, 1024, 768, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 700,   5000, 640,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 3670,  4800, 650,  500, ninjas.SiteContent.CONTENT_COMPANY, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 3530,  4060, 800,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 7360,  4280, 620,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 12536, 4200, 990,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 14720, 5100, 1024, 768, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
             ];
 
             this.decosFg =

@@ -534,6 +534,7 @@
         *   @param yBottom             Anchor of bottom Y.
         *   @param width               Object width.
         *   @param height              Object height.
+        *   @param content             The site content to display on releasing this trigger.
         *   @param sitePanelAppearance The position for the site panel to appear.
         *
         *   @return The created site trigger.
@@ -544,6 +545,7 @@
             yBottom             :number,
             width               :number,
             height              :number,
+            content             :ninjas.SiteContent,
             sitePanelAppearance :ninjas.SitePanelAppearance
         )
         : ninjas.SiteTrigger
@@ -564,6 +566,7 @@
                 null,
                 x,
                 yBottom - height,
+                content,
                 sitePanelAppearance
             );
         }

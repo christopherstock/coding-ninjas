@@ -4,9 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Show different contents on each site panel.
     *   TODO Remove unlinked images in res/image/level etc.
-    *   TODO Add different contents for site panels.
     *   TODO Open shrine books on entering the trigger!
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
     *   TODO Create bridge obstacle, sprite and water deco sprite.

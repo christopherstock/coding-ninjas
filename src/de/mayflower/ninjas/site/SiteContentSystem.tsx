@@ -4,6 +4,20 @@
     import * as ReactDOM from 'react-dom';
 
     /*******************************************************************************************************************
+    *   Specifies all existing site contents.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum SiteContent
+    {
+        /** The 'welcome' page. */
+        CONTENT_WELCOME,
+        /** The 'company' page. */
+        CONTENT_COMPANY,
+    }
+
+    /*******************************************************************************************************************
     *   Manages all site contents for the site panel.
     *
     *   @author     Christopher Stock
@@ -26,20 +40,38 @@
         }
 
         /***************************************************************************************************************
-        *   Appends a content to the specified container.
+        *   Mounts the specified content to the specified container.
         *
-        *   @param container The container to append the content to.
+        *   @param content   The site content to mount.
+        *   @param container The container to mount the content to.
         ***************************************************************************************************************/
-        public appendExampleContent( container:HTMLDivElement ) : void
+        public mountContent( content:SiteContent, container:HTMLDivElement ) : void
         {
             // unmount existent component if any
             ReactDOM.unmountComponentAtNode(
                 container
             );
 
-            // mount desired component
+            // pick new content to mount
+            let elementToMount:JSX.Element = null;
+            switch ( content )
+            {
+                case SiteContent.CONTENT_WELCOME:
+                {
+                    elementToMount = this.contentWelcome;
+                    break;
+                }
+
+                case SiteContent.CONTENT_COMPANY:
+                {
+                    elementToMount = this.contentCompany;
+                    break;
+                }
+            }
+
+            // mount content to DOM node
             ReactDOM.render(
-                this.contentWelcome,
+                elementToMount,
                 container
             );
         }

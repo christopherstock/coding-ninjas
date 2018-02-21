@@ -65,9 +65,12 @@
         /***************************************************************************************************************
         *   Being invoked when a site shall be shown.
         *
+        *   @param content  The content to display in the site panel
+        *   @param position The position for the panel to show up.
+        *
         *   @return If showing the site succeeded.
         ***************************************************************************************************************/
-        public show( position:ninjas.SitePanelPosition ) : boolean
+        public show( content:ninjas.SiteContent, position:ninjas.SitePanelPosition ) : boolean
         {
             // only show if hidden
             if ( this.animationState != ninjas.SitePanelAnimation.HIDDEN )
@@ -79,7 +82,7 @@
             this.animationState = ninjas.SitePanelAnimation.SHOWING;
 
             // set content for site panel
-            this.contentSystem.appendExampleContent( this.sitePanel.getMountPoint() );
+            this.contentSystem.mountContent( content, this.sitePanel.getMountPoint() );
 
             this.sitePanel.setPosition( position );
             this.updatePanelSizeAndPosition();
