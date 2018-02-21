@@ -190,6 +190,24 @@
             LoopSprite.YES
         );
 
+        /** Sprite 'water top'. */
+        public      static  SPRITE_WATER_TOP                            :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_WATER_TOP_FRAME_1,
+                ninjas.Image.IMAGE_WATER_TOP_FRAME_2,
+                ninjas.Image.IMAGE_WATER_TOP_FRAME_3,
+                ninjas.Image.IMAGE_WATER_TOP_FRAME_4,
+                ninjas.Image.IMAGE_WATER_TOP_FRAME_5,
+                ninjas.Image.IMAGE_WATER_TOP_FRAME_6,
+                ninjas.Image.IMAGE_WATER_TOP_FRAME_7,
+                ninjas.Image.IMAGE_WATER_TOP_FRAME_8,
+            ],
+            6,
+            ninjas.MirrorImage.NO,
+            LoopSprite.YES
+        );
+
         /** A reference over all sprite templates. */
         private     static  ALL_SPRITE_TEMPLATES                        :Array<SpriteTemplate>  =
         [
@@ -203,6 +221,7 @@
             SpriteTemplate.SPRITE_NINJA_GIRL_FALL_RIGHT,
             SpriteTemplate.SPRITE_NINJA_GIRL_GLIDE_LEFT,
             SpriteTemplate.SPRITE_NINJA_GIRL_GLIDE_RIGHT,
+            SpriteTemplate.SPRITE_WATER_TOP,
         ];
 
         /** All image ids this sprite consists of. */

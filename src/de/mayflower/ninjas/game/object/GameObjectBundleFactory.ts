@@ -377,7 +377,7 @@
         )
         : void
         {
-            let tileTop    :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_WATER_TOP    );
+            let tileTop    :ninjas.SpriteTemplate = ninjas.SpriteTemplate.SPRITE_WATER_TOP;
             let tileCenter :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_WATER_CENTER );
 
             // draw area

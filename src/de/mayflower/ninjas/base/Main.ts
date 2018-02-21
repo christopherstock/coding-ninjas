@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Create water deco sprite.
     *   TODO Theme ant design to pink!
     *   TODO Add new ant design components.
     *   TODO Complete all site panel contents.

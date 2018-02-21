@@ -161,8 +161,23 @@
         /** Image resource 'grass 1'. */
         public      static      IMAGE_GRASS_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1.png";
 
-        /** Image tile 'water top'. */
-        public      static      IMAGE_WATER_TOP                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop.png";
+        /** Image tile 'water top frame 1'. */
+        public      static      IMAGE_WATER_TOP_FRAME_1                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop/01.png";
+        /** Image tile 'water top frame 2'. */
+        public      static      IMAGE_WATER_TOP_FRAME_2                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop/02.png";
+        /** Image tile 'water top frame 3'. */
+        public      static      IMAGE_WATER_TOP_FRAME_3                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop/03.png";
+        /** Image tile 'water top frame 4'. */
+        public      static      IMAGE_WATER_TOP_FRAME_4                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop/04.png";
+        /** Image tile 'water top frame 5'. */
+        public      static      IMAGE_WATER_TOP_FRAME_5                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop/05.png";
+        /** Image tile 'water top frame 6'. */
+        public      static      IMAGE_WATER_TOP_FRAME_6                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop/06.png";
+        /** Image tile 'water top frame 7'. */
+        public      static      IMAGE_WATER_TOP_FRAME_7                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop/07.png";
+        /** Image tile 'water top frame 8'. */
+        public      static      IMAGE_WATER_TOP_FRAME_8                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop/08.png";
+
         /** Image tile 'water center'. */
         public      static      IMAGE_WATER_CENTER                          :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterCenter.png";
 
@@ -311,7 +326,15 @@
 
             Image.IMAGE_GRASS_1,
 
-            Image.IMAGE_WATER_TOP,
+            Image.IMAGE_WATER_TOP_FRAME_1,
+            Image.IMAGE_WATER_TOP_FRAME_2,
+            Image.IMAGE_WATER_TOP_FRAME_3,
+            Image.IMAGE_WATER_TOP_FRAME_4,
+            Image.IMAGE_WATER_TOP_FRAME_5,
+            Image.IMAGE_WATER_TOP_FRAME_6,
+            Image.IMAGE_WATER_TOP_FRAME_7,
+            Image.IMAGE_WATER_TOP_FRAME_8,
+
             Image.IMAGE_WATER_CENTER,
 
             Image.IMAGE_GROUND_FLYING_LEFT,
