@@ -4,21 +4,24 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Make shrine a subclass of Decoration.
-    *   TODO Open shrine books on entering the trigger!
-    *   TODO Create bridge obstacle, sprite and water deco sprite.
-    *   TODO Ask Lenz: packages 'less' and 'less-loader' for less import and antd theme config? Add less or sass to own css??
+    *   TODO Create water deco sprite.
+    *   TODO Theme ant design to pink!
+    *   TODO Add new ant design components.
+    *   TODO Complete all site panel contents.
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
+    *   TODO Remove and replace the ugly bush.
     *
     *   TODO Complete the MVP!
     *
-    *   TODO Theme ant design to pink!
+    *   TODO Ask Lenz: packages 'less' and 'less-loader' for less import and antd theme config? Add less or sass to own css??
     *   TODO Create flames for candles.
     *   TODO Create animated grass sprite.
     *   TODO Avoid slow sliding on edges!
     *   TODO Try ant design (pro?) in front panel.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Fixed positioning for camera on first scene (player floating in).
+    *   TODO Blending over layer for fade in effect.
+    *   TODO Camera joyride on level startup?
     *   TODO Add decoration particle effects.
     *   TODO Add 'slide' sprite.
     *   TODO Add and assign actions and sprites for 'attack' and 'jump attack'?

@@ -359,6 +359,45 @@
         }
 
         /***************************************************************************************************************
+        *   Creates a water area.
+        *
+        *   @param level       The level to add the flying ground to.
+        *   @param xLeft       Anchor for left X.
+        *   @param yTop        Anchor for top Y.
+        *   @param length      The length of the area.
+        *   @param height      The height of the area.
+        ***************************************************************************************************************/
+        public static createWaterArea
+        (
+            level       :ninjas.Level,
+            xLeft       :number,
+            yTop        :number,
+            length      :number,
+            height      :number
+        )
+        : void
+        {
+            let tileTop    :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_WATER_TOP    );
+            let tileCenter :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_WATER_CENTER );
+
+            // draw area
+            for ( let tileX:number = 0; tileX < length; ++tileX )
+            {
+                for ( let tileY:number = 0; tileY < height; ++tileY )
+                {
+                    if ( tileY == 0 )
+                    {
+                        level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, yTop + tileY * GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, tileTop ) );
+                    }
+                    else
+                    {
+                        level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft + tileX * GameObjectBundleFactory.GROUND_TILE_WIDTH, yTop + tileY * GameObjectBundleFactory.GROUND_TILE_HEIGHT, ninjas.StaticShape.YES, tileCenter ) );
+                    }
+                }
+            }
+        }
+
+        /***************************************************************************************************************
         *   Creates a crate.
         *
         *   @param level        The level to add the solid ground to.

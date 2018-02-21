@@ -65,8 +65,8 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                ninjas.SettingGame.PLAYER_START_POSITION_X,
-                ninjas.SettingGame.PLAYER_START_POSITION_Y,
+                6185, // ninjas.SettingGame.PLAYER_START_POSITION_X,
+                4820, // ninjas.SettingGame.PLAYER_START_POSITION_Y,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );
@@ -133,8 +133,9 @@
             // boxes
             ninjas.GameObjectBundleFactory.createCrate(  this, 7500,  4800, ninjas.CrateType.WOODEN );
 
-            // bridge
-            ninjas.GameObjectBundleFactory.createBridge( this, 6185,  4800 );
+            // bridge and water
+            ninjas.GameObjectBundleFactory.createWaterArea( this, 6100,  4970, 6, 10 );
+            ninjas.GameObjectBundleFactory.createBridge(    this, 6185,  4800 );
 
             // nature
             ninjas.GameObjectBundleFactory.createDeco(   this, 75,    5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GRASS_1 );
