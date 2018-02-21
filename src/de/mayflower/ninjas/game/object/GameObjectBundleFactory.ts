@@ -437,19 +437,20 @@
         )
         : void
         {
-            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
+            let sprtiteTemplate :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
+            let deco            :ninjas.Decoration     = ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate );
 
             switch ( position )
             {
                 case DecoPosition.FG:
                 {
-                    level.decosFg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate ) );
+                    level.decosFg.push( deco );
                     break;
                 }
 
                 case DecoPosition.BG:
                 {
-                    level.decosBg.push( ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate ) );
+                    level.decosBg.push( deco );
                     break;
                 }
             }
@@ -463,6 +464,7 @@
         *   @param yBottom     Anchor for bottom Y.
         *   @param candleLeft  Specifies if the left  candle shall be drawn.
         *   @param candleRight Specifies if the right candle shall be drawn.
+        *   @param content     The level content associated with this shrine.
         ***************************************************************************************************************/
         public static createShrine
         (
@@ -471,12 +473,42 @@
             yBottom     :number,
             candleLeft  :boolean,
             candleRight :boolean,
+            content     :ninjas.SiteContent
         )
         : void
         {
-            GameObjectBundleFactory.createDeco( level, xLeft,      yBottom,       ninjas.DecoPosition.BG, ninjas.Image.IMAGE_CONSOLE     );
-            GameObjectBundleFactory.createDeco( level, xLeft + 30, yBottom - 110, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BOOK_CLOSED );
-            GameObjectBundleFactory.createDeco( level, xLeft - 5,  yBottom - 118, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BOOK_OPEN   );
+            let sprtiteBookOpen   :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOOK_OPEN   );
+            let sprtiteBookClosed :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BOOK_CLOSED );
+            let spriteShrine      :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_CONSOLE     );
+
+            let decoBookOpen      :ninjas.Decoration     = ninjas.GameObjectFactory.createDecorationRect( xLeft - 5,  yBottom - 118, ninjas.StaticShape.YES, sprtiteBookOpen   );
+            let decoBookClosed    :ninjas.Decoration     = ninjas.GameObjectFactory.createDecorationRect( xLeft + 30, yBottom - 110, ninjas.StaticShape.YES, sprtiteBookClosed );
+            let decoShrine        :ninjas.Shrine         = new ninjas.Shrine
+            (
+                new ninjas.ShapeRectangle
+                (
+                    spriteShrine.width,
+                    spriteShrine.height,
+                    ninjas.DebugColor.COLOR_DEBUG_SHRINE,
+                    ninjas.StaticShape.YES,
+                    0.0,
+                    ninjas.BodyFriction.DEFAULT,
+                    ninjas.BodyDensity.RUBBER,
+                    ninjas.BodyRestitution.RUBBER
+                ),
+                spriteShrine,
+                xLeft,
+                yBottom - spriteShrine.height,
+                content
+            );
+
+
+
+            level.decosBg.push( decoShrine     );
+
+
+            level.decosBg.push( decoBookOpen   );
+            level.decosBg.push( decoBookClosed );
 
             if ( candleLeft  ) GameObjectBundleFactory.createDeco( level, xLeft - 80,  yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
             if ( candleRight ) GameObjectBundleFactory.createDeco( level, xLeft + 160, yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );

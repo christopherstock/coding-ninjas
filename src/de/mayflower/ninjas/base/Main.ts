@@ -4,10 +4,11 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Make shrine a subclass of Decoration.
     *   TODO Open shrine books on entering the trigger!
-    *   TODO Preload site images via image system ( or assign images via JavaScript ).
     *   TODO Create bridge obstacle, sprite and water deco sprite.
     *   TODO Ask Lenz: packages 'less' and 'less-loader' for less import and antd theme config? Add less or sass to own css??
+    *   TODO Preload site images via image system ( or assign images via JavaScript ).
     *
     *   TODO Complete the MVP!
     *

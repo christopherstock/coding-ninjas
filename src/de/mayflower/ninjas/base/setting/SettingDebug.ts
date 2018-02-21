@@ -45,6 +45,8 @@
         COLOR_DEBUG_ITEM                = "#fcff97",
         /** The debug color for a decoration. */
         COLOR_DEBUG_DECORATION          = "#b5fffd",
+        /** The debug color for a shrine. */
+        COLOR_DEBUG_SHRINE              = "#adbfff",
         /** The debug color for a site trigger. */
         COLOR_DEBUG_SITE_TRIGGER        = "#deffd9",
         /** The debug color for a platform. */

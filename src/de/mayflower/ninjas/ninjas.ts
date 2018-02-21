@@ -30,6 +30,7 @@
 
     export * from './game/object/deco/Decoration';
     export * from './game/object/deco/ParallaxDeco';
+    export * from './game/object/deco/Shrine';
 
     export * from './game/object/primal/Item';
     export * from './game/object/primal/Movable';
@@ -39,7 +40,6 @@
     export * from './game/object/special/Platform';
     export * from './game/object/special/SigSaw';
     export * from './game/object/special/SiteTrigger';
-
 
     export * from './game/shape/Shape';
     export * from './game/shape/ShapeRectangle';
@@ -57,6 +57,7 @@
 
     export * from './site/component/ContentCompany';
     export * from './site/component/ContentWelcome';
+
     export * from './site/SiteContentSystem';
     export * from './site/SiteContentFactory';
 
