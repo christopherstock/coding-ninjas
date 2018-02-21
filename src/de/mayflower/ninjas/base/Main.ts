@@ -13,6 +13,8 @@
     *   TODO Complete the MVP!
     *
     *   TODO Theme ant design to pink!
+    *   TODO Create flames for candles.
+    *   TODO Create animated grass sprite.
     *   TODO Avoid slow sliding on edges!
     *   TODO Try ant design (pro?) in front panel.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!

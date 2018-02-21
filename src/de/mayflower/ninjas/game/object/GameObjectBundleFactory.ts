@@ -502,13 +502,9 @@
                 content
             );
 
-
-
-            level.decosBg.push( decoShrine     );
-
-
             level.decosBg.push( decoBookOpen   );
             level.decosBg.push( decoBookClosed );
+            level.shrines.push( decoShrine     );
 
             if ( candleLeft  ) GameObjectBundleFactory.createDeco( level, xLeft - 80,  yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
             if ( candleRight ) GameObjectBundleFactory.createDeco( level, xLeft + 160, yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );

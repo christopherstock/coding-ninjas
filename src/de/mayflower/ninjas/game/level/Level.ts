@@ -18,6 +18,8 @@
         public      parallaxBgs             :Array<ninjas.ParallaxDeco>     = [];
         /** All decos in bg. */
         public      decosBg                 :Array<ninjas.Decoration>       = [];
+        /** All shrines. */
+        public      shrines                 :Array<ninjas.Shrine>           = [];
         /** All site triggers. */
         public      siteTriggers            :Array<ninjas.SiteTrigger>      = [];
         /** All obstacles. */
@@ -50,6 +52,10 @@
                 ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
             }
             for ( let gameObject of this.parallaxBgs )
+            {
+                ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
+            }
+            for ( let gameObject of this.shrines )
             {
                 ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
             }
@@ -88,6 +94,10 @@
         public render()
         {
             for ( let gameObject of this.decosBg )
+            {
+                gameObject.render();
+            }
+            for ( let gameObject of this.shrines )
             {
                 gameObject.render();
             }
