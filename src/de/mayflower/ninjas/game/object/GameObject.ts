@@ -39,6 +39,38 @@
         }
 
         /***************************************************************************************************************
+        *   Renders the current game object.
+        ***************************************************************************************************************/
+        public render()
+        {
+            if ( this.sprite != null )
+            {
+                // render sprite and check frame change
+                if ( this.sprite.render() )
+                {
+                    this.setImageFromSprite();
+                }
+            }
+        }
+
+        /***************************************************************************************************************
+        *   Sets the visibility for this object.
+        *
+        *   @param visible The desired visibility.
+        ***************************************************************************************************************/
+        public setVisible( visible:boolean )
+        {
+            if ( visible )
+            {
+                this.setImageFromSprite();
+            }
+            else
+            {
+                this.shape.body.render.sprite.texture = null;
+            }
+        }
+
+        /***************************************************************************************************************
         *   Sets the specified sprite template.
         *
         *   @param spriteTemplate The sprite template to use for this new sprite.
@@ -59,21 +91,6 @@
 
                 // do NOT update body shape dimensions! immediate collisions will occur and block the game!
                 // this.shape.updateDimensions( this.sprite.width, this.sprite.height );
-            }
-        }
-
-        /***************************************************************************************************************
-        *   Renders the current game object.
-        ***************************************************************************************************************/
-        public render()
-        {
-            if ( this.sprite != null )
-            {
-                // render sprite and check frame change
-                if ( this.sprite.render() )
-                {
-                    this.setImageFromSprite();
-                }
             }
         }
 

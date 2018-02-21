@@ -29,12 +29,4 @@
 
             this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DECO;
         }
-
-        /***************************************************************************************************************
-        *   Renders this decoration.
-        ***************************************************************************************************************/
-        public render()
-        {
-            super.render();
-        }
     }

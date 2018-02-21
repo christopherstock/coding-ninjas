@@ -10,7 +10,11 @@
     export class Shrine extends ninjas.Decoration
     {
         /** The site content this shrine is connected to. */
-        private                     content                 :ninjas.SiteContent                 = null;
+        public                      content                 :ninjas.SiteContent                 = null;
+        /** The decoration of the open book for this shrine. */
+        private                     decoBookOpen            :ninjas.Decoration                  = null;
+        /** The decoration of the closed book for this shrine. */
+        private                     decoBookClosed          :ninjas.Decoration                  = null;
 
         /***************************************************************************************************************
         *   Creates a new Shrine.
@@ -20,8 +24,19 @@
         *   @param x              Startup position X.
         *   @param y              Startup position Y.
         *   @param content        The site content this shrine is connected to.
+        *   @param decoBookOpen   The decoration of the open book for this shrine.
+        *   @param decoBookClosed The decoration of the closed book for this shrine.
         ***************************************************************************************************************/
-        public constructor( shape:ninjas.Shape, spriteTemplate:ninjas.SpriteTemplate, x:number, y:number, content:ninjas.SiteContent )
+        public constructor
+        (
+            shape          :ninjas.Shape,
+            spriteTemplate :ninjas.SpriteTemplate,
+            x              :number,
+            y              :number,
+            content        :ninjas.SiteContent,
+            decoBookOpen   :ninjas.Decoration,
+            decoBookClosed :ninjas.Decoration
+        )
         {
             super
             (
@@ -32,13 +47,22 @@
             );
 
             this.content = content;
+
+            this.decoBookOpen   = decoBookOpen;
+            this.decoBookClosed = decoBookClosed;
+
+            // close the book initially
+            this.setBookOpen( false );
         }
 
         /***************************************************************************************************************
-        *   Renders this decoration.
+        *   Sets the shrine book open or closed..
+        *
+        *   @boolean open Specifies if the open book should be shown.
         ***************************************************************************************************************/
-        public render()
+        public setBookOpen( open:boolean ) : void
         {
-            super.render();
+            this.decoBookOpen.setVisible(   open  );
+            this.decoBookClosed.setVisible( !open );
         }
     }

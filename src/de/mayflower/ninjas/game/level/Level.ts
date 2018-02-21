@@ -141,4 +141,28 @@
                 gameObject.render();
             }
         }
+
+        /***************************************************************************************************************
+        *   Opens or closes the book of the specified shrine visible.
+        *
+        *   @param content The site content of the shrine to toggle the book.
+        *   @param open    Specifies if the book shall be opened.
+        ***************************************************************************************************************/
+        public setShrineBookOpen( content:ninjas.SiteContent, open:boolean )
+        {
+            for ( let gameObject of this.shrines )
+            {
+                if ( gameObject.content == content )
+                {
+                    if ( open )
+                    {
+                        gameObject.setBookOpen( true );
+                    }
+                    else
+                    {
+                        gameObject.setBookOpen( false );
+                    }
+                }
+            }
+        }
     }

@@ -80,6 +80,7 @@
 
                     if ( ninjas.Main.game.engine.siteSystem.show( this.content, panelPosition ) )
                     {
+                        ninjas.Main.game.level.setShrineBookOpen( this.content, true );
                         this.sitePanelActive = true;
                     }
                 }
@@ -90,6 +91,7 @@
                 {
                     if ( ninjas.Main.game.engine.siteSystem.hide() )
                     {
+                        ninjas.Main.game.level.setShrineBookOpen( this.content, false );
                         this.sitePanelActive = false;
                     }
                 }

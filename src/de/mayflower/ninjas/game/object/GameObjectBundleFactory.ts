@@ -499,7 +499,9 @@
                 spriteShrine,
                 xLeft,
                 yBottom - spriteShrine.height,
-                content
+                content,
+                decoBookOpen,
+                decoBookClosed
             );
 
             level.decosBg.push( decoBookOpen   );
