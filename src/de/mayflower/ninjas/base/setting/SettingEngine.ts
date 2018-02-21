@@ -23,20 +23,24 @@
         /** The maximum camera moving speed in px per move. */
         public  static  readonly    CAMERA_MOVING_MAXIMUM                   :number             = 20.0;
 
-        /** The relative path from index.html where all background images reside. */
-        public  static  readonly    PATH_IMAGE_BG                           :string             = "res/image/bg/";
-        /** The relative path from index.html where all player images reside. */
-        public  static  readonly    PATH_IMAGE_PLAYER                       :string             = "res/image/player/";
+        /** The relative path from index.html where all images reside. */
+        public  static  readonly    PATH_IMAGE                              :string             = "res/image/";
         /** The relative path from index.html where all level images reside. */
-        public  static  readonly    PATH_IMAGE_LEVEL                        :string             = "res/image/level/";
+        public  static  readonly    PATH_IMAGE_LEVEL                        :string             = SettingEngine.PATH_IMAGE + "level/";
+        /** The relative path from index.html where all background images reside. */
+        public  static  readonly    PATH_IMAGE_LEVEL_BG                     :string             = SettingEngine.PATH_IMAGE_LEVEL + "bg/";
         /** The relative path from index.html where all level ground images reside. */
-        public  static  readonly    PATH_IMAGE_LEVEL_GROUND                 :string             = "res/image/level/ground/";
+        public  static  readonly    PATH_IMAGE_LEVEL_GROUND                 :string             = SettingEngine.PATH_IMAGE_LEVEL + "ground/";
         /** The relative path from index.html where all level movable images reside. */
-        public  static  readonly    PATH_IMAGE_LEVEL_MOVABLE                :string             = "res/image/level/movable/";
+        public  static  readonly    PATH_IMAGE_LEVEL_MOVABLE                :string             = SettingEngine.PATH_IMAGE_LEVEL + "movable/";
+        /** The relative path from index.html where all level pickable images reside. */
+        public  static  readonly    PATH_IMAGE_LEVEL_PICKABLE               :string             = SettingEngine.PATH_IMAGE_LEVEL + "pickable/";
         /** The relative path from index.html where all level deco images reside. */
-        public  static  readonly    PATH_IMAGE_LEVEL_DECO                   :string             = "res/image/level/deco/";
+        public  static  readonly    PATH_IMAGE_LEVEL_DECO                   :string             = SettingEngine.PATH_IMAGE_LEVEL + "deco/";
+        /** The relative path from index.html where all player images reside. */
+        public  static  readonly    PATH_IMAGE_PLAYER                       :string             = SettingEngine.PATH_IMAGE + "player/";
         /** The relative path from index.html where all site images reside. */
-        public  static  readonly    PATH_IMAGE_SITE                         :string             = "res/image/site/";
+        public  static  readonly    PATH_IMAGE_SITE                         :string             = SettingEngine.PATH_IMAGE + "site/";
         /** The relative path from index.html where all sounds reside. */
         public  static  readonly    PATH_SOUND                              :string             = "res/sound/";
     }

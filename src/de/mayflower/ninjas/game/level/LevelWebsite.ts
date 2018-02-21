@@ -137,7 +137,7 @@
             ninjas.GameObjectBundleFactory.createBridge( this, 6185,  4800 );
 
             // nature
-            ninjas.GameObjectBundleFactory.createDeco(   this, 75,    5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_GRASS_1 );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 75,    5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GRASS_1 );
             ninjas.GameObjectBundleFactory.createDeco(   this, 220,   5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_GRASS_1 );
             ninjas.GameObjectBundleFactory.createDeco(   this, 70,    5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1  );
             ninjas.GameObjectBundleFactory.createDeco(   this, 1700,  5000, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BUSH_2  );

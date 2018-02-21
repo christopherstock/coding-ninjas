@@ -92,9 +92,9 @@
         public      static      IMAGE_CRATE_METAL                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_MOVABLE + "crateMetal.jpg";
 
         /** Image resource 'item'. */
-        public      static      IMAGE_ITEM                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "item.png";
+        public      static      IMAGE_ITEM                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_PICKABLE + "item.png";
         /** Image resource 'sphere'. */
-        public      static      IMAGE_SPHERE                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "sphere.png";
+        public      static      IMAGE_SPHERE                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_MOVABLE + "sphere.png";
 
         /** Image resource 'boulder 1'. */
         public      static      IMAGE_BOULDER_1                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder1.png";
@@ -215,7 +215,7 @@
         public      static      IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidDescendingRightTop.png";
 
         /** A test bg image. */
-        public      static      IMAGE_BG_TEST                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL + "bgTest.jpg";
+        public      static      IMAGE_BG_TEST                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_BG + "bgTest.jpg";
 
         /** An array holding all filenames of all images to load. */
         public      static      FILE_NAMES                                  :Array<string>  =

@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Remove unlinked images in res/image/level etc.
     *   TODO Open shrine books on entering the trigger!
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
     *   TODO Create bridge obstacle, sprite and water deco sprite.
@@ -13,6 +12,7 @@
     *   TODO Complete the MVP!
     *
     *   TODO Theme ant design to pink!
+    *   TODO Avoid slow sliding on edges!
     *   TODO Try ant design (pro?) in front panel.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Fixed positioning for camera on first scene (player floating in).
