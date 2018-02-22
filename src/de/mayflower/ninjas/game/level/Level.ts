@@ -55,10 +55,12 @@
             {
                 ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
             }
+/*
             for ( let gameObject of this.shrines )
             {
                 ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
             }
+*/
             for ( let gameObject of this.decosBg )
             {
                 ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
@@ -97,10 +99,12 @@
             {
                 gameObject.render();
             }
+/*
             for ( let gameObject of this.shrines )
             {
                 gameObject.render();
             }
+*/
             for ( let gameObject of this.siteTriggers )
             {
                 gameObject.render();

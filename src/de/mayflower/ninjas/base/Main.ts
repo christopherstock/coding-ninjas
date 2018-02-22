@@ -11,6 +11,7 @@
     *
     *   TODO Complete the MVP!
     *
+    *   TODO Create bg shine for shrines.
     *   TODO Ask Lenz: packages 'less' and 'less-loader' for less import and antd theme config? Add less or sass to own css??
     *   TODO Theme complete ant design to pink via overriding less variable!
     *   TODO Create flames for candles.

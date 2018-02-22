@@ -65,19 +65,19 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                6000, // ninjas.SettingGame.PLAYER_START_POSITION_X,
-                4820, // ninjas.SettingGame.PLAYER_START_POSITION_Y,
+                12500, // ninjas.SettingGame.PLAYER_START_POSITION_X,
+                4000, // ninjas.SettingGame.PLAYER_START_POSITION_Y,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );
 
             this.siteTriggers =
             [
-                ninjas.GameObjectFactory.createSiteTrigger( 700,   5000, 640,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 700,   5000, 650,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3670,  4800, 650,  500, ninjas.SiteContent.CONTENT_COMPANY, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 3530,  4060, 800,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 3530,  4060, 650,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 7360,  4280, 620,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 12536, 4200, 990,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 12876, 4200, 650,  500, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 14720, 5100, 1024, 768, ninjas.SiteContent.CONTENT_WELCOME, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
             ];
 
@@ -173,8 +173,8 @@
             ninjas.GameObjectBundleFactory.createDeco(   this, 3815,  4060, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDLE   );
             ninjas.GameObjectBundleFactory.createDeco(   this, 3900,  4060, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET   );
             ninjas.GameObjectBundleFactory.createDeco(   this, 3950,  4060, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_1  );
-            ninjas.GameObjectBundleFactory.createDeco(   this, 4170,  4060, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_2 );
-            ninjas.GameObjectBundleFactory.createDeco(   this, 4040,  4060, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_2   );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 4040,  4060, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_2 );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 4120,  4060, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_2   );
 
             // shrine 4
             ninjas.GameObjectBundleFactory.createDeco(   this, 7370,  4280, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_4 );
@@ -183,12 +183,10 @@
             ninjas.GameObjectBundleFactory.createShrine( this, 7740,  4280, false, true, ninjas.SiteContent.CONTENT_WELCOME     );
 
             // shrine 5
-            ninjas.GameObjectBundleFactory.createDeco(   this, 12560, 4200, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDLE   );
-            ninjas.GameObjectBundleFactory.createShrine( this, 12620, 4200, false, true, ninjas.SiteContent.CONTENT_WELCOME     );
-            ninjas.GameObjectBundleFactory.createDeco(   this, 12860, 4200, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT      );
-            ninjas.GameObjectBundleFactory.createDeco(   this, 12940, 4200, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET   );
-            ninjas.GameObjectBundleFactory.createDeco(   this, 13065, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1   );
-            ninjas.GameObjectBundleFactory.createDeco(   this, 13200, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_5 );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 12885, 4200, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT      );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 13085, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1   );
+            ninjas.GameObjectBundleFactory.createShrine( this, 13050, 4200, true, false, ninjas.SiteContent.CONTENT_WELCOME     );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 13220, 4200, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_5 );
 
             // shrine 6
             ninjas.GameObjectBundleFactory.createDeco(   this, 14720, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_DOJO     );
