@@ -1,0 +1,18 @@
+Ant Design 
+========== 
+https://ant.design/components/radio/        : show company locations 
+https://ant.design/components/switch/       : disable music 
+https://ant.design/components/avatar/       : item lists 
+https://ant.design/components/badge/#       : information numbers 
+https://ant.design/components/card/#        : card with tab lists 
+https://ant.design/components/carousel/     : carousel with fade in 
+https://ant.design/components/collapse/     : grouped text paragraphs 
+https://ant.design/components/table/#       : sales figures 
+https://ant.design/components/tabs/         : tabs for contents (compare to 'card') 
+https://ant.design/components/tag/          : eye candies (for key tipps?) 
+https://ant.design/components/timeline/     : timeline for project implementation details (coding-ninjas) 
+https://ant.design/components/tree/         : tree parent + leafs ( file chart etc. ) 
+https://ant.design/components/alert/        : short feedback for music change etc.? 
+https://ant.design/components/modal/        : for game over etc.? 
+https://ant.design/components/notification/ : for debug messages? (not for key tipps!) 
+https://ant.design/components/progress/     : progress bar for project completion etc. 

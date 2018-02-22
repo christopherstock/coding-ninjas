@@ -65,7 +65,7 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                5800, // ninjas.SettingGame.PLAYER_START_POSITION_X,
+                6000, // ninjas.SettingGame.PLAYER_START_POSITION_X,
                 4820, // ninjas.SettingGame.PLAYER_START_POSITION_Y,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
@@ -150,6 +150,10 @@
             ninjas.GameObjectBundleFactory.createDeco(   this, 5100,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BUSH_2  );
             ninjas.GameObjectBundleFactory.createDeco(   this, 5600,  4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2  );
             ninjas.GameObjectBundleFactory.createDeco(   this, 5360,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FENCE_1 );
+
+            ninjas.GameObjectBundleFactory.createDeco(   this, 7000,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BOULDER_1 );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 7150,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BOULDER_2 );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 7300,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BOULDER_3 );
 
             ninjas.GameObjectBundleFactory.createDeco(   this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2  );
 

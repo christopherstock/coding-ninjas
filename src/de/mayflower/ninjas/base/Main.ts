@@ -4,10 +4,10 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Try or remove the boulders?
     *   TODO Add new ant design components.
     *   TODO Complete all site panel contents.
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
+    *   TODO Avoid slow sliding on edges!
     *
     *   TODO Complete the MVP!
     *
@@ -15,7 +15,6 @@
     *   TODO Theme complete ant design to pink via overriding less variable!
     *   TODO Create flames for candles.
     *   TODO Create animated grass sprite.
-    *   TODO Avoid slow sliding on edges!
     *   TODO Try ant design (pro?) in front panel.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Fixed positioning for camera on first scene (player floating in).

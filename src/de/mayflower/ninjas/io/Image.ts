@@ -102,10 +102,6 @@
         public      static      IMAGE_BOULDER_2                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder2.png";
         /** Image resource 'boulder 3'. */
         public      static      IMAGE_BOULDER_3                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder3.png";
-        /** Image resource 'boulder 4'. */
-        public      static      IMAGE_BOULDER_4                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder4.png";
-        /** Image resource 'boulder 5'. */
-        public      static      IMAGE_BOULDER_5                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "boulder5.png";
 
         /** Image resource 'fence 1'. */
         public      static      IMAGE_FENCE_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "fence1.png";
@@ -294,8 +290,6 @@
             Image.IMAGE_BOULDER_1,
             Image.IMAGE_BOULDER_2,
             Image.IMAGE_BOULDER_3,
-            Image.IMAGE_BOULDER_4,
-            Image.IMAGE_BOULDER_5,
 
             Image.IMAGE_FENCE_1,
             Image.IMAGE_BRIDGE_1,
