@@ -4,15 +4,16 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Theme ant design to pink!
+    *   TODO Put closed book more right.
+    *   TODO Try or remove the boulders?
     *   TODO Add new ant design components.
     *   TODO Complete all site panel contents.
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
-    *   TODO Remove and replace the ugly bush.
     *
     *   TODO Complete the MVP!
     *
     *   TODO Ask Lenz: packages 'less' and 'less-loader' for less import and antd theme config? Add less or sass to own css??
+    *   TODO Theme complete ant design to pink via overriding less variable!
     *   TODO Create flames for candles.
     *   TODO Create animated grass sprite.
     *   TODO Avoid slow sliding on edges!

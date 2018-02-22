@@ -203,7 +203,7 @@
                 ninjas.Image.IMAGE_WATER_TOP_FRAME_7,
                 ninjas.Image.IMAGE_WATER_TOP_FRAME_8,
             ],
-            6,
+            12,
             ninjas.MirrorImage.NO,
             LoopSprite.YES
         );

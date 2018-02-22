@@ -141,10 +141,6 @@
         public      static      IMAGE_BUSH_1                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush1.png";
         /** Image resource 'bush 2'. */
         public      static      IMAGE_BUSH_2                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush2.png";
-        /** Image resource 'bush 3'. */
-        public      static      IMAGE_BUSH_3                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush3.png";
-        /** Image resource 'bush 4'. */
-        public      static      IMAGE_BUSH_4                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush4.png";
 
         /** Image resource 'goblet'. */
         public      static      IMAGE_GOBLET                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "goblet.png";
@@ -160,6 +156,11 @@
 
         /** Image resource 'grass 1'. */
         public      static      IMAGE_GRASS_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1.png";
+        /** Image resource 'grass 2'. */
+        public      static      IMAGE_GRASS_2                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass2.png";
+
+        /** Image resource 'tree stub'. */
+        public      static      IMAGE_TREE_STUB                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "treeStub.png";
 
         /** Image tile 'water top frame 1'. */
         public      static      IMAGE_WATER_TOP_FRAME_1                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop/01.png";
@@ -312,8 +313,6 @@
 
             Image.IMAGE_BUSH_1,
             Image.IMAGE_BUSH_2,
-            Image.IMAGE_BUSH_3,
-            Image.IMAGE_BUSH_4,
 
             Image.IMAGE_GOBLET,
 
@@ -325,6 +324,9 @@
             Image.IMAGE_DOJO,
 
             Image.IMAGE_GRASS_1,
+            Image.IMAGE_GRASS_2,
+
+            Image.IMAGE_TREE_STUB,
 
             Image.IMAGE_WATER_TOP_FRAME_1,
             Image.IMAGE_WATER_TOP_FRAME_2,
