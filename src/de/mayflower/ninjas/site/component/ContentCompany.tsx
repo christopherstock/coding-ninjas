@@ -34,6 +34,13 @@
 
                 { ninjas.SiteContentFactory.createParagraph( "Our company is ..." ) }
 
+                <antd.Carousel effect="fade" autoplay={ false } >
+                    <div><h3>1</h3></div>
+                    <div><h3>2</h3></div>
+                    <div><h3>3</h3></div>
+                    <div><h3>4</h3></div>
+                </antd.Carousel>
+
             </div>
         }
     }

@@ -35,6 +35,8 @@
                 { ninjas.SiteContentFactory.createParagraph( "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss!<br><br>Wurschtsolod jo leck mi vui und." ) }
                 { ninjas.SiteContentFactory.createParagraph( "Test paragraph 2" ) }
 
+                <antd.Divider />
+
                 <antd.Tooltip
                     placement="leftBottom"
                     title="Generate and download a new key pair."
@@ -50,6 +52,22 @@
                         Generate new RSA 2048 bit key pair
                     </antd.Button>
                 </antd.Tooltip>
+
+                <antd.Divider />
+
+                <antd.Switch
+                    checkedChildren={   <antd.Icon type="notification" /> }
+                    unCheckedChildren={ <antd.Icon type="poweroff" /> }
+                    defaultChecked={ true }
+                    onChange={ ( checked:boolean ) => { console.log( "Toggle to checked [" + checked + "]" ); } }
+                />
+
+                <antd.Divider />
+
+
+
+
+
 
             </div>
         }

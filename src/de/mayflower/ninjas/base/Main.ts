@@ -11,17 +11,18 @@
     *
     *   TODO Complete the MVP!
     *
+    *   TODO Extract antd css to separate file.
     *   TODO Create bg shine for shrines.
     *   TODO Ask Lenz: packages 'less' and 'less-loader' for less import and antd theme config? Add less or sass to own css??
     *   TODO Theme complete ant design to pink via overriding less variable!
     *   TODO Create flames for candles.
     *   TODO Create animated grass sprite.
-    *   TODO Try ant design (pro?) in front panel.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Fixed positioning for camera on first scene (player floating in).
-    *   TODO Blending over layer for fade in effect.
+    *   TODO Add translucent overlay for blend effects.
+    *   TODO Blending over layer for fade in effect of the whole screen.
     *   TODO Camera joyride on level startup?
-    *   TODO Add decoration particle effects.
+    *   TODO Add decoration particle effects on smashing objects / windows etc.
     *   TODO Add 'slide' sprite.
     *   TODO Add and assign actions and sprites for 'attack' and 'jump attack'?
     *   TODO Try sound error handling! (Safari etc.)
@@ -30,8 +31,7 @@
     *   TODO create class HUD and assign its non-static method paintHud?
     *   TODO Create item pickup HUD effect!
     *   TODO Add tutorial notifiers?
-    *   TODO Flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
-    *   TODO Add translucent overlay for blend effects.
+    *   TODO Add card flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
     *   TODO Ability to smash crates or destroyables etc.
     *   TODO Particle fx smashed crates, startup window etc.
     *   TODO Add jest tests.

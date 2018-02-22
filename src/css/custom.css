@@ -90,3 +90,20 @@
     {
         color:              #ff6666;
     }
+
+    .ant-carousel .slick-slide
+    {
+        height:             160px;
+        background:         #000000;
+        width:              100%;
+/*
+        line-height:        160px;
+        text-align:         center;
+        overflow:           hidden;
+*/
+    }
+
+    .ant-carousel .slick-slide h3
+    {
+        color:              #ffffff;
+    }

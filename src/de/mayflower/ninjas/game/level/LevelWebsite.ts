@@ -65,8 +65,8 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                12500, // ninjas.SettingGame.PLAYER_START_POSITION_X,
-                4000, // ninjas.SettingGame.PLAYER_START_POSITION_Y,
+                3680, // ninjas.SettingGame.PLAYER_START_POSITION_X,
+                4800, // ninjas.SettingGame.PLAYER_START_POSITION_Y,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );
