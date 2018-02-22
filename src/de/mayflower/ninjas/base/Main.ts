@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Put closed book more right.
     *   TODO Try or remove the boulders?
     *   TODO Add new ant design components.
     *   TODO Complete all site panel contents.

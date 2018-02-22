@@ -521,7 +521,7 @@
             let spriteShrine      :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_CONSOLE     );
 
             let decoBookOpen      :ninjas.Decoration     = ninjas.GameObjectFactory.createDecorationRect( xLeft - 5,  yBottom - 118, ninjas.StaticShape.YES, sprtiteBookOpen   );
-            let decoBookClosed    :ninjas.Decoration     = ninjas.GameObjectFactory.createDecorationRect( xLeft + 30, yBottom - 110, ninjas.StaticShape.YES, sprtiteBookClosed );
+            let decoBookClosed    :ninjas.Decoration     = ninjas.GameObjectFactory.createDecorationRect( xLeft + 72, yBottom - 114, ninjas.StaticShape.YES, sprtiteBookClosed );
             let decoShrine        :ninjas.Shrine         = new ninjas.Shrine
             (
                 new ninjas.ShapeRectangle
