@@ -65,7 +65,7 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                1300, // ninjas.SettingGame.PLAYER_START_POSITION_X,
+                5800, // ninjas.SettingGame.PLAYER_START_POSITION_X,
                 4820, // ninjas.SettingGame.PLAYER_START_POSITION_Y,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
@@ -134,7 +134,7 @@
             ninjas.GameObjectBundleFactory.createCrate(  this, 7500,  4800, ninjas.CrateType.WOODEN );
 
             // bridge and water
-            ninjas.GameObjectBundleFactory.createWaterArea( this, 6100,  4970, 6, 10 );
+            ninjas.GameObjectBundleFactory.createWaterArea( this, 6100,  4960, 6, 10 );
             ninjas.GameObjectBundleFactory.createBridge(    this, 6185,  4800 );
 
             // nature
@@ -149,6 +149,8 @@
             ninjas.GameObjectBundleFactory.createDeco(   this, 4980,  4820, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BUSH_1  );
             ninjas.GameObjectBundleFactory.createDeco(   this, 5100,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BUSH_2  );
             ninjas.GameObjectBundleFactory.createDeco(   this, 5600,  4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2  );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 5360,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FENCE_1 );
+
             ninjas.GameObjectBundleFactory.createDeco(   this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2  );
 
             // shrine 1
