@@ -41,6 +41,9 @@
                     <div><h3>4</h3></div>
                 </antd.Carousel>
 
+                <antd.Progress type="circle" percent={ 83.5 } />
+
+
             </div>
         }
     }

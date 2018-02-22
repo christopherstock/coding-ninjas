@@ -16,4 +16,3 @@ https://ant.design/components/tree/         : tree parent + leafs ( file chart e
 https://ant.design/components/alert/        : short feedback for music change etc.? 
 https://ant.design/components/modal/        : for game over etc.? 
 https://ant.design/components/notification/ : for debug messages? (not for key tipps!) 
-https://ant.design/components/progress/     : progress bar for project completion etc. 

@@ -15,6 +15,8 @@
         CONTENT_WELCOME,
         /** The 'company' page. */
         CONTENT_COMPANY,
+        /** The 'philosophy' page. */
+        CONTENT_PHILOSOPHY,
     }
 
     /*******************************************************************************************************************
@@ -29,14 +31,17 @@
         private                 contentWelcome              :JSX.Element            = null;
         /** The site content for the 'company' page. */
         private                 contentCompany              :JSX.Element            = null;
+        /** The site content for the 'philosophy' page. */
+        private                 contentPhilosophy           :JSX.Element            = null;
 
         /***************************************************************************************************************
         *   Inits all site contents.
         ***************************************************************************************************************/
         public initAllContents() : void
         {
-            this.contentWelcome = <ninjas.ContentWelcome />;
-            this.contentCompany = <ninjas.ContentCompany />;
+            this.contentWelcome    = <ninjas.ContentWelcome    />;
+            this.contentCompany    = <ninjas.ContentCompany    />;
+            this.contentPhilosophy = <ninjas.ContentPhilosophy />;
         }
 
         /***************************************************************************************************************
@@ -65,6 +70,12 @@
                 case SiteContent.CONTENT_COMPANY:
                 {
                     elementToMount = this.contentCompany;
+                    break;
+                }
+
+                case SiteContent.CONTENT_PHILOSOPHY:
+                {
+                    elementToMount = this.contentPhilosophy;
                     break;
                 }
             }
