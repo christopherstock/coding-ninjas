@@ -534,8 +534,6 @@
         *
         *   @param x                   Anchor X.
         *   @param yBottom             Anchor of bottom Y.
-        *   @param width               Object width.
-        *   @param height              Object height.
         *   @param content             The site content to display on releasing this trigger.
         *   @param sitePanelAppearance The position for the site panel to appear.
         *   @param spriteTemplate      The decoration sprite to display in bg of this site trigger.
@@ -546,8 +544,6 @@
         (
             x                   :number,
             yBottom             :number,
-            width               :number,
-            height              :number,
             content             :ninjas.SiteContent,
             sitePanelAppearance :ninjas.SitePanelAppearance,
             spriteTemplate      :ninjas.SpriteTemplate
@@ -558,8 +554,8 @@
             (
                 new ninjas.ShapeRectangle
                 (
-                    width,
-                    height,
+                    spriteTemplate.width,
+                    spriteTemplate.height,
                     ninjas.DebugColor.COLOR_DEBUG_SITE_TRIGGER,
                     ninjas.StaticShape.YES,
                     0.0,
@@ -569,7 +565,7 @@
                 ),
                 spriteTemplate,
                 x,
-                yBottom - height,
+                yBottom - spriteTemplate.height,
                 content,
                 sitePanelAppearance
             );

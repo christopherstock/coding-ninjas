@@ -151,8 +151,18 @@
         /** Image resource 'pot'. */
         public      static      IMAGE_POT                                   :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "pot.png";
 
-        /** Image resource 'shrine background'. */
-        public      static      IMAGE_SHRINE_BG                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg.png";
+        /** Image resource 'shrine background 1'. */
+        public      static      IMAGE_SHRINE_BG_1                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg1.png";
+        /** Image resource 'shrine background 2'. */
+        public      static      IMAGE_SHRINE_BG_2                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg2.png";
+        /** Image resource 'shrine background 3'. */
+        public      static      IMAGE_SHRINE_BG_3                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg3.png";
+        /** Image resource 'shrine background 4'. */
+        public      static      IMAGE_SHRINE_BG_4                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg4.png";
+        /** Image resource 'shrine background 5'. */
+        public      static      IMAGE_SHRINE_BG_5                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg5.png";
+        /** Image resource 'shrine background 6'. */
+        public      static      IMAGE_SHRINE_BG_6                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg6.png";
         /** Image resource 'DoJo'. */
         public      static      IMAGE_DOJO                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "dojo.jpg";
 
@@ -323,7 +333,12 @@
 
             Image.IMAGE_POT,
 
-            Image.IMAGE_SHRINE_BG,
+            Image.IMAGE_SHRINE_BG_1,
+            Image.IMAGE_SHRINE_BG_2,
+            Image.IMAGE_SHRINE_BG_3,
+            Image.IMAGE_SHRINE_BG_4,
+            Image.IMAGE_SHRINE_BG_5,
+            Image.IMAGE_SHRINE_BG_6,
             Image.IMAGE_DOJO,
 
             Image.IMAGE_GRASS_1,
