@@ -1,13 +1,6 @@
 
-
-
     require( "animate.css" );
-    require( './css/custom.css' );
-
-    require( './css/custom2.less' );
-
-    // require( 'antd/dist/antd.less' );
-
+    require( './css/custom.less' );
 
     import * as ninjas from './de/mayflower/ninjas/ninjas';
 
