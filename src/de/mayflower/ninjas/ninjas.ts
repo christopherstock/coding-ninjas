@@ -56,7 +56,10 @@
     export * from './io/SpriteTemplate';
 
     export * from './site/component/ContentCompany';
+    export * from './site/component/ContentContact';
     export * from './site/component/ContentPhilosophy';
+    export * from './site/component/ContentReferences';
+    export * from './site/component/ContentServices';
     export * from './site/component/ContentWelcome';
 
     export * from './site/SiteContentSystem';
