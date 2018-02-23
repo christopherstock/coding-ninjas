@@ -151,6 +151,8 @@
         /** Image resource 'pot'. */
         public      static      IMAGE_POT                                   :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "pot.png";
 
+        /** Image resource 'shrine background'. */
+        public      static      IMAGE_SHRINE_BG                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg.png";
         /** Image resource 'DoJo'. */
         public      static      IMAGE_DOJO                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "dojo.jpg";
 
@@ -321,6 +323,7 @@
 
             Image.IMAGE_POT,
 
+            Image.IMAGE_SHRINE_BG,
             Image.IMAGE_DOJO,
 
             Image.IMAGE_GRASS_1,

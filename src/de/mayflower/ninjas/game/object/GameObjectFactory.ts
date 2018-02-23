@@ -538,6 +538,7 @@
         *   @param height              Object height.
         *   @param content             The site content to display on releasing this trigger.
         *   @param sitePanelAppearance The position for the site panel to appear.
+        *   @param spriteTemplate      The decoration sprite to display in bg of this site trigger.
         *
         *   @return The created site trigger.
         ***************************************************************************************************************/
@@ -548,7 +549,8 @@
             width               :number,
             height              :number,
             content             :ninjas.SiteContent,
-            sitePanelAppearance :ninjas.SitePanelAppearance
+            sitePanelAppearance :ninjas.SitePanelAppearance,
+            spriteTemplate      :ninjas.SpriteTemplate
         )
         : ninjas.SiteTrigger
         {
@@ -565,7 +567,7 @@
                     ninjas.BodyDensity.INFINITE,
                     ninjas.BodyRestitution.DEFAULT
                 ),
-                null,
+                spriteTemplate,
                 x,
                 yBottom - height,
                 content,
