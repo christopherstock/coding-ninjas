@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Add all new and fancy ant design components.
     *   TODO Complete all site panel contents.
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
     *   TODO Avoid slow sliding on edges!
@@ -13,8 +12,11 @@
     *
     *   TODO Extract antd css to separate file.
     *   TODO Create bg shine for shrines.
+    *   TODO Mini key tutorial on welcome page.
+    *   TODO Toggle bg music via switch.
     *   TODO Fade book from closed to open and vice-versa?
     *   TODO Create flames for candles.
+    *   TODO Add more occult items.
     *   TODO Create animated grass sprite.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Fixed positioning for camera on first scene (player floating in).

@@ -2,38 +2,32 @@
     @import "../value/color.less";
     @import "../value/dimension.less";
 
+    /*******************************************************************************************************************
+    *   Import Ant Design css framework and override required less variables.
+    *******************************************************************************************************************/
     @import "../../../node_modules/antd/dist/antd.less";
 
-    @primary-color:  @color-project;
-    @disabled-color: @color-grey;
-    @text-color:     @color-white;
-    @timeline-color: @color-grey;
+    @primary-color:            @color-project;
+    @disabled-color:           @color-grey;
+    @text-color:               @color-white;
+    @progress-remaining-color: @color-white;
+    @border-color-split:       @color-grey;
+    @finish-tail-color:        @color-grey;
 
+    @screen-xs:                 0;
+    @screen-sm:                 0;
+    @screen-md:                 768px;
+    @screen-lg:                 992px;
+    @screen-xl:                 1200px;
+    @screen-xxl:                1600px;
 
-
-    .ant-carousel .slick-slide
-    {
-        height:             160px;
-        background:         #000000;
-        width:              100%;
-/*
-        line-height:        160px;
-        text-align:         center;
-        overflow:           hidden;
-*/
-    }
-
-    .ant-carousel .slick-slide h3
-    {
-        color:              #ffffff;
-    }
-
-    // TODO implicit import for margin values!
+    /*******************************************************************************************************************
+    *   Override specific Ant Design css attributes not procurable by less variables.
+    *******************************************************************************************************************/
 
     .ant-divider
     {
-        background:         @color-grey;
-        margin:             @default-margin 0 @default-margin 0;
+        margin:                 @default-margin 0 @default-margin 0;
     }
 
     .ant-steps-item-icon
@@ -41,17 +35,18 @@
         margin-right:       0;
     }
 
-    .ant-steps-item.ant-steps-item-wait div.ant-steps-item-icon > span
+    .ant-carousel .slick-slide
     {
-        color:              @color-grey;
+        height:             160px;
+        background:         #000000;
+        width:              100%;
+        text-align:         center;
+/*
+        overflow:           hidden;
+*/
     }
 
-    .ant-steps-item-content .ant-steps-item-title:after
+    .ant-carousel .slick-slide h3
     {
-        background-color:   @color-grey !important;
-    }
-
-    .ant-progress-text
-    {
-        color:              @color-white !important;
+        color:              #ffffff;
     }

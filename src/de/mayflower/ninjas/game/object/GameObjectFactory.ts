@@ -507,7 +507,7 @@
             parallaxRatio  :number,
             spriteTemplate :ninjas.SpriteTemplate
         )
-        : ninjas.Decoration
+        : ninjas.ParallaxDeco
         {
             return new ninjas.ParallaxDeco
             (

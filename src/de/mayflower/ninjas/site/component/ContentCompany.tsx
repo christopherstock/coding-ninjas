@@ -25,13 +25,13 @@
                 { ninjas.SiteContentFactory.createStepIndicator( 1 ) }
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createImage( ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png" ) }
-                { ninjas.SiteContentFactory.createDivider() }
+                { ninjas.SiteContentFactory.createVerticalSpacer() }
                 { ninjas.SiteContentFactory.createHeadline( "Our Company" ) }
                 { ninjas.SiteContentFactory.createVerticalSpacer() }
                 { ninjas.SiteContentFactory.createParagraph( "Our company is ..." ) }
                 { ninjas.SiteContentFactory.createVerticalSpacer() }
 
-                <antd.Carousel effect="fade" autoplay={ false } >
+                <antd.Carousel effect="fade" autoplay={ true } autoplaySpeed={ 3000 } >
                     <div><h3>1</h3></div>
                     <div><h3>2</h3></div>
                     <div><h3>3</h3></div>

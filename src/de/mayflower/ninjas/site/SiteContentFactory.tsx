@@ -87,6 +87,33 @@
         }
 
         /***************************************************************************************************************
+        *   Creates a toggle switch.
+        *
+        *   @param iconOn         The icon for the 'on'  state.
+        *   @param iconOff        The icon for the 'off' state.
+        *   @param defaultChecked Flags if the switch shall initially be checked.
+        *   @param onChange       The callback being invoked when the switch is changed.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createSwitch
+        (
+            iconOn         :string,
+            iconOff        :string,
+            defaultChecked :boolean,
+            onChange       :( checked:boolean ) => void
+        )
+        : JSX.Element
+        {
+            return <antd.Switch
+                checkedChildren={   <antd.Icon type={ iconOn  } /> }
+                unCheckedChildren={ <antd.Icon type={ iconOff } /> }
+                defaultChecked={    defaultChecked                 }
+                onChange={          onChange                       }
+            />;
+        }
+
+        /***************************************************************************************************************
         *   Creates a vertical spacer of the default margin height.
         *
         *   @return The created JSX element.
