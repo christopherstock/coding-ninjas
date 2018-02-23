@@ -65,8 +65,8 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                3680, // ninjas.SettingGame.PLAYER_START_POSITION_X,
-                4800, // ninjas.SettingGame.PLAYER_START_POSITION_Y,
+                3650, // ninjas.SettingGame.PLAYER_START_POSITION_X,
+                4060, // ninjas.SettingGame.PLAYER_START_POSITION_Y,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );
@@ -76,7 +76,7 @@
                 ninjas.GameObjectFactory.createSiteTrigger( 700,   5000, 650,  500, ninjas.SiteContent.CONTENT_WELCOME,    ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3670,  4800, 650,  500, ninjas.SiteContent.CONTENT_COMPANY,    ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 3530,  4060, 650,  500, ninjas.SiteContent.CONTENT_PHILOSOPHY, ninjas.SitePanelAppearance.PLAYER_LOOKING ),
-                ninjas.GameObjectFactory.createSiteTrigger( 7360,  4280, 620,  500, ninjas.SiteContent.CONTENT_WELCOME,    ninjas.SitePanelAppearance.PLAYER_LOOKING ),
+                ninjas.GameObjectFactory.createSiteTrigger( 7360,  4280, 650,  500, ninjas.SiteContent.CONTENT_WELCOME,    ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 12876, 4200, 650,  500, ninjas.SiteContent.CONTENT_WELCOME,    ninjas.SitePanelAppearance.PLAYER_LOOKING ),
                 ninjas.GameObjectFactory.createSiteTrigger( 14720, 5100, 1024, 768, ninjas.SiteContent.CONTENT_WELCOME,    ninjas.SitePanelAppearance.PLAYER_LOOKING ),
             ];
@@ -177,10 +177,10 @@
             ninjas.GameObjectBundleFactory.createDeco(   this, 4120,  4060, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_2   );
 
             // shrine 4
-            ninjas.GameObjectBundleFactory.createDeco(   this, 7370,  4280, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_4 );
-            ninjas.GameObjectBundleFactory.createDeco(   this, 7600,  4280, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_2  );
-            ninjas.GameObjectBundleFactory.createDeco(   this, 7665,  4280, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_1  );
-            ninjas.GameObjectBundleFactory.createShrine( this, 7740,  4280, false, true, ninjas.SiteContent.CONTENT_WELCOME     );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 7400,  4280, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_4 );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 7630,  4280, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_2  );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 7695,  4280, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_1  );
+            ninjas.GameObjectBundleFactory.createShrine( this, 7770,  4280, false, true, ninjas.SiteContent.CONTENT_WELCOME     );
 
             // shrine 5
             ninjas.GameObjectBundleFactory.createDeco(   this, 12885, 4200, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT      );
@@ -207,7 +207,7 @@
             // flying grounds
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 5062,  4430, 3,  ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 3525,  4060, 11, ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
-            ninjas.GameObjectBundleFactory.createFlyingGround( this, 7350,  4280, 5,  ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 7350,  4280, 6,  ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 9800,  4600, 3,  ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 10800, 4400, 3,  ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
         }
