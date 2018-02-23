@@ -3,7 +3,13 @@
     @import "../value/dimension.less";
 
     @import "../../../node_modules/antd/dist/antd.less";
-    @primary-color: @color-project;
+
+    @primary-color:  @color-project;
+    @disabled-color: @color-grey;
+    @text-color:     @color-white;
+    @timeline-color: @color-grey;
+
+
 
     .ant-carousel .slick-slide
     {
@@ -43,16 +49,6 @@
     .ant-steps-item-content .ant-steps-item-title:after
     {
         background-color:   @color-grey !important;
-    }
-
-    .ant-switch
-    {
-        background-color:   @color-grey;
-    }
-
-    .ant-switch.ant-switch-checked
-    {
-        background-color:   @primary-color;
     }
 
     .ant-progress-text
