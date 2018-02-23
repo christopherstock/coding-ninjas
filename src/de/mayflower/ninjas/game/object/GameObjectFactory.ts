@@ -413,6 +413,7 @@
         *   @param yBottom        Anchor for bottom Y.
         *   @param isStatic       Specifies if the decoration is static.
         *   @param spriteTemplate The sprite template to use for this decoration.
+        *   @param debugColor     The debug color for this deco if no sprite is assigned.
         *
         *   @return The created decoration.
         ***************************************************************************************************************/
@@ -421,7 +422,8 @@
             xLeft          :number,
             yBottom        :number,
             isStatic       :ninjas.StaticShape,
-            spriteTemplate :ninjas.SpriteTemplate
+            spriteTemplate :ninjas.SpriteTemplate,
+            debugColor     :ninjas.DebugColor = ninjas.DebugColor.COLOR_DEBUG_DECORATION
         )
         : ninjas.Decoration
         {
@@ -431,7 +433,7 @@
                 (
                     spriteTemplate.width,
                     spriteTemplate.height,
-                    ninjas.DebugColor.COLOR_DEBUG_DECORATION,
+                    debugColor,
                     isStatic,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,

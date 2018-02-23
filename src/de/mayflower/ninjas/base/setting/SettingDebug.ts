@@ -25,6 +25,9 @@
     *******************************************************************************************************************/
     export enum DebugColor
     {
+        /** Transparent debug color. */
+        COLOR_TRANSPARENT               = "transparent",
+
         /** The debug color for the player block. */
         COLOR_DEBUG_PLAYER              = "#7cd1ee",
         /** The debug color for the enemy block. */
