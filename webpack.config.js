@@ -44,6 +44,22 @@ module.exports = {
                         loader: 'css-loader'
                     }
                 ]
+            },
+
+            // All '.less' files will be handled by the style- and css-loader
+            {
+                test: /\.less$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader: 'less-loader'
+                    }
+                ]
             }
         ]
     }

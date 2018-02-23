@@ -13,8 +13,6 @@
     *
     *   TODO Extract antd css to separate file.
     *   TODO Create bg shine for shrines.
-    *   TODO Ask Lenz: packages 'less' and 'less-loader' for less import and antd theme config? Add less or sass to own css??
-    *   TODO Theme complete ant design to pink via overriding less variable!
     *   TODO Create flames for candles.
     *   TODO Create animated grass sprite.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!

@@ -28,6 +28,8 @@
         "cucumber": "^4.0.0",
         "fpsmeter": "^0.3.1",
         "jest": "^22.1.4",
+        "less": "2.7.2",
+        "less-loader": "^4.0.5",
         "source-map-loader": "^0.2.3",
         "style-loader": "^0.19.1",
         "typedoc": "^0.9.0",

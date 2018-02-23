@@ -55,7 +55,7 @@
 
 
     /** ANT overrides :( TODO outsource to separate css file. */
-
+/*
     .ant-btn-primary
     {
         background-color:   #ff6666;
@@ -75,7 +75,8 @@
         background:         #ff6666;
         border-color:       #ff6666;
     }
-
+*/
+/*
     .ant-steps-item-finish > .ant-steps-item-content > .ant-steps-item-title:after
     {
         background:         #ff6666;
@@ -90,7 +91,7 @@
     {
         color:              #ff6666;
     }
-
+*/
     .ant-carousel .slick-slide
     {
         height:             160px;
