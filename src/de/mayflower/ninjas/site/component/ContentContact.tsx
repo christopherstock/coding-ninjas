@@ -30,8 +30,20 @@
                 { ninjas.SiteContentFactory.createVerticalSpacer() }
                 { ninjas.SiteContentFactory.createParagraph( "You find our offices at ..." ) }
                 { ninjas.SiteContentFactory.createVerticalSpacer() }
+
+                <antd.Radio.Group
+                    onChange={ ( e:React.ChangeEvent<any> ) => { console.log( "Changed value to [" + e.target.value + "]" ); } }
+                    defaultValue="a"
+                >
+                    <antd.Radio.Button value="a">Munich</antd.Radio.Button>
+                    <antd.Radio.Button value="b">Berlin</antd.Radio.Button>
+                    <antd.Radio.Button value="c">Würzburg</antd.Radio.Button>
+                </antd.Radio.Group>
+
+                { ninjas.SiteContentFactory.createVerticalSpacer() }
                 { ninjas.SiteContentFactory.createParagraph( "Use our contact form to ..." ) }
                 { ninjas.SiteContentFactory.createVerticalSpacer() }
+
 
 
 

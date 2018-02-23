@@ -2,12 +2,10 @@
 Ant Design
 ==========
 
-https://ant.design/components/radio/        : show company locations
+
 https://ant.design/components/avatar/       : item lists
 https://ant.design/components/badge/#       : information numbers
-https://ant.design/components/card/#        : card with tab lists
 https://ant.design/components/table/#       : sales figures
-https://ant.design/components/tabs/         : tabs for contents (compare to 'card')
 
 
 https://ant.design/components/timeline/     : timeline for project implementation details (coding-ninjas)

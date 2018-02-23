@@ -32,6 +32,21 @@
                 { ninjas.SiteContentFactory.createVerticalSpacer() }
 
 
+                <antd.Tabs defaultActiveKey="3">
+                    <antd.Tabs.TabPane tab={<span><antd.Icon type="apple" />Tab 1</span>} key="1">
+                    Tab 1
+                    </antd.Tabs.TabPane>
+                    <antd.Tabs.TabPane tab={<span><antd.Icon type="android" />Tab 2</span>} key="2">
+                    Tab 2
+                    </antd.Tabs.TabPane>
+                    <antd.Tabs.TabPane tab={<span><antd.Icon type="github" />Tab 3</span>} key="3">
+                    Tab 3
+                    </antd.Tabs.TabPane>
+                </antd.Tabs>
+
+
+
+
 
             </div>
         }
