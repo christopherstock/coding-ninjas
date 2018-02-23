@@ -30,8 +30,27 @@
                 { ninjas.SiteContentFactory.createVerticalSpacer() }
                 { ninjas.SiteContentFactory.createParagraph( "Our references are ..." ) }
                 { ninjas.SiteContentFactory.createVerticalSpacer() }
+                { ninjas.SiteContentFactory.createParagraph( "See our timeline of this project evolution:" ) }
+                { ninjas.SiteContentFactory.createVerticalSpacer() }
 
-
+                <antd.Timeline>
+                    <antd.Timeline.Item color="green">
+                        Create a services site 2015-09-01
+                    </antd.Timeline.Item>
+                    <antd.Timeline.Item color="green">
+                        Create a services site 2015-09-01
+                    </antd.Timeline.Item>
+                    <antd.Timeline.Item color="red">
+                        <p>Solve initial network problems 1</p>
+                        <p>Solve initial network problems 2</p>
+                        <p>Solve initial network problems 3 2015-09-01</p>
+                    </antd.Timeline.Item>
+                    <antd.Timeline.Item color="#1890ff">
+                        <p>Technical testing 1</p>
+                        <p>Technical testing 2</p>
+                        <p>Technical testing 3 2015-09-01</p>
+                    </antd.Timeline.Item>
+                </antd.Timeline>
 
             </div>
         }

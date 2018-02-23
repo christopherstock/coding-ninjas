@@ -46,6 +46,36 @@
 
 
 
+                <antd.Avatar
+                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                    style={ { backgroundColor: '#ff6666', float: "none", } }
+                />
+                <br />
+                <antd.Avatar
+                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                    style={ { backgroundColor: '#ff6666', float: "none", } }
+                />
+                <br />
+                <antd.Avatar
+                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                    style={ { backgroundColor: '#ff6666', float: "none", } }
+                />
+                <br />
+                <antd.Avatar
+                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                    style={ { backgroundColor: '#ff6666', float: "none", } }
+                />
+                <br />
+                <br />
+
+
+
+                <antd.Badge count={25} />
+                <br />
+                <antd.Badge count={4}   style={{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }} />
+                <br />
+                <antd.Badge count={109} style={{ backgroundColor: '#52c41a' }} />
+
 
 
             </div>
