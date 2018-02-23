@@ -30,7 +30,7 @@
 
                 <antd.Divider />
 
-                { ninjas.SiteContentFactory.createHeadline( "Our Company" ) }
+                { ninjas.SiteContentFactory.createHeadline( "Our Company", true, true ) }
 
                 { ninjas.SiteContentFactory.createParagraph( "Our company is ..." ) }
 

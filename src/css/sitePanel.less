@@ -1,10 +1,20 @@
 
+    @import "./color.less";
+
+    // TODO move to 'default dimensions etc.'
+    @default-margin: 20px;
+
     div.sitePanel.outerAbsoluteContainer
     {
         position:           absolute;
         border-radius:      10px;
+        border:             1px solid @color-grey;
+/*
         background:         rgba( 255, 102, 102, 0.25 );
-        border:             1px solid @primary-color;
+        background:         rgba( 255, 255, 255, 0.5 );
+*/
+        background:         rgba( 0, 0, 0, 0.5 );
+
     }
 
     div.sitePanel.innerRelativeContainer
@@ -17,9 +27,9 @@
     {
         width:              100%;
         text-align:         center;
-        color:              #ff6666;
+        color:              #ffffff;
         padding:            0;
-        margin:             0 0 20px 0;
+        margin:             0;
     }
 
     div.sitePanel.defaultImageContainer
@@ -40,4 +50,14 @@
     {
         width:              100%;
         height:             auto;
+    }
+
+    .sitePanel.marginTop
+    {
+        margin-top:         @default-margin;
+    }
+
+    .sitePanel.marginBottom
+    {
+        margin-bottom:      @default-margin;
     }

@@ -26,7 +26,7 @@
 
                 <antd.Divider />
 
-                { ninjas.SiteContentFactory.createHeadline( "Our Philosophy" ) }
+                { ninjas.SiteContentFactory.createHeadline( "Our Philosophy", true, true ) }
 
                 { ninjas.SiteContentFactory.createParagraph( "Our Philosophy is that .." ) }
 

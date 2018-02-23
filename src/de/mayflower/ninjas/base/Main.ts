@@ -4,7 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Add new ant design components.
+    *   TODO Add all new and fancy ant design components.
     *   TODO Complete all site panel contents.
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
     *   TODO Avoid slow sliding on edges!

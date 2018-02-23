@@ -30,6 +30,16 @@
         }
 
         /***************************************************************************************************************
+        *   Creates a divider.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createDivider() : JSX.Element
+        {
+            return <antd.Divider />;
+        }
+
+        /***************************************************************************************************************
         *   Creates an image container as a JSX element.
         *
         *   @param src The url to the image.
@@ -49,13 +59,19 @@
         /***************************************************************************************************************
         *   Creates a site headline.
         *
-        *   @param text The text to display in the headline.
+        *   @param text         The text to display in the headline.
+        *   @param marginTop    Apply top margin.
+        *   @param marginBottom Apply bottom margin.
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createHeadline( text:string ) : JSX.Element
+        public static createHeadline( text:string, marginTop:boolean, marginBottom:boolean ) : JSX.Element
         {
-            return <h1 className="sitePanel defaultHeadline">
+            let className:string = "sitePanel defaultHeadline";
+            if ( marginTop    ) className += " marginTop";
+            if ( marginBottom ) className += " marginBottom";
+
+            return <h1 className={ className }>
                 { text }
             </h1>;
         }
