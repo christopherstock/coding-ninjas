@@ -1,7 +1,9 @@
 
-    @import "./color.less";
-    @import "~antd/dist/antd.less";
-    @primary-color: #ff6666;
+    @import "../value/color.less";
+    @import "../value/dimension.less";
+
+    @import "../../../node_modules/antd/dist/antd.less";
+    @primary-color: @color-project;
 
     .ant-carousel .slick-slide
     {
