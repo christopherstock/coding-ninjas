@@ -16,6 +16,7 @@
     *   TODO Toggle bg music via switch.
     *   TODO Fade book from closed to open and vice-versa?
     *   TODO Create flames for candles.
+    *   TODO Add more colliding non-static items to play around with!!
     *   TODO Add more occult items.
     *   TODO Create animated grass sprite.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!

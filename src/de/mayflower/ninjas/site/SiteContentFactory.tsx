@@ -114,11 +114,11 @@
         }
 
         /***************************************************************************************************************
-        *   Creates a vertical spacer of the default margin height.
+        *   Creates a vertical spacer of the default distance.
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createVerticalSpacer() : JSX.Element
+        public static createSpacerVertical() : JSX.Element
         {
             return <div className="sitePanel verticalSpacer" />;
         }

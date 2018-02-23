@@ -25,13 +25,13 @@
                 { ninjas.SiteContentFactory.createStepIndicator( 4 ) }
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createImage( ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png" ) }
-                { ninjas.SiteContentFactory.createVerticalSpacer() }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createHeadline( "Primal References" ) }
-                { ninjas.SiteContentFactory.createVerticalSpacer() }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createParagraph( "Our references are ..." ) }
-                { ninjas.SiteContentFactory.createVerticalSpacer() }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createParagraph( "See our timeline of this project evolution:" ) }
-                { ninjas.SiteContentFactory.createVerticalSpacer() }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
 
                 <antd.Timeline>
                     <antd.Timeline.Item color="green">

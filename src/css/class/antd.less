@@ -3,16 +3,9 @@
     @import "../value/dimension.less";
 
     /*******************************************************************************************************************
-    *   Import Ant Design css framework and override required less variables.
+    *   Import Ant Design css framework and override all necessary less variables.
     *******************************************************************************************************************/
     @import "../../../node_modules/antd/dist/antd.less";
-
-    @primary-color:            @color-project;
-    @disabled-color:           @color-grey;
-    @text-color:               @color-white;
-    @progress-remaining-color: @color-white;
-    @border-color-split:       @color-grey;
-    @finish-tail-color:        @color-grey;
 
     @screen-xs:                 0;
     @screen-sm:                 0;
@@ -20,6 +13,19 @@
     @screen-lg:                 992px;
     @screen-xl:                 1200px;
     @screen-xxl:                1600px;
+
+    @primary-color:             @color-project;
+    @disabled-color:            @color-grey;
+    @text-color:                @color-white;
+    @progress-remaining-color:  @color-white;
+    @border-color-base:         @color-grey;
+    @border-color-split:        @color-grey;
+    @finish-tail-color:         @color-grey;
+    @collapse-header-bg:        @color-transparent;
+    @heading-color:             @color-project;
+
+
+
 
     /*******************************************************************************************************************
     *   Override specific Ant Design css attributes not procurable by less variables.
@@ -32,21 +38,23 @@
 
     .ant-steps-item-icon
     {
-        margin-right:       0;
+        margin-right:           0;
     }
 
     .ant-carousel .slick-slide
     {
-        height:             160px;
-        background:         #000000;
-        width:              100%;
-        text-align:         center;
-/*
-        overflow:           hidden;
-*/
+        height:                 160px;
+        background:             @color-transparent;
+        width:                  100%;
+        text-align:             center;
     }
 
     .ant-carousel .slick-slide h3
     {
-        color:              #ffffff;
+        color:                  @color-white;
+    }
+
+    .ant-collapse-content.ant-collapse-content-active
+    {
+        background-color:       @color-transparent;
     }

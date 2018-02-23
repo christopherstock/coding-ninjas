@@ -25,9 +25,9 @@
                 { ninjas.SiteContentFactory.createStepIndicator( 0 ) }
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createImage( ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png" ) }
-                { ninjas.SiteContentFactory.createVerticalSpacer() }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createHeadline( "Welcome to Coding Ninjas!" ) }
-                { ninjas.SiteContentFactory.createVerticalSpacer() }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createParagraph( "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss! Wurschtsolod jo leck mi vui und." ) }
                 { ninjas.SiteContentFactory.createDivider() }
                 {
