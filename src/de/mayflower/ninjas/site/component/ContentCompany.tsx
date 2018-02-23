@@ -23,16 +23,13 @@
             return <div>
 
                 { ninjas.SiteContentFactory.createStepIndicator( 1 ) }
-
-                <antd.Divider />
-
+                { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createImage( ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png" ) }
-
-                <antd.Divider />
-
-                { ninjas.SiteContentFactory.createHeadline( "Our Company", true, true ) }
-
+                { ninjas.SiteContentFactory.createDivider() }
+                { ninjas.SiteContentFactory.createHeadline( "Our Company" ) }
+                { ninjas.SiteContentFactory.createVerticalSpacer() }
                 { ninjas.SiteContentFactory.createParagraph( "Our company is ..." ) }
+                { ninjas.SiteContentFactory.createVerticalSpacer() }
 
                 <antd.Carousel effect="fade" autoplay={ false } >
                     <div><h3>1</h3></div>
@@ -42,7 +39,6 @@
                 </antd.Carousel>
 
                 <antd.Progress type="circle" percent={ 83.5 } />
-
 
             </div>
         }

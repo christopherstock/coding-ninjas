@@ -60,16 +60,12 @@
         *   Creates a site headline.
         *
         *   @param text         The text to display in the headline.
-        *   @param marginTop    Apply top margin.
-        *   @param marginBottom Apply bottom margin.
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createHeadline( text:string, marginTop:boolean, marginBottom:boolean ) : JSX.Element
+        public static createHeadline( text:string ) : JSX.Element
         {
             let className:string = "sitePanel defaultHeadline";
-            if ( marginTop    ) className += " marginTop";
-            if ( marginBottom ) className += " marginBottom";
 
             return <h1 className={ className }>
                 { text }
@@ -88,5 +84,15 @@
             return <p className="sitePanel defaultParagraph">
                 { text }
             </p>;
+        }
+
+        /***************************************************************************************************************
+        *   Creates a vertical spacer of the default margin height.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createVerticalSpacer() : JSX.Element
+        {
+            return <div className="sitePanel verticalSpacer" />;
         }
     }

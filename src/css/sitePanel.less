@@ -1,8 +1,10 @@
 
     @import "./color.less";
 
+
     // TODO move to 'default dimensions etc.'
     @default-margin: 20px;
+
 
     div.sitePanel.outerAbsoluteContainer
     {
@@ -52,12 +54,8 @@
         height:             auto;
     }
 
-    .sitePanel.marginTop
+    div.sitePanel.verticalSpacer
     {
-        margin-top:         @default-margin;
-    }
-
-    .sitePanel.marginBottom
-    {
-        margin-bottom:      @default-margin;
+        width:              100%;
+        height:             @default-margin;
     }
