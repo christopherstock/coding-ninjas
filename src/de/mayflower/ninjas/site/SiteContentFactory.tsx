@@ -72,7 +72,7 @@
         /***************************************************************************************************************
         *   Creates a site headline.
         *
-        *   @param text         The text to display in the headline.
+        *   @param text The text to display in the headline.
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
@@ -247,5 +247,39 @@
             return <antd.Collapse accordion>
                 { contents }
             </antd.Collapse>;
+        }
+
+        /***************************************************************************************************************
+        *   Creates a tabbed pane.
+        *
+        *   @param defaultActiveTab The initially active tab. Index is zero based.
+        *   @param headers          The headlines for all tabs..
+        *   @param pages            The contents for all tabs.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createTabbedPane
+        (
+            defaultActiveTab :number,
+            headers          :Array<JSX.Element>,
+            pages            :Array<JSX.Element>
+        )
+        : JSX.Element
+        {
+            let contents:Array<JSX.Element> = [];
+
+            for ( let key:number = 0; key < pages.length; ++key )
+            {
+                contents.push
+                (
+                    <antd.Tabs.TabPane tab={ headers[ key ] } key={ String( key ) }>
+                        { pages[ key ] }
+                    </antd.Tabs.TabPane>
+                );
+            }
+
+            return <antd.Tabs defaultActiveKey={ String( defaultActiveTab ) }>
+                { contents }
+            </antd.Tabs>;
         }
     }
