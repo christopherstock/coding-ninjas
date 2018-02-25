@@ -253,7 +253,7 @@
         *   Creates a tabbed pane.
         *
         *   @param defaultActiveTab The initially active tab. Index is zero based.
-        *   @param headers          The headlines for all tabs..
+        *   @param headers          The headlines for all tabs.
         *   @param pages            The contents for all tabs.
         *
         *   @return The created JSX element.
@@ -281,5 +281,37 @@
             return <antd.Tabs defaultActiveKey={ String( defaultActiveTab ) }>
                 { contents }
             </antd.Tabs>;
+        }
+
+        /***************************************************************************************************************
+        *   Creates a timeline.
+        *
+        *   @param colors The colors for the single items.
+        *   @param items  The items for this timeline to display.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createTimeline
+        (
+            colors :Array<string>,
+            items  :Array<JSX.Element>
+        )
+        : JSX.Element
+        {
+            let contents:Array<JSX.Element> = [];
+
+            for ( let key:number = 0; key < items.length; ++key )
+            {
+                contents.push
+                (
+                    <antd.Timeline.Item color={ colors[ key ] } key={ String( key ) } >
+                        { items[ key ] }
+                    </antd.Timeline.Item>
+                );
+            }
+
+            return <antd.Timeline>
+                { contents }
+            </antd.Timeline>;
         }
     }

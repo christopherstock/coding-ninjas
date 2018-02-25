@@ -1,6 +1,5 @@
 
     import * as ninjas from '../../ninjas';
-    import * as antd   from 'antd';
     import * as React  from 'react';
 
     /*******************************************************************************************************************
@@ -32,25 +31,33 @@
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createParagraph( "See our timeline of this project evolution:" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-
-                <antd.Timeline>
-                    <antd.Timeline.Item color="green">
-                        Create a services site 2015-09-01
-                    </antd.Timeline.Item>
-                    <antd.Timeline.Item color="green">
-                        Create a services site 2015-09-01
-                    </antd.Timeline.Item>
-                    <antd.Timeline.Item color="red">
-                        <p>Solve initial network problems 1</p>
-                        <p>Solve initial network problems 2</p>
-                        <p>Solve initial network problems 3 2015-09-01</p>
-                    </antd.Timeline.Item>
-                    <antd.Timeline.Item color="#1890ff">
-                        <p>Technical testing 1</p>
-                        <p>Technical testing 2</p>
-                        <p>Technical testing 3 2015-09-01</p>
-                    </antd.Timeline.Item>
-                </antd.Timeline>
+                {
+                    ninjas.SiteContentFactory.createTimeline
+                    (
+                        [
+                            "green",
+                            "green",
+                            "red",
+                            "#1890ff",
+                            "#1890ff",
+                        ],
+                        [
+                            <p>Create a services site 2015-09-01</p>,
+                            <p>Create a services site 2015-09-01</p>,
+                            <div>
+                                <p>Solve initial network problems 1</p>
+                                <p>Solve initial network problems 2</p>
+                                <p>Solve initial network problems 3 2015-09-01</p>
+                            </div>,
+                            <div>
+                                <p>Technical testing 1</p>
+                                <p>Technical testing 2</p>
+                                <p>Technical testing 3 2015-09-01</p>
+                            </div>,
+                            <p>Completed MVP 2018-02-25</p>,
+                        ]
+                    )
+                }
 
             </div>
         }
