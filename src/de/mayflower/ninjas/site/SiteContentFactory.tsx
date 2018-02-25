@@ -1,8 +1,9 @@
 
-    import * as React from 'react';
-    import * as antd  from 'antd';
+    import * as React           from 'react';
+    import * as antd            from 'antd';
     import { TooltipPlacement } from "antd/lib/tooltip";
-    import { ButtonType } from "antd/lib/button";
+    import { ButtonType       } from "antd/lib/button";
+    import { CarouselEffect   } from "antd/lib/carousel";
 
     /*******************************************************************************************************************
     *   Creates content components for the factory.
@@ -93,8 +94,7 @@
         ***************************************************************************************************************/
         public static createParagraph( text:string ) : JSX.Element
         {
-            return <p className="sitePanel defaultParagraph">
-                { text }
+            return <p className="sitePanel defaultParagraph" dangerouslySetInnerHTML={ { __html: text, } }>
             </p>;
         }
 
@@ -158,5 +158,36 @@
                     { caption }
                 </antd.Button>
             </antd.Tooltip>;
+        }
+
+        /***************************************************************************************************************
+        *   Creates a carousel.
+        *
+        *   @param effect        The effect for the next carousel page to showup.
+        *   @param autoplay      Specifies if the carousel should automatically change pages.
+        *   @param autoplaySpeed The delay speed for automatic page changes.
+        *   @param pages         All pages to show up in the carousel.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createCarousel
+        (
+            effect        :CarouselEffect,
+            autoplay      :boolean,
+            autoplaySpeed :number,
+            pages         :Array<JSX.Element>,
+        )
+        : JSX.Element
+        {
+            let contents:Array<JSX.Element> = [];
+
+            for ( let key:number = 0; key < pages.length; ++key )
+            {
+                contents.push( <div key={ key }>{ pages[ key ] }</div> );
+            }
+
+            return <antd.Carousel effect={ effect } autoplay={ true } autoplaySpeed={ 3000 } >
+                { contents }
+            </antd.Carousel>;
         }
     }

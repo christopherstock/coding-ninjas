@@ -28,15 +28,22 @@
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createHeadline( "Our Company" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "Our company is ..." ) }
+                { ninjas.SiteContentFactory.createParagraph( "We <span style=\"color: #ff6666;\">&#x2764;</span> programming! And particularly we love to create .." ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-
-                <antd.Carousel effect="fade" autoplay={ true } autoplaySpeed={ 3000 } >
-                    <div><h3>1</h3></div>
-                    <div><h3>2</h3></div>
-                    <div><h3>3</h3></div>
-                    <div><h3>4</h3></div>
-                </antd.Carousel>
+                {
+                    ninjas.SiteContentFactory.createCarousel
+                    (
+                        "fade",
+                        true,
+                        3000,
+                        [
+                            <h3>1</h3>,
+                            <h3>2</h3>,
+                            <h3>3</h3>,
+                            <h3>4</h3>,
+                        ]
+                    )
+                }
 
                 <antd.Progress type="circle" percent={ 83.5 } />
 
