@@ -11,6 +11,7 @@
     *
     *   TODO Complete the MVP!
     *
+    *   TODO Create enemy.
     *   TODO Mini key tutorial on welcome page.
     *   TODO Toggle bg music via switch.
     *   TODO Fade book from closed to open and vice-versa?

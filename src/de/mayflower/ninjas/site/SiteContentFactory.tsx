@@ -314,4 +314,43 @@
                 { contents }
             </antd.Timeline>;
         }
+
+        /***************************************************************************************************************
+        *   Creates a button group.
+        *
+        *   @param defaultValue The initially selected value of the group.
+        *   @param values       All values for all buttons in the group.
+        *   @param labels       All labels for all buttons in the group.
+        *   @param onChange     The callback being invoked when the selected value in the group has changed.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createButtonGroup
+        (
+            defaultValue :string,
+            values       :Array<string>,
+            labels       :Array<string>,
+            onChange     :( e:React.ChangeEvent<any> ) => void
+        )
+        : JSX.Element
+        {
+            let contents:Array<JSX.Element> = [];
+
+            for ( let key:number = 0; key < values.length; ++key )
+            {
+                contents.push
+                (
+                    <antd.Radio.Button value={ values[ key ] } key={ String( key ) }>
+                        { labels[ key ] }
+                    </antd.Radio.Button>
+                );
+            }
+
+            return <antd.Radio.Group
+                onChange={     onChange     }
+                defaultValue={ defaultValue }
+            >
+                { contents }
+            </antd.Radio.Group>;
+        }
     }
