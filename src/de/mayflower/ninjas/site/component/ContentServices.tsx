@@ -1,6 +1,5 @@
 
     import * as ninjas from '../../ninjas';
-    import * as antd   from 'antd';
     import * as React  from 'react';
 
     /*******************************************************************************************************************
@@ -35,9 +34,9 @@
                     (
                         0,
                         [
-                            <span><antd.Icon type="apple"   />Tab 1</span>,
-                            <span><antd.Icon type="android" />Tab 2</span>,
-                            <span><antd.Icon type="github"  />Tab 3</span>
+                            <span>{ ninjas.SiteContentFactory.createIcon( "apple"   ) } Tab 1</span>,
+                            <span>{ ninjas.SiteContentFactory.createIcon( "android" ) } Tab 2</span>,
+                            <span>{ ninjas.SiteContentFactory.createIcon( "github"  ) } Tab 3</span>
                         ],
                         [
                             <div>
@@ -46,37 +45,26 @@
                                 <br />
                                 <br />
 
-                                <antd.Avatar
-                                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                                    style={ { backgroundColor: '#ff6666', float: "none", } }
-                                />
-                                <br />
-                                <antd.Avatar
-                                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                                    style={ { backgroundColor: '#ff6666', float: "none", } }
-                                />
-                                <br />
-                                <antd.Avatar
-                                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                                    style={ { backgroundColor: '#ff6666', float: "none", } }
-                                />
-                                <br />
-                                <antd.Avatar
-                                    src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                                    style={ { backgroundColor: '#ff6666', float: "none", } }
-                                />
+                                { ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" ) }
+                                { ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" ) }
+                                { ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" ) }
+                                { ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" ) }
+                                { ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" ) }
+
                             </div>,
                             <div>
                                 Tab 2
 
                                 <br />
                                 <br />
+                                { ninjas.SiteContentFactory.createBadge( 25, "white", "red",     ) }
+                                <br />
+                                <br />
+                                { ninjas.SiteContentFactory.createBadge( 4,  "#999",  "#ffffff", ) }
+                                <br />
+                                <br />
+                                { ninjas.SiteContentFactory.createBadge( 25, "white", "#52c41a", ) }
 
-                                <antd.Badge count={25} />
-                                <br />
-                                <antd.Badge count={4}   style={{ backgroundColor: '#fff', color: '#999', boxShadow: '0 0 0 1px #d9d9d9 inset' }} />
-                                <br />
-                                <antd.Badge count={109} style={{ backgroundColor: '#52c41a' }} />
                             </div>,
                             <div>
                                 Tab 3

@@ -112,6 +112,30 @@
         }
 
         /***************************************************************************************************************
+        *   Creates an icon.
+        *
+        *   @param type The type of icon to create.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createIcon( type:string ) : JSX.Element
+        {
+            return <antd.Icon type={ type } />;
+        }
+
+        /***************************************************************************************************************
+        *   Creates an avatar.
+        *
+        *   @param src The src of the image to display in the avatar.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createAvatar( src:string ) : JSX.Element
+        {
+            return <antd.Avatar src={ src } style={ { backgroundColor: '#ff6666', } } />;
+        }
+
+        /***************************************************************************************************************
         *   Creates a tag.
         *
         *   @param color The color to use for this tag.
@@ -122,6 +146,20 @@
         public static createTag( color:string, text:string ) : JSX.Element
         {
             return <antd.Tag color={ color }>{ text }</antd.Tag>;
+        }
+
+        /***************************************************************************************************************
+        *   Creates a badge.
+        *
+        *   @param count   The count to display in this badge.
+        *   @param colorFg The foreground color for the count.
+        *   @param colorBg The background color for the badge.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createBadge( count:number, colorFg:string, colorBg:string ) : JSX.Element
+        {
+            return <antd.Badge count={ count } style={ { color: colorFg, backgroundColor: colorBg, } } />;
         }
 
         /***************************************************************************************************************
