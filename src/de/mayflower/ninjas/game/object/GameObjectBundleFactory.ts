@@ -458,6 +458,41 @@
         }
 
         /***************************************************************************************************************
+        *   Creates an obstacle.
+        *
+        *   @param level    The level to add the decoration to.
+        *   @param xLeft    Anchor for left X.
+        *   @param yBottom  Anchor for bottom Y.
+        *   @param position The position for the decoration.
+        *   @param imageId  The id of the image.
+        ***************************************************************************************************************/
+        public static createObstacle
+        (
+            level    :ninjas.Level,
+            xLeft    :number,
+            yBottom  :number,
+            position :DecoPosition,
+            imageId  :string
+        )
+        : void
+        {
+            let spriteTemplate :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
+            let obstacle       :ninjas.Obstacle       = ninjas.GameObjectFactory.createObstacleSpriteful
+            (
+                xLeft,
+                yBottom - spriteTemplate.height,
+                spriteTemplate,
+                0.0,
+                ninjas.JumpPassThrough.NO,
+                ninjas.StaticShape.NO,
+                ninjas.BodyDensity.RUBBER,
+                ninjas.BodyRestitution.RUBBER
+            );
+
+            level.obstacles.push( obstacle );
+        }
+
+        /***************************************************************************************************************
         *   Creates a decoration.
         *
         *   @param level    The level to add the decoration to.
@@ -476,8 +511,8 @@
         )
         : void
         {
-            let sprtiteTemplate :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
-            let deco            :ninjas.Decoration     = ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, sprtiteTemplate );
+            let spriteTemplate :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
+            let deco           :ninjas.Decoration     = ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, spriteTemplate );
 
             switch ( position )
             {

@@ -157,6 +157,9 @@
         *   @param spriteTemplate  The sprite template to use for this obstacle.
         *   @param angle           The initial rotation.
         *   @param jumpPassThrough Specifies if the player can jump through this obstacle.
+        *   @param staticShape     Specifies if this obstacle should be static or not.
+        *   @param density         The density of this obstacle.
+        *   @param restitution     The restitution of this obstacle.
         *
         *   @return The created obstacle.
         ***************************************************************************************************************/
@@ -166,7 +169,10 @@
             yTop            :number,
             spriteTemplate  :ninjas.SpriteTemplate,
             angle           :number,
-            jumpPassThrough :ninjas.JumpPassThrough
+            jumpPassThrough :ninjas.JumpPassThrough,
+            staticShape     :ninjas.StaticShape,
+            density         :ninjas.BodyDensity,
+            restitution     :ninjas.BodyRestitution
         )
         : ninjas.Obstacle
         {
@@ -177,11 +183,11 @@
                     spriteTemplate.width,
                     spriteTemplate.height,
                     ninjas.DebugColor.COLOR_DEBUG_OBSTACLE,
-                    ninjas.StaticShape.YES,
+                    staticShape,
                     angle,
                     ninjas.BodyFriction.OBSTACLE,
-                    ninjas.BodyDensity.INFINITE,
-                    ninjas.BodyRestitution.DEFAULT
+                    density,
+                    restitution
                 ),
                 xLeft,
                 yTop,

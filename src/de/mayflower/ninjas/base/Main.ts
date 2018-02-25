@@ -11,8 +11,6 @@
     *
     *   TODO Complete the MVP!
     *
-    *   TODO Extract antd css to separate file.
-    *   TODO Create bg shine for shrines.
     *   TODO Mini key tutorial on welcome page.
     *   TODO Toggle bg music via switch.
     *   TODO Fade book from closed to open and vice-versa?
