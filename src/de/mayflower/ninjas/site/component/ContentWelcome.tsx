@@ -39,24 +39,18 @@
                         ( checked:boolean ) => { console.log( "Toggle to checked [" + checked + "]" ); }
                     )
                 }
-
                 { ninjas.SiteContentFactory.createDivider() }
-
-                <antd.Tooltip
-                    placement="leftBottom"
-                    title="Trigger a test alert."
-                >
-                    <antd.Button
-                        type="primary"
-                        className="backend"
-                        icon="play-circle"
-                        loading={ false }
-                        onClick={ () => { alert( "Button clicked!" ); } }
-                    >
-                        Trigger a test alert
-                    </antd.Button>
-                </antd.Tooltip>
-
+                {
+                    ninjas.SiteContentFactory.createButton
+                    (
+                        "leftBottom",
+                        "Trigger a test alert.",
+                        "primary",
+                        "play-circle",
+                        () => { alert( "Button clicked!" ); },
+                        "Trigger a test alert"
+                    )
+                }
                 { ninjas.SiteContentFactory.createDivider() }
 
             </div>

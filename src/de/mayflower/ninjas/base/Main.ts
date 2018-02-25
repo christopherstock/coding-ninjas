@@ -4,10 +4,10 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Move all Ant Design elements to creator methods.
     *   TODO Complete all site panel contents.
     *   TODO Preload site images via image system ( or assign images via JavaScript ).
     *   TODO Avoid slow sliding on edges!
-    *   TODO Move all Ant Design elements to creator methods.
     *
     *   TODO Complete the MVP!
     *

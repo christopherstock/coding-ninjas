@@ -1,6 +1,8 @@
 
     import * as React from 'react';
     import * as antd  from 'antd';
+    import { TooltipPlacement } from "antd/lib/tooltip";
+    import { ButtonType } from "antd/lib/button";
 
     /*******************************************************************************************************************
     *   Creates content components for the factory.
@@ -37,6 +39,16 @@
         public static createDivider() : JSX.Element
         {
             return <antd.Divider />;
+        }
+
+        /***************************************************************************************************************
+        *   Creates a vertical spacer of the default distance.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createSpacerVertical() : JSX.Element
+        {
+            return <div className="sitePanel verticalSpacer" />;
         }
 
         /***************************************************************************************************************
@@ -114,12 +126,37 @@
         }
 
         /***************************************************************************************************************
-        *   Creates a vertical spacer of the default distance.
+        *   Creates a button.
+        *
+        *   @param tooltipPlacement The cardinal point for the tooltip to showup.
+        *   @param toolTipTitle     The title for the tooltip.
+        *   @param buttonType       The type of button.
+        *   @param icon             The icon to use for this button.
+        *   @param onClick          The callback being invoked when the button is clicked.
+        *   @param caption          The caption for the button.
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createSpacerVertical() : JSX.Element
+        public static createButton
+        (
+            tooltipPlacement :TooltipPlacement,
+            toolTipTitle     :string,
+            buttonType       :ButtonType,
+            icon             :string,
+            onClick          :any,
+            caption          :string
+        )
+        : JSX.Element
         {
-            return <div className="sitePanel verticalSpacer" />;
+            return <antd.Tooltip placement={ tooltipPlacement } title={ toolTipTitle }>
+                <antd.Button
+                    type={    buttonType }
+                    icon={    icon }
+                    loading={ false }
+                    onClick={ onClick }
+                >
+                    { caption }
+                </antd.Button>
+            </antd.Tooltip>;
         }
     }
