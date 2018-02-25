@@ -1,6 +1,5 @@
 
     import * as ninjas from '../../ninjas';
-    import * as antd   from 'antd';
     import * as React  from 'react';
 
     /*******************************************************************************************************************
@@ -45,7 +44,7 @@
                     )
                 }
 
-                <antd.Progress type="circle" percent={ 83.5 } />
+                { ninjas.SiteContentFactory.createProgress( "circle", 83.5 ) }
 
             </div>
         }

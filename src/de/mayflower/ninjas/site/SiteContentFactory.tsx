@@ -99,6 +99,32 @@
         }
 
         /***************************************************************************************************************
+        *   Creates a progress bar.
+        *
+        *   @param type    The type of progress bar to create.
+        *   @param percent The current progress value in percent.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createProgress( type:any, percent:number ) : JSX.Element
+        {
+            return <antd.Progress type={ type } percent={ percent } />;
+        }
+
+        /***************************************************************************************************************
+        *   Creates a tag.
+        *
+        *   @param color The color to use for this tag.
+        *   @param text  The label text for this tag.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createTag( color:string, text:string ) : JSX.Element
+        {
+            return <antd.Tag color={ color }>{ text }</antd.Tag>;
+        }
+
+        /***************************************************************************************************************
         *   Creates a toggle switch.
         *
         *   @param iconOn         The icon for the 'on'  state.
@@ -189,5 +215,37 @@
             return <antd.Carousel effect={ effect } autoplay={ true } autoplaySpeed={ 3000 } >
                 { contents }
             </antd.Carousel>;
+        }
+
+        /***************************************************************************************************************
+        *   Creates an accordion.
+        *
+        *   @param headers All headers for all contents.
+        *   @param pages   All contents.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createAccordion
+        (
+            headers :Array<string>,
+            pages   :Array<JSX.Element>,
+        )
+        : JSX.Element
+        {
+            let contents:Array<JSX.Element> = [];
+
+            for ( let key:number = 0; key < pages.length; ++key )
+            {
+                contents.push
+                (
+                    <antd.Collapse.Panel header={ headers[ key ] } key={ String( key ) }>
+                        { pages[ key ] }
+                    </antd.Collapse.Panel>
+                );
+            }
+
+            return <antd.Collapse accordion>
+                { contents }
+            </antd.Collapse>;
         }
     }

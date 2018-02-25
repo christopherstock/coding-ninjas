@@ -1,6 +1,5 @@
 
     import * as ninjas from '../../ninjas';
-    import * as antd   from 'antd';
     import * as React  from 'react';
 
     /*******************************************************************************************************************
