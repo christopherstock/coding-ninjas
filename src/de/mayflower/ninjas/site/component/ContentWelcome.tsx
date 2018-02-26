@@ -27,7 +27,28 @@
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createHeadline( "Welcome to Coding Ninjas!" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "Bavaria ipsum dolor sit amet Schaung kost nix Xaver, Almrausch. Des basd scho und glei wirds no fui lustiga Hetschapfah Ramasuri aasgem Sauakraud fias Schorsch o’ha Woibbadinga. Sauakraud schaugn i vo de! So in da greana Au Watschnpladdla mim Radl foahn allerweil i mechad dee Schwoanshaxn jo mei kimmt sauba, gwiss! Wurschtsolod jo leck mi vui und." ) }
+                { ninjas.SiteContentFactory.createParagraph( "This is an example Node.js project for the Node.js workshop on the <a target=\"_blank\" title=\"Developer Camp 2018\" href=\"https://developercamp.io/\">Developer Camp 2018</a> in the context of the <a target=\"_blank\" title=\"Würzburg Web Week\" href=\"https://wueww.de/\">Würzburg Web Week</a> that demonstrates the usage of the following primal packages of the NodeJS framework:" ) }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
+                {
+                    <ul className="sitePanel">
+                        <li>
+                            TypeScript<br />
+                            THE transpiler for mastering extensive JavaScript projects with plenty of own sourcecode.
+                        </li>
+                        <li>
+                            Webpack<br />
+                            THE web bundler for extensive JavaScript projects with plenty of external libraries.
+                        </li>
+                        <li>
+                            Matter.js<br />
+                            A wonderful and easy-to-use 2d physics rendering engine.
+                        </li>
+                        <li>
+                            Ant Design<br />
+                            An enterprise Framework for easy-to-use UI-components.
+                        </li>
+                    </ul>
+                }
                 { ninjas.SiteContentFactory.createDivider() }
                 {
                     ninjas.SiteContentFactory.createSwitch
@@ -38,18 +59,7 @@
                         ( checked:boolean ) => { console.log( "Toggle to checked [" + checked + "]" ); }
                     )
                 }
-                { ninjas.SiteContentFactory.createDivider() }
-                {
-                    ninjas.SiteContentFactory.createButton
-                    (
-                        "leftBottom",
-                        "Trigger a test alert.",
-                        "primary",
-                        "play-circle",
-                        () => { alert( "Button clicked!" ); },
-                        "Trigger a test alert"
-                    )
-                }
+                { ninjas.SiteContentFactory.createParagraph( "Toggle sounds and background music" ) }
                 { ninjas.SiteContentFactory.createDivider() }
 
             </div>

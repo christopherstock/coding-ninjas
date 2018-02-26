@@ -49,7 +49,18 @@
 
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createParagraph( "Use our contact form to ..." ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
+                { ninjas.SiteContentFactory.createDivider() }
+                {
+                    ninjas.SiteContentFactory.createButton
+                    (
+                        "leftBottom",
+                        "Trigger a test alert.",
+                        "primary",
+                        "play-circle",
+                        () => { alert( "Button clicked!" ); },
+                        "Trigger a test alert"
+                    )
+                }
 
             </div>
         }

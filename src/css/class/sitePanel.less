@@ -50,3 +50,24 @@
         width:              100%;
         height:             @default-margin;
     }
+
+    ul.sitePanel
+    {
+        list-style:         none;
+        margin:             0;
+        padding:            0;
+        text-align:         left;
+        display:            inline-block;
+    }
+
+    ul.sitePanel li
+    {
+        padding-left:       1em;
+        text-indent:        -.7em;
+    }
+
+    ul.sitePanel li::before
+    {
+        content:            "\2022 ";
+        color:              @color-project;
+    }

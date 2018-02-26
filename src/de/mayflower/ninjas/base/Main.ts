@@ -5,11 +5,11 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Complete all site panel contents.
-    *   TODO Preload site images via image system ( or assign images via JavaScript ).
+    *   TODO Create enemy.
     *
     *   TODO Complete the MVP!
     *
-    *   TODO Create enemy.
+    *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
     *   TODO Mini key tutorial on welcome page.
     *   TODO Toggle bg music via switch.
     *   TODO Fade book from closed to open and vice-versa?
