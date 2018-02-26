@@ -207,10 +207,10 @@
             ninjas.GameObjectBundleFactory.createSolidGround( this, 12000, 4200, 12,  2, ninjas.Slope.NONE,       ninjas.CapHorz.BOTH  );
 
             // flying grounds
-            ninjas.GameObjectBundleFactory.createFlyingGround( this, 5062,  4430, 3,  ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
-            ninjas.GameObjectBundleFactory.createFlyingGround( this, 3525,  4060, 11, ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
-            ninjas.GameObjectBundleFactory.createFlyingGround( this, 7350,  4280, 6,  ninjas.Slope.NONE,      ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
-            ninjas.GameObjectBundleFactory.createFlyingGround( this, 9800,  4600, 3,  ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
-            ninjas.GameObjectBundleFactory.createFlyingGround( this, 10800, 4400, 3,  ninjas.Slope.ASCENDING, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 5062,  4430, 3,  ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 3525,  4060, 11, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 7350,  4280, 6,  ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 9800,  4570, 3,  ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 10800, 4370, 3,  ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
         }
     }

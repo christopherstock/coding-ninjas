@@ -27,6 +27,8 @@
     {
         /** The looking direction for this character. */
         public                          lookingDirection                    :ninjas.CharacterLookingDirection   = null;
+        /** Flags if the character currently collides with the bottom sensor. */
+        public                          collidesBottom                      :boolean                            = false;
 
         /** Flags if this character is dead. */
         protected                       dead                                :boolean                            = false;
@@ -35,12 +37,10 @@
         /** Flags if this character is requesting gliding while ascending etc. */
         protected                       glidingRequest                      :boolean                            = false;
 
-        /** Flags if the character currently collides with the bottom sensor. */
-        public                          collidesBottom                      :boolean                            = false;
         /** Flags if the character is currently moving left. */
-        public                          movesLeft                           :boolean                            = false;
+        protected                       movesLeft                           :boolean                            = false;
         /** Flags if the character is currently moving right. */
-        public                          movesRight                          :boolean                            = false;
+        protected                       movesRight                          :boolean                            = false;
 
         /** The speed for horizontal movements. */
         private                         speedMove                           :number                             = 0.0;
@@ -188,14 +188,13 @@
             matter.Body.translate( this.shape.body, matter.Vector.create( -this.speedMove, 0 ) );
             this.movesLeft = true;
             this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
-/*
-            // check collision on falling
-            if ( this.isFalling() && this.isCollidingObstacle() )
+
+            // check in-air collision
+            if ( !this.collidesBottom && this.isCollidingObstacle() )
             {
                 // take back movement
                 matter.Body.translate( this.shape.body, matter.Vector.create( this.speedMove, 0 ) );
             }
-*/
         }
 
         /***************************************************************************************************************
@@ -206,14 +205,13 @@
             matter.Body.translate( this.shape.body, matter.Vector.create( this.speedMove, 0 ) );
             this.movesRight = true;
             this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
-/*
-            // check collision on falling
-            if ( this.isFalling() && this.isCollidingObstacle() )
+
+            // check in-air collision
+            if ( !this.collidesBottom && this.isCollidingObstacle() )
             {
                 // take back movement
                 matter.Body.translate( this.shape.body, matter.Vector.create( -this.speedMove, 0 ) );
             }
-*/
         }
 
         /***************************************************************************************************************
@@ -234,6 +232,8 @@
 
         /***************************************************************************************************************
         *   Checks if this character is currently moving.
+        *
+        *   @return <code>True</code> if the player is currently moving.
         ***************************************************************************************************************/
         public isMoving()
         {
@@ -294,7 +294,11 @@
 
             for ( let gameObject of ninjas.Main.game.level.obstacles )
             {
-                bodiesToCheck.push( gameObject.shape.body );
+                // only consider rectangular obstacles
+                if ( gameObject.shape instanceof ninjas.ShapeRectangle )
+                {
+                    bodiesToCheck.push( gameObject.shape.body );
+                }
             }
 
             // check colliding bodies
