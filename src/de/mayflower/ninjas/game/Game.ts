@@ -12,12 +12,12 @@
     {
         /** The game engine. */
         public      engine                  :ninjas.GameEngine              = null;
-
         /** The custom camera system. */
         public      camera                  :ninjas.Camera                  = null;
-
         /** The custom level. */
         public      level                   :ninjas.Level                   = null;
+        /** The currently assigned background music. */
+        private     bgMusic                 :HTMLAudioElement               = null;
 
         /***************************************************************************************************************
         *   Inits all components of the game.
@@ -35,6 +35,9 @@
         {
             ninjas.Debug.init.log( "Starting the game loop" );
             ninjas.Debug.init.log();
+
+            // play bg sound
+            this.bgMusic = this.engine.soundSystem.playSound( ninjas.Sound.BG_CHINESE, true );
 
             // launch initial level
             this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
@@ -139,6 +142,26 @@
             context.fillStyle = "#ff0000";
             context.fillRect( this.engine.canvasSystem.getWidth() - ninjas.SettingGame.BORDER_SIZE - testHudWidth, ninjas.SettingGame.BORDER_SIZE, testHudWidth, testHudHeight );
 */
+        }
+
+        /***************************************************************************************************************
+        *   Pauses or resumes the background music.
+        *
+        *   @param enable Specifies if the background music shall be enabled or not.
+        ***************************************************************************************************************/
+        public toggleBgMusic( enable:boolean )
+        {
+            if ( this.bgMusic != null )
+            {
+                if ( enable )
+                {
+                    this.bgMusic.play();
+                }
+                else
+                {
+                    this.bgMusic.pause();
+                }
+            }
         }
 
         /***************************************************************************************************************

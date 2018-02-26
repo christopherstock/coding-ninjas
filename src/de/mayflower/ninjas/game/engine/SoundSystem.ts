@@ -36,8 +36,10 @@
         *
         *   @param id   The ID of the audio object to play.
         *   @param loop Specifies if playback for this sound should be repeated infinitely.
+        *
+        *   @return A reference to the instanced audio clip.
         ***************************************************************************************************************/
-        public playSound( id:string, loop:boolean = false )
+        public playSound( id:string, loop:boolean = false ) : HTMLAudioElement
         {
             if ( !ninjas.SettingDebug.DISABLE_SOUNDS )
             {
@@ -53,15 +55,18 @@
 
                                 ninjas.Debug.sound.log( "Clip ended - now repeating .." );
 
-                                // clipClone.
                                 clipClone.play();
                             }
                         );
                     }
 
                     clipClone.play();
+
+                    return clipClone;
                 }
             }
+
+            return null;
         }
 
         /***************************************************************************************************************

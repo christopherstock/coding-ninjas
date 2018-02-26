@@ -11,7 +11,6 @@
     *
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
     *   TODO Mini key tutorial on welcome page.
-    *   TODO Toggle bg music via switch.
     *   TODO Fade book from closed to open and vice-versa?
     *   TODO Create flames for candles.
     *   TODO Add more colliding non-static items to play around with!!

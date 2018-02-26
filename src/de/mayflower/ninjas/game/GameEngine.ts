@@ -80,9 +80,6 @@
             // init FPS-counter
             this.initFpsCounter();
 
-            // play bg sound
-            this.soundSystem.playSound( ninjas.Sound.BG_CHINESE, true );
-
             ninjas.Debug.init.log( "Initing game engine completed" );
 
             ninjas.Main.game.start();

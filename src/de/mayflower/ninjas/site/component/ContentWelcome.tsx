@@ -56,10 +56,15 @@
                         "notification",
                         "poweroff",
                         true,
-                        ( checked:boolean ) => { console.log( "Toggle to checked [" + checked + "]" ); }
+                        ( checked:boolean ) => {
+
+                            ninjas.Debug.sound.log( "Toggle bg music to [" + checked + "]" );
+
+                            ninjas.Main.game.toggleBgMusic( checked );
+                        }
                     )
                 }
-                { ninjas.SiteContentFactory.createParagraph( "Toggle sounds and background music" ) }
+                { ninjas.SiteContentFactory.createParagraph( "Toggle background music" ) }
                 { ninjas.SiteContentFactory.createDivider() }
 
             </div>
