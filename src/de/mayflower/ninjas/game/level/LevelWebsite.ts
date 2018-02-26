@@ -158,7 +158,9 @@
             ninjas.GameObjectBundleFactory.createDeco(   this, 7150,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BOULDER_2 );
             ninjas.GameObjectBundleFactory.createDeco(   this, 7300,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BOULDER_3 );
 
-            ninjas.GameObjectBundleFactory.createDeco(   this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2  );
+            ninjas.GameObjectBundleFactory.createDeco(   this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2   );
+
+            ninjas.GameObjectBundleFactory.createDeco(   this, 11500, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CAGE     );
 
             // shrine 1
             ninjas.GameObjectBundleFactory.createDeco(   this, 1180,  5000, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1   );
@@ -166,7 +168,7 @@
             ninjas.GameObjectBundleFactory.createShrine( this, 1110,  5000, true, true, ninjas.SiteContent.CONTENT_WELCOME      );
 
             // shrine 2
-            ninjas.GameObjectBundleFactory.createObstacle( this, 3680,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT      );
+            ninjas.GameObjectBundleFactory.createObstacle( this, 3680,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT    );
             ninjas.GameObjectBundleFactory.createShrine( this, 3770,  4800, false, true, ninjas.SiteContent.CONTENT_COMPANY     );
             ninjas.GameObjectBundleFactory.createDeco(   this, 4230,  4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1   );
             ninjas.GameObjectBundleFactory.createDeco(   this, 4150,  4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_2 );

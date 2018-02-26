@@ -136,6 +136,8 @@
         public      static      IMAGE_CANDELABRA                            :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "candelabra.png";
         /** Image resource 'candle'. */
         public      static      IMAGE_CANDLE                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "candle.png";
+        /** Image resource 'cage'. */
+        public      static      IMAGE_CAGE                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "cage.png";
 
         /** Image resource 'bush 1'. */
         public      static      IMAGE_BUSH_1                                :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bush1.png";
@@ -322,6 +324,7 @@
 
             Image.IMAGE_CANDELABRA,
             Image.IMAGE_CANDLE,
+            Image.IMAGE_CAGE,
 
             Image.IMAGE_BUSH_1,
             Image.IMAGE_BUSH_2,

@@ -11,15 +11,15 @@
     *
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
     *   TODO Mini key tutorial on welcome page.
+    *   TODO Blending over layer for fade in effect of the whole screen.
     *   TODO Fade book from closed to open and vice-versa?
     *   TODO Create flames for candles.
     *   TODO Add more colliding non-static items to play around with!!
-    *   TODO Add more occult items.
     *   TODO Create animated grass sprite.
+    *   TODO Create preloader for game initialization.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Fixed positioning for camera on first scene (player floating in).
     *   TODO Add translucent overlay for blend effects.
-    *   TODO Blending over layer for fade in effect of the whole screen.
     *   TODO Camera joyride on level startup?
     *   TODO Add decoration particle effects on smashing objects / windows etc.
     *   TODO Add 'slide' sprite.
