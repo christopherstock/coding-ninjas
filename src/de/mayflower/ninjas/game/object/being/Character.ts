@@ -91,17 +91,18 @@
             this.movesRight = false;
 
             this.resetRotation();
-            this.clipToHorizontalLevelBounds();
             this.checkBottomCollision();
             this.checkParachuteState();
         }
 
         /***************************************************************************************************************
         *   Lets this character punch back.
+        *
+        *   @param punchBackDirection The direction in which to punch back.
         ***************************************************************************************************************/
-        public punchBack()
+        public punchBack( punchBackDirection:ninjas.CharacterLookingDirection )
         {
-            switch ( this.lookingDirection )
+            switch ( punchBackDirection )
             {
                 case ninjas.CharacterLookingDirection.LEFT:
                 {
@@ -109,7 +110,7 @@
                     (
                         this.shape.body,
                         this.shape.body.position,
-                        matter.Vector.create( -1.0, -2.0 )
+                        matter.Vector.create( -1.5, -2.5 )
                     );
                     break;
                 }
@@ -120,7 +121,7 @@
                     (
                         this.shape.body,
                         this.shape.body.position,
-                        matter.Vector.create( 1.0, -2.0 )
+                        matter.Vector.create( 1.5, -2.5 )
                     );
                     break;
                 }

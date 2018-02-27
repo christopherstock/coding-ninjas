@@ -70,8 +70,10 @@
 
         /***************************************************************************************************************
         *   Being invoked when this enemy is hit by the player.
+        *
+        *   @param playerDirection The current direction of the player.
         ***************************************************************************************************************/
-        public onHitByPlayer()
+        public onHitByPlayer( playerDirection )
         {
             // flag as dying
             this.dying = true;
@@ -84,7 +86,7 @@
             ninjas.Main.game.engine.matterJsSystem.addToWorld(      this.shape.body );
 
             // punch the enemy out of the screen
-            this.punchBack();
+            this.punchBack( playerDirection );
         }
 
         /***************************************************************************************************************
@@ -92,25 +94,37 @@
         ***************************************************************************************************************/
         private assignCurrentSprite()
         {
-/*
-            if ( this.movesLeft )
-            {
-                this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALK_LEFT );
-            }
-            else if ( this.movesRight )
-            {
-                this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALK_RIGHT );
-            }
-            else
-*/
+            if ( this.dying )
             {
                 if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
                 {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_LEFT );
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_DIE_LEFT );
                 }
                 else
                 {
-                    this.setSprite( ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_RIGHT );
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_DIE_RIGHT );
+                }
+            }
+            else
+            {
+                if ( this.movesLeft )
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_WALK_LEFT );
+                }
+                else if ( this.movesRight )
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_WALK_RIGHT );
+                }
+                else
+                {
+                    if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_LEFT );
+                    }
+                    else
+                    {
+                        this.setSprite( ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_RIGHT );
+                    }
                 }
             }
         }

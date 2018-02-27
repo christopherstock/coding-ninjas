@@ -4,9 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Create enemy.
     *   TODO Blending over layer for fade in effect of the whole screen.
-    *
     *   TODO Complete all site panel contents.
     *   TODO Complete the MVP!
     *

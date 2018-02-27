@@ -182,7 +182,7 @@
                             {
                                 ninjas.Debug.enemy.log( " Enemy hit by player" );
 
-                                enemy.onHitByPlayer();
+                                enemy.onHitByPlayer( this.lookingDirection );
                             }
                         }
                     }
