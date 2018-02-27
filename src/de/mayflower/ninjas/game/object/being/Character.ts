@@ -44,8 +44,6 @@
         private                         speedMove                           :number                             = 0.0;
         /** The jump power to apply for this character. */
         private                         jumpPower                           :number                             = 0.0;
-        /** Flags if this character is dead. */
-        private                         dead                                :boolean                            = false;
 
         /***************************************************************************************************************
         *   Creates a new character.
@@ -96,25 +94,12 @@
             this.clipToHorizontalLevelBounds();
             this.checkBottomCollision();
             this.checkParachuteState();
-
-            if ( !this.isDead() )
-            {
-                this.checkFallingDead();
-            }
         }
 
         /***************************************************************************************************************
-        *   Kills this character.
+        *   Lets this character punch back.
         ***************************************************************************************************************/
-        public kill()
-        {
-            this.dead = true;
-        }
-
-        /***************************************************************************************************************
-        *   Lets this enemy punch out of the screen.
-        ***************************************************************************************************************/
-        public punchOut()
+        public punchBack()
         {
             switch ( this.lookingDirection )
             {
@@ -140,16 +125,6 @@
                     break;
                 }
             }
-        }
-
-        /***************************************************************************************************************
-        *   Determines if this character is dead.
-        *
-        *   @return <code>true</code> if this character is dead.
-        ***************************************************************************************************************/
-        public isDead() : boolean
-        {
-            return this.dead;
         }
 
         /***************************************************************************************************************
@@ -283,22 +258,6 @@
         public isMoving() : boolean
         {
             return ( this.movesLeft || this.movesRight );
-        }
-
-        /***************************************************************************************************************
-        *   Check if the player falls to death by falling out of the level.
-        ***************************************************************************************************************/
-        private checkFallingDead() : void
-        {
-            if ( this.shape.body.position.y - this.shape.getHeight() / 2 > ninjas.Main.game.level.height )
-            {
-                ninjas.Debug.character.log( "Character has fallen to dead" );
-
-                // remove character body
-                ninjas.Main.game.engine.matterJsSystem.removeFromWorld( this.shape.body );
-
-                this.kill();
-            }
         }
 
         /***************************************************************************************************************

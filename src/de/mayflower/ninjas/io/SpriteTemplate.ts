@@ -190,6 +190,46 @@
             LoopSprite.YES
         );
 
+        /** Sprite 'enemy ninja 1 stand left'. */
+        public      static  SPRITE_ENEMY_NINJA_1_STAND_LEFT             :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_1,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_2,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_3,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_4,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_5,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_6,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_7,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_8,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_9,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_10,
+            ],
+            8,
+            ninjas.MirrorImage.YES,
+            LoopSprite.YES
+        );
+
+        /** Sprite 'enemy ninja 1 stand right'. */
+        public      static  SPRITE_ENEMY_NINJA_1_STAND_RIGHT            :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_1,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_2,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_3,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_4,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_5,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_6,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_7,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_8,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_9,
+                ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_10,
+            ],
+            8,
+            ninjas.MirrorImage.NO,
+            LoopSprite.YES
+        );
+
         /** Sprite 'water top'. */
         public      static  SPRITE_WATER_TOP                            :SpriteTemplate         = new SpriteTemplate
         (
@@ -221,6 +261,8 @@
             SpriteTemplate.SPRITE_NINJA_GIRL_FALL_RIGHT,
             SpriteTemplate.SPRITE_NINJA_GIRL_GLIDE_LEFT,
             SpriteTemplate.SPRITE_NINJA_GIRL_GLIDE_RIGHT,
+            SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_LEFT,
+            SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_RIGHT,
             SpriteTemplate.SPRITE_WATER_TOP,
         ];
 

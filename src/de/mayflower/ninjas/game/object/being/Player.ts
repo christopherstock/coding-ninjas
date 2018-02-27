@@ -47,14 +47,9 @@
         {
             super.render();
 
-            if ( !this.isDead() )
-            {
-                this.handleKeys();
-                this.checkEnemyKill();
-
-                this.clipToHorizontalLevelBounds();
-            }
-
+            this.handleKeys();
+            this.checkEnemyKill();
+            this.clipToHorizontalLevelBounds();
             this.assignCurrentSprite();
         }
 
@@ -170,7 +165,7 @@
                 for ( let enemy of ninjas.Main.game.level.enemies )
                 {
                     // skip dead enemies
-                    if ( !enemy.isDead() )
+                    if ( !enemy.dead && !enemy.dying )
                     {
                         // check intersection of the player and the enemy
                         if ( matter.Bounds.overlaps( this.shape.body.bounds, enemy.shape.body.bounds ) )

@@ -9,6 +9,11 @@
     *******************************************************************************************************************/
     export class Enemy extends ninjas.Character
     {
+        /** Flags if this enemy is dying but not already dead. */
+        public                      dying                   :boolean                    = false;
+        /** Flags if this character is dead. */
+        public                      dead                    :boolean                    = false;
+
         /***************************************************************************************************************
         *   Creates a new enemy.
         *
@@ -46,18 +51,21 @@
         {
             super.render();
 
-            if ( !this.isDead() )
+            if ( !this.dead )
             {
-                // switch movement pattern
+                this.checkFallingDead();
 
-                this.moveLeft();
+                if ( !this.dying )
+                {
+                    // switch movement pattern
 
-                this.clipToHorizontalLevelBounds();
+                    this.moveLeft();
+
+                    this.clipToHorizontalLevelBounds();
+                }
             }
 
-
-            // this.assignCurrentSprite();
-
+            this.assignCurrentSprite();
         }
 
         /***************************************************************************************************************
@@ -65,8 +73,8 @@
         ***************************************************************************************************************/
         public onHitByPlayer()
         {
-            // flag as dead
-            this.kill();
+            // flag as dying
+            this.dying = true;
 
             // disable body collisions
             this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
@@ -76,6 +84,51 @@
             ninjas.Main.game.engine.matterJsSystem.addToWorld(      this.shape.body );
 
             // punch the enemy out of the screen
-            this.punchOut();
+            this.punchBack();
+        }
+
+        /***************************************************************************************************************
+        *   Assigns the current sprite to the enemy according to his current state.
+        ***************************************************************************************************************/
+        private assignCurrentSprite()
+        {
+/*
+            if ( this.movesLeft )
+            {
+                this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALK_LEFT );
+            }
+            else if ( this.movesRight )
+            {
+                this.setSprite( ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_WALK_RIGHT );
+            }
+            else
+*/
+            {
+                if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_LEFT );
+                }
+                else
+                {
+                    this.setSprite( ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_RIGHT );
+                }
+            }
+        }
+
+        /***************************************************************************************************************
+        *   Check if the player falls to death by falling out of the level.
+        ***************************************************************************************************************/
+        private checkFallingDead() : void
+        {
+            if ( this.shape.body.position.y - this.shape.getHeight() / 2 > ninjas.Main.game.level.height )
+            {
+                ninjas.Debug.character.log( "Character has fallen to dead" );
+
+                // remove character body from world
+                ninjas.Main.game.engine.matterJsSystem.removeFromWorld( this.shape.body );
+
+                // fkag as dead
+                this.dead = true;
+            }
         }
     }
