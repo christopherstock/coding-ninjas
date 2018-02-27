@@ -408,7 +408,8 @@
                 ),
                 x,
                 yBottom - 200.0,
-                null
+                ninjas.CharacterLookingDirection.LEFT,
+                ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );
         }
 

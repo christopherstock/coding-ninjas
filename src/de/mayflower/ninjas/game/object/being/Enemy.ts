@@ -12,12 +12,20 @@
         /***************************************************************************************************************
         *   Creates a new enemy.
         *
-        *   @param shape          The shape for this object.
-        *   @param x              Startup position X.
-        *   @param y              Startup position Y.
-        *   @param spriteTemplate The sprite template to use for this game object.
+        *   @param shape            The shape for this object.
+        *   @param x                Startup position X.
+        *   @param y                Startup position Y.
+        *   @param lookingDirection The initial looking direction of this character.
+        *   @param spriteTemplate   The sprite template to use for this game object.
         ***************************************************************************************************************/
-        public constructor( shape:ninjas.Shape, x:number, y:number, spriteTemplate:ninjas.SpriteTemplate )
+        public constructor
+        (
+            shape            :ninjas.Shape,
+            x                :number,
+            y                :number,
+            lookingDirection :ninjas.CharacterLookingDirection,
+            spriteTemplate   :ninjas.SpriteTemplate
+        )
         {
             super
             (
@@ -25,7 +33,7 @@
                 spriteTemplate,
                 x,
                 y,
-                ninjas.CharacterLookingDirection.LEFT,
+                lookingDirection,
                 3.0,
                 -2.75
             );
