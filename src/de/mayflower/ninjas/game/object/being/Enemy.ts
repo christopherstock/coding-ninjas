@@ -1,5 +1,4 @@
 
-    import * as matter from 'matter-js';
     import * as ninjas from '../../../ninjas';
 
     /*******************************************************************************************************************
@@ -27,8 +26,8 @@
                 x,
                 y,
                 ninjas.CharacterLookingDirection.LEFT,
-                4.0,
-                ninjas.SettingMatterJs.PLAYER_JUMP_POWER
+                3.0,
+                -2.75
             );
         }
 
@@ -39,7 +38,7 @@
         {
             super.render();
 
-            if ( !this.dead )
+            if ( !this.isDead() )
             {
                 // switch movement pattern
 
@@ -47,36 +46,28 @@
 
                 this.clipToHorizontalLevelBounds();
             }
+
+
+            // this.assignCurrentSprite();
+
         }
 
         /***************************************************************************************************************
-        *   Lets this enemy punch out of the screen.
+        *   Being invoked when this enemy is hit by the player.
         ***************************************************************************************************************/
-        public punchOut()
+        public onHitByPlayer()
         {
-            switch ( this.lookingDirection )
-            {
-                case ninjas.CharacterLookingDirection.LEFT:
-                {
-                    matter.Body.applyForce
-                    (
-                        this.shape.body,
-                        this.shape.body.position,
-                        matter.Vector.create( -0.5, -1.0 )
-                    );
-                    break;
-                }
+            // flag as dead
+            this.kill();
 
-                case ninjas.CharacterLookingDirection.RIGHT:
-                {
-                    matter.Body.applyForce
-                    (
-                        this.shape.body,
-                        this.shape.body.position,
-                        matter.Vector.create( 0.5, -1.0 )
-                    );
-                    break;
-                }
-            }
+            // disable body collisions
+            this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
+
+            // bring body to forefround
+            ninjas.Main.game.engine.matterJsSystem.removeFromWorld( this.shape.body );
+            ninjas.Main.game.engine.matterJsSystem.addToWorld(      this.shape.body );
+
+            // punch the enemy out of the screen
+            this.punchOut();
         }
     }

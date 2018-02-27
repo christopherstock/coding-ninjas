@@ -62,7 +62,7 @@
 
             this.enemies =
             [
-                // ninjas.GameObjectFactory.createEnemy( 1200, 0 ),
+                ninjas.GameObjectFactory.createEnemy( 1500, 5000 ),
             ];
 
             this.player = ninjas.GameObjectFactory.createPlayer

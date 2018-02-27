@@ -47,7 +47,7 @@
         {
             super.render();
 
-            if ( !this.dead )
+            if ( !this.isDead() )
             {
                 this.handleKeys();
                 this.checkEnemyKill();
@@ -163,33 +163,32 @@
         ***************************************************************************************************************/
         private checkEnemyKill()
         {
-            // check character landing on enemies
-            if ( this.collidesBottom )
+            // check if player collides on bottom and if he's descending
+            if ( this.collidesBottom && this.shape.body.velocity.y > 0.0 )
             {
+                // browse all enemies
                 for ( let enemy of ninjas.Main.game.level.enemies )
                 {
-                    // check intersection of the player and the enemy
-                    if ( matter.Bounds.overlaps( this.shape.body.bounds, enemy.shape.body.bounds ) )
+                    // skip dead enemies
+                    if ( !enemy.isDead() )
                     {
-                        ninjas.Debug.enemy.log( "Enemy touched by player" );
-
-                        let playerBottom:number = Math.floor( this.shape.body.position.y  + this.shape.getHeight() / 2 );
-                        let enemyTop:number     = Math.floor( enemy.shape.body.position.y - enemy.shape.getHeight() / 2 );
-
-                        ninjas.Debug.enemy.log( " playerBottom [" + playerBottom + "] enemyTop [" + enemyTop + "]" );
-
-                        if ( playerBottom == enemyTop )
+                        // check intersection of the player and the enemy
+                        if ( matter.Bounds.overlaps( this.shape.body.bounds, enemy.shape.body.bounds ) )
                         {
-                            ninjas.Debug.enemy.log( " Enemy killed" );
+                            ninjas.Debug.enemy.log( "Enemy touched by player" );
 
-                            // flag enemy as dead
-                            enemy.kill();
+                            let playerBottom:number = Math.floor( this.shape.body.position.y  + this.shape.getHeight() / 2 );
+                            let enemyTop:number     = Math.floor( enemy.shape.body.position.y - enemy.shape.getHeight() / 2 );
 
-                            // let enemy fall out of the screen
-                            enemy.punchOut();
+                            ninjas.Debug.enemy.log( " playerBottom [" + playerBottom + "] enemyTop [" + enemyTop + "]" );
 
-                            // disable enemy collisions
-                            enemy.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
+                            let MAX_SINK_DELTA:number = 10;
+                            if ( Math.abs( playerBottom - enemyTop ) <= MAX_SINK_DELTA )
+                            {
+                                ninjas.Debug.enemy.log( " Enemy hit by player" );
+
+                                enemy.onHitByPlayer();
+                            }
                         }
                     }
                 }

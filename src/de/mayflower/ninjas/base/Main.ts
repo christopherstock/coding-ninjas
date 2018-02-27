@@ -4,14 +4,15 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Complete all site panel contents.
     *   TODO Create enemy.
+    *   TODO Blending over layer for fade in effect of the whole screen.
     *
+    *   TODO Complete all site panel contents.
     *   TODO Complete the MVP!
     *
+    *   TODO Restyle site panels according to book.
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
     *   TODO Mini key tutorial on welcome page.
-    *   TODO Blending over layer for fade in effect of the whole screen.
     *   TODO Fade book from closed to open and vice-versa?
     *   TODO Create flames for candles.
     *   TODO Add more colliding non-static items to play around with!!

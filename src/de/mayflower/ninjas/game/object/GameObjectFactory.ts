@@ -386,19 +386,19 @@
         /***************************************************************************************************************
         *   Creates an enemy.
         *
-        *   @param x Anchor X.
-        *   @param y Anchor Y.
+        *   @param x       Anchor X.
+        *   @param yBottom Anchor bottom Y.
         *
         *   @return The created enemy.
         ***************************************************************************************************************/
-        public static createEnemy( x:number, y:number ):ninjas.Enemy
+        public static createEnemy( x:number, yBottom:number ):ninjas.Enemy
         {
             return new ninjas.Enemy
             (
                 new ninjas.ShapeRectangle
                 (
-                    50.0,
-                    50.0,
+                    90.0,
+                    200.0,
                     ninjas.DebugColor.COLOR_DEBUG_ENEMY,
                     ninjas.StaticShape.NO,
                     0.0,
@@ -407,7 +407,7 @@
                     ninjas.BodyRestitution.DEFAULT
                 ),
                 x,
-                y,
+                yBottom - 200.0,
                 null
             );
         }

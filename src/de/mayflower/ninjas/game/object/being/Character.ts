@@ -30,8 +30,6 @@
         /** Flags if the character currently collides with the bottom sensor. */
         public                          collidesBottom                      :boolean                            = false;
 
-        /** Flags if this character is dead. */
-        protected                       dead                                :boolean                            = false;
         /** Flags if this character is gliding. */
         protected                       gliding                             :boolean                            = false;
         /** Flags if this character is requesting gliding while ascending etc. */
@@ -46,6 +44,8 @@
         private                         speedMove                           :number                             = 0.0;
         /** The jump power to apply for this character. */
         private                         jumpPower                           :number                             = 0.0;
+        /** Flags if this character is dead. */
+        private                         dead                                :boolean                            = false;
 
         /***************************************************************************************************************
         *   Creates a new character.
@@ -97,7 +97,7 @@
             this.checkBottomCollision();
             this.checkParachuteState();
 
-            if ( !this.dead )
+            if ( !this.isDead() )
             {
                 this.checkFallingDead();
             }
@@ -112,9 +112,50 @@
         }
 
         /***************************************************************************************************************
+        *   Lets this enemy punch out of the screen.
+        ***************************************************************************************************************/
+        public punchOut()
+        {
+            switch ( this.lookingDirection )
+            {
+                case ninjas.CharacterLookingDirection.LEFT:
+                {
+                    matter.Body.applyForce
+                    (
+                        this.shape.body,
+                        this.shape.body.position,
+                        matter.Vector.create( -1.0, -2.0 )
+                    );
+                    break;
+                }
+
+                case ninjas.CharacterLookingDirection.RIGHT:
+                {
+                    matter.Body.applyForce
+                    (
+                        this.shape.body,
+                        this.shape.body.position,
+                        matter.Vector.create( 1.0, -2.0 )
+                    );
+                    break;
+                }
+            }
+        }
+
+        /***************************************************************************************************************
+        *   Determines if this character is dead.
+        *
+        *   @return <code>true</code> if this character is dead.
+        ***************************************************************************************************************/
+        public isDead() : boolean
+        {
+            return this.dead;
+        }
+
+        /***************************************************************************************************************
         *   Lets this character jump.
         ***************************************************************************************************************/
-        protected jump()
+        protected jump() : void
         {
             matter.Body.applyForce
             (
@@ -127,7 +168,7 @@
         /***************************************************************************************************************
         *   Requests gliding for the player so the parachute will open on next descending phase.
         ***************************************************************************************************************/
-        protected requestGliding()
+        protected requestGliding() : void
         {
             ninjas.Debug.character.log( "Character requests gliding" );
 
@@ -137,7 +178,7 @@
         /***************************************************************************************************************
         *   Checks the state for the parachute and opens or closes it.
         ***************************************************************************************************************/
-        protected checkParachuteState()
+        protected checkParachuteState() : void
         {
             if ( this.collidesBottom )
             {
@@ -161,7 +202,7 @@
         /***************************************************************************************************************
         *   Open character's parachute.
         ***************************************************************************************************************/
-        private openParachute()
+        private openParachute() : void
         {
             ninjas.Debug.character.log( "Character opens parachute" );
 
@@ -172,7 +213,7 @@
         /***************************************************************************************************************
         *   Closes character's parachute.
         ***************************************************************************************************************/
-        private closeParachute()
+        private closeParachute() : void
         {
             ninjas.Debug.character.log( "Character closes parachute" );
 
@@ -183,7 +224,7 @@
         /***************************************************************************************************************
         *   Moves this character left.
         ***************************************************************************************************************/
-        protected moveLeft()
+        protected moveLeft() : void
         {
             matter.Body.translate( this.shape.body, matter.Vector.create( -this.speedMove, 0 ) );
             this.movesLeft = true;
@@ -200,7 +241,7 @@
         /***************************************************************************************************************
         *   Moves this character left.
         ***************************************************************************************************************/
-        protected moveRight()
+        protected moveRight() : void
         {
             matter.Body.translate( this.shape.body, matter.Vector.create( this.speedMove, 0 ) );
             this.movesRight = true;
@@ -216,16 +257,20 @@
 
         /***************************************************************************************************************
         *   Checks if this character is currently falling.
+        *
+        *   @return <code>true</code> if this character is currently falling.
         ***************************************************************************************************************/
-        public isFalling()
+        public isFalling() : boolean
         {
             return ( this.shape.body.velocity.y > 0.0 && !this.collidesBottom );
         }
 
         /***************************************************************************************************************
         *   Checks if this character is currently ascending.
+        *
+        *   @return <code>true</code> if this character is currently jumping.
         ***************************************************************************************************************/
-        public isJumping()
+        public isJumping() : boolean
         {
             return ( this.shape.body.velocity.y < 0.0 && !this.collidesBottom );
         }
@@ -235,7 +280,7 @@
         *
         *   @return <code>True</code> if the player is currently moving.
         ***************************************************************************************************************/
-        public isMoving()
+        public isMoving() : boolean
         {
             return ( this.movesLeft || this.movesRight );
         }
@@ -243,7 +288,7 @@
         /***************************************************************************************************************
         *   Check if the player falls to death by falling out of the level.
         ***************************************************************************************************************/
-        private checkFallingDead()
+        private checkFallingDead() : void
         {
             if ( this.shape.body.position.y - this.shape.getHeight() / 2 > ninjas.Main.game.level.height )
             {
@@ -258,10 +303,8 @@
 
         /***************************************************************************************************************
         *   Checks if the character's bottom line currently collides with any other colliding body.
-        *
-        *   @return <code>true</code> if a bottom collision is currently active.
         ***************************************************************************************************************/
-        private checkBottomCollision()
+        private checkBottomCollision() : void
         {
             let bodiesToCheck:Array<matter.Body> = [];
 
@@ -270,6 +313,10 @@
                 bodiesToCheck.push( gameObject.shape.body );
             }
             for ( let gameObject of ninjas.Main.game.level.obstacles )
+            {
+                bodiesToCheck.push( gameObject.shape.body );
+            }
+            for ( let gameObject of ninjas.Main.game.level.enemies )
             {
                 bodiesToCheck.push( gameObject.shape.body );
             }
@@ -288,7 +335,7 @@
         *
         *   @return If this character is currently colliding with an obstacle.
         ***************************************************************************************************************/
-        private isCollidingObstacle()
+        private isCollidingObstacle() : boolean
         {
             let bodiesToCheck:Array<matter.Body> = [];
 
