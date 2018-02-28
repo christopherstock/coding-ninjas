@@ -24,6 +24,9 @@
     *******************************************************************************************************************/
     export abstract class Character extends ninjas.GameObject
     {
+        /** Number of punch-back ticks to block after applying a punch-back. */
+        private     static  readonly    PUNCH_BACK_BLOCK_TICKS              :number                             = 50;
+
         /** The looking direction for this character. */
         public                          lookingDirection                    :ninjas.CharacterLookingDirection   = null;
         /** Flags if the character currently collides with the bottom sensor. */
@@ -43,6 +46,8 @@
         private                         speedMove                           :number                             = 0.0;
         /** The jump power to apply for this character. */
         private                         jumpPower                           :number                             = 0.0;
+        /** The number of punch back block ticks. */
+        private                         punchBackBlockTicks                 :number                             = 0;
 
         /***************************************************************************************************************
         *   Creates a new character.
@@ -86,6 +91,12 @@
         {
             super.render();
 
+            // tick down punch back block ticks
+            if ( this.punchBackBlockTicks > 0 )
+            {
+                --this.punchBackBlockTicks;
+            }
+
             this.movesLeft  = false;
             this.movesRight = false;
 
@@ -101,6 +112,12 @@
         ***************************************************************************************************************/
         public punchBack( punchBackDirection:ninjas.CharacterLookingDirection )
         {
+            if ( this.punchBackBlockTicks > 0 )
+            {
+                return;
+            }
+            this.punchBackBlockTicks = ninjas.Character.PUNCH_BACK_BLOCK_TICKS;
+
             switch ( punchBackDirection )
             {
                 case ninjas.CharacterLookingDirection.LEFT:

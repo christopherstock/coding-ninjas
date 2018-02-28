@@ -117,12 +117,13 @@
             {
                 gameObject.render();
             }
+
+            this.player.render();
+
             for ( let gameObject of this.enemies )
             {
                 gameObject.render();
             }
-
-            this.player.render();
 
             for ( let gameObject of this.decosFg )
             {

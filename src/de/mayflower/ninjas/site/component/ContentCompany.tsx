@@ -27,21 +27,27 @@
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createHeadline( "Our Company" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "We <span style=\"color: #ff6666;\">&#x2764;</span> programming! And particularly we love to create .." ) }
+                { ninjas.SiteContentFactory.createParagraph( "This is an example Node.js project for the Node.js workshop on the <a target=\"_blank\" title=\"Developer Camp 2018\" href=\"https://developercamp.io/\">Developer Camp 2018</a> in the context of the <a target=\"_blank\" title=\"Würzburg Web Week\" href=\"https://wueww.de/\">Würzburg Web Week</a> that demonstrates the usage of the following primal packages of the NodeJS framework:" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 {
-                    ninjas.SiteContentFactory.createCarousel
-                    (
-                        "fade",
-                        true,
-                        3000,
-                        [
-                            <h3>1</h3>,
-                            <h3>2</h3>,
-                            <h3>3</h3>,
-                            <h3>4</h3>,
-                        ]
-                    )
+                    <ul className="sitePanel">
+                        <li>
+                            TypeScript<br />
+                            THE transpiler for mastering extensive JavaScript projects with plenty of own sourcecode.
+                        </li>
+                        <li>
+                            Webpack<br />
+                            THE web bundler for extensive JavaScript projects with plenty of external libraries.
+                        </li>
+                        <li>
+                            Matter.js<br />
+                            A wonderful and easy-to-use 2d physics rendering engine.
+                        </li>
+                        <li>
+                            Ant Design<br />
+                            An enterprise Framework for easy-to-use UI-components.
+                        </li>
+                    </ul>
                 }
 
                 { ninjas.SiteContentFactory.createProgress( "circle", 83.5 ) }

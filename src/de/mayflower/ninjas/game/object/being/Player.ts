@@ -159,7 +159,7 @@
         private checkEnemyKill()
         {
             // check if player collides on bottom and if he's descending
-            if ( this.collidesBottom && this.shape.body.velocity.y > 0.0 )
+            if ( this.shape.body.velocity.y > 0.0 )
             {
                 // browse all enemies
                 for ( let enemy of ninjas.Main.game.level.enemies )

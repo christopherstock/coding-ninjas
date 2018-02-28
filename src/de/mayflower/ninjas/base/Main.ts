@@ -4,14 +4,10 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Add enemy movement phases.
     *   TODO Blending over layer for fade in effect of the whole screen.
+    *   TODO Restyle site panels according to book.
     *   TODO Complete all site panel contents.
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
-    *   TODO Restyle site panels according to book.
-    *
-    *   TODO Complete the MVP!
-    *
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
     *   TODO Create animated grass sprite.
     *   TODO Add katana strike on ground and in air.

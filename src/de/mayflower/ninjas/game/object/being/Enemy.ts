@@ -1,5 +1,6 @@
 
     import * as ninjas from '../../../ninjas';
+    import * as matter from "matter-js";
 
     /*******************************************************************************************************************
     *   Represents the movement phases for an enemy.
@@ -88,10 +89,9 @@
 
                 if ( !this.dying )
                 {
-                    // switch movement pattern
                     this.moveAccordingToPattern();
-
                     this.clipToHorizontalLevelBounds();
+                    this.checkPlayerCollision();
                 }
             }
 
@@ -223,7 +223,7 @@
         }
 
         /***************************************************************************************************************
-        *   Check if the player falls to death by falling out of the level.
+        *   Check if the enemy falls to death by falling out of the level.
         ***************************************************************************************************************/
         private checkFallingDead() : void
         {
@@ -236,6 +236,21 @@
 
                 // fkag as dead
                 this.dead = true;
+            }
+        }
+
+        /***************************************************************************************************************
+        *   Check if the enemy collides with the player.
+        ***************************************************************************************************************/
+        private checkPlayerCollision() : void
+        {
+            // check intersection of the player and the enemy
+            if ( matter.Bounds.overlaps( this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds ) )
+            {
+                ninjas.Debug.enemy.log( "The enemy hits the player" );
+
+                // punch back the player
+                ninjas.Main.game.level.player.punchBack( this.lookingDirection );
             }
         }
     }
