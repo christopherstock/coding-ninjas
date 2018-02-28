@@ -2,6 +2,24 @@
     import * as ninjas from '../../../ninjas';
 
     /*******************************************************************************************************************
+    *   Represents the movement phases for an enemy.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum EnemyMovementPhase
+    {
+        /** Enemy walking to the right. */
+        WALKING_RIGHT,
+        /** Enemy standing still and facing right. */
+        STANDING_RIGHT,
+        /** Enemy walking to the left. */
+        WALKING_LEFT,
+        /** Enemy standing still and facing left. */
+        STANDING_LEFT,
+    }
+
+    /*******************************************************************************************************************
     *   Represents an enemy being controlled by the system.
     *
     *   @author     Christopher Stock
@@ -13,6 +31,10 @@
         public                      dying                   :boolean                    = false;
         /** Flags if this character is dead. */
         public                      dead                    :boolean                    = false;
+        /** The enemies' current movement phase. */
+        private                     currentPhase            :EnemyMovementPhase         = null;
+        /** The current delay tick between movement phases. */
+        private                     currentPhaseDelayTick   :number                     = 0;
 
         /***************************************************************************************************************
         *   Creates a new enemy.
@@ -39,9 +61,18 @@
                 x,
                 y,
                 lookingDirection,
-                3.0,
-                -2.75
+                ninjas.SettingMatterJs.ENEMY_SPEED_MOVE,
+                0
             );
+
+            if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+            {
+                this.currentPhase = EnemyMovementPhase.WALKING_LEFT;
+            }
+            else
+            {
+                this.currentPhase = EnemyMovementPhase.WALKING_RIGHT;
+            }
         }
 
         /***************************************************************************************************************
@@ -58,8 +89,7 @@
                 if ( !this.dying )
                 {
                     // switch movement pattern
-
-                    this.moveLeft();
+                    this.moveAccordingToPattern();
 
                     this.clipToHorizontalLevelBounds();
                 }
@@ -78,6 +108,16 @@
             // flag as dying
             this.dying = true;
 
+            // face the player
+            if ( playerDirection == ninjas.CharacterLookingDirection.LEFT )
+            {
+                this.lookingDirection = ninjas.CharacterLookingDirection.RIGHT;
+            }
+            else
+            {
+                this.lookingDirection = ninjas.CharacterLookingDirection.LEFT;
+            }
+
             // disable body collisions
             this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_NON_COLLIDING_DEAD_ENEMY;
 
@@ -87,6 +127,59 @@
 
             // punch the enemy out of the screen
             this.punchBack( playerDirection );
+        }
+
+        /***************************************************************************************************************
+        *   Moves this enemy according to the current move pattern.
+        ***************************************************************************************************************/
+        private moveAccordingToPattern()
+        {
+            switch ( this.currentPhase )
+            {
+                case EnemyMovementPhase.STANDING_LEFT:
+                {
+                    if ( ++this.currentPhaseDelayTick >= ninjas.SettingGame.ENEMY_TICKS_STANDING )
+                    {
+                        this.currentPhaseDelayTick = 0;
+                        this.currentPhase          = EnemyMovementPhase.WALKING_RIGHT;
+                    }
+                    break;
+                }
+
+                case EnemyMovementPhase.STANDING_RIGHT:
+                {
+                    if ( ++this.currentPhaseDelayTick >= ninjas.SettingGame.ENEMY_TICKS_STANDING )
+                    {
+                        this.currentPhaseDelayTick = 0;
+                        this.currentPhase          = EnemyMovementPhase.WALKING_LEFT;
+                    }
+                    break;
+                }
+
+                case EnemyMovementPhase.WALKING_LEFT:
+                {
+                    this.moveLeft();
+
+                    if ( ++this.currentPhaseDelayTick >= ninjas.SettingGame.ENEMY_TICKS_WALKING )
+                    {
+                        this.currentPhaseDelayTick = 0;
+                        this.currentPhase          = EnemyMovementPhase.STANDING_LEFT;
+                    }
+                    break;
+                }
+
+                case EnemyMovementPhase.WALKING_RIGHT:
+                {
+                    this.moveRight();
+
+                    if ( ++this.currentPhaseDelayTick >= ninjas.SettingGame.ENEMY_TICKS_WALKING )
+                    {
+                        this.currentPhaseDelayTick = 0;
+                        this.currentPhase          = EnemyMovementPhase.STANDING_RIGHT;
+                    }
+                    break;
+                }
+            }
         }
 
         /***************************************************************************************************************

@@ -62,13 +62,18 @@
 
             this.enemies =
             [
-                ninjas.GameObjectFactory.createEnemy( 1500, 5000 ),
+                ninjas.GameObjectFactory.createEnemy( 2100, 5000, ninjas.CharacterLookingDirection.RIGHT ),
+                ninjas.GameObjectFactory.createEnemy( 3950, 4800, ninjas.CharacterLookingDirection.RIGHT ),
+                ninjas.GameObjectFactory.createEnemy( 6150, 4800, ninjas.CharacterLookingDirection.RIGHT ),
+
+
+
             ];
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                700,    // ninjas.SettingGame.PLAYER_START_POSITION_X,
-                5000,   // ninjas.SettingGame.PLAYER_START_POSITION_Y,
+                5000,    // ninjas.SettingGame.PLAYER_START_POSITION_X,
+                4000,   // ninjas.SettingGame.PLAYER_START_POSITION_Y,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
             );

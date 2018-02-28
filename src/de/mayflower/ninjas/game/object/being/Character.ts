@@ -12,7 +12,6 @@
     {
         /** Looking left. */
         LEFT,
-
         /** Looking right. */
         RIGHT,
     }
@@ -110,7 +109,7 @@
                     (
                         this.shape.body,
                         this.shape.body.position,
-                        matter.Vector.create( -1.5, -2.5 )
+                        matter.Vector.create( -2.0, -2.5 )
                     );
                     break;
                 }
@@ -121,7 +120,7 @@
                     (
                         this.shape.body,
                         this.shape.body.position,
-                        matter.Vector.create( 1.5, -2.5 )
+                        matter.Vector.create( 2.0, -2.5 )
                     );
                     break;
                 }

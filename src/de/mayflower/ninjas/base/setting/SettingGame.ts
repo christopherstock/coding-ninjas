@@ -25,6 +25,11 @@
         /** The player's start position Y. */
         public      static  readonly    PLAYER_START_POSITION_Y                     :number                     = 5000; // 4000;
 
+        /** Enemy ticks for standing phases. */
+        public      static  readonly    ENEMY_TICKS_STANDING                        :number                     = 250;
+        /** Enemy ticks for walking phases. */
+        public      static  readonly    ENEMY_TICKS_WALKING                         :number                     = 500;
+
         /** The maximum width for the site panel. */
         public      static  readonly    SITE_PANEL_MAX_WIDTH                        :number                     = 600;
         /** The duration for showing and hiding the site panel in ms. */

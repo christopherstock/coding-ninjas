@@ -4,25 +4,30 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Add enemy movement phases.
     *   TODO Blending over layer for fade in effect of the whole screen.
     *   TODO Complete all site panel contents.
+    *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
+    *   TODO Restyle site panels according to book.
+    *
     *   TODO Complete the MVP!
     *
-    *   TODO Restyle site panels according to book.
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
+    *   TODO Create animated grass sprite.
+    *   TODO Add katana strike on ground and in air.
+    *   TODO Add more colliding non-static items to play around with!!
     *   TODO Mini key tutorial on welcome page.
+    *   TODO Add 'slide' sprite.
+    *   TODO Add and assign actions and sprites for 'attack' and 'jump attack'?
     *   TODO Fade book from closed to open and vice-versa?
     *   TODO Create flames for candles.
-    *   TODO Add more colliding non-static items to play around with!!
-    *   TODO Create animated grass sprite.
     *   TODO Create preloader for game initialization.
+    *   TODO Regenerate TypeDoc.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Fixed positioning for camera on first scene (player floating in).
     *   TODO Add translucent overlay for blend effects.
     *   TODO Camera joyride on level startup?
     *   TODO Add decoration particle effects on smashing objects / windows etc.
-    *   TODO Add 'slide' sprite.
-    *   TODO Add and assign actions and sprites for 'attack' and 'jump attack'?
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Add items and item sprites.
     *   TODO Create HUD ( for items 1st ).

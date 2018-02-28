@@ -386,12 +386,19 @@
         /***************************************************************************************************************
         *   Creates an enemy.
         *
-        *   @param x       Anchor X.
-        *   @param yBottom Anchor bottom Y.
+        *   @param x                Anchor X.
+        *   @param yBottom          Anchor bottom Y.
+        *   @param lookingDirection The enemies initial looking and walking direction.
         *
         *   @return The created enemy.
         ***************************************************************************************************************/
-        public static createEnemy( x:number, yBottom:number ):ninjas.Enemy
+        public static createEnemy
+        (
+            x                :number,
+            yBottom          :number,
+            lookingDirection :ninjas.CharacterLookingDirection
+        )
+        : ninjas.Enemy
         {
             return new ninjas.Enemy
             (
@@ -408,7 +415,7 @@
                 ),
                 x,
                 yBottom - 200.0,
-                ninjas.CharacterLookingDirection.LEFT,
+                lookingDirection,
                 ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_LEFT
             );
         }

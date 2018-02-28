@@ -33,4 +33,6 @@
         public      static  KEY_ESCAPE          :number                         = 27;
         /** The keycode that represents the 'SPACE' key. */
         public      static  KEY_SPACE           :number                         = 32;
+        /** The keycode that represents the 'CONTROL' key. */
+        public      static  KEY_CTRL            :number                         = 17;
     }
