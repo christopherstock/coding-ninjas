@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Blending over layer for fade in effect of the whole screen.
     *   TODO Restyle site panels according to book.
     *   TODO Complete all site panel contents.
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.

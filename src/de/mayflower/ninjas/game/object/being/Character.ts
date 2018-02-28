@@ -110,7 +110,7 @@
         *
         *   @param punchBackDirection The direction in which to punch back.
         ***************************************************************************************************************/
-        public punchBack( punchBackDirection:ninjas.CharacterLookingDirection )
+        public punchBack( punchBackDirection:ninjas.CharacterLookingDirection ) : void
         {
             if ( this.punchBackBlockTicks > 0 )
             {

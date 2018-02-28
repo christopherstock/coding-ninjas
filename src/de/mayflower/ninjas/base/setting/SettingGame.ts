@@ -34,4 +34,7 @@
         public      static  readonly    SITE_PANEL_MAX_WIDTH                        :number                     = 600;
         /** The duration for showing and hiding the site panel in ms. */
         public      static  readonly    SITE_PANEL_ANIMATION_DURATION               :number                     = 1000;
+
+        /** The number of ticks for the initial blend panel to disappear. */
+        public      static  readonly    BLEND_PANEL_TICKS                           :number                     = 250;
     }

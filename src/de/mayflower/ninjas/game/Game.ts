@@ -18,6 +18,8 @@
         public      level                   :ninjas.Level                   = null;
         /** The currently assigned background music. */
         private     bgMusic                 :HTMLAudioElement               = null;
+        /** The remaining ticks for the blend panel to disappear. */
+        private     blendPanelTicks         :number                         = 0;
 
         /***************************************************************************************************************
         *   Inits all components of the game.
@@ -35,6 +37,9 @@
         {
             ninjas.Debug.init.log( "Starting the game loop" );
             ninjas.Debug.init.log();
+
+            // set the number of blend panel ticks
+            this.blendPanelTicks = ninjas.SettingGame.BLEND_PANEL_TICKS;
 
             // play bg sound
             this.bgMusic = this.engine.soundSystem.playSound( ninjas.Sound.BG_CHINESE, true );
@@ -108,6 +113,12 @@
         ***************************************************************************************************************/
         private render()
         {
+            // hide blend panel if active
+            if ( this.blendPanelTicks > 0 )
+            {
+                --this.blendPanelTicks;
+            }
+
             // handle menu key
             this.handleMenuKey();
 
@@ -138,10 +149,9 @@
 /*
             let testHudWidth:number  = 150;
             let testHudHeight:number = 50;
-
-            context.fillStyle = "#ff0000";
-            context.fillRect( this.engine.canvasSystem.getWidth() - ninjas.SettingGame.BORDER_SIZE - testHudWidth, ninjas.SettingGame.BORDER_SIZE, testHudWidth, testHudHeight );
 */
+            // paint blend overlay
+            this.paintBlendPanel( context );
         }
 
         /***************************************************************************************************************
@@ -195,6 +205,27 @@
                     this.resetAndLaunchLevel( new ninjas.LevelEnchantedWoods() );
                 }
 */
+            }
+        }
+
+        /***************************************************************************************************************
+        *   Paints the blend panel overlay over the entire canvas.
+        *
+        *   @param context The 2D rendering context to draw onto.
+        ***************************************************************************************************************/
+        private paintBlendPanel( context:CanvasRenderingContext2D )
+        {
+            if ( this.blendPanelTicks > 0 )
+            {
+                ninjas.Drawing.fillRect
+                (
+                    context,
+                    0,
+                    0,
+                    this.engine.canvasSystem.getWidth(),
+                    this.engine.canvasSystem.getHeight(),
+                    "rgba( 0, 0, 0, " + ( this.blendPanelTicks / ninjas.SettingGame.BLEND_PANEL_TICKS ) + " )"
+                );
             }
         }
     }
