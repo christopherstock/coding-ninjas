@@ -42,16 +42,17 @@
         }
 
         /***************************************************************************************************************
-        *   Creates a metal crate.
+        *   Creates a bouncing movable.
         *
         *   @param x        Anchor X.
         *   @param yBottom  Anchor for bottom Y.
+        *   @param imageId  The id of the image to use.
         *
-        *   @return The created box.
+        *   @return The created movable.
         ***************************************************************************************************************/
-        public static createMetalCrate( x:number, yBottom:number ):ninjas.Movable
+        public static createMovable( x:number, yBottom:number, imageId:string ):ninjas.Movable
         {
-            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_CRATE_METAL );
+            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
 
             return new ninjas.Movable
             (
@@ -62,9 +63,9 @@
                     ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
                     ninjas.StaticShape.NO,
                     0.0,
-                    ninjas.BodyFriction.DEFAULT,
-                    ninjas.BodyDensity.METAL,
-                    ninjas.BodyRestitution.DEFAULT
+                    ninjas.BodyFriction.RUBBER,
+                    ninjas.BodyDensity.RUBBER,
+                    ninjas.BodyRestitution.RUBBER
                 ),
                 sprtiteTemplate,
                 x,

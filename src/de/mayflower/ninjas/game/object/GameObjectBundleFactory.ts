@@ -466,7 +466,7 @@
         *   @param position The position for the decoration.
         *   @param imageId  The id of the image.
         ***************************************************************************************************************/
-        public static createObstacle
+        public static createMovable
         (
             level    :ninjas.Level,
             xLeft    :number,
@@ -477,19 +477,14 @@
         : void
         {
             let spriteTemplate :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
-            let obstacle       :ninjas.Obstacle       = ninjas.GameObjectFactory.createObstacleSpriteful
+            let movable        :ninjas.Movable        = ninjas.GameObjectFactory.createMovable
             (
                 xLeft,
                 yBottom - spriteTemplate.height,
-                spriteTemplate,
-                0.0,
-                ninjas.JumpPassThrough.NO,
-                ninjas.StaticShape.NO,
-                ninjas.BodyDensity.RUBBER,
-                ninjas.BodyRestitution.RUBBER
+                imageId
             );
 
-            level.obstacles.push( obstacle );
+            level.movables.push( movable );
         }
 
         /***************************************************************************************************************

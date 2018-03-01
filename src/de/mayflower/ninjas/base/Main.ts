@@ -5,7 +5,6 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Complete level deco.
-    *   TODO Add more colliding non-static items to play around with!!
     *   TODO Create flames for candles.
     *   TODO Create preloader for game initialization.
     *   TODO Restyle site panels according to book.
