@@ -151,7 +151,10 @@
             let testHudHeight:number = 50;
 */
             // paint blend overlay
-            this.paintBlendPanel( context );
+            if ( !ninjas.SettingDebug.DISABLE_BLEND_PANEL )
+            {
+                this.paintBlendPanel( context );
+            }
         }
 
         /***************************************************************************************************************

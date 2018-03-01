@@ -15,6 +15,9 @@
 
         /** Disables all sprites. */
         public  static  readonly    DISABLE_SPRITES                         :boolean                    = ( false && SettingDebug.DEBUG_MODE );
+
+        /** Disables the initial blend panel. */
+        public  static  readonly    DISABLE_BLEND_PANEL                     :boolean                    = ( true && SettingDebug.DEBUG_MODE );
     }
 
     /*******************************************************************************************************************
