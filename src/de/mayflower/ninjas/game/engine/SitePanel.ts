@@ -102,8 +102,8 @@
             this.innerRelativeContainer.style.width  = ( width - 2 * ninjas.SettingGame.BORDER_SIZE_INNER ) + "px";
 
             // inner container position
-            this.innerRelativeContainer.style.top  = ( 2 * ninjas.SettingGame.BORDER_SIZE_INNER ) + "px";
-            this.innerRelativeContainer.style.left = ninjas.SettingGame.BORDER_SIZE_INNER         + "px";
+            this.innerRelativeContainer.style.top  = ninjas.SettingGame.BORDER_SIZE_INNER_TOP + "px";
+            this.innerRelativeContainer.style.left = ninjas.SettingGame.BORDER_SIZE_INNER     + "px";
         }
 
         /***************************************************************************************************************

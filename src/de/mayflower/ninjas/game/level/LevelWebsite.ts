@@ -32,7 +32,7 @@
             [
                 // TODO pass this.enemies!
 
-                ninjas.GameObjectFactory.createEnemy( 2100, 5000, ninjas.CharacterLookingDirection.RIGHT ),
+                // ninjas.GameObjectFactory.createEnemy( 2100, 5000, ninjas.CharacterLookingDirection.RIGHT ),
                 ninjas.GameObjectFactory.createEnemy( 3950, 4800, ninjas.CharacterLookingDirection.RIGHT ),
                 ninjas.GameObjectFactory.createEnemy( 6150, 4800, ninjas.CharacterLookingDirection.RIGHT ),
 

@@ -59,7 +59,6 @@
                     )
                 }
                 { ninjas.SiteContentFactory.createParagraph( "Toggle background music" ) }
-                { ninjas.SiteContentFactory.createDivider() }
 
             </div>
         }
