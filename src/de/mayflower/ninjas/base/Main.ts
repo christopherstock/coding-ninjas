@@ -6,7 +6,6 @@
     *
     *   TODO Complete level deco.
     *   TODO Add more colliding non-static items to play around with!!
-    *   TODO Create animated grass sprite.
     *   TODO Create flames for candles.
     *   TODO Create preloader for game initialization.
     *   TODO Restyle site panels according to book.

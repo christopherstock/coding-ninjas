@@ -318,6 +318,28 @@
             LoopSprite.YES
         );
 
+        /** Sprite 'grass 1'. */
+        public      static  SPRITE_GRASS_1                              :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_GRASS_1_FRAME_1,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_2,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_3,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_4,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_5,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_6,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_7,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_8,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_9,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_10,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_11,
+                ninjas.Image.IMAGE_GRASS_1_FRAME_12,
+            ],
+            12,
+            ninjas.MirrorImage.NO,
+            LoopSprite.YES
+        );
+
         /** A reference over all sprite templates. */
         private     static  ALL_SPRITE_TEMPLATES                        :Array<SpriteTemplate>  =
         [
@@ -338,6 +360,7 @@
             SpriteTemplate.SPRITE_ENEMY_NINJA_1_DIE_LEFT,
             SpriteTemplate.SPRITE_ENEMY_NINJA_1_DIE_RIGHT,
             SpriteTemplate.SPRITE_WATER_TOP,
+            SpriteTemplate.SPRITE_GRASS_1,
         ];
 
         /** All image ids this sprite consists of. */

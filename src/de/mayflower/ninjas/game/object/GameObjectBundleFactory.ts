@@ -493,7 +493,7 @@
         }
 
         /***************************************************************************************************************
-        *   Creates a decoration.
+        *   Creates a decoration from a single image.
         *
         *   @param level    The level to add the decoration to.
         *   @param xLeft    Anchor for left X.
@@ -512,7 +512,37 @@
         : void
         {
             let spriteTemplate :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
-            let deco           :ninjas.Decoration     = ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, spriteTemplate );
+
+            GameObjectBundleFactory.createDecoSprite
+            (
+                level,
+                xLeft,
+                yBottom,
+                position,
+                spriteTemplate
+            );
+        }
+
+        /***************************************************************************************************************
+        *   Creates a decoration from a sprite.
+        *
+        *   @param level          The level to add the decoration to.
+        *   @param xLeft          Anchor for left X.
+        *   @param yBottom        Anchor for bottom Y.
+        *   @param position       The position for the decoration.
+        *   @param spriteTemplate The sprite template to use.
+        ***************************************************************************************************************/
+        public static createDecoSprite
+        (
+            level          :ninjas.Level,
+            xLeft          :number,
+            yBottom        :number,
+            position       :DecoPosition,
+            spriteTemplate :ninjas.SpriteTemplate
+        )
+        : void
+        {
+            let deco :ninjas.Decoration = ninjas.GameObjectFactory.createDecorationRect( xLeft, yBottom, ninjas.StaticShape.YES, spriteTemplate );
 
             switch ( position )
             {

@@ -221,8 +221,31 @@
         /** Image resource 'DoJo'. */
         public      static      IMAGE_DOJO                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "dojo.jpg";
 
-        /** Image resource 'grass 1'. */
-        public      static      IMAGE_GRASS_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1.png";
+        /** Image resource 'grass 1 frame 1'. */
+        public      static      IMAGE_GRASS_1_FRAME_1                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/01.png";
+        /** Image resource 'grass 1 frame 2'. */
+        public      static      IMAGE_GRASS_1_FRAME_2                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/02.png";
+        /** Image resource 'grass 1 frame 3'. */
+        public      static      IMAGE_GRASS_1_FRAME_3                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/03.png";
+        /** Image resource 'grass 1 frame 4'. */
+        public      static      IMAGE_GRASS_1_FRAME_4                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/04.png";
+        /** Image resource 'grass 1 frame 5'. */
+        public      static      IMAGE_GRASS_1_FRAME_5                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/05.png";
+        /** Image resource 'grass 1 frame 6'. */
+        public      static      IMAGE_GRASS_1_FRAME_6                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/06.png";
+        /** Image resource 'grass 1 frame 7'. */
+        public      static      IMAGE_GRASS_1_FRAME_7                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/07.png";
+        /** Image resource 'grass 1 frame 8'. */
+        public      static      IMAGE_GRASS_1_FRAME_8                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/08.png";
+        /** Image resource 'grass 1 frame 9'. */
+        public      static      IMAGE_GRASS_1_FRAME_9                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/09.png";
+        /** Image resource 'grass 1 frame 10'. */
+        public      static      IMAGE_GRASS_1_FRAME_10                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/10.png";
+        /** Image resource 'grass 1 frame 11'. */
+        public      static      IMAGE_GRASS_1_FRAME_11                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/11.png";
+        /** Image resource 'grass 1 frame 12'. */
+        public      static      IMAGE_GRASS_1_FRAME_12                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass1/12.png";
+
         /** Image resource 'grass 2'. */
         public      static      IMAGE_GRASS_2                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass2.png";
 
@@ -425,7 +448,19 @@
             Image.IMAGE_SHRINE_BG_6,
             Image.IMAGE_DOJO,
 
-            Image.IMAGE_GRASS_1,
+            Image.IMAGE_GRASS_1_FRAME_1,
+            Image.IMAGE_GRASS_1_FRAME_2,
+            Image.IMAGE_GRASS_1_FRAME_3,
+            Image.IMAGE_GRASS_1_FRAME_4,
+            Image.IMAGE_GRASS_1_FRAME_5,
+            Image.IMAGE_GRASS_1_FRAME_6,
+            Image.IMAGE_GRASS_1_FRAME_7,
+            Image.IMAGE_GRASS_1_FRAME_8,
+            Image.IMAGE_GRASS_1_FRAME_9,
+            Image.IMAGE_GRASS_1_FRAME_10,
+            Image.IMAGE_GRASS_1_FRAME_11,
+            Image.IMAGE_GRASS_1_FRAME_12,
+
             Image.IMAGE_GRASS_2,
 
             Image.IMAGE_TREE_STUB,
