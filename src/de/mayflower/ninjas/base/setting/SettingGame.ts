@@ -17,8 +17,10 @@
         /** The rendering delta between render ticks. */
         public      static  readonly    RENDER_DELTA                                :number                     = 10.0;
 
-        /** The border size for the site panel and all HUD elements in px. */
-        public      static  readonly    BORDER_SIZE                                 :number                     = 20;
+        /** The outer border size for the site panel and all HUD elements in px. */
+        public      static  readonly    BORDER_SIZE_OUTER                           :number                     = 20;
+        /** The inner border size for the inner site panel container. */
+        public      static  readonly    BORDER_SIZE_INNER                           :number                     = 50;
 
         /** The player's start position X. */
         public      static  readonly    PLAYER_START_POSITION_X                     :number                     = 885;

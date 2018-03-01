@@ -79,29 +79,31 @@
             this.outerAbsoluteContainer.style.width  = width  + "px";
             this.outerAbsoluteContainer.style.height = height + "px";
 
+            this.outerAbsoluteContainer.style.backgroundSize  = width  + "px " + height + "px";
+
             // outer container position
             switch ( this.position )
             {
                 case ninjas.SitePanelPosition.LEFT:
                 {
-                    this.outerAbsoluteContainer.style.left = ninjas.SettingGame.BORDER_SIZE + "px";
+                    this.outerAbsoluteContainer.style.left = ninjas.SettingGame.BORDER_SIZE_OUTER + "px";
                     break;
                 }
 
                 case ninjas.SitePanelPosition.RIGHT:
                 {
-                    this.outerAbsoluteContainer.style.left = ( ninjas.Main.game.engine.canvasSystem.getWidth() - width - ninjas.SettingGame.BORDER_SIZE ) + "px";
+                    this.outerAbsoluteContainer.style.left = ( ninjas.Main.game.engine.canvasSystem.getWidth() - width - ninjas.SettingGame.BORDER_SIZE_OUTER ) + "px";
                     break;
                 }
             }
-            this.outerAbsoluteContainer.style.top = ninjas.SettingGame.BORDER_SIZE + "px";
+            this.outerAbsoluteContainer.style.top = ninjas.SettingGame.BORDER_SIZE_OUTER + "px";
 
             // inner container size
-            this.innerRelativeContainer.style.width  = ( width - 2 * ninjas.SettingGame.BORDER_SIZE ) + "px";
+            this.innerRelativeContainer.style.width  = ( width - 2 * ninjas.SettingGame.BORDER_SIZE_INNER ) + "px";
 
             // inner container position
-            this.innerRelativeContainer.style.top  = ninjas.SettingGame.BORDER_SIZE + "px";
-            this.innerRelativeContainer.style.left = ninjas.SettingGame.BORDER_SIZE + "px";
+            this.innerRelativeContainer.style.top  = ( 2 * ninjas.SettingGame.BORDER_SIZE_INNER ) + "px";
+            this.innerRelativeContainer.style.left = ninjas.SettingGame.BORDER_SIZE_INNER         + "px";
         }
 
         /***************************************************************************************************************
@@ -174,6 +176,8 @@
         private createOuterAbsoluteContainer() : void
         {
             this.outerAbsoluteContainer = document.createElement( "div" );
+
+            this.outerAbsoluteContainer.style.backgroundImage = "url( res/image/site/sitePanelBg.png )";
 
             this.outerAbsoluteContainer.setAttribute( "data-wow-duration", ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION + "ms" );
             this.outerAbsoluteContainer.setAttribute( "data-wow-delay",    "0ms" );

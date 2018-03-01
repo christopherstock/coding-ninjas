@@ -4,11 +4,8 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Use 'warp' for grass transform!
-    *   TODO Different starting frames for grass! ( property random1stFrame )
-    *   TODO Complete level deco.
     *   TODO Create flames for candles.
-    *   TODO Restyle site panels according to book.
+    *   TODO Complete level deco.
     *   TODO Mini key tutorial on welcome page and other pages.
     *   TODO Complete all site panel contents.
     *

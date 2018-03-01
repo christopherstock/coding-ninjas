@@ -136,14 +136,14 @@
         public updatePanelSizeAndPosition()
         {
             // calculate panel size
-            this.panelWidth = ( ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.SettingGame.BORDER_SIZE );
+            this.panelWidth = ( ninjas.Main.game.engine.canvasSystem.getWidth() / 2 - ninjas.SettingGame.BORDER_SIZE_OUTER );
             if ( this.panelWidth > ninjas.SettingGame.SITE_PANEL_MAX_WIDTH )
             {
                 this.panelWidth = ninjas.SettingGame.SITE_PANEL_MAX_WIDTH;
             }
 
             // calculate panel size including border and left and right position
-            this.panelAndBorderWidth = this.panelWidth + ninjas.SettingGame.BORDER_SIZE;
+            this.panelAndBorderWidth = this.panelWidth + ninjas.SettingGame.BORDER_SIZE_OUTER;
             this.leftCameraTargetX   = ( this.panelAndBorderWidth + ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 ) );
             this.rightCameraTargetX  = ( ( ninjas.Main.game.engine.canvasSystem.getWidth() - this.panelAndBorderWidth ) / 2 );
 
@@ -151,7 +151,7 @@
             this.sitePanel.updateSizeAndPosition
             (
                 this.panelWidth,
-                ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.BORDER_SIZE )
+                ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.BORDER_SIZE_OUTER )
             );
         }
 

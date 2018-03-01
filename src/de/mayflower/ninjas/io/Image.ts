@@ -216,8 +216,6 @@
         public      static      IMAGE_SHRINE_BG_4                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg4.png";
         /** Image resource 'shrine background 5'. */
         public      static      IMAGE_SHRINE_BG_5                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg5.png";
-        /** Image resource 'shrine background 6'. */
-        public      static      IMAGE_SHRINE_BG_6                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "shrineBg6.png";
         /** Image resource 'DoJo'. */
         public      static      IMAGE_DOJO                                  :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "dojo.jpg";
 
@@ -470,7 +468,6 @@
             Image.IMAGE_SHRINE_BG_3,
             Image.IMAGE_SHRINE_BG_4,
             Image.IMAGE_SHRINE_BG_5,
-            Image.IMAGE_SHRINE_BG_6,
             Image.IMAGE_DOJO,
 
             Image.IMAGE_GRASS_1_FRAME_1,
