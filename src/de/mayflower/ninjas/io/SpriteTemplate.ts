@@ -2,11 +2,33 @@
     import * as ninjas from '../ninjas';
 
     /*******************************************************************************************************************
+    *   Possible decisions for mirroring an image.
+    *******************************************************************************************************************/
+    export enum MirrorImage
+    {
+        YES,
+        NO,
+    }
+
+    /*******************************************************************************************************************
     *   Possible decisions for looping a sprite.
     *******************************************************************************************************************/
     export enum LoopSprite
     {
+        /* Yes. */
         YES,
+        /* No. */
+        NO,
+    }
+
+    /*******************************************************************************************************************
+    *   Specifies if this template should start with a random frame instead of frame 0.
+    *******************************************************************************************************************/
+    export enum RandomStartFrame
+    {
+        /* Yes. */
+        YES,
+        /* No. */
         NO,
     }
 
@@ -34,8 +56,9 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_10,
             ],
             8,
-            ninjas.MirrorImage.YES,
-            LoopSprite.YES
+            MirrorImage.YES,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'ninja girl stand right'. */
@@ -54,8 +77,9 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_STAND_RIGHT_FRAME_10,
             ],
             8,
-            ninjas.MirrorImage.NO,
-            LoopSprite.YES
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'ninja girl walk left'. */
@@ -74,8 +98,9 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_10,
             ],
             8,
-            ninjas.MirrorImage.YES,
-            LoopSprite.YES
+            MirrorImage.YES,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'ninja girl walk right'. */
@@ -94,8 +119,9 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_WALK_RIGHT_FRAME_10,
             ],
             8,
-            ninjas.MirrorImage.NO,
-            LoopSprite.YES
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'ninja girl jump left'. */
@@ -107,8 +133,9 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_JUMP_RIGHT_FRAME_3,
             ],
             8,
-            ninjas.MirrorImage.YES,
-            LoopSprite.NO
+            MirrorImage.YES,
+            LoopSprite.NO,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'ninja girl jump right'. */
@@ -120,8 +147,9 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_JUMP_RIGHT_FRAME_3,
             ],
             8,
-            ninjas.MirrorImage.NO,
-            LoopSprite.NO
+            MirrorImage.NO,
+            LoopSprite.NO,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'ninja girl fall left'. */
@@ -133,8 +161,9 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_FALL_RIGHT_FRAME_3,
             ],
             8,
-            ninjas.MirrorImage.YES,
-            LoopSprite.NO
+            MirrorImage.YES,
+            LoopSprite.NO,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'ninja girl fall right'. */
@@ -146,8 +175,9 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_FALL_RIGHT_FRAME_3,
             ],
             8,
-            ninjas.MirrorImage.NO,
-            LoopSprite.NO
+            MirrorImage.NO,
+            LoopSprite.NO,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'ninja girl glide left'. */
@@ -166,8 +196,9 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_10,
             ],
             8,
-            ninjas.MirrorImage.YES,
-            LoopSprite.YES
+            MirrorImage.YES,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'ninja girl glide right'. */
@@ -186,8 +217,9 @@
                 ninjas.Image.IMAGE_NINJA_GIRL_GLIDE_RIGHT_FRAME_10,
             ],
             8,
-            ninjas.MirrorImage.NO,
-            LoopSprite.YES
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'enemy ninja 1 stand left'. */
@@ -206,8 +238,9 @@
                 ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_10,
             ],
             8,
-            ninjas.MirrorImage.YES,
-            LoopSprite.YES
+            MirrorImage.YES,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'enemy ninja 1 stand right'. */
@@ -226,8 +259,9 @@
                 ninjas.Image.IMAGE_ENEMY_NINJA_1_STAND_RIGHT_FRAME_10,
             ],
             8,
-            ninjas.MirrorImage.NO,
-            LoopSprite.YES
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'enemy ninja 1 walk left'. */
@@ -246,8 +280,9 @@
                 ninjas.Image.IMAGE_ENEMY_NINJA_1_WALK_RIGHT_FRAME_10,
             ],
             8,
-            ninjas.MirrorImage.YES,
-            LoopSprite.YES
+            MirrorImage.YES,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'enemy ninja 1 walk right'. */
@@ -266,8 +301,9 @@
                 ninjas.Image.IMAGE_ENEMY_NINJA_1_WALK_RIGHT_FRAME_10,
             ],
             8,
-            ninjas.MirrorImage.NO,
-            LoopSprite.YES
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'enemy ninja 1 die left'. */
@@ -281,8 +317,9 @@
                 ninjas.Image.IMAGE_ENEMY_NINJA_1_DIE_RIGHT_FRAME_5,
             ],
             16,
-            ninjas.MirrorImage.YES,
-            LoopSprite.NO
+            MirrorImage.YES,
+            LoopSprite.NO,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'enemy ninja 1 die right'. */
@@ -296,8 +333,9 @@
                 ninjas.Image.IMAGE_ENEMY_NINJA_1_DIE_RIGHT_FRAME_5,
             ],
             16,
-            ninjas.MirrorImage.NO,
-            LoopSprite.NO
+            MirrorImage.NO,
+            LoopSprite.NO,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'water top'. */
@@ -314,8 +352,9 @@
                 ninjas.Image.IMAGE_WATER_TOP_FRAME_8,
             ],
             12,
-            ninjas.MirrorImage.NO,
-            LoopSprite.YES
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomStartFrame.NO
         );
 
         /** Sprite 'grass 1'. */
@@ -336,8 +375,32 @@
                 ninjas.Image.IMAGE_GRASS_1_FRAME_12,
             ],
             12,
-            ninjas.MirrorImage.NO,
-            LoopSprite.YES
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomStartFrame.YES
+        );
+
+        /** Sprite 'grass 2'. */
+        public      static  SPRITE_GRASS_2                              :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_GRASS_2_FRAME_1,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_2,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_3,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_4,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_5,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_6,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_7,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_8,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_9,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_10,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_11,
+                ninjas.Image.IMAGE_GRASS_2_FRAME_12,
+            ],
+            12,
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomStartFrame.YES
         );
 
         /** A reference over all sprite templates. */
@@ -361,6 +424,7 @@
             SpriteTemplate.SPRITE_ENEMY_NINJA_1_DIE_RIGHT,
             SpriteTemplate.SPRITE_WATER_TOP,
             SpriteTemplate.SPRITE_GRASS_1,
+            SpriteTemplate.SPRITE_GRASS_2,
         ];
 
         /** All image ids this sprite consists of. */
@@ -368,9 +432,11 @@
         /** The number of ticks between frame changes. */
         public                  ticksBetweenFrames                      :number                 = 0;
         /** Specifies if all frames in this sprite should be mirrored. */
-        public                  mirrored                                :ninjas.MirrorImage     = null;
+        public                  mirrored                                :MirrorImage            = null;
         /** Specifies if the frame animation should be repeated infinitely. */
         public                  loop                                    :LoopSprite             = null;
+        /** Specifies if the first frame should be random instead of frame 0. */
+        public                  randomStartFrame                        :RandomStartFrame       = null;
 
         /** Flags if this sprite has only one frame. */
         public                  singleFramed                            :boolean                = false;
@@ -387,13 +453,22 @@
         *   @param ticksBetweenFrames The number of ticks to delay until the frame is changed.
         *   @param mirrored           Specifies if all frames in this sprite should be mirrored.
         *   @param loop               Specifies if the frame animation should be repeated infinitely.
+        *   @param randomStartFrame   Specifies if this template should start with a random frame instead of frame 0.
         ***************************************************************************************************************/
-        private constructor( imageIds:Array<string>, ticksBetweenFrames:number, mirrored:ninjas.MirrorImage, loop:LoopSprite )
+        private constructor
+        (
+            imageIds           :Array<string>,
+            ticksBetweenFrames :number,
+            mirrored           :MirrorImage,
+            loop               :LoopSprite,
+            randomStartFrame   :RandomStartFrame
+        )
         {
             this.imageIds           = imageIds;
             this.ticksBetweenFrames = ticksBetweenFrames;
             this.mirrored           = mirrored;
             this.loop               = loop;
+            this.randomStartFrame   = randomStartFrame;
 
             this.singleFramed       = ( this.imageIds.length == 1 );
 
@@ -424,8 +499,9 @@
             let spriteTemplate:SpriteTemplate = new SpriteTemplate(
                 [ imageId ],
                 0,
-                ninjas.MirrorImage.NO,
-                ninjas.LoopSprite.NO
+                MirrorImage.NO,
+                LoopSprite.NO,
+                RandomStartFrame.NO
             );
 
             spriteTemplate.width  = ninjas.Main.game.engine.imageSystem.getImage( imageId ).width;
@@ -466,7 +542,7 @@
 
             for ( let spriteTemplate of SpriteTemplate.ALL_SPRITE_TEMPLATES )
             {
-                if ( spriteTemplate.mirrored == ninjas.MirrorImage.YES )
+                if ( spriteTemplate.mirrored == MirrorImage.YES )
                 {
                     for ( let image of spriteTemplate.imageIds )
                     {

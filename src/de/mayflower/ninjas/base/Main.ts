@@ -4,19 +4,25 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Use 'warp' for grass transform!
+    *   TODO Different starting frames for grass! ( property random1stFrame )
     *   TODO Complete level deco.
     *   TODO Create flames for candles.
-    *   TODO Create preloader for game initialization.
     *   TODO Restyle site panels according to book.
-    *   TODO Mini key tutorial on welcome page.
+    *   TODO Mini key tutorial on welcome page and other pages.
     *   TODO Complete all site panel contents.
+    *
+    *   TODO Create preloader for game initialization.
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
+    *   TODO Sound effects for ninja girl and enemies?
+    *
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Fade book from closed to open and vice-versa (via sprite etc.)?
-    *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Fixed positioning for camera on first scene (player floating in).
-    *   TODO Regenerate TypeDoc.
     *   TODO Add Camera joyride on level startup?
+    *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
+    *
+    *   TODO Regenerate TypeDoc.
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Add decoration particle effects on smashing objects / windows etc.
     *   TODO Add card flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
@@ -24,13 +30,14 @@
     *
     *   TODO Complete MVP!
     *
+    *   TODO Ability to smash movables. (except crates etc., introduce property 'destroyable')
+    *
     *   TODO Add 'katana strike' action on ground and in air.
     *   TODO Add 'slide' action.
     *   TODO Add items and item sprites.
     *   TODO Create HUD ( for items 1st ).
     *   TODO create class HUD and assign its non-static method paintHud?
     *   TODO Create item pickup HUD effect!
-    *   TODO Ability to smash crates or destroyables etc.
     *   TODO Particle fx smashed crates, startup window etc.
     *   TODO Add jest tests.
     *   TODO Add event triggers (obstacle falling down on touching trigger etc.)

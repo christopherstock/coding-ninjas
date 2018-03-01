@@ -25,15 +25,17 @@
         public constructor( template:ninjas.SpriteTemplate )
         {
             this.template = template;
-        }
 
-        /***************************************************************************************************************
-        *   Resets this sprite to the first frame and resets tick counter.
-        ***************************************************************************************************************/
-        public reset() : void
-        {
-            this.currentFrame = 0;
             this.currentTick  = 0;
+
+            if ( template.randomStartFrame == ninjas.RandomStartFrame.YES )
+            {
+                this.currentFrame = ninjas.MathUtil.getRandomInt( 0, ( this.template.imageIds.length - 1 ) );
+            }
+            else
+            {
+                this.currentFrame = 0;
+            }
         }
 
         /***************************************************************************************************************
