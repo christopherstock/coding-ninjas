@@ -1,6 +1,7 @@
 
     import * as ninjas from '../../ninjas';
     import * as React  from 'react';
+    import * as antd   from 'antd';
 
     /*******************************************************************************************************************
     *   A react component with the content for the 'welcome' page.
@@ -25,9 +26,12 @@
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createImage( ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createHeadline( "Welcome to Coding Ninjas!" ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "We <span style=\"color: #ff6666;\">&#x2764;</span> programming! And particularly we love to create .." ) }
+                {
+                    ninjas.SiteContentFactory.createParagraph
+                    (
+                        "We <span style=\"color: #ff6666;\">&#x2764;</span> programming! And particularly we love to create.."
+                    )
+                }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 {
                     ninjas.SiteContentFactory.createCarousel
@@ -36,13 +40,22 @@
                         true,
                         3000,
                         [
-                            <h3>1</h3>,
-                            <h3>2</h3>,
-                            <h3>3</h3>,
-                            <h3>4</h3>,
+                            <div>
+                                <h3>Web Applications</h3>
+                            </div>,
+                            <div>
+                                <h3>Websites</h3>
+                            </div>,
+                            <div>
+                                <h3>Desktop Applications</h3>
+                            </div>,
+                            <div>
+                                <h3>Mobile Applications</h3>
+                            </div>,
                         ]
                     )
                 }
+
                 { ninjas.SiteContentFactory.createDivider() }
                 {
                     ninjas.SiteContentFactory.createSwitch

@@ -45,7 +45,7 @@
                         </li>
                         <li>
                             Ant Design<br />
-                            An enterprise Framework for easy-to-use UI-components.
+                            An enterprise Framework for easy-to-use React UI-components.
                         </li>
                     </ul>
                 }

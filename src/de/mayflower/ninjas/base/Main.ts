@@ -6,6 +6,7 @@
     *
     *   TODO Create flames for candles.
     *   TODO Complete level deco.
+    *   TODO Different walkingX ticks for enemies.
     *   TODO Mini key tutorial on welcome page and other pages.
     *   TODO Complete all site panel contents.
     *
