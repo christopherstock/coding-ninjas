@@ -4,6 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Solve carousel on welcome panel.
     *   TODO Create flames for candles.
     *   TODO Complete level deco.
     *   TODO Different walkingX ticks for enemies.

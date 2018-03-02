@@ -1,7 +1,7 @@
 
-    import * as ninjas from '../../ninjas';
-    import * as React  from 'react';
-    import * as antd   from 'antd';
+    import * as ninjas   from '../../ninjas';
+    import * as React    from 'react';
+    import * as ReactDOM from 'react-dom';
 
     /*******************************************************************************************************************
     *   A react component with the content for the 'welcome' page.
@@ -38,18 +38,18 @@
                     (
                         "fade",
                         true,
-                        3000,
+                        2500,
                         [
-                            <div>
+                            <div className="carouselPage">
                                 <h3>Web Applications</h3>
                             </div>,
-                            <div>
+                            <div className="carouselPage">
                                 <h3>Websites</h3>
                             </div>,
-                            <div>
+                            <div className="carouselPage">
                                 <h3>Desktop Applications</h3>
                             </div>,
-                            <div>
+                            <div className="carouselPage">
                                 <h3>Mobile Applications</h3>
                             </div>,
                         ]
