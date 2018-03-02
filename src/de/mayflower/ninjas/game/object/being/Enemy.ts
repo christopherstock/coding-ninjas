@@ -36,23 +36,31 @@
         private                     currentPhase            :EnemyMovementPhase         = null;
         /** The current delay tick between movement phases. */
         private                     currentPhaseDelayTick   :number                     = 0;
+        /** Left walking target X. */
+        private                     walkingTargetLeft       :number                     = 0;
+        /** Right walking target X. */
+        private                     walkingTargetRight      :number                     = 0;
 
         /***************************************************************************************************************
         *   Creates a new enemy.
         *
-        *   @param shape            The shape for this object.
-        *   @param x                Startup position X.
-        *   @param y                Startup position Y.
-        *   @param lookingDirection The initial looking direction of this character.
-        *   @param spriteTemplate   The sprite template to use for this game object.
+        *   @param shape              The shape for this object.
+        *   @param x                  Startup position X.
+        *   @param y                  Startup position Y.
+        *   @param lookingDirection   The initial looking direction of this character.
+        *   @param walkingTargetLeft  Left walking target X.
+        *   @param walkingTargetRight Right walking target X.
+        *   @param spriteTemplate     The sprite template to use for this game object.
         ***************************************************************************************************************/
         public constructor
         (
-            shape            :ninjas.Shape,
-            x                :number,
-            y                :number,
-            lookingDirection :ninjas.CharacterLookingDirection,
-            spriteTemplate   :ninjas.SpriteTemplate
+            shape              :ninjas.Shape,
+            x                  :number,
+            y                  :number,
+            walkingTargetLeft  :number,
+            walkingTargetRight :number,
+            lookingDirection   :ninjas.CharacterLookingDirection,
+            spriteTemplate     :ninjas.SpriteTemplate
         )
         {
             super
@@ -65,6 +73,9 @@
                 ninjas.SettingMatterJs.ENEMY_SPEED_MOVE,
                 0
             );
+
+            this.walkingTargetLeft  = walkingTargetLeft;
+            this.walkingTargetRight = walkingTargetRight;
 
             if ( this.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
             {
@@ -138,7 +149,7 @@
             {
                 case EnemyMovementPhase.STANDING_LEFT:
                 {
-                    if ( ++this.currentPhaseDelayTick >= ninjas.SettingGame.ENEMY_TICKS_STANDING )
+                    if ( ++this.currentPhaseDelayTick >= ninjas.SettingGame.ENEMY_TICKS_STANDING_DEFAULT )
                     {
                         this.currentPhaseDelayTick = 0;
                         this.currentPhase          = EnemyMovementPhase.WALKING_RIGHT;
@@ -148,7 +159,7 @@
 
                 case EnemyMovementPhase.STANDING_RIGHT:
                 {
-                    if ( ++this.currentPhaseDelayTick >= ninjas.SettingGame.ENEMY_TICKS_STANDING )
+                    if ( ++this.currentPhaseDelayTick >= ninjas.SettingGame.ENEMY_TICKS_STANDING_DEFAULT )
                     {
                         this.currentPhaseDelayTick = 0;
                         this.currentPhase          = EnemyMovementPhase.WALKING_LEFT;
@@ -160,10 +171,9 @@
                 {
                     this.moveLeft();
 
-                    if ( ++this.currentPhaseDelayTick >= ninjas.SettingGame.ENEMY_TICKS_WALKING )
+                    if ( this.shape.body.position.x - this.shape.getWidth() / 2 <= this.walkingTargetLeft )
                     {
-                        this.currentPhaseDelayTick = 0;
-                        this.currentPhase          = EnemyMovementPhase.STANDING_LEFT;
+                        this.currentPhase = EnemyMovementPhase.STANDING_LEFT;
                     }
                     break;
                 }
@@ -172,10 +182,9 @@
                 {
                     this.moveRight();
 
-                    if ( ++this.currentPhaseDelayTick >= ninjas.SettingGame.ENEMY_TICKS_WALKING )
+                    if ( this.shape.body.position.x - this.shape.getWidth() / 2 >= this.walkingTargetRight )
                     {
-                        this.currentPhaseDelayTick = 0;
-                        this.currentPhase          = EnemyMovementPhase.STANDING_RIGHT;
+                        this.currentPhase = EnemyMovementPhase.STANDING_RIGHT;
                     }
                     break;
                 }

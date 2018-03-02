@@ -519,6 +519,39 @@
         }
 
         /***************************************************************************************************************
+        *   Creates an enemy and adds it to the level stack.
+        *
+        *   @param level              The level to add the enemy to.
+        *   @param xLeft              Anchor X.
+        *   @param yBottom            Anchor bottom Y.
+        *   @param lookingDirection   The enemies initial looking and walking direction.
+        *   @param walkingTargetLeft  Left walking target X.
+        *   @param walkingTargetRight Right walking target X.
+        ***************************************************************************************************************/
+        public static createEnemy
+        (
+            level              :ninjas.Level,
+            xLeft              :number,
+            yBottom            :number,
+            lookingDirection   :ninjas.CharacterLookingDirection,
+            walkingTargetLeft  :number,
+            walkingTargetRight :number
+        )
+        : void
+        {
+            let enemy :ninjas.Enemy = ninjas.GameObjectFactory.createEnemy
+            (
+                xLeft,
+                yBottom,
+                lookingDirection,
+                walkingTargetLeft,
+                walkingTargetRight
+            );
+
+            level.enemies.push( enemy );
+        }
+
+        /***************************************************************************************************************
         *   Creates a decoration from a sprite.
         *
         *   @param level          The level to add the decoration to.

@@ -1,7 +1,6 @@
 
-    import * as ninjas   from '../../ninjas';
-    import * as React    from 'react';
-    import * as ReactDOM from 'react-dom';
+    import * as ninjas from '../../ninjas';
+    import * as React  from 'react';
 
     /*******************************************************************************************************************
     *   A react component with the content for the 'welcome' page.
@@ -33,34 +32,8 @@
                         + "as an example Node.js project for the "
                         + "<a target=\"_blank\" title=\"Developer Camp 2018\" href=\"https://developercamp.io/\">Developer Camp 2018</a> "
                         + "in the context of the <a target=\"_blank\" title=\"Würzburg Web Week\" href=\"https://wueww.de/\">Würzburg Web Week</a>."
-                        + "<br><br>"
-                        + "We <span style=\"color: #ff6666;\">&#x2764;</span> programming! And particularly we love to create:"
                     )
                 }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
-                {
-                    ninjas.SiteContentFactory.createCarousel
-                    (
-                        "fade",
-                        true,
-                        2500,
-                        [
-                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselMobile.jpg )", } }>
-                                <h3>Mobile Applications</h3>
-                            </div>,
-                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselDesktop.jpg )", } }>
-                                <h3>Desktop Applications</h3>
-                            </div>,
-                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselWebApps.jpg )", } }>
-                                <h3>Web Applications</h3>
-                            </div>,
-                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselWebsites.jpg )", } }>
-                                <h3>Websites</h3>
-                            </div>,
-                        ]
-                    )
-                }
-
                 { ninjas.SiteContentFactory.createDivider() }
                 {
                     ninjas.SiteContentFactory.createSwitch
@@ -77,6 +50,36 @@
                     )
                 }
                 { ninjas.SiteContentFactory.createParagraph( "Toggle background music" ) }
+                { ninjas.SiteContentFactory.createDivider() }
+                {
+                    ninjas.SiteContentFactory.createParagraph
+                    (
+                        "We <span style=\"color: #ff6666;\">&#x2764;</span> programming! And particularly we love to create:"
+                    )
+                }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
+                {
+                    ninjas.SiteContentFactory.createCarousel
+                    (
+                        "fade",
+                        true,
+                        2500,
+                        [
+                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselDesktop.jpg )", } }>
+                                <h3>Desktop Applications</h3>
+                            </div>,
+                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselWebsites.jpg )", } }>
+                                <h3>Websites</h3>
+                            </div>,
+                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselMobile.jpg )", } }>
+                                <h3>Mobile Applications</h3>
+                            </div>,
+                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselWebApps.jpg )", } }>
+                                <h3>Web Applications</h3>
+                            </div>,
+                        ]
+                    )
+                }
 
             </div>
         }

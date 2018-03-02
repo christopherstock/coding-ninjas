@@ -348,35 +348,9 @@
         )
         : ninjas.Player
         {
-            let gapSizeX:number = ( spriteTemplate.width / 2 );
-            let gapSizeY:number = ninjas.SettingMatterJs.PLAYER_EDGE_GAP_Y;
-
-            let vertices:Array<matter.Vector> = [];
-
-            // draw diamond path
-            vertices.push( matter.Vector.create( gapSizeX,                        0.0                              ) );
-            vertices.push( matter.Vector.create( spriteTemplate.width - gapSizeX, 0.0                              ) );
-            vertices.push( matter.Vector.create( spriteTemplate.width,            gapSizeY                         ) );
-            vertices.push( matter.Vector.create( spriteTemplate.width,            spriteTemplate.height - gapSizeY ) );
-            vertices.push( matter.Vector.create( spriteTemplate.width - gapSizeX, spriteTemplate.height            ) );
-            vertices.push( matter.Vector.create( gapSizeX,                        spriteTemplate.height            ) );
-            vertices.push( matter.Vector.create( 0.0,                             spriteTemplate.height - gapSizeY ) );
-            vertices.push( matter.Vector.create( 0.0,                             gapSizeY                         ) );
-
-            let shape:ninjas.Shape = new ninjas.ShapeFreeForm
-            (
-                vertices,
-                ninjas.DebugColor.COLOR_DEBUG_PLAYER,
-                ninjas.StaticShape.NO,
-                0.0,
-                ninjas.BodyFriction.PLAYER,
-                ninjas.BodyDensity.PLAYER,
-                ninjas.BodyRestitution.DEFAULT
-            );
-
             return new ninjas.Player
             (
-                shape,
+                GameObjectFactory.createPlayerDiamondShape( spriteTemplate ),
                 x,
                 ( yBottom - spriteTemplate.height ),
                 lookingDirection,
@@ -387,37 +361,35 @@
         /***************************************************************************************************************
         *   Creates an enemy.
         *
-        *   @param x                Anchor X.
-        *   @param yBottom          Anchor bottom Y.
-        *   @param lookingDirection The enemies initial looking and walking direction.
+        *   @param x                  Anchor X.
+        *   @param yBottom            Anchor bottom Y.
+        *   @param lookingDirection   The enemies initial looking and walking direction.
+        *   @param walkingTargetLeft  Left walking target X.
+        *   @param walkingTargetRight Right walking target X.
         *
         *   @return The created enemy.
         ***************************************************************************************************************/
         public static createEnemy
         (
-            x                :number,
-            yBottom          :number,
-            lookingDirection :ninjas.CharacterLookingDirection
+            x                  :number,
+            yBottom            :number,
+            lookingDirection   :ninjas.CharacterLookingDirection,
+            walkingTargetLeft  :number,
+            walkingTargetRight :number
         )
         : ninjas.Enemy
         {
+            let spriteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_LEFT;
+
             return new ninjas.Enemy
             (
-                new ninjas.ShapeRectangle
-                (
-                    90.0,
-                    200.0,
-                    ninjas.DebugColor.COLOR_DEBUG_ENEMY,
-                    ninjas.StaticShape.NO,
-                    0.0,
-                    ninjas.BodyFriction.DEFAULT,
-                    ninjas.BodyDensity.DEFAULT,
-                    ninjas.BodyRestitution.DEFAULT
-                ),
+                GameObjectFactory.createPlayerDiamondShape( spriteTemplate ),
                 x,
-                yBottom - 200.0,
+                yBottom - spriteTemplate.height,
+                walkingTargetLeft,
+                walkingTargetRight,
                 lookingDirection,
-                ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_LEFT
+                spriteTemplate
             );
         }
 
@@ -687,6 +659,42 @@
                 spriteTemplate,
                 x,
                 y
+            );
+        }
+
+        /***************************************************************************************************************
+        *   Creates a diamond shape for the given sprite template.
+        *
+        *   @param spriteTemplate The sprite template to create a diamond shape for.
+        *
+        *   @return The created diamond shape.
+        ***************************************************************************************************************/
+        private static createPlayerDiamondShape(spriteTemplate:ninjas.SpriteTemplate )
+        {
+            let gapSizeX:number = ( spriteTemplate.width / 2 );
+            let gapSizeY:number = ninjas.SettingMatterJs.PLAYER_EDGE_GAP_Y;
+
+            let vertices:Array<matter.Vector> = [];
+
+            // draw diamond path
+            vertices.push( matter.Vector.create( gapSizeX,                        0.0                              ) );
+            vertices.push( matter.Vector.create( spriteTemplate.width - gapSizeX, 0.0                              ) );
+            vertices.push( matter.Vector.create( spriteTemplate.width,            gapSizeY                         ) );
+            vertices.push( matter.Vector.create( spriteTemplate.width,            spriteTemplate.height - gapSizeY ) );
+            vertices.push( matter.Vector.create( spriteTemplate.width - gapSizeX, spriteTemplate.height            ) );
+            vertices.push( matter.Vector.create( gapSizeX,                        spriteTemplate.height            ) );
+            vertices.push( matter.Vector.create( 0.0,                             spriteTemplate.height - gapSizeY ) );
+            vertices.push( matter.Vector.create( 0.0,                             gapSizeY                         ) );
+
+            return new ninjas.ShapeFreeForm
+            (
+                vertices,
+                ninjas.DebugColor.COLOR_DEBUG_PLAYER,
+                ninjas.StaticShape.NO,
+                0.0,
+                ninjas.BodyFriction.PLAYER,
+                ninjas.BodyDensity.PLAYER,
+                ninjas.BodyRestitution.DEFAULT
             );
         }
     }
