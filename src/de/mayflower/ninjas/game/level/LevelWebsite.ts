@@ -28,15 +28,10 @@
 */
             ];
 
-            ninjas.GameObjectBundleFactory.createEnemy( this, 2100, 5000, ninjas.CharacterLookingDirection.RIGHT, 2100, 3600 );
-/*
-            this.enemies =
-            [
-                // ninjas.GameObjectFactory.createEnemy( 2100, 5000, ninjas.CharacterLookingDirection.RIGHT ),
-                //ninjas.GameObjectFactory.createEnemy( 3950, 4800, ninjas.CharacterLookingDirection.RIGHT ),
-                //ninjas.GameObjectFactory.createEnemy( 6150, 4800, ninjas.CharacterLookingDirection.RIGHT ),
-            ];
-*/
+            ninjas.GameObjectBundleFactory.createEnemy( this, 2100,  5000, ninjas.CharacterLookingDirection.RIGHT, 2100,  3600  );
+            ninjas.GameObjectBundleFactory.createEnemy( this, 6150,  4800, ninjas.CharacterLookingDirection.RIGHT, 6150,  7100  );
+            ninjas.GameObjectBundleFactory.createEnemy( this, 12050, 4200, ninjas.CharacterLookingDirection.RIGHT, 12050, 12350 );
+
             this.player = ninjas.GameObjectFactory.createPlayer
             (
                 7000,   // ninjas.SettingGame.PLAYER_START_POSITION_X,
@@ -116,8 +111,13 @@
             ninjas.GameObjectBundleFactory.createBridge(    this, 6185,  4800 );
 
             // nature before shrine 4
-            ninjas.GameObjectBundleFactory.createDeco(   this, 7300,  4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BOULDER_1 );
-            ninjas.GameObjectBundleFactory.createCrate(  this, 7500,  4800, ninjas.CrateType.WOODEN );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 6950, 4800, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_2 );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 7100, 4800, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_3 );
+            ninjas.GameObjectBundleFactory.createDeco(       this, 7300, 4800, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_BOULDER_1         );
+            ninjas.GameObjectBundleFactory.createCrate(      this, 7500, 4800, ninjas.CrateType.WOODEN                                      );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 7850, 4800, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_4 );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 8020, 4800, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_1 );
+            ninjas.GameObjectBundleFactory.createDeco(       this, 8745, 4840, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_2            );
 
             // shrine 4
             ninjas.GameObjectBundleFactory.createDeco(    this, 7400,  4280, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_4 );
@@ -138,8 +138,8 @@
             ninjas.GameObjectBundleFactory.createShrine(  this, 15400, 5100, true, true, ninjas.SiteContent.CONTENT_CONTACT      );
 
             // shrine 6 nature
-            ninjas.GameObjectBundleFactory.createDeco(   this, 11500, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CAGE     );
-            ninjas.GameObjectBundleFactory.createDeco(   this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2   );
+            ninjas.GameObjectBundleFactory.createDeco(     this, 11500, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CAGE     );
+            ninjas.GameObjectBundleFactory.createDeco(     this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2   );
 
             // solid grounds
             ninjas.GameObjectBundleFactory.createSolidGround( this, 0,     5000, 18, 10, ninjas.Slope.NONE,       ninjas.CapHorz.NONE  );

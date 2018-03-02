@@ -31,7 +31,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
                     ninjas.StaticShape.NO,
                     0.0,
-                    ninjas.BodyFriction.WOOD,
+                    ninjas.BodyFriction.ICE,
                     ninjas.BodyDensity.WOOD,
                     ninjas.BodyRestitution.WOOD
                 ),
