@@ -403,6 +403,53 @@
             RandomStartFrame.YES
         );
 
+
+        /** Sprite 'grass 3'. */
+        public      static  SPRITE_GRASS_3                              :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_GRASS_3_FRAME_1,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_2,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_3,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_4,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_5,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_6,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_7,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_8,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_9,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_10,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_11,
+                ninjas.Image.IMAGE_GRASS_3_FRAME_12,
+            ],
+            12,
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomStartFrame.YES
+        );
+
+        /** Sprite 'grass 4'. */
+        public      static  SPRITE_GRASS_4                              :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_GRASS_4_FRAME_1,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_2,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_3,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_4,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_5,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_6,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_7,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_8,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_9,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_10,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_11,
+                ninjas.Image.IMAGE_GRASS_4_FRAME_12,
+            ],
+            12,
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomStartFrame.YES
+        );
+
         /** A reference over all sprite templates. */
         private     static  ALL_SPRITE_TEMPLATES                        :Array<SpriteTemplate>  =
         [
@@ -425,6 +472,8 @@
             SpriteTemplate.SPRITE_WATER_TOP,
             SpriteTemplate.SPRITE_GRASS_1,
             SpriteTemplate.SPRITE_GRASS_2,
+            SpriteTemplate.SPRITE_GRASS_3,
+            SpriteTemplate.SPRITE_GRASS_4,
         ];
 
         /** All image ids this sprite consists of. */

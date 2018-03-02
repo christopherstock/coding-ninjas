@@ -4,15 +4,14 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Solve carousel on welcome panel.
-    *   TODO Different walkingX ticks for enemies.
-    *
-    *   TODO Create flames for candles.
     *   TODO Complete level deco.
+    *   TODO Create flames for candles.
+    *
     *   TODO Mini key tutorial on welcome page and other pages.
     *   TODO Complete all site panel contents.
     *
     *   TODO Create preloader for game initialization.
+    *   TODO Links to GitHub, etc. on final content site.
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
     *   TODO Sound effects for ninja girl and enemies?
     *

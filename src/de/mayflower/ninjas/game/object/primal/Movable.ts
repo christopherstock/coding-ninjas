@@ -35,12 +35,12 @@
         }
 
         /***************************************************************************************************************
-        *   Renders this box.
+        *   Renders this movable.
         ***************************************************************************************************************/
         public render()
         {
             super.render();
 
-            this.clipToHorizontalLevelBounds();
+            // this.clipToHorizontalLevelBounds();
         }
     }
