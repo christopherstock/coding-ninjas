@@ -644,12 +644,18 @@
 
             if ( candleLeft  )
             {
-                GameObjectBundleFactory.createDecoImage(  level, xLeft - 80,  yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA        );
-                GameObjectBundleFactory.createDecoSprite( level, xLeft - 95,  yBottom - 220, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1 );
+                GameObjectBundleFactory.createDecoImage(  level, xLeft - 80,  yBottom,       ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA              );
+                GameObjectBundleFactory.createDecoSprite( level, xLeft - 88,  yBottom - 222, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_BIG   );
+                GameObjectBundleFactory.createDecoSprite( level, xLeft - 68,  yBottom - 178, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_SMALL );
+                GameObjectBundleFactory.createDecoSprite( level, xLeft - 106, yBottom - 182, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_SMALL );
             }
+
             if ( candleRight )
             {
-                GameObjectBundleFactory.createDecoImage( level, xLeft + 160, yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
+                GameObjectBundleFactory.createDecoImage(  level, xLeft + 164, yBottom,       ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA              );
+                GameObjectBundleFactory.createDecoSprite( level, xLeft + 156, yBottom - 222, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_BIG   );
+                GameObjectBundleFactory.createDecoSprite( level, xLeft + 176, yBottom - 178, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_SMALL );
+                GameObjectBundleFactory.createDecoSprite( level, xLeft + 138, yBottom - 182, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_SMALL );
             }
         }
     }

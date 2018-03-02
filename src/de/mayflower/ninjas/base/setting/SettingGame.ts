@@ -39,4 +39,7 @@
 
         /** The number of ticks for the initial blend panel to disappear. */
         public      static  readonly    BLEND_PANEL_TICKS                           :number                     = 250;
+
+        /** The default scale factor for all sprites. */
+        public      static  readonly    DEFAULT_SPRITE_SCALE                        :number                     = 1.0;
     }

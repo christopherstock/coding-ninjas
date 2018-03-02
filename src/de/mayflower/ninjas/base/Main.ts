@@ -10,6 +10,8 @@
     *   TODO Mini key tutorial on welcome page and other pages.
     *   TODO Complete all site panel contents.
     *
+    *   TODO Pre-Render all React components (contents) before showing up?
+    *
     *   TODO Create preloader for game initialization.
     *   TODO Links to GitHub, etc. on final content site.
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).

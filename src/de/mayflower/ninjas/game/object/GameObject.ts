@@ -102,6 +102,8 @@
             if ( !ninjas.SettingDebug.DISABLE_SPRITES )
             {
                 this.shape.body.render.sprite.texture = this.sprite.getCurrentFrameImageUrl();
+                this.shape.body.render.sprite.xScale  = this.sprite.template.getScale();
+                this.shape.body.render.sprite.yScale  = this.sprite.template.getScale();
             }
         }
 

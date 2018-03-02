@@ -60,7 +60,8 @@
             8,
             MirrorImage.YES,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'ninja girl stand right'. */
@@ -81,7 +82,8 @@
             8,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'ninja girl walk left'. */
@@ -102,7 +104,8 @@
             8,
             MirrorImage.YES,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'ninja girl walk right'. */
@@ -123,7 +126,8 @@
             8,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'ninja girl jump left'. */
@@ -137,7 +141,8 @@
             8,
             MirrorImage.YES,
             LoopSprite.NO,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'ninja girl jump right'. */
@@ -151,7 +156,8 @@
             8,
             MirrorImage.NO,
             LoopSprite.NO,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'ninja girl fall left'. */
@@ -165,7 +171,8 @@
             8,
             MirrorImage.YES,
             LoopSprite.NO,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'ninja girl fall right'. */
@@ -179,7 +186,8 @@
             8,
             MirrorImage.NO,
             LoopSprite.NO,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'ninja girl glide left'. */
@@ -200,7 +208,8 @@
             8,
             MirrorImage.YES,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'ninja girl glide right'. */
@@ -221,7 +230,8 @@
             8,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'enemy ninja 1 stand left'. */
@@ -242,7 +252,8 @@
             8,
             MirrorImage.YES,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'enemy ninja 1 stand right'. */
@@ -263,7 +274,8 @@
             8,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'enemy ninja 1 walk left'. */
@@ -284,7 +296,8 @@
             8,
             MirrorImage.YES,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'enemy ninja 1 walk right'. */
@@ -305,7 +318,8 @@
             8,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'enemy ninja 1 die left'. */
@@ -321,7 +335,8 @@
             16,
             MirrorImage.YES,
             LoopSprite.NO,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'enemy ninja 1 die right'. */
@@ -337,7 +352,8 @@
             16,
             MirrorImage.NO,
             LoopSprite.NO,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'water top'. */
@@ -356,7 +372,8 @@
             12,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.NO
+            RandomFrames.NO,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'grass 1'. */
@@ -379,7 +396,8 @@
             12,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.ONLY_START_FRAME
+            RandomFrames.ONLY_START_FRAME,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'grass 2'. */
@@ -402,7 +420,8 @@
             12,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.ONLY_START_FRAME
+            RandomFrames.ONLY_START_FRAME,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
 
@@ -426,7 +445,8 @@
             12,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.ONLY_START_FRAME
+            RandomFrames.ONLY_START_FRAME,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
         /** Sprite 'grass 4'. */
@@ -449,11 +469,12 @@
             12,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.ONLY_START_FRAME
+            RandomFrames.ONLY_START_FRAME,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
         );
 
-        /** Sprite 'flame 1'. */
-        public      static  SPRITE_FLAME_1                              :SpriteTemplate         = new SpriteTemplate
+        /** Sprite 'flame 1 big'. */
+        public      static  SPRITE_FLAME_1_BIG                              :SpriteTemplate         = new SpriteTemplate
         (
             [
                 ninjas.Image.IMAGE_FLAME_1_FRAME_1,
@@ -474,7 +495,34 @@
             16,
             MirrorImage.NO,
             LoopSprite.YES,
-            RandomFrames.ALL_FRAMES
+            RandomFrames.ALL_FRAMES,
+            ninjas.SettingGame.DEFAULT_SPRITE_SCALE
+        );
+
+        /** Sprite 'flame 1 small'. */
+        public      static  SPRITE_FLAME_1_SMALL                            :SpriteTemplate         = new SpriteTemplate
+        (
+            [
+                ninjas.Image.IMAGE_FLAME_1_FRAME_1,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_2,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_3,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_4,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_5,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_6,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_7,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_8,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_9,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_10,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_11,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_12,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_13,
+                ninjas.Image.IMAGE_FLAME_1_FRAME_14,
+            ],
+            16,
+            MirrorImage.NO,
+            LoopSprite.YES,
+            RandomFrames.ALL_FRAMES,
+            0.7
         );
 
         /** A reference over all sprite templates. */
@@ -501,7 +549,8 @@
             SpriteTemplate.SPRITE_GRASS_2,
             SpriteTemplate.SPRITE_GRASS_3,
             SpriteTemplate.SPRITE_GRASS_4,
-            SpriteTemplate.SPRITE_FLAME_1,
+            SpriteTemplate.SPRITE_FLAME_1_BIG,
+            SpriteTemplate.SPRITE_FLAME_1_SMALL,
         ];
 
         /** All image ids this sprite consists of. */
@@ -514,6 +563,8 @@
         public                  loop                                    :LoopSprite             = null;
         /** Specifies random behaviour in frame assignment. */
         public                  randomFrames                            :RandomFrames           = null;
+        /** The scale factor for drawing this sprite. Defaults to 1.0. */
+        public                  scale                                   :number                 = 0;
 
         /** Flags if this sprite has only one frame. */
         public                  singleFramed                            :boolean                = false;
@@ -531,6 +582,7 @@
         *   @param mirrored           Specifies if all frames in this sprite should be mirrored.
         *   @param loop               Specifies if the frame animation should be repeated infinitely.
         *   @param randomStartFrame   Specifies if this template should start with a random frame instead of frame 0.
+        *   @param scale              Specifies the scaling factor for drawing this sprite.
         ***************************************************************************************************************/
         private constructor
         (
@@ -538,7 +590,8 @@
             ticksBetweenFrames :number,
             mirrored           :MirrorImage,
             loop               :LoopSprite,
-            randomStartFrame   :RandomFrames
+            randomStartFrame   :RandomFrames,
+            scale              :number
         )
         {
             this.imageIds           = imageIds;
@@ -546,6 +599,7 @@
             this.mirrored           = mirrored;
             this.loop               = loop;
             this.randomFrames       = randomStartFrame;
+            this.scale              = scale;
 
             this.singleFramed       = ( this.imageIds.length == 1 );
 
@@ -578,7 +632,8 @@
                 0,
                 MirrorImage.NO,
                 LoopSprite.NO,
-                RandomFrames.NO
+                RandomFrames.NO,
+                ninjas.SettingGame.DEFAULT_SPRITE_SCALE
             );
 
             spriteTemplate.width  = ninjas.Main.game.engine.imageSystem.getImage( imageId ).width;
@@ -606,6 +661,16 @@
                     throw new Error( "Differing sprite frame size detected in image id [" + imageId + "]" );
                 }
             }
+        }
+
+        /***************************************************************************************************************
+        *   Returns the sprite scale factor.
+        *
+        *   @return The sprite scale factor. Default is 1.0, which is 'no scale'.
+        ***************************************************************************************************************/
+        public getScale() : number
+        {
+            return this.scale;
         }
 
         /***************************************************************************************************************

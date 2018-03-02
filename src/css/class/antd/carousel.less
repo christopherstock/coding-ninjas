@@ -11,6 +11,8 @@
     {
         width:                      100% !important;
         height:                     @carousel-height;
+        padding-right:              1px;
+        margin-bottom:              1px;
     }
 
     .ant-carousel .slick-slide
@@ -30,12 +32,14 @@
         height:                     @carousel-height !important;
     }
 
-    .ant-carousel .carouselPage
+    .ant-carousel .slick-slide.slick-active .carouselPage
     {
         height:                     @carousel-height !important;
         width:                      100% !important;
         background:                 rgba( 255, 255, 0, 0.5 );
         border-radius:              10px;
+        border:                     1px solid @color-white;
+        box-shadow:                 1px 1px @color-black;
     }
 
     .ant-carousel .slick-slide h3
@@ -54,7 +58,13 @@
         box-shadow:                 1px 1px @color-black;
     }
 
-    .ant-carousel .slick-dots li.slick-active button
+    .ant-carousel .slick-dots li button
     {
         background-color:           @color-white !important;
+        opacity:                    1.0 !important;
+    }
+
+    .ant-carousel .slick-dots li.slick-active button
+    {
+        background-color:           @color-project !important;
     }
