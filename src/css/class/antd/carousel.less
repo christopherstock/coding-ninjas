@@ -1,0 +1,60 @@
+
+    @import "../../value/color.less";
+
+    /*******************************************************************************************************************
+    *   The Ant Design Carousel was a beast to adjust!
+    *******************************************************************************************************************/
+
+    @carousel-height: 300px;
+
+    .ant-carousel .slick-track
+    {
+        width:                      100% !important;
+        height:                     @carousel-height;
+    }
+
+    .ant-carousel .slick-slide
+    {
+        background:                 @color-transparent;
+        text-align:                 center;
+
+        left:                       0 !important;
+        width:                      100% !important;
+        height:                     0 !important;
+    }
+
+    .ant-carousel .slick-slide.slick-active
+    {
+        width:                      100% !important;
+        max-width:                  500px !important;
+        height:                     @carousel-height !important;
+    }
+
+    .ant-carousel .carouselPage
+    {
+        height:                     @carousel-height !important;
+        width:                      100% !important;
+        background:                 rgba( 255, 255, 0, 0.5 );
+        border-radius:              10px;
+    }
+
+    .ant-carousel .slick-slide h3
+    {
+        color:                      @color-white;
+        text-shadow:                1px 1px @color-black;
+        background:                 rgba( 0, 0, 0, 0.25 );
+        border-top-left-radius:     10px;
+        border-top-right-radius:    10px;
+        height:                     35px;
+        line-height:                35px;
+    }
+
+    .ant-carousel .slick-dots li
+    {
+        box-shadow:                 1px 1px @color-black;
+    }
+
+    .ant-carousel .slick-dots li.slick-active button
+    {
+        background-color:           @color-white !important;
+    }

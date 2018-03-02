@@ -22,7 +22,7 @@
         /** The inner border size for the inner site panel container. */
         public      static  readonly    BORDER_SIZE_INNER                           :number                     = 50;
         /** The inner border size to the top for the inner site panel container. */
-        public      static  readonly    BORDER_SIZE_INNER_TOP                       :number                     = 85;
+        public      static  readonly    BORDER_SIZE_INNER_TOP                       :number                     = 75;
 
         /** The player's start position X. */
         public      static  readonly    PLAYER_START_POSITION_X                     :number                     = 885;

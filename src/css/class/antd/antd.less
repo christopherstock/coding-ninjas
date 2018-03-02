@@ -1,11 +1,11 @@
 
-    @import "../value/color.less";
-    @import "../value/dimension.less";
+    @import "../../value/color.less";
+    @import "../../value/dimension.less";
 
     /*******************************************************************************************************************
     *   Import Ant Design css framework and override all necessary less variables.
     *******************************************************************************************************************/
-    @import "../../../node_modules/antd/dist/antd.less";
+    @import "../../../../node_modules/antd/dist/antd.less";
 
     @screen-xs:                 0;
     @screen-sm:                 0;
@@ -71,65 +71,4 @@
         float:                  left;
         margin-right:           15px;
         box-shadow:             1px 1px @color-black;
-    }
-
-    .ant-carousel .slick-track
-    {
-        width:                  100% !important;
-        height:                 200px;
-    }
-
-    .ant-carousel .slick-slide
-    {
-        background:             @color-transparent;
-        text-align:             center;
-
-        left:                   0 !important;
-        width:                  0 !important;
-        height:                 0 !important;
-
-display:                none !important;
-
-background:             rgba( 255, 128, 0, 0.5 );
-border:                 1px solid red;
-
-    }
-
-    .ant-carousel .slick-slide.slick-active
-    {
-        width:                  100% !important;
-        max-width:              500px !important;
-        height:                 200px !important;
-
-display:                block !important;
-    }
-/*
-    .ant-carousel .carouselPage
-    {
-        height:                 200px !important;
-        width:                  280px !important;
-
-background:             rgba( 255, 255, 0, 0.5 );
-border:                 1px solid red;
-    }
-*/
-    .ant-carousel .slick-slide h3
-    {
-        color:                  @color-white;
-        text-shadow:            1px 1px @color-black;
-
-background:             #00ff00;
-/*
-        margin:                 0 0 0 @default-margin;
-*/
-    }
-
-    .ant-carousel .slick-dots li
-    {
-        box-shadow:             1px 1px @color-black;
-    }
-
-    .ant-carousel .slick-dots li.slick-active button
-    {
-        background-color:       @color-white !important;
     }
