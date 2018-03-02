@@ -496,7 +496,7 @@
         *   @param position The position for the decoration.
         *   @param imageId  The id of the image.
         ***************************************************************************************************************/
-        public static createDeco
+        public static createDecoImage
         (
             level    :ninjas.Level,
             xLeft    :number,
@@ -642,7 +642,14 @@
 
             level.shrines.push( decoShrine     );
 
-            if ( candleLeft  ) GameObjectBundleFactory.createDeco( level, xLeft - 80,  yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
-            if ( candleRight ) GameObjectBundleFactory.createDeco( level, xLeft + 160, yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
+            if ( candleLeft  )
+            {
+                GameObjectBundleFactory.createDecoImage(  level, xLeft - 80,  yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA        );
+                GameObjectBundleFactory.createDecoSprite( level, xLeft - 95,  yBottom - 220, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1 );
+            }
+            if ( candleRight )
+            {
+                GameObjectBundleFactory.createDecoImage( level, xLeft + 160, yBottom, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDELABRA );
+            }
         }
     }

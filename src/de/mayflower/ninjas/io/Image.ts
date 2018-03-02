@@ -309,11 +309,40 @@
         /** Image resource 'grass 4 frame 9'. */
         public      static      IMAGE_GRASS_4_FRAME_9                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass4/09.png";
         /** Image resource 'grass 4 frame 10'. */
-        public      static      IMAGE_GRASS_4_FRAME_10                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass4/10.png";
+        public      static      IMAGE_GRASS_4_FRAME_10                      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass4/10.png";
         /** Image resource 'grass 4 frame 12'. */
-        public      static      IMAGE_GRASS_4_FRAME_11                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass4/11.png";
+        public      static      IMAGE_GRASS_4_FRAME_11                      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass4/11.png";
         /** Image resource 'grass 4 frame 12'. */
-        public      static      IMAGE_GRASS_4_FRAME_12                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass4/12.png";
+        public      static      IMAGE_GRASS_4_FRAME_12                      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "grass4/12.png";
+
+        /** Image resource 'flame 1 frame 1'. */
+        public      static      IMAGE_FLAME_1_FRAME_1                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/01.png";
+        /** Image resource 'flame 1 frame 2'. */
+        public      static      IMAGE_FLAME_1_FRAME_2                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/02.png";
+        /** Image resource 'flame 1 frame 3'. */
+        public      static      IMAGE_FLAME_1_FRAME_3                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/03.png";
+        /** Image resource 'flame 1 frame 4'. */
+        public      static      IMAGE_FLAME_1_FRAME_4                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/04.png";
+        /** Image resource 'flame 1 frame 5'. */
+        public      static      IMAGE_FLAME_1_FRAME_5                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/05.png";
+        /** Image resource 'flame 1 frame 6'. */
+        public      static      IMAGE_FLAME_1_FRAME_6                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/06.png";
+        /** Image resource 'flame 1 frame 7'. */
+        public      static      IMAGE_FLAME_1_FRAME_7                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/07.png";
+        /** Image resource 'flame 1 frame 8'. */
+        public      static      IMAGE_FLAME_1_FRAME_8                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/08.png";
+        /** Image resource 'flame 1 frame 9'. */
+        public      static      IMAGE_FLAME_1_FRAME_9                       :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/09.png";
+        /** Image resource 'flame 1 frame 10'. */
+        public      static      IMAGE_FLAME_1_FRAME_10                      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/10.png";
+        /** Image resource 'flame 1 frame 11'. */
+        public      static      IMAGE_FLAME_1_FRAME_11                      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/11.png";
+        /** Image resource 'flame 1 frame 12'. */
+        public      static      IMAGE_FLAME_1_FRAME_12                      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/12.png";
+        /** Image resource 'flame 1 frame 13'. */
+        public      static      IMAGE_FLAME_1_FRAME_13                      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/13.png";
+        /** Image resource 'flame 1 frame 14'. */
+        public      static      IMAGE_FLAME_1_FRAME_14                      :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "flame1/14.png";
 
         /** Image resource 'tree stub'. */
         public      static      IMAGE_TREE_STUB                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "treeStub.png";
@@ -562,6 +591,21 @@
             Image.IMAGE_GRASS_4_FRAME_10,
             Image.IMAGE_GRASS_4_FRAME_11,
             Image.IMAGE_GRASS_4_FRAME_12,
+
+            Image.IMAGE_FLAME_1_FRAME_1,
+            Image.IMAGE_FLAME_1_FRAME_2,
+            Image.IMAGE_FLAME_1_FRAME_3,
+            Image.IMAGE_FLAME_1_FRAME_4,
+            Image.IMAGE_FLAME_1_FRAME_5,
+            Image.IMAGE_FLAME_1_FRAME_6,
+            Image.IMAGE_FLAME_1_FRAME_7,
+            Image.IMAGE_FLAME_1_FRAME_8,
+            Image.IMAGE_FLAME_1_FRAME_9,
+            Image.IMAGE_FLAME_1_FRAME_10,
+            Image.IMAGE_FLAME_1_FRAME_11,
+            Image.IMAGE_FLAME_1_FRAME_12,
+            Image.IMAGE_FLAME_1_FRAME_13,
+            Image.IMAGE_FLAME_1_FRAME_14,
 
             Image.IMAGE_TREE_STUB,
 

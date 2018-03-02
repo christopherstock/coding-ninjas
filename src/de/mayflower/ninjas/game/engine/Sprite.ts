@@ -28,9 +28,9 @@
 
             this.currentTick  = 0;
 
-            if ( template.randomStartFrame == ninjas.RandomStartFrame.YES )
+            if ( template.randomFrames == ninjas.RandomFrames.ONLY_START_FRAME )
             {
-                this.currentFrame = ninjas.MathUtil.getRandomInt( 0, ( this.template.imageIds.length - 1 ) );
+                this.assignRandomFrame();
             }
             else
             {
@@ -66,13 +66,21 @@
                 // reset tick count
                 this.currentTick = 0;
 
-                // next frame
-                ++this.currentFrame;
-
-                // reset frame on reaching upper bound
-                if ( this.currentFrame >= this.template.imageIds.length )
+                // check if random frame shall be assigned
+                if ( this.template.randomFrames == ninjas.RandomFrames.ALL_FRAMES )
                 {
-                    this.currentFrame = 0;
+                    this.assignRandomFrame();
+                }
+                else
+                {
+                    // next frame
+                    ++this.currentFrame;
+
+                    // reset frame on reaching upper bound
+                    if ( this.currentFrame >= this.template.imageIds.length )
+                    {
+                        this.currentFrame = 0;
+                    }
                 }
 
                 return true;
@@ -98,5 +106,13 @@
             {
                 return ninjas.Main.game.engine.imageSystem.getImage( imageId ).src;
             }
+        }
+
+        /***************************************************************************************************************
+        *   Assigns a random frame as the current frame.
+        ***************************************************************************************************************/
+        private assignRandomFrame() : void
+        {
+            this.currentFrame = ninjas.MathUtil.getRandomInt( 0, ( this.template.imageIds.length - 1 ) );
         }
     }
