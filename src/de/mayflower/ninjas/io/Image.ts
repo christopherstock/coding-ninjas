@@ -154,6 +154,13 @@
 
         /** Image resource 'fence 1'. */
         public      static      IMAGE_FENCE_1                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "fence1.png";
+        /** Image resource 'fence left'. */
+        public      static      IMAGE_FENCE_LEFT                            :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "fenceLeft.png";
+        /** Image resource 'fence center'. */
+        public      static      IMAGE_FENCE_CENTER                          :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "fenceCenter.png";
+        /** Image resource 'fence right'. */
+        public      static      IMAGE_FENCE_RIGHT                           :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "fenceRight.png";
+
         /** Image resource 'bridge 1'. */
         public      static      IMAGE_BRIDGE_1                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "bridge.png";
 
@@ -503,6 +510,10 @@
             Image.IMAGE_BOULDER_1,
 
             Image.IMAGE_FENCE_1,
+            Image.IMAGE_FENCE_LEFT,
+            Image.IMAGE_FENCE_CENTER,
+            Image.IMAGE_FENCE_RIGHT,
+
             Image.IMAGE_BRIDGE_1,
 
             Image.IMAGE_TREE_1,

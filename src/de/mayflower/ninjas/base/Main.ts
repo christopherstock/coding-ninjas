@@ -5,23 +5,18 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Complete level deco.
-    *   TODO Create flames for candles.
-    *
     *   TODO Mini key tutorial on welcome page and other pages.
     *   TODO Complete all site panel contents.
-    *
     *   TODO Pre-Render all React components (contents) before showing up?
-    *
     *   TODO Create preloader for game initialization.
+    *   TODO Enable jump through for rect flying grounds?
     *   TODO Links to GitHub, etc. on final content site.
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
     *   TODO Sound effects for ninja girl and enemies?
-    *
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Fade book from closed to open and vice-versa (via sprite etc.)?
     *   TODO Fixed positioning for camera on first scene (player floating in).
     *   TODO Add Camera joyride on level startup?
-    *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *
     *   TODO Regenerate TypeDoc.
     *   TODO Try sound error handling! (Safari etc.)
@@ -32,8 +27,9 @@
     *   TODO Complete MVP!
     *
     *   TODO Ability to smash movables. (except crates etc., introduce property 'destroyable')
-    *
+    *   TODO Ask Lenz: Add file loader via npm.
     *   TODO Add 'katana strike' action on ground and in air.
+    *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Add 'slide' action.
     *   TODO Add items and item sprites.
     *   TODO Create HUD ( for items 1st ).

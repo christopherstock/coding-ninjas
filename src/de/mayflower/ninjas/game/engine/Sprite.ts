@@ -28,7 +28,7 @@
 
             this.currentTick  = 0;
 
-            if ( template.randomFrames == ninjas.RandomFrames.ONLY_START_FRAME )
+            if ( template.randomFrames != ninjas.RandomFrames.NO )
             {
                 this.assignRandomFrame();
             }

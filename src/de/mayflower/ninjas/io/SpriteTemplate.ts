@@ -581,7 +581,7 @@
         *   @param ticksBetweenFrames The number of ticks to delay until the frame is changed.
         *   @param mirrored           Specifies if all frames in this sprite should be mirrored.
         *   @param loop               Specifies if the frame animation should be repeated infinitely.
-        *   @param randomStartFrame   Specifies if this template should start with a random frame instead of frame 0.
+        *   @param randomFrames       Specifies if this template should use a random start frame or overall random frames.
         *   @param scale              Specifies the scaling factor for drawing this sprite.
         ***************************************************************************************************************/
         private constructor
@@ -590,7 +590,7 @@
             ticksBetweenFrames :number,
             mirrored           :MirrorImage,
             loop               :LoopSprite,
-            randomStartFrame   :RandomFrames,
+            randomFrames       :RandomFrames,
             scale              :number
         )
         {
@@ -598,7 +598,7 @@
             this.ticksBetweenFrames = ticksBetweenFrames;
             this.mirrored           = mirrored;
             this.loop               = loop;
-            this.randomFrames       = randomStartFrame;
+            this.randomFrames       = randomFrames;
             this.scale              = scale;
 
             this.singleFramed       = ( this.imageIds.length == 1 );
