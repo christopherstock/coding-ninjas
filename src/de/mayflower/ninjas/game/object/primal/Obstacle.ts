@@ -1,6 +1,5 @@
 
     import * as ninjas from '../../../ninjas';
-    import * as matter from "matter-js";
 
     /*******************************************************************************************************************
     *   Specifies if an obstacle allows jump pass through.
@@ -25,7 +24,7 @@
         /** Specifies if the player shall be allowed to jump through this obstacle. */
         private         jumpPassThrough             :JumpPassThrough                    = null;
         /** Specifies if the obstacle currently allows passing through. */
-        private         isPassThrough               :JumpPassThrough                    = null;
+        private         currentlyAllowPassThrough   :JumpPassThrough                    = null;
 
         /***************************************************************************************************************
         *   Creates a new obstacle.
@@ -54,7 +53,7 @@
             );
 
             this.jumpPassThrough = jumpPassThrough;
-            this.isPassThrough   = JumpPassThrough.NO;
+            this.currentlyAllowPassThrough   = JumpPassThrough.NO;
         }
 
         /***************************************************************************************************************
@@ -63,51 +62,31 @@
         public render()
         {
             super.render();
-
+/*
+            // handle obstacle that are capable of jumping through
             if ( this.jumpPassThrough == JumpPassThrough.YES )
             {
-                // check collision release if colliding
+                // allow pass-through if player is ascending
                 if
                 (
-                       this.isPassThrough == JumpPassThrough.NO
-                    && ninjas.Main.game.level.player.isJumping()
+                        this.currentlyAllowPassThrough == JumpPassThrough.NO
+                    &&  ninjas.Main.game.level.player.shape.body.velocity.y < 0.0
                 )
                 {
-                    this.isPassThrough = JumpPassThrough.YES;
+                    this.currentlyAllowPassThrough = JumpPassThrough.YES;
                     this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_PASS_THROUGH_OBSTACLES;
                 }
-
-                // check collision activation if non-colliding
+                // disable pass-through if player is not colliding
                 else if
                 (
-                       this.isPassThrough == JumpPassThrough.YES
-                    && (
-                            ninjas.Main.game.level.player.isFalling()
-                        ||  ninjas.Main.game.level.player.isMoving()
-                    )
+                        this.currentlyAllowPassThrough == JumpPassThrough.YES
+                    &&  !matter.Bounds.overlaps( ninjas.Main.game.level.player.shape.body.bounds, this.shape.body.bounds )
                 )
                 {
-                    let colliding:boolean = false;
-
-                    for ( let i:number = 0; i < this.shape.body.vertices.length; ++i )
-                    {
-                        let vector     :matter.Vector = this.shape.body.vertices[ i     ];
-                        let nextVector :matter.Vector = this.shape.body.vertices[ ( i == this.shape.body.vertices.length - 1 ? 0 : i + 1 ) ];
-
-                        if ( matter.Query.ray( [ ninjas.Main.game.level.player.shape.body ], vector, nextVector ).length > 0 )
-                        {
-                            colliding = true;
-                            break;
-                        }
-                    }
-
-                    // only if player is not currently colliding!
-                    if ( !colliding )
-                    {
-                        this.isPassThrough = JumpPassThrough.NO;
-                        this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING;
-                    }
+                    this.currentlyAllowPassThrough = JumpPassThrough.NO;
+                    this.shape.body.collisionFilter = ninjas.SettingMatterJs.COLLISION_GROUP_COLLIDING;
                 }
             }
+  */
         }
     }

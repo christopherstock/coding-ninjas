@@ -23,8 +23,6 @@
 
                 { ninjas.SiteContentFactory.createStepIndicator( 1 ) }
                 { ninjas.SiteContentFactory.createDivider() }
-                { ninjas.SiteContentFactory.createImage( ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png" ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createHeadline( "Our Company" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createParagraph( "This is an example Node.js project for the Node.js workshop on the <a target=\"_blank\" title=\"Developer Camp 2018\" href=\"https://developercamp.io/\">Developer Camp 2018</a> in the context of the <a target=\"_blank\" title=\"Würzburg Web Week\" href=\"https://wueww.de/\">Würzburg Web Week</a> that demonstrates the usage of the following primal packages of the NodeJS framework:" ) }

@@ -177,7 +177,11 @@
         {
             this.outerAbsoluteContainer = document.createElement( "div" );
 
-            this.outerAbsoluteContainer.style.backgroundImage = "url( " + ninjas.SettingEngine.PATH_IMAGE_SITE + "sitePanelBg.png )";
+            this.outerAbsoluteContainer.style.backgroundImage = (
+                "url( "
+                + ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_PANEL_BG ).src
+                + ")"
+            );
 
             this.outerAbsoluteContainer.setAttribute( "data-wow-duration", ninjas.SettingGame.SITE_PANEL_ANIMATION_DURATION + "ms" );
             this.outerAbsoluteContainer.setAttribute( "data-wow-delay",    "0ms" );

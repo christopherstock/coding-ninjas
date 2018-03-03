@@ -23,8 +23,6 @@
 
                 { ninjas.SiteContentFactory.createStepIndicator( 3 ) }
                 { ninjas.SiteContentFactory.createDivider() }
-                { ninjas.SiteContentFactory.createImage( ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png" ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createHeadline( "Our Services" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createParagraph( "Our services are ..." ) }

@@ -23,8 +23,6 @@
 
                 { ninjas.SiteContentFactory.createStepIndicator( 5 ) }
                 { ninjas.SiteContentFactory.createDivider() }
-                { ninjas.SiteContentFactory.createImage( ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png" ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createHeadline( "Contact Us!" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createParagraph( "You find our offices at ..." ) }

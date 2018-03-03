@@ -435,6 +435,19 @@
         /** A test bg image. */
         public      static      IMAGE_BG_TEST                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_BG + "bgTest.jpg";
 
+        /** Site image 'logo'. */
+        public      static      IMAGE_SITE_LOGO                             :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
+        /** Site image 'site panel bg'. */
+        public      static      IMAGE_SITE_PANEL_BG                         :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "sitePanelBg.png";
+        /** Site image 'carousel desktop'. */
+        public      static      IMAGE_SITE_CAROUSEL_DESKTOP                 :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselDesktop.jpg";
+        /** Site image 'carousel mobile'. */
+        public      static      IMAGE_SITE_CAROUSEL_MOBILE                  :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselMobile.jpg";
+        /** Site image 'carousel web apps'. */
+        public      static      IMAGE_SITE_CAROUSEL_WEB_APPS                :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselWebApps.jpg";
+        /** Site image 'carousel websites'. */
+        public      static      IMAGE_SITE_CAROUSEL_WEBSITES                :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselWebsites.jpg";
+
         /** An array holding all filenames of all images to load. */
         public      static      FILE_NAMES                                  :Array<string>  =
         [
@@ -669,5 +682,12 @@
             Image.IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP,
 
             Image.IMAGE_BG_TEST,
+
+            Image.IMAGE_SITE_LOGO,
+            Image.IMAGE_SITE_PANEL_BG,
+            Image.IMAGE_SITE_CAROUSEL_DESKTOP,
+            Image.IMAGE_SITE_CAROUSEL_MOBILE,
+            Image.IMAGE_SITE_CAROUSEL_WEB_APPS,
+            Image.IMAGE_SITE_CAROUSEL_WEBSITES,
         ];
     }

@@ -9,20 +9,17 @@
     *   TODO More rubble to kick around etc. (stone piles ..)
     *   TODO Pre-Render all React components (contents) before showing up?
     *   TODO Create preloader for game initialization.
-    *   TODO Enable jump through for rect flying grounds?
     *   TODO Links to GitHub, etc. on final content site.
-    *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
     *   TODO Sound effects for ninja girl and enemies?
     *   TODO Secure player punch back (caused via immediate collision escape!) - disable player collision for x ticks?
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Fade book from closed to open and vice-versa (via sprite etc.)?
     *   TODO Fixed positioning for camera on first scene (player floating in).
+    *   TODO Add card flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
     *   TODO Add Camera joyride on level startup?
-    *
     *   TODO Regenerate TypeDoc.
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Add decoration particle effects on smashing objects / windows etc.
-    *   TODO Add card flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
     *   TODO Test in all browsers.
     *
     *   TODO Complete MVP!

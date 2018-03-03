@@ -87,8 +87,8 @@
             this.sitePanel.setPosition( position );
             this.updatePanelSizeAndPosition();
 
-            this.sitePanel.addToDom();
             this.sitePanel.animateIn();
+            this.sitePanel.addToDom();
             this.wowSystem.sync();
 
             window.setTimeout(
