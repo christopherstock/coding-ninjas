@@ -5,8 +5,6 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Flames for chandelier.
-    *   TODO Add stove and chandelier.
-    *   TODO Complete level deco.
     *   TODO Mini key tutorial on welcome page and other pages.
     *   TODO Complete all site panel contents.
     *   TODO Pre-Render all React components (contents) before showing up?
