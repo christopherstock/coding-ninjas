@@ -4,6 +4,8 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
+    *   TODO Flames for chandelier.
+    *   TODO Add stove and chandelier.
     *   TODO Complete level deco.
     *   TODO Mini key tutorial on welcome page and other pages.
     *   TODO Complete all site panel contents.
@@ -13,6 +15,8 @@
     *   TODO Links to GitHub, etc. on final content site.
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
     *   TODO Sound effects for ninja girl and enemies?
+    *   TODO More rubble to kick around etc.
+    *   TODO Secure player punch back (caused via immediate collision escape!) - disable player collision for x ticks?
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Fade book from closed to open and vice-versa (via sprite etc.)?
     *   TODO Fixed positioning for camera on first scene (player floating in).
@@ -28,6 +32,7 @@
     *
     *   TODO Ability to smash movables. (except crates etc., introduce property 'destroyable')
     *   TODO Ask Lenz: Add file loader via npm.
+    *   TODO Try 'grouce' for visualizing git project.
     *   TODO Add 'katana strike' action on ground and in air.
     *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Add 'slide' action.

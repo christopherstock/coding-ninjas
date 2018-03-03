@@ -256,8 +256,6 @@
             // check intersection of the player and the enemy
             if ( matter.Bounds.overlaps( this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds ) )
             {
-                ninjas.Debug.enemy.log( "The enemy hits the player" );
-
                 // punch back the player
                 ninjas.Main.game.level.player.punchBack( this.lookingDirection );
             }

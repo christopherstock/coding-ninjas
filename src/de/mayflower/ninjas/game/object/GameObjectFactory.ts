@@ -50,7 +50,13 @@
         *
         *   @return The created movable.
         ***************************************************************************************************************/
-        public static createMovable( x:number, yBottom:number, imageId:string ):ninjas.Movable
+        public static createMovable
+        (
+            x       :number,
+            yBottom :number,
+            imageId :string
+        )
+        : ninjas.Movable
         {
             let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
 

@@ -480,7 +480,7 @@
             let movable        :ninjas.Movable        = ninjas.GameObjectFactory.createMovable
             (
                 xLeft,
-                yBottom - spriteTemplate.height,
+                yBottom,
                 imageId
             );
 
@@ -657,5 +657,24 @@
                 GameObjectBundleFactory.createDecoSprite( level, xLeft + 176, yBottom - 178, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_SMALL );
                 GameObjectBundleFactory.createDecoSprite( level, xLeft + 138, yBottom - 182, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_SMALL );
             }
+        }
+
+        /***************************************************************************************************************
+        *   Creates a candle deco.
+        *
+        *   @param level       The level to add the decoration to.
+        *   @param xLeft       Anchor for left X.
+        *   @param yBottom     Anchor for bottom Y.
+        ***************************************************************************************************************/
+        public static createCandle
+        (
+            level   :ninjas.Level,
+            xLeft   :number,
+            yBottom :number,
+        )
+        : void
+        {
+            ninjas.GameObjectBundleFactory.createDecoImage(  level, xLeft,      yBottom,       ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CANDLE                );
+            ninjas.GameObjectBundleFactory.createDecoSprite( level, xLeft - 17, yBottom - 153, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_BIG );
         }
     }

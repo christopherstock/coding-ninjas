@@ -118,6 +118,8 @@
             }
             this.punchBackBlockTicks = ninjas.Character.PUNCH_BACK_BLOCK_TICKS;
 
+            ninjas.Debug.enemy.log( "Player hit by enemy! Player is punching back now!" );
+
             switch ( punchBackDirection )
             {
                 case ninjas.CharacterLookingDirection.LEFT:
