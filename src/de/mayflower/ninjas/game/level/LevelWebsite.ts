@@ -167,9 +167,9 @@
             ninjas.GameObjectBundleFactory.createDecoSprite( this, 12200, 5100, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_2 );
             ninjas.GameObjectBundleFactory.createDecoImage(  this, 12400, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STOVE             );
             ninjas.GameObjectBundleFactory.createDecoSprite( this, 12800, 5100, ninjas.DecoPosition.BG, ninjas.SpriteTemplate.SPRITE_GRASS_3 );
-            ninjas.GameObjectBundleFactory.createDecoSprite( this, 12920, 5110, ninjas.DecoPosition.BG, ninjas.SpriteTemplate.SPRITE_GRASS_1 );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 12920, 5105, ninjas.DecoPosition.BG, ninjas.SpriteTemplate.SPRITE_GRASS_1 );
             ninjas.GameObjectBundleFactory.createDecoImage(  this, 13000, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1            );
-            ninjas.GameObjectBundleFactory.createDecoSprite( this, 13700, 5110, ninjas.DecoPosition.BG, ninjas.SpriteTemplate.SPRITE_GRASS_2 );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 13700, 5105, ninjas.DecoPosition.BG, ninjas.SpriteTemplate.SPRITE_GRASS_2 );
             ninjas.GameObjectBundleFactory.createDecoSprite( this, 13800, 5100, ninjas.DecoPosition.BG, ninjas.SpriteTemplate.SPRITE_GRASS_4 );
             ninjas.GameObjectBundleFactory.createDecoImage(  this, 14000, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1            );
 
