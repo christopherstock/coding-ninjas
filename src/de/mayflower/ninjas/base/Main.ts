@@ -4,16 +4,15 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Flames for chandelier.
     *   TODO Mini key tutorial on welcome page and other pages.
     *   TODO Complete all site panel contents.
+    *   TODO More rubble to kick around etc. (stone piles ..)
     *   TODO Pre-Render all React components (contents) before showing up?
     *   TODO Create preloader for game initialization.
     *   TODO Enable jump through for rect flying grounds?
     *   TODO Links to GitHub, etc. on final content site.
     *   TODO Preload site images via image system ( or assign images via JavaScript?? ).
     *   TODO Sound effects for ninja girl and enemies?
-    *   TODO More rubble to kick around etc.
     *   TODO Secure player punch back (caused via immediate collision escape!) - disable player collision for x ticks?
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Fade book from closed to open and vice-versa (via sprite etc.)?

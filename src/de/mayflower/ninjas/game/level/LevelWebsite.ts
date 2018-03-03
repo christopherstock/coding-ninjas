@@ -38,7 +38,7 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                11370,   // ninjas.SettingGame.PLAYER_START_POSITION_X,
+                15000,   // ninjas.SettingGame.PLAYER_START_POSITION_X,
                 5100,    // ninjas.SettingGame.PLAYER_START_POSITION_Y,
                 ninjas.CharacterLookingDirection.LEFT,
                 ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
@@ -174,14 +174,20 @@
             ninjas.GameObjectBundleFactory.createDecoImage(  this, 14000, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1            );
 
             // shrine 6 (DoJo)
-            ninjas.GameObjectBundleFactory.createDecoImage( this, 15073, 4705, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CHANDELIER );
-            ninjas.GameObjectBundleFactory.createMovable(   this, 14900, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_2    );
-            ninjas.GameObjectBundleFactory.createMovable(   this, 15040, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET     );
-            ninjas.GameObjectBundleFactory.createMovable(   this, 15080, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT        );
-            ninjas.GameObjectBundleFactory.createCandle(    this, 14820, 5100                                                        );
-            ninjas.GameObjectBundleFactory.createCandle(    this, 14990, 5100                                                        );
-            ninjas.GameObjectBundleFactory.createCandle(    this, 15160, 5100                                                        );
-            ninjas.GameObjectBundleFactory.createShrine(    this, 15400, 5100, true, true, ninjas.SiteContent.CONTENT_CONTACT        );
+            ninjas.GameObjectBundleFactory.createDecoImage(  this, 15073, 4705, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_CHANDELIER            );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 15066, 4501, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_BIG );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 15120, 4486, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_BIG );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 15254, 4488, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_BIG );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 15305, 4517, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_BIG );
+
+
+            ninjas.GameObjectBundleFactory.createMovable(    this, 14900, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_FLASK_2               );
+            ninjas.GameObjectBundleFactory.createMovable(    this, 15040, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_GOBLET                );
+            ninjas.GameObjectBundleFactory.createMovable(    this, 15080, 5100, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_POT                   );
+            ninjas.GameObjectBundleFactory.createCandle(     this, 14820, 5100                                                                   );
+            ninjas.GameObjectBundleFactory.createCandle(     this, 14990, 5100                                                                   );
+            ninjas.GameObjectBundleFactory.createCandle(     this, 15160, 5100                                                                   );
+            ninjas.GameObjectBundleFactory.createShrine(     this, 15400, 5100, true, true, ninjas.SiteContent.CONTENT_CONTACT                   );
 
             // nature after shrine 6
             ninjas.GameObjectBundleFactory.createDecoImage(  this, 15850, 5100, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_TREE_2            );
@@ -201,7 +207,7 @@
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 3525,  4060, 11, ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 5062,  4430, 3,  ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
             ninjas.GameObjectBundleFactory.createFlyingGround( this, 7350,  4280, 6,  ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
-            ninjas.GameObjectBundleFactory.createFlyingGround( this, 9800,  4570, 3,  ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
-            ninjas.GameObjectBundleFactory.createFlyingGround( this, 10800, 4370, 3,  ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 9800,  4560, 3,  ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
+            ninjas.GameObjectBundleFactory.createFlyingGround( this, 10800, 4350, 3,  ninjas.Slope.NONE, ninjas.JumpPassThrough.NO, ninjas.CapHorz.BOTH );
         }
     }
