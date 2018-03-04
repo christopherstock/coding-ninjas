@@ -21,19 +21,24 @@
 
             return <div>
 
-                { ninjas.SiteContentFactory.createStepIndicator( 3 ) }
+                { ninjas.SiteContentFactory.createStepIndicator( 2 ) }
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createHeadline( "Our Services" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "Our services are ..." ) }
+                {
+                    ninjas.SiteContentFactory.createParagraph
+                    (
+                        "We offer our services for the following platforms. Please click on one of the tabs to read more about our skills and experiences:"
+                    )
+                }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 {
                     ninjas.SiteContentFactory.createTabbedPane
                     (
                         0,
                         [
-                            <span>{ ninjas.SiteContentFactory.createIcon( "apple"   ) } Tab 1</span>,
-                            <span>{ ninjas.SiteContentFactory.createIcon( "android" ) } Tab 2</span>,
+                            <span>{ ninjas.SiteContentFactory.createIcon( "apple"   ) } iOs</span>,
+                            <span>{ ninjas.SiteContentFactory.createIcon( "android" ) } Android</span>,
                             <span>{ ninjas.SiteContentFactory.createIcon( "github"  ) } Tab 3</span>
                         ],
                         [

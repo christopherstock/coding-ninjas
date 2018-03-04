@@ -15,10 +15,10 @@
         CONTENT_WELCOME,
         /** The 'company' page. */
         CONTENT_COMPANY,
-        /** The 'philosophy' page. */
-        CONTENT_PHILOSOPHY,
         /** The 'services' page. */
         CONTENT_SERVICES,
+        /** The 'philosophy' page. */
+        CONTENT_PHILOSOPHY,
         /** The 'references' page. */
         CONTENT_REFERENCES,
         /** The 'contact' page. */
@@ -37,10 +37,10 @@
         private                 contentWelcome              :JSX.Element            = null;
         /** The site content for the 'company' page. */
         private                 contentCompany              :JSX.Element            = null;
-        /** The site content for the 'philosophy' page. */
-        private                 contentPhilosophy           :JSX.Element            = null;
         /** The site content for the 'services' page. */
         private                 contentServices             :JSX.Element            = null;
+        /** The site content for the 'philosophy' page. */
+        private                 contentPhilosophy           :JSX.Element            = null;
         /** The site content for the 'references' page. */
         private                 contentReferences           :JSX.Element            = null;
         /** The site content for the 'contact' page. */
@@ -53,8 +53,8 @@
         {
             this.contentWelcome    = <ninjas.ContentWelcome    />;
             this.contentCompany    = <ninjas.ContentCompany    />;
-            this.contentPhilosophy = <ninjas.ContentPhilosophy />;
             this.contentServices   = <ninjas.ContentServices   />;
+            this.contentPhilosophy = <ninjas.ContentPhilosophy />;
             this.contentReferences = <ninjas.ContentReferences />;
             this.contentContact    = <ninjas.ContentContact    />;
         }
@@ -87,16 +87,15 @@
                     elementToMount = this.contentCompany;
                     break;
                 }
+                case SiteContent.CONTENT_SERVICES:
+                {
+                    elementToMount = this.contentServices;
+                    break;
+                }
 
                 case SiteContent.CONTENT_PHILOSOPHY:
                 {
                     elementToMount = this.contentPhilosophy;
-                    break;
-                }
-
-                case SiteContent.CONTENT_SERVICES:
-                {
-                    elementToMount = this.contentServices;
                     break;
                 }
 

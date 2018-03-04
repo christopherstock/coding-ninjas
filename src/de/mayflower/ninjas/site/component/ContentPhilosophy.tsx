@@ -21,7 +21,7 @@
 
             return <div>
 
-                { ninjas.SiteContentFactory.createStepIndicator( 2 ) }
+                { ninjas.SiteContentFactory.createStepIndicator( 3 ) }
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createHeadline( "Our Philosophy" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
