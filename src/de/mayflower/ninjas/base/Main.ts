@@ -11,6 +11,7 @@
     *   TODO Secure player punch back (caused via immediate collision escape!) - disable player collision for x ticks?
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Fade book from closed to open and vice-versa (via sprite etc.)?
+    *   TODO Light book bg and black fg.
     *   TODO Fixed positioning for camera on first scene (player floating in).
     *   TODO Add card flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
     *   TODO Add decoration particle effects on smashing objects / windows etc.

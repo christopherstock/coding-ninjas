@@ -40,10 +40,10 @@
                         2500,
                         [
                             <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_CAROUSEL_DESKTOP ).src + " )", } }>
-                                <h3>Desktop Applications</h3>
+                                <h3>Desktop &amp; Enterprise Applications</h3>
                             </div>,
                             <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_CAROUSEL_WEBSITES ).src + " )", } }>
-                                <h3>Websites</h3>
+                                <h3>Web Design</h3>
                             </div>,
                             <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_CAROUSEL_MOBILE ).src + " )", } }>
                                 <h3>Mobile Applications</h3>

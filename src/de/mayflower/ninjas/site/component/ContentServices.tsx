@@ -37,16 +37,30 @@
                     (
                         0,
                         [
-                            <span>{ ninjas.SiteContentFactory.createIcon( "apple"   ) } iOs</span>,
-                            <span>{ ninjas.SiteContentFactory.createIcon( "android" ) } Android</span>,
-                            <span>{ ninjas.SiteContentFactory.createIcon( "github"  ) } Tab 3</span>
+                            <span>{ ninjas.SiteContentFactory.createIcon( "desktop" ) } Enterprise</span>,
+                            <span>{ ninjas.SiteContentFactory.createIcon( "cloud"   ) } Web</span>,
+                            <span>{ ninjas.SiteContentFactory.createIcon( "mobile"  ) } Mobile</span>,
                         ],
                         [
                             <div>
-                                Tab 1
+                                <h3>Desktop &amp; Enterprise Development</h3>
 
-                                <br />
-                                <br />
+/*
+Originally started as a purely Java development company over 16 years ago, today "Coding Ninjas" maintains the traditions of desktop software development while nurturing experience in the web and mobile application development areas.
+We offer platform-specific and cross-platform desktop app development services to help you turn a solid software idea into a market sensation, as well as couple your manufactured devices and equipment with complementary software to gain customer loyalty and outdo competitors.
+*/
+
+                                { ninjas.SiteContentFactory.createParagraph( "We offer high quality enterprise and desktop application development." ) }
+                                { ninjas.SiteContentFactory.createSpacerVertical() }
+
+                                { ninjas.SiteContentFactory.createBadge( 25, "white", "#52c41a", ) }
+                                { ninjas.SiteContentFactory.createParagraph( "Java Desktop applications." ) }
+
+
+
+
+
+
 
                                 { ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" ) }
                                 { ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" ) }
@@ -66,7 +80,6 @@
                                 { ninjas.SiteContentFactory.createBadge( 4,  "#999",  "#ffffff", ) }
                                 <br />
                                 <br />
-                                { ninjas.SiteContentFactory.createBadge( 25, "white", "#52c41a", ) }
 
                             </div>,
                             <div>
