@@ -25,30 +25,35 @@
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createHeadline( "Our Company" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "This is an example Node.js project for the Node.js workshop on the <a target=\"_blank\" title=\"Developer Camp 2018\" href=\"https://developercamp.io/\">Developer Camp 2018</a> in the context of the <a target=\"_blank\" title=\"Würzburg Web Week\" href=\"https://wueww.de/\">Würzburg Web Week</a> that demonstrates the usage of the following primal packages of the NodeJS framework:" ) }
+                {
+                    ninjas.SiteContentFactory.createParagraph
+                    (
+                        "We <span style=\"color: #ff6666;\">&#x2764;</span> programming! And particularly we love to create:"
+                    )
+                }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 {
-                    <ul className="sitePanel">
-                        <li>
-                            TypeScript<br />
-                            THE transpiler for mastering extensive JavaScript projects with plenty of own sourcecode.
-                        </li>
-                        <li>
-                            Webpack<br />
-                            THE web bundler for extensive JavaScript projects with plenty of external libraries.
-                        </li>
-                        <li>
-                            Matter.js<br />
-                            A wonderful and easy-to-use 2d physics rendering engine.
-                        </li>
-                        <li>
-                            Ant Design<br />
-                            An enterprise Framework for easy-to-use React UI-components.
-                        </li>
-                    </ul>
+                    ninjas.SiteContentFactory.createCarousel
+                    (
+                        "fade",
+                        true,
+                        2500,
+                        [
+                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_CAROUSEL_DESKTOP ).src + " )", } }>
+                                <h3>Desktop Applications</h3>
+                            </div>,
+                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_CAROUSEL_WEBSITES ).src + " )", } }>
+                                <h3>Websites</h3>
+                            </div>,
+                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_CAROUSEL_MOBILE ).src + " )", } }>
+                                <h3>Mobile Applications</h3>
+                            </div>,
+                            <div className="carouselPage" style={ { "backgroundImage": "url( " + ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_CAROUSEL_WEB_APPS ).src + " )", } }>
+                                <h3>Web Applications</h3>
+                            </div>,
+                        ]
+                    )
                 }
-
-                { ninjas.SiteContentFactory.createProgress( "circle", 83.5 ) }
 
             </div>
         }

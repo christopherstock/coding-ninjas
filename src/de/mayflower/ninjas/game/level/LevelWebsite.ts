@@ -136,10 +136,10 @@
             ninjas.GameObjectBundleFactory.createDecoSprite( this, 9660, 4952, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_4 );
 
             // stairs to shrine 5
-            ninjas.GameObjectBundleFactory.createDecoSprite( this, 9840,  4570, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_1 );
-            ninjas.GameObjectBundleFactory.createDecoSprite( this, 9970,  4570, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_4 );
-            ninjas.GameObjectBundleFactory.createDecoSprite( this, 10900, 4370, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_3 );
-            ninjas.GameObjectBundleFactory.createDecoSprite( this, 11030, 4370, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_2 );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 9840,  4560, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_1 );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 9970,  4560, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_4 );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 10900, 4350, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_3 );
+            ninjas.GameObjectBundleFactory.createDecoSprite( this, 11030, 4350, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_2 );
 
             // shrine 5
             ninjas.GameObjectBundleFactory.createDecoSprite( this, 12100, 4180, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_3 );
