@@ -37,7 +37,7 @@
                 {
                     ninjas.SiteContentFactory.createParagraph
                     (
-                        + "Use the <span style=\"color: #ff6666;\">arrow keys</span> to move your characters to all six site contents.<br>"
+                        "Use the <span style=\"color: #ff6666;\">arrow keys</span> to move your characters to all six site contents.<br>"
                         + "Use the <span style=\"color: #ff6666;\">space bar</span> to open your parachute while in air.<br>"
                     )
                 }

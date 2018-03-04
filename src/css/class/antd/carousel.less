@@ -5,7 +5,8 @@
     *   The Ant Design Carousel was a beast to adjust!
     *******************************************************************************************************************/
 
-    @carousel-height: 300px;
+    @carousel-width-max: 500px;
+    @carousel-height:    300px;
 
     .ant-carousel .slick-track
     {
@@ -27,9 +28,9 @@
 
     .ant-carousel .slick-slide.slick-active
     {
-        width:                      100% !important;
-        max-width:                  500px !important;
-        height:                     @carousel-height !important;
+        width:                      100%                !important;
+        max-width:                  @carousel-width-max !important;
+        height:                     @carousel-height    !important;
     }
 
     .ant-carousel .slick-slide.slick-active .carouselPage

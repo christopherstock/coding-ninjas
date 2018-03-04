@@ -54,6 +54,13 @@
                         ]
                     )
                 }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
+                {
+                    ninjas.SiteContentFactory.createParagraph
+                    (
+                        "Read more about our services on the next site by finding the shrine directly <span style=\"color: #ff6666;\">above</span> this one."
+                    )
+                }
 
             </div>
         }
