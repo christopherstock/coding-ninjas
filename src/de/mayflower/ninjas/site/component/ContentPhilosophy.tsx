@@ -28,6 +28,16 @@
                 { ninjas.SiteContentFactory.createParagraph( "Our Philosophy is that .." ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 {
+/*
+                        ninjas.SiteContentFactory.createParagraph( "We offer high quality enterprise and desktop application development." )
+                        ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
+                        ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
+                        ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
+                        ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
+                        ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
+*/
+                }
+                {
                     ninjas.SiteContentFactory.createAccordion
                     (
                         [

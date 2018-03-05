@@ -30,14 +30,16 @@
                     (
                         "This site serves as an example Node.js project for the "
                         + "<a target=\"_blank\" title=\"Developer Camp 2018\" href=\"https://developercamp.io/\">Developer Camp 2018</a> "
-                        + "in the context of the <a target=\"_blank\" title=\"Würzburg Web Week\" href=\"https://wueww.de/\">Würzburg Web Week.</a>"
+                        + "in the context of the <a target=\"_blank\" title=\"Würzburg Web Week\" href=\"https://wueww.de/\">Würzburg Web Week.</a><br>"
+                        + "<br>"
+                        + "Find the other five shrines for an insight into the technology behind this site and to reveal the project's GitHub link."
                     )
                 }
                 { ninjas.SiteContentFactory.createDivider() }
                 {
                     ninjas.SiteContentFactory.createParagraph
                     (
-                        "Use the <span style=\"color: #ff6666;\">arrow keys</span> to move your characters to all six site contents.<br>"
+                        "Use the <span style=\"color: #ff6666;\">arrow keys</span> to move and jump around.<br>"
                         + "Use the <span style=\"color: #ff6666;\">space bar</span> to open your parachute while in air.<br>"
                     )
                 }

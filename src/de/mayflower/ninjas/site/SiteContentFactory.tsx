@@ -88,14 +88,17 @@
         /***************************************************************************************************************
         *   Creates a paragraph JSX element.
         *
-        *   @param text The text to be contained in the paragraph.
+        *   @param text      The text to be contained in the paragraph.
+        *   @param className The classname for this paragraph.
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createParagraph( text:string ) : JSX.Element
+        public static createParagraph( text:string, className:string = "sitePanel defaultParagraph" ) : JSX.Element
         {
-            return <p className="sitePanel defaultParagraph" dangerouslySetInnerHTML={ { __html: text, } }>
-            </p>;
+            return <p
+                className={ className }
+                dangerouslySetInnerHTML={ { __html: text, } }
+            />
         }
 
         /***************************************************************************************************************
@@ -157,7 +160,7 @@
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createBadge( count:number, colorFg:string, colorBg:string ) : JSX.Element
+        public static createBadge( count:string, colorFg:string, colorBg:string ) : JSX.Element
         {
             return <antd.Badge count={ count } style={ { color: colorFg, backgroundColor: colorBg, } } />;
         }
