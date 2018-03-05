@@ -136,7 +136,7 @@
             ninjas.Main.game.engine.matterJsSystem.removeFromWorld( this.shape.body );
             ninjas.Main.game.engine.matterJsSystem.addToWorld(      this.shape.body );
 
-            // punch the enemy out of the screen
+            // punch the enemy out of the screen in the player's direction
             this.punchBack( playerDirection );
         }
 
@@ -253,13 +253,31 @@
         ***************************************************************************************************************/
         private checkPlayerCollision() : void
         {
-            // check intersection of the player and the enemy
-            if ( matter.Bounds.overlaps( this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds ) )
+            // only if player is not punched back
+            if ( ninjas.Main.game.level.player.punchBackTicks == 0 )
             {
-                // punch back the player
-                ninjas.Main.game.level.player.punchBack( this.lookingDirection );
+                // check intersection of the player and the enemy
+                if ( matter.Bounds.overlaps( this.shape.body.bounds, ninjas.Main.game.level.player.shape.body.bounds ) )
+                {
+                    ninjas.Debug.enemy.log( "Player hit by enemy! Player is punching back now!" );
 
-                ninjas.Debug.enemy.log( "Player hit by enemy! Player is punching back now!" );
+                    let playerPunchBackDirection:ninjas.CharacterLookingDirection = null;
+
+                    if ( ninjas.Main.game.level.player.lookingDirection == ninjas.CharacterLookingDirection.LEFT )
+                    {
+                        playerPunchBackDirection = ninjas.CharacterLookingDirection.RIGHT;
+                    }
+                    else
+                    {
+                        playerPunchBackDirection = ninjas.CharacterLookingDirection.LEFT;
+                    }
+
+                    // punch back the player into the player's opposite direction!
+                    ninjas.Main.game.level.player.punchBack( playerPunchBackDirection );
+
+                    // flag player as punched back
+                    ninjas.Main.game.level.player.punchBackTicks = ninjas.SettingGame.PUNCH_BACK_TICKS;
+                }
             }
         }
     }

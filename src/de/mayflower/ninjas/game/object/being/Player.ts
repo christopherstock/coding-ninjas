@@ -47,7 +47,11 @@
         {
             super.render();
 
-            this.handleKeys();
+            if ( this.punchBackTicks == 0 )
+            {
+                this.handleKeys();
+            }
+
             this.checkEnemyKill();
             this.clipToHorizontalLevelBounds();
             this.assignCurrentSprite();

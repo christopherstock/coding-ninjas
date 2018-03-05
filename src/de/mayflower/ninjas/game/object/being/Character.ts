@@ -44,6 +44,9 @@
         /** The jump power to apply for this character. */
         private                         jumpPower                           :number                             = 0.0;
 
+        /** Ticks the character is paralized by being punched back. */
+        public                          punchBackTicks                      :number                             = 0;
+
         /***************************************************************************************************************
         *   Creates a new character.
         *
@@ -88,6 +91,11 @@
 
             this.movesLeft  = false;
             this.movesRight = false;
+
+            if ( this.punchBackTicks > 0 )
+            {
+                --this.punchBackTicks;
+            }
 
             this.resetRotation();
             this.checkBottomCollision();
