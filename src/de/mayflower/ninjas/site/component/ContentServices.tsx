@@ -69,7 +69,7 @@
                                 {
                                     ninjas.SiteContentFactory.createParagraph
                                     (
-                                        "Our dedicated web development experts team bring in over 16 years of domain experience. Over 200 web applications delivered by \"Coding Ninjas\" power businesses across various industries: healthcare, telecommunications, banking and internet services, retail, manufacturing, and education.<br>" +
+                                        "Our dedicated web development experts team bring in over 16 years of domain experience. Over 200 web applications delivered by \"Coding Ninjas\" power businesses across various industries.<br>" +
                                         "<br>" +
                                         "Be it custom web app development from scratch, migration from your legacy application to a new solution, or enhancement of the front-end functionality, we are eager to accept your web development challenge staying within time and budget limits."
                                     )
@@ -93,7 +93,6 @@
                                     ninjas.SiteContentFactory.createParagraph
                                     (
                                         "Over the past decade, \"Coding Ninjas\" has successfully carried out over 75 mobile projects, providing consulting and mobile app development services for different platforms and various industries.<br>"
-                                        + "<br>"
                                         + "Make yourself at home on any mobile platform or reach out to multiple platforms at once.<br>"
                                     )
                                 }
@@ -103,13 +102,11 @@
                                     ninjas.SiteContentFactory.createParagraph
                                     (
                                         "We offer native mobile development for:<br>"
-                                        + "<br>"
                                         + "&bull; iOS<br>"
                                         + "&bull; Android<br>"
                                         + "&bull; Windows Phone<br>"
                                         + "<br>"
                                         + "To projects aiming to hit multiple platforms, we suggest cross-platform development on:<br>"
-                                        + "<br>"
                                         + "&bull; Cordova/PhoneGap<br>"
                                         + "&bull; Xamarin<br>"
                                         + "&bull; React Native<br>"
