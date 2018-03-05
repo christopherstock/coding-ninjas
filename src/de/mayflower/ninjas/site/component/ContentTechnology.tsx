@@ -3,12 +3,12 @@
     import * as React  from 'react';
 
     /*******************************************************************************************************************
-    *   A react component with the content for the 'philosophy' page.
+    *   A react component with the content for the 'technology' page.
     *
     *   @author  Christopher Stock
     *   @version 1.0
     *******************************************************************************************************************/
-    export class ContentPhilosophy extends React.Component<any, any>
+    export class ContentTechnology extends React.Component<any, any>
     {
         /***************************************************************************************************************
         *   Being invoked every time this component renders.
@@ -17,15 +17,17 @@
         ***************************************************************************************************************/
         render() : JSX.Element
         {
-            ninjas.Debug.react.log( "ContentPhilosophy.render() being invoked" );
+            ninjas.Debug.react.log( "ContentTechnology.render() being invoked" );
 
             return <div>
 
                 { ninjas.SiteContentFactory.createStepIndicator( 3 ) }
                 { ninjas.SiteContentFactory.createDivider() }
-                { ninjas.SiteContentFactory.createHeadline( "Our Philosophy" ) }
+                { ninjas.SiteContentFactory.createHeadline( "Technologies being used" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "Our Philosophy is that .." ) }
+                { ninjas.SiteContentFactory.createParagraph( "The following components have been used to realize this web project:" ) }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
+                { ninjas.SiteContentFactory.createParagraph( "Find the whole project on GitHub!" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 {
 /*
@@ -47,6 +49,9 @@
                         ],
                         [
                             <div>
+
+                                <p>{ "Find a blog article about Tooling!" }</p>
+
                                 <p>{ "Glacht Foidweg Schmankal, nia fensdaln Bradwurschtsemmal pfiad de Graudwiggal Gstanzl g’hupft wia gsprunga. Mechad Breihaus mechad mi a bissal wos gehd ollaweil trihöleridi dijidiholleri, helfgod no hob i an Suri sei nimmds. Radler unbandig Servas Sepp Guglhupf in da greana Au, wea ko, dea ko Foidweg des wiad a Mordsgaudi mim is ma Wuascht. Oachkatzlschwoaf sammawiedaguad middn i bin a woschechta Bayer griasd eich midnand, Kaiwe." }</p>
                                 { ninjas.SiteContentFactory.createSpacerVertical() }
                                 <p>{ "Anbandeln Graudwiggal i mog di fei ned hogg di hera i mechad dee Schwoanshaxn Wiesn a bissal, nix Gwiass woass ma ned: Semmlkneedl is des liab oba, kumm geh: Hob sowos kimmt Weibaleid koa! Sog i kumm geh Freibia, an hoid unbandig iabaroi no a Maß: Fensdaln Lewakaas di Hetschapfah Goaßmaß nomoi wia da Buachbinda Wanninger mechad geh. I Klampfn obandln Maderln blärrd, Breihaus Maibam!" }</p>

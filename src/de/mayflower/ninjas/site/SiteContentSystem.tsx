@@ -17,8 +17,8 @@
         CONTENT_COMPANY,
         /** The 'services' page. */
         CONTENT_SERVICES,
-        /** The 'philosophy' page. */
-        CONTENT_PHILOSOPHY,
+        /** The 'technology' page. */
+        CONTENT_TECHNOLOGY,
         /** The 'references' page. */
         CONTENT_REFERENCES,
         /** The 'contact' page. */
@@ -39,8 +39,8 @@
         private                 contentCompany              :JSX.Element            = null;
         /** The site content for the 'services' page. */
         private                 contentServices             :JSX.Element            = null;
-        /** The site content for the 'philosophy' page. */
-        private                 contentPhilosophy           :JSX.Element            = null;
+        /** The site content for the 'technology' page. */
+        private                 contentTechnology           :JSX.Element            = null;
         /** The site content for the 'references' page. */
         private                 contentReferences           :JSX.Element            = null;
         /** The site content for the 'contact' page. */
@@ -54,7 +54,7 @@
             this.contentWelcome    = <ninjas.ContentWelcome    />;
             this.contentCompany    = <ninjas.ContentCompany    />;
             this.contentServices   = <ninjas.ContentServices   />;
-            this.contentPhilosophy = <ninjas.ContentPhilosophy />;
+            this.contentTechnology = <ninjas.ContentTechnology />;
             this.contentReferences = <ninjas.ContentReferences />;
             this.contentContact    = <ninjas.ContentContact    />;
         }
@@ -93,9 +93,9 @@
                     break;
                 }
 
-                case SiteContent.CONTENT_PHILOSOPHY:
+                case SiteContent.CONTENT_TECHNOLOGY:
                 {
-                    elementToMount = this.contentPhilosophy;
+                    elementToMount = this.contentTechnology;
                     break;
                 }
 

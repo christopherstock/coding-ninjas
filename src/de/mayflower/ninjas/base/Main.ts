@@ -4,11 +4,9 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Complete all site panel contents.
     *   TODO More rubble to kick around etc. (stone piles ..)
-    *   TODO Create preloader for game initialization.
-    *   TODO Links to GitHub, etc. on final content site.
-    *   TODO Secure player punch back (caused via immediate collision escape!) - disable player collision for x ticks?
+    *   TODO Complete all site panel contents.
+    *   TODO Create preloader for game initialization. (create game states)
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Fade book from closed to open and vice-versa (via sprite etc.)?
     *   TODO Light book bg and black fg.
@@ -19,7 +17,6 @@
     *   TODO Regenerate TypeDoc.
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Test in all browsers.
-    *
     *   TODO Complete MVP!
     *
     *   TODO Sound effects for ninja girl and enemies?

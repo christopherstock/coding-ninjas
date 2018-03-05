@@ -258,6 +258,8 @@
             {
                 // punch back the player
                 ninjas.Main.game.level.player.punchBack( this.lookingDirection );
+
+                ninjas.Debug.enemy.log( "Player hit by enemy! Player is punching back now!" );
             }
         }
     }

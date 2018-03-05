@@ -57,7 +57,7 @@
 
     export * from './site/component/ContentCompany';
     export * from './site/component/ContentContact';
-    export * from './site/component/ContentPhilosophy';
+    export * from './site/component/ContentTechnology';
     export * from './site/component/ContentReferences';
     export * from './site/component/ContentServices';
     export * from './site/component/ContentWelcome';
