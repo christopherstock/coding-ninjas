@@ -458,30 +458,57 @@
         }
 
         /***************************************************************************************************************
-        *   Creates an obstacle.
+        *   Creates an movable with a rectangular shape.
         *
         *   @param level    The level to add the decoration to.
         *   @param xLeft    Anchor for left X.
         *   @param yBottom  Anchor for bottom Y.
-        *   @param position The position for the decoration.
         *   @param imageId  The id of the image.
         ***************************************************************************************************************/
-        public static createMovable
+        public static createMovableRect
         (
             level    :ninjas.Level,
             xLeft    :number,
             yBottom  :number,
-            position :DecoPosition,
             imageId  :string
         )
         : void
         {
-            let spriteTemplate :ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
-            let movable        :ninjas.Movable        = ninjas.GameObjectFactory.createMovable
+            let movable:ninjas.Movable = ninjas.GameObjectFactory.createMovableRect
             (
                 xLeft,
                 yBottom,
                 imageId
+            );
+
+            level.movables.push( movable );
+        }
+
+        /***************************************************************************************************************
+        *   Creates an movable with a circular shape.
+        *
+        *   @param level    The level to add the decoration to.
+        *   @param xLeft    Anchor for left X.
+        *   @param yBottom  Anchor for bottom Y.
+        *   @param imageId  The id of the image.
+        *   @param angle    The initial rotation angle for this movable.
+        ***************************************************************************************************************/
+        public static createMovableCircular
+        (
+            level    :ninjas.Level,
+            xLeft    :number,
+            yBottom  :number,
+            imageId  :string,
+            angle    :number
+        )
+        : void
+        {
+            let movable:ninjas.Movable = ninjas.GameObjectFactory.createMovableCircular
+            (
+                xLeft,
+                yBottom,
+                imageId,
+                angle
             );
 
             level.movables.push( movable );
@@ -656,6 +683,45 @@
                 GameObjectBundleFactory.createDecoSprite( level, xLeft + 156, yBottom - 222, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_BIG   );
                 GameObjectBundleFactory.createDecoSprite( level, xLeft + 176, yBottom - 178, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_SMALL );
                 GameObjectBundleFactory.createDecoSprite( level, xLeft + 138, yBottom - 182, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_FLAME_1_SMALL );
+            }
+        }
+
+        /***************************************************************************************************************
+        *   Creates a rubble pile.
+        *
+        *   @param level       The level to add the decoration to.
+        *   @param xLeft       Anchor for left X.
+        *   @param yBottom     Anchor for bottom Y.
+        *   @param length      Length of the bottom stone row.
+        ***************************************************************************************************************/
+        public static createRubblePile
+        (
+            level       :ninjas.Level,
+            xLeft       :number,
+            yBottom     :number,
+            length      :number
+        )
+        : void
+        {
+            for ( let i:number = 0; i < length; ++i )
+            {
+                let imageId:string = null;
+
+                switch ( ninjas.MathUtil.getRandomInt( 0, 2 ) )
+                {
+                    case 0: imageId = ninjas.Image.IMAGE_RUBBLE_1;      break;
+                    case 1: imageId = ninjas.Image.IMAGE_RUBBLE_2;      break;
+                    case 2: imageId = ninjas.Image.IMAGE_RUBBLE_3;      break;
+                }
+
+                ninjas.GameObjectBundleFactory.createMovableCircular
+                (
+                    level,
+                    xLeft + ( i * 50 ),
+                    yBottom,
+                    imageId,
+                    ninjas.MathUtil.getRandomInt( 0, 359 )
+                );
             }
         }
 

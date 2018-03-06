@@ -30,7 +30,7 @@
         public      static  readonly    PLAYER_START_POSITION_Y                     :number                     = 5000; // 4000;
 
         /** The player's ticks being paralized on being punched back. */
-        public      static  readonly    PUNCH_BACK_TICKS                            :number                     = 100;
+        public      static  readonly    PUNCH_BACK_TICKS                            :number                     = 75;
 
         /** Enemy ticks for standing phases. */
         public      static  readonly    ENEMY_TICKS_STANDING_DEFAULT                :number                     = 250;

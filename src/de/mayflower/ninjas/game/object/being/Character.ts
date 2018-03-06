@@ -109,7 +109,7 @@
         ***************************************************************************************************************/
         public punchBack( punchBackDirection:ninjas.CharacterLookingDirection ) : void
         {
-            const forceX:number = ( this instanceof ninjas.Player ? 7.5  : 10.0 );
+            const forceX:number = ( this instanceof ninjas.Player ? 7.5  : 11.5 );
             const forceY:number = ( this instanceof ninjas.Player ? 10.0 : 15.0 );
 
             // apply punch-back force

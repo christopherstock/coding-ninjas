@@ -78,16 +78,19 @@
         OBSTACLE    = BodyFriction.DEFAULT,
         /** Player friction. */
         PLAYER      = BodyFriction.DEFAULT,
-        /** Player friction. */
-        WOOD        = BodyFriction.DEFAULT,
-
         /** Rubber friction. */
         RUBBER      = 0.001,
 
+        /** Player friction. */
+        WOOD        = BodyFriction.DEFAULT,
         /** Low surface friction. */
         GLASS       = 0.01,
+
+        /** Minimum friction. */
+        MINIMUM     = 0.001,
+
         /** Lowest surface friction. */
-        ICE         = 0.0,
+        NONE        = 0.0,
     }
 
     /*******************************************************************************************************************
@@ -123,6 +126,9 @@
         METAL       = ( BodyDensity.DEFAULT * 10 ),
         /** Rubber */
         RUBBER      = ( BodyDensity.DEFAULT / 10 ),
+
+        /** Minimum body density. */
+        MINIMUM     = 0.000001,
 
         /** Static objects */
         INFINITE    = Infinity,

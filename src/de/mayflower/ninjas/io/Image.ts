@@ -359,6 +359,13 @@
         /** Image resource 'tree stub'. */
         public      static      IMAGE_TREE_STUB                             :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "treeStub.png";
 
+        /** Image resource 'rubble 1'. */
+        public      static      IMAGE_RUBBLE_1                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "rubble1.png";
+        /** Image resource 'rubble 2'. */
+        public      static      IMAGE_RUBBLE_2                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "rubble2.png";
+        /** Image resource 'rubble 3'. */
+        public      static      IMAGE_RUBBLE_3                              :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "rubble3.png";
+
         /** Image tile 'water top frame 1'. */
         public      static      IMAGE_WATER_TOP_FRAME_1                     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_DECO + "waterTop/01.png";
         /** Image tile 'water top frame 2'. */
@@ -640,6 +647,10 @@
             Image.IMAGE_FLAME_1_FRAME_14,
 
             Image.IMAGE_TREE_STUB,
+
+            Image.IMAGE_RUBBLE_1,
+            Image.IMAGE_RUBBLE_2,
+            Image.IMAGE_RUBBLE_3,
 
             Image.IMAGE_WATER_TOP_FRAME_1,
             Image.IMAGE_WATER_TOP_FRAME_2,

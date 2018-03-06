@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO More rubble to kick around etc. (stone piles ..)
     *   TODO Complete all site panel contents.
     *   TODO Create preloader for game initialization. (create game states)
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
@@ -17,6 +16,8 @@
     *   TODO Regenerate TypeDoc.
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Test in all browsers.
+    *   TODO increase player jump speed? (alter frictionAir)
+    *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Complete MVP!
     *
     *   TODO Sound effects for ninja girl and enemies?
@@ -24,7 +25,6 @@
     *   TODO Ask Lenz: Add file loader via npm.
     *   TODO Try 'grouce' for visualizing git project.
     *   TODO Add 'katana strike' action on ground and in air.
-    *   TODO Parallax Fence in fg - solve parallax machanism for game decos. you must assume that every element has the exact width of the level!! try from middle of the level!
     *   TODO Add 'slide' action.
     *   TODO Add items and item sprites.
     *   TODO Create HUD ( for items 1st ).

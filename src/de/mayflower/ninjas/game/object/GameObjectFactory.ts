@@ -31,7 +31,7 @@
                     ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
                     ninjas.StaticShape.NO,
                     0.0,
-                    ninjas.BodyFriction.ICE,
+                    ninjas.BodyFriction.NONE,
                     ninjas.BodyDensity.WOOD,
                     ninjas.BodyRestitution.WOOD
                 ),
@@ -42,7 +42,7 @@
         }
 
         /***************************************************************************************************************
-        *   Creates a bouncing movable.
+        *   Creates a bouncing movable with rectangular shape.
         *
         *   @param x        Anchor X.
         *   @param yBottom  Anchor for bottom Y.
@@ -50,7 +50,7 @@
         *
         *   @return The created movable.
         ***************************************************************************************************************/
-        public static createMovable
+        public static createMovableRect
         (
             x       :number,
             yBottom :number,
@@ -69,8 +69,47 @@
                     ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
                     ninjas.StaticShape.NO,
                     0.0,
-                    ninjas.BodyFriction.RUBBER,
-                    ninjas.BodyDensity.RUBBER,
+                    ninjas.BodyFriction.NONE,
+                    ninjas.BodyDensity.MINIMUM,
+                    ninjas.BodyRestitution.RUBBER
+                ),
+                sprtiteTemplate,
+                x,
+                ( yBottom - sprtiteTemplate.height )
+            );
+        }
+
+        /***************************************************************************************************************
+        *   Creates a bouncing movable with a circular shape.
+        *
+        *   @param x        Anchor X.
+        *   @param yBottom  Anchor for bottom Y.
+        *   @param imageId  The id of the image to use.
+        *   @param angle    The initial rotation angle for this movable.
+        *
+        *   @return The created movable.
+        ***************************************************************************************************************/
+        public static createMovableCircular
+        (
+            x       :number,
+            yBottom :number,
+            imageId :string,
+            angle   :number
+        )
+        : ninjas.Movable
+        {
+            let sprtiteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.createFromSingleImage( imageId );
+
+            return new ninjas.Movable
+            (
+                new ninjas.ShapeCircle
+                (
+                    sprtiteTemplate.width,
+                    ninjas.DebugColor.COLOR_DEBUG_MOVABLE,
+                    ninjas.StaticShape.NO,
+                    angle,
+                    ninjas.BodyFriction.NONE,
+                    ninjas.BodyDensity.MINIMUM,
                     ninjas.BodyRestitution.RUBBER
                 ),
                 sprtiteTemplate,
