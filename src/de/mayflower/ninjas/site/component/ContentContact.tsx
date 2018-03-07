@@ -28,8 +28,8 @@
 
                 <div className="card-flip-container">
                     <div className="card-flipper">
-                        <div className="card-front">
-                            Würzburg
+                        <div className="card-front" style={ { backgroundImage: "url( " + ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_OFFICE_WZBG ).src + " )", } }>
+                            <h3>Würzburg</h3>
                         </div>
                         <div className="card-back">
                             Mayflower GmbH Würzburg<br />
@@ -48,7 +48,7 @@
                 <div className="card-flip-container">
                     <div className="card-flipper">
                         <div className="card-front">
-                            Munich
+                            <h3>Munich</h3>
                         </div>
                         <div className="card-back">
                             Mayflower GmbH Munich<br />
@@ -67,7 +67,7 @@
                 <div className="card-flip-container">
                     <div className="card-flipper">
                         <div className="card-front">
-                            Berlin
+                            <h3>Berlin</h3>
                         </div>
                         <div className="card-back">
                             Mayflower GmbH Berlin<br />

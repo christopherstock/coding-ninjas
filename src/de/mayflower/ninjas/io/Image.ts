@@ -467,6 +467,15 @@
         /** Site image 'logo Webpack'. */
         public      static      IMAGE_SITE_LOGO_WEBPACK                     :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logoWebpack.png";
 
+        /** Site image 'office wzbg'. */
+        public      static      IMAGE_SITE_OFFICE_WZBG                      :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "officeWzbg.jpg";
+
+
+
+
+
+
+
         /** An array holding all filenames of all images to load. */
         public      static      FILE_NAMES                                  :Array<string>  =
         [
@@ -719,5 +728,12 @@
             Image.IMAGE_SITE_LOGO_REACT,
             Image.IMAGE_SITE_LOGO_TYPE_SCRIPT,
             Image.IMAGE_SITE_LOGO_WEBPACK,
+
+            Image.IMAGE_SITE_OFFICE_WZBG,
+
+
+
+
+
         ];
     }
