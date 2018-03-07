@@ -469,12 +469,10 @@
 
         /** Site image 'office wzbg'. */
         public      static      IMAGE_SITE_OFFICE_WZBG                      :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "officeWzbg.jpg";
-
-
-
-
-
-
+        /** Site image 'office muc'. */
+        public      static      IMAGE_SITE_OFFICE_MUC                       :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "officeMuc.jpg";
+        /** Site image 'office ber'. */
+        public      static      IMAGE_SITE_OFFICE_BER                       :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "officeBer.jpg";
 
         /** An array holding all filenames of all images to load. */
         public      static      FILE_NAMES                                  :Array<string>  =
@@ -730,10 +728,7 @@
             Image.IMAGE_SITE_LOGO_WEBPACK,
 
             Image.IMAGE_SITE_OFFICE_WZBG,
-
-
-
-
-
+            Image.IMAGE_SITE_OFFICE_MUC,
+            Image.IMAGE_SITE_OFFICE_BER,
         ];
     }
