@@ -19,8 +19,8 @@
         CONTENT_SERVICES,
         /** The 'technology' page. */
         CONTENT_TECHNOLOGY,
-        /** The 'references' page. */
-        CONTENT_REFERENCES,
+        /** The 'timeline' page. */
+        CONTENT_TIMELINE,
         /** The 'contact' page. */
         CONTENT_CONTACT,
     }
@@ -41,8 +41,8 @@
         private                 contentServices             :JSX.Element            = null;
         /** The site content for the 'technology' page. */
         private                 contentTechnology           :JSX.Element            = null;
-        /** The site content for the 'references' page. */
-        private                 contentReferences           :JSX.Element            = null;
+        /** The site content for the 'timeline' page. */
+        private                 contentTimeline             :JSX.Element            = null;
         /** The site content for the 'contact' page. */
         private                 contentContact              :JSX.Element            = null;
 
@@ -55,7 +55,7 @@
             this.contentCompany    = <ninjas.ContentCompany    />;
             this.contentServices   = <ninjas.ContentServices   />;
             this.contentTechnology = <ninjas.ContentTechnology />;
-            this.contentReferences = <ninjas.ContentReferences />;
+            this.contentTimeline   = <ninjas.ContentTimeline   />;
             this.contentContact    = <ninjas.ContentContact    />;
         }
 
@@ -99,9 +99,9 @@
                     break;
                 }
 
-                case SiteContent.CONTENT_REFERENCES:
+                case SiteContent.CONTENT_TIMELINE:
                 {
-                    elementToMount = this.contentReferences;
+                    elementToMount = this.contentTimeline;
                     break;
                 }
 

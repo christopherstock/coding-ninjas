@@ -37,7 +37,6 @@
     *   TODO Add jest tests.
     *   TODO Add event triggers (obstacle falling down on touching trigger etc.)
     *   TODO Add cucumber tests.
-    *   TODO Credits with top npm packages, staff, colaborators, best tools, free 2d art, primal web references etc,
     *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
     *
     *   @author     Christopher Stock
