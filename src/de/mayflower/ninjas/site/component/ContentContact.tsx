@@ -1,6 +1,7 @@
 
     import * as ninjas from '../../ninjas';
     import * as React  from 'react';
+    import * as antd   from 'antd';
 
     /*******************************************************************************************************************
     *   A react component with the content for the 'contact' page.
@@ -25,30 +26,13 @@
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createHeadline( "Contact Us!" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "You find our offices at ..." ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
-                {
-                    ninjas.SiteContentFactory.createButtonGroup
-                    (
-                        "WBG",
-                        [
-                            "MUC",
-                            "BER",
-                            "WBG",
-                        ],
-                        [
-                            "Munich",
-                            "Berlin",
-                            "Würzburg",
-                        ],
-                        ( e:React.ChangeEvent<any> ) => { console.log( "Changed value to [" + e.target.value + "]" ); }
-                    )
-                }
 
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "Use our contact form to ..." ) }
+                { ninjas.SiteContentFactory.createParagraph( "Find out offices here.." ) }
                 { ninjas.SiteContentFactory.createDivider() }
+
                 {
+/*
                     ninjas.SiteContentFactory.createButton
                     (
                         "leftBottom",
@@ -58,11 +42,11 @@
                         () => { alert( "Button clicked!" ); },
                         "Trigger a test alert"
                     )
-                }
 
-                { ninjas.SiteContentFactory.createParagraph( "This site demonstrates the usage of the following primal packages of the NodeJS framework:" ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
-                {
+                    ninjas.SiteContentFactory.createParagraph( "This site demonstrates the usage of the following primal packages of the NodeJS framework:" )
+
+                    ninjas.SiteContentFactory.createSpacerVertical()
+
                     <ul className="sitePanel">
                         <li>
                             TypeScript<br />
@@ -81,16 +65,37 @@
                             An enterprise Framework for easy-to-use React UI-components.
                         </li>
                     </ul>
-                }
 
-                {
-/*
+                    <antd.Input
+                        type="text"
+                        prefix={ <antd.Icon type="user" style={ { color: 'rgba( 0, 0, 0, .25 )' } } /> }
+                        placeholder="fucker!"
+                        maxLength="37"
+                        style={ { width: "200px", } }
+                    />
+
                     ninjas.SiteContentFactory.createParagraph( "We offer high quality enterprise and desktop application development." )
                     ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
                     ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
                     ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
                     ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
                     ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
+
+                    ninjas.SiteContentFactory.createButtonGroup
+                    (
+                        "WBG",
+                        [
+                            "MUC",
+                            "BER",
+                            "WBG",
+                        ],
+                        [
+                            "Munich",
+                            "Berlin",
+                            "Würzburg",
+                        ],
+                        ( e:React.ChangeEvent<any> ) => { console.log( "Changed value to [" + e.target.value + "]" ); }
+                    )
 */
                 }
 
