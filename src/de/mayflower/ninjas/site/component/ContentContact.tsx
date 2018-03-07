@@ -32,7 +32,13 @@
                             Würzburg
                         </div>
                         <div className="card-back">
-                            Mayflower Würzburg
+                            Mayflower GmbH Würzburg<br />
+                            Gneisenaustr. 10|11<br />
+                            97074 Würzburg<br />
+                            <br />
+                            Tel: 0931 35965-1177<br />
+                            Fax: 0931 35965-28<br />
+                            E-Mail: <a target="_blank" href="mailto:wuerzburg@mayflower.de">wuerzburg@mayflower.de</a>
                         </div>
                     </div>
                 </div>
@@ -42,10 +48,16 @@
                 <div className="card-flip-container">
                     <div className="card-flipper">
                         <div className="card-front">
-                            Würzburg
+                            Munich
                         </div>
                         <div className="card-back">
-                            Mayflower Würzburg
+                            Mayflower GmbH Munich<br />
+                            Mannhardtstr. 6<br />
+                            80538 München<br />
+                            <br />
+                            Tel: 089 242054-1177<br />
+                            Fax: 089 242054-29<br />
+                            E-Mail: <a target="_blank" href="mailto:munich@mayflower.de">munich@mayflower.de</a>
                         </div>
                     </div>
                 </div>
@@ -55,10 +67,16 @@
                 <div className="card-flip-container">
                     <div className="card-flipper">
                         <div className="card-front">
-                            Würzburg
+                            Berlin
                         </div>
                         <div className="card-back">
-                            Mayflower Würzburg
+                            Mayflower GmbH Berlin<br />
+                            Ritterstr. 2a<br />
+                            10969 Berlin<br />
+                            <br />
+                            Tel: 030 123-456<br />
+                            Fax: 030 123-457<br />
+                            E-Mail: <a target="_blank" href="mailto:berlin@mayflower.de">berlin@mayflower.de</a>
                         </div>
                     </div>
                 </div>
