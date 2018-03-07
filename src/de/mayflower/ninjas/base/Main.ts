@@ -19,7 +19,8 @@
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Test in all browsers.
     *   TODO increase player jump speed? (alter frictionAir)
-    *   TODO Parallax bg elements,
+    *   TODO Parallax bg elements
+    *   TODO Ditch repository!
     *   TODO Complete MVP!
     *
     *   TODO Sound effects for ninja girl and enemies?

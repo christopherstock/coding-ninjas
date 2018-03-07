@@ -3,6 +3,22 @@
     import * as matter from 'matter-js';
 
     /*******************************************************************************************************************
+    *   Specifies all game states for the app.
+    *
+    *   @author     Christopher Stock
+    *   @version    0.0.1
+    *******************************************************************************************************************/
+    export enum GameState
+    {
+        /** The preloader screen. */
+        PRELOADER,
+        /** The camera joyride . */
+        CAMERA_JOYRIDE,
+        /** The ingame state. */
+        GAME,
+    }
+
+    /*******************************************************************************************************************
     *   Specifies the game logic and all primal components of the game.
     *
     *   @author     Christopher Stock
@@ -10,6 +26,8 @@
     *******************************************************************************************************************/
     export class Game
     {
+        /** The preloader instance. */
+        private     preloader               :ninjas.Preloader               = null;
         /** The game engine. */
         public      engine                  :ninjas.GameEngine              = null;
         /** The custom camera system. */
@@ -20,6 +38,15 @@
         private     bgMusic                 :HTMLAudioElement               = null;
         /** The remaining ticks for the blend panel to disappear. */
         private     blendPanelTicks         :number                         = 0;
+        /** Specifies the current game state. */
+        private     gameState               :ninjas.GameState               = null;
+
+        /***************************************************************************************************************
+        *   Preloads all components to initialize.
+        ***************************************************************************************************************/
+        public preload()
+        {
+        }
 
         /***************************************************************************************************************
         *   Inits all components of the game.

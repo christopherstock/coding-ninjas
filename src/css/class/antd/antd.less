@@ -21,7 +21,7 @@
     @border-color-base:         @color-white;
     @border-color-split:        @color-white;
     @finish-tail-color:         @color-white;
-    @collapse-header-bg:        @color-transparent;
+    @collapse-header-bg:        @color-grey-translucent;
     @heading-color:             @color-project;
 
     /*******************************************************************************************************************
@@ -56,9 +56,20 @@
         box-shadow:             1px 1px @color-shadow;
     }
 
+    .ant-collapse
+    {
+        box-shadow:             1px 1px @color-shadow;
+    }
+
     .ant-collapse-content.ant-collapse-content-active
     {
         background-color:       @color-transparent;
+    }
+
+    .ant-collapse-header
+    {
+        color:                  @color-white !important;
+        text-shadow:            1px 1px @color-shadow;
     }
 
     .ant-timeline-item-head
@@ -92,25 +103,31 @@
 
     .ant-tabs-tabpane h3
     {
-        color:                      @color-project;
-        text-shadow:                1px 1px @color-shadow;
-        margin:                     10px 0 10px 0;
-        font-size:                  20px;
+        color:                  @color-project;
+        text-shadow:            1px 1px @color-shadow;
+        margin:                 10px 0 10px 0;
+        font-size:              20px;
     }
 
     .ant-tabs-tab-prev-icon,
     .ant-tabs-tab-next-icon
     {
-        color:                      @color-white;
+        color:                  @color-white;
     }
 
     .ant-badge
     {
-        margin:                     0 10px 10px 1px;
+        margin:                 0 10px 10px 1px;
     }
 
     .ant-badge-count
     {
-        text-shadow:                1px 1px @color-shadow;
-        box-shadow:                 1px 1px @color-shadow;
+        text-shadow:            1px 1px @color-shadow;
+        box-shadow:             1px 1px @color-shadow;
+    }
+
+    .ant-tag
+    {
+        text-shadow:            1px 1px @color-shadow;
+        box-shadow:             1px 1px @color-shadow;
     }

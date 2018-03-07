@@ -59,7 +59,7 @@
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createImage( src:string ) : JSX.Element
+        public static createImageFullWidth( src:string ) : JSX.Element
         {
             return <div className="sitePanel defaultImageContainer">
                 <img
@@ -67,6 +67,32 @@
                     src={ src }
                 />
             </div>;
+        }
+
+        /***************************************************************************************************************
+        *   Creates a floating image with the specified float.
+        *
+        *   @param float The desired float.
+        *   @param src   The url to the image.
+        *
+        *   @return The created JSX element.
+        ***************************************************************************************************************/
+        public static createImageFloating( float:string, src:string ) : JSX.Element
+        {
+            let marginLeft:string  = ( float == "right" ? "10px" : "0" );
+            let marginRight:string = ( float == "left"  ? "10px" : "0" );
+
+            return <img
+                style={
+                    {
+                        float:        float,
+                        marginLeft:   marginLeft,
+                        marginRight:  marginRight,
+                        marginBottom: "10px",
+                    }
+                }
+                src={ src }
+            />;
         }
 
         /***************************************************************************************************************
@@ -141,14 +167,15 @@
         /***************************************************************************************************************
         *   Creates a tag.
         *
-        *   @param color The color to use for this tag.
-        *   @param text  The label text for this tag.
+        *   @param colorFg The foreground color to use for this tag.
+        *   @param colorBg The background color to use for this tag.
+        *   @param text    The label text for this tag.
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createTag( color:string, text:string ) : JSX.Element
+        public static createTag( colorFg:string, colorBg:string, text:string ) : JSX.Element
         {
-            return <antd.Tag color={ color }>{ text }</antd.Tag>;
+            return <antd.Tag color={ colorFg } style={ { backgroundColor: colorBg, } }>{ text }</antd.Tag>;
         }
 
         /***************************************************************************************************************

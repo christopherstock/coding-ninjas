@@ -12,6 +12,7 @@
     export * from './game/engine/ImageSystem';
     export * from './game/engine/KeySystem';
     export * from './game/engine/MatterJsSystem';
+    export * from './game/engine/Preloader';
     export * from './game/engine/SitePanel';
     export * from './game/engine/SiteSystem';
     export * from './game/engine/SoundSystem';

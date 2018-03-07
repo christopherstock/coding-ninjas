@@ -23,7 +23,7 @@
 
                 { ninjas.SiteContentFactory.createStepIndicator( 0 ) }
                 { ninjas.SiteContentFactory.createDivider() }
-                { ninjas.SiteContentFactory.createImage( ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO ).src ) }
+                { ninjas.SiteContentFactory.createImageFullWidth( ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO ).src ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 {
                     ninjas.SiteContentFactory.createParagraph
@@ -32,7 +32,7 @@
                         + "<a target=\"_blank\" title=\"Developer Camp 2018\" href=\"https://developercamp.io/\">Developer Camp 2018</a> "
                         + "in the context of the <a target=\"_blank\" title=\"Würzburg Web Week\" href=\"https://wueww.de/\">Würzburg Web Week.</a><br>"
                         + "<br>"
-                        + "Find the other five shrines for an insight into the technology behind this site and to reveal the project's GitHub link."
+                        + "Find the source on <a target=\"_blank\" title=\"Coding Ninjas on GitHub\" href=\"https://github.com/christopherstock/coding-ninjas\">GitHub</a>"
                     )
                 }
                 { ninjas.SiteContentFactory.createDivider() }

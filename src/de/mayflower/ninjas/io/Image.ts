@@ -454,6 +454,18 @@
         public      static      IMAGE_SITE_CAROUSEL_WEB_APPS                :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselWebApps.jpg";
         /** Site image 'carousel websites'. */
         public      static      IMAGE_SITE_CAROUSEL_WEBSITES                :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "carouselWebsites.jpg";
+        /** Site image 'logo Ant Design'. */
+        public      static      IMAGE_SITE_LOGO_ANT_DESIGN                  :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logoAntDesign.png";
+        /** Site image 'logo Matter.js'. */
+        public      static      IMAGE_SITE_LOGO_MATTER_JS                   :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logoMatterJs.png";
+        /** Site image 'logo Node.js'. */
+        public      static      IMAGE_SITE_LOGO_NODE_JS                     :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logoNodeJs.png";
+        /** Site image 'logo React'. */
+        public      static      IMAGE_SITE_LOGO_REACT                       :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logoReact.png";
+        /** Site image 'logo TypeScript'. */
+        public      static      IMAGE_SITE_LOGO_TYPE_SCRIPT                 :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logoTypeScript.png";
+        /** Site image 'logo Webpack'. */
+        public      static      IMAGE_SITE_LOGO_WEBPACK                     :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logoWebpack.png";
 
         /** An array holding all filenames of all images to load. */
         public      static      FILE_NAMES                                  :Array<string>  =
@@ -700,5 +712,12 @@
             Image.IMAGE_SITE_CAROUSEL_MOBILE,
             Image.IMAGE_SITE_CAROUSEL_WEB_APPS,
             Image.IMAGE_SITE_CAROUSEL_WEBSITES,
+
+            Image.IMAGE_SITE_LOGO_ANT_DESIGN,
+            Image.IMAGE_SITE_LOGO_MATTER_JS,
+            Image.IMAGE_SITE_LOGO_NODE_JS,
+            Image.IMAGE_SITE_LOGO_REACT,
+            Image.IMAGE_SITE_LOGO_TYPE_SCRIPT,
+            Image.IMAGE_SITE_LOGO_WEBPACK,
         ];
     }

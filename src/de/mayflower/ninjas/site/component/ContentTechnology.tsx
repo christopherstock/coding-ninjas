@@ -25,57 +25,71 @@
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createHeadline( "Technologies being used" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "The following components have been used to realize this web project:" ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "Find the whole project on GitHub!" ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
-                {
-/*
-                        ninjas.SiteContentFactory.createParagraph( "We offer high quality enterprise and desktop application development." )
-                        ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
-                        ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
-                        ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
-                        ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
-                        ninjas.SiteContentFactory.createAvatar( "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" )
-*/
-                }
                 {
                     ninjas.SiteContentFactory.createAccordion
                     (
                         [
-                            "Panel header text 1",
-                            "Panel header text 2",
-                            "Panel header text 3",
+                            "Node.js",
+                            "TypeScript",
+                            "Webpack",
+                            "Matter.js",
+                            "React",
+                            "Ant Design",
                         ],
                         [
                             <div>
-
-                                <p>{ "Find a blog article about Tooling!" }</p>
-
-                                <p>{ "Glacht Foidweg Schmankal, nia fensdaln Bradwurschtsemmal pfiad de Graudwiggal Gstanzl g’hupft wia gsprunga. Mechad Breihaus mechad mi a bissal wos gehd ollaweil trihöleridi dijidiholleri, helfgod no hob i an Suri sei nimmds. Radler unbandig Servas Sepp Guglhupf in da greana Au, wea ko, dea ko Foidweg des wiad a Mordsgaudi mim is ma Wuascht. Oachkatzlschwoaf sammawiedaguad middn i bin a woschechta Bayer griasd eich midnand, Kaiwe." }</p>
+                                { ninjas.SiteContentFactory.createImageFloating( "right", ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO_NODE_JS ).src ) }
+                                { ninjas.SiteContentFactory.createParagraph( "Node.js is an open-source, cross-platform JavaScript run-time environment for executing JavaScript code server-side. Historically, JavaScript was used primarily for client-side scripting, in which scripts written in JavaScript are embedded in a webpage's HTML, to be run client-side by a JavaScript engine in the user's web browser." ) }
                                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                                <p>{ "Anbandeln Graudwiggal i mog di fei ned hogg di hera i mechad dee Schwoanshaxn Wiesn a bissal, nix Gwiass woass ma ned: Semmlkneedl is des liab oba, kumm geh: Hob sowos kimmt Weibaleid koa! Sog i kumm geh Freibia, an hoid unbandig iabaroi no a Maß: Fensdaln Lewakaas di Hetschapfah Goaßmaß nomoi wia da Buachbinda Wanninger mechad geh. I Klampfn obandln Maderln blärrd, Breihaus Maibam!" }</p>
-                                { ninjas.SiteContentFactory.createTag( "magenta", "eye candy magenta" ) }
-                                { ninjas.SiteContentFactory.createTag( "red",     "eye candy red"     ) }
-                                { ninjas.SiteContentFactory.createTag( "volcano", "eye candy volcano" ) }
-                                { ninjas.SiteContentFactory.createTag( "orange",  "eye candy orange"  ) }
+                                { ninjas.SiteContentFactory.createTag( "lime", "transparent", "yarn init -y" ) }
+                                { ninjas.SiteContentFactory.createTag( "lime", "transparent", "Creates a new Node.js project with default settings" ) }
                             </div>,
                             <div>
-                                <p>{ "Hetschapfah auffi sei, Leonhardifahrt Maderln Gidarn Klampfn Ewig und drei Dog Schuabladdla. Trachtnhuat Stubn oans, zwoa, gsuffa ghupft wia gsprunga in da greana Au, i waar soweid. No a Maß Watschnbaam Buam, Graudwiggal. Nia need Schaung kost nix trihöleridi dijidiholleri scheans wolpern Broadwurschtbudn Radler Gamsbart Marterl boarischer. Nomoi Fünferl fei gelbe Rüam Maderln Spuiratz gwiss auf der Oim, da gibt’s koa Sünd, Vergeltsgott!" }</p>
+                                { ninjas.SiteContentFactory.createImageFloating( "right", ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO_TYPE_SCRIPT ).src ) }
+                                { ninjas.SiteContentFactory.createParagraph( "TypeScript is an open-source programming language developed and maintained by Microsoft. It is a strict syntactical superset of JavaScript, and adds optional static typing to the language. TypeScript is designed for development of large applications and compiles to JavaScript. As TypeScript is a superset of JavaScript, existing JavaScript programs are also valid TypeScript programs." ) }
                                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                                <p>{ "Charivari Brezn Namidog Landla. Maderln kloan Klampfn wia woaß schüds nei auf der Oim, da gibt’s koa Sünd samma, hoam wos dahoam. Griasnoggalsubbm jo leck mi wui Kuaschwanz, oans hob i an Suri a bissal wos gehd ollaweil jo leck mi Fingahaggln zwoa hoam. Bitt fensdaln des spernzaln, is des liab o’ha hea do mim Radl foahn i hab an. Kummd hinter’m Berg san a no Leit da, wos so gscheckate!" }</p>
-                                { ninjas.SiteContentFactory.createTag( "gold",  "eye candy gold"  ) }
-                                { ninjas.SiteContentFactory.createTag( "lime",  "eye candy lime"  ) }
-                                { ninjas.SiteContentFactory.createTag( "green", "eye candy green" ) }
-                                { ninjas.SiteContentFactory.createTag( "cyan",  "eye candy cyan"  ) }
+                                { ninjas.SiteContentFactory.createTag( "blue", "transparent", "yarn add typescript --dev" ) }
+                                { ninjas.SiteContentFactory.createTag( "blue", "transparent", "Installs the TypeScript compiler as a dev dependency" ) }
                             </div>,
                             <div>
-                                <p>{ "Gamsbart mi i hab an, kumm geh? Nix Gwiass woass ma ned jo mei is des schee a bissal wos gehd ollaweil obandln Breihaus Fünferl, no oamoi Weibaleid. Graudwiggal de hoggd Brodzeid barfuaßat gscheckate Bladl sodala obacht hod! Mim Radl foahn wea nia ausgähd, kummt nia hoam Milli großherzig Zwedschgndadschi, nackata scheans. Glacht gwiss boarischer Ohrwaschl af spernzaln Brodzeid Vergeltsgott, Sauwedda no a Maß. Hinter’m Berg san a no Leit Blosmusi hod a pfiad de Wurscht schüds nei?" }</p>
+                                { ninjas.SiteContentFactory.createImageFloating( "right", ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO_WEBPACK ).src ) }
+                                { ninjas.SiteContentFactory.createParagraph( "Webpack is an open-source JavaScript module bundler. Webpack takes modules with dependencies and generates static assets representing those modules. It takes the dependencies and generates a dependency graph allowing web developers to use a modular approach for their web application development purposes. The bundler can be used from the command line, or can be configured using a config file." ) }
                                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                                <p>{ "I nois oans no a Maß oa dahoam vui huift vui vui huift vui, i i sog ja nix, i red ja bloß? Resch Bussal Broadwurschtbudn Watschnpladdla Musi, hallelujah sog i, luja es mi? Schneid sauba gscheit hawadere midananda, dahoam Biagadn. I bin a woschechta Bayer mehra Watschnbaam Diandldrahn a Prosit der Gmiadlichkeit Milli, Broadwurschtbudn Lewakaas Weiznglasl." }</p>
-                                { ninjas.SiteContentFactory.createTag( "blue",     "eye candy blue"     ) }
-                                { ninjas.SiteContentFactory.createTag( "geekblue", "eye candy geekblue" ) }
-                                { ninjas.SiteContentFactory.createTag( "purple",   "eye candy purple"   ) }
+                                { ninjas.SiteContentFactory.createTag( "cyan", "transparent", "yarn add webpack --dev" ) }
+                                { ninjas.SiteContentFactory.createTag( "cyan", "transparent", "Installs the webpack module bundler" ) }
+                                { ninjas.SiteContentFactory.createSpacerVertical() }
+                                { ninjas.SiteContentFactory.createTag( "cyan", "transparent", "yarn add @types/webpack --dev" ) }
+                                { ninjas.SiteContentFactory.createTag( "cyan", "transparent", "Installs the TypeScript definitions for webpack" ) }
+                                { ninjas.SiteContentFactory.createSpacerVertical() }
+                                { ninjas.SiteContentFactory.createTag( "cyan", "transparent", "yarn add awesome-typescript-loader --dev" ) }
+                                { ninjas.SiteContentFactory.createTag( "cyan", "transparent", "Installs the TS loader for webpack" ) }
+                            </div>,
+                            <div>
+                                { ninjas.SiteContentFactory.createImageFloating( "right", ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO_MATTER_JS ).src ) }
+                                { ninjas.SiteContentFactory.createParagraph( "Matter.js is a JavaScript 2D rigid body physics engine for the web. It features rigid bodies, compound bodies, composite bodies, concave and convex hulls, physical properties (mass, area, density etc.), restitution (elastic and inelastic collisions), collisions (broad-phase, mid-phase and narrow-phase) and many more." ) }
+                                { ninjas.SiteContentFactory.createSpacerVertical() }
+                                { ninjas.SiteContentFactory.createTag( "gold", "transparent", "yarn add matter-js"  ) }
+                                { ninjas.SiteContentFactory.createTag( "gold", "transparent", "Installs the Matter.js 2D physics library" ) }
+                                { ninjas.SiteContentFactory.createSpacerVertical() }
+                                { ninjas.SiteContentFactory.createTag( "gold", "transparent", "yarn add @types/matter-js --dev"  ) }
+                                { ninjas.SiteContentFactory.createTag( "gold", "transparent", "Installs the TypeScript definitions for Matter.js"  ) }
+                            </div>,
+                            <div>
+                                { ninjas.SiteContentFactory.createImageFloating( "right", ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO_REACT ).src ) }
+                                { ninjas.SiteContentFactory.createParagraph( "React is a JavaScript library for building user interfaces. React allows developers to create large web-applications that use data and can change over time without reloading the page. It aims primarily to provide speed, simplicity, and scalability. React processes only user interfaces in applications. This corresponds to View in the Model-View-Controller (MVC) pattern, and can be used in combination with other JavaScript libraries or frameworks in MVC, such as AngularJS." ) }
+                                { ninjas.SiteContentFactory.createSpacerVertical() }
+                                { ninjas.SiteContentFactory.createTag( "volcano", "transparent", "yarn add react" ) }
+                                { ninjas.SiteContentFactory.createTag( "volcano", "transparent", "Installs the React library" ) }
+                                { ninjas.SiteContentFactory.createSpacerVertical() }
+                                { ninjas.SiteContentFactory.createTag( "volcano", "transparent", "yarn add @types/react --dev" ) }
+                                { ninjas.SiteContentFactory.createTag( "volcano", "transparent", "Installs the TypeScript definitions for React" ) }
+                            </div>,
+                            <div>
+                                { ninjas.SiteContentFactory.createImageFloating( "right", ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO_ANT_DESIGN ).src ) }
+                                { ninjas.SiteContentFactory.createParagraph( "An enterprise-class UI design language and React-based implementation for desktop applications offering a set of high-quality React components out of the box. Written in TypeScript with predictable static types, this library allows working with great development and design resources and tools." ) }
+                                { ninjas.SiteContentFactory.createSpacerVertical() }
+                                { ninjas.SiteContentFactory.createTag( "magenta", "transparent", "yarn add antd"  ) }
+                                { ninjas.SiteContentFactory.createTag( "magenta", "transparent", "Installs the Ant Design library"  ) }
                             </div>,
                         ]
                     )
