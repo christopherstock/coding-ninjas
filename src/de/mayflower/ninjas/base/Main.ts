@@ -4,7 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Complete all site panel contents.
     *   TODO Create preloader for game initialization. (create game states)
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *

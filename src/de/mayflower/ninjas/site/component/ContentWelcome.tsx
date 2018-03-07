@@ -63,7 +63,7 @@
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createParagraph( "Current project progress is:" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createProgress( "circle", 87.5 ) }
+                { ninjas.SiteContentFactory.createProgress( "circle", 93.5 ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 { ninjas.SiteContentFactory.createParagraph( "This progress circle will disappear when the project is complete." ) }
 

@@ -122,8 +122,11 @@
         ***************************************************************************************************************/
         private tick=()=>
         {
-            // start fpsMetet tick
-            this.engine.fpsMeter.tickStart();
+            if ( ninjas.SettingDebug.DEBUG_MODE )
+            {
+                // start fpsMetet tick
+                this.engine.fpsMeter.tickStart();
+            }
 
             // render one game tick
             this.render();
@@ -131,8 +134,11 @@
             // update MatterJS 2d engine
             this.engine.matterJsSystem.updateEngine( ninjas.SettingGame.RENDER_DELTA );
 
-            // stop fpsMetet tick
-            this.engine.fpsMeter.tick();
+            if ( ninjas.SettingDebug.DEBUG_MODE )
+            {
+                // stop fpsMetet tick
+                this.engine.fpsMeter.tick();
+            }
         };
 
         /***************************************************************************************************************

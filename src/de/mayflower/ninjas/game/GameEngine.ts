@@ -78,7 +78,10 @@
             this.initWindowBlurHandler();
 
             // init FPS-counter
-            this.initFpsCounter();
+            if ( ninjas.SettingDebug.DEBUG_MODE )
+            {
+                this.initFpsCounter();
+            }
 
             ninjas.Debug.init.log( "Initing game engine completed" );
 

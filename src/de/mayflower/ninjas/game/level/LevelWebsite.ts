@@ -33,10 +33,10 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                14720,   // ninjas.SettingGame.PLAYER_START_POSITION_X,
-                5100,    // ninjas.SettingGame.PLAYER_START_POSITION_Y,
-                ninjas.CharacterLookingDirection.RIGHT, // LEFT
-                ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_RIGHT
+                ninjas.SettingGame.PLAYER_START_POSITION_X,
+                ninjas.SettingGame.PLAYER_START_POSITION_Y,
+                ninjas.CharacterLookingDirection.LEFT,
+                ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_LEFT
             );
 
             this.siteTriggers =
