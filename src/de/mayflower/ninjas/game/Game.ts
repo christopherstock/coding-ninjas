@@ -27,7 +27,7 @@
     export class Game
     {
         /** The preloader instance. */
-        private     preloader               :ninjas.Preloader               = null;
+        public      preloader               :ninjas.Preloader               = null;
         /** The game engine. */
         public      engine                  :ninjas.GameEngine              = null;
         /** The custom camera system. */
@@ -58,16 +58,15 @@
         public onPreloaderSetup=()=>
         {
             ninjas.Debug.preloader.log( "Preloader setup complete." );
-
             this.preloader.setLoadingPercentage( 5 );
 
-            // this.engine.initImageSystem();
+            this.engine.initImageSystem();
         };
 
         /***************************************************************************************************************
         *   Starts the game loop.
         ***************************************************************************************************************/
-        public start()
+        public start=()=>
         {
             ninjas.Debug.preloader.log( "Starting the game loop" );
             ninjas.Debug.preloader.log();
@@ -84,12 +83,15 @@
             // start the renderer
             this.engine.matterJsSystem.startRenderer();
 
+            // end the preloader thread
+            this.preloader.stopThread();
+
             // invoke engine ticks repeatedly
             window.setInterval(
                 this.tick,
                 ninjas.SettingGame.TICK_DELAY_DELTA
             );
-        }
+        };
 
         /***************************************************************************************************************
         *   Inits the level.

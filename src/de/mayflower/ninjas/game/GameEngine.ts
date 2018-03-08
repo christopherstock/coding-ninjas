@@ -58,6 +58,8 @@
         {
             ninjas.SpriteTemplate.assignAllImageSizes();
 
+            ninjas.Main.game.preloader.setLoadingPercentage( 80 );
+
             ninjas.Debug.preloader.log( "Initing sound system" );
             this.soundSystem = new ninjas.SoundSystem( ninjas.Sound.FILE_NAMES, this.onSoundsLoaded );
             this.soundSystem.loadSounds();
@@ -68,6 +70,8 @@
         ***************************************************************************************************************/
         private onSoundsLoaded=() : void =>
         {
+            ninjas.Main.game.preloader.setLoadingPercentage( 90 );
+
             // init matterJS
             this.initMatterJS();
 
@@ -90,7 +94,14 @@
 
             ninjas.Debug.preloader.log( "Initing game engine completed" );
 
-            ninjas.Main.game.start();
+            ninjas.Main.game.preloader.setLoadingPercentage( 100 );
+
+            // hang on a sec
+            window.setTimeout
+            (
+                ninjas.Main.game.start,
+                ( ninjas.SettingDebug.DEBUG_MODE ? 0 : 1000 )
+            );
         };
 
         /***************************************************************************************************************

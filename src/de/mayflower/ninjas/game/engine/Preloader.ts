@@ -63,6 +63,17 @@
         public setLoadingPercentage( loadingPercentage:number )
         {
             this.loadingPercentage = loadingPercentage;
+
+            // force an immediate draw
+            this.drawPreloader( ninjas.Main.game.engine.canvasSystem.getCanvasContext() );
+        }
+
+        /***************************************************************************************************************
+        *   Stops the preloader interval.
+        ***************************************************************************************************************/
+        public stopThread()
+        {
+            window.clearInterval( this.preloaderIntervalHandle );
         }
 
         /***************************************************************************************************************
