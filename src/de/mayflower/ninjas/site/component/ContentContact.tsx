@@ -74,8 +74,7 @@
                             Ritterstr. 2a<br />
                             10969 Berlin<br />
                             <br />
-                            Tel: 030 123-456<br />
-                            Fax: 030 123-457<br />
+                            Tel: 030 22470326<br />
                             E-Mail: <a target="_blank" href="mailto:berlin@mayflower.de">berlin@mayflower.de</a>
                         </div>
                     </div>

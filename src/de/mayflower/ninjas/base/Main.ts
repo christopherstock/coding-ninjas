@@ -10,6 +10,7 @@
     *   TODO Complete MVP!
     *   TODO Parallax bg elements
     *
+    *   TODO Assert debugger ready!
     *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
     *   TODO Add decoration particle effects on smashing objects / windows etc.
     *   TODO Add Camera joyride on level startup?

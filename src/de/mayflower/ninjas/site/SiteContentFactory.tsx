@@ -155,13 +155,14 @@
         /***************************************************************************************************************
         *   Creates an avatar.
         *
-        *   @param src The src of the image to display in the avatar.
+        *   @param src  The src of the image to display in the avatar.
+        *   @param icon The icon to use in this avatar.
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createAvatar( src:string ) : JSX.Element
+        public static createAvatar( src:string, icon:string ) : JSX.Element
         {
-            return <antd.Avatar src={ src } style={ { backgroundColor: '#ff6666', } } />;
+            return <antd.Avatar src={ src } style={ { backgroundColor: '#ff6666', } } icon={ icon } />;
         }
 
         /***************************************************************************************************************

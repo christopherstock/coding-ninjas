@@ -466,6 +466,8 @@
         public      static      IMAGE_SITE_LOGO_TYPE_SCRIPT                 :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logoTypeScript.png";
         /** Site image 'logo Webpack'. */
         public      static      IMAGE_SITE_LOGO_WEBPACK                     :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logoWebpack.png";
+        /** Site image 'logo WebWeek'. */
+        public      static      IMAGE_SITE_LOGO_WEBWEEK                     :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logoWebWeek.png";
 
         /** Site image 'office wzbg'. */
         public      static      IMAGE_SITE_OFFICE_WZBG                      :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "officeWzbg.jpg";
@@ -726,6 +728,7 @@
             Image.IMAGE_SITE_LOGO_REACT,
             Image.IMAGE_SITE_LOGO_TYPE_SCRIPT,
             Image.IMAGE_SITE_LOGO_WEBPACK,
+            Image.IMAGE_SITE_LOGO_WEBWEEK,
 
             Image.IMAGE_SITE_OFFICE_WZBG,
             Image.IMAGE_SITE_OFFICE_MUC,
