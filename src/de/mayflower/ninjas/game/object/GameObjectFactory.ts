@@ -380,7 +380,7 @@
         *   @param x                Anchor X.
         *   @param yBottom          Anchor Y.
         *   @param lookingDirection The initial looking direction.
-        *   @param spriteTemplate   The sprite template to use for the player.
+        *   @param initialFloat     Whether to startup with an open parachute.
         *
         *   @return The created player.
         ***************************************************************************************************************/
@@ -389,17 +389,21 @@
             x                :number,
             yBottom          :number,
             lookingDirection :ninjas.CharacterLookingDirection,
-            spriteTemplate   :ninjas.SpriteTemplate
+            initialFloat     :boolean
         )
         : ninjas.Player
         {
+            let dimensionSprite :ninjas.SpriteTemplate = ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_LEFT;
+            let firstSprite     :ninjas.SpriteTemplate = ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_GLIDE_LEFT;
+
             return new ninjas.Player
             (
-                GameObjectFactory.createPlayerDiamondShape( spriteTemplate ),
+                GameObjectFactory.createPlayerDiamondShape( dimensionSprite ),
                 x,
-                ( yBottom - spriteTemplate.height ),
+                ( yBottom - dimensionSprite.height ),
                 lookingDirection,
-                spriteTemplate
+                firstSprite,
+                initialFloat
             );
         }
 

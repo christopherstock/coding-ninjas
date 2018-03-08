@@ -187,7 +187,7 @@
         /***************************************************************************************************************
         *   Open character's parachute.
         ***************************************************************************************************************/
-        private openParachute() : void
+        protected openParachute() : void
         {
             ninjas.Debug.character.log( "Character opens parachute" );
 

@@ -36,7 +36,7 @@
                 ninjas.SettingGame.PLAYER_START_POSITION_X,
                 ninjas.SettingGame.PLAYER_START_POSITION_Y,
                 ninjas.CharacterLookingDirection.LEFT,
-                ninjas.SpriteTemplate.SPRITE_NINJA_GIRL_STAND_LEFT
+                true
             );
 
             this.siteTriggers =
@@ -75,10 +75,10 @@
             ninjas.GameObjectBundleFactory.createDecoImage(  this, 3028,  4837, ninjas.DecoPosition.FG, ninjas.Image.IMAGE_TREE_1            );
 
             // shrine 2
-            ninjas.GameObjectBundleFactory.createMovableRect(   this, 3680,  4800, ninjas.Image.IMAGE_POT      );
-            ninjas.GameObjectBundleFactory.createShrine(    this, 3770,  4800, false, true, ninjas.SiteContent.CONTENT_COMPANY     );
-            ninjas.GameObjectBundleFactory.createDecoImage( this, 4230,  4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1   );
-            ninjas.GameObjectBundleFactory.createDecoImage( this, 4150,  4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_2 );
+            ninjas.GameObjectBundleFactory.createMovableRect( this, 3680,  4800, ninjas.Image.IMAGE_POT                              );
+            ninjas.GameObjectBundleFactory.createShrine(      this, 3770,  4800, false, true, ninjas.SiteContent.CONTENT_COMPANY     );
+            ninjas.GameObjectBundleFactory.createDecoImage(   this, 4230,  4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_BUSH_1   );
+            ninjas.GameObjectBundleFactory.createDecoImage(   this, 4150,  4800, ninjas.DecoPosition.BG, ninjas.Image.IMAGE_STATUE_2 );
 
             // shrine 2 nature
             ninjas.GameObjectBundleFactory.createDecoSprite( this, 4430,  4800, ninjas.DecoPosition.FG, ninjas.SpriteTemplate.SPRITE_GRASS_1 );

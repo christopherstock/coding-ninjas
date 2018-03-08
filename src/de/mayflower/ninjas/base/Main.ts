@@ -7,7 +7,6 @@
     *   TODO new promo badge & OpenGraph promo texts and badges.
     *
     *   TODO Light book bg and black fg.
-    *   TODO Let player float into the camera
     *   TODO Fade book from closed to open and vice-versa (via sprite etc.)?
     *   TODO Fixed positioning for camera on first scene (player floating in).
     *   TODO Add card flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html

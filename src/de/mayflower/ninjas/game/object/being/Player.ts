@@ -18,6 +18,7 @@
         *   @param y                Startup position Y.
         *   @param lookingDirection The initial looking direction.
         *   @param spriteTemplate   The initial sprite template to use for the player.
+        *   @param initialFloat     Whether to startup with an open parachute.
         ***************************************************************************************************************/
         public constructor
         (
@@ -25,7 +26,8 @@
             x                :number,
             y                :number,
             lookingDirection :ninjas.CharacterLookingDirection,
-            spriteTemplate   :ninjas.SpriteTemplate
+            spriteTemplate   :ninjas.SpriteTemplate,
+            initialFloat     :boolean
         )
         {
             super
@@ -38,6 +40,15 @@
                 ninjas.SettingMatterJs.PLAYER_SPEED_MOVE,
                 ninjas.SettingMatterJs.PLAYER_JUMP_POWER
             );
+
+            if ( initialFloat )
+            {
+                this.openParachute();
+
+                // force gliding sprite on 1st frame
+                this.collidesBottom        = false;
+                this.shape.body.velocity.y = 0.0001;
+            }
         }
 
         /***************************************************************************************************************

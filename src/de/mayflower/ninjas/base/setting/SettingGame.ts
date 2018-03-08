@@ -25,9 +25,9 @@
         public      static  readonly    BORDER_SIZE_INNER_TOP                       :number                     = 75;
 
         /** The player's start position X. */
-        public      static  readonly    PLAYER_START_POSITION_X                     :number                     = 885;
+        public      static  readonly    PLAYER_START_POSITION_X                     :number                     = 880;
         /** The player's start position Y. */
-        public      static  readonly    PLAYER_START_POSITION_Y                     :number                     = 5000; // 4000;
+        public      static  readonly    PLAYER_START_POSITION_Y                     :number                     = 4000;
 
         /** The player's ticks being paralized on being punched back. */
         public      static  readonly    PUNCH_BACK_TICKS                            :number                     = 75;
