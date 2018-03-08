@@ -21,11 +21,15 @@
 
             return <div>
 
-                { ninjas.SiteContentFactory.createStepIndicator( 0 ) }
+                { ninjas.SiteContentFactory.createStepIndicator( ninjas.SiteContent.CONTENT_WELCOME ) }
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createImageFullWidth( ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO ).src ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createImageFloating( "right", ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO_WEBWEEK ).src ) }
+
+                <a target="_blank" title="Würzburg Web Week" href="https://wueww.de/">
+                    { ninjas.SiteContentFactory.createImageFloating( "right", ninjas.Main.game.engine.imageSystem.getImage( ninjas.Image.IMAGE_SITE_LOGO_WEBWEEK ).src ) }
+                </a>
+
                 {
                     ninjas.SiteContentFactory.createParagraph
                     (
@@ -37,7 +41,7 @@
                 { ninjas.SiteContentFactory.createDivider() }
 
                 <a target="_blank" title="Coding Ninjas on GitHub" href="https://github.com/christopherstock/coding-ninjas">
-                { ninjas.SiteContentFactory.createAvatar( "", "github" ) }
+                    { ninjas.SiteContentFactory.createAvatar( "", "github" ) }
                 </a>
                 {
                     ninjas.SiteContentFactory.createParagraph
@@ -53,6 +57,7 @@
                         "Use the <span style=\"color: #ff6666;\">arrow keys</span> to move and jump around.<br>"
                         + "Use the <span style=\"color: #ff6666;\">space bar</span> to open your parachute while in air.<br>"
                         + "The user interfaces can be operated using <span style=\"color: #ff6666;\">your mouse</span>.<br>"
+                        + "Can you find all <span style=\"color: #ff6666;\">six shrines?</span>.<br>"
                     )
                 }
                 { ninjas.SiteContentFactory.createDivider() }

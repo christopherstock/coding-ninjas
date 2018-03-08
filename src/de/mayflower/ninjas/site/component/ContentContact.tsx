@@ -21,7 +21,7 @@
 
             return <div>
 
-                { ninjas.SiteContentFactory.createStepIndicator( 5 ) }
+                { ninjas.SiteContentFactory.createStepIndicator( ninjas.SiteContent.CONTENT_CONTACT ) }
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createHeadline( "Contact Us!" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }

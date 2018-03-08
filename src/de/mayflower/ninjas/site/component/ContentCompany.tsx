@@ -21,7 +21,7 @@
 
             return <div>
 
-                { ninjas.SiteContentFactory.createStepIndicator( 1 ) }
+                { ninjas.SiteContentFactory.createStepIndicator( ninjas.SiteContent.CONTENT_COMPANY ) }
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createHeadline( "Our Company" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }

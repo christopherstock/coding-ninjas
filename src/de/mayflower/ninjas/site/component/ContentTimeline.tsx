@@ -21,7 +21,7 @@
 
             return <div>
 
-                { ninjas.SiteContentFactory.createStepIndicator( 4 ) }
+                { ninjas.SiteContentFactory.createStepIndicator( ninjas.SiteContent.CONTENT_TIMELINE ) }
                 { ninjas.SiteContentFactory.createDivider() }
                 { ninjas.SiteContentFactory.createHeadline( "Project Timeline" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }

@@ -29,7 +29,7 @@
     export class SiteSystem
     {
         /** The content system. */
-        private             contentSystem               :ninjas.SiteContentSystem       = null;
+        public              contentSystem               :ninjas.SiteContentSystem       = null;
         /** The active site panel. */
         private             sitePanel                   :ninjas.SitePanel               = null;
         /** The current animation of the site panel. */

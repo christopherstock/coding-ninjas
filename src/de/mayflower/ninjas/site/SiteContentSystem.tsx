@@ -33,18 +33,21 @@
     *******************************************************************************************************************/
     export class SiteContentSystem
     {
+        /** All already discovered contents. */
+        public                  discoveredContents          :Array<ninjas.SiteContent>      = [];
+
         /** The site content for the 'welcome' page. */
-        private                 contentWelcome              :JSX.Element            = null;
+        private                 contentWelcome              :JSX.Element                    = null;
         /** The site content for the 'company' page. */
-        private                 contentCompany              :JSX.Element            = null;
+        private                 contentCompany              :JSX.Element                    = null;
         /** The site content for the 'services' page. */
-        private                 contentServices             :JSX.Element            = null;
+        private                 contentServices             :JSX.Element                    = null;
         /** The site content for the 'technology' page. */
-        private                 contentTechnology           :JSX.Element            = null;
+        private                 contentTechnology           :JSX.Element                    = null;
         /** The site content for the 'timeline' page. */
-        private                 contentTimeline             :JSX.Element            = null;
+        private                 contentTimeline             :JSX.Element                    = null;
         /** The site content for the 'contact' page. */
-        private                 contentContact              :JSX.Element            = null;
+        private                 contentContact              :JSX.Element                    = null;
 
         /***************************************************************************************************************
         *   Inits all site contents.
@@ -71,6 +74,12 @@
             ReactDOM.unmountComponentAtNode(
                 container
             );
+
+            // add to discovered contents if not already discovered
+            if ( this.discoveredContents.indexOf( content ) == -1 )
+            {
+                this.discoveredContents.push( content );
+            }
 
             // pick new content to mount
             let elementToMount:JSX.Element = null;

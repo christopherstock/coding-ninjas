@@ -1,6 +1,7 @@
 
     import * as React           from 'react';
     import * as antd            from 'antd';
+    import * as ninjas          from '../ninjas';
     import { TooltipPlacement } from "antd/lib/tooltip";
     import { ButtonType       } from "antd/lib/button";
     import { CarouselEffect   } from "antd/lib/carousel";
@@ -16,12 +17,14 @@
         /***************************************************************************************************************
         *   Creates a step indicator.
         *
-        *   @param index The index of the currently active step, zero based.
+        *   @param content The content to create the step indicator for.
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createStepIndicator( index:number ) : JSX.Element
+        public static createStepIndicator( content:ninjas.SiteContent ) : JSX.Element
         {
+            let index = ninjas.Main.game.engine.siteSystem.contentSystem.discoveredContents.indexOf( content );
+
             return <antd.Steps size="small" current={ index } status="process">
                 <antd.Steps.Step title="" description="" />
                 <antd.Steps.Step title="" description="" />
