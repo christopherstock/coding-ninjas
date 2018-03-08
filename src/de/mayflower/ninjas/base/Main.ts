@@ -4,8 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Light book bg and black fg.
-    *
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Test in all browsers.
     *   TODO Ditch repository!
