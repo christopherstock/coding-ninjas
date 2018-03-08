@@ -8,7 +8,7 @@
     export class SettingDebug
     {
         /** The global debug switch. */
-        public  static  readonly    DEBUG_MODE                              :boolean                    = true;
+        public  static  readonly    DEBUG_MODE                              :boolean                    = false;
 
         /** Disables all sounds. */
         public  static  readonly    DISABLE_SOUNDS                          :boolean                    = ( true && SettingDebug.DEBUG_MODE );
