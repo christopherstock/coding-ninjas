@@ -88,7 +88,7 @@
                                 }
                             </div>,
                             <div>
-                                <h3>Movile Apps</h3>
+                                <h3>Mobile Apps</h3>
                                 {
                                     ninjas.SiteContentFactory.createParagraph
                                     (

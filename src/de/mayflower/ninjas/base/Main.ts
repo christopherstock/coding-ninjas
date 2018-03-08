@@ -4,16 +4,14 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Try sound error handling! (Safari etc.)
-    *   TODO Ditch repository!
+    *   TODO Try sounds on Safari.
     *   TODO Complete MVP!
     *
-    *   TODO Assert debugger ready!
     *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
     *   TODO Add decoration particle effects on smashing objects / windows etc.
+    *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Add Camera joyride on level startup?
     *   TODO increase player jump speed?
-    *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Sound effects for ninja girl and enemies?
     *   TODO Add destroyable movables.
     *   TODO Ask Lenz: Add file loader via npm.
