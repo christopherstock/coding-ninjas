@@ -96,7 +96,7 @@
                     break;
                 }
             }
-            this.outerAbsoluteContainer.style.top = ninjas.SettingGame.BORDER_SIZE_OUTER + "px";
+            this.outerAbsoluteContainer.style.top = ( ( ninjas.Main.game.engine.canvasSystem.getHeight() - height ) / 2 ) + "px";
 
             // inner container size
             this.innerRelativeContainer.style.width  = ( width - 2 * ninjas.SettingGame.BORDER_SIZE_INNER ) + "px";

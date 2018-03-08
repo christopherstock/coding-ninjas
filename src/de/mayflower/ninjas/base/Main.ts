@@ -4,10 +4,7 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Create preloader for game initialization.
-    *
     *   TODO new promo badge & OpenGraph promo texts and badges.
-    *   TODO Max height for site panel!
     *
     *   TODO Light book bg and black fg.
     *   TODO Let player float into the camera

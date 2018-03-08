@@ -120,8 +120,6 @@
         ***************************************************************************************************************/
         private drawPreloader( ctx:CanvasRenderingContext2D )
         {
-            console.log( "draw preloader ..... " + ninjas.Main.game.engine.canvasSystem.getWidth() );
-
             // clear canvas
             ninjas.Drawing.fillRect
             (

@@ -37,6 +37,9 @@
 
         /** The current width of the panel. */
         private             panelWidth                  :number                         = 0;
+        /** The current height of the panel. */
+        private             panelHeight                 :number                         = 0;
+
         /** The current width of the panel including border size. */
         private             panelAndBorderWidth         :number                         = 0;
 
@@ -141,6 +144,11 @@
             {
                 this.panelWidth = ninjas.SettingGame.SITE_PANEL_MAX_WIDTH;
             }
+            this.panelHeight = ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.BORDER_SIZE_OUTER );
+            if ( this.panelHeight > ninjas.SettingGame.SITE_PANEL_MAX_HEIGHT )
+            {
+                this.panelHeight = ninjas.SettingGame.SITE_PANEL_MAX_HEIGHT;
+            }
 
             // calculate panel size including border and left and right position
             this.panelAndBorderWidth = this.panelWidth + ninjas.SettingGame.BORDER_SIZE_OUTER;
@@ -151,7 +159,7 @@
             this.sitePanel.updateSizeAndPosition
             (
                 this.panelWidth,
-                ( ninjas.Main.game.engine.canvasSystem.getHeight() - 2 * ninjas.SettingGame.BORDER_SIZE_OUTER )
+                this.panelHeight
             );
         }
 

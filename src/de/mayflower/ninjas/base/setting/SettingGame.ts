@@ -37,6 +37,8 @@
 
         /** The maximum width for the site panel. */
         public      static  readonly    SITE_PANEL_MAX_WIDTH                        :number                     = 600;
+        /** The maximum height for the site panel. */
+        public      static  readonly    SITE_PANEL_MAX_HEIGHT                       :number                     = 888;
         /** The duration for showing and hiding the site panel in ms. */
         public      static  readonly    SITE_PANEL_ANIMATION_DURATION               :number                     = 1000;
 
