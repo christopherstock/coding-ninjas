@@ -439,8 +439,8 @@
         /** Image tile 'solid descending right top'. */
         public      static      IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP     :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_GROUND + "solidDescendingRightTop.png";
 
-        /** A test bg image. */
-        public      static      IMAGE_BG_TEST                               :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_BG + "bgTest.jpg";
+        /** A bg image. */
+        public      static      IMAGE_BG                                    :string         = ninjas.SettingEngine.PATH_IMAGE_LEVEL_BG + "bg.jpg";
 
         /** Site image 'logo'. */
         public      static      IMAGE_SITE_LOGO                             :string         = ninjas.SettingEngine.PATH_IMAGE_SITE + "logo.png";
@@ -713,7 +713,7 @@
             Image.IMAGE_GROUND_SOLID_ASCENDING_RIGHT_TOP,
             Image.IMAGE_GROUND_SOLID_DESCENDING_RIGHT_TOP,
 
-            Image.IMAGE_BG_TEST,
+            Image.IMAGE_BG,
 
             Image.IMAGE_SITE_LOGO,
             Image.IMAGE_SITE_PANEL_BG,

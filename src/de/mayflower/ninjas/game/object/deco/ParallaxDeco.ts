@@ -12,10 +12,6 @@
     {
         /** The parallax ratio from this game object to the level width. Defaults to 1.0. */
         private                 parallaxRatio           :number             = 0.0;
-        /** The startup position X. */
-        private                 startupX                :number             = 0.0;
-        /** The startup position Y. */
-        private                 startupY                :number             = 0.0;
 
         /***************************************************************************************************************
         *   Creates a new parallax decoration.
@@ -37,8 +33,8 @@
             );
 
             this.parallaxRatio = parallaxRatio;
-            this.startupX      = x;
-            this.startupY      = y;
+
+            this.setVisible( false );
         }
 
         /***************************************************************************************************************
@@ -48,6 +44,8 @@
         {
             super.render();
 
+            this.setVisible( true );
+
             this.setParallaxPosition();
         }
 
@@ -56,9 +54,6 @@
         ***************************************************************************************************************/
         private setParallaxPosition()
         {
-
-
-
             let levelWidth  :number = ninjas.Main.game.level.width;
             let levelHeight :number = ninjas.Main.game.level.height;
 

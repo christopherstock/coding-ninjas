@@ -21,9 +21,7 @@
         {
             this.parallaxBgs =
             [
-/*
-                ninjas.GameObjectFactory.createParallaxDeco( 0,  2200, 1.0, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BG_TEST ) ),
-*/
+                ninjas.GameObjectFactory.createParallaxDeco( 0, 0, 1.0, ninjas.SpriteTemplate.createFromSingleImage( ninjas.Image.IMAGE_BG ) ),
             ];
 
             ninjas.GameObjectBundleFactory.createEnemy( this, 2100,  5000, ninjas.CharacterLookingDirection.RIGHT, 2100,  3600  );

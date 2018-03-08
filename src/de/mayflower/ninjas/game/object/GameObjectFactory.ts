@@ -551,7 +551,7 @@
                 (
                     spriteTemplate.width,
                     spriteTemplate.height,
-                    ninjas.DebugColor.COLOR_DEBUG_DECORATION,
+                    ninjas.DebugColor.COLOR_TRANSPARENT,
                     ninjas.StaticShape.YES,
                     0.0,
                     ninjas.BodyFriction.DEFAULT,

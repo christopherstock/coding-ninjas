@@ -8,7 +8,6 @@
     *   TODO Test in all browsers.
     *   TODO Ditch repository!
     *   TODO Complete MVP!
-    *   TODO Parallax bg elements
     *
     *   TODO Assert debugger ready!
     *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )

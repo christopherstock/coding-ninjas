@@ -47,20 +47,14 @@
         {
             this.createGameObjects();
 
-            for ( let gameObject of this.siteTriggers )
-            {
-                ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
-            }
             for ( let gameObject of this.parallaxBgs )
             {
                 ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
             }
-/*
-            for ( let gameObject of this.shrines )
+            for ( let gameObject of this.siteTriggers )
             {
                 ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
             }
-*/
             for ( let gameObject of this.decosBg )
             {
                 ninjas.Main.game.engine.matterJsSystem.addToWorld( gameObject.shape.body );
