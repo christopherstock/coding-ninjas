@@ -4,8 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO new promo badge & OpenGraph promo texts and badges.
-    *
     *   TODO Light book bg and black fg.
     *   TODO Fade book from closed to open and vice-versa (via sprite etc.)?
     *   TODO Fixed positioning for camera on first scene (player floating in).

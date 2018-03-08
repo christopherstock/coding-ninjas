@@ -30,7 +30,7 @@
                     (
                         "This site serves as an example Node.js project for the "
                         + "<a target=\"_blank\" title=\"Developer Camp 2018\" href=\"https://developercamp.io/\">Developer Camp 2018</a> "
-                        + "in the context of the <a target=\"_blank\" title=\"Würzburg Web Week\" href=\"https://wueww.de/\">Würzburg Web Week.</a><br>"
+                        + "in the context of the <a target=\"_blank\" title=\"Würzburg Web Week\" href=\"https://wueww.de/\">Würzburg Web Week 2018.</a><br>"
                         + "<br>"
                         + "Find the source on <a target=\"_blank\" title=\"Coding Ninjas on GitHub\" href=\"https://github.com/christopherstock/coding-ninjas\">GitHub</a>"
                     )
@@ -60,12 +60,10 @@
                 }
                 { ninjas.SiteContentFactory.createParagraph( "Toggle background music" ) }
 
-                { ninjas.SiteContentFactory.createDivider() }
-                { ninjas.SiteContentFactory.createParagraph( "Current project progress is:" ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createProgress( "circle", 93.5 ) }
-                { ninjas.SiteContentFactory.createSpacerVertical() }
-                { ninjas.SiteContentFactory.createParagraph( "This progress circle will disappear when the project is complete." ) }
+                { /* ninjas.SiteContentFactory.createDivider()                                   */ }
+                { /* ninjas.SiteContentFactory.createParagraph( "Current project progress is:" ) */ }
+                { /* ninjas.SiteContentFactory.createSpacerVertical()                            */ }
+                { /* ninjas.SiteContentFactory.createProgress( "circle", 100.0 )                 */ }
 
             </div>
         }
