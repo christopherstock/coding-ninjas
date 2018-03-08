@@ -11,8 +11,8 @@
     {
         /** A global debug group. */
         public      static      bugfix          :Debug              = new Debug( true  );
-        /** Debugs the init system. */
-        public      static      init            :Debug              = new Debug( true  );
+        /** Debugs the preloading system. */
+        public      static      preloader       :Debug              = new Debug( true  );
         /** Debugs the image system. */
         public      static      image           :Debug              = new Debug( false );
         /** Debugs the sound system. */

@@ -38,12 +38,17 @@
         ***************************************************************************************************************/
         public updateDimensions() : void
         {
+            // get inner window dimensions
             this.canvasWidth  = window.innerWidth;
             this.canvasHeight = window.innerHeight;
 
             // clip to minimum canvas dimensions
             if ( this.canvasWidth  < ninjas.SettingEngine.CANVAS_MIN_WIDTH  ) this.canvasWidth  = ninjas.SettingEngine.CANVAS_MIN_WIDTH;
             if ( this.canvasHeight < ninjas.SettingEngine.CANVAS_MIN_HEIGHT ) this.canvasHeight = ninjas.SettingEngine.CANVAS_MIN_HEIGHT;
+
+            // assign new dimensions to canvas
+            this.canvas.width  = this.canvasWidth;
+            this.canvas.height = this.canvasHeight;
 
             ninjas.Debug.canvas.log( "Updated canvas dimensions to [" + this.canvasWidth + "x" + this.canvasHeight + "] " );
         }
@@ -71,10 +76,20 @@
         /***************************************************************************************************************
         *   Returns the current canvas object.
         *
-        *   @return The HTML canvas object..
+        *   @return The HTML canvas object.
         ***************************************************************************************************************/
         public getCanvas() : HTMLCanvasElement
         {
             return this.canvas;
+        }
+
+        /***************************************************************************************************************
+        *   Returns the current canvas rendering context.
+        *
+        *   @return The canvas 2d rendering context.
+        ***************************************************************************************************************/
+        public getCanvasContext() : CanvasRenderingContext2D
+        {
+            return this.canvasContext;
         }
     }

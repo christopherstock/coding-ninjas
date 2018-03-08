@@ -42,28 +42,35 @@
         private     gameState               :ninjas.GameState               = null;
 
         /***************************************************************************************************************
-        *   Preloads all components to initialize.
+        *   Shows the preloader.
         ***************************************************************************************************************/
         public preload()
         {
+            this.preloader = new ninjas.Preloader( this.onPreloaderSetup );
+            this.engine    = new ninjas.GameEngine();
+
+            this.preloader.preload();
         }
 
         /***************************************************************************************************************
-        *   Inits all components of the game.
+        *   Being invoked when the preloader is set up.
         ***************************************************************************************************************/
-        public init()
+        public onPreloaderSetup=()=>
         {
-            this.engine = new ninjas.GameEngine();
-            this.engine.init();
-        }
+            ninjas.Debug.preloader.log( "Preloader setup complete." );
+
+            this.preloader.setLoadingPercentage( 5 );
+
+            // this.engine.initImageSystem();
+        };
 
         /***************************************************************************************************************
         *   Starts the game loop.
         ***************************************************************************************************************/
         public start()
         {
-            ninjas.Debug.init.log( "Starting the game loop" );
-            ninjas.Debug.init.log();
+            ninjas.Debug.preloader.log( "Starting the game loop" );
+            ninjas.Debug.preloader.log();
 
             // set the number of blend panel ticks
             this.blendPanelTicks = ninjas.SettingGame.BLEND_PANEL_TICKS;
@@ -221,7 +228,7 @@
                 {
                     ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_1 );
 
-                    ninjas.Debug.init.log( "Resetting and switching to level 1" );
+                    ninjas.Debug.preloader.log( "Resetting and switching to level 1" );
                     this.resetAndLaunchLevel( new ninjas.LevelWebsite() );
                 }
 /*

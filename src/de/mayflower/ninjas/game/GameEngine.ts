@@ -27,15 +27,21 @@
         public      fpsMeter                :FPSMeter                       = null;
 
         /***************************************************************************************************************
-        *   Inits all systems of the game engine.
+        *   Inits the canvas of the game engine.
         ***************************************************************************************************************/
-        public init()
+        public initCanvas()
         {
-            ninjas.Debug.init.log( "Initing canvas system" );
+            ninjas.Debug.preloader.log( "Initing canvas system" );
             this.canvasSystem = new ninjas.CanvasSystem();
             this.canvasSystem.updateDimensions();
+        }
 
-            ninjas.Debug.init.log( "Initing image system" );
+        /***************************************************************************************************************
+        *   Inits the canvas of the game engine.
+        ***************************************************************************************************************/
+        public initImageSystem()
+        {
+            ninjas.Debug.preloader.log( "Initing image system" );
             this.imageSystem = new ninjas.ImageSystem
             (
                 ninjas.Image.FILE_NAMES,
@@ -52,7 +58,7 @@
         {
             ninjas.SpriteTemplate.assignAllImageSizes();
 
-            ninjas.Debug.init.log( "Initing sound system" );
+            ninjas.Debug.preloader.log( "Initing sound system" );
             this.soundSystem = new ninjas.SoundSystem( ninjas.Sound.FILE_NAMES, this.onSoundsLoaded );
             this.soundSystem.loadSounds();
         };
@@ -66,15 +72,14 @@
             this.initMatterJS();
 
             // init site system
-            ninjas.Debug.init.log( "Initing site system" );
+            ninjas.Debug.preloader.log( "Initing site system" );
             this.siteSystem = new ninjas.SiteSystem();
 
             // init key system
-            ninjas.Debug.init.log( "Initing key system" );
+            ninjas.Debug.preloader.log( "Initing key system" );
             this.keySystem = new ninjas.KeySystem();
 
-            // init window resize and blur handler
-            this.initWindowResizeHandler();
+            // init window blur handler
             this.initWindowBlurHandler();
 
             // init FPS-counter
@@ -83,7 +88,7 @@
                 this.initFpsCounter();
             }
 
-            ninjas.Debug.init.log( "Initing game engine completed" );
+            ninjas.Debug.preloader.log( "Initing game engine completed" );
 
             ninjas.Main.game.start();
         };
@@ -93,7 +98,7 @@
         ***************************************************************************************************************/
         private initMatterJS()
         {
-            ninjas.Debug.init.log( "Initing 2D physics engine" );
+            ninjas.Debug.preloader.log( "Initing 2D physics engine" );
 
             this.matterJsSystem = new ninjas.MatterJsSystem
             (
@@ -106,20 +111,24 @@
         /***************************************************************************************************************
         *   Inits the window resize handler.
         ***************************************************************************************************************/
-        private initWindowResizeHandler()
+        public initWindowResizeHandler()
         {
-            ninjas.Debug.init.log( "Initing window resize handler" );
+            ninjas.Debug.preloader.log( "Initing window resize handler" );
 
             window.onresize = ( event:Event ) => {
 
                 this.canvasSystem.updateDimensions();
-                this.matterJsSystem.updateEngineDimensions
-                (
-                    this.canvasSystem.getWidth(),
-                    this.canvasSystem.getHeight()
-                );
-                this.siteSystem.updatePanelSizeAndPosition();
-                ninjas.Main.game.resetCamera();
+
+                if ( this.matterJsSystem != null )
+                {
+                    this.matterJsSystem.updateEngineDimensions
+                    (
+                        this.canvasSystem.getWidth(),
+                        this.canvasSystem.getHeight()
+                    );
+                    this.siteSystem.updatePanelSizeAndPosition();
+                    ninjas.Main.game.resetCamera();
+                }
             };
         }
 
@@ -128,7 +137,7 @@
         ***************************************************************************************************************/
         private initWindowBlurHandler()
         {
-            ninjas.Debug.init.log( "Initing window blur handler" );
+            ninjas.Debug.preloader.log( "Initing window blur handler" );
 
             window.onblur = ( event:Event ) => {
 
@@ -143,7 +152,7 @@
         ***************************************************************************************************************/
         private initFpsCounter()
         {
-            ninjas.Debug.init.log( "Initing FPS counter" );
+            ninjas.Debug.preloader.log( "Initing FPS counter" );
 
             this.fpsMeter = new FPSMeter(
                 null,

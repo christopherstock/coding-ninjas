@@ -74,7 +74,7 @@
 
             //set all loaded image as MatterJS texture cache
             this.renderer.textures = textureCache;
-            ninjas.Debug.init.log( "Assigned [" + Object.keys( this.renderer.textures ).length + "] textures to renderer texture cache " );
+            ninjas.Debug.preloader.log( "Assigned [" + Object.keys( this.renderer.textures ).length + "] textures to renderer texture cache " );
 
             // disables blurry image drawing!
             this.renderer.context.imageSmoothingEnabled = false;

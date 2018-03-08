@@ -69,12 +69,10 @@
         *   @param  img         The image to draw.
         *   @param  x           Drawing position x.
         *   @param  y           Drawing position y.
-        *   @param  alpha       The desired alpha value to draw the image.
-        *                       This value has a range of 0.0 to 1.0.
         ***************************************************************************************************************/
-        public static drawImage( ctx:CanvasRenderingContext2D, img:HTMLImageElement, x:number, y:number, alpha:number )
+        public static drawImage( ctx:CanvasRenderingContext2D, img:HTMLImageElement, x:number, y:number )
         {
-            Drawing.drawImageScaledClipped( ctx, img, x, y, 0, 0, img.width, img.height, img.width, img.height, alpha );
+            Drawing.drawImageScaledClipped( ctx, img, 0, 0, img.width, img.height, x, y, img.width, img.height );
         }
 
         /***************************************************************************************************************
@@ -91,7 +89,6 @@
         *   @param  destY       Drawing position y.
         *   @param  destWidth   Destination width.
         *   @param  destHeight  Destination height.
-        *   @param  alpha       The desired alpha value to draw the image from 0.0 to 1.0.
         ***************************************************************************************************************/
         public static drawImageScaledClipped
         (
@@ -104,13 +101,9 @@
             destX       :number,
             destY       :number,
             destWidth   :number,
-            destHeight  :number,
-            alpha       :number
+            destHeight  :number
         )
         {
-            ctx.save();
-            ctx.globalAlpha = alpha;
             ctx.drawImage( img, srcX, srcY, srcWidth, srcHeight, destX, destY, destWidth, destHeight );
-            ctx.restore();
         }
     }

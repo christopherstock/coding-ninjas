@@ -43,6 +43,8 @@
         public  static  readonly    PATH_IMAGE_ENEMY                        :string             = SettingEngine.PATH_IMAGE + "enemy/";
         /** The relative path from index.html where all site images reside. */
         public  static  readonly    PATH_IMAGE_SITE                         :string             = SettingEngine.PATH_IMAGE + "site/";
+        /** The relative path from index.html where all preloader images reside. */
+        public  static  readonly    PATH_IMAGE_PRELOADER                    :string             = SettingEngine.PATH_IMAGE + "preloader/";
         /** The relative path from index.html where all sounds reside. */
         public  static  readonly    PATH_SOUND                              :string             = "res/sound/";
     }

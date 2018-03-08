@@ -17,7 +17,7 @@
         public  static  readonly    PLAYER_EDGE_GAP_Y                           :number                     = 12.5;
 
         /** The enemies' moving speed X. */
-        public      static  readonly    ENEMY_SPEED_MOVE                        :number                     = 3.0;
+        public  static  readonly    ENEMY_SPEED_MOVE                            :number                     = 3.0;
 
         /** The default vertical gravity for all objects. */
         public  static  readonly    DEFAULT_GRAVITY_Y                           :number                     = 1.0;

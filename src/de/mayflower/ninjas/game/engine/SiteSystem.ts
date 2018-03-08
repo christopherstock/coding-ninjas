@@ -197,7 +197,7 @@
         ***************************************************************************************************************/
         private initWowSystem() : void
         {
-            ninjas.Debug.init.log( "Initing WOW animations" );
+            ninjas.Debug.preloader.log( "Initing WOW animations" );
 
             this.wowSystem = new wow.WOW(
                 {
@@ -210,6 +210,6 @@
                     // callback:     function( box ) {}, // the callback is fired every time an animation is started the argument that is passed in is the DOM node being animated
                 }
             );
-            this.wowSystem.init();
+            this.wowSystem.preloader();
         }
     }
