@@ -5,7 +5,6 @@
     *   The main class contains the application's points of entry and termination.
     *
     *   TODO Try sound error handling! (Safari etc.)
-    *   TODO Test in all browsers.
     *   TODO Ditch repository!
     *   TODO Complete MVP!
     *
