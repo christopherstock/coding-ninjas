@@ -38,7 +38,7 @@
                             <br />
                             Tel: 0931 35965-1177<br />
                             Fax: 0931 35965-28<br />
-                            E-Mail: <a target="_blank" href="mailto:wuerzburg@mayflower.de">wuerzburg@mayflower.de</a>
+                            E-Mail: <a target="_blank" href="mailto:kontakt@mayflower.de">kontakt@mayflower.de</a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                             <br />
                             Tel: 089 242054-1177<br />
                             Fax: 089 242054-29<br />
-                            E-Mail: <a target="_blank" href="mailto:munich@mayflower.de">munich@mayflower.de</a>
+                            E-Mail: <a target="_blank" href="mailto:kontakt@mayflower.de">kontakt@mayflower.de</a>
                         </div>
                     </div>
                 </div>

@@ -4,9 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Try sounds on Safari.
-    *   TODO Complete MVP!
-    *
     *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
     *   TODO Add decoration particle effects on smashing objects / windows etc.
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
