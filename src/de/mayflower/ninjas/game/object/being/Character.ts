@@ -6,7 +6,7 @@
     *   Represents a character's looking direction.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum CharacterLookingDirection
     {
@@ -20,7 +20,7 @@
     *   Represents a character.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export abstract class Character extends ninjas.GameObject
     {

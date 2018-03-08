@@ -5,7 +5,7 @@
     *   Specifies if an obstacle allows jump pass through.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum JumpPassThrough
     {
@@ -17,7 +17,7 @@
     *   Represents a collidable and solid obstacle.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class Obstacle extends ninjas.GameObject
     {

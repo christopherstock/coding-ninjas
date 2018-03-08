@@ -6,7 +6,7 @@
     *   Specifies possible appearances for the site panel.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum SitePanelAppearance
     {
@@ -19,7 +19,7 @@
     *   Represents a non-colliding decoration.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class SiteTrigger extends ninjas.Decoration
     {

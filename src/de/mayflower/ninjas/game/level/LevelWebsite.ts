@@ -5,7 +5,7 @@
     *   The level set for the dev level.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class LevelWebsite extends ninjas.Level
     {
@@ -33,8 +33,8 @@
 
             this.player = ninjas.GameObjectFactory.createPlayer
             (
-                ninjas.SettingGame.PLAYER_START_POSITION_X,
-                ninjas.SettingGame.PLAYER_START_POSITION_Y,
+                ( ninjas.SettingDebug.DEBUG_MODE ? 880  : ninjas.SettingGame.PLAYER_START_POSITION_X ),
+                ( ninjas.SettingDebug.DEBUG_MODE ? 5000 : ninjas.SettingGame.PLAYER_START_POSITION_Y ),
                 ninjas.CharacterLookingDirection.LEFT,
                 true
             );

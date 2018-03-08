@@ -6,7 +6,7 @@
     *   Specifies the current site panel animation state.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum SitePanelAnimation
     {
@@ -24,7 +24,7 @@
     *   Manages the communication between the game and the company presentation.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class SiteSystem
     {

@@ -5,7 +5,7 @@
     *   All adjustments and balancings for the Matter.js engine.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class SettingMatterJs
     {
@@ -67,7 +67,7 @@
     *   Possible frictions for Matter.js bodies.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum BodyFriction
     {
@@ -97,7 +97,7 @@
     *   Possible air frictions for Matter.js bodies.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum BodyFrictionAir
     {
@@ -112,7 +112,7 @@
     *   Possible densities for Matter.js bodies.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum BodyDensity
     {
@@ -138,7 +138,7 @@
     *   Possible restitutions for Matter.js bodies.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum BodyRestitution
     {

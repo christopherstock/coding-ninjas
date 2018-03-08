@@ -5,7 +5,7 @@
     *   Specifies all different soundSystem effects being used in the game.
     *
     *   @author  Christopher Stock
-    *   @version 1.0
+    *   @version 1.0.0
     *******************************************************************************************************************/
     export class Sound
     {

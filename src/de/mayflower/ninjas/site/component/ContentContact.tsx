@@ -6,7 +6,7 @@
     *   A react component with the content for the 'contact' page.
     *
     *   @author  Christopher Stock
-    *   @version 1.0
+    *   @version 1.0.0
     *******************************************************************************************************************/
     export class ContentContact extends React.Component<any, any>
     {

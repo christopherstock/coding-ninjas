@@ -5,7 +5,7 @@
     *   Specifies vertical direction.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum Slope
     {
@@ -21,7 +21,7 @@
     *   Specifies capping for horizontal compound ends.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum CapHorz
     {
@@ -39,7 +39,7 @@
     *   All different crate types.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum CrateType
     {
@@ -51,7 +51,7 @@
     *   Position for decoration.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum DecoPosition
     {
@@ -65,7 +65,7 @@
     *   Creates bundled instances of game objects.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export abstract class GameObjectBundleFactory
     {

@@ -6,7 +6,7 @@
     *   Manages the camera that calculates the scrolling amounts.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class Camera
     {

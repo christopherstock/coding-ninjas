@@ -6,7 +6,7 @@
     *   Specifies all game states for the app.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum GameState
     {
@@ -22,7 +22,7 @@
     *   Specifies the game logic and all primal components of the game.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class Game
     {

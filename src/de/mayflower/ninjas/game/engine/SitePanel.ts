@@ -5,7 +5,7 @@
     *   Contains all possible positions for the site panel.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum SitePanelPosition
     {
@@ -19,7 +19,7 @@
     *   Represents a site panel that shows a site content.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class SitePanel
     {

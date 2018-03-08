@@ -5,7 +5,7 @@
     *   Loads and manages all desired sounds.
     *
     *   @author  Christopher Stock
-    *   @version 1.0
+    *   @version 1.0.0
     *******************************************************************************************************************/
     export class SoundSystem
     {

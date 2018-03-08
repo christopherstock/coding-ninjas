@@ -6,7 +6,7 @@
     *   Represents the shape of a game object.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class ShapeCircle extends ninjas.Shape
     {

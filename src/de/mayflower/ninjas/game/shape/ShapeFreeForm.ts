@@ -6,7 +6,7 @@
     *   A free form shape for a game object.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class ShapeFreeForm extends ninjas.Shape
     {

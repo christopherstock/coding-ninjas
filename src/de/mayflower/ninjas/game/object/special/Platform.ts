@@ -6,7 +6,7 @@
     *   Represents a platform that moves.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class Platform extends ninjas.GameObject
     {

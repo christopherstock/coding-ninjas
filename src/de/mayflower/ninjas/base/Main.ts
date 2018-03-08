@@ -6,20 +6,17 @@
     *
     *   TODO Light book bg and black fg.
     *   TODO Fade book from closed to open and vice-versa (via sprite etc.)?
-    *   TODO Fixed positioning for camera on first scene (player floating in).
-    *   TODO Add card flip effect for tiles: https://desandro.github.io/3dtransforms/docs/card-flip.html
-    *   TODO Add decoration particle effects on smashing objects / windows etc.
-    *   TODO Add Camera joyride on level startup?
     *
-    *   TODO Regenerate TypeDoc.
     *   TODO Try sound error handling! (Safari etc.)
     *   TODO Test in all browsers.
-    *   TODO increase player jump speed? (alter frictionAir)
-    *   TODO Parallax bg elements
+    *   TODO Regenerate TypeDoc.
     *   TODO Ditch repository!
-    *   TODO Internal @Version number to 1.0.
     *   TODO Complete MVP!
+    *   TODO Parallax bg elements
     *
+    *   TODO Add decoration particle effects on smashing objects / windows etc.
+    *   TODO Add Camera joyride on level startup?
+    *   TODO increase player jump speed? (alter frictionAir)
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Sound effects for ninja girl and enemies?
     *   TODO Ability to smash movables. (except crates etc., introduce property 'destroyable')
@@ -38,7 +35,7 @@
     *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class Main
     {

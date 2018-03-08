@@ -3,12 +3,12 @@
     *   All debug settings.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export class SettingDebug
     {
         /** The global debug switch. */
-        public  static  readonly    DEBUG_MODE                              :boolean                    = false;
+        public  static  readonly    DEBUG_MODE                              :boolean                    = true;
 
         /** Disables all sounds. */
         public  static  readonly    DISABLE_SOUNDS                          :boolean                    = ( true && SettingDebug.DEBUG_MODE );
@@ -24,7 +24,7 @@
     *   Colors used for debugging purposes.
     *
     *   @author     Christopher Stock
-    *   @version    0.0.1
+    *   @version    1.0.0
     *******************************************************************************************************************/
     export enum DebugColor
     {
