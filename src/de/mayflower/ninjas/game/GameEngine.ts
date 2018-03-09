@@ -23,6 +23,8 @@
         public      siteSystem              :ninjas.SiteSystem              = null;
         /** The custom key system. */
         public      keySystem               :ninjas.KeySystem               = null;
+        /** The custom pointer system. */
+        public      pointerSystem           :ninjas.PointerSystem           = null;
         /** The FPS counter. */
         public      fpsMeter                :FPSMeter                       = null;
 
@@ -79,9 +81,11 @@
             ninjas.Debug.preloader.log( "Initing site system" );
             this.siteSystem = new ninjas.SiteSystem();
 
-            // init key system
+            // init key and pointer system
             ninjas.Debug.preloader.log( "Initing key system" );
             this.keySystem = new ninjas.KeySystem();
+            ninjas.Debug.preloader.log( "Initing pointer system" );
+            this.pointerSystem = new ninjas.PointerSystem();
 
             // init window blur handler
             this.initWindowBlurHandler();

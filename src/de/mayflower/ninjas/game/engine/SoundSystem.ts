@@ -83,17 +83,18 @@
                     this.sounds[ fileName ]              = new Audio();
                     this.sounds[ fileName ].src          = fileName;
                     this.sounds[ fileName ].onloadeddata = this.onLoadSound;
+                    this.sounds[ fileName ].onerror      = this.onLoadSoundError;
                 }
                 catch ( e )
                 {
                     ninjas.Debug.sound.log( "Error on creating Audio element: " + e.message );
-                    this.onLoadSound();
+                    this.onLoadSoundError();
                 }
             }
         }
 
         /***************************************************************************************************************
-        *   Being invoked when one image was loaded completely.
+        *   Being invoked when one sound was loaded completely.
         ***************************************************************************************************************/
         private onLoadSound=() : void =>
         {
@@ -103,5 +104,15 @@
 
                 this.onLoadComplete();
             }
+        };
+
+        /***************************************************************************************************************
+        *   Being invoked when one sound was loaded completely.
+        ***************************************************************************************************************/
+        private onLoadSoundError=() : void =>
+        {
+            ninjas.Debug.sound.log( "ERROR on loading audio element!" );
+
+            this.onLoadSound();
         };
     }

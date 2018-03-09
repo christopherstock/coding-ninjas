@@ -8,9 +8,11 @@
     export * from './base/setting/SettingGame';
     export * from './base/setting/SettingMatterJs';
 
+    export * from './game/engine/hid/KeySystem';
+    export * from './game/engine/hid/PointerSystem';
+
     export * from './game/engine/CanvasSystem';
     export * from './game/engine/ImageSystem';
-    export * from './game/engine/KeySystem';
     export * from './game/engine/MatterJsSystem';
     export * from './game/engine/Preloader';
     export * from './game/engine/SitePanel';

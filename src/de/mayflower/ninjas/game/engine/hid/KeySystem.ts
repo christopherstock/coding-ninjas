@@ -1,5 +1,5 @@
 
-    import * as ninjas from '../../ninjas';
+    import * as ninjas from '../../../ninjas';
 
     /*******************************************************************************************************************
     *   The key system that manages all pressed keys.
@@ -19,11 +19,9 @@
         ***************************************************************************************************************/
         public constructor()
         {
-            //set event listener for keyboard devices - all but IE
             window.addEventListener( "keydown",     this.onKeyDown, false );
             window.addEventListener( "keyup",       this.onKeyUp,   false );
 
-            //set event listener for keyboard devices - IE
             window.addEventListener( "onkeydown",   this.onKeyDown, false );
             window.addEventListener( "onkeyup",     this.onKeyUp,   false );
         }

@@ -19,6 +19,8 @@
         public      static      sound           :Debug              = new Debug( true  );
         /** Debugs the key system. */
         public      static      key             :Debug              = new Debug( false );
+        /** Debugs the pointer system. */
+        public      static      pointer         :Debug              = new Debug( true  );
         /** Debugs the pickable game items. */
         public      static      item            :Debug              = new Debug( true  );
         /** Debugs character events. */
