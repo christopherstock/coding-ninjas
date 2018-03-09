@@ -84,6 +84,11 @@
                     this.sounds[ fileName ].src          = fileName;
                     this.sounds[ fileName ].onloadeddata = this.onLoadSound;
                     this.sounds[ fileName ].onerror      = this.onLoadSoundError;
+
+                    if ( ninjas.IO.isMac() )
+                    {
+                        this.onLoadSound();
+                    }
                 }
                 catch ( e )
                 {
@@ -98,7 +103,7 @@
         ***************************************************************************************************************/
         private onLoadSound=() : void =>
         {
-            if ( ++this.loadedSoundCount == this.fileNames.length )
+            if ( ++this.loadedSoundCount >= this.fileNames.length )
             {
                 ninjas.Debug.sound.log( "All [" + this.fileNames.length + "] sounds loaded" );
 

@@ -90,13 +90,18 @@
                 this.moveRight();
             }
 
-            if
-            (
-                    ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_UP )
-                ||  ninjas.Main.game.engine.pointerSystem.canvasTabbed
-            )
+            if ( ninjas.Main.game.engine.keySystem.isPressed( ninjas.Key.KEY_UP ) )
             {
                 ninjas.Main.game.engine.keySystem.setNeedsRelease( ninjas.Key.KEY_UP );
+
+                if ( this.collidesBottom )
+                {
+                    this.jump();
+                }
+            }
+
+            if ( ninjas.Main.game.engine.pointerSystem.canvasTabbed )
+            {
                 ninjas.Main.game.engine.pointerSystem.canvasTabbed = false;
 
                 if ( this.collidesBottom )

@@ -23,7 +23,9 @@
 
                 { ninjas.SiteContentFactory.createStepIndicator( ninjas.SiteContent.CONTENT_TECHNOLOGY ) }
                 { ninjas.SiteContentFactory.createDivider() }
-                { ninjas.SiteContentFactory.createHeadline( "Technologies being used" ) }
+                { ninjas.SiteContentFactory.createHeadline( "Primal Technologies" ) }
+                { ninjas.SiteContentFactory.createSpacerVertical() }
+                { ninjas.SiteContentFactory.createParagraph( "Read more about the technologies being used to realize this website:" ) }
                 { ninjas.SiteContentFactory.createSpacerVertical() }
                 {
                     ninjas.SiteContentFactory.createAccordion

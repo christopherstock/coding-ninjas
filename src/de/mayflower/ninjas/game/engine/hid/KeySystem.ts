@@ -33,6 +33,8 @@
         ***************************************************************************************************************/
         public onKeyDown=( event:Event )=>
         {
+            event.preventDefault();
+
             let keyCode = ( event as KeyboardEvent ).which;
 
             if ( !this.keysNeedRelease[ keyCode ] ) {
@@ -49,6 +51,8 @@
         ***************************************************************************************************************/
         public onKeyUp=( event:Event )=>
         {
+            event.preventDefault();
+
             let keyCode = ( event as KeyboardEvent ).which;
 
             this.keysPressed[     keyCode ] = false;

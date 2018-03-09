@@ -7,11 +7,12 @@
     *   TODO Fix sound error handling!
     *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
     *
+    *   TODO Ask Lenz: Add file loader via npm.
+    *   TODO Ask Lenz: Debug value from outside.
+    *
     *   TODO Add destroyable movables.
     *   TODO Add 'katana strike' action on ground and in air.
-    *
     *   TODO Particle fx smashed crates, startup window etc.
-    *   TODO Ask Lenz: Add file loader via npm.
     *   TODO Add decoration particle effects on smashing objects / windows etc.
     *   TODO requestAnimationFrame tryout .. matter.js - try 60 fps as a constant.
     *   TODO Add Camera joyride on level startup?
