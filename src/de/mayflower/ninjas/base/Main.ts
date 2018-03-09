@@ -4,9 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Fix sound error handling!
-    *   TODO Create mobile version .. (minimum panel size and minimum canvas size 400px etc )
-    *
     *   TODO Ask Lenz: Add file loader via npm.
     *   TODO Ask Lenz: Debug value from outside.
     *
