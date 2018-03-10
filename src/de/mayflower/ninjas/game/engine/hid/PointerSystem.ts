@@ -61,17 +61,20 @@
 
             event.preventDefault();
 
-            let playerCenterX:number = ( ninjas.Main.game.level.player.shape.body.position.x ) - ninjas.Main.game.camera.getOffsetX();
+            if ( ninjas.Main.game.level != null )
+            {
+                let playerCenterX:number = ( ninjas.Main.game.level.player.shape.body.position.x ) - ninjas.Main.game.camera.getOffsetX();
 
-            if ( event.clientX < playerCenterX )
-            {
-                this.leftCanvasHalfPressed = true;
-                this.canvasTabbed           = true;
-            }
-            else
-            {
-                this.rightCanvasHalfPressed = true;
-                this.canvasTabbed           = true;
+                if ( event.clientX < playerCenterX )
+                {
+                    this.leftCanvasHalfPressed = true;
+                    this.canvasTabbed           = true;
+                }
+                else
+                {
+                    this.rightCanvasHalfPressed = true;
+                    this.canvasTabbed           = true;
+                }
             }
         };
 
@@ -113,17 +116,20 @@
 
             event.preventDefault();
 
-            let playerCenterX:number = ( ninjas.Main.game.level.player.shape.body.position.x ) - ninjas.Main.game.camera.getOffsetX();
+            if ( ninjas.Main.game.level != null )
+            {
+                let playerCenterX:number = ( ninjas.Main.game.level.player.shape.body.position.x ) - ninjas.Main.game.camera.getOffsetX();
 
-            if ( event.touches[ 0 ].pageX < playerCenterX )
-            {
-                this.leftCanvasHalfPressed = true;
-                this.canvasTabbed           = true;
-            }
-            else
-            {
-                this.rightCanvasHalfPressed = true;
-                this.canvasTabbed           = true;
+                if ( event.touches[ 0 ].pageX < playerCenterX )
+                {
+                    this.leftCanvasHalfPressed = true;
+                    this.canvasTabbed           = true;
+                }
+                else
+                {
+                    this.rightCanvasHalfPressed = true;
+                    this.canvasTabbed           = true;
+                }
             }
         };
 

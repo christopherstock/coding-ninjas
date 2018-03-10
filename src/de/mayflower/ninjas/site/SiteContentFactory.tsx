@@ -316,7 +316,7 @@
                 );
             }
 
-            return <antd.Collapse accordion>
+            return <antd.Collapse accordion defaultActiveKey={ [ "0" ] }>
                 { contents }
             </antd.Collapse>;
         }
