@@ -4,8 +4,6 @@
     /*******************************************************************************************************************
     *   The main class contains the application's points of entry and termination.
     *
-    *   TODO Try 'grouce' for visualizing git project.
-    *
     *   TODO Ask Lenz: Add file loader via npm.
     *   TODO Ask Lenz: Debug value from outside.
     *
