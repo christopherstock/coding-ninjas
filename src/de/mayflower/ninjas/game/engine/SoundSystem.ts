@@ -55,11 +55,13 @@
 
                                 ninjas.Debug.sound.log( "Clip ended - now repeating .." );
 
+                                // noinspection JSIgnoredPromiseFromCall
                                 clipClone.play();
                             }
                         );
                     }
 
+                    // noinspection JSIgnoredPromiseFromCall
                     clipClone.play();
 
                     return clipClone;

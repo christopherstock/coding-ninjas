@@ -82,12 +82,12 @@
         RUBBER      = 0.001,
 
         /** Player friction. */
-        WOOD        = BodyFriction.DEFAULT,
+        // WOOD        = BodyFriction.DEFAULT,
         /** Low surface friction. */
-        GLASS       = 0.01,
+        // GLASS       = 0.01,
 
         /** Minimum friction. */
-        MINIMUM     = 0.001,
+        // MINIMUM     = 0.001,
 
         /** Lowest surface friction. */
         NONE        = 0.0,
@@ -123,7 +123,7 @@
         /** Wood */
         WOOD        = ( BodyDensity.DEFAULT * 4 ),
         /** Metal */
-        METAL       = ( BodyDensity.DEFAULT * 10 ),
+        // METAL       = ( BodyDensity.DEFAULT * 10 ),
         /** Rubber */
         RUBBER      = ( BodyDensity.DEFAULT / 10 ),
 

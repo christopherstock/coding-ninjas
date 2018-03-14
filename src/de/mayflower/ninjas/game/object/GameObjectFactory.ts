@@ -398,7 +398,7 @@
 
             return new ninjas.Player
             (
-                GameObjectFactory.createPlayerDiamondShape( dimensionSprite ),
+                GameObjectFactory.createCharacterDiamondShape( dimensionSprite, ninjas.DebugColor.COLOR_DEBUG_PLAYER ),
                 x,
                 ( yBottom - dimensionSprite.height ),
                 lookingDirection,
@@ -428,17 +428,17 @@
         )
         : ninjas.Enemy
         {
-            let spriteTemplate:ninjas.SpriteTemplate = ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_LEFT;
+            let diamondSprite:ninjas.SpriteTemplate = ninjas.SpriteTemplate.SPRITE_ENEMY_NINJA_1_STAND_LEFT;
 
             return new ninjas.Enemy
             (
-                GameObjectFactory.createPlayerDiamondShape( spriteTemplate ),
+                GameObjectFactory.createCharacterDiamondShape( diamondSprite, ninjas.DebugColor.COLOR_DEBUG_ENEMY ),
                 x,
-                yBottom - spriteTemplate.height,
+                yBottom - diamondSprite.height,
                 walkingTargetLeft,
                 walkingTargetRight,
                 lookingDirection,
-                spriteTemplate
+                diamondSprite
             );
         }
 
@@ -715,10 +715,11 @@
         *   Creates a diamond shape for the given sprite template.
         *
         *   @param spriteTemplate The sprite template to create a diamond shape for.
+        *   @param debugColor     The debug color to use for this shape.
         *
         *   @return The created diamond shape.
         ***************************************************************************************************************/
-        private static createPlayerDiamondShape(spriteTemplate:ninjas.SpriteTemplate )
+        private static createCharacterDiamondShape(spriteTemplate:ninjas.SpriteTemplate, debugColor:ninjas.DebugColor )
         {
             let gapSizeX:number = ( spriteTemplate.width / 2 );
             let gapSizeY:number = ninjas.SettingMatterJs.PLAYER_EDGE_GAP_Y;
@@ -738,7 +739,7 @@
             return new ninjas.ShapeFreeForm
             (
                 vertices,
-                ninjas.DebugColor.COLOR_DEBUG_PLAYER,
+                debugColor,
                 ninjas.StaticShape.NO,
                 0.0,
                 ninjas.BodyFriction.PLAYER,

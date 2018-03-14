@@ -3,22 +3,6 @@
     import * as matter from 'matter-js';
 
     /*******************************************************************************************************************
-    *   Specifies all game states for the app.
-    *
-    *   @author     Christopher Stock
-    *   @version    1.0.0
-    *******************************************************************************************************************/
-    export enum GameState
-    {
-        /** The preloader screen. */
-        PRELOADER,
-        /** The camera joyride . */
-        CAMERA_JOYRIDE,
-        /** The ingame state. */
-        GAME,
-    }
-
-    /*******************************************************************************************************************
     *   Specifies the game logic and all primal components of the game.
     *
     *   @author     Christopher Stock
@@ -38,8 +22,6 @@
         private     bgMusic                 :HTMLAudioElement               = null;
         /** The remaining ticks for the blend panel to disappear. */
         private     blendPanelTicks         :number                         = 0;
-        /** Specifies the current game state. */
-        private     gameState               :ninjas.GameState               = null;
 
         /***************************************************************************************************************
         *   Shows the preloader.
@@ -210,6 +192,7 @@
             {
                 if ( enable )
                 {
+                    // noinspection JSIgnoredPromiseFromCall
                     this.bgMusic.play();
                 }
                 else

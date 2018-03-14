@@ -20,10 +20,10 @@
     *   TODO increase player jump speed?
     *   TODO Sound effects for ninja girl and enemies?
     *   TODO Add 'slide' action.
-    *   TODO Create HUD ( for items 1st ).
-    *   TODO create class HUD and assign its non-static method paintHud?
+    *   TODO Create HUD ( for items etc ).
+    *   TODO create class HUD with own paint-method.
     *   TODO Create item pickup HUD effect!
-    *   TODO Add event triggers (obstacles falling down on touching trigger etc.)
+    *   TODO Add event triggers ( for fallinf obstacles etc )
     *
     *   @author     Christopher Stock
     *   @version    1.0.0

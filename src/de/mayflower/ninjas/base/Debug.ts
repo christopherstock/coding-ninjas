@@ -9,8 +9,6 @@
     *******************************************************************************************************************/
     export class Debug
     {
-        /** A global debug group. */
-        public      static      bugfix          :Debug              = new Debug( true  );
         /** Debugs the preloading system. */
         public      static      preloader       :Debug              = new Debug( true  );
         /** Debugs the image system. */

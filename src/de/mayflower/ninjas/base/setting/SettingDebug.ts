@@ -10,12 +10,14 @@
         /** The global debug switch. */
         public  static  readonly    DEBUG_MODE                              :boolean                    = false;
 
+        // noinspection PointlessBooleanExpressionJS
         /** Disables all sounds. */
         public  static  readonly    DISABLE_SOUNDS                          :boolean                    = ( true && SettingDebug.DEBUG_MODE );
 
         /** Disables all sprites. */
         public  static  readonly    DISABLE_SPRITES                         :boolean                    = ( false && SettingDebug.DEBUG_MODE );
 
+        // noinspection PointlessBooleanExpressionJS
         /** Disables the initial blend panel. */
         public  static  readonly    DISABLE_BLEND_PANEL                     :boolean                    = ( true && SettingDebug.DEBUG_MODE );
     }

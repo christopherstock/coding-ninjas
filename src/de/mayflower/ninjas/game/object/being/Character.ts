@@ -261,16 +261,6 @@
         }
 
         /***************************************************************************************************************
-        *   Checks if this character is currently moving.
-        *
-        *   @return <code>True</code> if the player is currently moving.
-        ***************************************************************************************************************/
-        public isMoving() : boolean
-        {
-            return ( this.movesLeft || this.movesRight );
-        }
-
-        /***************************************************************************************************************
         *   Checks if the character's bottom line currently collides with any other colliding body.
         ***************************************************************************************************************/
         private checkBottomCollision() : void
