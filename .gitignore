@@ -3,6 +3,7 @@
 # system & ide
 .DS_Store
 .idea
+*.iml
 
 # build paths
 bin
