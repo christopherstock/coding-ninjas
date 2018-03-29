@@ -8,6 +8,7 @@ node_modules
 .idea
 *.iml
 
-# build paths
+# build and targte paths
 bin
+doc
 /dist/js/
