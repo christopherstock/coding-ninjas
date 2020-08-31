@@ -80,7 +80,7 @@
         *
         *   @return The created JSX element.
         ***************************************************************************************************************/
-        public static createImageFloating( float:string, src:string ) : JSX.Element
+        public static createImageFloating( float:any, src:string ) : JSX.Element
         {
             let marginLeft:string  = ( float == "right" ? "10px" : "0" );
             let marginRight:string = ( float == "left"  ? "10px" : "0" );
@@ -402,7 +402,7 @@
             defaultValue :string,
             values       :Array<string>,
             labels       :Array<string>,
-            onChange     :( e:React.ChangeEvent<any> ) => void
+            onChange     :( e:any ) => void
         )
         : JSX.Element
         {

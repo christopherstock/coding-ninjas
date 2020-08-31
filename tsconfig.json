@@ -10,6 +10,7 @@
         "strictNullChecks":     false,          /* Enable strict null checks. */
         "downlevelIteration":   true,           /* Used for for of loops. */
         "jsx":                  "react",        /** Detect jsx files as React View Components. */
+        "skipLibCheck":         true,
         "typeRoots": [
             "node_modules/@types"
         ]                                       /* List of folders to include type definitions from. */
