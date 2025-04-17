@@ -11,4 +11,4 @@
 # build and targte paths
 bin
 doc
-/dist/js/
+# /dist/js/
