@@ -41,7 +41,7 @@
         "matter-js": "0.11.1",
         "moment": "2.20.1",
         "react": "16.2.0",
-        "react-dom": "16.2.0",
+        "react-dom": "16.2.1",
         "wowjs": "1.1.3"
     }
 }
